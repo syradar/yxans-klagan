@@ -1,3 +1,7 @@
+# Snowpack
+.snowpack
+build
+node_modules
 # Logs
 logs
 *.log
