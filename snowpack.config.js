@@ -1,5 +1,9 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
-export default {
+module.exports = {
+  extends: '@snowpack/app-scripts-react',
+  packageOptions: {
+    knownEntrypoints: ['@emotion/react', '@emotion/styled', 'twin.macro'],
+  },
   mount: {
     public: { url: '/', static: true },
     src: { url: '/dist' },

@@ -1,41 +1,76 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import tw, { css } from 'twin.macro';
+import { Button, Logo } from './components';
 import './App.css';
+import YxansKlaganLogo from './logo';
+import { Link, Routes, useRoutes } from 'react-router-dom';
 
-interface AppProps {}
+const styles = {
+  // Move long class sets out of jsx to keep it scannable
+  // container: ({ hasBackground }: { hasBackground: boolean }) => [
+  container: () => [
+    tw`flex flex-col h-screen w-screen`,
+    // hasBackground && tw`wbg-gradient-to-b from-electric to-ribbon`,
+    tw`bg-yellow-50`,
+  ],
+};
 
-function App({}: AppProps) {
-  // Create the count state.
-  const [count, setCount] = useState(0);
-  // Create the counter (+1 every second).
-  useEffect(() => {
-    const timer = setTimeout(() => setCount(count + 1), 1000);
-    return () => clearTimeout(timer);
-  }, [count, setCount]);
-  // Return the App component.
+const App = () => {
+  const routes = useRoutes([
+    {
+      path: '/',
+      element: <HomePage />,
+    },
+    {
+      path: '/dice',
+      element: <DiceRollerPage />,
+    },
+  ]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <p>
-          Page has been open for <code>{count}</code> seconds.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
+    <div css={styles.container()}>
+      <div tw="p-2 w-64">
+        <YxansKlaganLogo />
+      </div>
+      <div tw="flex h-full">
+        <nav tw="w-1/4">
+          <Link to="/">Home</Link>
+          <Link to="/dice">Tärning</Link>
+        </nav>
+        <main tw="w-3/4">
+          <div tw="max-w-prose bg-white p-4">{routes}</div>
+        </main>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
+
+const HomePage = () => (
+  <>
+    <h1 tw="text-4xl text-center mb-4" className="yx-heading">
+      SVÄRDETS SÅNG
+    </h1>
+    <p className="yx-prose">
+      Välkomna till Svärdets sång. I detta bordsrollspel är ni inte hjältar som
+      utför uppdrag på order av andra – i stället är ni äventyrare och
+      skattletare fast beslutna att sätta ert eget märke på denna fördömda
+      värld. Ni kommer att vandra genom det vilda landet, utforska glömda
+      gravar, kämpa mot fruktansvärda monster och – om ni lever länge nog –
+      bygga ert eget fäste och försvara det mot fiender. Under era äventyr kan
+      ni avslöja de mörka krafter som rör sig i skuggorna och till slut kan det
+      bli ni som avgör Det glömda landets öde.
+    </p>
+  </>
+);
+const DiceRollerPage = () => (
+  <>
+    <h1 tw="text-4xl" className="yx-heading">
+      Tärningsrullare
+    </h1>
+    <Button variant="primary">Slå tärning</Button>
+    <Button variant="secondary">Pressa slag</Button>
+    <Button isSmall>stäng</Button>
+  </>
+);
