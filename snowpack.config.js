@@ -2,7 +2,7 @@
 module.exports = {
   extends: '@snowpack/app-scripts-react',
   packageOptions: {
-    knownEntrypoints: ['@emotion/react', '@emotion/styled', 'twin.macro'],
+    knownEntrypoints: ['@emotion/react', '@emotion/styled'],
   },
   mount: {
     public: { url: '/', static: true },
@@ -27,13 +27,10 @@ module.exports = {
     /* Example: Bundle your final build: */
     // "bundle": true,
   },
-  packageOptions: {
-    /* ... */
-  },
   devOptions: {
     /* ... */
   },
   buildOptions: {
     /* ... */
   },
-};
+}

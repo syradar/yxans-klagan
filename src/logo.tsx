@@ -1,6 +1,6 @@
-const YxansKlaganLogo = () => <YxansKlaganSvg />;
+const YxansKlaganLogo = () => <YxansKlaganSvg />
 
-export default YxansKlaganLogo;
+export default YxansKlaganLogo
 
 const YxansKlaganSvg = () => (
   <svg
@@ -327,4 +327,4 @@ const YxansKlaganSvg = () => (
       </g>
     </g>
   </svg>
-);
+)

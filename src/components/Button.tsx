@@ -1,8 +1,8 @@
-import tw, { css, styled, theme } from 'twin.macro';
+import tw, { css, styled, theme } from 'twin.macro'
 
 interface ButtonProps {
-  variant?: 'primary' | 'secondary';
-  isSmall?: boolean;
+  variant?: 'primary' | 'secondary'
+  isSmall?: boolean
 }
 
 const Button = styled.button(({ variant, isSmall }: ButtonProps) => [
@@ -30,6 +30,6 @@ const Button = styled.button(({ variant, isSmall }: ButtonProps) => [
   // css`
   //   color: ${theme`colors.black`};
   // `,
-]);
+])
 
-export default Button;
+export default Button

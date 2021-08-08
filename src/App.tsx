@@ -1,9 +1,10 @@
-import React from 'react';
-import tw, { css } from 'twin.macro';
-import { Button, Logo } from './components';
-import './App.css';
-import YxansKlaganLogo from './logo';
-import { Link, Routes, useRoutes } from 'react-router-dom';
+import React from 'react'
+import { Link, useRoutes } from 'react-router-dom'
+import tw from 'twin.macro'
+import './App.css'
+import { Button } from './components'
+import { DiceDisplay } from './components/Dice'
+import YxansKlaganLogo from './logo'
 
 const styles = {
   // Move long class sets out of jsx to keep it scannable
@@ -13,7 +14,7 @@ const styles = {
     // hasBackground && tw`wbg-gradient-to-b from-electric to-ribbon`,
     tw`bg-yellow-50`,
   ],
-};
+}
 
 const App = () => {
   const routes = useRoutes([
@@ -25,7 +26,7 @@ const App = () => {
       path: '/dice',
       element: <DiceRollerPage />,
     },
-  ]);
+  ])
 
   return (
     <div css={styles.container()}>
@@ -42,10 +43,10 @@ const App = () => {
         </main>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
 
 const HomePage = () => (
   <>
@@ -63,14 +64,15 @@ const HomePage = () => (
       bli ni som avgör Det glömda landets öde.
     </p>
   </>
-);
+)
 const DiceRollerPage = () => (
   <>
     <h1 tw="text-4xl" className="yx-heading">
       Tärningsrullare
     </h1>
+    <DiceDisplay value={4}></DiceDisplay>
     <Button variant="primary">Slå tärning</Button>
     <Button variant="secondary">Pressa slag</Button>
     <Button isSmall>stäng</Button>
   </>
-);
+)

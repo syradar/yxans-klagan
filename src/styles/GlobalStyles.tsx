@@ -1,11 +1,11 @@
-import React from 'react';
-import { Global, css } from '@emotion/react';
-import tw, { theme, GlobalStyles as BaseStyles } from 'twin.macro';
+import React from 'react'
+import { Global, css } from '@emotion/react'
+import tw, { theme, GlobalStyles as BaseStyles } from 'twin.macro'
 
 const uiFontStack = `Branding, Futura, 'Avenir Next', Avenir, 
 ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,
 "Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,
-"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"`;
+"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"`
 
 const customStyles = css`
   body {
@@ -13,13 +13,13 @@ const customStyles = css`
     ${tw`antialiased`}
     font-family: ${uiFontStack};
   }
-`;
+`
 
 const GlobalStyles = () => (
   <>
     <BaseStyles />
     <Global styles={customStyles} />
   </>
-);
+)
 
-export default GlobalStyles;
+export default GlobalStyles
