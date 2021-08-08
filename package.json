@@ -1,4 +1,5 @@
 {
+  "name": "yxans-klagan",
   "license": "MIT",
   "scripts": {
     "start": "snowpack dev",
