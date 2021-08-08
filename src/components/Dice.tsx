@@ -1,5 +1,5 @@
 import React from 'react'
-import { DiceSides } from '../models/dice.model'
+import { DiceSides } from '../models/fbl-dice.model'
 
 interface DiceProps {
   sides?: DiceSides
