@@ -2,9 +2,8 @@ import React from 'react'
 import { Link, useRoutes } from 'react-router-dom'
 import tw from 'twin.macro'
 import './App.css'
-import { Button } from './components'
-import { DiceDisplay } from './components/Dice'
 import YxansKlaganLogo from './logo'
+import { DiceRollerPage } from './pages/dice-roller.page'
 
 const styles = {
   // Move long class sets out of jsx to keep it scannable
@@ -12,7 +11,7 @@ const styles = {
   container: () => [
     tw`flex flex-col h-screen w-screen`,
     // hasBackground && tw`wbg-gradient-to-b from-electric to-ribbon`,
-    tw`bg-yellow-50`,
+    //tw`bg-yellow-50`,
   ],
 }
 
@@ -29,17 +28,26 @@ const App = () => {
   ])
 
   return (
-    <div css={styles.container()}>
+    <div className="App" css={styles.container()}>
       <div tw="p-2 w-64">
         <YxansKlaganLogo />
       </div>
       <div tw="flex h-full">
-        <nav tw="w-1/4">
-          <Link to="/">Home</Link>
-          <Link to="/dice">Tärning</Link>
+        <nav
+          tw="w-1/4 text-xl border-t-2 border-b-2 mb-4 border-black flex flex-col gap-y-4"
+          className="yx-heading"
+        >
+          <Link tw="hover:text-red-700" to="/">
+            Home
+          </Link>
+          <Link tw="hover:text-red-700" to="/dice">
+            Tärningar
+          </Link>
         </nav>
         <main tw="w-3/4">
-          <div tw="max-w-prose bg-white p-4">{routes}</div>
+          <div tw="max-w-prose w-full" className="box">
+            {routes}
+          </div>
         </main>
       </div>
     </div>
@@ -63,16 +71,5 @@ const HomePage = () => (
       ni avslöja de mörka krafter som rör sig i skuggorna och till slut kan det
       bli ni som avgör Det glömda landets öde.
     </p>
-  </>
-)
-const DiceRollerPage = () => (
-  <>
-    <h1 tw="text-4xl" className="yx-heading">
-      Tärningsrullare
-    </h1>
-    <DiceDisplay value={4}></DiceDisplay>
-    <Button variant="primary">Slå tärning</Button>
-    <Button variant="secondary">Pressa slag</Button>
-    <Button isSmall>stäng</Button>
   </>
 )

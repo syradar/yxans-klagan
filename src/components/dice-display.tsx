@@ -6,15 +6,8 @@ interface DiceProps {
   value: number
 }
 
-export const DiceDisplay = ({ sides, value }: DiceProps) => {
-  sides = 6
-
-  return (
-    <>
-      <div>{sides}</div>
-      <div>{value}</div>
-    </>
-  )
+export const DiceDisplay = ({ value }: DiceProps) => {
+  return <>{value}</>
 }
 
 export default DiceDisplay

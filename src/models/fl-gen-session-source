@@ -1,0 +1,5989 @@
+
+const fl = ["fl-castle-generator","fl-dungeon-generator","fl-hextravel-generator","fl-npc-generator","fl-village-generator","forbidden-land-legends","dice-plugin","fl-dungeon-names","fl-treasure-generator","fl-demon","fl-names-generator","fl-inn-generator","fl-tavern-generator","fl-village-names","fl-demon-name","my-weapons"];e
+
+const model = [{"modelText":"// Note: Text that comes after \"//\" is ignored, which allows you to write la (like the one you're reading now!)
+dice = {import:dice-plugin}
+
+output
+    <h1>[firstname] [secondname] [t=type.selectOne]</h1>[conditions][description]  
+        
+description
+    This [t.size] [t] was built [a=age.selectOne] ([a.years] years ago).  It was orginally {built|constructed|commisioned|erected} [purpose] {by|for} a [knownfor] [founder].  The [t] is [condition]  [history], it [o]. <p>[t.description]. From its size it would have originally {accomodated|housed} [t.staff] staff.<p>[inhabitants]
+
+conditions
+    [timeModifier=0,\"\"][conditionModifier=0,\"\"][o=oddity,\"\"]
+
+type
+    Outpost^4
+      size=small
+      description=The simple watchpost consists of a smaller main building defended by a palisade, often made of wood
+      staff={5-10}
+    Blockhouse^5
+      size=small
+      description=It is a solid, {timbered|stone} house made up of at least two floors. Its thick walls make it easily defended, but the absence of outer walls provides no protection for the surrounding lands
+      staff={10-20}
+    Tower^4 
+      size=small
+      description=The tower is made of {stone^4|wood} with three or more floors. From its top one can watch far away over the lands
+      staff={5-20}
+    Fort ^6
+      size=medium
+      description=The fort has a smaller set of buildings, often two or three, protected by a palisade or a wall
+      staff={15-40}
+    Keep^7
+      size=medium
+      description=The keep is made up of a number of buildings and towers defended by a thick stone wall
+      staff={25-100}
+    Fortress^6 
+      size=large
+      description=The fortress has multiple reinforced buildings and towers, protected by thick walls and a moat with a falling bridge. More or less unconquerable when at full strength
+      staff={50-200}
+    Palace^4
+      size=large
+      description=The palace is a grand building, often constructed by a noble to project power and wealth. Sometimes heavily reinforced, but some palaces function more as luxurious living quarters 
+      staff={50-300}
+        
+age
+    Before the Shift[timeModifier=-3,\"\"]^2
+      years= over 1,100 +
+    Before the Blood Mist[timeModifier=-2,\"\"]^9
+      years= roughly {300-1100}
+    During the Alder Wars^9
+      years= about {305-360}
+    During the Blood Mist^10
+      years= roughly {5-280}
+    After the Blood Mist^5 
+      years= recently, some {1-6}
+        
+purpose
+    to serve as Living Quarters^5
+      description=The castle was built to serve as a living space for someone.
+    to create a safe place to trade (or to guard an important trade route),^4
+      description=The castle was constructed to create a safe place to trade or guard an important trade route.
+    to Guard a valuable Resource (such as a mine, river or something else)^4
+      description=The castle was built to guard an important resource (this could be a mine, a river or something else, for example).
+    to serve as a Prison for someone or something (Its size and power says something about who it once kept within its walls),^3
+      description=The castle was constructed to serve as a prison for someone – or something. Its size and power says something about who it once kept within its walls.
+    to show the great power and might of the owner,^5
+      description=The castle was built to show the great power and might of the owner.
+    during a war or conflict^15
+      description=The castle was built as a part of a war or conflict.
+        
+founder
+    Elf^2
+    Dwarf^4
+    Trader^2
+    Treasure Hunter^2
+    Priest^2
+    Sorcerer^2
+    Bandit Chief^4
+    Warrior^5
+    Noble^13
+
+knownfor
+    bloodthirsty^2
+    vengenceful^4
+    Greedy^2
+    Stingy^2
+    Vane^2
+    Wise^2
+    Beautiful^4
+    Glorious^5
+    Cruel^13
+        
+condition
+    //AGE: Before the Shift: Modify the roll by –3, Before the Blood Mist: Modify the roll by –2
+    ruined and [conditionModifier=-2,\"\"]^3
+    decaying and [conditionModifier=-1,\"\"]^2
+    worn and^[3+timeModifier]
+    well kept but [conditionModifier=+2,\"\"]^[2+timeModifier]
+        
+history
+    was ravaged by fire^4
+    was beset by a long and bloody siege^5
+    was afflicted by the plague^4
+    its inhabitants died of hunger^4
+    was abandoned by its builders^4
+    fell during a bloody revolt^4
+    was conquered by an enemy^4
+    is the site of a tragic incident^2
+    is ravaged by years of war^3
+    is possessed by demons
+        
+inhabitants
+    //IF RUINED: Modify the roll by –2, IF DECAYING: Modify the roll by –1 IF WELL KEPT: Modify the roll by +2
+    It was abandoned [reallyempty].^[2-conditionModifier]
+    It was abandoned but [w=whomovedin.selectOne,w] {now call it home|moved in later|now live here|shelter here}.^4
+    It is still inhabited by a few descendants of the builder.^[2+conditionModifier]
+    It is still inhabited by descendants of the builder.^[2+conditionModifier]
+        
+reallyempty
+    but a colony of preying bats has moved in. (Page 127)^6
+    but a ghoul resides here. (Page 122)^6
+    but {4-24} skeletons wait in the darkness. (Page 122)^6
+    but a {massive|terrifying|monstrous|fearsome} {Drakewyrm|Troll|Giant|Manticore|Demon|Dragon} has taken the castle as its nest. It will soon return home. (See the Bestiary for stats)^7
+    but the place is now cursed. Each turn (15 minutes), each adventurer suffers a fear attack rolled with six Base Dice^10
+    and it really is empty. For now.^1
+        
+whomovedin
+    Bandits (Page 183)
+      [dice(\"1d6\")] bandit{s}^[t.size == \"small\"]
+      [dice(\"2d6\")] bandits^[t.size == \"medium\"]
+      [dice(\"4d6\")] bandits^[t.size == \"large\"]
+    Traders (Page 184)^2
+      [dice(\"1d6\")] trader{s}^[t.size == \"small\"]
+    [dice(\"2d6\")] trader{s}^[t.size == \"medium\"]
+    [dice(\"4d6\")] trader{s}^[t.size == \"large\"]
+    Rust Brothers (Page 40)^3
+      [dice(\"1d6\")] Rust Brother{s}^[t.size == \"small\"]
+    [dice(\"2d6\")] Rust Brothers^[t.size == \"medium\"]
+    [dice(\"3d6\")] Rust Brothers^[t.size == \"large\"]
+    Soldiers (Page 183)^2
+      [dice(\"1d6\")] soldier{s}^[t.size == \"small\"]
+    [dice(\"2d6\")] soldiers^[t.size == \"medium\"]
+    [dice(\"4d6\")] soldiers^[t.size == \"large\"]
+    Riders (Page 49)^4
+      [dice(\"1d6\")] rider{s}^[t.size == \"small\"]
+    [dice(\"2d6\")] riders^[t.size == \"medium\"]
+    [dice(\"4d6\")] riders^[t.size == \"large\"]
+    Orcs (Page 64)^4
+      [dice(\"1d6\")] Orc{s}^[t.size == \"small\"]
+    [dice(\"2d6\")] Orcs^[t.size == \"medium\"]
+    [dice(\"4d6\")] Orcs^[t.size == \"large\"]
+    Goblins (Page 72)^3
+      [dice(\"1d6\")] Goblin{s}^[t.size == \"small\"]
+    [dice(\"3d6\")] Goblins^[t.size == \"medium\"]
+    [dice(\"5d6\")] Goblins^[t.size == \"large\"]
+    Whiners (Page 70)^2
+      [dice(\"4d6\")] Whiners^[t.size == \"small\"]
+    [dice(\"6d6\")] Whiners^[t.size == \"medium\"]
+    [dice(\"8d6\")] Whiners^[t.size == \"large\"]
+    Ogres (Page 61)^2
+      [dice(\"1d6\")] Ogre{s}^[t.size == \"small\"]
+    [dice(\"2d6\")] Ogres^[t.size == \"medium\"]
+    [dice(\"2d6\")] Ogres^[t.size == \"large\"]
+    Dwarves (Page 58)^1
+      [dice(\"1d6\")] Dwarve{s}^[t.size == \"small\"]
+    [dice(\"2d6\")] Dwarves^[t.size == \"medium\"]
+    [dice(\"4d6\")] Dwarves^[t.size == \"large\"]
+    Halflings (Page 71)^1
+      [dice(\"1d6\")] Halfling{s}^[t.size == \"small\"]
+    [dice(\"2d6\")] Halflings^[t.size == \"medium\"]
+    [dice(\"4d6\")] Halflings^[t.size == \"large\"]
+    Wolfkin (Page 68)^1
+      [dice(\"1d6\")] Wolfkin{s}^[t.size == \"small\"]
+    [dice(\"2d6\")] Wolfkins^[t.size == \"medium\"]
+    [dice(\"4d6\")] Wolfkins^[t.size == \"large\"]
+    Elves (Page 54)^1
+      [dice(\"1d6\")] Elve{s}^[t.size == \"small\"]
+    [dice(\"2d6\")] Elves^[t.size == \"medium\"]
+    [dice(\"2d6\")] Elves^[t.size == \"large\"]
+    Sorcerer (Page 184)^1
+      A Sorcerer^[t.size == \"small\"]
+    [dice(\"1d6\")] Sorcerer{s}^[t.size == \"medium\"]
+    [dice(\"2d6\")] Sorcerer{s}^[t.size == \"large\"]
+    Thieves (Page 183)^1
+      a Thief
+      [dice(\"2d3\")] Thieves^5
+    Monster
+      {a} [monster]^5
+
+oddity
+    has odd architecture
+    is blood colored
+    is surrounded by ravens
+    was built out of a massive rock
+    has weird inscriptions
+    is surrounded by graves
+    was built on a battlefield
+    is haunted
+    has a bad smell
+    has strange sounds
+    is covered by purple flowers
+    always rains
+    was built around an ancient statue
+    is windy
+    has fungal fields
+    is blackened by soot
+    is decorated with skulls
+    is overgrown
+
+firstname
+    Stone
+    Red
+    Purple
+    Blood
+    Dead
+    Winter
+    Oak
+    Blue
+    Snow
+    Wind
+    Storm
+    Fire
+    Rust
+    Griffon
+    Dark
+    Dim
+    Wood
+    Barren
+    Deep
+    Alder
+    Rain
+    Eagle
+    Wolf
+    Bear
+    Dragon
+    Frost
+    Night
+    Rose
+    Fang
+    River
+    Sea
+    Ice
+    Sun
+    Moon
+    Wolf
+    Twilight
+
+secondname
+  Hook
+  Tooth
+  Spire
+  House
+  Claw
+  Jaw
+  Water
+  Redoubt
+  Mound
+  Hill
+  Mountain
+  Tower
+  House
+  Edge
+  Home
+  Cliff
+  Pike
+  Eye
+  Hole
+  Gap
+  Shield
+  Nest
+  Mark
+  Grove
+  Glade
+  Keep
+  Fortress
+  Castle
+  Keep
+  Lair
+  Stone
+  Den
+  Wall
+  Mound
+  Mark
+  Fort
+
+monster
+    Strangling Vine^2
+    Gray Bear^3
+    Nightwarg^3
+    Ghost^2
+    Ghoul^2
+    Skeleton^2
+    Restless Dead thing^2
+    Wyvern^2
+    nest of Harpies^2
+    Minotaur
+    Ent
+    Abyss Worm
+    Giant Squid
+    Sea Serpent
+    Troll
+    Death Knight
+    hive of Insectoids
+    Bloodling
+    Manticore
+    Gryphon
+    Giant
+    Hydra
+    Demon
+    Drakewyrm
+    Dragon
+","imports":["dice-plugin"],"name":"fl-castle-generator"},{"modelText":"// Note: Text that comes after \"//\" is ignored, which allows you to write la (like the one you're reading now!)
+
+dice = {import:dice-plugin}
+getTreasure={import:fl-treasure-generator}
+getName={import:fl-dungeon-names}
+
+output
+    <h1>[getName.output]</h1>[starting][description]
+        
+description
+    [c==\"someone\"?naturaldescription:normaldescription] [fulldescription]
+
+normaldescription
+    [a=age.selectOne], {about|roughly|nearly|approximately|almost} [a.years] year{s} ago, [c] {constructed|built|excavated|carved out} {a} [c==\"someone\"?\"naturally formed \":\"\"][s=size.selectOne] dungeon [why]. It was originally used as {a} 
+
+naturaldescription
+    This naturally formed [s=size.selectOne] {ecavation|tunnel system} was used [a=age.selectOne],  {about|roughly|nearly|approximately|almost} [a.years] year{s} ago, by [creator] as {a} 
+
+fulldescription 
+    [purpose] {but|and} [history]. <p>The {secret|little known|hidden|obscured} entrance to the dungeon is [entrance], it is {sometimes|currently|mainly} {inhabited|occupied|used|guarded} by <b>[inhabitants]</b>, and [o=oddities.consumableList,o]. The dungeon has [r=s.rooms.evaluateItem] main {chamber|room|area|space}{s}. <p>[rl=roomList]
+
+roomList
+    <h2>Rooms</h2><ol>[rd=roomdescription,\"\"][rd.selectMany(r)]</ol>
+
+starting
+    [c=creator.selectOne,\"\"][o=oddities,\"\"]
+        
+age
+    During the Shift^2
+      years=1100+
+    Before the Blood Mist^10
+      years={300-1100}    
+    During the Alder Wars^6
+      years={305-360}
+    During the Blood Mist^16
+      years={5-280}
+    After the Blood Mist^2
+      years={1-6}
+
+        
+size
+    {simple|small|basic}^2
+      rooms=[dice(\"1d6\")]
+    [\"\"]^2
+      rooms=[dice(\"3d6\")]
+    {big|large} 
+      rooms=[dice(\"4d6+10\")]
+    {elaborate|huge|massive|complex}
+      rooms=[dice(\"6d6+50\")]
+      
+creator
+    someone^3
+    Elves^2
+    Dwarves^5
+    Orcs^2
+    a Priest^2
+    a Cult^3
+    a Sorcerer^3
+    a Warrior^3
+    a Noble^7
+    a Bandit Chief^4
+    a Demon^2
+
+why
+  from a natural {tunnel|cave} system^3
+  out of Vengeance^2
+  because of Greed^5
+  out of Fear^2
+  because of Faith^2
+  as a Gift^3
+  out of Loneliness^3
+  as a Monument^3
+  to {show|demonstrate} thier Might^7
+  for Survival^4
+  out of Passion^2
+
+purpose
+    Temple^4
+    Stronghold^6
+    Living Area^8
+    Hiding Place^4
+    Mine^4
+    Prison^3
+    Tomb^7
+
+history
+    was ravaged by disease^3
+    perished during a flood^3
+    the builders died of hunger^2
+    the builders were wiped out by magical experiments^2
+    resources dwindled and the builders left the dungeon^3
+    the builders were destroyed by a strange artifact^2
+    is haunted by the restless dead of the builders^5
+    was lost after internal strife^3
+    was invaded by enemies^4
+    was invaded by demons^5
+    the builders still live here^6
+        
+inhabitants
+    Sorcerers (Page 184)
+    Bandits (Page 183)^2
+    Slave Traders (Page 183)^2
+    Orcs (Page 64)^2
+    Goblins (Page 72)^2
+    Whiners (Page 70)^2
+    Bats (Page 127)^2
+    Giant Spiders (Page 127)
+    Dwarves (Page 58)
+    Saurians (Page 69)
+    Ogres (Page 61)
+    Undead (Page 122)^2
+    a Ghost (Page 94)
+    Insectoids (Page 108)
+    Minotaurs (Page 112)
+    Strangling Vines (Page 118)
+    Nightwargs (Page 114)
+    an Abyss Worm (Page 76)
+    a Giant Squid (Page 98)
+    a Sea Serpent (Page 116)
+    a Bloodling (Page 78)
+    a Hydra (Page 106)
+    a Manticore (Page 110)
+    a Drakewyrm (Page 90)
+    a Demon (Page 80)
+    a Dragon (Page 88)
+    [inhabitants.selectMany(2).joinItems(\" and \")]^2
+    [inhabitants.selectMany(3).joinItems(\" , \")]
+  
+
+entrance
+    below a building^2
+    shaped as a gaping jaw^2
+    in or below a gnarled tree
+    a heavy stone door^5
+    on a cliff edge
+    down a hole
+    alongside a decaying statue of the founder^2
+    below water^2
+    in a cavern^5
+    covered in moss^2
+    in the bottom of a deep ravine
+    in a tower
+    in a hill^2
+    below a mausoleum^3
+    behind a door of bone^2
+    a stairway down into the deep^2
+    behind heavy iron bars that close and trap the adventurers
+
+oddities
+    is Unnaturally Hot
+    is Humid
+    has Pools of Water
+    Smells of Death
+    has Mushrooms
+    has Strange Flowers
+    has Slimy Walls
+    has Dried Blood
+    has Wall Paintings
+    has Weird Echoes
+    has Large Cracks
+    has a Statue
+    has Alcoves
+    has an Altar
+    has Moss
+    has Dripping Sounds
+    has a Gnarly Tree
+    has Pulsating Sounds
+    has a Mummified Corpse
+    has a Fireplace
+    has an Abyss
+    has a Well
+    has a Weirdly Shaped Skull
+    has a Mosaic
+    has a Petrified Creature
+    has an Empty Sarcophagus
+    has Ash in the Form of a Human
+    <b>has Snakes</b>
+    <b>has Insects</b>
+    <b>has Rats</b>
+    <b>has Bats</b>
+    has Spider Webs
+    has Skeleton Parts on Floor
+    has a Warning Written in Blood
+    has a Lost Adventurer
+    <b>[o]</b> , and <b>[o]</b>
+        
+roomdescription
+    <li>[t=type.selectOne,\"\"] [roomname]. This [t]  [t.description]. [items]  It has [doors] leading from it: <ol>[doorlist.selectMany(doorCount)]</ol></li><p>
+        
+doorlist
+    <li>[locked]</li>
+
+type
+    Corridor^2
+      description=is quite bland
+    Room^2
+      description=has [contents] it [o]
+    Hall 
+      description=has [contents.selectMany(2).joinItems(\", \")] it [o]
+    Stairway
+      description=has little of interest
+
+roomname
+    [t==\"Room\"?getName.roomnames:\"\"][t==\"Hall\"?getName.roomnames:\"\"]
+
+doors
+    one other door [doorCount=1,\"\"]^2
+    two other doors [doorCount=2,\"\"]
+    three other doors [doorCount=3,\"\"]
+    four other doors [doorCount=4,\"\"]
+    no other exits[doorCount=0,\"\"]
+
+locked
+    The door is wide open.
+    The door is unlocked.
+    The door is unlocked but blocked by something.
+    The door is locked.^2
+    The door is locked and has [trapList] //trap
+
+contents
+    little to see but ^3
+    <b>[inhabitants]</b> and^2 //inhabitants
+    [trapList] and //trap
+
+items
+    [\"\"]^4
+    However, there is [th=things.selectOne,\"\"]<b>[th] </b>([th.effect]).^2
+
+things
+    a <b>Sarcophagus</b> 
+      effect= It contains {[trapList]|<b>a Ghoul </b>(see page 122)| remains^3}, and {a} <b>[getTreasure.valuable]</b> and {a} <b>[getTreasure.precious]</b>.
+    a <b>Chest</b> 
+      effect= The chest {is trapped with [trapList])^2|is not trapped.}The chest contains {a} <b>[getTreasure.simple]</b> and {a} <b>[getTreasure.valuable]</b>.
+    something to investigate.^2
+      effect={a} <b>[getTreasure.simple]</b>
+    something valuable^2
+      effect={a} <b>[getTreasure.valuable]</b>
+
+trapList
+    <b>[tr=trap.selectOne]</b> ([tr.effect] targeting [tr.target]).
+
+trap
+//Let the adventurers roll a SCOUTING roll to spot a trap in a room they enter. They ca only roll if they actively look for traps.
+    a Trapdoor^5
+      effect=A fall of [dice(\"1d6+3\")] meters, 
+      target=whoever walks first
+    a Spear trap^4
+      effect=Attack with seven Base Dice, Weapon Damage 2, stab wound, 
+      target=whoever walks first
+    an Arrow trap^4
+      effect=Attack with five Base Dice, Weapon Damage 1, stab wound 
+      target=the two adventurers walking first
+    a Poison trap^3
+      effect=Lethal poison with Potency [dice(\"1d6+3\")]
+      target=whoever walks first
+    a Gas trap^4 
+      effect=Hallucinogenic poison with Potency [dice(\"1d6+4\")] 
+      target=all adventurers
+    a Boulder trap^4
+      effect=Attack with seven Base Dice, Weapon Damage 1, blunt trauma 
+      target=a random adventurer
+    a Spike trap^4
+      effect=Attack with six Base Dice, Weapon Damage 2, stab wound 
+      target=a random adventurer
+    a Water Trap^2
+      effect=Make a MOVE (–1) roll to escape. If failed, roll for ENDURANCE every round (no action). Failure means drowning – one point of damage per round. New MOVE roll can be made each round. 
+      target=all adventurers
+    Collapsing Walls^2
+      effect=Make a MOVE (–1) roll to escape. If failed, suffer attack with ten Base Dice, Weapon Damage 1, blunt force. Attack continues every round until a MOVE roll is made. 
+      target=all adventurers
+    a Fire trap^3
+      effect=Attack with seven Base Dice, Weapon Damage 1. Clothes catch fire, inflicting the same attack every round until a MOVE roll is made to extinguish it. 
+      target=a random adventurer
+    [trap.selectMany(2).joinItems(\" , \")]
+      effect=[\"\"]
+      target=[\"\"]
+
+
+
+        
+","imports":["dice-plugin","fl-dungeon-names","fl-treasure-generator"],"name":"fl-dungeon-generator"},{"modelText":"// Note: Text that comes after \"//\" is ignored, which allows you to write la (like the one you're reading now!)
+
+output
+    [description]
+        
+description 
+    [starting]<h1>Hex Travel</h1><b>Plains  Travel - </b>[m.plains.terrain] Encounter: [ep=e[p]]. <b>[ep.encounter] ([ep.page])</b><br><p><b>Forest Travel - </b>[m.forest.terrain] Encounter: [ef=e[f]]. <b>[ef.encounter] ([ef.page])<br></b><p><b>Dark Forest Travel - </b>[m.darkforest.terrain]</b>Encounter: [ed=e[d]]. <b>[ed.encounter] ([ed.page])<br></b><p><b>Hills Travel - </b>[m.hills.terrain] </b>Encounter: [eh=e[h]]. <b>[eh.encounter] ([eh.page])<br></b><p><b>Mountain Travel - </b>[m.mountain.terrain] Encounter: [emo=e[mo]]. <b>[emo.encounter] ([emo.page])<br></b><p><b>Lake Travel - </b>[m.lake.terrain] Encounter: [el=e[l]]. <b>[el.encounter] ([el.page])<br></b><p><b>Marshlands Travel - </b>[m.marshlands.terrain] Encounter: [ema=e[ma]].<b> [ema.encounter] ([ema.page])<br></b><p><b>Quagmire Travel - </b>[m.quagmire.terrain] Encounter: [eq=e[q]]. <b>[eq.encounter] ([eq.page])<br></b><p><b>Ruins Travel - </b>[m.ruins.terrain] Encounter: [er=e[r]]. <b>[er.encounter] ([er.page])<br></b></h3>
+
+starting
+    [m=modifiers,\"\"][e=encounters, p=plains.selectOne, f=forest.selectOne, d=darkforest.selectOne,h=hills.selectOne,mo=mountains.selectOne,l=lake.selectOne,ma=marshlands.selectOne,q=quagmire.selectOne,r=ruins.selectOne,\"\"]
+
+modifiers
+    plains
+      terrain=(Open Terrain, -1 forage, +1 hunt)
+    forest
+      terrain=(Open Terrain, +1 forage, +1 hunt)
+    darkforest
+      terrain=(Difficult Terrain, -1 forage)
+    hills
+      terrain=(Open Terrain)
+    mountain
+      terrain=(Difficult Terrain,-2 forage, -1 hunt)
+    lake
+      terrain=(Requires a Boat or Raft, no foraging)
+  marshlands
+      terrain=(Requires a Raft, +1 forage, -1 hunt)
+    quagmire
+      terrain=(Difficult Terrain, -1 forage)
+    ruins
+      terrain=(Difficult Terrain, -2 forage, -1 hunt)
+
+plains
+    0^18
+    1
+    16
+    2
+    3
+    4
+    5
+    6
+    7
+    34
+    8
+    9
+    10
+    11
+    12
+    13
+    14
+    15
+    30
+
+forest
+    0^18
+    1
+    16
+    17
+    18
+    2
+    28
+    3
+    6
+    7
+    34
+    8
+    24
+    9
+    10
+    11
+    12
+    13
+    26
+
+darkforest
+    0^18
+    1
+    1
+    18
+    19
+    20
+    21
+    3
+    25
+    24
+    9
+    9
+    10
+    11
+    12
+    13
+    29
+    27
+    30
+        
+hills
+    0^18
+    1
+    2
+    31
+    21
+    22
+    3
+    4
+    5
+    7
+    33
+    34
+    24
+    9
+    32
+    11
+    12
+    13
+    14
+
+mountains
+    0^18
+    1
+    35
+    31
+    21
+    22
+    4
+    5
+    23
+    7
+    33
+    26
+    34
+    9
+    32
+    11
+    12
+    13
+    37
+
+lake
+    0^18
+    0^2
+    1^2
+    38^2
+    4^2
+    39^4
+    5^2
+    40^2
+    41^2
+
+marshlands
+    0^18
+    1
+    5
+    9^2
+    11
+    12^2
+    13
+    16
+    18
+    21
+    29
+    30
+    38
+    40
+    41
+    42^2
+
+quagmire
+    0^18
+    1
+    4
+    5
+    7
+    8
+    9
+    10
+    11
+    12
+    13
+    14
+    16
+    21
+    23
+    29
+    30
+    34
+    42
+
+ruins
+    0^18
+    1
+    4
+    5
+    6
+    8
+    9^3
+    11
+    12
+    13
+    21^2
+    24
+    29
+    30
+    34
+    43
+
+
+
+
+
+
+
+encounters
+    0  
+      encounter=</b>No Encounter  
+      page=p146
+    1  
+      encounter=The Blood Mist  
+      page=p147
+    2  
+      encounter=Duel in the Woods  
+      page=p148
+    3  
+      encounter=The Orcish Fugitve  
+      page=p149
+    4  
+      encounter=Death from Above  
+      page=p149
+    5  
+      encounter=The Harpies Feast  
+      page=p149
+    6  
+      encounter=The Horse  
+      page=p149
+    7  
+      encounter=The Massacre Lure  
+      page=p150
+    8  
+      encounter=The Great Insulter  
+      page=p150
+    9  
+      encounter=The Ruins of Old  
+      page=p151
+    10  
+      encounter=The Fox  
+      page=p151
+    11  
+      encounter=The Forgotten Prince  
+      page=p152
+    12  
+      encounter=The Hungry Robbers  
+      page=p152
+    13  
+      encounter=The Plague Brother  
+      page=p153
+    14  
+      encounter=Flagellants  
+      page=p153
+    15  
+      encounter=Beggers  
+      page=p153
+    16  
+      encounter=The Dwarf Balloon Pilot  
+      page=p154
+    17
+      encounter=Wedding  
+      page=p154
+    18
+      encounter=The Demon Baker  
+      page=p155
+    19
+      encounter=The Animal Sanctum  
+      page=p155
+    20
+      encounter=The Burial Procession  
+      page=p156
+    21  
+      encounter=The Vengeful Spirit  
+      page=p156
+    22  
+      encounter=The Glass-Blower  
+      page=p157
+    23
+      encounter=The Puppy  
+      page=p157
+    24
+      encounter=The Cursed Ogre  
+      page=p158
+    25
+      encounter=Candle-Makers  
+      page=p158
+    26
+      encounter=Forest Fire  
+      page=p158
+    27
+      encounter=Blacksand  
+      page=p159
+    28
+      encounter=The Empty House  
+      page=p159
+    29
+      encounter=The Rustle of Bones  
+      page=p159
+    30
+      encounter=Teramalda  
+      page=p160
+    31
+      encounter=The Stone singers  
+      page=p161
+    32
+      encounter=Rats  
+      page=p161
+    33
+      encounter=The Minotaur's Lament  
+      page=p161
+    34
+      encounter=The Restless Dead  
+      page=p162
+    35
+      encounter=The Sleepy Troll  
+      page=p162
+    36
+      encounter=The Furless  
+      page=p163
+    37
+      encounter=Roadblock  
+      page=p164
+    38
+      encounter=The Infected  
+      page=p164
+    39
+      encounter=The Stowaway  
+      page=p164
+    40
+      encounter=Death from Below  
+      page=p165
+    41
+      encounter=The Trader of Souls  
+      page=p165
+    42
+      encounter=The Lizard Hunters  
+      page=p165
+    43
+      encounter=Buried Alive  
+      page=p166
+    ","imports":[],"name":"fl-hextravel-generator"},{"modelText":"// Note: Text that comes after \"//\" is ignored, which allows you to write la (like the one you're reading now!)
+
+getFind={import:fl-treasure-generator}
+getName={import:fl-names-generator}
+getTreasure={import:fl-treasure-generator}
+dice={import:dice-plugin}
+getDemon={import:fl-demon}
+
+output
+    <h1>Someone to watch</h1><ol>[npcList.selectMany(6)]
+        
+npcList
+    [profession=\"none\",\"\"][g=gender.selectOne, k=kin.selectOne,\"\"][n=getName.name[k][g].consumableList,\"\"]<li>[g=gender.selectOne,k=kin.selectOne,\"\"]<b>[n] - </b> This [g,\"\"] [emotion] <b>[k]</b> is {a} <b>[o=occupation.selectOne]</b>. [g.pronoun] [characteristic] and [quirk]<br>[o.stats.upperCase]<br>Skills: [o.skills][o.talents]{<br>Kin Talent: [k.kintalent]^5000|[\"\"]^25}<br> Gear: [o.gear]<p>
+
+gender
+    Male^4
+      pronoun=He
+    Female
+      pronoun=She
+
+kin
+    Aslene
+      kintalent=Adaptive
+    Alderlander^10
+      kintalent=Adaptive
+    Ailander^10
+      kintalent=Adaptive
+    Halfling^5
+      kintalent=Hard to Catch
+    Dwarf^2
+      kintalent=True Grit
+    Goblin^2
+      kintalent=Nocturnal
+    Half_Elf
+      kintalent=Psychic Power
+    Wolfkin
+      kintalent=Hunting Instincts
+    Orc^0.5
+      kintalent=Unbreakable
+    Elf
+      kintalent=Inner Peace
+        
+        
+occupation
+  {Mercenary|Soldier} [profession=\"fighter\",\"\"]
+      stats = Strength 4, Agility 3, Wits {2|3}, Empathy 2
+      skills= {[\"\"]|Endurance 1,} Melee 2{[\"\"]|,Marksmanship {1|2}}{,Survival 1|[\"\"]}
+      talents=[\"\"]
+      gear= {broadsword|battleaxe}, {spear|long bow|heavy}, {small|large} shield, {{studded|[\"\"]} leather|chainmail} armour{, open helmet|[\"\"]}, [dice(\"2d6\")] copper, <b>[getTreasure.simplecarried]</b>
+  Fortune Seeker //using bounty hunter stats plus treasure
+      stats=Strength 2, Agility 4, Wits 3, Empathy 2
+    skills=Melee 3, Move 3, Marksmanship 3, Scouting 4, Survival 3, Insight 3
+    talents=[\"\"]
+    gear=Leather armour, bow, sword,  <b>[getTreasure.simplecarried]</b>, <b>[getTreasure.valuablecarried]</b>
+  Bandit // usuing generic bandit and bandit from encounter list
+      stats=Strength 3, Agility 3 ,Wits 2, Empathy 2
+      skills=Melee {2|3}, {Marksmanship|Scouting} 1, Survival 2 {,Stealth 2|[\"\"]}
+      talents=[\"\"]
+      gear={Broadsword|axe|wooden club}{[\"\"]|, {sling|short bow}}{[\"\"]|, leather armor}, [dice(\"1d6\")] copper{[\"\"]|, <b>[getTreasure.simplecarried]</b>}
+  Slave Trader //slaver stats pg 150
+      stats=Strength 3, Agility 2, Wits 2, Empathy 2
+      skills=Melee 2
+      talents=[\"\"]
+      gear={Wooden club|mace}, leather armor,[dice(\"1d6\")] copper
+  Treasure Hunter //using bounty hunter stats plus treasure
+      stats=Strength 2, Agility 4, Wits 3, Empathy 2
+    skills=Melee 3, Move 3, Marksmanship 3, Scouting 4, Survival 3, Insight 3
+    talents=[\"\"]
+    gear=Studded leather armour, bow, sword,  <b>[getTreasure.simplecarried]</b>, <b>[getTreasure.valuablecarried]</b>
+  Beggar //made up stats
+      stats=Strength 1, Agility 1, Wits 2, Empathy 2
+      skills=Manipulation 1
+      talents=[\"\"]
+      gear=Rags
+  Actor //using generic minstrel
+      stats=Strength 2, Agility 3, Wits 3, Empathy 4
+    skills=Lore 1, Insight 1, Manipulation 2, Performance 3
+    talents=[\"\"]
+    gear=Prop {Sword|Dagger}, a script, [dice(\"1d6\")] silver, <b>[getTreasure.valuablecarried]</b>
+  Lumberjack //generic villager
+      stats=Strength {2|3}, Agility {2|3}, Wits {2|3}, Empathy {2|3}
+    skills=Endurance 1, Crafting 2
+    talents=[\"\"]
+    gear=T,Hand Axe, ools, [dice(\"1d6\")] copper
+  Hunter [profession=\"hunter\",\"\"]
+      stats=Strength 3, Agility 3, Wits 3, Empathy 3
+      skills=Melee 1, Marksmanship 3, Scouting 2, Survival 2, Animal Handling 2
+      talents=[\"\"]
+      gear=Dagger, longbow, leather armor, [dice(\"2d6\")] copper, <b>[getTreasure.simplecarried]</b>
+  Farmer //using villager stats
+      stats=Strength {2|3}, Agility {2|3}, Wits {2|3}, Empathy {2|3}
+    skills=Endurance 1, Crafting 2
+    talents=[\"\"]
+    gear=Tools, [dice(\"1d6\")] copper
+  {Builder|Mason|Laborer} //using villager stats
+      stats=Strength {2|3}, Agility {2|3}, Wits {2|3}, Empathy {2|3}
+    skills=Endurance 1, Crafting 2
+    talents=<br>Talents: Builder
+    gear=Tools, [dice(\"1d6\")] copper
+  Jester //using generic minstrel
+      stats=Strength 2, Agility 3, Wits 3, Empathy 4
+    skills=Lore 1, Insight 1, Manipulation 2, Performance 3
+    talents=[\"\"]
+    gear=Instrument, dagger, [dice(\"1d6\")] silver, <b>[getTreasure.valuablecarried]</b>
+  Wanderer //using generic minstrel but without instrument
+      stats=Strength 2, Agility 3, Wits 3, Empathy 4
+    skills=Lore 1, Insight 1, Manipulation 2, Performance 3
+    talents=[\"\"]
+    gear=Dagger, [dice(\"1d6\")] silver, <b>[getTreasure.valuablecarried]</b>
+  Fisherman //using Tolme from the hollows added fisher talent
+      stats=Strength 1, Agility 2, Wits 3, Empathy 3
+      skills=Crafting 2, Lore 2 
+      talents=<br>Talents: Fisher
+      gear=Knife
+  {Diplomat|Noble} //made up stats
+      stats=Strength 3, Agility 3, Wits 3, Empathy 3
+      skills=Melee 3, Marksmanship 3, Lore 3, Manipulation 2, Insight 2
+      talents=[\"\"]
+      gear=[dice(\"2d6\")] silver, <b>[getTreasure.valuablecarried]</b>,  <b>[getTreasure.valuablecarried]</b>
+  Child //made up stats
+      stats=Strength {1|2}, Agility {1|2}, Wits {2|3}, Empathy {2|3}
+    skills=Performance 1, Sleight of Hand 1
+    talents=[\"\"]
+    gear=Tools, [dice(\"1d6\")] copper
+  {Trader|Merchant} [profession=\"pedler\",\"\"]
+      stats=Strength 2, Agility 3, Wits 3, Empathy 4
+      skills=Lore 1, Insight 2, Manipulation 2
+      talents=[\"\"]
+      gear={Dagger|shortsword}, [dice(\"2d6\")] silver, <b>[getTreasure.valuablecarried]</b>
+  Brewer //using Olm from the hollows
+      stats=Strength 3, Agility 3, Wits 3, Empathy 3
+      skills=Melee 1, Lore 1, Crafting 2
+      talents=[\"\"]
+      gear=Dagger
+  Carpenter //generic villager
+      stats=Strength {2|3}, Agility {2|3}, Wits {2|3}, Empathy {2|3}
+    skills=Endurance 1, Crafting 2
+    talents=[\"\"]
+    gear=Tools, [dice(\"1d6\")] copper
+  Apprentice //made up
+      stats=Strength 2, Agility 2, Wits 2, Empathy 2
+      skills=Lore 1, Craft 1
+      talents=[\"\"]
+      gear=[dice(\"1d6\")] copper
+  {Spy|Thief} </b>(but disguised as {a} <b>[occupation.consumableList]</b>)[profession=\"rogue\",\"\"]
+      stats=Strength 2, Agility 4, Wits 3, Empathy 3
+      skills=Stealth 2, Sleight of Hand 3, Move 2, Melee 1, Marksmanship 1
+      talents=[\"\"]
+      gear=Dagger, sling, leather armor, [dice(\"1d6\")] silver, <b>[getTreasure.valuablecarried]</b>
+  Druid [profession=\"druid\",\"\"] //using Gremla from the Hollows 
+      stats=Strength 3, Agility 2, Wits 4, Empathy 3
+      skills=Crafting 2, Lore 1, Animal Handling 3
+      talents=[\"\"]
+      gear=Hooded Robe
+  Baker //using Beidor from the Hollows
+      stats=Strength 2, Agility 3, Wits 2, Empathy 4
+      skills=Crafting 3
+      talents=<br>Talents: Chef
+      gear=[dice(\"1d6\")] copper
+  {Pilgrim|Refugee} //made up stats
+      stats=Strength 2, Agility 2, Wits 2, Empathy 2
+    skills=Survival 1, Crafting 2, Lore 1
+    talents=[\"\"]
+    gear=Meager Possesions
+  Assassin </b>(but disguised as {a} <b>[occupation.consumableList]</b>) //using generic hunter stats
+      stats=Strength 2, Agility 4, Wits 3, Empathy 2
+    skills=Melee 3, Move 3, Marksmanship 3, Scouting 4, Survival 3, Insight 3
+    talents=[\"\"]
+    gear=Studded leather, bow, sword, poison 
+  Smith //using Ness from the Hollows
+      stats=Strength 4, Agility 2, Wits 3, Empathy 3
+      skills=Might 2, Melee 2, Crafting 3
+      talents=<br>Talents: Smith
+      gear=Warhammer
+  Gravedigger //generic villager adding Might skill instead of craft
+      stats=Strength {2|3}, Agility {2|3}, Wits {2|3}, Empathy {2|3}
+    skills=Endurance 1, Might 2
+    talents=[\"\"]
+    gear=Tools, [dice(\"1d6\")] copper
+  Rust Brother^[k == \"Alderlander\"|k == \"Ailander\"]
+      stats=Strength 3, Agility 3, Wits 3, Empathy 3
+      skills=Melee 2, Move 1, Marksmanship 2, Lore 3, Survival 1, Insight 2, Manipulation 1, Healing 2
+      talents=<br>Talents: Path of {Blood|Death} 2
+      gear=Staff, dagger, [dice(\"1d6\")] copper
+  Shepherd //generic villager
+      stats=Strength {2|3}, Agility {2|3}, Wits {2|3}, Empathy {2|3}
+    skills=Endurance 1, Crafting 2
+    talents=[\"\"]
+    gear=Tools, [dice(\"1d6\")] copper
+  Braggart //using generic minstrel stats
+      stats=Strength 2, Agility 3, Wits 3, Empathy 4
+    skills=Lore 1, Insight 1, Manipulation 2, Performance 3
+    talents=[\"\"]
+    gear=Dagger, [dice(\"1d6\")] silver, <b>[getTreasure.valuablecarried]</b>
+    Cook //using Beikor from the Hollows
+      stats=Strength 2, Agility 3, Wits 2, Empathy 4
+      skills=Crafting 3
+      talents=<br>Talents: Chef
+      gear=Cleaver, [dice(\"1d6\")] copper
+  Cultist </b>(but disguised as {a} <b>[occupation.consumableList]</b>) //using generic sorcerer stats
+      stats=Strength 2, Agility 2, Wits 4, Empathy 3
+    skills=Lore 1
+    talents=<br>Talents: Path of {Runes|Stone|Blood|Death} 2
+    gear=Staff, grimoire, [dice(\"1d6\")] silver, <b>[getTreasure.valuablecarried]</b>
+  {Watchman|Guard} //using militia guard from the Hollows
+      stats=Strength 3, Agility 3, Wits 2, Empathy 2
+      skills=Melee 1, Marksmanship 1
+      talents=[\"\"]
+      gear={Spear|axe}, leather armor {, short bow|[\"\"]}, [dice(\"1d6\")] copper
+    Messenger //using generic minstrel
+      stats=Strength 2, Agility 3, Wits 3, Empathy 4
+    skills=Lore 1, Insight 1, Manipulation 2, Performance 3
+    talents=[\"\"]
+    gear=Scroll, dagger, [dice(\"1d6\")] silver, <b>[getTreasure.valuablecarried]</b>
+  Miner //generic villager
+      stats=Strength {2|3}, Agility {2|3}, Wits {2|3}, Empathy {2|3}
+    skills=Endurance 1, Crafting 2
+    talents=[\"\"]
+    gear=Sledgehammer, pickaxe, shovel, [dice(\"1d6\")] copper
+  {Scribe|Academic} //made up
+      stats=Strength 1, Agility 2, Wits 4, Empathy 2
+      skills=Lore 2, Insight 2
+      talents=[\"\"]
+      gear=Bound leather book, quill and parchment, [dice(\"1d6\")] silver
+    Rider [profession=\"rider\",\"\"]^0.5 //new
+      stats=Strength 3, Agility 4, Wits 3, Empathy 3,
+      skills=Melee 2, Survival 1, Animal Handling 3
+      talents=[\"\"]
+      gear={Broadsword|shortsword}, dagger, studded leather armor, open helmet, <b>[getTreasure.simplecarried]</b>
+    Preist^0.5 //new
+      stats=Strength 3, Agility 3, Wits 4, Empathy 3
+      skills=Lore 2, Manipulation 2, Performance 1, Healing 1
+      talents=[\"\"]
+      gear=Staff, [dice(\"1d6\")] silver, <b>[getTreasure.valuablecarried]</b>
+    Minstrel [profession=\"minstrel\",\"\"]^0.5 //new
+      stats=Strength 2, Agility 3, Wits 3, Empathy 4
+      skills=Lore 1, Insight 1, Manipulation 2, Performance 3
+      talents=[\"\"]
+      gear=Instrument, dagger, [dice(\"1d6\")] silver, <b>[getTreasure.valuablecarried]</b>
+    Sorcerer [profession=\"sorcerer\",\"\"]^0.5 //new
+      stats=Strength 2, Agility 2, Wits 4, Empathy 3
+      skills=Lore 1
+      talents=<br>Talents: Path of {Runes|Stone|Blood|Death} 2
+      gear=Staff, grimoire, [dice(\"1d6\")] silver, <b>[getTreasure.valuablecarried]</b>
+    Villager //generic
+      stats=Strength {2|3}, Agility {2|3}, Wits {2|3}, Empathy {2|3}
+      skills=Endurance 1, Crafting 2
+      talents=[\"\"]
+      gear=Tools, [dice(\"1d6\")] copper
+    Bounty Hunter^0.5 //new
+      stats=Strength 2, Agility 4, Wits 3, Empathy 2
+      skills=Melee 3, Move 3, Marksmanship 3, Scouting 4, Survival 3, Insight 3
+      talents=[\"\"]
+      gear=Studded leather, bow, sword
+    Frailer^[k == \"Half-elf\"]
+      stats=STRENGTH 2, AGILITY 3, WITS 4, EMPATHY 4
+      skills=Lore 2, Insight 2, Manipulation 2
+      talents=[\"\"]
+      gear=Dagger, quill and ink
+    Maiden Druid^[k == \"Half-elf\"]
+    stats=STRENGTH 2, AGILITY 3, WITS 4, EMPATHY 3
+    skills=Melee 2, Marksmanship 2, Lore 2, Manipulation 2, Move 1
+    talents=<br>Talens: Path of Shifting Shapes 2
+    gear=Short bow, dagger, leather armor
+    Still Elf^[k == \"Elf\"]
+      stats=STRENGTH 3, AGILITY 3, WITS 5, EMPATHY 2
+      skills=Melee 2, Crafting 4, Lore 5, Insight 4
+      talents=<br>Talents: Path of Shifting Shapes 2
+      gear=Wooden staff
+    Unruly Elf^[k == \"Elf\"]
+      stats=STRENGTH 3, AGILITY 4, WITS 3, EMPATHY 2
+      skills=Melee 2, Endurance 2, Stealth 3, Marksmanship 2, Scouting 2, Survival 2
+      talents=[\"\"]
+      gear=Longbow, short spear, knife
+    Golden Bough Druid^[k == \"Elf\"]
+      stats=STRENGTH 3, AGILITY 3, WITS 4, EMPATHY 3
+      skills=Melee 2, Scouting 2, Lore 3, Marksmanship 2, Survival 3, Animal Handling 3
+      talents=<br>Talents: Path of Healing 2
+      gear=Throwing spear, falcion, leather armor
+    Melder^[k == \"Elf\"]
+      stats=STRENGTH 3, AGILITY 4, WITS 4, EMPATHY 3
+      skills=Melee 2, Crafting 4, Stealth 5, Lore 4, Survival 3
+      talents=<br>Talents: Path of Sight 2
+      gear=Knife
+    Redrunner^[k == \"Elf\"]
+      stats=STRENGTH 4, AGILITY 5, WITS 3, EMPATHY 3
+      skills=Endurance 3, Melee 4, Stealth 2, Move 3, Marksmanship 4, Insight 3, Survival 2
+      talents=<br>Talents: Path of the Enemy 2
+      gear=Longbow, broadsword, dagger, leather armor
+    Belderranian^[k == \"Dwarf\"]
+      stats=STRENGTH 4, AGILITY 2, WITS 3, EMPATHY 3
+      skills=Might 3, Melee 3, Crafting 2
+      talents=[\"\"]
+      gear=Battleaxe, large shield, chaimail, closed helmet
+    Merommanian^[k == \"Dwarf\"]
+      stats=STRENGTH 4, AGILITY 3, WITS 3, EMPATHY 2
+      skills=Might 2, Melee 2, Insight 2, Marksmanship 2
+      talents=[\"\"]
+      gear=Warhammer, crossbow, studded leather armor
+    Canide^[k == \"Dwarf\"]
+      stats=STRENGTH 5, AGILITY 3, WITS 2, EMPATHY 2
+      skills=Might 4, Endurance 2, Melee 3, Scouting 2, Survival 2
+      talents=[\"\"]
+      gear=Two-handed axe, plate armor, closed helmet
+    Crombe^[k == \"Dwarf\"]
+      stats=STRENGTH 3, AGILITY 3, WITS 4, EMPATHY 3
+      skills=Melee 2, Crafting 3, Lore 2, Performance 3, Healing 2
+      talents=[\"\"]
+      gear=Mace, leather armor
+    Raven Sister^[k == \"Ailander\"]
+      stats=STRENGTH 3, AGILITY 3, WITS 3, EMPATHY 3
+      skills=Melee 2, Move 1, Marksmanship 2, Lore 3, Survival 1, Insight 2, Manipulation 1, Healing 2
+      talents=<br>Talents: Path of Healing 2, {Path of Shifting Shapes|Path of Sight} 2
+      gear=Staff, dagger, [dice(\"1d6\")] copper
+    Blackwing^[k == \"Ailander\"]
+      stats=STRENGTH 4, AGILITY 5, WITS 4, EMPATHY 3
+      skills=Melee 4, Move 3, Stealth 4, Marksmanship 4, Lore 1, Survival 2, Insight 3, Manipulation 2
+      talents=<br>Talents: Path of the Killer 2, Executioner 2, Fast Footwork
+      gear=Broadsword or scimitar, dagger, light crossbow, vial of poison, studded leather armor, [getTreasure.valuablecarried]
+    typical Ailander^[k == \"Ailander\"]
+      stats=STRENGTH 3, AGILITY 3, WITS 3, EMPATHY 3
+      skills=Melee 2, Move 2, Marksmanship 2, Healing 1
+      talents=[\"\"]
+      gear=Shortsword, short bow
+    typical Alderlander^[k == \"Alderlander\"]
+      stats=STRENGTH 3, AGILITY 3, WITS 3, EMPATHY 3
+      skills=Melee 2, Move 1, Insight 2
+      talents=[\"\"]
+      gear=Shortsword, short bow
+    {Quard|Galdane}[profession=\"rider\",\"\"]^[k == \"Aslene\"]
+      stats=STRENGTH 3, AGILITY 4, WITS 3, EMPATHY 2
+      skills=Melee 2, Marksmanship 2, Move 2, Animal Handling 2
+      talents=<br>Talents: Horseback Fighter
+      gear=Short spear, short bow, leather armor, riding horse
+    Urhur^[k == \"Orc\"]
+      stats=STRENGTH 4, AGILITY 3, WITS 3, EMPATHY 2
+      skills=SKILLS: Might 2, Melee 2, Lore 1
+      talents=[\"\"]
+      gear=Scimitar, large shield, studded leather armor
+    Roka^[k == \"Orc\"]
+      stats=STRENGTH 5, AGILITY 2, WITS 2, EMPATHY 2
+      skills=Might 2, Melee 2, Scouting 1, Survival 1
+      talents=[\"\"]
+      gear=Flail, studded leather armor
+    Isir^[k == \"Orc\"]
+      stats=STRENGTH 4, AGILITY 3, WITS 3, EMPATHY 2
+      skills=Might 2, Melee 3, Marksmanship 2, Survival 2
+      talents=[\"\"]
+      gear=Two-handed sword, studded leather armor, closed helmet<br>POISON: Isir warriors have a poisonous bite (hallucinogenic poison with Potency [Dice(\"1d3+2\")]. The bite itself is an unarmed attack with Weapon Damage 1 (slash wound). Isir warrior also get a +3 bonus to ENDURANCE rolls to resist poison.
+    Drifter^[k == \"Orc\"]
+      stats=STRENGTH 4, AGILITY 3, WITS 2, EMPATHY 2
+      skills=Might 1, Melee 2, Insight 2
+      talents=[\"\"]
+      gear=Scimitar, studded leather armor, studded leather cap
+    typical Wolfkin^[k == \"Wolfkin\"]
+      stats=STRENGTH 4, AGILITY 4, WITS 2, EMPATHY 2
+      skills=Might 1, Endurance 3, Melee 3, Scouting 3, Survival 2
+      talents=<br>Talents: Path of the Forest 2
+      gear=Short spear, knife, leather armor
+    typical Halfling^[k == \"Halfling\"]
+      stats=STRENGTH 2, AGILITY 4, WITS 3, EMPATHY 4
+      skills=Melee 1, Crafting 2, Stealth 2, Sleight of Hand 1, Insight 2, Manipulation 2
+      talents=[\"\"]
+      gear=Shortsword, sling, leather armor
+    typical Goblin^[k == \"Goblin\"]
+      stats=STRENGTH 2, AGILITY 4, WITS 4, EMPATHY 2
+      skills=Melee 1, Move 1, Stealth 2, Marksmanship 1, Insight 2, Manipulation 2
+      talents=[\"\"]
+      gear={Shortsword|Short spear}, sling, [dice(\"1d6\")] copper coins<br>NOCTURNAL: Goblins can see in the dark and are thus not affected by darkness at all. In direct daylight, they suffer 1 point of damage to Agility every Quarter Day.
+        
+        
+characteristic
+  has ice blue eyes
+  has fluffy hair
+  has a scarred face
+  has a severed ear
+  has an eye patch
+  has missing teeth
+  is graceful
+    is towering for his kin
+  has an impressive {beard|hair style}
+  has round cheeks
+  has a distinctive birthmark
+  has strange facial paint
+  has sad eyes
+  smells bad
+  is perfumed
+  is cocky
+  is constantly smiling
+  is sullen
+  is constantly joking
+  is lovesick
+  is elegant
+  is tattooed
+  is constantly eating
+  is desperate
+  is hateful
+  is sweaty
+  is drunk
+  is suspicious
+  is very beautiful
+  is foppish
+  is fat
+  is beguiling //was seducing but this doesnt make sense
+  is lazy
+  is very tired
+  is wiry 
+  has unkempt eyebrows
+    [trait]^20
+
+quirk
+  is dreaming about a family and a house, and will do anything to realize it.
+  is skilled at gambling, but was booted from three villages.
+  is haunted by dreams of a family dying in a fire. They sometimes hallucinates.
+  is chewing on narcotic leaves, has a staring glare and a foul mood.
+  is very enthusiastic. They have a treasure map but no surviving friends.
+  is an Alder spy in disguise, and will not hesitate to kill.
+  is too sensitive for this cruel world.
+  is squeamish and weepy.
+  is obsessed with finding a special monster, and will not give up until one of them is dead.
+  is a <b>Cultist</b>, looking for new victims.
+  sleeps badly, as they see holy visions at night.
+  is a legendary pickpocket, constantly changing identities.
+  is the only survivor of a burnt down village, they are a pyromaniac.
+  worships the god in the deep.
+  is possessed by a quirky <b>demon</b>.
+  is planning to avenge thier dead parent.
+  is bankrupt, but has a grand plan to save the business. They just need some help.
+  hates a competitor and will do anything to get rid of {him|her}.
+  is constantly joking, but hides a dark secret.
+  will do anything to achieve thier dream. Anything...
+  has expensive habits, but will leave tab to others.
+  likes to scare people.
+  believes themself to be of royal lineage.
+  wants revenge more than anything.
+  is interested in poetry.
+  is a notorious cheat.
+  knows a lot about people, and is gossipy.
+  has doubts.
+  dreams of killing someone.
+  likes to touch people as if old friends.
+  is a brilliant storyteller.
+  will take over, one day.
+  is craving for a mug of beer.
+  believes they are being followed.
+  swears all the time.
+  has a theory about the world, and wants to tell everyone about it.
+    enjoys wallowing in the mud and living off what others would never eat.^[profession == \"druid\"]
+    lacks respect for other’s property, as everything is part of Clay's creation.^[profession ==\"druid\"]
+    is a moralizing know-it-all who thinks they always know the will of the gods.^[profession == \"druid\"]
+    sometimes takes to the bottle to chase away the memories of all those they have killed.^[profession == \"fighter\"]
+    secretly enjoys inflicting pain and injury on others.^[profession == \"fighter\"]
+    once killed a Rust Brother, and are now wanted by them.^[profession == \"fighter\"]
+    feels uncomfortable among other people and prefers to be alone.^[profession == \"hunter\"]
+    the old wound from the claw of a demonicbeast never fully healed.^[profession == \"hunter\"]
+    once, they left a wounded friend to die in the woods to save themself.^[profession == \"hunter\"]
+    they are haunted by doubt and don’t believe in the songs they sing.^[occupation == \"minstrel\"]
+    they are secretly deeply in love.^[profession == \"minstrel\"]
+    they once served the Rust Brothers as their jester, but managed to escape.^[profession == \"minstrel\"]
+    they owe silver to a powerful individual. A lot of silver.^[profession == \"pedler\"]
+    they conned a Rust Brother and now they are bent on revenge.^[profession == \"pedler\"]
+    they don’t trust anyone and think they all want to take their silver.^[profession == \"pedler\"]
+    they enjoy setting things on fire – ostensibly in the name of the god Horn, but they like it, too.^[profession == \"rider\"]
+    thier horse is more important to them than any human. Others cannot understand thier bond.^[profession == \"rider\"]
+    they panic in closed and cramped chambers.^[profession == \"rider\"]
+    they compulsively steal valuables they catch sight of.^[profession == \"rogue\"]
+    once, they stole something valuable from a Rust Brother and now they seek revenge.^[profession == \"rogue\"]
+    thier purse is often empty, for they spend silver as swiftly as you obtain it.^[profession == \"rogue\"]
+    they are haunted by visions of the world behind the veil.^[profession == \"sorcerer\"]
+    thier yearning for more magical power is stronger than anything else.^[profession == \"sorcerer\"]
+    Zygofer the Spellbinder haunts them in thier dreams and makes them obey him.^[profession == \"sorcerer\"]
+    [activity], they [mannerism].^20
+      
+trait
+    an Albino
+    ancient
+    has bad breath
+    is bald
+    is barrel‐chested
+    is bearded
+    is bedraggled
+    has a big nose
+    has a big red nose
+    has a birthmark
+    has bloodshot eyes
+    has blotchy skin
+    is bow‐legged
+    is broad
+    has a broken nose
+    is burnt
+    has bushy eyebrows
+    is cadaverous
+    is chinless
+    is clean shaven
+    is composed
+    has curly 
+    is dazzling
+    is deformed
+    has different colour eyes
+    is dimpled
+    is diseased/ill
+    is dishevelled
+    dresses in exotic garb
+    is drunk
+    has dyed hair
+    is fat
+    is freckled
+    is gnarled
+    is gormless
+    is haggard
+    is handsome
+    is heavily bearded
+    is heavily scarred
+    is heavily tanned
+    is hirsute
+    is a hunchback
+    is inappropriately dressed
+    is jaundiced
+    is lanky
+    has a lazy eye
+    is lean
+    is lightly scarred
+    has long hair
+    is many chinned
+    has a moustache
+    is muscular
+    is mysterious
+    is noseless
+    is obese
+    appears old
+    has only one eye
+    only has one arm
+    only has one ear
+    only has one hand
+    only has one leg
+    has an outlandish hair style
+    is pale‐skinned
+    is partially bald
+    has pasty skin
+    has patches of hair missing
+    has a aunch
+    is perfumed
+    is plump
+    has a pockmarked face
+    has a ramrod straight stance
+    is richly dressed
+    is rotund
+    is ruddy
+    has a runny nose
+    is shifty
+    is short for his Kin
+    has short hair
+    is smart
+    smells terrible
+    squints
+    is statuesque
+    is stooped
+    has strangely coloured hair
+    is swaggering
+    is swarthy
+    is sweaty
+    is tall for his Kin
+    has a tattoo
+    is thin
+    is tired
+    is tongueless
+    is toothless
+    is {ugly|grotesque}
+    is wasted
+    wears rags
+    is wild‐eyed
+    is wizened
+    is wounded
+    appears young
+
+emotion
+    agitated
+    agreeable
+    ambivalent
+    angry
+    apathetic
+    argumentative
+    arrogant
+    bellicose
+    benign
+    bored
+    brash
+    busy
+    casual
+    chatty
+    {chatty|garrulous}
+    childish
+    clever
+    condescending
+    confused
+    craven
+    crushingly boring
+    cunning
+    cynical
+    daring
+    depressed
+    despondent
+    devious
+    dispassionate
+    distracted
+    distraught
+    dour
+    down to earth
+    duplicitous
+    ebullient
+    egocentric
+    euphoric
+    evasive
+    excited
+    exhilarated
+    extravert
+    feisty
+    flighty
+    focused
+    forgetful
+    forthright
+    friendly
+    gregarious
+    gullible
+    happy
+    harassed
+    heart‐broken
+    humble
+    hyperactive
+    imbecilic
+    impolite
+    indignant
+    introvert
+    irritable
+    mad
+    malevolent
+    mean
+    miserable
+    morose
+    motivated
+    naive
+    nervous
+    noisy
+    nosy
+    obtuse
+    passionate
+    pedantic
+    perfidious
+    placid
+    polite
+    precise
+    presumptuous
+    pro‐active
+    regal
+    religious
+    sad
+    sarcastic
+    scared
+    shy
+    stressed
+    stupid
+    subservient
+    suicidal
+    superior
+    superstitious
+    suspicious
+    sycophantic
+    sympathetic
+    taciturn
+    thoughtless
+    timid
+    tired
+    vulnerable
+    whining
+    wise
+    zany
+
+mannerism
+    have an aggressive stance
+    appear bored
+    appear furtive
+    blink incessantly
+    blink slowly
+    have both hands behind thier head
+    breathe heavily
+    carefully consider each answer
+    chew beef jerky
+    chew thier fingernails
+    clean under thier fingernails with a dagger
+    clear thier throat repeatedly
+    close thier eyes while talking
+    clutche thier stomach as if in pain
+    cock thier head to one side
+    constantly scratche
+    cough
+    cough softly
+    crack thier knuckles
+    crie easily
+    cross thier arms defensively
+    have a distinctive accent
+    have expansive body language
+    fiddle with a dagger
+    fidget
+    flair thier nostrils
+    are flatulent
+    flexe thier muscles
+    flip a coin
+    fuss over thier clothes
+    get excited easily
+    give one‐word answers
+    have thier hands behind thier back
+    have thier hands on thier hip
+    have a distinctive accent
+    hop from foot to foot
+    hum
+    itch thier ear
+    itch thier upper arm
+    jingle a set of keys
+    jingle coins in thier pocket
+    keep thier hands in thier pockets
+    kiss a holy symbol often
+    laugh at any joke
+    laugh loudly
+    lean away from anyone that speaks
+    lean toward anyone that speaks
+    leer at the opposite sex
+    leer at the same sex
+    lick thier lips
+    mumble
+    {nod|shake} head often
+    are overly emotional
+    are in a passive stance
+    are perpetually scowling
+    pick thier nose
+    pick thier teeth
+    play with thier hair
+    play with thier jewellery
+    praise thier deity often
+    preen constantly
+    avoid eye contact
+    repeat questions
+    roll thier eyes
+    roll thier shoulders
+    rub thier eye
+    rub thier hands together
+    rub thier neck
+    scratch a scar
+    seem confused
+    are shy
+    sigh
+    have slumped shoulders
+    smell terrible
+    sniff
+    speak in rhymes
+    speak loudly
+    speak rapidly
+    speak slowly
+    speak softly
+    squint
+    stare into the distance
+    stroke thier beard^[g==Male]
+    stroke thier chin
+    {stutter|stammer}
+    suck in thier paunch
+    swear
+    tap thier teeth
+    tell inappropriate stories
+    tell outrageous lies
+    have terrible table manners
+    twitch
+    have an unnatural smile
+    use complex words
+    use simple words
+    are very tactile
+    wave thier hands around
+    whistle
+    wink suggestively
+    yawn a lot
+
+
+        
+activity
+    is about to commit a crime
+    is accompanied by [dice(\"1d4\")] children
+    is accompanied by guards
+    is being accosted by a beggar
+    is arguing with {a companion|companions}
+    is arguing with a trader
+    is being attacked by stray dogs
+    is behaving strangely
+    is being chased
+    is being punished
+    is bleeding
+    is brawling
+    is browsing
+    is buying food
+    is carrying a present
+    is carrying a heavy {sack|object}
+    is chasing a thief
+    is cleaning boots
+    is covered in mud
+    is crying
+    is deep in discussion
+    is desperate to tell a rumour
+    is doing something he doesn’t want to do
+    is{drunk|high}
+    is eating on the move
+    is exercising a pet
+    is finishing a journey
+    is finishing work
+    is flirting
+    is going to a secret rendezvous
+    is going to work
+    is gossiping
+    is guarding something
+    is guiding a cart
+    is haggling
+    has just been robbed
+    is hawking wares
+    is heading to a tavern
+    is hiding
+    is hugging a companion
+    is in a hurry
+    is in a large group
+    is in a small group
+    has been in an accident
+    is juggling
+    has just been thrown out of a somewhere
+    is killing time
+    is laughing
+    is lecturing a small crowd
+    is looking for a friend
+    is looking for help
+    is looking for something
+    is looking up at the sky
+    is lost
+    is making a delivery
+    is making something
+    is muttering
+    needs money...fast
+    is negotiating for a service
+    is new to the area
+    is nursing a brutal hangover
+    is ogling someone
+    is on a {quest|mission}
+    is on the way to worship
+    is pontificating
+    is punishing a child
+    is queuing
+    is reading a scroll
+    is recently bereaved
+    is repairing something
+    is resting
+    is riding a horse
+    is riding a wagon
+    is riding in a coach
+    is running
+    is rushing to the toilet
+    is searching for someone
+    is seeking adventurers
+    is seeking employment
+    is shouting a {proclamation|advertisement}
+    is shouting at strangers
+    is sightseeing
+    is singing a song
+    is {sleeping|dozing}
+    is smiling
+    is speaking with a stranger
+    is spoiling for a fight
+    is spying on thier spouse
+    is staggering home drunk
+    is starting journey
+    is strolling with a lover
+    is trying a con
+    is trying to get someone’s attention
+    is trying to ignore someone
+    is unwell
+    is very tired
+    is watching an accident
+    is watching birds fly by
+    is watching entertainers
+    is whistling","imports":["dice-plugin","fl-demon","fl-names-generator","fl-treasure-generator"],"name":"fl-npc-generator"},{"modelText":"// Note: Text that comes after \"//\" is ignored, which allows you to write la (like the one you're reading now!)
+
+getInn={import:fl-inn-generator}
+getTavern={import:fl-tavern-generator}
+getName={import:fl-village-names}
+
+
+output
+    <h1>[n=getName.output.evaluateItem] ([s=size.selectOne])</h1>[starting][description]
+        
+description
+    This [s], with [s.inhabitants] inhabitants, was {built|constructed} [a=age.selectOne], {about|roughly|almost|approximately|nearly} [a.years] years ago.  It is ruled by {a} [ruleroddity] [rulertype] and {is plagued by|struggles with|contends with|is affected by|suffers from} [problem].<br><br>[n] is famous for [fame] and [oddity]. [buildingdescription]  
+        
+buildingdescription
+    It has [b=s.buildings.evaluateItem,\"\"][buildings.selectMany(b)][b-nothingCount>0?[b-nothingCount]:\"0\"] main institution{s}, [b-nothingCount>1?\"which include;\":\"\"] [inns=innCount,\"\"][taverns=tavernCount,\"\"][village.selectMany(b-nothingCount).joinItems(\" \")] [b>nothingCount?\"but there may be others\":\"but there may be some hidden out of sight\"].[innDesign.selectMany(inns)][tavernDesign.selectMany(taverns)]
+        
+innDesign
+    <p>[getInn.output]
+        
+tavernDesign
+    <p>[getTavern.output]
+        
+        
+starting
+    [innCount=0,millCount=0,smithCount=0,foresterCount=0,tradingCount=0,templeCount=0,militiaCount=0,tavernCount=0,stableCount=0,nothingCount=0,\"\"]
+        
+buildings
+    [i=institutions.selectOne,i.effect]
+
+village
+    [v=villageInstitutions.consumableList]
+
+size
+    Outpost^2
+      inhabitants={5-20}
+      buildings=1
+    Hamlet^3
+      inhabitants={20-100}
+      buildings=3
+    Village
+      inhabitants={100-400}
+      buildings={6-11}
+
+
+        
+age
+    Before the Blood Mist^6
+      years={300-1100}    
+    During the Alder Wars^5
+      years={305-360}
+    During the Blood Mist^7 
+      years={5-280}
+    After the Blood Mist^6
+      years={1-6}
+
+ruleroddity
+    Bickering
+    Cruel
+    Weak
+    Greedy
+    Wise
+    Eccentric
+    Confusing
+    Brutal
+    Cunning
+    Stern
+    Secret
+    Drunkard
+        
+rulertype
+    Council
+    Despot
+    Elder
+    Mayor
+    Druid
+    Sorcerer
+    No one
+    Commander
+    Trader
+    Rust Brother
+    Artisan
+    Bandit Chief
+        
+problem
+    Nightwargs
+    Widespread Drunkenness
+    a Power Struggle
+    a Secret Cult
+    a Schism
+    Undead
+    Disease
+    a Sinkhole
+    Bandits
+    a Terrorizing Monster
+    Slave Traders
+    being Haunted by Ghoul or Ghost
+
+fame
+    Excellent Wine
+    Delicious Bread
+    Craftsmanship
+    its Beautiful Location
+    A Horrible Massacre
+    Decadence
+    Well–Brewed Beer
+    Hidden Riches
+    Strange Disappearances
+    Worshipping Demons
+    Suspicion of Strangers
+    Hospitality
+
+oddity
+    Eccentric Clothing^3
+    Incomprehensible Accent^2
+    Smelling Bad^2
+    is Full of Flowers^2
+    is Muddy^2
+    Odd Building Materials^2
+    being a Tent Village
+    is Built on a Steep Hill^2
+    has Old Tower in the Middle
+    has a Grand Building
+    being Windy^2
+    Inbreeding
+    Strange Eating Habits^2
+    is Built on Marshland^2
+    is Cut Out of a Cliff
+    is an Old Burial Site^2
+    has Wandering Cattle^2
+    is Mostly Inhabited by Women^2
+    is Allied with a Monster^2
+    is Preparing for a Wedding^2
+        
+institutions
+    Nothing^6
+      effect=[nothingCount=nothingCount+1,\"\"]
+    Inn^6
+      effect=[innCount=innCount+1,\"\"]
+    Mill^5
+      effect=[millCount=millCount+1,\"\"]
+    Smith^4
+      effect=[smithCount=smithCount+1,\"\"]
+    Forester^3
+      effect=[foresterCount=foresterCount+1,\"\"]
+    Trading Post^3
+      effect=[tradingCount=tradingCount+1,\"\"]
+    Temple^2
+      effect=[templeCount=templeCount+1,\"\"]
+    Militia^3
+      effect=[militiaCount=militiaCount+1,\"\"]
+    Taver^2
+      effect=[tavernCount=tavernCount+1,\"\"]
+    Stable^2
+      effect=[stableCount=stableCount+1,\"\"]
+      
+villageInstitutions
+    [\"\"]^[innCount+millCount+smithCount+foresterCount+tradingCount+templeCount+militiaCount+tavernCount+stableCount==0]
+    [innCount] Inn{s},[innCount=0,\"\"]^[innCount*10]
+    [millCount] Mill{s},[millCount=0,\"\"]^[millCount*10]
+    [smithCount] Smith{s},[smithCount=0,\"\"]^[smithCount*10]
+    [foresterCount] Forester{s},[foresterCount=0,\"\"]^[foresterCount*10]
+    [tradingCount] Trading Post{s},[tradingCount=0,\"\"]^[tradingCount*10]
+    [templeCount] Temple{s},[templeCount=0,\"\"]^[templeCount*10]
+    [militiaCount] Militia{s},[militiaCount=0,\"\"]^[militiaCount*10]
+    [tavernCount] Tavern{s},[tavernCount=0,\"\"]^[tavernCount*10]
+    [stableCount] Stable{s},[stableCount=0,\"\"]^[stableCount*10]
+        
+","imports":["fl-inn-generator","fl-tavern-generator","fl-village-names"],"name":"fl-village-generator"},{"modelText":"// Note: Text that comes after \"//\" is ignored, which allows you to write la (like the one you're reading now!)
+
+output
+    A long time ago, [time], there was {a} [adjective] [person]. They sought [treasure] because of [reason], and traveled to [location], located [distance] in [terrain] toward the [direction]. As the legend goes, it is said that they [fate] and that at the location there is [newtreasure] but also [adjective2] [newguard].
+
+time
+    before the Shift
+    before the Blood Mist
+    during the Alder Wars
+    in the age of the Blood Mist
+        
+adjective
+    bloodthirsty^0.5
+    vengeful^0.5
+    greedy^0.5
+    unhappily in love^0.5
+    ingenious^0.5
+    enterprsiing^0.5
+    kind^0.5
+    perseverant^0.5
+    treacherous
+    moral
+    skilled
+    stingy
+    vain
+    wise
+    beautiful
+    honorable
+    jealous
+    cruel
+    determined
+    cunning
+    scared
+    evil
+        
+person
+    elf^0.5
+    dwarf^0.5
+    peddler^0.5
+    smith^0.5
+    farmer^0.5
+    apprentice^0.5
+    druid^0.5
+    shepherd^0.5
+    Raven Sister
+    Rust Brother
+    rider
+    treasure hunter
+    priest
+    sorcerer
+    robber chieftan
+    warrior
+    lord
+    prince
+    princess
+    queen
+    king
+    {unit of soldiers|village|cult|band of robbers|cabal|monster}
+        
+treasure
+    a weapon
+    a love
+    a friend in need
+    an enemy
+    a treasure
+    a map
+    a family member
+    an artifact
+    a monster
+        
+reason
+    love
+    friendship^0.5
+    a promise
+    a prophecy^1.25
+    a bet
+    duty
+    war^0.75
+    honor^0.75
+    insanity^0.5
+    dreams^0.5
+    greed^0.75
+        
+location
+    a ruin^1.5
+    a farm^0.5
+    a grave
+    a tower
+    a castle^0.5
+    a village^0.75
+    a cave^1.5
+    a hill^0.75
+    a tree^0.75
+    a water source^0.75
+
+distance
+    here
+    close by
+    a day's march away
+    a few days off
+    far away
+    on the other side of the Forbidden Lands
+        
+terrain
+    some ruins
+    the marshlands^0.75
+    a quagmire^0.75
+    some plains^1.5
+    a forest^1.5
+    some hills^1.25
+    a dark forest^1.5
+    a lake^0.25
+    the mountains^0.5
+
+direction
+    North
+    South
+    East
+    West
+    Northwest
+    Northeast
+    Southeast
+    Southwest
+        
+fate
+    were betrayed
+    were murdered
+    were never seen again
+    starved to death^0.75
+    took their own life^0.75
+    died in battle
+    were enchanted
+    were possessed
+    came back changed^0.75
+    still search^0.75
+
+newtreasure
+    gold, lots of it,
+    a powerful artifact
+    a suit of armor
+    a weapon^0.75
+    an invaluable book^0.75
+    a large treasure
+    a lost war chest
+    remains of somebody important
+    a dwarven artifact^0.75
+    an elven ruby^0.75
+
+adjective2
+    aggressive
+    bloodthirsty
+    cruel^0.75
+    horrible^0.75
+    hungry^0.5
+    watchful^1.25
+    starved^0.75
+    greedy
+    insane^0.75
+    murderous^0.5
+    manic^0.5
+    hunting^0.25
+
+newguard
+    wolfkin
+    slave traders
+    orcs^0.75
+    ghosts^0.75
+    saurians^0.5
+    Iron Guards^1.25
+    undead^0.75
+    robbers
+    goblins^0.75
+    ogres^0.5
+    monsters^0.5
+    {demons (1)^1.03|demons (2)^0.19|demons (3)^0.03|demons (4)^0.03|demons (5)^0.03|demons (6)^0.03}
+
+// Tips:
+//  - Change the \"Your Generator's Title\" header by editing the text in the bottom-right box.
+//  - You can change the URL of your generator by clicking the \"settings\" button in the top-right
+//  - Here are some generators you might like to import: perchance.org/useful-generators
+//  - Use this template if you want your generator to be vertically centered on the page: perchance.org/centered-minimal#edit
+//  - Add background images, silly music, fonts, and other stuff with plugins: perchance.org/plugins
+//  - Here are some templates that you can use to create nice-looking generators without learning HTML and CSS: perchance.org/templates
+//  - Use the \"layout maker\" plugin to create complex layouts without learning how to code: perchance.org/layout-maker-plugin
+//  - Highlight multiple lines and press Tab or Shift+Tab to indent and un-indent them all an once
+//  - Ask our friendly community members if you need help: reddit.com/r/perchance
+// \\( ﾟヮﾟ)/
+
+
+
+
+","imports":[],"name":"forbidden-land-legends"},{"modelText":"// This is the JavaScript function that powers this plugin:
+$output (str) =>
+  str = str.toString();
+  if(str === undefined) str = \"1d6\";
+    str = str.replace(/\\s/g,\"\"); 
+    let tally = 0;
+    let chunks = str.split(/(\\+|-)/g);
+    for(let i = 0; i < chunks.length; i++) {
+          let s = chunks[i];
+      
+      if(s === '+' || s === '-') continue;
+      
+      let sign;
+      if(chunks[i-1] === undefined || chunks[i-1] === \"+\") sign = 1;
+      else if(chunks[i-1] === \"-\") sign = -1;
+      else return `(invalid dice notation)`;
+      
+      if(!isNaN(Number(s))) {
+              tally += sign*Number(s);
+          continue;
+      }
+
+      
+      let nums = s.split(\"d\");
+      if(nums.length <= 1) return `(invalid dice notation)`;
+      let numDice = Number(nums[0]);
+      let diceSides = Number(nums[1]);
+      
+      for(let i = 0; i < numDice; i++) {
+              tally += sign*Math.floor(diceSides*Math.random())+1;
+      }
+      
+    }
+    return tally;
+        
+// You can learn JavaScript here:
+// https://www.codecademy.com/learn/javascript ","imports":[],"name":"dice-plugin"},{"modelText":"// Note: Text that comes after \"//\" is ignored, which allows you to write la (like the one you're reading now!)
+
+getTreasure={import:fl-treasure-generator}
+
+output
+    <h1>[dungeonname]</h1>
+        
+roomnames
+    <b>[roomnameList]</b>
+        
+        
+dungeonname
+    The [descriptor] [complex]^3
+    The [descriptor] [complex] of [propername]
+    The [descriptor] [complex] of [propername], the [descriptor]
+    [propername]'s [descriptor] [complex]
+    [propername]'s [descriptor] [complex] of [descriptor]
+    The [descriptor] [complex] of the [descriptor] [subject]
+    The [descriptor] [complex] of [propername]
+    The [complex] of [descriptor]
+    The [complex] of the [descriptor] [subject]
+    [descriptor] [subject] of the [descriptor] [complex]
+    [propername]
+    [propername]'s [complex]
+    The [complex] of [propername], the [descriptor]
+    [propername]'s [descriptor] [complex]
+    The [descriptor] [complex] of [propername], the [descriptor]
+    The [descriptor] [complex] of the [tribalname]
+    The [complex] of the [tribalname]
+    [propername] the [descriptor] [complex]
+        
+roomnameList
+    The [descriptor] [rooms]^3
+  The [descriptor] [rooms] of [propername]
+  The [descriptor] [rooms] of [propername], the [descriptor]
+  [propername]'s [descriptor] [rooms]
+  [propername]'s [descriptor] [rooms] of [descriptor]
+  The [descriptor] [rooms] of the [descriptor] [subject]
+  The [descriptor] [rooms] of [propername]
+  The [rooms] of [descriptor]
+  The [rooms] of the [descriptor] [subject]
+  [descriptor] [subject] of the [descriptor] [rooms]
+  [propername]
+  [propername]'s [rooms]
+  The [rooms] of [propername], the [descriptor]
+  [propername]'s [descriptor] [rooms]
+  The [descriptor] [rooms] of [propername], the [descriptor]
+  The [descriptor] [rooms] of the [tribalname]
+  The [rooms] of the [tribalname]
+  [propername] the [descriptor] [rooms]
+
+complex
+    Abbey
+    Aerie
+    Armoury
+    Barrow
+    Bastion
+    Bridge
+    Bulwark
+    Burrow
+    Cairn
+    Castle
+    Catacomb
+    Cathedral
+    Caverns
+    Caves
+    Cenotaph
+    Chapel
+    Charnel house
+    Chasm
+    Church
+    Citadel
+    City
+    Crypt
+    Cyst
+    Delve
+    Demesne
+    Den
+    Depths
+    Domain
+    Dominion
+    Donjon
+    Dungeon
+    Edifice
+    Fane
+    Fastness
+    Fissure
+    Folly
+    Forge
+    Fort
+    Gate
+    Grave
+    Grotto
+    Hall
+    Haunt
+    Haven
+    Hive
+    Hold
+    Hollow
+    Home
+    House
+    Keep
+    Kingdom
+    Labyrinth
+    Lair
+    Lodge
+    Manse
+    Mausoleum
+    Maze
+    Mine
+    Moathouse
+    Monastery
+    Necropolis
+    Nest
+    Obelisk
+    Ossuary
+    Oubliette
+    Outpost
+    Pagoda
+    Palace
+    Panopticon
+    Pen
+    Pillar
+    Pit
+    Portal
+    Prison
+    Pyramid
+    Realm
+    Redoubt
+    Refuge
+    Rest
+    Retreat
+    Rift
+    Ruin
+    Sanctuary
+    Sanctum
+    Scar
+    Sepulchre
+    Sewers
+    Shrine
+    Span
+    Spire
+    Stronghold
+    Tomb
+    Tower
+    Treasure vault
+    Undercity
+    Vault
+    Warren
+    Web
+    Well
+    Ziggurat
+
+descriptor
+    {Wreathe| Envelop| Encircle |Enfold| Coiled}
+  {Malicious| Malevolent| Vicious| Bitter| Vengeful| Hateful| Baleful}
+  {Whispering| Muttering| Hushed |Susurrate| Murmering| Moaning |Babbling}
+  {Throbbing| Vibrating| Pulsate Shake| Judder}
+  {Unfinished| Incomplete| Imperfect}
+  {Evil| Bad| Destructive| Harmful |Vicious| Malignant| Wicked| Pernicious| Baleful| Baneful| Maleficent| Depraved| Cruel| Infamous| Vile| Degenerate| Diabolical| Detestable| Malevolent}
+  {Unrestrained| Unshackled Unconfined| Free| Uncontrolled| Unchecked}
+  {Shrouded| Veiled| Mantled Cloaked| Swathed}
+  {Booming| Thundering| Echoing Bellowing| Strident| Sonorous}
+  {Bleeding| Blood}
+  {Twisted| Sick| Evil| Corrupted |Warped| Degraded| Wicked |Sadistic| Depraved| Debase Debauched| Aberrant}
+  {Good| Great| Superior| Adept| Adroit| Honourable| Moral| Upright| Righteous| Virtuous| Dutiful}
+  {Law| Lawful| Unflinching |Inflexible| Unbreakable}
+  {Lightless| Sunless| Dark| Dim |Murky| Shadowy| Unlit |Tenebrous}
+  {Leaden| Grey| Sombre| Louring}
+  {Ebon| Black| Dark| Jet| Dusky| Inky| Stygian| Starless}
+  {Slaver| Slobber| Drool}
+  {Crumpled| Crushed| Distorted |Deformed| Misshapen| Wreaked Mar}
+  {Forsaken| Lonely| Abandoned Forlorn| Desolate| Dreary| Bare Uninhabitable}
+  {Bleak| Grim| Sad| Melancholy| Sombre| Morbid| Cheerless}
+  {Deep| Yawning| Cavernous |Bottomless| Unfathomable| Abyssal|Occluded}
+  {First|Second|Third|Fourth|Fifth|Sixth|Seventh|Eighth|Nineth|Tenth}
+  {Deadly| Dangerous| Lethal| Murderous| Baneful}
+  {Bone| Skeletal| Gaunt Cadaverous| Macilent| Shrivelled}
+  {Dour| Gloomy| Forbidding| Grim |Dreary| Sullen}
+  {Mottled| Streaked| Speckled}
+  {Fallen| Slaughtered| Slain| Lost |Ruined| Shamed}
+  {Tumbled| Jumbled}
+  {Forgotten| Lost| Buried |Obliterated| Annihilated}
+  {Heavy| Leaden| Oppressive}
+  {Splintered| Sliver| Fragmented| Burst| Cloven}
+  {Red| Black| Crimson| Scarlet|Emerald|Blue|Yellow}
+  {Frozen| Freezing| Frosty| Cold| Icy| Hoary| Rimy| Frigid}
+  {Terrifying| Dreadful| Feared| Daunting| Fearsome| Baleful}
+  {Blessed| Sanctified| Exalted Hallowed| Ordained| Righteous |Godly| Sainted| Pious| Beatific}
+  {Trackless|Tangled| Knotted| Entangled}
+  {Crumbling| Decaying |Mouldering| Decomposing| Disintegrating}
+  { Lofty| High| Tall| Towering |Soaring| Sweeping}
+  { Infernal| Celestial| Abyssal| Fiendish| Elemental}
+  {Otherworldly| Unearthly |Unnatural| Esoteric |Preternatural| Cabbalistic}
+  { Secret| Hidden| Mysterious| Concealed| Obscure}
+  {Shattered| Sundered| Broken |Cracked| Crushed| Destroyed| Blasted| Devastated| Hewn Fractured| Fragmented}
+  { Holy| Hallowed| Divine| Sacred}
+  { Unholy| Unhallowed| Profane}
+  { Drowned| Flooded| Sunken| Watery}
+  { Dreaming| Nightmare| Reverie |Night Terror}
+  { Screaming| Shrieking| Bellowing}
+  {Bestial| Atavistic| Cruel| Savage| Brutal| Grim| Hellish| Depraved| Remorseless| Merciless| Pitiless}
+  { Blasphemous| Profane| Godless |Ungodly| Sacrilegious| Sin}
+  {Obscene| Vile| Gross| Foul Coarse| Filthy| Impure| Lascivious |Scabrous| Unwholesome}
+  { Slumbering| Sleeping}
+  {Tears| Whimpering| Weeping |Sobbing| Wailing| Lamenting Despair}
+  { Wonder| Awe| Bewilderment| Miracle}
+  { Madness| Maddening| Insanity |Delusion| Lunacy| Folly| Foolish}
+  { Great| Voluminous| Prodigious| Famed| Glorious| Exalted}
+  { Silver| Golden| Steel| Bronze Copper}
+  {Ancient| Old| Bygone| Primordial| Primeval| Olden |Hoary| Timeworn| Ancestral}
+  { Ashen| Pale| White| Grey| Wan |Leaden| Colourless| Pallid}
+  { Hopeless| Folly| Desperate}
+  { Night| Twilight| Dusk}
+  {Wicked| Vile| Base| Corrupt |Degenerate| Deprave| Nefarious| Loathsome| Sordid}
+  { Scorned| Sneering| Mocking}
+  { Luck| Chance| Unlucky}
+  { Bane| Torment| Blight}
+  { Nameless| Unnamed}
+  { Horrific| Shocking| Frightful| Rank |Heinous| Abhorrent| Appalling}
+  { Burning| Boiling| Seething| Immolating| Smoking}
+  { Vanished| Faded| Dwindled}
+  {Chaos| Anarchy| Entropy |Bedlam| Tumult| Lawless| Riotous Anarchic}
+  {Unknown| Uncharted| Remote| Alien| Unmapped| Untraveled |Unrevealed| Concealed |Mysterious| Faceless}
+  { Cursed| Damned| Doomed |Bedevilled| Accursed| Ill-Fated}
+  { Apocryphal| Legendary |Mythical| Fabled}
+  {Shadow| Shade| Ghost| Spirit |Phantom| Spectre| Apparition| Haunt| Faded}
+  { Phantasm| Illusion| Deception| Figment}
+  { Magic| Arcane| Spellbound |Enchanted}
+  { Eternal| Unliving| Undying}
+  { Imprisoned| Shackled}
+  {Sorrow| Woe| Grief| Misery| Mourning| Anguish| Lament |Weep}
+  { Dreadful| Dismal| Dire |Lamentable| Vexatious}
+  Forbidden
+  { Disgusting| Foul| Sickening |Noxious| Cloying}
+  { Crawling| Skulking| Slithering| Wriggle| Writhe| Squirming}
+  { Penitent| Repentant}
+  { Dim| Darkness| Gloom| Murky |Dusky| Nebulous}
+  { Hateful| Odious| Abominable| Infernal| Detestable| Pestilential}
+  { Plague| Disease| Contagion |Pestilence}
+  { Seductive| Beguiling| Enticing |Alluring| Bewitching}
+  { Torment| Pain| Haunt| Afflict}
+  {Forbidding| Sinister| Daunting| Ominous| Foreboding| Baleful Grim}
+  {Obliterated| Ravaged Demolished| Devastated |Annihilated | Traitorous| Unfaithful| Treacherous| Faithless| Perfidious}
+  { Silent| Wordless| Unspeaking}
+  {Noisy| Loud| Piercing| Deafening |Tumultuous| Cacophonous |Clamorous}
+  {Wide| Narrow| Deep| Shallow |Broad| High| Big| Colossal |Gargantuan}
+  {Incandescent| Scintillating |Shimmering| Glimmering |Glittering| Iridescent}
+  { Slaughter| Carnage| Extermination| Butchery}
+  { Muck| Filth| Mire| Ooze| Scum| Sludge| Slime}
+  { Lifeless| Dead| Dying| Slain}
+
+        
+
+subject
+    {Elven Gem|Diamond| Ruby| Emerald|Malachite| Bloodstone| Opal| Fire Opal| Jacinth| Jet| Moonstone|Sapphire| Topaz }
+  {Elves| Humans| Goblins|Halflings|Wolfkin|Orcs|Ogres| Dwarves|Lizardmen|Whiners|Elvenspring|Frailers}
+  {Lord| Count| King| Duke| Ruler|Overlord| Despot| Noble|Emperor| Master| Mistress}
+  {Fire| Earth| Water| Cold|Acid| Lightning}
+  { Statues|Guardians| Effigy| Idol}
+  { Wastes| Barrens}
+  { Ruins| Wreckage| Remnants}
+  {Kingdom| Realm| Land| Domain|Dominion| Reaches| Territory|Power}
+  { Trial| Test| Challenge}
+  { Ages| Aeons| Epoch| Legend}
+  {Cleric| Priest| Curate| High Priest|Acolyte| Adept| Patriarch|Matriarch| Brother| Sister|Disciple| Novice| Abbot}
+  {Magician| Conjurer| Illusionist|Witch| Wizard| Warlock|Necromancer| Thaumaturge|Theurgist| Archmage| Enchanter|Evoker| Sorcerer| Spellbinder}
+  {Assassin| Rutterkin| Waghalter|Murderer| Thug| Killer|Executioner}
+  { Thief| Bandit| Magsman|Footpad| Rogue}
+  { Cult| Cabal| Sect}
+  {Fighter| Warrior| Champion|Myrmidon| Lord| Hero| Antihero|Barbarian}
+  {Protector| Defender| Paladin|Antipaladin| Warden| Justicar|Guardian}
+  { Custodian| Keeper| Seneschal}
+  { Skald| Bard| Troubadour|Minstrel}
+  { Shadow| Wraith| Wight| Zombie|Skeleton| Lich| Vampire}
+  { Trap| Snare| Deception}
+  { Traitor| Deserter| Renegade|Refugee}
+  {Tribe| People| House| Blood|Clan| Caste| Horde| Swarm| Host|Throng}
+  { Savage| Heathen| Pagan| Heretic}
+  { Depths| Drop| Fall}
+  { Devil| Demon| Fallen Angel|Angel}
+  {Shardmaidens|the Gods}
+  { Soul| Soulless}
+  { Spawn| Issue| Seed| Progeny}
+  { Treasure| Hoard}
+  { Cavalier| Armiger| Knight}
+  [monster]
+  { Dragon| Wyrm| Worm}
+  {Obsidian| Granite|Adamantine| Mithral| Crystal}
+  {Spider| Snake|Wolf| Hawk| Eagle| Raven}
+  { Oblivion| Destruction}
+  {Sword| Axe| Hammer|Spear |Pike| Trident| Mace }
+  [getTreasure.artifact]
+  {Huge|Clay|Raven|Rust|Heme|Flow|Wrym|Wail|Horn|The Protector|The Nightwalker}
+  {Pillar| Pit|Altar| Door| Pool| Monolith}
+  {Scroll| Gem| Staff| Key}
+  {Rift| Chasm|Sea| Lake| River}
+  {Forest| Wood|Mire| Marsh|Plain|Dark Wood}
+  { Terror| Horror| Doom| Dread|Nightmare}
+  { Dust| Decay}
+  { Watcher| Oracle}
+  { Darkness| Shadow| Gloom}
+  { Bane| Enemy| Foe}
+  { Slave| Denizen| Dweller}
+  {Eye| Tentacle| Claw|Fang| Hand| Maw| Mouth| Beak| Tail}
+
+        
+propername
+    Akor
+    Amon
+    Anguth
+    Assat
+    Atoli
+    Ator
+    Aunros
+    Auraknal
+    Azos
+    Bha
+    Bhucan
+    Borlara
+    Broth
+    Carthe
+    Cath
+    Chakelor
+    Cordath
+    Dartak
+    Dellor
+    Dereg
+    Gauillir
+    Gilak
+    Gola
+    Golduk
+    Hotlat
+    Ichola
+    Icta
+    Ilassa
+    Ilosia
+    Jallym
+    Jharosk
+    Kabil
+    Kephoti
+    Khem
+    Kovinth
+    Lamlath
+    Leng
+    Lhamrul
+    Lirtim
+    Lothnur
+    Lotul
+    Mabal
+    Malaugh
+    Maugh
+    Maux
+    Molreth
+    Natlot
+    Osvathe
+    Osvith
+    Paron
+    Peral
+    Phask
+    Phlom
+    Questron
+    Rurtrux
+    Saern
+    Sarugoa
+    Sauriv
+    Sjach
+    Sosha
+    Soth
+    Sundirra
+    Tamol
+    Thallu
+    Tharac
+    Thoth
+    Thua
+    Thul
+    Tsal
+    Ualinn
+    Ulhu
+    Urser
+    Verdusk
+    Vuren
+    Waurix
+    Ythkal
+    Zarlegh
+    Zaroth
+    Zhabor
+    Zolrak
+    Zoth
+    Zshoth
+    Akor
+    Amon
+    Anguth
+    Assat
+    Atoli
+    Ator
+    Aunros
+    Auraknal
+    Azos
+    Bha
+    Bhucan
+    Borlara
+    Broth
+    Carthe
+    Cath
+    Chakelor
+    Cordath
+    Dartak
+    [prefix]{'[propername]|[propername.lowerCase]^10}^2
+
+prefix
+    Ang
+    Arak
+    At
+    Bhok
+    Buh
+    Da
+    Dhu
+    Dol
+    Dor
+    Fel
+    Har
+    Ich
+    Ig
+    Ing
+    Iqu
+    Ir
+    Kal
+    Ke
+    Kek
+    Kel
+    Kor
+    Kral
+    Lla
+    Llag
+    Lor
+    Mot
+    Mur
+    Na
+    Nol
+    Nor
+    Ost
+    Rel
+    Rol
+    Tha
+    Tho
+
+
+
+
+
+tribalname
+    [name1] [name2]
+        
+name1   
+    Shattered
+    Blood
+    Vile
+    Severed
+    Red
+    Terrifying
+    Cloven
+    Dark
+    Poisoned
+    Smashed 
+    Crushed
+    Severed
+    Crimson
+    Fiery
+    Black
+    Dark
+    Bleached
+    Ebon
+    Burnt
+    Scarlet
+
+name2
+    Spear
+    Eye
+    Arrow
+    Nose
+    Fangs
+    Horde
+    Shield
+    Blades
+    Rune
+    Skull
+    Head
+    Axe
+    Ravens
+    Scions
+    Bones
+    Hand
+    Legion
+
+monster
+    Strangling Vine^2
+    Gray Bear^3
+    Nightwarg^3
+    Ghost^2
+    Ghoul^2
+    Skeleton^2
+    Restless Dead^2
+    Wyvern^2
+    Harpies^2
+    Minotaur
+    Ent
+    Abyss Worm
+    Giant Squid
+    Sea Serpent
+    Troll
+    Death Knight
+    Insectoids
+    Bloodling
+    Manticore
+    Gryphon
+    Giant
+    Hydra
+    Demon
+    Drakewyrm
+    Dragon
+
+rooms
+    Alcove
+    Altar
+    Antechamber
+    Archives
+    Archway
+    Arena
+    Armoury
+    Asylum
+    Aviary
+    Banquet Chamber
+    Barracks
+    Bath
+    Bed Chamber
+    Bridge
+    Catacomb
+    Cave
+    Cavern
+    Cell
+    Chapel
+    Charnel House
+    Chasm
+    Cistern
+    Common room
+    Conjuring Chamber
+    Corridor
+    Council Chamber
+    Court
+    Crypt
+    Demesne
+    Den
+    Divination Chamber
+    Dock
+    Domain
+    Fane
+    Fissure
+    Forge
+    Fountain
+    Foyer
+    Gallery
+    Garden
+    Gate
+    Great Hall
+    Grotto
+    Guardroom
+    Hallway
+    Harem
+    Kennels
+    Kitchen
+    Laboratory
+    Labyrinth
+    Lair
+    Lake
+    Level
+    Library
+    Maze
+    Mine
+    Necropolis
+    Nest
+    Nursery
+    Observatory
+    Office
+    Oubliette
+    Pantry
+    Passage
+    Path
+    Pit
+    Pool
+    Portal
+    Prison
+    Privy
+    Refuge
+    Reliquary
+    Rift
+    River
+    Road
+    Scriptorium
+    Secret [rooms]
+    Sepulchre
+    Shaft
+    Shrine
+    Smithy
+    Stable
+    Stairway
+    Statue
+    Storage Chamber
+    Sublevel
+    Temple
+    Theatre
+    Throne room
+    Tomb
+    Torture chamber
+    Training Room
+    Treasury
+    Trophy Room
+    Undercrypt
+    Vault
+    Way
+    Well
+    Workshop Dominion
+
+
+
+","imports":["fl-treasure-generator"],"name":"fl-dungeon-names"},{"modelText":"// Note: Text that comes after \"//\" is ignored, which allows you to write la (like the one you're reading now!)
+dice      = {import:dice-plugin}
+
+output
+    carried: [c=carriedfind.consumableList], <p>lair: [simple]<p>[valuable]<p>[precious]
+
+carriedfind
+    nothing else of interest^20
+    {a} [simplecarried]^20
+    {a} [valuablecarried]^10
+    {a} [presciouscarried]
+    [c=carriedfind.consumableList,c.selectMany(2).joinItems(\" and \")]^0.5
+        
+lairfind
+    Nothing
+    {a}[simple]^20
+    {a}[valuable]^10
+    {a}[prescious]
+    [lairFind.selectMany(2).joinItems(\" , \")]^0.5
+
+simplecarried
+    {pouch|purse}  with [dice(\"2d6\")] Copper coins^13
+      weight=\"\"
+    Bone Statuette worth [dice(\"2d6\")] copper 
+      weight=Light
+    Piece of Amber worth [dice(\"2d6\")] copper 
+      weight=Tiny
+    Bronze Belt Buckle worth [dice(\"2d6\")] copper
+      weight=Light
+    Bone Dice worth [dice(\"2d6\")] copper
+      weight=Tiny
+    Bone Whistle worth [dice(\"2d6\")] copper 
+      weight=Light
+    Bronze Bracelet worth [dice(\"3d6\")] copper
+      weight=Light
+    Copper Ring worth [dice(\"3d6\")] copper
+      weight=Tiny
+    Bronze Necklace worth [dice(\"3d6\")] copper
+      weight=Tiny
+    Bronze Medallion worth [dice(\"3d6\")] copper
+      weight=Tiny
+    a pair of Good Boots worth [dice(\"3d6\")] copper
+      weight=Normal
+    a pair of Good Gloves worth [dice(\"3d6\")] copper
+      weight=Light
+    Bronze Drinking Horn worth [dice(\"4d6\")] copper
+      weight=Normal
+    Lantern worth [dice(\"4d6\")] copper
+      weight=Light
+    Bronze Dagger worth [dice(\"4d6\")] copper
+      weight=Light
+    Bronze Shield worth [dice(\"4d6\")] copper
+      weight=Normal
+    Bronze Earring worth [dice(\"4d6\")] copper
+      weight=Tiny
+    One-handed Bronze Weapon worth [dice(\"1d6\")] silver
+      weight=Normal
+    Book worth [dice(\"6d6\")] copper
+      weight=Normal
+    Simple Gemstone worth [dice(\"6d6\")] copper
+      weight=Tiny
+    Bronze Statuette worth [dice(\"6d6\")] copper
+      weight=Light
+    Bronze Helmet worth [dice(\"1d6\")] silver
+      weight=Normal
+    Copper Headband worth [dice(\"1d6\")] silver
+      weight=Normal
+    Copper Crown worth [dice(\"2d6\")] silver
+      weight=Normal
+        
+
+valuablecarried
+    {pouch|purse} with [dice(\"3d6\")] silver coins^13
+      weight=\"\"
+    Silver Box worth [dice(\"2d6\")] silver
+      weight=Light
+    Pearl worth [dice(\"2d6\")] silver
+      weight=Tiny
+    Silver Bowl worth [dice(\"2d6\")] silver
+      weight=Light
+    Painting worth [dice(\"2d6\")] silver
+      weight=Light
+    Silver Mug worth [dice(\"2d6\")] silver
+      weight=Light
+    Silver Bracelet worth [dice(\"3d6\")] silver
+      weight=Light
+    Silver Ring worth [dice(\"3d6\")] silver
+      weight=Tiny
+    Silver Necklace worth [dice(\"3d6\")] silver
+      weight=Tiny
+    Well-Tailored Cloak with Silver Buckle worth [dice(\"3d6\")] silver
+      weight=Normal
+    Elegant Boots worth [dice(\"3d6\")] silver
+      weight=Normal
+    pair of Calf Skin Gloves worth [dice(\"3d6\")] silver
+      weight=Light
+    Drinking Horn with Silver Details worth [dice(\"4d6\")] silver
+      weight=Normal
+    fancy Embroidery worth [dice(\"4d6\")] silver
+      weight=Normal
+    Elegant Helmet worth [dice(\"4d6\")] silver
+      weight=Light
+    Elegant Large Shield worth [dice(\"4d6\")] silver
+      weight=Normal
+    Silver Earring worth [dice(\"4d6\")] silver
+      weight=Tiny
+    Elegant One-handed Weapon worth [dice(\"4d6\")] silver
+      weight=Normal
+    Rare Book worth [dice(\"5d6\")] silver
+      weight=Normal
+    Gemstone worth [dice(\"6d6\")] silver
+      weight=Tiny
+    Silver Statuette worth [dice(\"7d6\")] silver 
+      weight=Normal
+    Silver Helmet worth [dice(\"8d6\")] silver
+      weight=Normal
+    Silver Headband worth [dice(\"9d6\")] silver 
+      weight=Light
+    Silver Crown worth [dice(\"1d6\")] gold
+      weight=Normal
+
+presciouscarried
+    {pouch|purse} with [dice(\"1d6\")] gold coins^13
+    Gold Statuette worth [dice(\"5d6\")] silver 
+      weight=Light
+    pouch containing Pearls worth [dice(\"5d6\")] silver
+      weight=Tiny
+    Golden Bowl worth [dice(\"5d6\")] silver
+      weight=Light
+    Gold Amulet worth [dice(\"5d6\")] silver
+      weight=Tiny
+    Gold Mug 5D6 worth [dice(\"5d6\")] silver 
+      weight=Light
+    Gold Bracelet worth [dice(\"5d6\")] silver
+      weight=Tiny
+    Gold Ring worth [dice(\"6d6\")] silver
+      weight=Tiny
+    Gold Necklace worth [dice(\"6d6\")] silver 
+      weight=Tiny
+    Fur Cloak with Expensive Embroidery and Golden Buckle worth [dice(\"6d6\")] silver
+      weight=Normal
+    Dragonscale Boots worth [dice(\"6d6\")] silver
+      weight=Light
+    Velvet Gloves worth [dice(\"6d6\")] silver
+      weight=Light
+    Drinking Horn with Gold Details worth [dice(\"1d6\")] gold
+      weight=Light
+    Golden Embroidery worth [dice(\"1d6\")] gold
+      weight=Normal
+    Golden Helmet worth [dice(\"2d6\")] gold
+      weight=Light
+    Golden Large Shield worth [dice(\"2d6\")] gold
+      weight=Normal
+    Golden Armor worth [dice(\"4d6\")] gold
+      weight=Heavy
+    Golden Weapon worth [dice(\"2d6\")] gold
+      weight=Normal
+    Unique Book worth [dice(\"2d6\")] gold
+      weight=Normal
+    Rare Gemstone worth [dice(\"2d6\")] gold
+      weight=Tiny
+    Ring with Gemstone worth [dice(\"2d6\")] gold
+      weight=Tiny
+    Scepter worth [dice(\"3d6\")] gold
+      weight=Light
+    Golden Crown worth [dice(\"4d6\")] gold
+      weight=Light
+    Special Artifact ([artifact] (see page 128))
+      weight=Special
+
+
+
+
+
+
+simple
+    {pouch|purse|box} with [dice(\"4d6\")] copper coins^19
+      weight = Tiny
+    Copper {Bowl|Mug} worth [dice(\"3d6\")] copper^2
+      weight = Light
+    Copper Plate worth [dice(\"3d6\")] copper
+    {Knapsack|Waterskin} worth [dice(\"3d6\")] copper^2
+      weight = Light
+    Belt Buckle worth [dice(\"3d6\")] copper
+      weight = Light
+    {Hammer|Saw} worth [dice(\"3d6\")] copper^2
+    Short Sword worth [dice(\"1d6\")] silver
+    Small Shield worth [dice(\"4d6\")] copper
+      weight = light
+    Axe worth [dice(\"4d6\")] copper
+    Short Spear worth [dice(\"5d6\")] copper
+    Bronze Pot worth [dice(\"5d6\")] copper
+      weight = Heavy
+    Bronze Lantern worth [dice(\"5d6\")] copper
+      weight = Light
+    Gaming Board worth [dice(\"5d6\")] copper
+    Chest worth [dice(\"5d6\")] copper
+      weight = Heavy
+    Lute worth [dice(\"5d6\")] copper
+    suit of Bronze Armor worth [dice(\"1d6\")] gold
+      weight = Heavy
+    Bronze Mirror worth [dice(\"2d6\")] silver
+      weight = 3
+    Palanquin with Copper Details worth [dice(\"3d6\")] silver
+      weight = 4
+    Bronze Sarcophagus worth [dice(\"4d6\")] silver
+      weight = 4
+    Bronze Altar worth [dice(\"5d6\")] silver //([Altar])
+      weight = 5
+    Bronze Statue worth [dice(\"6d6\")] silver
+      weight = 6
+        
+equipment
+    Grappling Hook 
+    Tallow Candles [ResourceDie]
+    Rope, 10 Meters
+    Oil Lamp  [ResourceDie]
+    Torches  
+    Waterskin {(empty)|(contaminated)|[ResourceDie]}
+    Bandages [ResourceDie] 
+    Lamp Oil [ResourceDie]
+    Ink and Quill
+    Parchment  
+    Blanket  
+    Sleeping Fur 
+    Flint and Steel
+    Lockpicks  
+    Field Rations [ResourceDie]
+    A {box|pouch|bottle|vial|tube|bundle|jar|mug|hollow book} with medicine //[Drug]^0.5
+    [message.sentenceCase]
+    [rumor.tools.sentenceCase]^4
+    [key]
+
+ResourceDie
+    ({6^4|8^3|10^2|12}D)
+
+valuable
+    {pouch|purse|box} with [dice(\"4d6\")] silver coins^19
+      weight = Tiny
+    Silver Medallion worth [dice(\"3d6\")] silver
+      weight=Light
+    Small Silver Chest worth [dice(\"3d6\")] silver
+      weight=Light
+    Painting worth [dice(\"3d6\")] silver //[Depicting]
+      weight=Heavy
+    Glass Bowl worth [dice(\"3d6\")] silver
+      weight=Light
+    Beautiful Vase worth [dice(\"3d6\")] silver
+      weight=Light
+    Silver Brooch worth [dice(\"4d6\")] silver
+      weight=Tiny
+    Silver Comb worth [dice(\"4d6\")] silver
+      weight=Light
+    Silver Box worth [dice(\"4d6\")] silver
+      weight=Light
+    Silver Amulet worth [dice(\"4d6\")] silver
+      weight=Light
+    Silver Goblet worth [dice(\"4d6\")] silver
+      weight=Light
+    Mask worth [dice(\"4d6\")] silver
+      weight=Light
+    Bottle of Expensive Wine worth [dice(\"5d6\")] silver
+      weight=Normal
+    Fine Hat worth [dice(\"5d6\")] silver
+      weight=Light
+    Tapestry worth [dice(\"5d6\")] silver //[Depicting]
+      weight=Heavy
+    Cabinet worth [dice(\"5d6\")] silver
+      weight=4
+    Carpet worth [dice(\"5d6\")] silver
+      weight=Heavy
+    Armchair worth [dice(\"5d6\")] silver
+      weight=3
+    Candelabrum worth [dice(\"6d6\")] silver
+      weight=Heavy
+    Silver Mirror worth [dice(\"6d6\")] silver
+      weight=4
+    Palanquin with Silver Details worth [dice(\"7d6\")] silver
+      weight=5
+    Silver Sarcophagus worth [dice(\"8d6\")] silver
+      weight=6
+    Silver Altar worth [dice(\"9d6\")] silver //([Altar])
+      weight=6
+    Silver Statue worth [dice(\"1d6\")] gold
+      weight=6
+        
+precious
+    {pouch|purse|box} with [dice(\"1d5+1\")] gold coins^19
+      weight = Tiny
+    Golden Necklace worth [dice(\"2d6\")] gold
+      weight=Light
+    Beautiful Tapestry worth [dice(\"2d6\")] gold
+      weight=3
+    Embroided Carpet worth [dice(\"2d6\")] gold
+      weight=4
+    Gold Goblet worth [dice(\"2d6\")] gold
+      weight=Light
+    Painting with Golden Frame worth [dice(\"2d6\")] gold  //[depicting]
+      weight=3
+    Golden Tray worth [dice(\"3d6\")] gold
+      weight=Heavy
+    Golden Statue of a Child worth [dice(\"3d6\")] gold
+      weight=4
+    Golden Diadem worth [dice(\"3d6\")] gold
+      weight=Light
+    Ceiling Candelabrum worth [dice(\"3d6\")] gold
+      weight=3
+    Golden Armchair worth [dice(\"3d6\")] gold
+      weight=3
+    Golden Cradle worth [dice(\"3d6\")] gold
+      weight=3
+    Necklace with Gemstones worth [dice(\"4d6\")] gold
+      weight=Light
+    Scepter with Gemstones worth [dice(\"4d6\")] gold
+      weight=Light
+    Crown with Gemstones worth [dice(\"4d6\")] gold
+      weight=Light
+    Beautiful Desk worth [dice(\"4d6\")] gold
+      weight=4
+    Pulpit worth [dice(\"4d6\")] gold
+      weight=4
+    Golden Table worth [dice(\"4d6\")] gold
+      weight=5
+    Large Rare Gemstone worth [dice(\"2d6\")] gold
+      weight=Light
+    Golden Mirror worth [dice(\"5d6\")] gold
+      weight=5
+    Golden Palanquin worth [dice(\"5d6\")] gold
+      weight=6
+    Golden Sarcophagus worth [dice(\"6d6\")] gold
+      weight=7
+    Golden Statue worth [dice(\"7d6\")] gold
+      weight=8
+    [artifact]
+      weight=page 128
+        
+
+artifact
+  Arrows of the Fire Wyrm
+  Asina
+  Barkhyde
+  Carskenfoot’s Boots
+  Clay’s Rosary
+  Feroxa’s Claws
+  Ivelde
+  Menkaura’s Tooth
+  Phantom Daggers
+  Queen Agatha’s Twin Tablets
+  Scarnesbane
+  The Nightwalker’s Hourglass
+  The Tezaur
+  Tvedra’s Twin Rings
+  Voller’s Helmet
+  Wail’s Horn
+  Well of Tears
+  Wyrm’s Key
+  //[weapon.MagicalWeapon]^2
+        
+oddity
+    Some finds are weirder than others, you can choose to use the table below whenever
+    it fits the story or roll a die for each find, a roll of 5+ means that the find has an
+    oddity.
+    11-12 Smells bad -1 MANIPULATE
+    13-14 Someone has painted a strawman on it
+    15-16 Dirty -
+    21-22 Bloodstained -
+    22-23 Burnt Halved value
+    24-25 Bitemarks Halved value
+    26-31 Bent Halved value
+    32-33 Scratched Halved value
+    34-35 Actually a toy Halved value
+    36-41 Weird inscriptions -
+    42 Contains the soul of a former owner. Speaks to the adventurer during the night. Gain condition SLEEPY
+    43-44 Excentric shape -
+    45-46 Heavily perfumed -
+    51-52 Unaturally large Double weight
+    53-54 Miniature version Halved weight
+    55-56 Forgery After the item is sold roll a die: 4+ means that the forgery is discovered and that the adventurer is hunted.
+    62-63 Marked with the sigil of the Rust brothers After the item is sold roll a die: 5+ means that a rust brother or an iron guard finds out about it and starts looking for the adventurer.
+    63 Elven heirloom Double value for an elf
+    64 Dwarven heirloom Double value for a dwarf
+    65 Haunted by unhappy ghost Roll a die everytime the adventurer strikes camp, a six means that the ghost manifests.
+    66 Part of dragon’s treasure The find used to belong to a dragon’s personal treasure hoard. Roll D66 everytime the adventurer strikes camp on a roll of 66 the dragon has located the treasure and is very angry.
+","imports":["dice-plugin"],"name":"fl-treasure-generator"},{"modelText":"// Tip: Highlight multiple lines and press Tab or Shift+Tab
+//      to indent and un-indent them all an once  \\( ﾟヮﾟ)/
+
+dice = {import:dice-plugin}
+name = {import:fl-demon-name}
+weapon = {import:my-weapons}
+
+output
+    <h1>[a=ability.selectOne]                         [d=demon.selectOne] Demon</h1> <h3>[name.output]</h3> [stats] <p> [a.bonus] [abilities]^5
+    <h1>[al = ability.consumableList, a=al.selectOne] [ea=al.selectOne]  [d=demon.selectOne] Demon</h1> <h3>[name.output]</h3> [stats] <p> [a.bonus] <p> [ea.bonus] [abilities]^1
+
+abilities
+    </center><p> [el = entity.consumableList, sal = special.consumableList, attacks] [specialAbilities] <p> [weaknesses] <p> [listSkills]
+
+specialAbilities
+    <p> [e=el.selectOne] is [sal.selectOne].^2 
+    <p> [e=el.selectOne] is [sal.selectOne]. [e=el.selectOne] is [sal.selectOne].
+
+special
+    immune to weapons and only unarmed attacks and spells can hurt it^4
+    immune to fire and cannot be hurt by fire^4
+    immune to cold which has no effect on it^3
+    lightning fast. <i>(Draws two initiative cards and gets to act on both turns)</i>^3
+    immune to physical attacks which do not affect it^2
+    a mental parasite. By touching its victim, the demon can take control over it. This works as the PUPPETEER spell with Power Level 3.^2
+    regenerating and regains D3 Strength every round^2
+    paralyzing. A victim touched by the demon is affected by a paralyzing poison with Potency [dice(\"1d6+5\")]^2
+    poisonous. A victim touched by the demon is affected by a lethal poison with Potency [dice(\"1d6+5\")]^2
+    shapeshifter and can change shape into any creature. The copy is perfect except for one small detail (such as {eye color|smell|markings|tattoos|mannerism})^3
+    immaterial and can move through solid matter^2
+    floating and does not touch the ground. It can float up to 10 meters from the ground^2
+    teleporting around and can instantly teleport to anywhere within LONG range every other round^2
+
+weaknesses
+    [e=el.selectOne] {{is|can be} {harmed|hurt|injured|wounded} by|is susceptible to|is {fearful|afraid} of|{fears|abhors|avoids}} [weakness].
+
+weakness
+    water and suffers D3 damage when splashed by water^3
+    fire and takes double damage from fire^2
+    cold and takes double damage from cold^2
+    light and must move away from strong light sources. <i>(If not possible, takes D3 damage from a minor light, source (such as a torch) and D6 damage from a major light source (such as the sun) every round)</i>^3
+    silver and takes double damage from weapons made of silver^3
+    gold and takes double damage from weapons made of gold^2
+    children andannot stand the sight of children and must move away from them. <i>If unable to do so, the demon takes D3 damage every round</i>^2
+    elves and cannot stand the sight of elves and must move away from them. <i>If unable to do so, the demon takes D3 damage every round</i>^2
+    dwarves and cannot stand the sight of dwarves and must move away from them. <i>If unable to do so, the demon takes D3 damage every round</i>^2
+    holy symbols and cannot stand the sight of holy symbols and must move away from them. <i>If unable to do so, the demon takes D3 damage every round</i>^5
+    music and cannot stand the sound of music or melodies and must move away from them. <i>If unable to do so, the demon takes D3 damage every round</i>^4
+    soil and takes D3 damage from contact with soil^3
+    wood and takes double damage from weapons made of wood^2
+
+listSkills
+    <b>Skills:</b> [sl = skill.consumableList, extraSkills = 5, s=sl.selectOne] {1-5} [addSkill]
+        
+addSkill
+    [s = sl.selectOne, extraSkills > 0 ? (extraSkills = extraSkills - 1, \"\"+addSkill) : \"\"]
+    [s = sl.selectOne, extraSkills > 0 ? (extraSkills = extraSkills - 1, \", \"+s+\" \"+dice(\"1d5\")+addSkill) : \"\"]^5
+
+skill
+    Scout
+    Sneak
+    Move
+    Lore
+    Insight
+    Manipulation
+        
+stats
+    <h2>S: [d.strength] A: [d.agility] W: [d.wits] Armor:  [d.armor]</h2>
+
+attacks
+    <ol>[attackList = attack.consumableList, z=\"<h2>Attacks</h2>\"]  [bonusAttacks] [bonusAttacks]</ol>^30
+    <ol>[attackList = attack.consumableList, z=\"<h2>Attacks</h2>\"]  [bonusAttacks] [bonusAttacks] [bonusAttacks]</ol>^5
+    <ol>[attackList = attack.consumableList, z=\"<h2>Attacks</h2>\"]  [bonusAttacks] [bonusAttacks] [bonusAttacks] [bonusAttacks]</ol>
+
+bonusAttacks
+    <li>[at=attackList.selectOne] / D[at.base] / [at.damage] / [at.range]
+
+entity
+    It
+    This [description] [creature]
+    The [description] demon
+    This [a.lowerCase] [creature]
+
+description
+    {hideous|appalling|atrocious|awful|dreadful|frightful|ghastly|grisly|gruesome|horrendous|horrible|horrid|horrific|horrifying|lurid|macabre|monstrous|nightmare|nightmarish|shocking|terrible|terrific}
+
+creature
+    {spawn|Child of Mog|affront|out-worlder}
+        
+attack
+    Claws^5
+      base   = [dice(\"1d6+4\")]
+      damage = {Damage 1^2|Damage 2^3|Damage 3^1}
+      range  = Arm's length
+    Teeth^3
+      base   = [dice(\"1d6+5\")]
+      damage = {Damage 1^2|Damage 2^3|Damage 3^1}
+      range  = Arm's length
+    Horn^3
+      base   = [dice(\"1d6+6\")]
+      damage = {Damage 2^4|Damage 3^2}
+      range  = Arm's length
+    Tentacles^3
+      base   = [dice(\"1d6+4\")]
+      damage = {Damage 1^2|Damage 2 then GRABBLED^6}
+      range  = Near
+    Fire^3
+      base   = [dice(\"1d6+6\")]
+      damage = The victim continues to take damage every round until the fire is put out with a successful MOVE roll.
+      range  = Near
+    Cold^2
+      base   = [dice(\"1d6+5\")]
+      damage = The victim also instantly becomes COLD.
+      range  = Near
+    Roar^2
+      base   = 0
+      damage = Fear: strength D[dice(\"1d3+6\")]
+      range  = Near
+    Killing Gaze^2
+      base   = 0
+      damage = Fear: strength D[dice(\"1d6+5\")]
+      range  = Near
+    Heavy Weapon^4
+      base   = [dice(\"1d6+5\")]
+      damage = {[weapon.MagicalWeapon] {2-3}^6|Longsword|Two-handed sword|Heavy warhammer|Morningstar|Two-handed axe|Trident}
+      range  = Arm's length
+
+demon
+  Humanoid^10
+      strength = {4-9}        
+      agility=3       
+      wits=3      
+      empathy=3       
+      armor = {1-6}
+  Minotaur^2        
+      strength = {6-11}       
+      agility=3       
+      wits=3      
+      empathy=3       
+      armor = {1-6}
+  Goat^2        
+      strength = {4-9}        
+      agility=4       
+      wits=3      
+      empathy=3       
+      armor = {1-6}
+  Bear^2        
+      strength = {7-12}       
+      agility=3       
+      wits=3      
+      empathy=3       
+      armor = {1-6}
+  Snake^2       
+      strength = {5-10}       
+      agility=4       
+      wits=3      
+      empathy=3       
+      armor = {1-6}
+  Undead^2      
+      strength = {4-9}        
+      agility=3       
+      wits=3      
+      empathy=3       
+      armor = {1-6}
+  Spider^2      
+      strength = {6-11}       
+      agility=4       
+      wits=3      
+      empathy=3       
+      armor = {1-6}
+  Serpent^2     
+      strength = {4-9}        
+      agility=4       
+      wits=3      
+      empathy=3       
+      armor = {1-6}
+  Wolf^2        
+      strength = {5-10}       
+      agility=4       
+      wits=3      
+      empathy=3       
+      armor = {1-6}
+    Insect^2      
+      strength = {3-8}        
+      agility=3       
+      wits=3      
+      empathy=3       
+      armor = {1-6}
+    Wolfkin^2     
+      strength = {5-10}       
+      agility=4       
+      wits=3      
+      empathy=3       
+      armor = {1-6}
+    Giant Crab^2      
+      strength = {6-11}       
+      agility=2       
+      wits=3      
+      empathy=3       
+      armor = {4-9}
+    Giant Toad^1      
+      strength = {6-11}       
+      agility=2       
+      wits=3      
+      empathy=3       
+      armor = {1-6}
+    Squid^1       
+      strength = {5-10}       
+      agility=2       
+      wits=3      
+      empathy=3       
+      armor = {1-6}
+    Fog^1     
+      strength = {4-9}        
+      agility=3       
+      wits=3      
+      empathy=3      
+      armor = 0
+    Shadow^1      
+      strength = {4-9}        
+      agility=3       
+      wits=3      
+      empathy=3       
+      armor = 0
+
+ability
+    Stony^2
+      bonus = It has stoneskin (Armor Rating +6)
+    Giant^2
+      bonus = It is gigantic (Strength +[dice(\"2d6\")])
+    Burning^2
+      bonus = It has a burning body (Immune to fire.)
+    Ice Encrusted^2
+      bonus = It is made of ice (Armor Rating +2)
+    Mummified^2
+      bonus = It is mummified (Fear attack D[dice(\"1d6+5\")])
+    Slimy^2
+      bonus = It is slimy (Can move through very small openings.)
+    Hypnotic^2
+      bonus = It is mesmerizing (+2 Manipulation)
+    Virulent^2
+      bonus = It is covered by puss and sores (Infectious Touch, Virulence D[dice(\"1d6+5\")])
+    Feathered^2
+      bonus = It has feathers (Armor Rating +2)
+    Winged^3
+      bonus = It has wings (Can fly, Movement Rating 3)
+    Shining^2
+      bonus = It is filled by other-worldly light (Fear attack D[dice(\"1d6+5\")])
+    Vine Covered
+      bonus = It is covered in vines (Armor Rating +3)
+    Transparent^3
+      bonus = It is transparent (All attacks get a –3 penalty)
+    All-seeing
+      bonus = It is covered by eyes (Draw one extra initiative card, discard the worst one.)
+    Blind
+      bonus = It has no eyes (Draw one extra initiative card, discard the best one.)
+","imports":["dice-plugin","fl-demon-name","my-weapons"],"name":"fl-demon"},{"modelText":"// Note: Text that comes after \"//\" is ignored, which allows you to write la (like the one you're reading now!)
+
+getHome={import:fl-village-names}
+
+output
+    [k=kin.selectOne] [g=gender.selectOne]<p>[n=name[k][g].consumableList]
+
+kin
+    Dwarf
+    Elf
+    Human
+      Aslene
+      Alderlander
+      Ailander
+    Half_Elf^3000
+    Goblin
+    Orc
+    Halfling
+    Wolfkin
+        
+gender
+    Male
+    Female
+
+name
+    Dwarf
+      Male
+          Aldal
+          Anthic
+          Anvar
+          Arak
+          Arathen
+          Azthur
+          Bazstili
+          Belgal
+          Bofrim
+          Bolthen
+          Daim
+          Delkas
+          Delthur
+          Dordin
+          Durrim
+          Dwothen
+          Elgal
+          Elir
+          Elrak
+          Erivar
+          Falgar
+          Fallthur
+          Fargrim
+          Garbere
+          Gargath
+          Gillon
+          Gloridin
+          Helias
+          Jarel
+          Kilbir
+          Morsun
+          Nalias
+          Nalrid
+          Nallon
+          Nurlon
+          Orkas
+          Ovlon
+          Reigen
+          Reithen
+          Thoric
+          Thorkral
+          Thrent
+          Torroc
+          Urbere
+          Valdin
+          Valric
+          Valrim
+          Whurel
+          Whurkas
+          Yurthic
+          [name.Dwarf.Male] son of [name.Dwarf.Clan]^5
+      Female
+          Aldrid
+          Alippa
+          Anrra
+          Ara
+          Armora
+          Balbryn
+          Baldrid
+          Barihild
+          Baritia
+          Boldis
+          Dalastra
+          Delana
+          Duerbryn
+          Durithar
+          Durserd
+          Dwgunn
+          Dwolydd
+          Elren
+          Eriydd
+          Erserd
+          Gariess
+          Gimhild
+          Glandris
+          Glorgunn
+          Harbo
+          Jarani
+          Kilisi
+          Mabryn
+          Mardrid
+          Marili
+          Morild
+          Morion
+          Nalthra
+          Norren
+          Olalsia
+          Ovdris
+          Reibryn
+          Reigunn
+          Therani
+          Therya
+          Thraren
+          Torippa
+          Torlin
+          Urnihild
+          Valisi
+          Vonya
+          Werola
+          Werren
+          Whurya
+          Yurdis
+          [name.Dwarf.Female] daughter of [name.Dwarf.Clan]^5
+      Clan
+          Anack
+          Araral
+          Arduum
+          Azcral
+          Belgak
+          Boferg
+          Dalnore
+          Dargyth
+          Darzak
+          Dellode
+          Dolhak
+          Duerral
+          Duristen
+          Dwgyth
+          Dwojyr
+          Elduum
+          Erdukr
+          Farnoen
+          Farsten
+          Garsten
+          Gimsten
+          Glanhak
+          Glorijyr
+          Hargyth
+          Harmek
+          Helmalk
+          Jarbek
+          Kilak
+          Kildann
+          Madann
+          Margyth
+          Moribek
+          Nalmek
+          Noratek
+          Nuralagg
+          Olgyth
+          Ovlag
+          Reilynd
+          Thergak
+          Thralagg
+          Torevin
+          Torsten
+          Urnivin
+          Urzak
+          Valzak
+          Vonmalk
+          Weraln
+          Werazak
+          Whurfik
+          Yurnoe
+    Elf
+      Male
+          Ahualhar
+          Allamquis
+          Ariquis
+          Arlamen
+          Arndul
+          Azakial
+          Baelbraren
+          Caellynir
+          Caldrimther
+          Cyiatlar
+          Dhoselean
+          Dreaemar
+          Dulannis
+          Eirdretril
+          Evtrillon
+          Feradul
+          Firiathar
+          Fislasvin
+          Gaelendul
+          Havainim
+          Hayavel
+          Huroian
+          Ilasual
+          Kanbrar
+          Kanlanvain
+          Kenarokash
+          Kytenian
+          Laevarthal
+          Malonthar
+          Myvainir
+          Naitheror
+          Nuythel
+          Nyastrosan
+          Pyvanel
+          Raerquis
+          Rebrarnal
+          Rennesar
+          Rualanthal
+          Rumathlyn
+          Sehdethsal
+          Shahelvain
+          Simlartril
+          Solalith
+          Tholamspar
+          Tydethruil
+          Uthninthal
+          Vilimzair
+          Vonavelwyn
+          Zainnis
+          Zylamlyn
+          [name.Elf.Male] [name.Elf.Family]^5
+      Female
+          Aelliah
+          Aerrahdul
+          Affellys
+          Allyshe
+          Amallaemar
+          Amethal
+          Arnallae
+          Baelulam
+          Besliela
+          Bessparela
+          Caellirran
+          Callarreth
+          Coravinil
+          Cyanae
+          Drearalas
+          Duluali
+          Eilliaana
+          Eiraruil
+          Evitaesti
+          Feranae
+          Firatris
+          Gararalirr
+          Garlualae
+          Huaira
+          Janaela
+          Kananishor
+          Kauanna
+          Koehitae
+          Lamahs
+          Luestiss
+          Maielulam
+          Malellonal
+          Naillae
+          Nainesti
+          Nuluani
+          Nyazairon
+          Pyavinis
+          Raereen
+          Rideth
+          Rumumiline
+          Sehihallae
+          Simiselihn
+          Sylahel
+          Tahlys
+          Thasahion
+          Thororon
+          Tyelalae
+          Uthithar
+          Voniellihn
+          Willithar
+          [name.Elf.Female] [name.Elf.Family]^5
+      Family
+          Aldarrae
+          Amalamrae
+          Aralivar
+          Azariarn
+          Baelaroarn
+          Besvaratyn
+          Calothond
+          Cyelrae
+          Cyothtyrr
+          Dhodararn
+          Dreaveltyn
+          Eirninyrn
+          Evdrearn
+          Firisond
+          Fisfelond
+          Garothtyn
+          Hafeltyrr
+          Kanaeltyn
+          Kaniateir
+          Kendrimeir
+          Koehelvar
+          Lamsaltyrr
+          Malninrae
+          Myloneir
+          Naiheltyrr
+          Nairailinn
+          Natityrr
+          Nuninrae
+          Nythastyn
+          Pyloninn
+          Pyvinrae
+          Raerrethrae
+          Renriainn
+          Rideanrae
+          Ruaiattyn
+          Rumnaleir
+          Rumthasvar
+          Sehiateir
+          Sehiatyn
+          Shakirae
+          Simquetyn
+          Sylbrarvar
+          Tahlevarinn
+          Thaamatyn
+          Thoaeraond
+          Thothasvar
+          Tyvannaond
+          Uthliavar
+          Vonothvar
+          Wilmatyn
+    Halfling
+      Male
+          Antal
+          Arvolen
+          Bariseedric
+          Boram
+          Brandolur
+          Breneedal
+          Cade
+          Caleeped
+          Chenofur
+          Cyrrour
+          Daireerill
+          Daleecal
+          Dereekep
+          Dricolen
+          Eereelur
+          Esselour
+          Fosco
+          Furogren
+          Galanopee
+          Geneegrn
+          Grenobren
+          Illioper
+          Indyere
+          Issodair
+          Jamir
+          Kaleb
+          Kaleerill
+          Kepeedair
+          Lem
+          Lenokal
+          Linodal
+          Liopenel
+          Llaleeped
+          Lurodair
+          Melobren
+          Miro
+          Opeelur
+          Osborn
+          Pedour
+          Penelor
+          Peryoli
+          Reenor
+          Rillolen
+          Roylochen
+          Sheelocal
+          Surnak
+          Theaeereen
+          Urobrand
+          Worteefur
+          Yonochen
+          [name.Halfling.Male] son of [name.Halfling.Male]^5
+          [name.Halfling.Male] of [getHome.output]^5
+      [name.Halfling.Male] [name.Family]^2
+      Female
+          Amaryllis
+          Amranth
+          Anafa
+          Arveelenn
+          Barisfura
+          Brandomell
+          Breneedall
+          Calopedd
+          Cheneea
+          Cora
+          Cyrreedrica
+          Dairoarva
+          Daleeurra
+          Dereeissa
+          Driceekall
+          Eereoa
+          Esselogenn
+          Etune
+          Furogenn
+          Galaneefurr
+          Genodaira
+          Greneelurr
+          Ienomela
+          Illioroyla
+          Indyoyonn
+          Isseekina
+          Kaloyonn
+          Kepodaira
+          Lieemell
+          Lineeyon
+          Llaleeogenn
+          Lureekepa
+          Marra
+          Meleedrica
+          Merla
+          Opeedaira
+          Pedeeyonn
+          Peneleedala
+          Perygenn
+          Reenee
+          Rilleelia
+          Rillka
+          Roylla
+          Seraphina
+          Sheeleeurr
+          Theaocall
+          Ureerrann
+          Verna
+          Wortofurr
+          Yoneedall
+          [name.Halfling.Female]  daughter of [name.Halfling.Female]^5
+          [name.Halfling.Female] of [getHome.output]^5
+          [name.Halfling.Female] [names.Halfling.Family]^2
+      Family
+          Bigbelly
+          Brandybottle
+          Brookside
+          Cloakshadow
+          Deepburrow
+          Earthcloak
+          Farwanderer
+          Faststep
+          Giantbasher
+          Goodbarrel
+          Goodwater
+          Grasscaller
+          Greenbottle
+          Greenthunb
+          Gurglebrook
+          Hairyfoot
+          Highhill
+          Hilltop
+          Keenear
+          Lightfingers
+          Lightstep
+          Longhole
+          Longwanderer
+          Manyheart
+          Mooncaller
+          Nimblefoot
+          Overhill
+          Pinetrail
+          Puddifoot
+          Quickfingers
+          Quickstep
+          Shadecombe
+          Shadowfriend
+          Shadowstep
+          Sharpeye
+          Sharptongue
+          Shortstep
+          Silverleaf
+          Slycaller
+          Smallburrow
+          Tealeaf
+          Thorngaggle
+          Thornhill
+          Trollteaser
+          Underbough
+          Warmburrow
+          Warmheart
+          Warmhearth
+          Wildthorn
+          Woodbluff
+    Goblin
+    Male
+      Antal
+      Arvolen
+      Bariseedric
+      Boram
+      Brandolur
+      Breneedal
+      Cade
+      Caleeped
+      Chenofur
+      Cyrrour
+      Daireerill
+      Daleecal
+      Dereekep
+      Dricolen
+      Eereelur
+      Esselour
+      Fosco
+      Furogren
+      Galanopee
+      Geneegrn
+      Grenobren
+      Illioper
+      Indyere
+      Issodair
+      Jamir
+      Kaleb
+      Kaleerill
+      Kepeedair
+      Lem
+      Lenokal
+      Linodal
+      Liopenel
+      Llaleeped
+      Lurodair
+      Melobren
+      Miro
+      Opeelur
+      Osborn
+      Pedour
+      Penelor
+      Peryoli
+      Reenor
+      Rillolen
+      Roylochen
+      Sheelocal
+      Surnak
+      Theaeereen
+      Urobrand
+      Worteefur
+      Yonochen
+      [name.Goblin.Male] son of [name.Goblin.Male]^10
+      [name.Goblin.Male] of [getHome.output]^10
+          [name.Goblin.Male] [name.Orc.Nickname]^5
+          [name.Goblin.Male] [name.Goblin.Family]^2
+    Female
+      Amaryllis
+      Amranth
+      Anafa
+      Arveelenn
+      Barisfura
+      Brandomell
+      Breneedall
+      Calopedd
+      Cheneea
+      Cora
+      Cyrreedrica
+      Dairoarva
+      Daleeurra
+      Dereeissa
+      Driceekall
+      Eereoa
+      Esselogenn
+      Etune
+      Furogenn
+      Galaneefurr
+      Genodaira
+      Greneelurr
+      Ienomela
+      Illioroyla
+      Indyoyonn
+      Isseekina
+      Kaloyonn
+      Kepodaira
+      Lieemell
+      Lineeyon
+      Llaleeogenn
+      Lureekepa
+      Marra
+      Meleedrica
+      Merla
+      Opeedaira
+      Pedeeyonn
+      Peneleedala
+      Perygenn
+      Reenee
+      Rilleelia
+      Rillka
+      Roylla
+      Seraphina
+      Sheeleeurr
+      Theaocall
+      Ureerrann
+      Verna
+      Wortofurr
+      Yoneedall
+      [name.Goblin.Female] daughter of [name.Goblin.Female]^10
+      [name.Goblin.Female] of [getHome.output]^10
+      [name.Goblin.Female] [name.Orc.Nickname]^5
+          [name.Goblin.Female] [name.Goblin.Family]^2
+    Family
+      Bigbelly
+      Brandybottle
+      Brookside
+      Cloakshadow
+      Deepburrow
+      Earthcloak
+      Farwanderer
+      Faststep
+      Giantbasher
+      Goodbarrel
+      Goodwater
+      Grasscaller
+      Greenbottle
+      Greenthunb
+      Gurglebrook
+      Hairyfoot
+      Highhill
+      Hilltop
+      Keenear
+      Lightfingers
+      Lightstep
+      Longhole
+      Longwanderer
+      Manyheart
+      Mooncaller
+      Nimblefoot
+      Overhill
+      Pinetrail
+      Puddifoot
+      Quickfingers
+      Quickstep
+      Shadecombe
+      Shadowfriend
+      Shadowstep
+      Sharpeye
+      Sharptongue
+      Shortstep
+      Silverleaf
+      Slycaller
+      Smallburrow
+      Tealeaf
+      Thorngaggle
+      Thornhill
+      Trollteaser
+      Underbough
+      Warmburrow
+      Warmheart
+      Warmhearth
+      Wildthorn
+      Woodbluff
+    Orc
+      Male
+          Ausk
+          Borag
+          Darfu
+          Davor
+          Dench
+          Dreggor
+          Durgul
+          Ergoth
+          Errod
+          Feng
+          Frug
+          Gar
+          Gell
+          Gor
+          Haguk
+          Hakak
+          Henk
+          Hibub
+          Hogar
+          Holg
+          Ignag
+          Imsh
+          Keth
+          Kizziar
+          Krork
+          Makoa
+          Nargor
+          Nesteruk
+          Oggor
+          Pergu
+          Ratuz
+          Ront
+          Rugar
+          Shump
+          Silug
+          Sog
+          Thag
+          Thokk 
+          Torgan
+          Trilug
+          Tsadok
+          Ugbog
+          Urulg
+          Uzfug
+          Vagan
+          Vidush
+          Vrung
+          Vuugar
+          Wort
+          Yahg
+          [name.Orc.Male] [name.Orc.Nickname]^5
+      Female
+          Baggi
+          Borish
+          Canan
+          Darfish
+          Davga
+          Dregka
+          Drogheda
+          Durga
+          Emen
+          Engong
+          Ergi
+          Ergoka
+          Fruen
+          Gargi
+          Goruza
+          Hagka
+          Hibta
+          Hoga
+          Igga
+          Ignen
+          Kroran
+          Makish 
+          Myev
+          Mzon
+          Narka
+          Narlen
+          Neega
+          Ogan
+          Ovak
+          Ownka
+          Pergka
+          Perork
+          Raton
+          Ronzon
+          Shautha
+          Shurish
+          Tevaga
+          Torka
+          Trilgi
+          Uglen
+          Urutha
+          Uzlen
+          Vagtha
+          Vidlen
+          Vidran
+          Vola
+          Volen
+          Vruneda
+          Yahzon
+          Zeljka
+          [name.Orc.Female] [name.Orc.Nickname]^5
+      Nickname
+          Axe‐Ripper
+          Bane
+          Basher
+          Beast
+          Berserk
+          Blood‐Drinker
+          Blood‐Eye
+          Bloodied Tusk
+          Bloody‐Whip
+          Bone‐Breaker
+          Crusher
+          Deadeye
+          Destroyer
+          Doom‐Hammer
+          Earless
+          Elfslayer
+          Eye‐Gouger
+          Fearless
+          Ferocious
+          Fetid Breath
+          Flayer
+          Jaw‐Smasher
+          Life‐Taker
+          Mad
+          Merciless
+          Mighty
+          Mutilator 
+          Pitiless
+          Rampant
+          Rash
+          Ripper
+          Shadowed
+          Skull‐Crusher
+          Skull‐Splitter
+          Slasher
+          Slayer
+          Slicer
+          Smasher
+          Splinter‐Shield
+          Stabber
+          Strong
+          Strong‐Arm
+          Swift‐Strike
+          Tear‐Maker
+          Terrifying
+          Terror
+          Throat‐Cutter
+          Thumper
+          Ugly
+          Widow‐Maker
+    Wolfkin
+      Male
+          Addabar
+          Arumabaer
+          Arumelen
+          Baeravan
+          Baeredal
+          Baraeaus
+          Baredal
+          Caladavar
+          Caladeaus
+          Chikajan
+          Daladin
+          Dalaneb
+          Dinagar
+          Dinejan
+          Ennafaer
+          Enneras
+          Erfael
+          Erfejan
+          Faeradin
+          Faerevar
+          Fenahed
+          Flanepin
+          Gaeratikk
+          Gaeredal
+          Garewann
+          Hedawann
+          Herlefaer
+          Ienarum
+          Janel
+          Kaerawed
+          Leneras
+          Lunapall
+          Mikkegar
+          Nebawed
+          Oaenewann
+          Owakaer
+          Palledal
+          Pinafen
+          Raeradd
+          Raereskor
+          Rasal
+          Rasedal
+          Segevan
+          Skorafen
+          Tikkedin
+          Uranadal
+          Urdevan
+          Vanahed
+          Wannadin
+          Wededal
+          [name.Wolfkin.Male] son of [name.Wolfkin.Family]^5
+      Female
+          Addearuma
+          Arumalenae
+          Arumebara
+          Baeralunae
+          Baereluna
+          Baranna
+          Barelunae
+          Caladal
+          Caladerasae
+          Chikafaera
+          Daledalae
+          Dalefena
+          Dinajana
+          Dinaweda
+          Enneal
+          Ennerasae
+          Erfadina
+          Erfanna
+          Faereaera
+          Faerepinae
+          Fenavara
+          Flanevara
+          Gaeral
+          Gaeranna
+          Gareheda
+          Hedaneba
+          Herlekaera
+          Ienatikka
+          Janedala
+          Kaerabara
+          Leneal
+          Lunaraerae
+          Mikkegara
+          Nebapalla
+          Oaenenna
+          Owavana
+          Pallenna
+          Pinaddae
+          Raereanna
+          Raerepina
+          Rasal
+          Rasaskora
+          Segeenna
+          Skorarasae
+          Tikkerfa
+          Uranal
+          Urdeanna
+          Vanalenae
+          Wannemikkae
+          Wedacallada
+          [name.Wolfkin.Female] daughter of [name.Wolfkin.Family]^5
+      Family
+          Aduren
+          Andig
+          Andle
+          Arumen
+          Barrick
+          Beren
+          Chalel
+          Challig
+          Daenig
+          Daergel
+          Dalle
+          Dennle
+          Ennalle
+          Erfanen
+          Erklen
+          Folkor
+          Garrick
+          Heddig
+          Herlle
+          Kaeralel
+          Karle
+          Lerlig
+          Murnig
+          Nackle
+          Narrick
+          Nebig
+          Neblor
+          Ningel
+          Oaenig
+          Owaen
+          Pallor
+          Pinale
+          Pogor
+          Pollen
+          Raeren
+          Rasanel
+          Raulnor
+          Roleig
+          Rurig
+          Scheppen
+          Segel
+          Segor
+          Tiranel
+          Turen
+          Turle
+          Uranen
+          Vanhael
+          Wallig
+          Wellel
+          Wenten
+    Aslene
+      Male
+          Agis
+          Agler
+          Alceus
+          Altair
+          Anker 
+          Ares
+          Arsene
+          Atemas
+          Avel
+          Balasi
+          Baruch
+          Cassander
+          Cimon
+          Cletus
+          Cyrus
+          Damen
+          Dinos
+          Dion
+          Dorian
+          Dunixi
+          Eneas
+          Etor
+          Feodor
+          Gilos
+          Gorka
+          Guilios
+          Hali
+          Hesiod
+          Hippias
+          Kai
+          Kuiril
+          Kyros
+          Leander
+          Meletios
+          Mentor
+          Milos
+          Nestor
+          Orestes
+          Peder
+          Poul
+          Preben
+          Solon
+          Spyridon
+          Thanos
+          Titos
+          Todor
+          Vasileous
+          Vasilis
+          Zeno
+          Zorba
+          [name.Aslene.Male] the [name.Aslene.Nickname]^5
+      Female
+          Adara
+          Alena
+          Arete
+          Asta
+          Callia
+          Cassia
+          Charis
+          Cyma
+          Damia
+          Delbin
+          Doria
+          Eleni
+          Elna
+          Evadne
+          Evania
+          Evanthe
+          Filia
+          Helia
+          Hesper
+          Io
+          Iona
+          Ionia
+          Isaura
+          Ismini
+          Kaia
+          Kama
+          Kepa
+          Kolete
+          Lana
+          Lelia
+          Lenore
+          Melania
+          Melita
+          Metea
+          Mona
+          Nora
+          Nyssa
+          Odele
+          Pallas
+          Panthea
+          Pelegia
+          Perrine
+          Philippa
+          Rhea
+          Rita
+          Sappho
+          Sonia
+          Tessa
+          Vania
+          Zenobia
+          [name.Aslene.Female] the [name.Aslene.Nickname]^5
+      Nickname
+          Adventurous
+          Angry
+          Bald
+          Bloody
+          Bold
+          Careful
+          Careless
+          Cautious
+          Clever
+          Confused
+          Cruel
+          Direct
+          Energetic
+          Fat
+          Gentle
+          Good
+          Hairy
+          Handsome
+          Happy
+          Hopeful
+          Jolly
+          Merry
+          Mighty
+          Mild
+          Misguided
+          Morose
+          Old
+          Perceptive
+          Proud
+          Quick
+          Reliable
+          Sad
+          Sagacious
+          Short
+          Short
+          Sleepy
+          Slow
+          Stout
+          Strong
+          Sturdy
+          Swift
+          Talkative
+          Tall
+          Terrible
+          Thin
+          Ugly
+          Vain
+          Weak
+          Wise
+          Young
+    Alderlander
+      Male
+          Adalbern
+          Alaric
+          Alboin
+          Baldarich
+          Baldomar
+          Clovis
+          Eburwin
+          Egino
+          Erminigild
+          Eward
+          Faramund
+          Fridumar
+          Fulco
+          Gerulf
+          Gislin
+          Haimo
+          Hardmod
+          Hariwald
+          Horsa
+          Hrodger
+          Hrolf
+          Ivo
+          Joscelin
+          Karl
+          Kuno
+          Landebert
+          Lanzo
+          Leudagar
+          Lothar
+          Manno
+          Meginfrid
+          Meino
+          Odo
+          Odoacer
+          Ortwin
+          Otmar
+          Otto
+          Raban
+          Radulf
+          Ranganhar
+          Rochus
+          Rudesind
+          Sigdag
+          Siward
+          Tancred
+          Trancmar
+          Waldhar
+          Waldo
+          Wandal
+          Warin
+          [name.Alderlander.Male] [name.Alderlander.Family]^5
+          [name.Alderlander.Male] of [getHome.output]^5
+      Female
+          Adela
+          Adelais
+          Adelina
+          Aenor
+          Alda
+          Aldegund
+          Amalia
+          Amelina
+          Auda
+          Aveza
+          Avila
+          Berengaria
+          Bertha
+          Brunhild
+          Brunhilde
+          Clothildis
+          Cunigund
+          Ermendrud
+          Ermingard
+          Erminhilt
+          Erminlinda
+          Frida
+          Geretrudis
+          Gerhild
+          Gerlind
+          Gisila
+          Godeliva
+          Gunda
+          Hadewig
+          Hailwic
+          Herleva
+          Ida
+          Ima
+          Irma
+          Ishild
+          Leutgard
+          Luitgard
+          Lutgardis
+          Mahthildis
+          Oda
+          Odila
+          Raganhildis
+          Roslindis
+          Rosmunda
+          Rothad
+          Roza
+          Saxa
+          Sigilind
+          Waldeburg
+          Waldedrudis
+          [name.Alderlander.Female] [name.Alderlander.Family]^5
+      [name.Alderlander.Female] of [getHome.output]^5
+      Family
+          Adogit
+          Aelvaeones
+          Batini
+          Bergio
+          Braemi
+          Bui
+          Chali
+          Danduti
+          Dani
+          Eunixi
+          Evagres
+          Favonae 
+          Fosi
+          Grannii
+          Hallin
+          Hasdingi
+          Helissi
+          Heruli
+          Hilleviones
+          Ingriones
+          Lemovii
+          Levoni
+          Manimi
+          Mattiaci
+          Naharvali
+          Nemetes
+          Njars
+          Otingis
+          Pharodini
+          Quadi
+          Racatae
+          Racatriae
+          Salii
+          Scirii
+          Segni
+          Sigulones
+          Suevi
+          Taetel
+          Teutons
+          Thervingi
+          Theustes
+          Tubanti
+          Ubi
+          Vagoth
+          Vangiones
+          Varini
+          Vinoiloth 
+          Viruni
+          Vispi 
+          Zumi
+    Ailander
+      Male
+          Aelfgar
+          Ahlred
+          Atheric
+          Baldred
+          Beocca
+          Beorn
+          Bosa
+          Brid
+          Cadwallon
+          Ceol
+          Cuthred
+          Cuthwulf
+          Cynric
+          Daela
+          Dunn
+          Dunstan
+          Eadgar
+          Eadhun
+          Ealread
+          Earnwulf
+          Eohric
+          Frithstan
+          Guthere
+          Guthlaf
+          Gyric
+          Haefoc
+          Hrothgar
+          Ithamar
+          Leofgar
+          Liofa
+          Morcaer
+          Odda
+          Ordgar
+          Osgar
+          Osred
+          Praen
+          Raedwald
+          Sidrac
+          Sigulf
+          Sithric
+          Teothic
+          Tobias
+          Uhtred
+          Ulf
+          Waldere
+          Wulfgar
+          Wulfmaer
+          Wulfric
+          Wulfwig
+          Wynstan
+          [name.Ailander.Male] [name.Ailander.Family]^10
+      [name.Ailander.Male] of [getHome.output]^10
+      Female
+          Aebbe
+          Aedwen
+          Aelfhild
+          Aelflaed
+          Aelfswith
+          Aelfswith
+          Aelfwyn
+          Aethelith
+          Aethelwyn
+          Ailred
+          Bebbe 
+          Bucge
+          Ceolburh
+          Cuthburh
+          Cuthswith
+          Cyneberg
+          Eadburg
+          Eadgifu
+          Ealhild
+          Eanflaed
+          Eangyth
+          Eanith
+          Eawyn
+          Edwyn
+          Frithwyn
+          Gytha
+          Heiu
+          Helelufu
+          Hild
+          Hilda
+          Inga
+          Leofrun
+          Maethild
+          Mathilda
+          Osgyth
+          Oshild
+          Osswith
+          Ricola
+          Saegyth
+          Saehild
+          Saeith
+          Saewyn
+          Saewyn
+          Siflaed
+          Waerburh
+          Withith
+          Wulfwaru
+          Wulfwyn
+          Wynflaed
+          Ymma
+          [name.Ailander.Female] [name.Ailander.Family]^10
+      [name.Ailander.Female] of [getHome.output]^10
+      Family
+          Adlard
+          Almer
+          Alston
+          Alvar
+          Balston
+          Brunger
+          Brunwin
+          Burch
+          Burward
+          Cobbald
+          Dewdney
+          Eddols
+          Elphee
+          Elvey
+          Erwin
+          Frewer
+          Frewin
+          Goldbard
+          Goldhawk
+          Hulbert
+          Isgar
+          Kenway
+          Kerrich
+          Kerrich
+          Lambrick
+          Leavins
+          Leavold
+          Lewin
+          Litwin
+          Litwin
+          Medwin
+          Orrick
+          Osmer
+          Othen
+          Quenell
+          Seavers
+          Siggers
+          Sirett
+          Stannard
+          Wackrill
+          Walwin
+          Wennell
+          Whatman
+          Winbolt
+          Winbow
+          Woolgar
+          Wyard
+          Wyberg
+          Wymer
+          Yonwin
+    Half_Elf
+      Male
+          Aaro
+          Armas
+          Arvo
+          Atro
+          Eemeli
+          Einar
+          Elmeri
+          Elmo
+          Hannu
+          Heimo
+          Ilari
+          Ilmari
+          Jani
+          Jarmo
+          Jaska
+          Jorma
+          Kaarlo
+          Markku
+          Mikko
+          Onni
+          Oskari
+          Ossi
+          Panu
+          Pekka
+          Raimo
+          Reima
+          Riku
+          Sakari
+          Sauli
+          Taisto
+          Taneli
+          Teijo
+          Teuvo
+          Tuomo
+          Turkka
+          Tuukka
+          Uljas
+          Urmas
+          Usko
+          Vaalentin
+          Valto
+          Veijo
+          Veikko
+          Veli
+          Vesa
+          Vilho
+          Viljo
+          Voitto
+          Ylermi
+          [name.Half_Elf.Male] [name.Half_Elf.Family]^5
+      Female
+          Aila
+          Alina
+          Alma
+          Anneli
+          Anu
+          Armi
+          Asta
+          Aune
+          Eeva
+          Elena
+          Elimia
+          Elina
+          Emmi
+          Esteri
+          Hannele
+          Helmi
+          Henni
+          Irina
+          Irja
+          Irmeli
+          Kaari
+          Kaija
+          Kaisa
+          Kirsti
+          Laila
+          Laina
+          Lemmikki
+          Marja
+          Mira
+          Mirja
+          Outi
+          Pia
+          Pirjo
+          Raisa
+          Rauhu
+          Riita
+          Saimi
+          Saini
+          Satu
+          Sonja
+          Terhi
+          Terttu
+          Tuula
+          Ulla
+          Ulpa
+          Ursula
+          Varma
+          Viivi
+          Virpi
+          Vuokko
+          [name.Half_Elf.Female] [name.Half_Elf.Family]^5
+      Family
+          Aalto
+          Ahokas
+          Alanen
+          Auvienen
+          Eerola
+          Eronen
+          Eskola
+          Hirvonen
+          Hujanen
+          Issakainen
+          Itkonen
+          Karppanen
+          Keto
+          Korpela
+          Laitnen
+          Lankinen
+          Laukkanen
+          Leino
+          Leinonen
+          Loponen
+          Markku
+          Mustonen
+          Nenonen
+          Nieminen
+          Nikkonen
+          Ojanen
+          Outila
+          Paananen
+          Pasanen
+          Purho
+          Rantanen
+          Reinikainen
+          Rekunen
+          Repomema
+          Rintala
+          Ruohonen
+          Salonen
+          Sianio
+          Takala
+          Tenhunen
+          Timonen
+          Tuomi
+          Ukkola
+          Vainikainen
+          Varala
+          Vatanen
+          Viljanen
+          Vitikka
+          Vuolle
+          Ylönen
+
+          
+      
+
+
+
+
+
+
+
+
+        
+        
+        
+
+    ","imports":["fl-village-names"],"name":"fl-names-generator"},{"modelText":"// Note: Text that comes after \"//\" is ignored, which allows you to write la (like the one you're reading now!)
+
+output
+    <b>[firstword] [secondword]</b>, is {a} {cramped|cosey|welcoming|dilapidated|worn} Inn with [oddity].  They {sell|serve|overcharge for|are generous with} [speciality] and {a} [guest] [guestactivity].
+
+oddity
+    violence in the air
+    barrels instead of chairs, planks instead of tables
+    a big fireplace
+    pelts on walls
+    a long communal table
+    a gambling den
+    a mediocre bard
+    a nice dog
+    a grumpy owner
+    a monster head on the wall
+    a singing waiter
+    a stomped floor
+    a birthday party
+    drunk adventurers
+        
+speciality
+    Cheap diluted beer
+    Meat stew
+    Grilled rodent
+    Stewed turnips
+    Salt bird
+    Blood soup
+    Fiery spice wine
+    Roasted piglet
+    Swamp stew
+    Vegetable mush
+    Salted fish
+    Cooked crow
+    Bear stew
+    Dwarven strong ale
+
+
+guest
+    Escaped criminal
+    Unhappy farmer
+    Scarred treasure hunter
+    Dirty and sullen hunter
+    Silent Raven Sister
+    Noisy bandit
+    Old war veteran
+    Noble in disguise
+    Secretive spellbinder
+    Annoying jester
+    Dusty traveller
+    Hungry dwarf
+    Frosty elf
+    Scouting thief
+
+guestactivity
+  sits in the corner
+  sits at the bar
+  is amongst the crowd
+  {waits|watches} for {something|someone}
+  orders a drink
+  orders the speciality
+  sits alone
+  has drawn attention
+  leaves quickly
+    orders food
+    rents a room
+        
+firstword
+    The Third
+    The Little
+    The Red
+    The Misty
+    The Bloody
+    The Old
+    The Golden
+    The Cold
+    The Refreshing
+    The Good
+    The Second
+    The Last
+    The Prancing
+    The Happy
+    The Singing
+    The Rolling
+    The Rumping
+    The Wailing
+    The Greedy
+    The Round
+    The Flaming
+    The Last
+    The Silver
+    The Black
+    The Dead
+    The Big
+    The Roaring
+    The Cheering
+    The Humming
+    The Meagre
+    The Fat
+    The Thick
+    The Round
+    The Sweet
+    The Boisterous
+    The Grumpy
+    The [secondword] and the
+
+secondword
+  Lantern
+  Swine
+  Wheel
+  Stoop
+  Sparrow
+  Goat
+  Arrow
+  Pot
+  Lamb
+  Maid
+  Man
+  Dragon
+  Griffin
+  Boar
+  Barrel
+  Bard
+  Dog
+  Horse
+  Girl
+  Wolf
+  Bear
+  Ghost
+  Rat
+  Jar
+  Mug
+  Goblet
+  Eagle
+  Raven
+  Hammer
+  Spike
+  Crow
+  Druid
+  Knight
+  Bandit
+  Wild Boar
+  Hunter","imports":[],"name":"fl-inn-generator"},{"modelText":"// Note: Text that comes after \"//\" is ignored, which allows you to write la (like the one you're reading now!)
+
+output
+    At the Tavern, <b>[firstword] [secondword]</b>, there [oddity].  [speciality] is {favoured by the locals|on offer| a speciality} and {a} [guest] [guestactivity].
+
+oddity
+    is violence in the air
+    are barrels instead of chairs, planks instead of tables
+    is a big fireplace
+    are pelts on walls
+    is a long communal table
+    is a gambling den
+    is a mediocre bard
+    is a nice dog
+    is a grumpy owner
+    is a monster head on wall
+    is a singing waiter
+    is a stomped floor
+    is a birthday party
+    are drunk adventurers
+        
+speciality
+    Cheap diluted beer
+    Meat stew
+    Grilled rodent
+    Stewed turnips
+    Salt bird
+    Blood soup
+    Fiery spice wine
+    Roasted piglet
+    Swamp stew
+    Vegetable mush
+    Salted fish
+    Cooked crow
+    Bear stew
+    Dwarven strong ale
+
+
+guest
+    Escaped criminal
+    Unhappy farmer
+    Scarred treasure hunter
+    Dirty and sullen hunter
+    Silent Raven sister
+    Noisy bandit
+    Old war veteran
+    Noble in disguise
+    Secretive spellbinder
+    Annoying jester
+    Dusty traveller
+    Hungry dwarf
+    Frosty elf
+    Scouting thief
+
+guestactivity
+    sits in the corner
+    sits at the bar
+    is amongst the crowd
+    {waits|watches} for {something|someone}
+    orders a drink
+    orders the speciality
+    sits alone
+    has drawn attention
+    leaves quickly
+    nurses a drink
+    has run out of coin
+    is grumbling about the service
+        
+        
+firstword
+    The Third
+    The Little
+    The Red
+    The Misty
+    The Bloody
+    The Old
+    The Golden
+    The Cold
+    The Refreshing
+    The Good
+    The Second
+    The Last
+    The Prancing
+    The Happy
+    The Singing
+    The Rolling
+    The Rumping
+    The Wailing
+    The Greedy
+    The Round
+    The Flaming
+    The Last
+    The Silver
+    The Black
+    The Dead
+    The Big
+    The Roaring
+    The Cheering
+    The Humming
+    The Meagre
+    The Fat
+    The Thick
+    The Round
+    The Sweet
+    The Boisterous
+    The Grumpy
+    The [secondword] and the [secondword]
+
+secondword
+  Lantern
+  Swine
+  Wheel
+  Stoop
+  Sparrow
+  Goat
+  Arrow
+  Pot
+  Lamb
+  Maid
+  Man
+  Dragon
+  Griffin
+  Boar
+  Barrel
+  Bard
+  Dog
+  Horse
+  Girl
+  Wolf
+  Bear
+  Ghost
+  Rat
+  Jar
+  Mug
+  Goblet
+  Eagle
+  Raven
+  Hammer
+  Spike
+  Crow
+  Druid
+  Knight
+  Bandit
+  Wild Boar
+  Hunter","imports":[],"name":"fl-tavern-generator"},{"modelText":"// Note: Text that comes after \"//\" is ignored, which allows you to write la (like the one you're reading now!)
+
+output
+    [prefix][suffix]
+
+prefix
+    Amber
+    Angel
+    Spirit
+    Basin
+    Lagoon
+    Basin
+    Arrow
+    Autumn
+    Bare
+    Bay
+    Beach
+    Bear
+    Bell
+    Black
+    Bleak
+    Blind
+    Bone
+    Boulder
+    Bridge
+    Brine
+    Brittle
+    Bronze
+    Castle
+    Cave
+    Chill
+    Clay
+    Clear
+    Cliff
+    Cloud
+    Cold
+    Crag
+    Crow
+    Crystal
+    Curse
+    Dark
+    Dawn
+    Dead
+    Deep
+    Deer
+    Demon
+    Dew
+    Dim
+    Dire
+    Dirt
+    Dog
+    Dragon
+    Dry
+    Dusk
+    Dust
+    Eagle
+    Earth
+    East
+    Ebon
+    Edge
+    Elder
+    Ember
+    Ever
+    Fair
+    Fall
+    False
+    Far
+    Fay
+    Fear
+    Flame
+    Flat
+    Frey
+    Frost
+    Ghost
+    Glimmer
+    Gloom
+    Gold
+    Grass
+    Gray
+    Green
+    Grim
+    Grime
+    Hazel
+    Heart
+    High
+    Hollow
+    Honey
+    Hound
+    Ice
+    Iron
+    Kil
+    Knight
+    Lake
+    Last
+    Light
+    Lime
+    Little
+    Lost
+    Mad
+    Mage
+    Maple
+    Mid
+    Might
+    Mill
+    Mist
+    Moon
+    Moss
+    Mud
+    Mute
+    Myth
+    Never
+    New
+    Night
+    North
+    Oaken
+    Ocean
+    Old
+    Ox
+    Pearl
+    Pine
+    Pond
+    Pure
+    Quick
+    Rage
+    Raven
+    Red
+    Rime
+    River
+    Rock
+    Rogue
+    Rose
+    Rust
+    Salt
+    Sand
+    Scorch
+    Shade
+    Shadow
+    Shimmer
+    Shroud
+    Silent
+    Silk
+    Silver
+    Sleek
+    Sleet
+    Sly
+    Small
+    Smooth
+    Snake
+    Snow
+    South
+    Spring
+    Stag
+    Star
+    Steam
+    Steel
+    Steep
+    Still
+    Stone
+    Storm
+    Summer
+    Sun
+    Swamp
+    Swan
+    Swift
+    Thorn
+    Timber
+    Trade
+    West
+    Whale
+    Whit
+    White
+    Wild
+    Wilde
+    Wind
+    Winter
+    Wolf
+
+suffix
+    acre
+    band
+    barrow
+    bay
+    bell
+    born
+    borough
+    bourne
+    breach
+    break
+    brook
+    burgh
+    burn
+    bury
+    cairn
+    call
+    chill
+    cliff
+    coast
+    crest
+    cross
+    dale
+    denn
+    drift
+    fair
+    fall
+    falls
+    fell
+    field
+    ford
+    forest
+    fort
+    front
+    frost
+    garde
+    gate
+    glen
+    grasp
+    grave
+    grove
+    guard
+    gulch
+    gulf
+    hall
+    hallow
+    ham
+    hand
+    harbor
+    haven
+    helm
+    hill
+    hold
+    holde
+    hollow
+    horn
+    host
+    keep
+    land
+    light
+    maw
+    meadow
+    mere
+    mire
+    mond
+    moor
+    more
+    mount
+    mouth
+    pass
+    peak
+    point
+    pond
+    port
+    post
+    reach
+    rest
+    rock
+    run
+    scar
+    shade
+    shear
+    shell
+    shield
+    shore
+    shire
+    side
+    spell
+    spire
+    stall
+    wich
+    minster
+    star
+    storm
+    strand
+    summit
+    tide
+    town
+    vale
+    valley
+    vault
+    vein
+    view
+    ville
+    wall
+    wallow
+    ward
+    watch
+    water
+    well
+    wharf
+    wick
+    wind
+    wood
+    yard","imports":[],"name":"fl-village-names"},{"modelText":"// Tip: Highlight multiple lines and press Tab or Shift+Tab
+//      to indent and un-indent them all an once  \\( ﾟヮﾟ)/
+
+output
+    [name1][Extra][name2][Extra][name3] [trait]^99
+    Flemming
+
+name1
+    O
+    Gar
+    Nur
+    Rak
+    Sor
+    Nek
+    Gir
+    Gar
+    Har
+    Pnar
+    Gnar
+    Gor
+    Kra
+    A
+    I
+    O
+    U
+    Yo
+    Ma
+    Zyl
+    Var
+    Ex
+    Xo
+    Xa
+    Vir
+    Baal
+    Be
+    Kut
+    Sza
+    Tze
+    Kho
+    Far
+    Fe
+    Fo
+    Kel
+    Ku
+    Tyr
+    Ti
+    Tza
+    Ung
+    Ong
+    Yr
+    Ya
+    Y
+    Il
+    Gri
+    Gre
+    Po
+    Par
+    Pel
+
+name2
+    mar
+    nar
+    o
+    rar
+    gork
+    zuur
+    irk
+    grik
+    poorl
+    harr
+    gurr
+    dank
+    griss
+    bark
+    org
+    u
+    hor
+    i
+    a
+    kral
+    kra
+    ralla
+    oos
+    blink
+    grim
+    drak
+    malla
+    kar
+    var
+    zon
+    gos
+    vool
+    nam
+    man
+    ren
+    ne
+    netch
+    ur
+    en
+    ksa
+    kha
+    kur
+    rul
+    donk
+    des
+    ste
+    pe
+    pa
+    pyr
+
+name3
+    maas
+    foor
+    naark
+    nar
+    sol
+    grin
+    o
+    ou
+    ey
+    non
+    pal
+    hulu
+    oos
+    rink
+    dor
+    dol
+    dir
+    dyr
+    yk
+    urk
+    das
+    kel
+    gon
+    ver
+    vo
+    xi
+    zan
+    por
+    gle
+    gen
+    ium
+    ien
+    rog
+    nar
+    ri
+    ko
+    xa
+    aks
+    a
+    e
+    ai
+    par
+
+Extra
+    a
+    o
+    i
+    u
+    y
+    h
+    b
+    k
+    e
+    r
+    l
+    t
+    v
+    z
+    m
+    n
+    -^5
+    '^5
+    ^15
+
+trait
+    the [title]
+    of [element]
+    the [title] of [element]
+    ^1
+
+title
+    Destroyer
+    Prince
+    King
+    Princess
+    Queen
+    Baron
+    Ghost
+    Monster
+    Consumer
+    Corrupter
+    Lord
+    Master
+    Servant
+    Bard
+    Warrior
+    Defiler
+    Creature
+    Collector
+    Bringer
+    Ender
+    God
+    Demon
+    Deciever
+    Decay
+    Void
+
+element
+    Fear
+    Souls
+    Fire
+    Ice
+    Darkness
+    Time
+    Rot
+    Dust
+    Steel
+    Greed
+    Damnation
+    Sickness
+    Knowledge
+    Eyes
+    Day
+    Night
+    Faces
+    Hearts
+    Bones
+    Kings
+    Malevolence
+    Hands
+    Hunger
+    Death
+    Sorrow
+    Evil
+    Pain
+    Madness
+        
+        
+// Tips:
+//  - Here's some generators you might like to import: perchance.org/useful-generators
+//  - Lines like this that start with \"//\" are ignored, so you can use them for \"comments\".
+//  - Change the \"Your Generator's Title\" header by editing the text in the bottom-right box.
+//  - You can change the URL of your generator by clicking the \"settings\" button in the top-right
+//  - Use this template if you want your generator to be vertically centered on the page: perchance.org/centered-minimal#edit
+//  - Add background images, silly music, fonts, and other stuff with plugins: perchance.org/plugins
+//  - Here are some templates that you can use to create nice-looking generators without learning HTML and CSS: perchance.org/templates
+
+
+
+
+","imports":[],"name":"fl-demon-name"},{"modelText":"output
+    [RegulerWeapons]^3
+    [MagicalWeapon]^2
+    [GloryWeapons]
+        
+Weapon
+    Axe
+    Sword
+    Spear
+    Mace
+    Hammer
+    Dagger
+        
+Added
+    Rusty
+    Bloody
+    Old
+    Sharp
+    Shiny
+    Deadly
+
+Element
+    Fire
+    Fear
+    Glory
+    Terror
+    Madness
+    Imortallity
+    Power
+    Unholy powers
+    Death
+    Insanity
+    Hope
+    Lightning
+    Darkness
+        
+MagicalWeapon
+    {a} [Added] [Weapon] of [Element] 
+        
+RegulerWeapons
+    {a} [Added] [Weapon]
+        
+GloryWeapons
+    This [Weapon] was once used by the great [ClassGood] named [Name] who slaid the [Beast] called [BeastName]
+        
+ClassGood
+    Knight
+    Paladin
+    Hero
+    Dragonsleyer
+        
+Name
+    Ennil
+    Nehil
+        
+Beast
+    Seven headed hydra
+    Eight headed hydra
+    Two headed hydra
+    Three headed hydra
+    Black scaled dragon
+    Sea serpent 
+    Black scaled dragon
+    Sea serpent 
+    Black scaled dragon
+    Sea serpent 
+    Black scaled dragon
+    Sea serpent 
+        
+BeastName
+    Zefys
+    Forgosh
+
+","imports":[],"name":"my-weapons"}]
