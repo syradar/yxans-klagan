@@ -1,14 +1,8 @@
 .App {
-  height: 100vh;
-  display: grid;
-  grid:
-    'header header' 4rem
-    'side main' auto
-    / 1fr 4fr;
+  background-color: hsl(48, 100%, 97%);
 }
 
 .App-header {
-  background-color: #282c34;
   height: 4rem;
   display: flex;
   flex-direction: column;
@@ -18,7 +12,7 @@
 
 nav {
   grid-area: side;
-  background-color: rgb(238, 238, 238);
+  /* background-color: hsl(0, 0%, 93%); */
   padding: 1rem;
 }
 
@@ -28,7 +22,7 @@ nav > div {
 
 main {
   grid-area: main;
-  background-color: rgb(247, 247, 238);
+  /* background-color: rgb(247, 247, 238); */
   padding: 1rem;
   display: flex;
   justify-content: center;

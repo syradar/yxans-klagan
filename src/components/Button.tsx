@@ -1,4 +1,4 @@
-import tw, { css, styled, theme } from 'twin.macro'
+import tw, { styled } from 'twin.macro'
 
 interface ButtonProps {
   variant?: 'primary' | 'secondary'
@@ -7,8 +7,8 @@ interface ButtonProps {
 
 const Button = styled.button(({ variant, isSmall }: ButtonProps) => [
   // The common button styles
-  tw`px-8 py-2 font-bold uppercase tracking-wide  focus:outline-none transform duration-75`,
-
+  tw`px-8 py-2 font-bold uppercase tracking-wide focus:outline-none transform duration-75`,
+  tw`border-2 border-black rounded-none`,
   // Use the variant grouping feature to add variants to multiple classes
   tw`hocus:(scale-105 text-yellow-600)`,
 
@@ -20,7 +20,7 @@ const Button = styled.button(({ variant, isSmall }: ButtonProps) => [
     // css`
     //   box-shadow: 0 0.1em 0 0 rgba(0, 0, 0, 0.25);
     // `,
-    tw`border-2 border-black bg-white`,
+    tw`bg-white`,
   ],
 
   // Conditional props can be added
