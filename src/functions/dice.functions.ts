@@ -12,3 +12,6 @@ export function getRandomInt(min = 1, max = 6) {
   //The maximum is inclusive and the minimum is inclusive
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
+
+export const choose = <T>(arr: readonly T[]): T =>
+  arr[getRandomInt(0, arr.length - 1)]
