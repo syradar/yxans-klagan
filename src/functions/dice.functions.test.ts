@@ -1,4 +1,4 @@
-import { countSuccesses } from './dice.functions'
+import { choose, countSuccesses } from './dice.functions'
 
 describe('dice functions', () => {
   describe('countSuccesses', () => {
@@ -20,6 +20,16 @@ describe('dice functions', () => {
     ])('%i => %b', (input, expected) => {
       const result = countSuccesses(input)
       expect(result).toEqual(expected)
+    })
+  })
+
+  describe('choose', () => {
+    it.each([
+      [[], 'undefined'],
+      [['test'], 'string'],
+    ])('%j => %s', (input, expected) => {
+      const result = choose(input)
+      expect(typeof result).toEqual(expected)
     })
   })
 })
