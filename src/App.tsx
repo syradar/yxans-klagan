@@ -46,6 +46,9 @@ const App = () => {
           <Link tw="hover:text-red-700" to="/">
             Home
           </Link>
+          <Link tw="hover:text-red-700" to="/names">
+            Namn
+          </Link>
           <Link tw="hover:text-red-700" to="/dice">
             Tärningar
           </Link>
