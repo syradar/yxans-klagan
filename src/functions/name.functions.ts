@@ -7,11 +7,8 @@ import {
 } from '../models/name.model'
 import { choose, weightedRandom } from './dice.functions'
 
-export const getRandomEländerName = (gender: Gender = Gender.Female) => {
-  const { type, firstName } = getNameTypeAndFirstName(
-    gender,
-    humanNames.Eländer,
-  )
+export const getRandomEländerName = (g: Gender = Gender.Female): string => {
+  const { type, firstName } = getNameTypeAndFirstName(g, humanNames.Eländer)
 
   switch (type) {
     case NameType.FamilyName:
@@ -24,9 +21,11 @@ export const getRandomEländerName = (gender: Gender = Gender.Female) => {
   }
 }
 
-export const getRandomAlderlänningarName = (gender: Gender = Gender.Female) => {
+export const getRandomAlderlänningarName = (
+  g: Gender = Gender.Female,
+): string => {
   const { type, firstName } = getNameTypeAndFirstName(
-    gender,
+    g,
     humanNames.Alderlänning,
   )
 
@@ -41,11 +40,8 @@ export const getRandomAlderlänningarName = (gender: Gender = Gender.Female) => 
   }
 }
 
-export const getRandomAslenerName = (gender: Gender = Gender.Female) => {
-  const { type, firstName } = getNameTypeAndFirstName(
-    gender,
-    humanNames.Aslener,
-  )
+export const getRandomAslenerName = (g: Gender = Gender.Female): string => {
+  const { type, firstName } = getNameTypeAndFirstName(g, humanNames.Aslener)
 
   switch (type) {
     case NameType.NickName:
@@ -56,22 +52,12 @@ export const getRandomAslenerName = (gender: Gender = Gender.Female) => {
   }
 }
 
-export const getRandomVillageName = () =>
-  `${choose(villageNames.prefix)}${choose(villageNames.suffix)}`
-
 export const getNameTypeAndFirstName = (g: Gender, nl: NameList) => {
-  switch (g) {
-    case Gender.Male:
-      return {
-        type: weightedRandom(nl.male.probabilites).type,
-        firstName: choose(nl.male.rawNames),
-      }
-
-    case Gender.Female:
-    default:
-      return {
-        type: weightedRandom(nl.female.probabilites).type,
-        firstName: choose(nl.female.rawNames),
-      }
+  return {
+    type: weightedRandom(nl[g].probabilites).type,
+    firstName: choose(nl[g].rawNames),
   }
 }
+
+export const getRandomVillageName = () =>
+  `${choose(villageNames.prefix)}${choose(villageNames.suffix)}`

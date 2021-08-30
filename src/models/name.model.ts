@@ -11,11 +11,11 @@ interface WeightedName {
 }
 
 export interface NameList {
-  male: {
+  Male: {
     probabilites: WeightedName[]
     rawNames: readonly string[]
   }
-  female: {
+  Female: {
     probabilites: WeightedName[]
     rawNames: readonly string[]
   }
@@ -45,7 +45,7 @@ export type Kins = {
 
 export const humanNames: { [H in Kins['Human']]: NameList } = {
   Alderlänning: {
-    male: {
+    Male: {
       probabilites: [
         {
           type: NameType.FirstName,
@@ -115,7 +115,7 @@ export const humanNames: { [H in Kins['Human']]: NameList } = {
         'Warin',
       ],
     },
-    female: {
+    Female: {
       probabilites: [
         { type: NameType.FirstName, weight: 49 },
         { type: NameType.FamilyName, weight: 5 },
@@ -228,7 +228,7 @@ export const humanNames: { [H in Kins['Human']]: NameList } = {
     ],
   },
   Aslener: {
-    male: {
+    Male: {
       probabilites: [
         {
           type: NameType.FirstName,
@@ -292,7 +292,7 @@ export const humanNames: { [H in Kins['Human']]: NameList } = {
         'Zorba',
       ],
     },
-    female: {
+    Female: {
       probabilites: [
         {
           type: NameType.FirstName,
@@ -409,7 +409,7 @@ export const humanNames: { [H in Kins['Human']]: NameList } = {
     ],
   },
   Eländer: {
-    male: {
+    Male: {
       probabilites: [
         {
           type: NameType.FirstName,
@@ -477,7 +477,7 @@ export const humanNames: { [H in Kins['Human']]: NameList } = {
         'Wynstan',
       ],
     },
-    female: {
+    Female: {
       probabilites: [
         {
           type: NameType.FirstName,
