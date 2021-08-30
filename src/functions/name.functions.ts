@@ -15,7 +15,7 @@ export const getRandomEländerName = (gender: Gender = Gender.Female) => {
 
   switch (type) {
     case NameType.FamilyName:
-      return `${firstName} ${choose(humanNames.Eländer.family)}`
+      return `${firstName} ${choose(humanNames.Eländer.family ?? [])}`
     case NameType.HomeName:
       return `${firstName} av ${getRandomVillageName()}`
     case NameType.FirstName:
@@ -32,9 +32,24 @@ export const getRandomAlderlänningarName = (gender: Gender = Gender.Female) => 
 
   switch (type) {
     case NameType.FamilyName:
-      return `${firstName} ${choose(humanNames.Eländer.family)}`
+      return `${firstName} ${choose(humanNames.Eländer.family ?? [])}`
     case NameType.HomeName:
       return `${firstName} av ${getRandomVillageName()}`
+    case NameType.FirstName:
+    default:
+      return firstName
+  }
+}
+
+export const getRandomAslenerName = (gender: Gender = Gender.Female) => {
+  const { type, firstName } = getNameTypeAndFirstName(
+    gender,
+    humanNames.Aslener,
+  )
+
+  switch (type) {
+    case NameType.NickName:
+      return `${firstName} den ${choose(humanNames.Aslener.nickName ?? [])}`
     case NameType.FirstName:
     default:
       return firstName
