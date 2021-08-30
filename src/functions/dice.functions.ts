@@ -1,3 +1,5 @@
+import { pluck, sum } from 'rambda'
+
 /**
  * Can be used for any roll
  */
@@ -15,3 +17,39 @@ export function getRandomInt(min = 1, max = 6) {
 
 export const choose = <T>(arr: readonly T[]): T =>
   arr[getRandomInt(0, arr.length - 1)]
+
+interface WeightedChoice {
+  weight: number
+}
+export const weightedRandom = <T extends WeightedChoice>(
+  probabilities: T[],
+): T => {
+  const totalWeight = sum(pluck('weight', probabilities))
+  const randomInt = getRandomInt(0, totalWeight)
+
+  const chosen = probabilities.reduce(
+    (acc, cur) => {
+      if (acc.done) {
+        return acc
+      }
+
+      const newLeft = acc.left - cur.weight
+
+      if (newLeft <= 0) {
+        return {
+          left: 0,
+          done: true,
+          data: cur,
+        }
+      }
+
+      return {
+        ...acc,
+        left: newLeft,
+      }
+    },
+    { left: randomInt, done: false, data: { weight: 0 } as T },
+  )
+
+  return chosen.data
+}

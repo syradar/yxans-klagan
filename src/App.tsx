@@ -35,29 +35,27 @@ const App = () => {
 
   return (
     <div className="App" css={styles.container()}>
-      <div tw="p-2 w-64">
-        <YxansKlaganLogo />
-      </div>
       <div tw="flex h-full">
-        <nav
-          tw="w-1/4 text-xl border-t-2 border-b-2 mb-4 border-black flex flex-col gap-y-4"
-          className="yx-heading"
-        >
-          <Link tw="hover:text-red-700" to="/">
-            Home
-          </Link>
-          <Link tw="hover:text-red-700" to="/names">
-            Namn
-          </Link>
-          <Link tw="hover:text-red-700" to="/dice">
-            Tärningar
-          </Link>
-        </nav>
-        <main tw="w-3/4">
-          <div tw="max-w-prose w-full" className="box">
-            {routes}
+        <div tw="flex flex-col">
+          <div tw="p-2 w-64">
+            <YxansKlaganLogo />
           </div>
-        </main>
+          <nav
+            tw="w-1/4 text-xl border-t-2 border-b-2 mb-4 border-black flex flex-col gap-y-4"
+            className="yx-heading"
+          >
+            <Link tw="hover:text-red-700" to="/">
+              Home
+            </Link>
+            <Link tw="hover:text-red-700" to="/names">
+              Namn
+            </Link>
+            <Link tw="hover:text-red-700" to="/dice">
+              Tärningar
+            </Link>
+          </nav>
+        </div>
+        <main tw="w-3/4">{routes}</main>
       </div>
     </div>
   )
