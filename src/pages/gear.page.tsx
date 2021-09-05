@@ -2,6 +2,7 @@ import React from 'react'
 import 'twin.macro'
 import tw from 'twin.macro'
 import { Parchment } from '../components/parchment'
+import { getRandomInt } from '../functions/dice.functions'
 
 export const GearPage = () => {
   return (
@@ -51,7 +52,7 @@ export const GearPage = () => {
                     tw="px-2 py-1 border-b border-gray-400"
                     css={[i % 2 === 0 && tw`bg-gray-200`]}
                   >
-                    {rs.availability}
+                    {availabilityFormat(rs.availability)}
                   </td>
                   <td
                     tw="px-2 py-1 border-b border-gray-400"
@@ -70,6 +71,7 @@ export const GearPage = () => {
 }
 
 type Per = 'day' | 'hex'
+type Availability = 'vanlig' | 'ovanlig' | 'sällsynt'
 
 interface ServiceCost {
   copper: number
@@ -79,8 +81,28 @@ interface ServiceCost {
 interface RegularService {
   service: string
   price: ServiceCost
-  availability: 'Vanlig' | 'Ovanlig'
+  availability: Availability
   comment?: string
+}
+
+const availabilityFormat = (a: Availability): string => {
+  switch (a) {
+    case `sällsynt`: {
+      const count = getRandomInt() === 6 ? 1 : 0
+
+      return `Sällsynt (${count} ex)`
+    }
+
+    case `ovanlig`: {
+      const count = getRandomInt() >= 4 ? getRandomInt() : 0
+
+      return `Ovanlig (${count} ex)`
+    }
+
+    case `vanlig`:
+    default:
+      return `Vanlig`
+  }
 }
 
 const priceFormat = (sc: ServiceCost): string => {
@@ -124,87 +146,87 @@ const perFormat = (per?: Per): string => {
 const regularServices: RegularService[] = [
   {
     service: 'Bad på värdshus',
-    availability: 'Vanlig',
+    availability: 'vanlig',
     price: { copper: 3 },
   },
   {
     service: 'Klippning',
-    availability: 'Vanlig',
+    availability: 'vanlig',
     price: { copper: 5 },
   },
   {
     service: 'Läkarvård',
-    availability: 'Ovanlig',
+    availability: 'ovanlig',
     price: { copper: 5 },
   },
   {
     service: 'Livvakt',
-    availability: 'Ovanlig',
+    availability: 'ovanlig',
     price: { copper: 10, per: 'day' },
   },
   {
     service: 'Tvätt av kläder',
-    availability: 'Vanlig',
+    availability: 'vanlig',
     price: { copper: 5 },
   },
   {
     service: 'Budbärare',
-    availability: 'Vanlig',
+    availability: 'vanlig',
     price: { copper: 10, per: 'hex' },
   },
   {
     service: 'Vägtull',
-    availability: 'Vanlig',
+    availability: 'vanlig',
     price: { copper: 2 },
   },
   {
     service: 'Övernattning värdshus, sovsal',
-    availability: 'Vanlig',
+    availability: 'vanlig',
     price: { copper: 2 },
   },
   {
     service: 'Övernattning värdshus, eget rum',
-    availability: 'Vanlig',
+    availability: 'vanlig',
     price: { copper: 5 },
   },
   {
     service: 'Ståtligt härbärge',
-    availability: 'Ovanlig',
+    availability: 'ovanlig',
     price: { copper: 20 },
   },
   {
     service: 'Skål stuvning',
-    availability: 'Vanlig',
+    availability: 'vanlig',
     price: { copper: 3 },
     comment: 'Täcker dagsbehovet av Mat.',
   },
   {
     service: 'Måltid på värdshus',
-    availability: 'Vanlig',
+    availability: 'vanlig',
     price: { copper: 10 },
     comment: 'Täcker dagsbehovet av Mat och Vatten.',
   },
   {
     service: 'Festmåltid',
-    availability: 'Ovanlig',
+    availability: 'ovanlig',
     price: { copper: 100 },
     comment: 'Täcker dagsbehovet av Mat och Vatten.',
   },
   {
     service: 'Stop mjöd',
-    availability: 'Vanlig',
+    availability: 'vanlig',
     price: { copper: 2 },
     comment: 'Täcker dagsbehovet av Vatten.',
   },
   {
     service: 'Kalk vin',
-    availability: 'Ovanlig',
+    availability: 'ovanlig',
     price: { copper: 4 },
     comment: 'Täcker dagsbehovet av Vatten.',
   },
   {
     service: 'Lärare',
-    availability: 'Ovanlig',
+    availability: 'ovanlig',
     price: { copper: 10, per: 'day' },
     comment: 'Kan vara dyrare',
   },
