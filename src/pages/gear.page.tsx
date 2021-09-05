@@ -206,6 +206,6 @@ const regularServices: RegularService[] = [
     service: 'Lärare',
     availability: 'Ovanlig',
     price: { copper: 10, per: 'day' },
-    comment: 'Kan va dyrare',
+    comment: 'Kan vara dyrare',
   },
 ]
