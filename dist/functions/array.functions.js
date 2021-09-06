@@ -1,0 +1,1 @@
+export const range = val => [...Array(val).keys()];
