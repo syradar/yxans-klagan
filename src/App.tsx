@@ -5,6 +5,7 @@ import './App.css'
 import { Parchment } from './components/parchment'
 import YxansKlaganLogo from './logo'
 import { DiceRollerPage } from './pages/dice-roller.page'
+import { GearPage } from './pages/gear.page'
 import { NameGeneratorPage } from './pages/name-generator.page'
 
 const styles = {
@@ -31,6 +32,10 @@ const App = () => {
       path: '/names',
       element: <NameGeneratorPage />,
     },
+    {
+      path: '/gear',
+      element: <GearPage />,
+    },
   ])
 
   return (
@@ -49,6 +54,9 @@ const App = () => {
             </Link>
             <Link tw="hover:text-red-700" to="/names">
               Namn
+            </Link>
+            <Link tw="hover:text-red-700" to="/gear">
+              Utrustning
             </Link>
             <Link tw="hover:text-red-700" to="/dice">
               Tärningar
