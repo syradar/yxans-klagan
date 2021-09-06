@@ -1,5 +1,6 @@
 {
   "name": "yxans-klagan",
+  "homepage": "https://syradar.github.io/yxans-klagan/",
   "license": "MIT",
   "scripts": {
     "start": "snowpack dev",
