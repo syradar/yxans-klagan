@@ -2,8 +2,9 @@ import React from 'react'
 import { Link, useRoutes } from 'react-router-dom'
 import tw from 'twin.macro'
 import './App.css'
-import { Parchment } from './components/parchment'
+import { Parchment } from './components'
 import YxansKlaganLogo from './logo'
+import { CalendarPage } from './pages/calendar.page'
 import { DiceRollerPage } from './pages/dice-roller.page'
 import { GearPage } from './pages/gear.page'
 import { NameGeneratorPage } from './pages/name-generator.page'
@@ -12,7 +13,7 @@ const styles = {
   // Move long class sets out of jsx to keep it scannable
   // container: ({ hasBackground }: { hasBackground: boolean }) => [
   container: () => [
-    tw`flex flex-col h-screen w-screen`,
+    tw`flex flex-col min-h-screen h-full w-screen`,
     // hasBackground && tw`wbg-gradient-to-b from-electric to-ribbon`,
     //tw`bg-yellow-50`,
   ],
@@ -36,6 +37,10 @@ const App = () => {
       path: '/gear',
       element: <GearPage />,
     },
+    {
+      path: '/calendar',
+      element: <CalendarPage />,
+    },
   ])
 
   return (
@@ -57,6 +62,9 @@ const App = () => {
             </Link>
             <Link tw="hover:text-red-700" to="/gear">
               Utrustning
+            </Link>
+            <Link tw="hover:text-red-700" to="/calendar">
+              Kalender
             </Link>
             <Link tw="hover:text-red-700" to="/dice">
               Tärningar
