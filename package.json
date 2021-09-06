@@ -6,7 +6,8 @@
     "build": "snowpack build",
     "test": "jest",
     "test:ci": "jest",
-    "lint": "eslint 'src/**/*.{js,ts,tsx}'"
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@emotion/react": "^11.1.5",
