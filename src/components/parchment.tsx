@@ -5,7 +5,7 @@ interface ParchmentProps {
   children?: React.ReactNode
 }
 
-export const Parchment: FC<ParchmentProps> = ({ children }: ParchmentProps) => {
+const Parchment: FC<ParchmentProps> = ({ children }: ParchmentProps) => {
   const [svgHeight, setSvgHeight] = useState(0)
   const contentRef = useRef<HTMLDivElement>(null)
 
@@ -59,10 +59,12 @@ export const Parchment: FC<ParchmentProps> = ({ children }: ParchmentProps) => {
         y={`${(100 - dim) / 2}%`}
       />
       <foreignObject width="100%" height="100%">
-        <div tw="p-8" ref={contentRef}>
+        <div tw="px-8 py-16" ref={contentRef}>
           {children && children}
         </div>
       </foreignObject>
     </svg>
   )
 }
+
+export default Parchment

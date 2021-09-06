@@ -8,7 +8,7 @@ interface KinNameListProps {
   nameFunc: (g: Gender) => string
 }
 
-export const KinNameList: FC<KinNameListProps> = ({
+const KinNameList: FC<KinNameListProps> = ({
   title,
   nameFunc,
 }: KinNameListProps) => {
@@ -63,3 +63,5 @@ export const KinNameList: FC<KinNameListProps> = ({
     </>
   )
 }
+
+export default KinNameList

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import 'twin.macro'
 import { Button, Stepper } from '../components'
 import DiceDisplay from '../components/dice-display'
-import { Parchment } from '../components/parchment'
+import { Parchment } from '../components'
 import { range } from '../functions/array.functions'
 import { countSuccesses, getRandomInt } from '../functions/dice.functions'
 

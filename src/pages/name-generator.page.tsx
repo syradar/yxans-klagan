@@ -1,7 +1,6 @@
 import React from 'react'
 import 'twin.macro'
-import { KinNameList } from '../components/kin-name-list'
-import { Parchment } from '../components/parchment'
+import { KinNameList, Parchment } from '../components'
 import {
   getRandomAlderlänningarName,
   getRandomAslenerName,

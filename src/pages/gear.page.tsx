@@ -1,7 +1,7 @@
 import React from 'react'
 import 'twin.macro'
 import tw from 'twin.macro'
-import { Parchment } from '../components/parchment'
+import { Parchment } from '../components'
 import { getRandomInt } from '../functions/dice.functions'
 
 export const GearPage = () => {
