@@ -24,12 +24,13 @@ module.exports = {
   ],
   optimize: {
     /* Example: Bundle your final build: */
-    // "bundle": true,
+    bundle: true,
   },
   devOptions: {
     /* ... */
   },
   buildOptions: {
-    /* ... */
+    metaUrlPath: 'dist',
+    baseUrl: '/yxans-klagan',
   },
 }
