@@ -12,7 +12,7 @@ const styles = {
   // Move long class sets out of jsx to keep it scannable
   // container: ({ hasBackground }: { hasBackground: boolean }) => [
   container: () => [
-    tw`flex flex-col h-screen w-screen`,
+    tw`flex flex-col min-h-screen h-full w-screen`,
     // hasBackground && tw`wbg-gradient-to-b from-electric to-ribbon`,
     //tw`bg-yellow-50`,
   ],
