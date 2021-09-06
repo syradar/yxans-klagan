@@ -4,6 +4,7 @@ import tw from 'twin.macro'
 import './App.css'
 import { Parchment } from './components'
 import YxansKlaganLogo from './logo'
+import { CalendarPage } from './pages/calendar.page'
 import { DiceRollerPage } from './pages/dice-roller.page'
 import { GearPage } from './pages/gear.page'
 import { NameGeneratorPage } from './pages/name-generator.page'
@@ -36,6 +37,10 @@ const App = () => {
       path: '/gear',
       element: <GearPage />,
     },
+    {
+      path: '/calendar',
+      element: <CalendarPage />,
+    },
   ])
 
   return (
@@ -57,6 +62,9 @@ const App = () => {
             </Link>
             <Link tw="hover:text-red-700" to="/gear">
               Utrustning
+            </Link>
+            <Link tw="hover:text-red-700" to="/calendar">
+              Kalender
             </Link>
             <Link tw="hover:text-red-700" to="/dice">
               Tärningar
