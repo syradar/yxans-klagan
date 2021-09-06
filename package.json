@@ -36,6 +36,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
+    "gh-pages": "^3.2.3",
     "jest": "^27.0.6",
     "prettier": "^2.3.2",
     "snowpack": "^3.0.13",
