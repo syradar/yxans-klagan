@@ -1,4 +1,11 @@
 import { range } from '../functions/array.functions'
+import {
+  Downpour,
+  GenerateWeather,
+  StormType,
+  WeatherDay,
+  WeatherEvent,
+} from '../functions/weather.functions'
 
 const month = [
   'Åldervinter',
@@ -60,6 +67,13 @@ export type Day = {
   number: number
   name: DayNames
   moon?: 'full' | 'new'
+  temp: number
+  lowTemp: number
+  downpour: Downpour
+  stormType: StormType
+  isCloudy: boolean
+  isPartlyCloudy: boolean
+  eventType?: WeatherEvent
 }
 
 export const getMoonPhase = (day: number): 'full' | 'new' | undefined => {
@@ -105,16 +119,44 @@ export type Calendar = {
 export const getCal = (startYear = 1165): Calendar => {
   const dayOffset = (startYear % 1165) % 7
 
+  const weather = new GenerateWeather(365, [], 48, 50, 6, '')
+  const weatherDays = weather.weatherSystems
+    .reduce((acc, cur) => {
+      acc.push(cur.days)
+
+      return acc
+    }, [] as WeatherDay[][])
+    .flat()
+
   const cal = range(numberOfMonths()).reduce(
     (cal, m) => {
       const monthName = getMonthName(m)
       cal.cal.months[m] = {
         name: monthName,
-        days: range(dayInMonth(monthName)).map((d) => ({
-          number: d + 1,
-          name: getDayName(cal.daysPassed + d),
-          moon: getMoonPhase(cal.daysPassed + d + 1 + 9),
-        })),
+        days: range(dayInMonth(monthName)).map((d) => {
+          const {
+            temp,
+            lowTemp,
+            downpour,
+            stormType,
+            eventType,
+            isCloudy,
+            isPartlyCloudy,
+          } = weatherDays[cal.daysPassed + d]
+
+          return {
+            number: d + 1,
+            name: getDayName(cal.daysPassed + d),
+            moon: getMoonPhase(cal.daysPassed + d + 1 + 9),
+            temp,
+            lowTemp,
+            downpour,
+            stormType,
+            eventType,
+            isCloudy,
+            isPartlyCloudy,
+          }
+        }),
       }
       cal.daysPassed += dayInMonth(monthName)
 
