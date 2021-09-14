@@ -12,6 +12,8 @@ const Parchment: FC<ParchmentProps> = ({ children }: ParchmentProps) => {
   useEffect(() => {
     if (contentRef !== null) {
       setSvgHeight(contentRef.current?.clientHeight ?? 0)
+    } else {
+      console.log('null content ref')
     }
   })
 
@@ -54,12 +56,12 @@ const Parchment: FC<ParchmentProps> = ({ children }: ParchmentProps) => {
         stroke="black"
         strokeWidth={width}
         width={`${dim}%`}
-        height={`${dim}%`}
+        height={`${svgHeight - width * 2 > 0 ? svgHeight - width * 2 : 0}px`}
         x={`${(100 - dim) / 2}%`}
-        y={`${(100 - dim) / 2}%`}
+        y={`${width}px`}
       />
       <foreignObject width="100%" height="100%">
-        <div tw="px-8 py-16" ref={contentRef}>
+        <div tw="px-8 py-8" ref={contentRef}>
           {children && children}
         </div>
       </foreignObject>
