@@ -1,17 +1,14 @@
 import React, { useState } from 'react'
 import 'twin.macro'
-import tw from 'twin.macro'
-import { CalendarDay, DayCounter, Parchment } from '../components'
+import {
+  CalendarDay,
+  CalendarDayNames,
+  CalendarFillerDays,
+  Parchment,
+} from '../components'
 import { range } from '../functions/array.functions'
 import { notNullish } from '../functions/utils.functions'
-import { getTempString, getWeatherIcon } from '../functions/weather.functions'
-import {
-  Day,
-  getCal,
-  getDayName,
-  getDayNumber,
-  Month,
-} from '../models/calendar.model'
+import { Day, getCal, Month } from '../models/calendar.model'
 
 export const CalendarPage = () => {
   const cal = getCal(1165)
@@ -69,20 +66,8 @@ export const CalendarPage = () => {
                   {m.name}
                 </h2>
                 <div tw="grid grid-cols-7">
-                  {range(7).map((i) => (
-                    <div
-                      tw="border p-2 flex items-center justify-center font-bold bg-gray-200"
-                      key={getDayName(i)}
-                    >
-                      {getDayName(i)}
-                    </div>
-                  ))}
-                  {range(getDayNumber(m.days[0].name) - 1).map((i) => (
-                    <div
-                      tw="border p-2 flex items-center justify-center"
-                      key={`${m.name}-empty-day-${getDayName(i)}`}
-                    ></div>
-                  ))}
+                  <CalendarDayNames />
+                  <CalendarFillerDays day={m.days[0]} />
                   {m.days.map((d) => (
                     <CalendarDay
                       day={d}
