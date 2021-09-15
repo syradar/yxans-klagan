@@ -249,6 +249,14 @@ export const getWeatherIcon = (day: Day): string => {
   }
 }
 
+export const getMoonEmoji = (moon?: 'full' | 'new') => {
+  if (typeof moon !== 'undefined') {
+    return moon === 'full' ? '🌕' : '🌑'
+  }
+
+  return undefined
+}
+
 export class WeatherSystem {
   days: WeatherDay[] = []
   duration: number = Math.floor(1 + 14 * Math.random())
