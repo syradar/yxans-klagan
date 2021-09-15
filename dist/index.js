@@ -9270,9 +9270,6 @@ function _extends2() {
   };
   return _extends2.apply(this, arguments);
 }
-var readOnly = function(obj) {
-  return obj;
-};
 function invariant(cond, message) {
   if (!cond)
     throw new Error(message);
@@ -9283,7 +9280,7 @@ var LocationContext = /* @__PURE__ */ react.createContext({
 });
 var RouteContext = /* @__PURE__ */ react.createContext({
   outlet: null,
-  params: readOnly({}),
+  params: {},
   pathname: "",
   basename: "",
   route: null
@@ -9291,8 +9288,14 @@ var RouteContext = /* @__PURE__ */ react.createContext({
 function Outlet(_props) {
   return useOutlet();
 }
-function Router(_ref4) {
-  var _ref4$children = _ref4.children, children = _ref4$children === void 0 ? null : _ref4$children, _ref4$action = _ref4.action, action = _ref4$action === void 0 ? r3.Pop : _ref4$action, location = _ref4.location, navigator = _ref4.navigator, _ref4$static = _ref4.static, staticProp = _ref4$static === void 0 ? false : _ref4$static;
+function Router(_ref3) {
+  let {
+    children = null,
+    action = r3.Pop,
+    location,
+    navigator,
+    static: staticProp = false
+  } = _ref3;
   !!useInRouterContext() ? invariant(false) : void 0;
   return /* @__PURE__ */ react.createElement(NavigatorContext.Provider, {
     value: navigator
@@ -9307,8 +9310,8 @@ function Router(_ref4) {
 }
 function useHref(to) {
   !useInRouterContext() ? invariant(false) : void 0;
-  var navigator = react.useContext(NavigatorContext);
-  var path = useResolvedPath(to);
+  let navigator = react.useContext(NavigatorContext);
+  let path = useResolvedPath(to);
   return navigator.createHref(path);
 }
 function useInRouterContext() {
@@ -9320,14 +9323,19 @@ function useLocation() {
 }
 function useNavigate() {
   !useInRouterContext() ? invariant(false) : void 0;
-  var navigator = react.useContext(NavigatorContext);
-  var _React$useContext = react.useContext(RouteContext), basename = _React$useContext.basename;
-  var _useLocation = useLocation(), pathname = _useLocation.pathname;
-  var activeRef = react.useRef(false);
-  react.useEffect(function() {
+  let navigator = react.useContext(NavigatorContext);
+  let {
+    basename,
+    pathname: parentRoutePathname
+  } = react.useContext(RouteContext);
+  let {
+    pathname: currentLocationPathname
+  } = useLocation();
+  let activeRef = react.useRef(false);
+  react.useEffect(() => {
     activeRef.current = true;
   });
-  var navigate = react.useCallback(function(to, options) {
+  let navigate = react.useCallback(function(to, options) {
     if (options === void 0) {
       options = {};
     }
@@ -9335,73 +9343,57 @@ function useNavigate() {
       if (typeof to === "number") {
         navigator.go(to);
       } else {
-        var path = resolvePath(to, pathname, basename);
+        let toPathname = to === "" || to.pathname === "" ? "/" : typeof to === "string" ? J2(to).pathname : to.pathname;
+        let path = resolvePath(to, toPathname ? parentRoutePathname : currentLocationPathname, basename);
         (!!options.replace ? navigator.replace : navigator.push)(path, options.state);
       }
     }
-  }, [basename, navigator, pathname]);
+  }, [basename, navigator, parentRoutePathname, currentLocationPathname]);
   return navigate;
 }
 function useOutlet() {
   return react.useContext(RouteContext).outlet;
 }
 function useResolvedPath(to) {
-  var _React$useContext2 = react.useContext(RouteContext), pathname = _React$useContext2.pathname, basename = _React$useContext2.basename;
-  return react.useMemo(function() {
-    return resolvePath(to, pathname, basename);
-  }, [to, pathname, basename]);
+  let {
+    pathname,
+    basename
+  } = react.useContext(RouteContext);
+  return react.useMemo(() => resolvePath(to, pathname, basename), [to, pathname, basename]);
 }
-function useRoutes(partialRoutes, _temp) {
-  var _ref6 = _temp === void 0 ? {} : _temp, _ref6$basename = _ref6.basename, basename = _ref6$basename === void 0 ? "" : _ref6$basename, location = _ref6.location;
+function useRoutes(routes, _temp) {
+  let {
+    basename = "",
+    location: locationArg
+  } = _temp === void 0 ? {} : _temp;
   !useInRouterContext() ? invariant(false) : void 0;
-  var routes = react.useMemo(function() {
-    return createRoutesFromArray(partialRoutes);
-  }, [partialRoutes]);
-  return useRoutes_(routes, location, basename);
-}
-function useRoutes_(routes, locationOverride, basename) {
-  if (basename === void 0) {
-    basename = "";
-  }
-  var _React$useContext3 = react.useContext(RouteContext), parentRoute = _React$useContext3.route, parentPathname = _React$useContext3.pathname, parentParams = _React$useContext3.params;
-  var basenameForMatching = basename ? joinPaths([parentPathname, basename]) : parentPathname;
-  var contextLocation = useLocation();
-  var location = locationOverride !== null && locationOverride !== void 0 ? locationOverride : contextLocation;
-  var matches = react.useMemo(function() {
-    return matchRoutes(routes, location, basenameForMatching);
-  }, [location, routes, basenameForMatching]);
+  let {
+    route: parentRoute,
+    pathname: parentPathname,
+    params: parentParams
+  } = react.useContext(RouteContext);
+  let locationFromContext = useLocation();
+  let location = locationArg !== null && locationArg !== void 0 ? locationArg : locationFromContext;
+  let basenameForMatching = basename ? joinPaths([parentPathname, basename]) : parentPathname;
+  let matches = react.useMemo(() => matchRoutes(routes, location, basenameForMatching), [routes, location, basenameForMatching]);
   if (!matches) {
     return null;
   }
-  var allParams = {};
-  var element = matches.reduceRight(function(outlet, _ref7) {
-    var params = _ref7.params, pathname = _ref7.pathname, route = _ref7.route;
-    allParams = _extends2({}, allParams, params);
+  let params = Object.assign({}, parentParams);
+  let element = matches.reduceRight((outlet, match) => {
+    Object.assign(params, match.params);
     return /* @__PURE__ */ react.createElement(RouteContext.Provider, {
-      children: route.element,
+      children: match.route.element || /* @__PURE__ */ react.createElement(Outlet, null),
       value: {
         outlet,
-        params: readOnly(_extends2({}, parentParams, allParams)),
-        pathname: joinPaths([basenameForMatching, pathname]),
+        params,
+        pathname: joinPaths([basenameForMatching, match.pathname]),
         basename,
-        route
+        route: match.route
       }
     });
   }, null);
   return element;
-}
-function createRoutesFromArray(array) {
-  return array.map(function(partialRoute) {
-    var route = {
-      path: partialRoute.path || "/",
-      caseSensitive: partialRoute.caseSensitive === true,
-      element: partialRoute.element || /* @__PURE__ */ react.createElement(Outlet, null)
-    };
-    if (partialRoute.children) {
-      route.children = createRoutesFromArray(partialRoute.children);
-    }
-    return route;
-  });
 }
 function matchRoutes(routes, location, basename) {
   if (basename === void 0) {
@@ -9410,64 +9402,70 @@ function matchRoutes(routes, location, basename) {
   if (typeof location === "string") {
     location = J2(location);
   }
-  var pathname = location.pathname || "/";
+  let pathname = location.pathname || "/";
   if (basename) {
-    var base = basename.toLowerCase().replace(/^\/*/, "/").replace(/\/+$/, "");
-    if (pathname.toLowerCase().startsWith(base)) {
-      pathname = pathname.slice(base.length) || "/";
-    } else {
+    let base = basename.replace(/^\/*/, "/").replace(/\/+$/, "");
+    if (!pathname.toLowerCase().startsWith(base.toLowerCase())) {
       return null;
     }
+    pathname = pathname.slice(base.length) || "/";
   }
-  var branches = flattenRoutes(routes);
+  let branches = flattenRoutes(routes);
   rankRouteBranches(branches);
-  var matches = null;
-  for (var i2 = 0; matches == null && i2 < branches.length; ++i2) {
-    matches = matchRouteBranch(branches[i2], pathname);
+  let matches = null;
+  for (let i2 = 0; matches == null && i2 < branches.length; ++i2) {
+    matches = matchRouteBranch(branches[i2], pathname, routes);
   }
   return matches;
 }
-function flattenRoutes(routes, branches, parentPath, parentRoutes, parentIndexes) {
+function flattenRoutes(routes, branches, parentsMeta, parentPath) {
   if (branches === void 0) {
     branches = [];
+  }
+  if (parentsMeta === void 0) {
+    parentsMeta = [];
   }
   if (parentPath === void 0) {
     parentPath = "";
   }
-  if (parentRoutes === void 0) {
-    parentRoutes = [];
-  }
-  if (parentIndexes === void 0) {
-    parentIndexes = [];
-  }
-  routes.forEach(function(route, index) {
-    route = _extends2({}, route, {
-      path: route.path || "/",
-      caseSensitive: !!route.caseSensitive,
-      element: route.element
-    });
-    var path = joinPaths([parentPath, route.path]);
-    var routes2 = parentRoutes.concat(route);
-    var indexes = parentIndexes.concat(index);
-    if (route.children) {
-      flattenRoutes(route.children, branches, path, routes2, indexes);
+  routes.forEach((route, index) => {
+    let meta = {
+      relativePath: route.path || "",
+      caseSensitive: route.caseSensitive === true,
+      childrenIndex: index
+    };
+    if (meta.relativePath.startsWith("/")) {
+      !meta.relativePath.startsWith(parentPath) ? invariant(false) : void 0;
+      meta.relativePath = meta.relativePath.slice(parentPath.length);
     }
-    branches.push([path, routes2, indexes]);
+    let path = joinPaths([parentPath, meta.relativePath]);
+    let routesMeta = parentsMeta.concat(meta);
+    if (route.children && route.children.length > 0) {
+      !(route.index !== true) ? invariant(false) : void 0;
+      flattenRoutes(route.children, branches, routesMeta, path);
+    }
+    branches.push({
+      path,
+      routesMeta
+    });
   });
   return branches;
 }
 function rankRouteBranches(branches) {
-  var pathScores = branches.reduce(function(memo, _ref8) {
-    var path = _ref8[0];
-    memo[path] = computeScore(path);
-    return memo;
-  }, {});
-  stableSort(branches, function(a2, b2) {
-    var aPath = a2[0], aIndexes = a2[2];
-    var aScore = pathScores[aPath];
-    var bPath = b2[0], bIndexes = b2[2];
-    var bScore = pathScores[bPath];
-    return aScore !== bScore ? bScore - aScore : compareIndexes(aIndexes, bIndexes);
+  let pathScores = {};
+  let pathIndexes = {};
+  branches.forEach((_ref5) => {
+    let {
+      path,
+      routesMeta
+    } = _ref5;
+    pathScores[path] = computeScore(path);
+    pathIndexes[path] = routesMeta.map((meta) => meta.childrenIndex);
+  });
+  branches.sort((a2, b2) => {
+    let aScore = pathScores[a2.path];
+    let bScore = pathScores[b2.path];
+    return aScore !== bScore ? bScore - aScore : compareIndexes(pathIndexes[a2.path], pathIndexes[b2.path]);
   });
 }
 var paramRe = /^:\w+$/;
@@ -9475,84 +9473,82 @@ var dynamicSegmentValue = 2;
 var emptySegmentValue = 1;
 var staticSegmentValue = 10;
 var splatPenalty = -2;
-var isSplat = function isSplat2(s) {
-  return s === "*";
-};
+var isSplat = (s) => s === "*";
 function computeScore(path) {
-  var segments = path.split("/");
-  var initialScore = segments.length;
+  let segments = path.split("/");
+  let initialScore = segments.length;
   if (segments.some(isSplat)) {
     initialScore += splatPenalty;
   }
-  return segments.filter(function(s) {
-    return !isSplat(s);
-  }).reduce(function(score, segment) {
-    return score + (paramRe.test(segment) ? dynamicSegmentValue : segment === "" ? emptySegmentValue : staticSegmentValue);
-  }, initialScore);
+  return segments.filter((s) => !isSplat(s)).reduce((score, segment) => score + (paramRe.test(segment) ? dynamicSegmentValue : segment === "" ? emptySegmentValue : staticSegmentValue), initialScore);
 }
 function compareIndexes(a2, b2) {
-  var siblings = a2.length === b2.length && a2.slice(0, -1).every(function(n3, i2) {
-    return n3 === b2[i2];
-  });
+  let siblings = a2.length === b2.length && a2.slice(0, -1).every((n3, i2) => n3 === b2[i2]);
   return siblings ? a2[a2.length - 1] - b2[b2.length - 1] : 0;
 }
-function stableSort(array, compareItems) {
-  var copy = array.slice(0);
-  array.sort(function(a2, b2) {
-    return compareItems(a2, b2) || copy.indexOf(a2) - copy.indexOf(b2);
-  });
-}
-function matchRouteBranch(branch, pathname) {
-  var routes = branch[1];
-  var matchedPathname = "/";
-  var matchedParams = {};
-  var matches = [];
-  for (var i2 = 0; i2 < routes.length; ++i2) {
-    var route = routes[i2];
-    var remainingPathname = matchedPathname === "/" ? pathname : pathname.slice(matchedPathname.length) || "/";
-    var routeMatch = matchPath({
-      path: route.path,
-      caseSensitive: route.caseSensitive,
-      end: i2 === routes.length - 1
+function matchRouteBranch(branch, pathname, originalRoutes) {
+  let matchedPathname = "/";
+  let matchedParams = {};
+  let {
+    routesMeta
+  } = branch;
+  let routes = originalRoutes;
+  let matches = [];
+  for (let i2 = 0; i2 < routesMeta.length; ++i2) {
+    let meta = routesMeta[i2];
+    let remainingPathname = matchedPathname === "/" ? pathname : pathname.slice(matchedPathname.length) || "/";
+    let match = matchPath({
+      path: meta.relativePath,
+      caseSensitive: meta.caseSensitive,
+      end: i2 === routesMeta.length - 1
     }, remainingPathname);
-    if (!routeMatch)
+    if (!match)
       return null;
-    matchedPathname = joinPaths([matchedPathname, routeMatch.pathname]);
-    matchedParams = _extends2({}, matchedParams, routeMatch.params);
+    matchedParams = _extends2({}, matchedParams, match.params);
+    matchedPathname = joinPaths([matchedPathname, match.pathname]);
+    let route = routes[meta.childrenIndex];
     matches.push({
-      route,
+      params: matchedParams,
       pathname: matchedPathname,
-      params: readOnly(matchedParams)
+      route
     });
+    routes = route.children;
   }
   return matches;
 }
 function matchPath(pattern, pathname) {
   if (typeof pattern === "string") {
     pattern = {
-      path: pattern
+      path: pattern,
+      caseSensitive: false,
+      end: true
     };
   }
-  var _pattern = pattern, path = _pattern.path, _pattern$caseSensitiv = _pattern.caseSensitive, caseSensitive = _pattern$caseSensitiv === void 0 ? false : _pattern$caseSensitiv, _pattern$end = _pattern.end, end = _pattern$end === void 0 ? true : _pattern$end;
-  var _compilePath = compilePath(path, caseSensitive, end), matcher = _compilePath[0], paramNames = _compilePath[1];
-  var match = pathname.match(matcher);
+  let [matcher, paramNames] = compilePath(pattern.path, pattern.caseSensitive, pattern.end);
+  let match = pathname.match(matcher);
   if (!match)
     return null;
-  var matchedPathname = match[1];
-  var values = match.slice(2);
-  var params = paramNames.reduce(function(memo, paramName, index) {
+  let matchedPathname = match[1];
+  let values = match.slice(2);
+  let params = paramNames.reduce((memo, paramName, index) => {
     memo[paramName] = safelyDecodeURIComponent(values[index] || "");
     return memo;
   }, {});
   return {
-    path,
+    params,
     pathname: matchedPathname,
-    params
+    pattern
   };
 }
 function compilePath(path, caseSensitive, end) {
-  var keys = [];
-  var source = "^(" + path.replace(/^\/*/, "/").replace(/\/?\*?$/, "").replace(/[\\.*+^$?{}|()[\]]/g, "\\$&").replace(/:(\w+)/g, function(_2, key) {
+  if (caseSensitive === void 0) {
+    caseSensitive = false;
+  }
+  if (end === void 0) {
+    end = true;
+  }
+  let keys = [];
+  let source = "^(" + path.replace(/^\/*/, "/").replace(/\/?\*?$/, "").replace(/[\\.*+^$?{}|()[\]]/g, "\\$&").replace(/:(\w+)/g, (_2, key) => {
     keys.push(key);
     return "([^\\/]+)";
   }) + ")";
@@ -9568,8 +9564,8 @@ function compilePath(path, caseSensitive, end) {
   }
   if (end)
     source += "$";
-  var flags = caseSensitive ? void 0 : "i";
-  var matcher = new RegExp(source, flags);
+  let flags = caseSensitive ? void 0 : "i";
+  let matcher = new RegExp(source, flags);
   return [matcher, keys];
 }
 function safelyDecodeURIComponent(value, paramName) {
@@ -9586,36 +9582,28 @@ function resolvePath(to, fromPathname, basename) {
   if (basename === void 0) {
     basename = "";
   }
-  var _ref9 = typeof to === "string" ? J2(to) : to, toPathname = _ref9.pathname, _ref9$search = _ref9.search, search = _ref9$search === void 0 ? "" : _ref9$search, _ref9$hash = _ref9.hash, hash = _ref9$hash === void 0 ? "" : _ref9$hash;
-  var pathname = toPathname ? resolvePathname(toPathname, toPathname.startsWith("/") ? basename ? normalizeSlashes("/" + basename) : "/" : fromPathname) : fromPathname;
+  let {
+    pathname: toPathname,
+    search = "",
+    hash = ""
+  } = typeof to === "string" ? J2(to) : to;
+  let pathname = toPathname ? resolvePathname(toPathname, toPathname.startsWith("/") ? basename ? normalizeSlashes("/" + basename) : "/" : fromPathname) : fromPathname;
   return {
     pathname,
     search: normalizeSearch(search),
     hash: normalizeHash(hash)
   };
 }
-var trimTrailingSlashes = function trimTrailingSlashes2(path) {
-  return path.replace(/\/+$/, "");
-};
-var normalizeSlashes = function normalizeSlashes2(path) {
-  return path.replace(/\/\/+/g, "/");
-};
-var joinPaths = function joinPaths2(paths) {
-  return normalizeSlashes(paths.join("/"));
-};
-var splitPath = function splitPath2(path) {
-  return normalizeSlashes(path).split("/");
-};
-var normalizeSearch = function normalizeSearch2(search) {
-  return !search || search === "?" ? "" : search.startsWith("?") ? search : "?" + search;
-};
-var normalizeHash = function normalizeHash2(hash) {
-  return !hash || hash === "#" ? "" : hash.startsWith("#") ? hash : "#" + hash;
-};
+var trimTrailingSlashes = (path) => path.replace(/\/+$/, "");
+var normalizeSlashes = (path) => path.replace(/\/\/+/g, "/");
+var joinPaths = (paths) => normalizeSlashes(paths.join("/"));
+var splitPath = (path) => normalizeSlashes(path).split("/");
+var normalizeSearch = (search) => !search || search === "?" ? "" : search.startsWith("?") ? search : "?" + search;
+var normalizeHash = (hash) => !hash || hash === "#" ? "" : hash.startsWith("#") ? hash : "#" + hash;
 function resolvePathname(toPathname, fromPathname) {
-  var segments = splitPath(trimTrailingSlashes(fromPathname));
-  var relativeSegments = splitPath(toPathname);
-  relativeSegments.forEach(function(segment) {
+  let segments = splitPath(trimTrailingSlashes(fromPathname));
+  let relativeSegments = splitPath(toPathname);
+  relativeSegments.forEach((segment) => {
     if (segment === "..") {
       if (segments.length > 1)
         segments.pop();
@@ -9655,21 +9643,22 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 }
 var _excluded = ["onClick", "replace", "state", "target", "to"];
 function HashRouter(_ref2) {
-  var children = _ref2.children, window2 = _ref2.window;
-  var historyRef = react.useRef();
+  let {
+    children,
+    window: window2
+  } = _ref2;
+  let historyRef = react.useRef();
   if (historyRef.current == null) {
     historyRef.current = createHashHistory({
       window: window2
     });
   }
-  var history = historyRef.current;
-  var _React$useState2 = react.useState({
+  let history = historyRef.current;
+  let [state, setState] = react.useState({
     action: history.action,
     location: history.location
-  }), state = _React$useState2[0], setState = _React$useState2[1];
-  react.useLayoutEffect(function() {
-    return history.listen(setState);
-  }, [history]);
+  });
+  react.useLayoutEffect(() => history.listen(setState), [history]);
   return /* @__PURE__ */ react.createElement(Router, {
     children,
     action: state.action,
@@ -9681,9 +9670,15 @@ function isModifiedEvent(event) {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
 var Link = /* @__PURE__ */ react.forwardRef(function LinkWithRef(_ref3, ref) {
-  var onClick = _ref3.onClick, _ref3$replace = _ref3.replace, replace = _ref3$replace === void 0 ? false : _ref3$replace, state = _ref3.state, target = _ref3.target, to = _ref3.to, rest = _objectWithoutPropertiesLoose(_ref3, _excluded);
-  var href = useHref(to);
-  var internalOnClick = useLinkClickHandler(to, {
+  let {
+    onClick,
+    replace = false,
+    state,
+    target,
+    to
+  } = _ref3, rest = _objectWithoutPropertiesLoose(_ref3, _excluded);
+  let href = useHref(to);
+  let internalOnClick = useLinkClickHandler(to, {
     replace,
     state,
     target
@@ -9703,20 +9698,24 @@ var Link = /* @__PURE__ */ react.forwardRef(function LinkWithRef(_ref3, ref) {
   }));
 });
 function useLinkClickHandler(to, _temp) {
-  var _ref6 = _temp === void 0 ? {} : _temp, target = _ref6.target, replaceProp = _ref6.replace, state = _ref6.state;
-  var navigate = useNavigate();
-  var location = useLocation();
-  var path = useResolvedPath(to);
-  return function handleClick(event) {
+  let {
+    target,
+    replace: replaceProp,
+    state
+  } = _temp === void 0 ? {} : _temp;
+  let navigate = useNavigate();
+  let location = useLocation();
+  let path = useResolvedPath(to);
+  return react.useCallback((event) => {
     if (event.button === 0 && (!target || target === "_self") && !isModifiedEvent(event)) {
       event.preventDefault();
-      var replace = !!replaceProp || I3(location) === I3(path);
+      let replace = !!replaceProp || I3(location) === I3(path);
       navigate(to, {
         replace,
         state
       });
     }
-  };
+  }, [location, navigate, path, replaceProp, state, target, to]);
 }
 
 // build/dist/pkg/@emotion/styled.js
@@ -11318,6 +11317,21 @@ var CalendarFillerDays = ({
 };
 var calendar_filler_day_default = CalendarFillerDays;
 
+// build/dist/components/page-header.js
+var PageHeader = ({
+  children
+}) => {
+  return jsx("h1", {
+    css: {
+      textAlign: "center",
+      fontSize: "3.75rem",
+      lineHeight: "1"
+    },
+    className: "yx-heading"
+  }, children);
+};
+var page_header_default = PageHeader;
+
 // build/dist/logo.js
 var YxansKlaganLogo = () => jsx(YxansKlaganSvg, null);
 var logo_default = YxansKlaganLogo;
@@ -11674,14 +11688,7 @@ var CalendarPage = () => {
       rowGap: "2rem",
       width: "100%"
     }
-  }, jsx("h1", {
-    css: {
-      textAlign: "center",
-      fontSize: "3.75rem",
-      lineHeight: "1"
-    },
-    className: "yx-heading"
-  }, "Kalender"), jsx("div", {
+  }, jsx(page_header_default, null, "Kalender"), jsx("div", {
     css: {}
   }, jsx(parchment_default, null, jsx("div", null, jsx(CalendarContext.Provider, {
     value: {
@@ -11757,23 +11764,16 @@ var DiceRollerPage = () => {
     css: {
       display: "flex",
       flexDirection: "column",
-      rowGap: "2rem"
+      rowGap: "2rem",
+      width: "100%"
     }
-  }, jsx("h1", {
+  }, jsx(page_header_default, null, "Tärningar"), jsx(parchment_default, null, jsx("div", {
     css: {
-      textAlign: "center",
-      fontSize: "3.75rem",
-      lineHeight: "1"
-    },
-    className: "yx-heading"
-  }, "Tärningar"), jsx(parchment_default, null, jsx("h2", {
-    css: {
-      fontSize: "2.25rem",
-      lineHeight: "2.5rem",
-      textAlign: "center"
-    },
-    className: "yx-heading"
-  }, "Tärningsrullare"), jsx("div", null, "Lyckade: ", successes), jsx("div", {
+      display: "flex",
+      flexDirection: "column",
+      gap: "1rem"
+    }
+  }, jsx("div", {
     css: {
       display: "flex",
       flexWrap: "wrap",
@@ -11808,7 +11808,14 @@ var DiceRollerPage = () => {
     max: 5,
     value: skillDiceAmount,
     onChange: skillDiceAmountChanged
-  })), diceResults.attribute.length > 0 && jsx(react.Fragment, null, jsx("div", null, "Attribut"), diceResults.attribute.map((val, index) => jsx("div", {
+  })), jsx("div", null, jsx(Button_default, {
+    variant: "primary",
+    onClick: () => rollDice()
+  }, "Slå tärning"), jsx(Button_default, {
+    variant: "secondary"
+  }, "Pressa slag"), jsx(Button_default, {
+    isSmall: true
+  }, "stäng")), jsx("div", null, jsx("div", null, "Lyckade: ", successes), diceResults.attribute.length > 0 && jsx(react.Fragment, null, jsx("div", null, "Attribut"), diceResults.attribute.map((val, index) => jsx("div", {
     key: index
   }, jsx(dice_display_default, {
     value: val
@@ -11816,14 +11823,7 @@ var DiceRollerPage = () => {
     key: index
   }, jsx(dice_display_default, {
     value: val
-  })))), jsx(Button_default, {
-    variant: "primary",
-    onClick: () => rollDice()
-  }, "Slå tärning"), jsx(Button_default, {
-    variant: "secondary"
-  }, "Pressa slag"), jsx(Button_default, {
-    isSmall: true
-  }, "stäng")));
+  }))))))));
 };
 
 // build/dist/pages/gear.page.js
@@ -11835,16 +11835,7 @@ var GearPage = () => {
       rowGap: "2rem",
       width: "100%"
     }
-  }, jsx("h1", {
-    css: {
-      textAlign: "center",
-      fontSize: "3.75rem",
-      lineHeight: "1"
-    },
-    className: "yx-heading"
-  }, "Utrustning"), jsx("div", {
-    css: {}
-  }, jsx(parchment_default, null, jsx("h2", {
+  }, jsx(page_header_default, null, "Utrustning"), jsx("div", null, jsx(parchment_default, null, jsx("h2", {
     css: {
       textAlign: "center",
       fontWeight: "700",
@@ -12282,14 +12273,7 @@ var NameGeneratorPage = () => {
       rowGap: "2rem",
       width: "100%"
     }
-  }, jsx("h1", {
-    css: {
-      textAlign: "center",
-      fontSize: "3.75rem",
-      lineHeight: "1"
-    },
-    className: "yx-heading"
-  }, "Namn"), jsx("div", {
+  }, jsx(page_header_default, null, "Namn"), jsx("div", {
     css: {
       display: "grid",
       gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
@@ -12374,74 +12358,63 @@ var App = () => {
       width: "25%",
       fontSize: "1.25rem",
       lineHeight: "1.75rem",
-      borderTopWidth: "2px",
-      borderBottomWidth: "2px",
-      marginBottom: "1rem",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
       display: "flex",
       flexDirection: "column",
       rowGap: "1rem"
     },
     className: "yx-heading"
-  }, jsx(Link, {
-    css: {
-      ":hover": {
-        "--tw-text-opacity": "1",
-        color: "rgba(185, 28, 28, var(--tw-text-opacity))"
-      }
-    },
+  }, jsx(MenuLink, {
     to: "/"
-  }, "Home"), jsx(Link, {
-    css: {
-      ":hover": {
-        "--tw-text-opacity": "1",
-        color: "rgba(185, 28, 28, var(--tw-text-opacity))"
-      }
-    },
+  }, "Home"), jsx(MenuLink, {
     to: "/names"
-  }, "Namn"), jsx(Link, {
-    css: {
-      ":hover": {
-        "--tw-text-opacity": "1",
-        color: "rgba(185, 28, 28, var(--tw-text-opacity))"
-      }
-    },
+  }, "Namn"), jsx(MenuLink, {
     to: "/gear"
-  }, "Utrustning"), jsx(Link, {
-    css: {
-      ":hover": {
-        "--tw-text-opacity": "1",
-        color: "rgba(185, 28, 28, var(--tw-text-opacity))"
-      }
-    },
+  }, "Utrustning"), jsx(MenuLink, {
     to: "/calendar"
-  }, "Kalender"), jsx(Link, {
-    css: {
-      ":hover": {
-        "--tw-text-opacity": "1",
-        color: "rgba(185, 28, 28, var(--tw-text-opacity))"
-      }
-    },
+  }, "Kalender"), jsx(MenuLink, {
     to: "/dice"
   }, "Tärningar"))), jsx("main", {
     css: {
-      width: "75%"
+      width: "75%",
+      marginTop: "1rem"
     }
   }, routes)));
 };
 var App_default = App;
-var HomePage = () => jsx(react.Fragment, null, jsx("h1", {
+var HomePage = () => jsx("div", {
   css: {
-    fontSize: "2.25rem",
-    lineHeight: "2.5rem",
-    textAlign: "center",
-    marginBottom: "1rem"
-  },
-  className: "yx-heading"
-}, "SVÄRDETS SÅNG"), jsx(parchment_default, null, jsx("p", {
+    display: "flex",
+    flexDirection: "column",
+    rowGap: "2rem",
+    maxWidth: "65ch"
+  }
+}, jsx(page_header_default, null, "Svärdets Sång"), jsx(parchment_default, null, jsx("p", {
   className: "yx-prose"
 }, "Välkomna till Svärdets sång. I detta bordsrollspel är ni inte hjältar som utför uppdrag på order av andra – i stället är ni äventyrare och skattletare fast beslutna att sätta ert eget märke på denna fördömda värld. Ni kommer att vandra genom det vilda landet, utforska glömda gravar, kämpa mot fruktansvärda monster och – om ni lever länge nog – bygga ert eget fäste och försvara det mot fiender. Under era äventyr kan ni avslöja de mörka krafter som rör sig i skuggorna och till slut kan det bli ni som avgör Det glömda landets öde.")));
+var MenuLink = ({
+  to,
+  children
+}) => {
+  const {
+    pathname
+  } = useLocation();
+  const {
+    pathname: toPathname
+  } = useResolvedPath(to);
+  const isLinkActive = pathname === toPathname;
+  return jsx(Link, {
+    css: [isLinkActive && {
+      "--tw-text-opacity": "1",
+      color: "rgba(185, 28, 28, var(--tw-text-opacity))"
+    }, {
+      ":hover": {
+        "--tw-text-opacity": "1",
+        color: "rgba(239, 68, 68, var(--tw-text-opacity))"
+      }
+    }],
+    to
+  }, children);
+};
 
 // build/dist/index.js
 import.meta.env = env_exports;
