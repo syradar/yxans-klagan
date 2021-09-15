@@ -11,9 +11,13 @@ import { Day } from '../models/calendar.model'
 
 interface CalendarDayProps {
   day: Day
+  quarterClicked: (day: Day) => void
 }
 
-const CalendarDay: FC<CalendarDayProps> = ({ day }: CalendarDayProps) => {
+const CalendarDay: FC<CalendarDayProps> = ({
+  day,
+  quarterClicked,
+}: CalendarDayProps) => {
   return (
     <div tw="border p-2 flex flex-col gap-2">
       <div tw="flex justify-between">
@@ -31,7 +35,7 @@ const CalendarDay: FC<CalendarDayProps> = ({ day }: CalendarDayProps) => {
             // !eslint-disable-next-line @typescript-eslint/no-empty-function
             // !eslint-disable-next-line @typescript-eslint/no-empty-function
             // eslint-disable-next-line @typescript-eslint/no-empty-function
-            spendQuarter={() => {}} // quarterClicked(day)}
+            spendQuarter={() => quarterClicked(day)} // quarterClicked(day)}
           ></DayCounter>
         </div>
       </div>

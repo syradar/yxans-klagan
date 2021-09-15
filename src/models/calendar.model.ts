@@ -103,18 +103,12 @@ export const dayInMonth = (m: MonthNames): 45 | 46 => {
   }
 }
 
+export type MonthIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7
+
 export type Calendar = {
   year: number
   months: {
-    [k: number]: Month
-    0: Month
-    1: Month
-    2: Month
-    4: Month
-    5: Month
-    6: Month
-    7: Month
-    8: Month
+    [k in MonthIndex]: Month
   }
 }
 
@@ -133,7 +127,7 @@ export const getCal = (startYear = 1165): Calendar => {
   const cal = range(numberOfMonths()).reduce(
     (cal, m) => {
       const monthName = getMonthName(m)
-      cal.cal.months[m] = {
+      cal.cal.months[m as MonthIndex] = {
         name: monthName,
         days: range(dayInMonth(monthName)).map((d) => {
           const {

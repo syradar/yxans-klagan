@@ -1,52 +1,39 @@
-import React, { useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import 'twin.macro'
-import {
-  CalendarDay,
-  CalendarDayNames,
-  CalendarFillerDays,
-  Parchment,
-} from '../components'
-import { range } from '../functions/array.functions'
+import { Parchment } from '../components'
+import CalendarMonth from '../components/calendar-month'
 import { notNullish } from '../functions/utils.functions'
-import { Day, getCal, Month } from '../models/calendar.model'
+import { Calendar, getCal } from '../models/calendar.model'
+
+const DEFAULT_CALENDAR = getCal(1165)
+
+const CALENDAR_KEY = 'calendar'
+
+type CalendarContext = {
+  calendar: Calendar
+  setCalendar: (cal: Calendar) => void
+}
+
+export const CalendarContext = createContext<CalendarContext>({
+  calendar: DEFAULT_CALENDAR,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setCalendar: (_: Calendar) => {},
+})
 
 export const CalendarPage = () => {
-  const cal = getCal(1165)
+  const calendarFromStorage = localStorage.getItem(CALENDAR_KEY) ?? undefined
 
-  const monthsFromStorage = localStorage.getItem('calendar') ?? undefined
+  const calendarFromStorageOrDefault = notNullish(calendarFromStorage)
+    ? JSON.parse(calendarFromStorage)
+    : DEFAULT_CALENDAR
 
-  const monthsFromStorageOrDefault = notNullish(monthsFromStorage)
-    ? JSON.parse(monthsFromStorage)
-    : Object.values(cal.months)
-  const [months, setMonths] = useState<Month[]>(monthsFromStorageOrDefault)
+  const [calendar, setCalendar] = useState<Calendar>(
+    calendarFromStorageOrDefault,
+  )
 
-  const spendQuarter = (
-    quarters: [boolean, boolean, boolean, boolean],
-  ): [boolean, boolean, boolean, boolean] => {
-    const spent = (quarters.filter((q) => q).length + 1) % 5
-
-    return [
-      ...range(spent).map((_) => true),
-      ...range(4 - spent).map((_) => false),
-    ] as [boolean, boolean, boolean, boolean]
-  }
-
-  const quarterClicked = (day: Day): void => {
-    setTimeout(() => {
-      const newMonths2: Month[] = []
-      for (const month of months) {
-        for (const d of month.days) {
-          d.quarters =
-            day.number === d.number ? spendQuarter(d.quarters) : d.quarters
-        }
-
-        newMonths2.push(month)
-      }
-      localStorage.setItem('calendar', JSON.stringify(newMonths2))
-
-      setMonths(newMonths2)
-    }, 1)
-  }
+  useEffect(() => {
+    localStorage.setItem(CALENDAR_KEY, JSON.stringify(calendar))
+  }, [calendar])
 
   return (
     <div tw="flex flex-col gap-y-8 w-full">
@@ -57,26 +44,27 @@ export const CalendarPage = () => {
       <div tw="">
         <Parchment>
           <div>
-            <div tw="text-center text-xl mb-2 normal-case" className="yx-prose">
-              År {cal.year} E.S. (Efter skiftet)
-            </div>
-            {months.map((m) => (
-              <div tw="mb-4" key={m.name}>
-                <h2 tw="text-center font-bold text-2xl uppercase mb-4">
-                  {m.name}
-                </h2>
-                <div tw="grid grid-cols-7">
-                  <CalendarDayNames />
-                  <CalendarFillerDays day={m.days[0]} />
-                  {m.days.map((d) => (
-                    <CalendarDay
-                      day={d}
-                      key={`${d.monthName}${d.number}`}
-                    ></CalendarDay>
-                  ))}
-                </div>
+            <CalendarContext.Provider
+              value={{
+                calendar,
+                setCalendar,
+              }}
+            >
+              <div
+                tw="text-center text-xl mb-2 normal-case"
+                className="yx-prose"
+              >
+                År {calendar.year} E.S. (Efter skiftet)
               </div>
-            ))}
+              <CalendarMonth monthIndex={0}></CalendarMonth>
+              <CalendarMonth monthIndex={1}></CalendarMonth>
+              <CalendarMonth monthIndex={2}></CalendarMonth>
+              <CalendarMonth monthIndex={3}></CalendarMonth>
+              <CalendarMonth monthIndex={4}></CalendarMonth>
+              <CalendarMonth monthIndex={5}></CalendarMonth>
+              <CalendarMonth monthIndex={6}></CalendarMonth>
+              <CalendarMonth monthIndex={7}></CalendarMonth>
+            </CalendarContext.Provider>
           </div>
         </Parchment>
       </div>

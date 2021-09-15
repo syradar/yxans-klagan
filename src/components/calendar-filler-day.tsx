@@ -1,13 +1,6 @@
 import React, { FC } from 'react'
 import 'twin.macro'
-import tw from 'twin.macro'
-import { DayCounter } from '.'
 import { range } from '../functions/array.functions'
-import {
-  getMoonEmoji,
-  getTempString,
-  getWeatherIcon,
-} from '../functions/weather.functions'
 import { Day, getDayName, getDayNumber } from '../models/calendar.model'
 
 interface CalendarFillerDaysProps {
