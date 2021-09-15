@@ -9000,26 +9000,26 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:^6.0.0-beta.0":
-  version: 6.0.0-beta.3
-  resolution: "react-router-dom@npm:6.0.0-beta.3"
+"react-router-dom@npm:^6.0.0-beta.4":
+  version: 6.0.0-beta.4
+  resolution: "react-router-dom@npm:6.0.0-beta.4"
   dependencies:
-    react-router: 6.0.0-beta.3
+    react-router: 6.0.0-beta.4
   peerDependencies:
     history: ">=5"
     react: ">=16.8"
     react-dom: ">=16.8"
-  checksum: 03a8ecc8ca76d650e52313193a6384d763bd18aeaa86604d85721650634a72b993b899278a470a6a14c6740658de6c5bdc2aded8fd1d0b20d6925b2abab5dfed
+  checksum: d9cfd12e097d29eabffe9a8105ec02b71022db7056de281c8dc8ab107b0a65c306fa0d100dc31b13e451ac36168c659e8b8ba6fe846207956c54a57d7d708038
   languageName: node
   linkType: hard
 
-"react-router@npm:6.0.0-beta.3":
-  version: 6.0.0-beta.3
-  resolution: "react-router@npm:6.0.0-beta.3"
+"react-router@npm:6.0.0-beta.4":
+  version: 6.0.0-beta.4
+  resolution: "react-router@npm:6.0.0-beta.4"
   peerDependencies:
     history: ">=5"
     react: ">=16.8"
-  checksum: e82b0b350bce22a1de584aa2dc2c25cd049936c7c23e65458744595682b91dac61d5349d454e90f2ebae9a34a8233ddbf2ff7ed5a2af95f3ac8bf775acaaabbf
+  checksum: a2fb9840a577ae49c08bc7cf1caae9fbf054e8abc8be917937e79e139fd0bee4b953f8c067122a4fe331235f442ee18cd67fc5700749bc580872083bf50dd5e9
   languageName: node
   linkType: hard
 
@@ -11029,7 +11029,7 @@ typescript@^4.3.5:
     rambda: ^6.9.0
     react: ^17.0.1
     react-dom: ^17.0.1
-    react-router-dom: ^6.0.0-beta.0
+    react-router-dom: ^6.0.0-beta.4
     snowpack: ^3.0.13
     tailwindcss: ^2.0.3
     ts-jest: ^27.0.4

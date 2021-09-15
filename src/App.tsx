@@ -1,8 +1,14 @@
-import React from 'react'
-import { Link, useRoutes } from 'react-router-dom'
-import tw from 'twin.macro'
+import React, { Children, FC } from 'react'
+import {
+  Link,
+  LinkProps,
+  useLocation,
+  useResolvedPath,
+  useRoutes,
+} from 'react-router-dom'
+import tw, { css } from 'twin.macro'
 import './App.css'
-import { Parchment } from './components'
+import { PageHeader, Parchment } from './components'
 import YxansKlaganLogo from './logo'
 import { CalendarPage } from './pages/calendar.page'
 import { DiceRollerPage } from './pages/dice-roller.page'
@@ -50,28 +56,15 @@ const App = () => {
           <div tw="p-2 w-64">
             <YxansKlaganLogo />
           </div>
-          <nav
-            tw="w-1/4 text-xl border-t-2 border-b-2 mb-4 border-black flex flex-col gap-y-4"
-            className="yx-heading"
-          >
-            <Link tw="hover:text-red-700" to="/">
-              Home
-            </Link>
-            <Link tw="hover:text-red-700" to="/names">
-              Namn
-            </Link>
-            <Link tw="hover:text-red-700" to="/gear">
-              Utrustning
-            </Link>
-            <Link tw="hover:text-red-700" to="/calendar">
-              Kalender
-            </Link>
-            <Link tw="hover:text-red-700" to="/dice">
-              Tärningar
-            </Link>
+          <nav tw="w-1/4 text-xl flex flex-col gap-y-4" className="yx-heading">
+            <MenuLink to="/">Home</MenuLink>
+            <MenuLink to="/names">Namn</MenuLink>
+            <MenuLink to="/gear">Utrustning</MenuLink>
+            <MenuLink to="/calendar">Kalender</MenuLink>
+            <MenuLink to="/dice">Tärningar</MenuLink>
           </nav>
         </div>
-        <main tw="w-3/4">{routes}</main>
+        <main tw="w-3/4 mt-4">{routes}</main>
       </div>
     </div>
   )
@@ -80,10 +73,8 @@ const App = () => {
 export default App
 
 const HomePage = () => (
-  <>
-    <h1 tw="text-4xl text-center mb-4" className="yx-heading">
-      SVÄRDETS SÅNG
-    </h1>
+  <div tw="flex flex-col gap-y-8 max-w-prose">
+    <PageHeader>Svärdets Sång</PageHeader>
     <Parchment>
       <p className="yx-prose">
         Välkomna till Svärdets sång. I detta bordsrollspel är ni inte hjältar
@@ -96,5 +87,21 @@ const HomePage = () => (
         det bli ni som avgör Det glömda landets öde.
       </p>
     </Parchment>
-  </>
+  </div>
 )
+
+const MenuLink: FC<LinkProps> = ({ to, children }: LinkProps) => {
+  const { pathname } = useLocation()
+  const { pathname: toPathname } = useResolvedPath(to)
+
+  const isLinkActive = pathname === toPathname
+
+  return (
+    <Link
+      css={[isLinkActive && tw`text-red-700`, tw`hover:text-red-500`]}
+      to={to}
+    >
+      {children}
+    </Link>
+  )
+}
