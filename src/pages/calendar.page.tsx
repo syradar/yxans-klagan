@@ -3,6 +3,7 @@ import 'twin.macro'
 import tw from 'twin.macro'
 import { DayCounter, Parchment } from '../components'
 import { range } from '../functions/array.functions'
+import { notNullish } from '../functions/utils.functions'
 import { getTempString, getWeatherIcon } from '../functions/weather.functions'
 import {
   Day,
@@ -22,8 +23,11 @@ export const CalendarPage = () => {
 
     return undefined
   }
-  const monthsFromStorageOrDefault =
-    JSON.parse(localStorage.getItem('calendar')) ?? Object.values(cal.months)
+  const monthsFromStorage = localStorage.getItem('calendar') ?? undefined
+
+  const monthsFromStorageOrDefault = notNullish(monthsFromStorage)
+    ? JSON.parse(monthsFromStorage)
+    : Object.values(cal.months)
   const [months, setMonths] = useState<Month[]>(monthsFromStorageOrDefault)
 
   const spendQuarter = (

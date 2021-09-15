@@ -66,6 +66,7 @@ export const getDayNumber = (dayName: DayNames): number => {
 export type Day = {
   number: number
   name: DayNames
+  monthName: MonthNames
   quarters: [boolean, boolean, boolean, boolean]
   moon?: 'full' | 'new'
   temp: number
@@ -148,6 +149,7 @@ export const getCal = (startYear = 1165): Calendar => {
           return {
             number: d + 1,
             name: getDayName(cal.daysPassed + d),
+            monthName: monthName,
             quarters: [false, false, false, false],
             moon: getMoonPhase(cal.daysPassed + d + 1 + 9),
             temp,
