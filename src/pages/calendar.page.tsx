@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import 'twin.macro'
 import tw from 'twin.macro'
-import { DayCounter, Parchment } from '../components'
+import { CalendarDay, DayCounter, Parchment } from '../components'
 import { range } from '../functions/array.functions'
 import { notNullish } from '../functions/utils.functions'
 import { getTempString, getWeatherIcon } from '../functions/weather.functions'
@@ -16,13 +16,6 @@ import {
 export const CalendarPage = () => {
   const cal = getCal(1165)
 
-  const getMoonEmoji = (moon?: 'full' | 'new') => {
-    if (typeof moon !== 'undefined') {
-      return moon === 'full' ? '🌕' : '🌑'
-    }
-
-    return undefined
-  }
   const monthsFromStorage = localStorage.getItem('calendar') ?? undefined
 
   const monthsFromStorageOrDefault = notNullish(monthsFromStorage)
@@ -91,34 +84,10 @@ export const CalendarPage = () => {
                     ></div>
                   ))}
                   {m.days.map((d) => (
-                    <div
-                      tw="border p-2 flex flex-col gap-2"
-                      key={`${m.name}${d.number}`}
-                    >
-                      <div tw="flex justify-between">
-                        <div tw="flex flex-col w-5">
-                          <div css={[d.number === 1 ? tw`font-bold` : tw``]}>
-                            {d.number}
-                          </div>
-                          <div>{getMoonEmoji(d.moon)}</div>
-                          <div>{getWeatherIcon(d)}</div>
-                        </div>
-                        <div>
-                          <DayCounter
-                            quarters={d.quarters}
-                            spendQuarter={() => quarterClicked(d)}
-                          ></DayCounter>
-                        </div>
-                      </div>
-                      <div>
-                        <div>Högt: {getTempString(d.temp)}</div>
-                        <div>Lågt: {getTempString(d.lowTemp)}</div>
-                        <div>{d.downpour}</div>
-                        <div>{d.stormType}</div>
-                        <div>{d.stormType}</div>
-                        <div>{d.eventType?.name}</div>
-                      </div>
-                    </div>
+                    <CalendarDay
+                      day={d}
+                      key={`${d.monthName}${d.number}`}
+                    ></CalendarDay>
                   ))}
                 </div>
               </div>
