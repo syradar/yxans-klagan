@@ -1,6 +1,6 @@
 import React from 'react'
 import 'twin.macro'
-import { KinNameList, Parchment } from '../components'
+import { KinNameList, PageHeader, Parchment } from '../components'
 import {
   getRandomAlderlänningarName,
   getRandomAslenerName,
@@ -10,9 +10,8 @@ import {
 export const NameGeneratorPage = () => {
   return (
     <div tw="flex flex-col gap-y-8 w-full">
-      <h1 tw="text-center text-6xl" className="yx-heading">
-        Namn
-      </h1>
+      <PageHeader>Namn</PageHeader>
+
       <div tw="grid grid-cols-2 gap-4">
         <div tw="max-w-prose w-full">
           <Parchment>

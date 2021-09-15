@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react'
 import 'twin.macro'
-import { Parchment } from '../components'
+import { PageHeader, Parchment } from '../components'
 import CalendarMonth from '../components/calendar-month'
 import { notNullish } from '../functions/utils.functions'
 import { Calendar, getCal } from '../models/calendar.model'
@@ -37,9 +37,7 @@ export const CalendarPage = () => {
 
   return (
     <div tw="flex flex-col gap-y-8 w-full">
-      <h1 tw="text-center text-6xl" className="yx-heading">
-        Kalender
-      </h1>
+      <PageHeader>Kalender</PageHeader>
 
       <div tw="">
         <Parchment>

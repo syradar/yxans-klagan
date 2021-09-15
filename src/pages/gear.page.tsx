@@ -1,17 +1,15 @@
 import React from 'react'
 import 'twin.macro'
 import tw from 'twin.macro'
-import { Parchment } from '../components'
+import { PageHeader, Parchment } from '../components'
 import { getRandomInt } from '../functions/dice.functions'
 
 export const GearPage = () => {
   return (
     <div tw="flex flex-col gap-y-8 w-full">
-      <h1 tw="text-center text-6xl" className="yx-heading">
-        Utrustning
-      </h1>
+      <PageHeader>Utrustning</PageHeader>
 
-      <div tw="">
+      <div>
         <Parchment>
           <h2 tw="text-center font-bold text-2xl uppercase mb-4">
             Vanliga tjänster
