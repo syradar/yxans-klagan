@@ -1,6 +1,5 @@
 /* build/dist/App.css */
 .App {
-  background-color: hsl(48, 100%, 97%);
 }
 .App-header {
   height: 4rem;
@@ -11,7 +10,6 @@
 }
 nav {
   grid-area: side;
-  padding: 1rem;
 }
 nav > div {
   margin-bottom: 2rem;

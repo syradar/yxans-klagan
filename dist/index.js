@@ -9031,12 +9031,22 @@ ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,
 "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"`;
 var customStyles = css`
   body {
-    -webkit-tap-highlight-color: ${"#8b5cf6"};
+    -webkit-tap-highlight-color: ${"#000"};
     ${{
   WebkitFontSmoothing: "antialiased",
   MozOsxFontSmoothing: "grayscale"
 }}
     font-family: ${uiFontStack};
+  }
+
+  * {
+    ${{
+  ":focus-visible": {
+    outlineColor: "black",
+    outlineOffset: "2px",
+    outlineWidth: "2px"
+  }
+}}
   }
 `;
 var GlobalStyles = () => jsx(react.Fragment, null, jsx(_GlobalStyles, null), jsx(Global, {
@@ -9999,15 +10009,16 @@ var Button = styled_default.button(({
     borderRadius: "0px"
   },
   {
-    ":hover, :focus": {
-      "--tw-scale-x": "1.05",
-      "--tw-scale-y": "1.05",
-      transform: "var(--tw-transform)",
+    ":hover": {
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))",
       "--tw-text-opacity": "1",
-      color: "rgba(217, 119, 6, var(--tw-text-opacity))"
+      color: "rgba(0, 0, 0, var(--tw-text-opacity))"
     }
   },
-  variant === "primary" && {
+  {
     "--tw-bg-opacity": "1",
     backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
     "--tw-text-opacity": "1",
@@ -10133,6 +10144,39 @@ var Gender;
   Gender2["Male"] = "Male";
 })(Gender || (Gender = {}));
 
+// build/dist/components/icons/reload-icon.js
+var ReloadSvg = ({
+  svg: color = {
+    "--tw-text-opacity": "1",
+    color: "rgba(0, 0, 0, var(--tw-text-opacity))"
+  },
+  container: classes = {
+    height: "1rem",
+    width: "1rem"
+  }
+}) => jsx("div", {
+  css: [classes]
+}, jsx("svg", {
+  css: [{
+    width: "100%",
+    height: "100%"
+  }, {
+    fill: "currentColor"
+  }, color],
+  fill: "none",
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 52 50"
+}, jsx("path", {
+  d: "M42.14 6.8c.181.171.36.345.538.522l-7.071 7.071c-.178-.177-.359-.35-.544-.517L42.139 6.8z"
+}), jsx("path", {
+  d: "M42.678 7.322a24.991 24.991 0 0 0-.539-.522l-7.076 7.076c.185.168.366.34.544.517l7.07-7.07z"
+}), jsx("path", {
+  d: "m42.678 7.322-7.071 7.071c-.178-.177-.359-.35-.544-.517l-4.46 4.46 20.913 5.603-5.603-20.913L42.139 6.8c.182.171.362.345.539.522z"
+}), jsx("path", {
+  d: "M40.219 44.834a25 25 0 0 0 8.93-13.364l-9.66-2.588a15 15 0 1 1-4.426-15.006L42.139 6.8a25 25 0 1 0-1.92 38.034z"
+})));
+var reload_icon_default = ReloadSvg;
+
 // build/dist/components/kin-name-list.js
 var KinNameList = ({
   title,
@@ -10150,43 +10194,51 @@ var KinNameList = ({
       gap: "0.5rem",
       alignItems: "center",
       marginBottom: "1rem",
-      ":focus": {
-        outline: "2px solid transparent",
-        outlineOffset: "2px"
-      },
       ":hover": {
         "--tw-text-opacity": "1",
-        color: "rgba(217, 119, 6, var(--tw-text-opacity))"
+        color: "rgba(245, 158, 11, var(--tw-text-opacity))"
       }
     },
     onClick: () => getNames()
   }, jsx("h2", {
     css: {
-      fontSize: "2.25rem",
-      lineHeight: "2.5rem",
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
       textAlign: "center",
-      display: "flex"
+      display: "flex",
+      "@media (min-width: 1024px)": {
+        fontSize: "2.25rem",
+        lineHeight: "2.5rem"
+      }
     },
     className: "yx-heading"
-  }, title), jsx("span", null, "🔄")), jsx("div", {
+  }, title), jsx(reload_icon_default, {
+    container: {
+      width: "1.5rem",
+      height: "1.5rem"
+    },
+    svg: {}
+  })), jsx("div", {
     css: {
       display: "grid",
       gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
     }
   }, jsx("div", null, jsx("h3", {
     css: {
+      fontWeight: "600",
       fontSize: "1.5rem",
-      lineHeight: "2rem"
-    },
-    className: "yx-heading"
+      lineHeight: "2rem",
+      textTransform: "uppercase"
+    }
   }, "Kvinnor"), names.female.length > 0 && jsx("ul", null, names.female.map((name, i2) => jsx("li", {
     key: i2
   }, name)))), jsx("div", null, jsx("h3", {
     css: {
+      fontWeight: "600",
       fontSize: "1.5rem",
-      lineHeight: "2rem"
-    },
-    className: "yx-heading"
+      lineHeight: "2rem",
+      textTransform: "uppercase"
+    }
   }, "Män"), names.male.length > 0 && jsx("ul", null, names.male.map((name, i2) => jsx("li", {
     key: i2
   }, name))))));
@@ -10195,7 +10247,8 @@ var kin_name_list_default = KinNameList;
 
 // build/dist/components/parchment.js
 var Parchment = ({
-  children
+  children,
+  deps
 }) => {
   const [svgHeight, setSvgHeight] = useState(0);
   const contentRef = useRef(null);
@@ -10205,7 +10258,7 @@ var Parchment = ({
     } else {
       console.log("null content ref");
     }
-  });
+  }, deps);
   const dim = 98;
   const width = 2.5;
   return jsx("svg", {
@@ -10266,26 +10319,27 @@ var DayCounter = ({
 }) => {
   return jsx("button", {
     css: {
+      width: "100%",
       display: "grid",
-      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-      borderRadius: "9999px",
+      gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+      gap: "0px",
       ":hover": {
         "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
+        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))"
       }
     },
     onClick: () => spendQuarter2()
   }, jsx(Quarter, {
-    spent: quarters[3],
+    spent: quarters[0],
     index: 0
   }), jsx(Quarter, {
-    spent: quarters[0],
+    spent: quarters[1],
     index: 1
   }), jsx(Quarter, {
     spent: quarters[2],
     index: 2
   }), jsx(Quarter, {
-    spent: quarters[1],
+    spent: quarters[3],
     index: 3
   }));
 };
@@ -10293,26 +10347,19 @@ var Quarter = styled_default.div(({
   spent,
   index
 }) => [{
-  width: "1.5rem",
-  height: "1.5rem",
+  height: "1rem",
   borderWidth: "1px",
   "--tw-border-opacity": "1",
-  borderColor: "rgba(75, 85, 99, var(--tw-border-opacity))"
+  borderColor: "rgba(107, 114, 128, var(--tw-border-opacity))"
 }, index === 0 && {
-  borderTopLeftRadius: "9999px",
-  borderRightWidth: "0px",
-  borderBottomWidth: "0px"
-}, index === 1 && {
-  borderTopRightRadius: "9999px",
-  borderBottomWidth: "0px"
-}, index === 2 && {
-  borderBottomLeftRadius: "9999px",
   borderRightWidth: "0px"
-}, index === 3 && {
-  borderBottomRightRadius: "9999px"
-}, spent && {
+}, index === 1 && {
+  borderRightWidth: "0px"
+}, index === 2 && {
+  borderRightWidth: "0px"
+}, index === 3 && {}, spent && {
   "--tw-bg-opacity": "1",
-  backgroundColor: "rgba(156, 163, 175, var(--tw-bg-opacity))"
+  backgroundColor: "rgba(209, 213, 219, var(--tw-bg-opacity))"
 }]);
 var day_counter_default = DayCounter;
 
@@ -11158,41 +11205,6 @@ var GenerateWeather = class {
   }
 };
 
-// build/dist/components/calendar-day.js
-var CalendarDay = ({
-  day,
-  quarterClicked
-}) => {
-  return jsx("div", {
-    css: {
-      borderWidth: "1px",
-      padding: "0.5rem",
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.5rem"
-    }
-  }, jsx("div", {
-    css: {
-      display: "flex",
-      justifyContent: "space-between"
-    }
-  }, jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      width: "1.25rem"
-    }
-  }, jsx("div", {
-    css: [day.number === 1 ? {
-      fontWeight: "700"
-    } : {}]
-  }, day.number), jsx("div", null, getMoonEmoji(day.moon)), jsx("div", null, getWeatherIcon(day))), jsx("div", null, jsx(day_counter_default, {
-    quarters: day.quarters,
-    spendQuarter: () => quarterClicked(day)
-  }))), jsx("div", null, jsx("div", null, "Högt: ", getTempString(day.temp)), jsx("div", null, "Lågt: ", getTempString(day.lowTemp)), jsx("div", null, day.downpour), jsx("div", null, day.stormType), jsx("div", null, day.stormType), jsx("div", null, day.eventType?.name)));
-};
-var calendar_day_default = CalendarDay;
-
 // build/dist/models/calendar.model.js
 var month = ["Åldervinter", "Ungvår", "Åldervår", "Ungsommar", "Åldersommar", "Unghöst", "Ålderhöst", "Ungvinter"];
 var numberOfMonths = () => 8;
@@ -11289,18 +11301,77 @@ var getCal = (startYear = 1165) => {
   return cal.cal;
 };
 
+// build/dist/components/calendar-day.js
+var CalendarDay = ({
+  day,
+  quarterClicked,
+  showWeather = true
+}) => {
+  return jsx("div", {
+    css: {
+      padding: "0.5rem",
+      borderWidth: "1px",
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.5rem"
+    }
+  }, jsx("div", {
+    css: {
+      display: "flex",
+      justifyContent: "space-between"
+    }
+  }, jsx("div", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      width: "1.25rem"
+    }
+  }, jsx("div", {
+    css: {
+      "@media (min-width: 1024px)": {
+        display: "none"
+      }
+    }
+  }, getDayName(day.number)), jsx("div", {
+    css: [{
+      display: "flex",
+      gap: "0.25rem"
+    }, day.number === 1 ? {
+      fontWeight: "700"
+    } : {}]
+  }, day.number, jsx("div", null, getMoonEmoji(day.moon)), jsx("div", null, getWeatherIcon(day))))), jsx("div", {
+    css: {
+      width: "100%"
+    }
+  }, jsx(day_counter_default, {
+    quarters: day.quarters,
+    spendQuarter: () => quarterClicked(day)
+  })), showWeather && jsx("div", {
+    css: {}
+  }, jsx("div", null, "Högt: ", getTempString(day.temp)), jsx("div", null, "Lågt: ", getTempString(day.lowTemp)), jsx("div", null, day.downpour), jsx("div", null, day.stormType), jsx("div", null, day.stormType), jsx("div", null, day.eventType?.name)));
+};
+var calendar_day_default = CalendarDay;
+
 // build/dist/components/calendar-day-names.js
 var CalendarDayNames = () => {
   return jsx(react.Fragment, null, range(7).map((i2) => jsx("div", {
     css: {
-      borderWidth: "1px",
+      display: "none",
+      textTransform: "uppercase",
+      paddingLeft: "0.5rem",
+      paddingRight: "0.5rem",
+      paddingTop: "0.25rem",
+      paddingBottom: "0.25rem",
+      borderBottomWidth: "2px",
+      "--tw-border-opacity": "1",
+      borderBottomColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
       padding: "0.5rem",
-      display: "flex",
       alignItems: "center",
       justifyContent: "center",
       fontWeight: "700",
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
+      "@media (min-width: 1024px)": {
+        display: "flex"
+      }
     },
     key: getDayName(i2)
   }, getDayName(i2))));
@@ -11331,8 +11402,12 @@ var PageHeader = ({
   return jsx("h1", {
     css: {
       textAlign: "center",
-      fontSize: "3.75rem",
-      lineHeight: "1"
+      fontSize: "2.25rem",
+      lineHeight: "2.5rem",
+      "@media (min-width: 1024px)": {
+        fontSize: "3.75rem",
+        lineHeight: "1"
+      }
     },
     className: "yx-heading"
   }, children);
@@ -11342,7 +11417,13 @@ var page_header_default = PageHeader;
 // build/dist/logo.js
 var YxansKlaganLogo = () => jsx(YxansKlaganSvg, null);
 var logo_default = YxansKlaganLogo;
-var YxansKlaganSvg = () => jsx("svg", {
+var YxansKlaganSvg = () => jsx("div", {
+  css: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    width: "8rem"
+  }
+}, jsx("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   xmlnsXlink: "http://www.w3.org/1999/xlink",
   viewBox: "0 0 264.74 93.88"
@@ -11611,7 +11692,7 @@ var YxansKlaganSvg = () => jsx("svg", {
 }), jsx("path", {
   className: "cls-3",
   d: "M242.94 56.85l.26 2a7.23 7.23 0 00.31.75c.14.32.34.73.57 1.22L258 79.21v-9.13l-.18-2.75-.13-2.62-.26-2-.43-1.32-.39-.92-.53-.57-.44-.22-.65-.13h-.74l-.09-1.62h9.56v1.66h-1l-.82.31-.62.83-.52 1.49-.39 2.53-.27 3.75-.1 5.21v6.94l1.49 1.53a11.27 11.27 0 002.18.92l-2.81 2.9-1.35 1.83-1.14 1.75-.75 1.49-.57 1.79a15.65 15.65 0 00-.75-2.1l-.92-1.35-17.1-24 .26 13.41.36 5.32.26 1.62.3 1.18.4.87.43.48.48.22.7.13h.66v1.49h-9.43v-1.44h.87l.7-.22.61-.61.53-1.14.43-2.27.31-3 .13-4.19.09-5.46v-7.08a6.89 6.89 0 00-1.62-1.61 13.62 13.62 0 00-2.18-.83l.61-1.18.79-1.18 1.26-.92 1.27-.78 3.16-1 3.29-.35m0-.75h-.08l-3.29.35h-.14l-3.16 1a.53.53 0 00-.17.08l-1.27.79h-.05l-1.26.91a.86.86 0 00-.19.19l-.78 1.18a.25.25 0 000 .07l-.61 1.18a.7.7 0 000 .63.73.73 0 00.46.43 12.48 12.48 0 012 .76 5.39 5.39 0 011.26 1.23v6.82l-.09 5.45-.13 4.15-.3 3-.41 2.15-.43.94-.39.38-.43.14h-.78a.75.75 0 00-.71.75v1.44a.75.75 0 00.75.75h9.43a.75.75 0 00.75-.73v-1.43a.19.19 0 000-.08.75.75 0 00-.75-.75h-.59l-.54-.1-.26-.12-.25-.28-.32-.7-.28-1.09-.25-1.54-.35-5.29-.21-11 15.69 22 .91 1.33c0 .08.19.44.66 1.91a.74.74 0 00.71.53.75.75 0 00.72-.53l.55-1.73L259 90l1.11-1.72 1.31-1.76 2.76-2.89a.74.74 0 00-.29-1.22 13.72 13.72 0 01-2-.79l-1.22-1.25v-6.66l.17-5.22.26-3.7.38-2.43L262 61l.42-.55.49-.19h.82a.74.74 0 00.75-.75v-1.62a.75.75 0 00-.75-.75h-9.56a.77.77 0 00-.55.24.76.76 0 00-.2.56l.09 1.61a.75.75 0 00.7.71h.69l.51.1.22.11.35.37.32.75.32 1.26.25 1.89.13 2.59.18 2.76v6.83l-12.5-16.53-.15-.32-.38-.82c-.12-.27-.2-.47-.25-.61l-.26-1.93a.74.74 0 00-.74-.65z"
-}))));
+})))));
 
 // build/dist/components/calendar-month.js
 var spendQuarter = (quarters) => {
@@ -11636,7 +11717,8 @@ var quarterReducer = (cal, monthIndex, day) => {
   };
 };
 var CalendarMonth = ({
-  monthIndex
+  monthIndex,
+  showWeather = true
 }) => {
   const {
     calendar,
@@ -11649,33 +11731,41 @@ var CalendarMonth = ({
     css: {
       marginBottom: "1rem"
     }
+  }, jsx(parchment_default, {
+    deps: [showWeather]
   }, jsx("h2", {
     css: {
+      fontSize: "2.25rem",
+      lineHeight: "2.5rem",
       textAlign: "center",
-      fontWeight: "700",
-      fontSize: "1.5rem",
-      lineHeight: "2rem",
-      textTransform: "uppercase",
+      display: "flex",
       marginBottom: "1rem"
-    }
+    },
+    className: "yx-heading"
   }, calendar.months[monthIndex].name), jsx("div", {
     css: {
       display: "grid",
-      gridTemplateColumns: "repeat(7, minmax(0, 1fr))"
+      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+      "@media (min-width: 1024px)": {
+        gridTemplateColumns: "repeat(7, minmax(0, 1fr))"
+      }
     }
   }, jsx(calendar_day_names_default, null), jsx(calendar_filler_day_default, {
     day: calendar.months[monthIndex].days[0]
   }), calendar.months[monthIndex].days.map((d3) => jsx(calendar_day_default, {
     day: d3,
     key: `${d3.monthName}${d3.number}`,
+    showWeather,
     quarterClicked
-  }))));
+  })))));
 };
 var calendar_month_default = CalendarMonth;
 
 // build/dist/pages/calendar.page.js
 var DEFAULT_CALENDAR = getCal(1165);
+var DEFAULT_SHOW_WEATHER = true;
 var CALENDAR_KEY = "calendar";
+var CALENDAR_SHOW_WEATHER_KEY = "calendar_show_weather";
 var CalendarContext = /* @__PURE__ */ createContext({
   calendar: DEFAULT_CALENDAR,
   setCalendar: (_2) => {
@@ -11683,11 +11773,17 @@ var CalendarContext = /* @__PURE__ */ createContext({
 });
 var CalendarPage = () => {
   const calendarFromStorage = localStorage.getItem(CALENDAR_KEY) ?? void 0;
+  const showWeatherFromStorage = localStorage.getItem(CALENDAR_SHOW_WEATHER_KEY) ?? void 0;
   const calendarFromStorageOrDefault = notNullish(calendarFromStorage) ? JSON.parse(calendarFromStorage) : DEFAULT_CALENDAR;
+  const showWeatherFromStorageOrDefault = notNullish(showWeatherFromStorage) ? JSON.parse(showWeatherFromStorage) : DEFAULT_SHOW_WEATHER;
   const [calendar, setCalendar] = useState(calendarFromStorageOrDefault);
+  const [showWeather, setShowWeather] = useState(showWeatherFromStorageOrDefault);
   useEffect(() => {
     localStorage.setItem(CALENDAR_KEY, JSON.stringify(calendar));
   }, [calendar]);
+  useEffect(() => {
+    localStorage.setItem(CALENDAR_SHOW_WEATHER_KEY, JSON.stringify(showWeather));
+  }, [showWeather]);
   return jsx("div", {
     css: {
       display: "flex",
@@ -11696,13 +11792,6 @@ var CalendarPage = () => {
       width: "100%"
     }
   }, jsx(page_header_default, null, "Kalender"), jsx("div", {
-    css: {}
-  }, jsx(parchment_default, null, jsx("div", null, jsx(CalendarContext.Provider, {
-    value: {
-      calendar,
-      setCalendar
-    }
-  }, jsx("div", {
     css: {
       textAlign: "center",
       fontSize: "1.25rem",
@@ -11711,23 +11800,49 @@ var CalendarPage = () => {
       textTransform: "none"
     },
     className: "yx-prose"
-  }, "År ", calendar.year, " E.S. (Efter skiftet)"), jsx(calendar_month_default, {
-    monthIndex: 0
+  }, "År ", calendar.year, " E.S. (Efter skiftet)"), jsx("div", {
+    css: {
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
+      padding: "0.5rem",
+      display: "flex",
+      justifyContent: "flex-end"
+    }
+  }, jsx(Button_default, {
+    isSmall: true,
+    onClick: () => setShowWeather(!showWeather)
+  }, showWeather ? "Dölj väder" : "Visa väder")), jsx("div", {
+    css: {}
+  }, jsx(CalendarContext.Provider, {
+    value: {
+      calendar,
+      setCalendar
+    }
+  }, jsx(calendar_month_default, {
+    monthIndex: 0,
+    showWeather
   }), jsx(calendar_month_default, {
-    monthIndex: 1
+    monthIndex: 1,
+    showWeather
   }), jsx(calendar_month_default, {
-    monthIndex: 2
+    monthIndex: 2,
+    showWeather
   }), jsx(calendar_month_default, {
-    monthIndex: 3
+    monthIndex: 3,
+    showWeather
   }), jsx(calendar_month_default, {
-    monthIndex: 4
+    monthIndex: 4,
+    showWeather
   }), jsx(calendar_month_default, {
-    monthIndex: 5
+    monthIndex: 5,
+    showWeather
   }), jsx(calendar_month_default, {
-    monthIndex: 6
+    monthIndex: 6,
+    showWeather
   }), jsx(calendar_month_default, {
-    monthIndex: 7
-  }))))));
+    monthIndex: 7,
+    showWeather
+  }))));
 };
 
 // build/dist/components/dice-display.js
@@ -11816,7 +11931,6 @@ var DiceRollerPage = () => {
     value: skillDiceAmount,
     onChange: skillDiceAmountChanged
   })), jsx("div", null, jsx(Button_default, {
-    variant: "primary",
     onClick: () => rollDice()
   }, "Slå tärning"), jsx(Button_default, {
     variant: "secondary"
@@ -11844,18 +11958,25 @@ var GearPage = () => {
     }
   }, jsx(page_header_default, null, "Utrustning"), jsx("div", null, jsx(parchment_default, null, jsx("h2", {
     css: {
+      fontSize: "2.25rem",
+      lineHeight: "2.5rem",
       textAlign: "center",
-      fontWeight: "700",
-      fontSize: "1.5rem",
-      lineHeight: "2rem",
-      textTransform: "uppercase",
+      display: "flex",
       marginBottom: "1rem"
-    }
+    },
+    className: "yx-heading"
   }, "Vanliga tjänster"), jsx("table", {
     css: {
       width: "100%"
     }
-  }, jsx("thead", null, jsx("tr", null, jsx("td", {
+  }, jsx("thead", {
+    css: {
+      display: "none",
+      "@media (min-width: 1024px)": {
+        display: "table-header-group"
+      }
+    }
+  }, jsx("tr", null, jsx("td", {
     css: {
       fontWeight: "700",
       textTransform: "uppercase",
@@ -11905,60 +12026,106 @@ var GearPage = () => {
     }
   }, "Kommentar"))), jsx("tbody", null, regularServices.map((rs, i2) => jsx("tr", {
     key: rs.service,
-    css: {}
+    css: {
+      display: "grid",
+      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+      "@media (min-width: 1024px)": {
+        display: "table-row"
+      }
+    }
   }, jsx("td", {
     css: [{
       paddingLeft: "0.5rem",
       paddingRight: "0.5rem",
       paddingTop: "0.25rem",
       paddingBottom: "0.25rem",
-      borderBottomWidth: "1px",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+      "@media (min-width: 1024px)": {
+        borderBottomWidth: "1px",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+      }
     }, i2 % 2 === 0 && {
       "--tw-bg-opacity": "1",
       backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
     }]
-  }, rs.service), jsx("td", {
+  }, jsx("div", {
+    css: {
+      fontSize: "0.875rem",
+      lineHeight: "1.25rem",
+      "@media (min-width: 1024px)": {
+        display: "none"
+      }
+    }
+  }, "Tjänst"), rs.service), jsx("td", {
     css: [{
       paddingLeft: "0.5rem",
       paddingRight: "0.5rem",
       paddingTop: "0.25rem",
       paddingBottom: "0.25rem",
-      borderBottomWidth: "1px",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+      "@media (min-width: 1024px)": {
+        borderBottomWidth: "1px",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+      }
     }, i2 % 2 === 0 && {
       "--tw-bg-opacity": "1",
       backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
     }]
-  }, priceFormat(rs.price)), jsx("td", {
+  }, jsx("div", {
+    css: {
+      fontSize: "0.875rem",
+      lineHeight: "1.25rem",
+      "@media (min-width: 1024px)": {
+        display: "none"
+      }
+    }
+  }, "Pris"), priceFormat(rs.price)), jsx("td", {
     css: [{
       paddingLeft: "0.5rem",
       paddingRight: "0.5rem",
       paddingTop: "0.25rem",
       paddingBottom: "0.25rem",
-      borderBottomWidth: "1px",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+      "@media (min-width: 1024px)": {
+        borderBottomWidth: "1px",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+      }
     }, i2 % 2 === 0 && {
       "--tw-bg-opacity": "1",
       backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
     }]
-  }, availabilityFormat(rs.availability)), jsx("td", {
+  }, jsx("div", {
+    css: {
+      fontSize: "0.875rem",
+      lineHeight: "1.25rem",
+      "@media (min-width: 1024px)": {
+        display: "none"
+      }
+    }
+  }, "Tillgång"), availabilityFormat(rs.availability)), jsx("td", {
     css: [{
       paddingLeft: "0.5rem",
       paddingRight: "0.5rem",
       paddingTop: "0.25rem",
       paddingBottom: "0.25rem",
-      borderBottomWidth: "1px",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+      "@media (min-width: 1024px)": {
+        borderBottomWidth: "1px",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+      }
     }, i2 % 2 === 0 && {
       "--tw-bg-opacity": "1",
       backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
     }]
-  }, rs.comment ?? ""))))))));
+  }, jsx("div", {
+    css: {
+      fontSize: "0.875rem",
+      lineHeight: "1.25rem",
+      "@media (min-width: 1024px)": {
+        display: "none"
+      }
+    }
+  }, "Kommentar"), rs.comment ?? ""))))))));
 };
 var availabilityFormat = (a2) => {
   switch (a2) {
@@ -12283,8 +12450,10 @@ var NameGeneratorPage = () => {
   }, jsx(page_header_default, null, "Namn"), jsx("div", {
     css: {
       display: "grid",
-      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-      gap: "1rem"
+      gap: "1rem",
+      "@media (min-width: 1024px)": {
+        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+      }
     }
   }, jsx("div", {
     css: {
@@ -12921,7 +13090,10 @@ var SessionPage = () => {
     css: {}
   }, jsx("div", {
     css: {
-      width: "65ch"
+      maxWidth: "65ch",
+      "@media (min-width: 1024px)": {
+        width: "65ch"
+      }
     }
   }, jsx(parchment_default, null, jsx("button", {
     css: {
@@ -12929,13 +13101,9 @@ var SessionPage = () => {
       gap: "0.5rem",
       alignItems: "center",
       marginBottom: "1rem",
-      ":focus": {
-        outline: "2px solid transparent",
-        outlineOffset: "2px"
-      },
       ":hover": {
         "--tw-text-opacity": "1",
-        color: "rgba(217, 119, 6, var(--tw-text-opacity))"
+        color: "rgba(245, 158, 11, var(--tw-text-opacity))"
       }
     },
     onClick: () => getLegend()
@@ -12947,18 +13115,26 @@ var SessionPage = () => {
       display: "flex"
     },
     className: "yx-heading"
-  }, "Sägen"), jsx("span", null, "🔄")), jsx("div", null, legend)))));
+  }, "Sägen"), jsx(reload_icon_default, {
+    container: {
+      width: "1.5rem",
+      height: "1.5rem"
+    },
+    svg: {}
+  })), jsx("div", null, legend)))));
 };
 
 // build/dist/App.js
 var styles = {
   container: () => [
     {
-      display: "flex",
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(249, 250, 251, var(--tw-bg-opacity))",
       flexDirection: "column",
       minHeight: "100vh",
       height: "100%",
-      width: "100vw"
+      width: "100vw",
+      maxWidth: "100%"
     }
   ]
 };
@@ -12988,44 +13164,61 @@ var App = () => {
   }, jsx("div", {
     css: {
       display: "flex",
-      height: "100%"
+      flexDirection: "column",
+      height: "100%",
+      "@media (min-width: 1024px)": {
+        flexDirection: "row"
+      }
     }
   }, jsx("div", {
     css: {
       display: "flex",
-      flexDirection: "column"
+      flexDirection: "column",
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
+      "@media (min-width: 1024px)": {
+        height: "100%",
+        position: "fixed",
+        width: "12rem"
+      }
     }
   }, jsx("div", {
     css: {
       padding: "0.5rem",
-      width: "16rem"
+      marginBottom: "1rem"
     }
-  }, jsx(logo_default, null)), jsx("nav", {
+  }, jsx(Link, {
+    to: "/",
     css: {
-      width: "25%",
-      fontSize: "1.25rem",
+      display: "block",
+      width: "100%"
+    }
+  }, jsx(logo_default, null))), jsx("nav", {
+    css: {
+      fontSize: "1.125rem",
       lineHeight: "1.75rem",
+      width: "100%",
       display: "flex",
       flexDirection: "column",
-      rowGap: "1rem"
-    },
-    className: "yx-heading"
+      rowGap: "0.25rem"
+    }
   }, jsx(MenuLink, {
-    to: "/"
-  }, "Home"), jsx(MenuLink, {
-    to: "/names"
-  }, "Namn"), jsx(MenuLink, {
-    to: "/gear"
-  }, "Utrustning"), jsx(MenuLink, {
-    to: "/calendar"
-  }, "Kalender"), jsx(MenuLink, {
     to: "/session"
   }, "Spelmöte"), jsx(MenuLink, {
+    to: "/calendar"
+  }, "Kalender"), jsx(MenuLink, {
+    to: "/gear"
+  }, "Utrustning"), jsx(MenuLink, {
+    to: "/names"
+  }, "Namn"), jsx(MenuLink, {
     to: "/dice"
   }, "Tärningar"))), jsx("main", {
     css: {
-      width: "75%",
-      marginTop: "1rem"
+      width: "100%",
+      marginTop: "1rem",
+      "@media (min-width: 1024px)": {
+        marginLeft: "12rem"
+      }
     }
   }, routes)));
 };
@@ -13052,13 +13245,28 @@ var MenuLink = ({
   } = useResolvedPath(to);
   const isLinkActive = pathname === toPathname;
   return jsx(Link, {
-    css: [isLinkActive && {
-      "--tw-text-opacity": "1",
-      color: "rgba(185, 28, 28, var(--tw-text-opacity))"
-    }, {
+    css: [{
+      paddingLeft: "1rem",
+      paddingRight: "1rem",
+      paddingTop: "0.25rem",
+      paddingBottom: "0.25rem",
+      width: "100%",
+      fontWeight: "500",
       ":hover": {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))"
+      }
+    }, isLinkActive && {
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
+      "--tw-text-opacity": "1",
+      color: "rgba(255, 255, 255, var(--tw-text-opacity))",
+      fontWeight: "600",
+      ":hover": {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
         "--tw-text-opacity": "1",
-        color: "rgba(239, 68, 68, var(--tw-text-opacity))"
+        color: "rgba(245, 158, 11, var(--tw-text-opacity))"
       }
     }],
     to
