@@ -1,4 +1,4 @@
-import React, { Children, FC } from 'react'
+import React, { FC } from 'react'
 import {
   Link,
   LinkProps,
@@ -6,7 +6,7 @@ import {
   useResolvedPath,
   useRoutes,
 } from 'react-router-dom'
-import tw, { css } from 'twin.macro'
+import tw from 'twin.macro'
 import './App.css'
 import { PageHeader, Parchment } from './components'
 import YxansKlaganLogo from './logo'
@@ -20,7 +20,7 @@ const styles = {
   // Move long class sets out of jsx to keep it scannable
   // container: ({ hasBackground }: { hasBackground: boolean }) => [
   container: () => [
-    tw`flex flex-col min-h-screen h-full w-screen`,
+    tw`bg-gray-50 flex-col min-h-screen h-full w-screen max-w-full`,
     // hasBackground && tw`wbg-gradient-to-b from-electric to-ribbon`,
     //tw`bg-yellow-50`,
   ],
@@ -57,20 +57,22 @@ const App = () => {
   return (
     <div className="App" css={styles.container()}>
       <div tw="flex h-full">
-        <div tw="flex flex-col">
-          <div tw="p-2 w-64">
-            <YxansKlaganLogo />
+        <div tw="w-48 h-full fixed flex flex-col bg-gray-200">
+          <div tw="p-2 mb-4">
+            <Link to="/" tw="block w-full">
+              <YxansKlaganLogo />
+            </Link>
           </div>
-          <nav tw="w-1/4 text-xl flex flex-col gap-y-4" className="yx-heading">
-            <MenuLink to="/">Home</MenuLink>
-            <MenuLink to="/names">Namn</MenuLink>
-            <MenuLink to="/gear">Utrustning</MenuLink>
-            <MenuLink to="/calendar">Kalender</MenuLink>
+          <nav tw="text-lg w-full flex flex-col gap-y-1">
             <MenuLink to="/session">Spelmöte</MenuLink>
+            <MenuLink to="/calendar">Kalender</MenuLink>
+            <MenuLink to="/gear">Utrustning</MenuLink>
+            <MenuLink to="/names">Namn</MenuLink>
             <MenuLink to="/dice">Tärningar</MenuLink>
           </nav>
         </div>
-        <main tw="w-3/4 mt-4">{routes}</main>
+
+        <main tw="w-full ml-48 mt-4">{routes}</main>
       </div>
     </div>
   )
@@ -104,7 +106,11 @@ const MenuLink: FC<LinkProps> = ({ to, children }: LinkProps) => {
 
   return (
     <Link
-      css={[isLinkActive && tw`text-red-700`, tw`hover:text-red-500`]}
+      tw="px-4 py-1 w-full font-medium hover:bg-yellow-500"
+      css={[
+        isLinkActive &&
+          tw`bg-black text-white font-semibold hover:bg-black hover:text-yellow-500`,
+      ]}
       to={to}
     >
       {children}

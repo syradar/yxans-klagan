@@ -13,6 +13,10 @@ const customStyles = css`
     ${tw`antialiased`}
     font-family: ${uiFontStack};
   }
+
+  * {
+    ${tw`focus-visible:(outline-color[black] outline-offset[2px] outline-width[2px])`}
+  }
 `
 
 const GlobalStyles = () => (

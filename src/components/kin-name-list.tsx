@@ -1,7 +1,9 @@
 import React, { FC, useState } from 'react'
 import 'twin.macro'
+import tw from 'twin.macro'
 import { range } from '../functions/array.functions'
 import { Gender } from '../models/general.model'
+import { ReloadIcon } from './icons'
 
 interface KinNameListProps {
   title: string
@@ -23,19 +25,17 @@ const KinNameList: FC<KinNameListProps> = ({
   return (
     <>
       <button
-        tw="flex gap-2 items-center mb-4 focus:outline-none hover:text-yellow-600"
+        tw="flex gap-2 items-center mb-4 hover:text-yellow-500"
         onClick={() => getNames()}
       >
         <h2 tw="text-4xl text-center flex" className="yx-heading">
           {title}
         </h2>
-        <span>🔄</span>
+        <ReloadIcon container={tw`w-6 h-6`} svg={tw``}></ReloadIcon>
       </button>
       <div tw="grid grid-cols-2">
         <div>
-          <h3 tw="text-2xl" className="yx-heading">
-            Kvinnor
-          </h3>
+          <h3 tw="font-semibold text-2xl uppercase">Kvinnor</h3>
 
           {names.female.length > 0 && (
             <ul>
@@ -47,9 +47,7 @@ const KinNameList: FC<KinNameListProps> = ({
         </div>
 
         <div>
-          <h3 tw="text-2xl" className="yx-heading">
-            Män
-          </h3>
+          <h3 tw="font-semibold text-2xl uppercase">Män</h3>
 
           {names.male.length > 0 && (
             <ul>

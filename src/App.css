@@ -1,5 +1,5 @@
 .App {
-  background-color: hsl(48, 100%, 97%);
+  /* background-color: hsl(48, 100%, 97%); */
 }
 
 .App-header {
@@ -13,7 +13,6 @@
 nav {
   grid-area: side;
   /* background-color: hsl(0, 0%, 93%); */
-  padding: 1rem;
 }
 
 nav > div {

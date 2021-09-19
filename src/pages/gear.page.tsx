@@ -11,7 +11,7 @@ export const GearPage = () => {
 
       <div>
         <Parchment>
-          <h2 tw="text-center font-bold text-2xl uppercase mb-4">
+          <h2 tw="text-4xl text-center flex mb-4" className="yx-heading">
             Vanliga tjänster
           </h2>
           <table tw="w-full">
