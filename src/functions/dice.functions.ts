@@ -15,6 +15,17 @@ export function getRandomInt(min = 1, max = 6) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
+export const getRandomT6 = () => getRandomInt(1, 6)
+
+export const getRandomT8 = () => getRandomInt(1, 8)
+
+export const getRandomT66 = () => {
+  const tens = getRandomInt() * 10
+  const ones = getRandomInt()
+
+  return tens + ones
+}
+
 export const choose = <T>(arr: readonly T[]): T =>
   arr[getRandomInt(0, arr.length - 1)]
 

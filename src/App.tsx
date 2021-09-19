@@ -14,6 +14,7 @@ import { CalendarPage } from './pages/calendar.page'
 import { DiceRollerPage } from './pages/dice-roller.page'
 import { GearPage } from './pages/gear.page'
 import { NameGeneratorPage } from './pages/name-generator.page'
+import { SessionPage } from './pages/session.page'
 
 const styles = {
   // Move long class sets out of jsx to keep it scannable
@@ -47,6 +48,10 @@ const App = () => {
       path: '/calendar',
       element: <CalendarPage />,
     },
+    {
+      path: '/session',
+      element: <SessionPage />,
+    },
   ])
 
   return (
@@ -61,6 +66,7 @@ const App = () => {
             <MenuLink to="/names">Namn</MenuLink>
             <MenuLink to="/gear">Utrustning</MenuLink>
             <MenuLink to="/calendar">Kalender</MenuLink>
+            <MenuLink to="/session">Spelmöte</MenuLink>
             <MenuLink to="/dice">Tärningar</MenuLink>
           </nav>
         </div>
