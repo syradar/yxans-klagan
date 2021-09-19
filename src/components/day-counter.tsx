@@ -13,13 +13,13 @@ const DayCounter: FC<DayCounterProps> = ({
 }: DayCounterProps) => {
   return (
     <button
-      tw="grid grid-cols-2 rounded-full hover:bg-gray-200"
+      tw="w-full grid grid-cols-4 gap-0 hover:bg-yellow-500"
       onClick={() => spendQuarter()}
     >
-      <Quarter spent={quarters[3]} index={0}></Quarter>
-      <Quarter spent={quarters[0]} index={1}></Quarter>
+      <Quarter spent={quarters[0]} index={0}></Quarter>
+      <Quarter spent={quarters[1]} index={1}></Quarter>
       <Quarter spent={quarters[2]} index={2}></Quarter>
-      <Quarter spent={quarters[1]} index={3}></Quarter>
+      <Quarter spent={quarters[3]} index={3}></Quarter>
     </button>
   )
 }
@@ -30,12 +30,12 @@ interface QuarterProps {
 }
 
 const Quarter = styled.div(({ spent, index }: QuarterProps) => [
-  tw`w-6 h-6 border border-gray-600`,
-  index === 0 && tw`rounded-tl-full border-r-0 border-b-0`,
-  index === 1 && tw`rounded-tr-full border-b-0`,
-  index === 2 && tw`rounded-bl-full border-r-0`,
-  index === 3 && tw`rounded-br-full`,
-  spent && tw`bg-gray-400`,
+  tw`h-4 border border-gray-500`,
+  index === 0 && tw`border-r-0`,
+  index === 1 && tw`border-r-0`,
+  index === 2 && tw`border-r-0`,
+  index === 3 && tw``,
+  spent && tw`bg-gray-300`,
 ])
 
 export default DayCounter

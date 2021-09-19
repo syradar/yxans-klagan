@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import 'twin.macro'
+import tw from 'twin.macro'
 import { PageHeader, Parchment } from '../components'
+import { ReloadIcon } from '../components/icons'
 import { generateLegend } from '../functions/legend.functions'
 
 export const SessionPage = () => {
@@ -12,16 +14,16 @@ export const SessionPage = () => {
       <PageHeader>Spelmöte</PageHeader>
 
       <div tw="">
-        <div tw="w-[65ch]">
+        <div tw="max-w-prose lg:(w-[65ch])">
           <Parchment>
             <button
-              tw="flex gap-2 items-center mb-4 focus:outline-none hover:text-yellow-600"
+              tw="flex gap-2 items-center mb-4 hover:text-yellow-500"
               onClick={() => getLegend()}
             >
               <h2 tw="text-4xl text-center flex" className="yx-heading">
                 Sägen
               </h2>
-              <span>🔄</span>
+              <ReloadIcon container={tw`w-6 h-6`} svg={tw``}></ReloadIcon>
             </button>
             <div>{legend}</div>
           </Parchment>

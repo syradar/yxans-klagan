@@ -3,9 +3,10 @@ import 'twin.macro'
 
 interface ParchmentProps {
   children?: React.ReactNode
+  deps?: unknown[]
 }
 
-const Parchment: FC<ParchmentProps> = ({ children }: ParchmentProps) => {
+const Parchment: FC<ParchmentProps> = ({ children, deps }: ParchmentProps) => {
   const [svgHeight, setSvgHeight] = useState(0)
   const contentRef = useRef<HTMLDivElement>(null)
 
@@ -15,7 +16,7 @@ const Parchment: FC<ParchmentProps> = ({ children }: ParchmentProps) => {
     } else {
       console.log('null content ref')
     }
-  })
+  }, deps)
 
   const dim = 98
   const width = 2.5

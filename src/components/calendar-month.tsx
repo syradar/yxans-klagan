@@ -1,12 +1,13 @@
 import React, { FC, useContext } from 'react'
 import 'twin.macro'
-import { CalendarDay, CalendarDayNames, CalendarFillerDays } from '.'
+import { CalendarDay, CalendarDayNames, CalendarFillerDays, Parchment } from '.'
 import { range } from '../functions/array.functions'
 import { Calendar, Day, MonthIndex } from '../models/calendar.model'
 import { CalendarContext } from '../pages/calendar.page'
 
 interface CalendarMonthProps {
   monthIndex: MonthIndex
+  showWeather: boolean
 }
 
 const spendQuarter = (
@@ -45,6 +46,7 @@ const quarterReducer = (
 
 const CalendarMonth: FC<CalendarMonthProps> = ({
   monthIndex,
+  showWeather = true,
 }: CalendarMonthProps) => {
   const { calendar, setCalendar } = useContext(CalendarContext)
 
@@ -54,20 +56,24 @@ const CalendarMonth: FC<CalendarMonthProps> = ({
 
   return (
     <div tw="mb-4">
-      <h2 tw="text-center font-bold text-2xl uppercase mb-4">
-        {calendar.months[monthIndex].name}
-      </h2>
-      <div tw="grid grid-cols-7">
-        <CalendarDayNames />
-        <CalendarFillerDays day={calendar.months[monthIndex].days[0]} />
-        {calendar.months[monthIndex].days.map((d) => (
-          <CalendarDay
-            day={d}
-            key={`${d.monthName}${d.number}`}
-            quarterClicked={quarterClicked}
-          ></CalendarDay>
-        ))}
-      </div>
+      <Parchment deps={[showWeather]}>
+        <h2 tw="text-4xl text-center flex mb-4" className="yx-heading">
+          {calendar.months[monthIndex].name}
+        </h2>
+
+        <div tw="grid grid-cols-3 lg:(grid-cols-7)">
+          <CalendarDayNames />
+          <CalendarFillerDays day={calendar.months[monthIndex].days[0]} />
+          {calendar.months[monthIndex].days.map((d) => (
+            <CalendarDay
+              day={d}
+              key={`${d.monthName}${d.number}`}
+              showWeather={showWeather}
+              quarterClicked={quarterClicked}
+            ></CalendarDay>
+          ))}
+        </div>
+      </Parchment>
     </div>
   )
 }

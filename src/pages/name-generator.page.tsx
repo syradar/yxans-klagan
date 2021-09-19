@@ -12,7 +12,7 @@ export const NameGeneratorPage = () => {
     <div tw="flex flex-col gap-y-8 w-full">
       <PageHeader>Namn</PageHeader>
 
-      <div tw="grid grid-cols-2 gap-4">
+      <div tw="grid lg:(grid-cols-2) gap-4">
         <div tw="max-w-prose w-full">
           <Parchment>
             <KinNameList

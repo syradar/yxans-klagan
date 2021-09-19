@@ -93,9 +93,7 @@ export const DiceRollerPage = () => {
           </div>
 
           <div>
-            <Button variant="primary" onClick={() => rollDice()}>
-              Slå tärning
-            </Button>
+            <Button onClick={() => rollDice()}>Slå tärning</Button>
             <Button variant="secondary">Pressa slag</Button>
             <Button isSmall>stäng</Button>
           </div>

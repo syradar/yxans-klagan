@@ -8,7 +8,7 @@ const CalendarDayNames = () => {
     <>
       {range(7).map((i) => (
         <div
-          tw="border p-2 flex items-center justify-center font-bold bg-gray-200"
+          tw="hidden lg:(flex) uppercase px-2 py-1 border-b-2 border-b-black p-2 items-center justify-center font-bold"
           key={getDayName(i)}
         >
           {getDayName(i)}
