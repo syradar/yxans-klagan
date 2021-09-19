@@ -28,7 +28,7 @@ const KinNameList: FC<KinNameListProps> = ({
         tw="flex gap-2 items-center mb-4 hover:text-yellow-500"
         onClick={() => getNames()}
       >
-        <h2 tw="text-4xl text-center flex" className="yx-heading">
+        <h2 tw="text-2xl lg:(text-4xl) text-center flex" className="yx-heading">
           {title}
         </h2>
         <ReloadIcon container={tw`w-6 h-6`} svg={tw``}></ReloadIcon>

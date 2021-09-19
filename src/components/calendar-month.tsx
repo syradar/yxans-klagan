@@ -61,7 +61,7 @@ const CalendarMonth: FC<CalendarMonthProps> = ({
           {calendar.months[monthIndex].name}
         </h2>
 
-        <div tw="grid grid-cols-7">
+        <div tw="grid grid-cols-3 lg:(grid-cols-7)">
           <CalendarDayNames />
           <CalendarFillerDays day={calendar.months[monthIndex].days[0]} />
           {calendar.months[monthIndex].days.map((d) => (

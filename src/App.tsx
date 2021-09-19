@@ -56,8 +56,8 @@ const App = () => {
 
   return (
     <div className="App" css={styles.container()}>
-      <div tw="flex h-full">
-        <div tw="w-48 h-full fixed flex flex-col bg-gray-200">
+      <div tw="flex flex-col h-full lg:(flex-row)">
+        <div tw="flex flex-col bg-gray-200 lg:(h-full fixed w-48 )">
           <div tw="p-2 mb-4">
             <Link to="/" tw="block w-full">
               <YxansKlaganLogo />
@@ -72,7 +72,7 @@ const App = () => {
           </nav>
         </div>
 
-        <main tw="w-full ml-48 mt-4">{routes}</main>
+        <main tw="w-full mt-4 lg:(ml-48)">{routes}</main>
       </div>
     </div>
   )

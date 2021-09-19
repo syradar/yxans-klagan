@@ -14,7 +14,7 @@ export const SessionPage = () => {
       <PageHeader>Spelmöte</PageHeader>
 
       <div tw="">
-        <div tw="w-[65ch]">
+        <div tw="max-w-prose lg:(w-[65ch])">
           <Parchment>
             <button
               tw="flex gap-2 items-center mb-4 hover:text-yellow-500"

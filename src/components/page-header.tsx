@@ -7,7 +7,7 @@ interface PageHeaderProps {
 
 const PageHeader: FC<PageHeaderProps> = ({ children }: PageHeaderProps) => {
   return (
-    <h1 tw="text-center text-6xl" className="yx-heading">
+    <h1 tw="text-center text-4xl lg:(text-6xl)" className="yx-heading">
       {children}
     </h1>
   )

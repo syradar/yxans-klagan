@@ -15,7 +15,7 @@ export const GearPage = () => {
             Vanliga tjänster
           </h2>
           <table tw="w-full">
-            <thead>
+            <thead tw="hidden lg:(table-header-group)">
               <tr>
                 <td tw="font-bold uppercase px-2 py-1 border-b-2 border-gray-400">
                   Tjänst
@@ -33,29 +33,33 @@ export const GearPage = () => {
             </thead>
             <tbody>
               {regularServices.map((rs, i) => (
-                <tr key={rs.service} tw="">
+                <tr key={rs.service} tw="grid grid-cols-2 lg:(table-row)">
                   <td
-                    tw="px-2 py-1 border-b border-gray-400"
+                    tw="px-2 py-1 lg:(border-b border-gray-400)"
                     css={[i % 2 === 0 && tw`bg-gray-200`]}
                   >
+                    <div tw="text-sm lg:(hidden)">Tjänst</div>
                     {rs.service}
                   </td>
                   <td
-                    tw="px-2 py-1 border-b border-gray-400"
+                    tw="px-2 py-1 lg:(border-b border-gray-400)"
                     css={[i % 2 === 0 && tw`bg-gray-200`]}
                   >
+                    <div tw="text-sm lg:(hidden)">Pris</div>
                     {priceFormat(rs.price)}
                   </td>
                   <td
-                    tw="px-2 py-1 border-b border-gray-400"
+                    tw="px-2 py-1 lg:(border-b border-gray-400)"
                     css={[i % 2 === 0 && tw`bg-gray-200`]}
                   >
+                    <div tw="text-sm lg:(hidden)">Tillgång</div>
                     {availabilityFormat(rs.availability)}
                   </td>
                   <td
-                    tw="px-2 py-1 border-b border-gray-400"
+                    tw="px-2 py-1 lg:(border-b border-gray-400)"
                     css={[i % 2 === 0 && tw`bg-gray-200`]}
                   >
+                    <div tw="text-sm lg:(hidden)">Kommentar</div>
                     {rs.comment ?? ''}
                   </td>
                 </tr>

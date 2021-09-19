@@ -7,7 +7,7 @@ import {
   getTempString,
   getWeatherIcon,
 } from '../functions/weather.functions'
-import { Day } from '../models/calendar.model'
+import { Day, getDayName } from '../models/calendar.model'
 
 interface CalendarDayProps {
   day: Day
@@ -24,6 +24,7 @@ const CalendarDay: FC<CalendarDayProps> = ({
     <div tw="p-2 border flex flex-col gap-2">
       <div tw="flex justify-between">
         <div tw="flex flex-col w-5">
+          <div tw="lg:(hidden)">{getDayName(day.number)}</div>
           <div tw="flex gap-1" css={[day.number === 1 ? tw`font-bold` : tw``]}>
             {day.number}
             <div>{getMoonEmoji(day.moon)}</div>
