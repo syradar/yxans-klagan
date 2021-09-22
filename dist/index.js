@@ -468,6 +468,7 @@ var react = createCommonjsModule(function(module) {
 var createContext = react.createContext;
 var useContext = react.useContext;
 var useEffect = react.useEffect;
+var useLayoutEffect = react.useLayoutEffect;
 var useRef = react.useRef;
 var useState = react.useState;
 
@@ -10245,20 +10246,41 @@ var KinNameList = ({
 };
 var kin_name_list_default = KinNameList;
 
+// build/dist/hooks/use-current-width.js
+var getWidth = () => window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+var useCurrentWidth = () => {
+  const [width, setWidth] = useState(getWidth());
+  useEffect(() => {
+    let timeoutId;
+    const resizeListener = () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      timeoutId = setTimeout(() => setWidth(getWidth()), 150);
+    };
+    window.addEventListener("resize", resizeListener);
+    return () => {
+      window.removeEventListener("resize", resizeListener);
+    };
+  }, []);
+  return width;
+};
+
 // build/dist/components/parchment.js
 var Parchment = ({
   children,
-  deps
+  deps = []
 }) => {
   const [svgHeight, setSvgHeight] = useState(0);
   const contentRef = useRef(null);
+  const currentWidth = useCurrentWidth();
   useEffect(() => {
     if (contentRef !== null) {
       setSvgHeight(contentRef.current?.clientHeight ?? 0);
     } else {
       console.log("null content ref");
     }
-  }, deps);
+  }, [...deps, currentWidth]);
   const dim = 98;
   const width = 2.5;
   return jsx("svg", {
@@ -11761,11 +11783,56 @@ var CalendarMonth = ({
 };
 var calendar_month_default = CalendarMonth;
 
+// build/dist/hooks/use-local-storage.js
+function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.log(error);
+      return initialValue;
+    }
+  });
+  const setValue = (value) => {
+    try {
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return [storedValue, setValue];
+}
+
+// build/dist/hooks/use-window-scroll-position.js
+function useWindowScrollPosition(localStorageKey, setCondition) {
+  const [scrollYStorage, setScrollYStorage] = useLocalStorage(localStorageKey, 0);
+  const handleScroll = () => {
+    if (setCondition && window.scrollY !== 0) {
+      setScrollYStorage(window.scrollY);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  useLayoutEffect(() => {
+    if (setCondition) {
+      setTimeout(() => {
+        window.scrollTo(0, scrollYStorage);
+      }, 0);
+    }
+  }, [setCondition, scrollYStorage]);
+}
+
 // build/dist/pages/calendar.page.js
 var DEFAULT_CALENDAR = getCal(1165);
 var DEFAULT_SHOW_WEATHER = true;
 var CALENDAR_KEY = "calendar";
 var CALENDAR_SHOW_WEATHER_KEY = "calendar_show_weather";
+var CALENDAR_SCROLL_POSITION = "calendar_scroll";
 var CalendarContext = /* @__PURE__ */ createContext({
   calendar: DEFAULT_CALENDAR,
   setCalendar: (_2) => {
@@ -11776,14 +11843,9 @@ var CalendarPage = () => {
   const showWeatherFromStorage = localStorage.getItem(CALENDAR_SHOW_WEATHER_KEY) ?? void 0;
   const calendarFromStorageOrDefault = notNullish(calendarFromStorage) ? JSON.parse(calendarFromStorage) : DEFAULT_CALENDAR;
   const showWeatherFromStorageOrDefault = notNullish(showWeatherFromStorage) ? JSON.parse(showWeatherFromStorage) : DEFAULT_SHOW_WEATHER;
-  const [calendar, setCalendar] = useState(calendarFromStorageOrDefault);
-  const [showWeather, setShowWeather] = useState(showWeatherFromStorageOrDefault);
-  useEffect(() => {
-    localStorage.setItem(CALENDAR_KEY, JSON.stringify(calendar));
-  }, [calendar]);
-  useEffect(() => {
-    localStorage.setItem(CALENDAR_SHOW_WEATHER_KEY, JSON.stringify(showWeather));
-  }, [showWeather]);
+  const [calendar, setCalendar] = useLocalStorage(CALENDAR_KEY, calendarFromStorageOrDefault);
+  const [showWeather, setShowWeather] = useLocalStorage(CALENDAR_SHOW_WEATHER_KEY, showWeatherFromStorageOrDefault);
+  useWindowScrollPosition(CALENDAR_SCROLL_POSITION, notNullish(calendar));
   return jsx("div", {
     css: {
       display: "flex",
