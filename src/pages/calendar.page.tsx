@@ -1,8 +1,10 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext } from 'react'
 import 'twin.macro'
 import { Button, PageHeader } from '../components'
 import CalendarMonth from '../components/calendar-month'
 import { notNullish } from '../functions/utils.functions'
+import { useLocalStorage } from '../hooks/use-local-storage'
+import useWindowScrollPosition from '../hooks/use-window-scroll-position'
 import { Calendar, getCal } from '../models/calendar.model'
 
 const DEFAULT_CALENDAR = getCal(1165)
@@ -10,6 +12,7 @@ const DEFAULT_SHOW_WEATHER = true
 
 const CALENDAR_KEY = 'calendar'
 const CALENDAR_SHOW_WEATHER_KEY = 'calendar_show_weather'
+const CALENDAR_SCROLL_POSITION = 'calendar_scroll'
 
 type CalendarContext = {
   calendar: Calendar
@@ -35,21 +38,17 @@ export const CalendarPage = () => {
     ? JSON.parse(showWeatherFromStorage)
     : DEFAULT_SHOW_WEATHER
 
-  const [calendar, setCalendar] = useState<Calendar>(
+  const [calendar, setCalendar] = useLocalStorage<Calendar>(
+    CALENDAR_KEY,
     calendarFromStorageOrDefault,
   )
 
-  const [showWeather, setShowWeather] = useState<boolean>(
+  const [showWeather, setShowWeather] = useLocalStorage<boolean>(
+    CALENDAR_SHOW_WEATHER_KEY,
     showWeatherFromStorageOrDefault,
   )
 
-  useEffect(() => {
-    localStorage.setItem(CALENDAR_KEY, JSON.stringify(calendar))
-  }, [calendar])
-
-  useEffect(() => {
-    localStorage.setItem(CALENDAR_SHOW_WEATHER_KEY, JSON.stringify(showWeather))
-  }, [showWeather])
+  useWindowScrollPosition(CALENDAR_SCROLL_POSITION, notNullish(calendar))
 
   return (
     <div tw="flex flex-col gap-y-8 w-full">
