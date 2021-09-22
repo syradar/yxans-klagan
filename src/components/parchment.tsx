@@ -1,14 +1,19 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
 import 'twin.macro'
+import { useCurrentWidth } from '../hooks/use-current-width'
 
 interface ParchmentProps {
   children?: React.ReactNode
   deps?: unknown[]
 }
 
-const Parchment: FC<ParchmentProps> = ({ children, deps }: ParchmentProps) => {
+const Parchment: FC<ParchmentProps> = ({
+  children,
+  deps = [],
+}: ParchmentProps) => {
   const [svgHeight, setSvgHeight] = useState(0)
   const contentRef = useRef<HTMLDivElement>(null)
+  const currentWidth = useCurrentWidth()
 
   useEffect(() => {
     if (contentRef !== null) {
@@ -16,7 +21,7 @@ const Parchment: FC<ParchmentProps> = ({ children, deps }: ParchmentProps) => {
     } else {
       console.log('null content ref')
     }
-  }, deps)
+  }, [...deps, currentWidth])
 
   const dim = 98
   const width = 2.5
