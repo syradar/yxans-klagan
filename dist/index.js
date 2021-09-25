@@ -11227,6 +11227,57 @@ var GenerateWeather = class {
   }
 };
 
+// build/dist/components/calendar-day.js
+var CalendarDay = ({
+  day,
+  quarterClicked,
+  showWeather = true
+}) => {
+  return jsx("div", {
+    css: {
+      padding: "0.5rem",
+      borderWidth: "1px",
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.5rem"
+    }
+  }, jsx("div", {
+    css: {
+      display: "flex",
+      justifyContent: "space-between"
+    }
+  }, jsx("div", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      width: "1.25rem"
+    }
+  }, jsx("div", {
+    css: {
+      "@media (min-width: 1024px)": {
+        display: "none"
+      }
+    }
+  }, day.name), jsx("div", {
+    css: [{
+      display: "flex",
+      gap: "0.25rem"
+    }, day.number === 1 ? {
+      fontWeight: "700"
+    } : {}]
+  }, day.number, jsx("div", null, getMoonEmoji(day.moon)), jsx("div", null, getWeatherIcon(day))))), jsx("div", {
+    css: {
+      width: "100%"
+    }
+  }, jsx(day_counter_default, {
+    quarters: day.quarters,
+    spendQuarter: () => quarterClicked(day)
+  })), showWeather && jsx("div", {
+    css: {}
+  }, jsx("div", null, "Högt: ", getTempString(day.temp)), jsx("div", null, "Lågt: ", getTempString(day.lowTemp)), jsx("div", null, day.downpour), jsx("div", null, day.stormType), jsx("div", null, day.stormType), jsx("div", null, day.eventType?.name)));
+};
+var calendar_day_default = CalendarDay;
+
 // build/dist/models/calendar.model.js
 var month = ["Åldervinter", "Ungvår", "Åldervår", "Ungsommar", "Åldersommar", "Unghöst", "Ålderhöst", "Ungvinter"];
 var numberOfMonths = () => 8;
@@ -11323,57 +11374,6 @@ var getCal = (startYear = 1165) => {
   return cal.cal;
 };
 
-// build/dist/components/calendar-day.js
-var CalendarDay = ({
-  day,
-  quarterClicked,
-  showWeather = true
-}) => {
-  return jsx("div", {
-    css: {
-      padding: "0.5rem",
-      borderWidth: "1px",
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.5rem"
-    }
-  }, jsx("div", {
-    css: {
-      display: "flex",
-      justifyContent: "space-between"
-    }
-  }, jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      width: "1.25rem"
-    }
-  }, jsx("div", {
-    css: {
-      "@media (min-width: 1024px)": {
-        display: "none"
-      }
-    }
-  }, getDayName(day.number)), jsx("div", {
-    css: [{
-      display: "flex",
-      gap: "0.25rem"
-    }, day.number === 1 ? {
-      fontWeight: "700"
-    } : {}]
-  }, day.number, jsx("div", null, getMoonEmoji(day.moon)), jsx("div", null, getWeatherIcon(day))))), jsx("div", {
-    css: {
-      width: "100%"
-    }
-  }, jsx(day_counter_default, {
-    quarters: day.quarters,
-    spendQuarter: () => quarterClicked(day)
-  })), showWeather && jsx("div", {
-    css: {}
-  }, jsx("div", null, "Högt: ", getTempString(day.temp)), jsx("div", null, "Lågt: ", getTempString(day.lowTemp)), jsx("div", null, day.downpour), jsx("div", null, day.stormType), jsx("div", null, day.stormType), jsx("div", null, day.eventType?.name)));
-};
-var calendar_day_default = CalendarDay;
-
 // build/dist/components/calendar-day-names.js
 var CalendarDayNames = () => {
   return jsx(react.Fragment, null, range(7).map((i2) => jsx("div", {
@@ -11404,13 +11404,28 @@ var calendar_day_names_default = CalendarDayNames;
 var CalendarFillerDays = ({
   day
 }) => {
-  return jsx(react.Fragment, null, range(getDayNumber(day.name) - 1).map((i2) => jsx("div", {
+  const fillerDays = getDayNumber(day.name) - 1;
+  const fillerDaysMobile = fillerDays % 3;
+  const fillerDaysDesktop = fillerDays - fillerDaysMobile;
+  return jsx(react.Fragment, null, range(fillerDaysMobile).map((i2) => jsx("div", {
     css: {
       borderWidth: "1px",
       padding: "0.5rem",
       display: "flex",
       alignItems: "center",
       justifyContent: "center"
+    },
+    key: `${day.monthName}-empty-day-${getDayName(i2)}`
+  })), range(fillerDaysDesktop).map((i2) => jsx("div", {
+    css: {
+      borderWidth: "1px",
+      padding: "0.5rem",
+      alignItems: "center",
+      justifyContent: "center",
+      display: "none",
+      "@media (min-width: 1024px)": {
+        display: "flex"
+      }
     },
     key: `${day.monthName}-empty-day-${getDayName(i2)}`
   })));
