@@ -13,6 +13,7 @@ import YxansKlaganLogo from './logo'
 import { CalendarPage } from './pages/calendar.page'
 import { DiceRollerPage } from './pages/dice-roller.page'
 import { GearPage } from './pages/gear.page'
+import { MapPage } from './pages/map.page'
 import { NameGeneratorPage } from './pages/name-generator.page'
 import { SessionPage } from './pages/session.page'
 
@@ -52,6 +53,10 @@ const App = () => {
       path: '/session',
       element: <SessionPage />,
     },
+    {
+      path: '/map',
+      element: <MapPage />,
+    },
   ])
 
   return (
@@ -65,6 +70,7 @@ const App = () => {
           </div>
           <nav tw="text-lg w-full flex flex-col gap-y-1">
             <MenuLink to="/session">Spelmöte</MenuLink>
+            <MenuLink to="/map">Karta</MenuLink>
             <MenuLink to="/calendar">Kalender</MenuLink>
             <MenuLink to="/gear">Utrustning</MenuLink>
             <MenuLink to="/names">Namn</MenuLink>
@@ -95,6 +101,7 @@ const HomePage = () => (
         det bli ni som avgör Det glömda landets öde.
       </p>
     </Parchment>
+    <div></div>
   </div>
 )
 

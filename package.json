@@ -41,6 +41,7 @@
     "gh-pages": "^3.2.3",
     "jest": "^27.0.6",
     "prettier": "^2.3.2",
+    "react-hexgrid": "^1.0.3",
     "snowpack": "^3.0.13",
     "tailwindcss": "^2.0.3",
     "ts-jest": "^27.0.4",

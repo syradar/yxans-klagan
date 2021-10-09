@@ -3700,6 +3700,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"classnames@npm:^2.2.5":
+  version: 2.3.1
+  resolution: "classnames@npm:2.3.1"
+  checksum: 14db8889d56c267a591f08b0834989fe542d47fac659af5a539e110cc4266694e8de86e4e3bbd271157dbd831361310a8293e0167141e80b0f03a0f175c80960
+  languageName: node
+  linkType: hard
+
 "clean-set@npm:^1.1.1":
   version: 1.1.2
   resolution: "clean-set@npm:1.1.2"
@@ -8979,6 +8986,18 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"react-hexgrid@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "react-hexgrid@npm:1.0.3"
+  dependencies:
+    classnames: ^2.2.5
+  peerDependencies:
+    prop-types: ^15.0.1
+    react: ^15.0.1
+  checksum: bfc7ed5ba2e7d414ee0bdc6d976aab09f5cb77164fc8f2d0b245978b064c44b5d772f3b7cf67d9e3f115b2ed692939b67440c2460aedb4e4988bbcc30e0f43e4
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.7.0, react-is@npm:^16.8.1":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -11029,6 +11048,7 @@ typescript@^4.3.5:
     rambda: ^6.9.0
     react: ^17.0.1
     react-dom: ^17.0.1
+    react-hexgrid: ^1.0.3
     react-router-dom: ^6.0.0-beta.4
     snowpack: ^3.0.13
     tailwindcss: ^2.0.3

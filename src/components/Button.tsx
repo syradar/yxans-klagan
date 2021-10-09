@@ -1,7 +1,7 @@
 import tw, { styled } from 'twin.macro'
 
 interface ButtonProps {
-  variant?: 'secondary'
+  variant?: 'secondary' | 'disabled'
   isSmall?: boolean
 }
 
@@ -20,7 +20,14 @@ const Button = styled.button(({ variant, isSmall }: ButtonProps) => [
     // css`
     //   box-shadow: 0 0.1em 0 0 rgba(0, 0, 0, 0.25);
     // `,
-    tw`bg-white`,
+    tw`bg-white text-black`,
+  ],
+
+  variant === 'disabled' && [
+    // css`
+    //   box-shadow: 0 0.1em 0 0 rgba(0, 0, 0, 0.25);
+    // `,
+    tw`bg-gray-400 text-gray-300 border-gray-400 cursor-not-allowed hover:(bg-gray-400 text-gray-300 border-gray-400)`,
   ],
 
   // Conditional props can be added
