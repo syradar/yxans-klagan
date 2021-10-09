@@ -101,6 +101,27 @@ const HomePage = () => (
         det bli ni som avgör Det glömda landets öde.
       </p>
     </Parchment>
+    <Parchment>
+      <div tw="flex flex-col gap-4">
+        <h2 tw="text-4xl text-center flex" className="yx-heading">
+          Tack
+        </h2>
+        <p className="yx-prose">
+          Tack till{' '}
+          <a
+            tw=" hover:text-yellow-500 underline"
+            href="https://freeleaguepublishing.com/sv/"
+          >
+            Fria Ligan
+          </a>{' '}
+          för ett fantastiskt spel.
+        </p>
+        <p className="yx-prose">
+          Tack till communityt för Svärdets Sång för inspiration och andra
+          generatorer.
+        </p>
+      </div>
+    </Parchment>
     <div></div>
   </div>
 )
