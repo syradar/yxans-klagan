@@ -1,6 +1,9 @@
 /* build/dist/App.css */
 .App {
 }
+body {
+  overflow: overlay;
+}
 .App-header {
   height: 4rem;
   display: flex;
@@ -68,4 +71,40 @@ main {
   font-weight: 400;
   font-style: normal;
   text-transform: uppercase;
+}
+.hexagon polygon {
+  stroke-width: 0.05px;
+  stroke-linejoin: miter;
+  stroke-opacity: 1;
+  stroke: black;
+}
+.hexagon:hover polygon {
+  fill: hsla(0deg, 0%, 90%, 50%);
+}
+#ravland-map .cls-1,
+#ravland-map .cls-2 {
+  fill: hsla(0deg, 0%, 0%, 50%);
+}
+#ravland-map .hex:hover {
+  fill: hsla(0deg, 0%, 0%, 25%);
+  cursor: pointer;
+}
+#ravland-map .hex.hex-explored:hover {
+  fill: transparent;
+}
+#ravland-map .hex.hex-explored {
+  fill: transparent;
+}
+#ravland-map .hex.hex-selected {
+  stroke: white;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+}
+#ravland-map .hex div {
+  position: static;
+  display: block;
+  z-index: 1000;
+  background-color: red;
+  width: 100%;
+  height: 100%;
 }
