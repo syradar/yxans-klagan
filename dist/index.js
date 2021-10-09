@@ -14745,7 +14745,34 @@ var HomePage = () => jsx("div", {
   }
 }, jsx(page_header_default, null, "Svärdets Sång"), jsx(parchment_default, null, jsx("p", {
   className: "yx-prose"
-}, "Välkomna till Svärdets sång. I detta bordsrollspel är ni inte hjältar som utför uppdrag på order av andra – i stället är ni äventyrare och skattletare fast beslutna att sätta ert eget märke på denna fördömda värld. Ni kommer att vandra genom det vilda landet, utforska glömda gravar, kämpa mot fruktansvärda monster och – om ni lever länge nog – bygga ert eget fäste och försvara det mot fiender. Under era äventyr kan ni avslöja de mörka krafter som rör sig i skuggorna och till slut kan det bli ni som avgör Det glömda landets öde.")), jsx("div", null));
+}, "Välkomna till Svärdets sång. I detta bordsrollspel är ni inte hjältar som utför uppdrag på order av andra – i stället är ni äventyrare och skattletare fast beslutna att sätta ert eget märke på denna fördömda värld. Ni kommer att vandra genom det vilda landet, utforska glömda gravar, kämpa mot fruktansvärda monster och – om ni lever länge nog – bygga ert eget fäste och försvara det mot fiender. Under era äventyr kan ni avslöja de mörka krafter som rör sig i skuggorna och till slut kan det bli ni som avgör Det glömda landets öde.")), jsx(parchment_default, null, jsx("div", {
+  css: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "1rem"
+  }
+}, jsx("h2", {
+  css: {
+    fontSize: "2.25rem",
+    lineHeight: "2.5rem",
+    textAlign: "center",
+    display: "flex"
+  },
+  className: "yx-heading"
+}, "Tack"), jsx("p", {
+  className: "yx-prose"
+}, "Tack till", " ", jsx("a", {
+  css: {
+    ":hover": {
+      "--tw-text-opacity": "1",
+      color: "rgba(245, 158, 11, var(--tw-text-opacity))"
+    },
+    textDecoration: "underline"
+  },
+  href: "https://freeleaguepublishing.com/sv/"
+}, "Fria Ligan"), " ", "för ett fantastiskt spel."), jsx("p", {
+  className: "yx-prose"
+}, "Tack till communityt för Svärdets Sång för inspiration och andra generatorer."))), jsx("div", null));
 var MenuLink = ({
   to,
   children
