@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import GlobalStyles from './styles/GlobalStyles'
 import App from './App'
 import { HashRouter } from 'react-router-dom'
+import { I18nextProvider } from 'react-i18next'
+import i18nReact from './i18n'
 
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyles />
-    <HashRouter>
-      <App />
-    </HashRouter>
+    <I18nextProvider i18n={i18nReact}>
+      <Suspense fallback={'Loading...'}>
+        <HashRouter>
+          <App />
+        </HashRouter>
+      </Suspense>
+    </I18nextProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 )

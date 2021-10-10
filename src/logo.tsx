@@ -6,7 +6,7 @@ const YxansKlaganLogo = () => <YxansKlaganSvg />
 export default YxansKlaganLogo
 
 const YxansKlaganSvg = () => (
-  <div tw="mx-auto w-32">
+  <div tw="mx-auto w-32 transition-transform hover:scale-105">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
