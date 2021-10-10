@@ -13,3 +13,5 @@ export const inRange =
 
     return val > range[0] && val < range[1]
   }
+
+export const isDevelopment = () => process.env.NODE_ENV === 'development'

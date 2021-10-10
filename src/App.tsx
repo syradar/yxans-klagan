@@ -9,6 +9,7 @@ import {
 import tw from 'twin.macro'
 import './App.css'
 import { PageHeader, Parchment } from './components'
+import { LanguageSwitcher } from './components/language-switcher'
 import YxansKlaganLogo from './logo'
 import { CalendarPage } from './pages/calendar.page'
 import { DiceRollerPage } from './pages/dice-roller.page'
@@ -17,6 +18,7 @@ import { GearPage } from './pages/gear.page'
 import { MapPage } from './pages/map.page'
 import { NameGeneratorPage } from './pages/name-generator.page'
 import { SessionPage } from './pages/session.page'
+import { useTranslation } from 'react-i18next'
 
 const styles = {
   // Move long class sets out of jsx to keep it scannable
@@ -64,6 +66,8 @@ const App = () => {
     },
   ])
 
+  const { t } = useTranslation('core')
+
   return (
     <div className="App" css={styles.container()}>
       <div tw="flex flex-col h-full lg:(flex-row)">
@@ -73,15 +77,18 @@ const App = () => {
               <YxansKlaganLogo />
             </Link>
           </div>
-          <nav tw="text-lg w-full flex flex-col gap-y-1">
-            <MenuLink to="/session">Spelmöte</MenuLink>
-            <MenuLink to="/encounter">Slumpmöten</MenuLink>
-            <MenuLink to="/map">Karta</MenuLink>
-            <MenuLink to="/calendar">Kalender</MenuLink>
-            <MenuLink to="/gear">Utrustning</MenuLink>
-            <MenuLink to="/names">Namn</MenuLink>
-            <MenuLink to="/dice">Tärningar</MenuLink>
-          </nav>
+          <div tw="h-full flex flex-col justify-between">
+            <nav tw="text-lg w-full flex flex-col gap-y-1">
+              <MenuLink to="/session">{t('Menu-Session')}</MenuLink>
+              <MenuLink to="/encounter">{t('Menu-Encounters')}</MenuLink>
+              <MenuLink to="/map">{t('Menu-Map')}</MenuLink>
+              <MenuLink to="/calendar">{t('Menu-Calendar')}</MenuLink>
+              <MenuLink to="/gear">{t('Menu-Gear')}</MenuLink>
+              <MenuLink to="/names">{t('Menu-Names')}</MenuLink>
+              <MenuLink to="/dice">{t('Menu-Dice')}</MenuLink>
+            </nav>
+            <LanguageSwitcher></LanguageSwitcher>
+          </div>
         </div>
 
         <main tw="w-full mt-4 lg:(ml-48)">{routes}</main>
