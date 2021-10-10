@@ -1,4 +1,5 @@
 import React, { FC, useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import 'twin.macro'
 import { CalendarDay, CalendarDayNames, CalendarFillerDays, Parchment } from '.'
 import { range } from '../functions/array.functions'
@@ -48,6 +49,7 @@ const CalendarMonth: FC<CalendarMonthProps> = ({
   monthIndex,
   showWeather = true,
 }: CalendarMonthProps) => {
+  const { t } = useTranslation('calendar')
   const { calendar, setCalendar } = useContext(CalendarContext)
 
   const quarterClicked = (day: Day): void => {
@@ -58,7 +60,7 @@ const CalendarMonth: FC<CalendarMonthProps> = ({
     <div tw="mb-4">
       <Parchment deps={[showWeather]}>
         <h2 tw="text-4xl text-center flex mb-4" className="yx-heading">
-          {calendar.months[monthIndex].name}
+          {t(calendar.months[monthIndex].name)}
         </h2>
 
         <div tw="grid grid-cols-3 lg:(grid-cols-7)">

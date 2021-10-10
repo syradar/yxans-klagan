@@ -77,7 +77,7 @@ const App = () => {
               <YxansKlaganLogo />
             </Link>
           </div>
-          <div tw="h-full flex flex-col justify-between">
+          <div tw="h-full flex flex-col justify-between pb-4">
             <nav tw="text-lg w-full flex flex-col gap-y-1">
               <MenuLink to="/session">{t('Menu-Session')}</MenuLink>
               <MenuLink to="/encounter">{t('Menu-Encounters')}</MenuLink>
