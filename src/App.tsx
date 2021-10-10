@@ -12,6 +12,7 @@ import { PageHeader, Parchment } from './components'
 import YxansKlaganLogo from './logo'
 import { CalendarPage } from './pages/calendar.page'
 import { DiceRollerPage } from './pages/dice-roller.page'
+import { EncounterPage } from './pages/encounter.page'
 import { GearPage } from './pages/gear.page'
 import { MapPage } from './pages/map.page'
 import { NameGeneratorPage } from './pages/name-generator.page'
@@ -57,6 +58,10 @@ const App = () => {
       path: '/map',
       element: <MapPage />,
     },
+    {
+      path: '/encounter',
+      element: <EncounterPage />,
+    },
   ])
 
   return (
@@ -70,6 +75,7 @@ const App = () => {
           </div>
           <nav tw="text-lg w-full flex flex-col gap-y-1">
             <MenuLink to="/session">Spelmöte</MenuLink>
+            <MenuLink to="/encounter">Slumpmöten</MenuLink>
             <MenuLink to="/map">Karta</MenuLink>
             <MenuLink to="/calendar">Kalender</MenuLink>
             <MenuLink to="/gear">Utrustning</MenuLink>

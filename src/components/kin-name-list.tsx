@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import 'twin.macro'
 import tw from 'twin.macro'
 import { range } from '../functions/array.functions'
-import { Gender } from '../models/general.model'
+import { Gender } from '../models/gender.model'
 import { ReloadIcon } from './icons'
 
 interface KinNameListProps {
