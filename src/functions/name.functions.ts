@@ -1,4 +1,4 @@
-import { Gender } from '../models/general.model'
+import { Gender } from '../models/gender.model'
 import {
   humanNames,
   NameList,

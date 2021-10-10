@@ -9,7 +9,7 @@ ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,
 
 const customStyles = css`
   body {
-    -webkit-tap-highlight-color: ${theme`colors.black`};
+    -webkit-tap-highlight-color: ${theme`colors.yellow.200`};
     ${tw`antialiased`}
     font-family: ${uiFontStack};
   }

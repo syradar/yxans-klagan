@@ -7,10 +7,10 @@ interface ButtonProps {
 
 const Button = styled.button(({ variant, isSmall }: ButtonProps) => [
   // The common button styles
-  tw`px-8 py-2 font-bold uppercase tracking-wide focus:outline-none transform duration-75`,
+  tw`px-8 py-2 font-bold uppercase select-none tracking-wide focus:outline-none transform duration-75`,
   tw`border-2 border-black rounded-none`,
   // Use the variant grouping feature to add variants to multiple classes
-  tw`hover:(bg-yellow-500 border-yellow-500 text-black)`,
+  tw`pointer-fine:hover:(bg-yellow-500 border-yellow-500 text-black) `,
 
   // Use props to conditionally style your components
   tw`bg-black text-white`,
@@ -31,7 +31,7 @@ const Button = styled.button(({ variant, isSmall }: ButtonProps) => [
   ],
 
   // Conditional props can be added
-  isSmall ? tw`text-sm` : tw`text-lg`,
+  isSmall ? tw`text-sm px-4` : tw`text-lg`,
 
   // The theme import can supply values from your tailwind.config.js
   // css`
