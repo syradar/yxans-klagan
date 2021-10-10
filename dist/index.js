@@ -9032,7 +9032,7 @@ ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,
 "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"`;
 var customStyles = css`
   body {
-    -webkit-tap-highlight-color: ${"#000"};
+    -webkit-tap-highlight-color: ${"#fde68a"};
     ${{
   WebkitFontSmoothing: "antialiased",
   MozOsxFontSmoothing: "grayscale"
@@ -9996,6 +9996,7 @@ var Button = styled_default.button(({
     paddingBottom: "0.5rem",
     fontWeight: "700",
     textTransform: "uppercase",
+    userSelect: "none",
     letterSpacing: "0.025em",
     ":focus": {
       outline: "2px solid transparent",
@@ -10010,13 +10011,15 @@ var Button = styled_default.button(({
     borderRadius: "0px"
   },
   {
-    ":hover": {
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))",
-      "--tw-text-opacity": "1",
-      color: "rgba(0, 0, 0, var(--tw-text-opacity))"
+    "@media (pointer: fine)": {
+      ":hover": {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(0, 0, 0, var(--tw-text-opacity))"
+      }
     }
   },
   {
@@ -10054,7 +10057,9 @@ var Button = styled_default.button(({
   ],
   isSmall ? {
     fontSize: "0.875rem",
-    lineHeight: "1.25rem"
+    lineHeight: "1.25rem",
+    paddingLeft: "1rem",
+    paddingRight: "1rem"
   } : {
     fontSize: "1.125rem",
     lineHeight: "1.75rem"
@@ -10159,7 +10164,7 @@ var stepper_default = Stepper;
 // build/dist/functions/array.functions.js
 var range = (val) => [...Array(val).keys()];
 
-// build/dist/models/general.model.js
+// build/dist/models/gender.model.js
 var Gender;
 (function(Gender2) {
   Gender2["Female"] = "Female";
@@ -12045,6 +12050,577 @@ var DiceRollerPage = () => {
   }, jsx(dice_display_default, {
     value: val
   }))))))));
+};
+
+// build/dist/models/terrain.model.js
+var terrain = ["plains", "forest", "darkForest", "hills", "mountain", "lake", "swamp", "mire", "ruinCity"];
+var getTerrainKeys = () => [...terrain];
+var terrainNameMap = {
+  plains: "Slätt",
+  forest: "Skog",
+  darkForest: "Mörk skog",
+  hills: "Kullar",
+  mountain: "Berg",
+  lake: "Sjö",
+  swamp: "Träsk",
+  mire: "Myr",
+  ruinCity: "Ruinstad"
+};
+
+// build/dist/functions/terrain.functions.js
+var getTerrainName = (terrain2) => {
+  return terrainNameMap[terrain2];
+};
+
+// build/dist/components/encounter.js
+var Encounter = ({
+  encounter
+}) => {
+  const [transition, setTransition] = useState(false);
+  const formatTerrains = (terrains) => {
+    if (terrains.length >= 9) {
+      return "Alla";
+    }
+    return terrains.map(getTerrainName).join(", ");
+  };
+  useEffect(() => {
+    setTransition(true);
+    setTimeout(() => {
+      setTransition(false);
+    }, 100);
+  }, [encounter]);
+  return jsx("div", {
+    css: [{
+      transitionProperty: "transform",
+      transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+      transitionDuration: "150ms",
+      "--tw-translate-y": "0px",
+      transform: "var(--tw-transform)"
+    }, transition && {
+      "--tw-translate-y": "0.5rem",
+      transform: "var(--tw-transform)"
+    }]
+  }, jsx(parchment_default, {
+    deps: [encounter.id]
+  }, jsx("div", {
+    css: {
+      display: "flex",
+      gap: "0.5rem",
+      marginBottom: "1rem",
+      alignItems: "center"
+    }
+  }, jsx("div", {
+    css: {
+      fontSize: "2.25rem",
+      lineHeight: "2.5rem",
+      textAlign: "center",
+      fontWeight: "700",
+      padding: "0.5rem",
+      borderWidth: "4px",
+      width: "3rem",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      aspectRatio: "1",
+      borderRadius: "9999px"
+    }
+  }, encounter.id), jsx("h2", {
+    css: {
+      fontSize: "2.25rem",
+      lineHeight: "2.5rem",
+      textAlign: "center",
+      display: "flex"
+    },
+    className: "yx-heading"
+  }, encounter.title)), jsx("div", null, "Terrängtyp: ", formatTerrains(encounter.terrains)), jsx("div", null, "Sida: ", encounter.page)));
+};
+
+// build/dist/data/encounter.data.js
+var encounterTable = {
+  plains: {
+    41: 1,
+    42: 16,
+    43: 2,
+    44: 3,
+    45: 4,
+    46: 5,
+    51: 6,
+    52: 7,
+    53: 34,
+    54: 8,
+    55: 9,
+    56: 10,
+    61: 11,
+    62: 12,
+    63: 13,
+    64: 14,
+    65: 15,
+    66: 30
+  },
+  forest: {
+    41: 1,
+    42: 16,
+    43: 17,
+    44: 18,
+    45: 2,
+    46: 28,
+    51: 3,
+    52: 6,
+    53: 7,
+    54: 34,
+    55: 8,
+    56: 24,
+    61: 9,
+    62: 10,
+    63: 11,
+    64: 12,
+    65: 13,
+    66: 26
+  },
+  darkForest: {
+    41: 1,
+    42: 1,
+    43: 18,
+    44: 19,
+    45: 20,
+    46: 21,
+    51: 3,
+    52: 25,
+    53: 24,
+    54: 9,
+    55: 9,
+    56: 10,
+    61: 11,
+    62: 12,
+    63: 13,
+    64: 29,
+    65: 27,
+    66: 30
+  },
+  hills: {
+    41: 1,
+    42: 2,
+    43: 31,
+    44: 21,
+    45: 22,
+    46: 3,
+    51: 4,
+    52: 5,
+    53: 7,
+    54: 33,
+    55: 34,
+    56: 24,
+    61: 9,
+    62: 32,
+    63: 11,
+    64: 12,
+    65: 13,
+    66: 14
+  },
+  mountain: {
+    41: 1,
+    42: 35,
+    43: 31,
+    44: 21,
+    45: 22,
+    46: 4,
+    51: 5,
+    52: 23,
+    53: 7,
+    54: 33,
+    55: 36,
+    56: 24,
+    61: 9,
+    62: 32,
+    63: 11,
+    64: 12,
+    65: 13,
+    66: 37
+  },
+  lake: {
+    41: 0,
+    42: 0,
+    43: 1,
+    44: 1,
+    45: 38,
+    46: 38,
+    51: 4,
+    52: 4,
+    53: 39,
+    54: 39,
+    55: 39,
+    56: 39,
+    61: 5,
+    62: 5,
+    63: 40,
+    64: 40,
+    65: 41,
+    66: 41
+  },
+  swamp: {
+    41: 1,
+    42: 5,
+    43: 9,
+    44: 9,
+    45: 11,
+    46: 12,
+    51: 12,
+    52: 13,
+    53: 16,
+    54: 18,
+    55: 21,
+    56: 29,
+    61: 30,
+    62: 38,
+    63: 40,
+    64: 41,
+    65: 42,
+    66: 42
+  },
+  mire: {
+    41: 1,
+    42: 4,
+    43: 5,
+    44: 7,
+    45: 8,
+    46: 9,
+    51: 10,
+    52: 11,
+    53: 12,
+    54: 13,
+    55: 14,
+    56: 16,
+    61: 21,
+    62: 23,
+    63: 29,
+    64: 30,
+    65: 34,
+    66: 42
+  },
+  ruinCity: {
+    41: 1,
+    42: 4,
+    43: 5,
+    44: 6,
+    45: 8,
+    46: 9,
+    51: 9,
+    52: 9,
+    53: 11,
+    54: 12,
+    55: 13,
+    56: 21,
+    61: 21,
+    62: 24,
+    63: 29,
+    64: 30,
+    65: 34,
+    66: 43
+  }
+};
+var allEncounters = {
+  "0": {
+    title: "Inget möte",
+    page: 142
+  },
+  "1": {
+    title: "Blodsdimma",
+    page: 143
+  },
+  "2": {
+    title: "Duellen",
+    page: 144
+  },
+  "3": {
+    title: "Orhcer",
+    page: 144
+  },
+  "4": {
+    title: "Grip",
+    page: 144
+  },
+  "5": {
+    title: "Harpyor",
+    page: 145
+  },
+  "6": {
+    title: "Hästen",
+    page: 145
+  },
+  "7": {
+    title: "Massakern",
+    page: 145
+  },
+  "8": {
+    title: "Okvädaren",
+    page: 146
+  },
+  "9": {
+    title: "Ruin",
+    page: 146
+  },
+  "10": {
+    title: "Räven",
+    page: 147
+  },
+  "11": {
+    title: "Röse",
+    page: 147
+  },
+  "12": {
+    title: "Rövare",
+    page: 148
+  },
+  "13": {
+    title: "Sista vilan",
+    page: 148
+  },
+  "14": {
+    title: "Självspäkarna",
+    page: 148
+  },
+  "15": {
+    title: "Tiggarna",
+    page: 149
+  },
+  "16": {
+    title: "Ballongdvärgen",
+    page: 149
+  },
+  "17": {
+    title: "Bröllopet",
+    page: 150
+  },
+  "18": {
+    title: "Demonbagaren",
+    page: 150
+  },
+  "19": {
+    title: "Djurens heliga plats",
+    page: 151
+  },
+  "20": {
+    title: "Enternas gravmarsch",
+    page: 151
+  },
+  "21": {
+    title: "Gast",
+    page: 152
+  },
+  "22": {
+    title: "Glasblåsaren",
+    page: 152
+  },
+  "23": {
+    title: "Hundvalpen",
+    page: 153
+  },
+  "24": {
+    title: "Rese",
+    page: 153
+  },
+  "25": {
+    title: "Ljusstöparna",
+    page: 153
+  },
+  "26": {
+    title: "Skogsbranden",
+    page: 154
+  },
+  "27": {
+    title: "Svart sand",
+    page: 154
+  },
+  "28": {
+    title: "Tvätt på tork",
+    page: 155
+  },
+  "29": {
+    title: "Skelett",
+    page: 155
+  },
+  "30": {
+    title: "Teramalda",
+    page: 155
+  },
+  "31": {
+    title: "Dvärgarnas bygge",
+    page: 156
+  },
+  "32": {
+    title: "Råttorna",
+    page: 156
+  },
+  "33": {
+    title: "Minotaurens klagan",
+    page: 157
+  },
+  "34": {
+    title: "De odöda",
+    page: 157
+  },
+  "35": {
+    title: "Bergstrollet",
+    page: 158
+  },
+  "36": {
+    title: "Pälslösingarna",
+    page: 158
+  },
+  "37": {
+    title: "Vägspärren",
+    page: 159
+  },
+  "38": {
+    title: "Den pestsmittade",
+    page: 159
+  },
+  "39": {
+    title: "Handelskogg",
+    page: 160
+  },
+  "40": {
+    title: "Jättebläckfisk",
+    page: 160
+  },
+  "41": {
+    title: "Själasäljaren",
+    page: 160
+  },
+  "42": {
+    title: "Reptilfolk",
+    page: 161
+  },
+  "43": {
+    title: "De levande begravda",
+    page: 161
+  }
+};
+
+// build/dist/models/encounter.model.js
+var rollWithEncounters = [41, 42, 43, 44, 45, 46, 51, 52, 53, 54, 55, 56, 61, 62, 63, 64, 65, 66];
+var isRollsWithEncounters = (roll) => rollWithEncounters.includes(roll);
+
+// build/dist/functions/encounter.functions.js
+var getTerrainsByEncounterId = (id2) => {
+  if (id2 === 0 || id2 === 1) {
+    return [...getTerrainKeys()];
+  }
+  return Object.entries(encounterTable).reduce((acc, [terrain2, encounters]) => {
+    const hasEncounter = Object.values(encounters).some((e3) => e3 === id2);
+    if (hasEncounter) {
+      acc.push(terrain2);
+    }
+    return acc;
+  }, []);
+};
+var createEncounterViewModel = (id2) => ({
+  id: id2,
+  ...allEncounters[id2],
+  terrains: getTerrainsByEncounterId(id2)
+});
+var getRandomEncounter = (terrain2) => {
+  const roll = getRandomT66();
+  if (!isRollsWithEncounters(roll)) {
+    return createEncounterViewModel(0);
+  }
+  const randomEncounterId = encounterTable[terrain2][roll];
+  const encounterExists = Object.keys(allEncounters).includes(randomEncounterId.toString());
+  if (!encounterExists) {
+    return createEncounterViewModel(0);
+  }
+  return createEncounterViewModel(randomEncounterId);
+};
+
+// build/dist/pages/encounter.page.js
+var EncounterPage = () => {
+  const [encounter, setEncounter] = useState(void 0);
+  const [oldTerrain, setOldTerrain] = useState(void 0);
+  const [encounterLog, setEncounterLog] = useState([]);
+  const handleClick = (terrain2) => {
+    const randomEncounter = getRandomEncounter(terrain2);
+    setEncounter(randomEncounter);
+    if (terrain2 === void 0 && oldTerrain === void 0 || terrain2 === oldTerrain) {
+      setEncounterLog([{
+        ...randomEncounter,
+        timeStamp: new Date().getTime()
+      }, ...encounterLog]);
+    } else {
+      setEncounterLog([{
+        ...randomEncounter,
+        timeStamp: new Date().getTime()
+      }]);
+    }
+    setOldTerrain(terrain2);
+  };
+  return jsx("div", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      rowGap: "2rem",
+      width: "100%",
+      alignItems: "center"
+    }
+  }, jsx(page_header_default, null, "Slumpmöten"), jsx("div", {
+    css: {
+      width: "100%",
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
+      padding: "0.5rem",
+      display: "grid",
+      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+      gap: "0.5rem",
+      "@media (min-width: 768px)": {
+        gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+      },
+      "@media (min-width: 1024px)": {
+        display: "flex"
+      }
+    }
+  }, getTerrainKeys().map((t3) => jsx(Button_default, {
+    key: t3,
+    isSmall: true,
+    onClick: () => {
+      handleClick(t3);
+    }
+  }, getTerrainName(t3)))), jsx("div", {
+    css: {
+      width: "100%",
+      display: "grid",
+      gridAutoColumns: "auto",
+      gap: "4rem",
+      "@media (min-width: 768px)": {
+        gridAutoFlow: "column"
+      }
+    }
+  }, encounter && jsx("div", {
+    css: {
+      maxWidth: "65ch",
+      "@media (min-width: 1024px)": {
+        width: "65ch"
+      }
+    }
+  }, jsx(Encounter, {
+    encounter: {
+      ...encounter
+    }
+  })), !encounter && jsx("div", null), !encounterLog && jsx("div", null), encounterLog && jsx("ul", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.25rem"
+    }
+  }, encounterLog.map((el) => jsx("li", {
+    css: {
+      display: "flex",
+      gap: "0.25rem"
+    },
+    key: el.timeStamp
+  }, jsx("div", {
+    css: {
+      fontWeight: "500"
+    }
+  }, el.id, ": ", el.title), jsx("div", null, "(s. ", el.page, ")"))))));
 };
 
 // build/dist/pages/gear.page.js
@@ -14668,6 +15244,9 @@ var App = () => {
   }, {
     path: "/map",
     element: jsx(MapPage, null)
+  }, {
+    path: "/encounter",
+    element: jsx(EncounterPage, null)
   }]);
   return jsx("div", {
     className: "App",
@@ -14716,6 +15295,8 @@ var App = () => {
   }, jsx(MenuLink, {
     to: "/session"
   }, "Spelmöte"), jsx(MenuLink, {
+    to: "/encounter"
+  }, "Slumpmöten"), jsx(MenuLink, {
     to: "/map"
   }, "Karta"), jsx(MenuLink, {
     to: "/calendar"
