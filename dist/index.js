@@ -10555,6 +10555,7 @@ function toCelsius(fahrenheit) {
   return Math.floor((fahrenheit - 32) / 1.8);
 }
 var getTempString = (fahrenheit) => `${toCelsius(fahrenheit)} ${degreeSymbol}C`;
+var getFahrenheitTempString = (fahrenheit) => `${fahrenheit} ${degreeSymbol}F`;
 function toKilometers(miles) {
   return Math.floor(1.6 * miles);
 }
@@ -10564,12 +10565,12 @@ function toMetersPerSecond(mph) {
 var SUPERNATURAL_CHANCE = 6;
 var degreeSymbol = "°";
 var TEMP_CHANGE_TYPES = [1, 1, 0.3, 3];
-var Units;
-(function(Units2) {
-  Units2[Units2["Imperial"] = 0] = "Imperial";
-  Units2[Units2["Metric"] = 1] = "Metric";
-})(Units || (Units = {}));
-var units = Units.Metric;
+var TemperatureUnit;
+(function(TemperatureUnit2) {
+  TemperatureUnit2[TemperatureUnit2["Imperial"] = 0] = "Imperial";
+  TemperatureUnit2[TemperatureUnit2["Metric"] = 1] = "Metric";
+})(TemperatureUnit || (TemperatureUnit = {}));
+var units = TemperatureUnit.Metric;
 var WindUnitType;
 (function(WindUnitType2) {
   WindUnitType2["KPH"] = "Metric (kph wind)";
@@ -10579,21 +10580,21 @@ var WindUnitType;
 var windUnit = WindUnitType.KPH;
 var StormType;
 (function(StormType2) {
-  StormType2["None"] = "";
-  StormType2["Windstorm"] = "Storm";
-  StormType2["Snowstorm"] = "Snöstorm";
-  StormType2["Rainstorm"] = "Regnstorm";
+  StormType2["None"] = "StormNone";
+  StormType2["Windstorm"] = "StormWind";
+  StormType2["Snowstorm"] = "StormSnow";
+  StormType2["Rainstorm"] = "StormRain";
 })(StormType || (StormType = {}));
 var Downpour;
 (function(Downpour2) {
-  Downpour2["None"] = "";
-  Downpour2["Drizzle"] = "Duggregn";
-  Downpour2["Showers"] = "Regnskurar";
-  Downpour2["LightRain"] = "Regn";
-  Downpour2["Raining"] = "Hällregn";
-  Downpour2["LightSnow"] = "Lätt snöfall";
-  Downpour2["SnowShowers"] = "Snöskurar";
-  Downpour2["Snowing"] = "Snöfall";
+  Downpour2["None"] = "DownPourNone";
+  Downpour2["Drizzle"] = "DownPourDrizzle";
+  Downpour2["Showers"] = "DownPourShowers";
+  Downpour2["LightRain"] = "DownPourLightRain";
+  Downpour2["Raining"] = "DownPourRaining";
+  Downpour2["LightSnow"] = "DownPourLightSnow";
+  Downpour2["SnowShowers"] = "DownPourSnowShowers";
+  Downpour2["Snowing"] = "DownPourSnowing";
 })(Downpour || (Downpour = {}));
 var WeatherDay = class {
   constructor(e3) {
@@ -10623,10 +10624,10 @@ var WeatherDay = class {
     return e3;
   }
   GetHighString() {
-    return units === Units.Imperial ? this.temp + degreeSymbol + "F" : toCelsius(this.temp) + degreeSymbol + "C";
+    return units === TemperatureUnit.Imperial ? this.temp + degreeSymbol + "F" : toCelsius(this.temp) + degreeSymbol + "C";
   }
   GetLowString() {
-    return units === Units.Imperial ? this.lowTemp + degreeSymbol + "F" : toCelsius(this.lowTemp) + degreeSymbol + "C";
+    return units === TemperatureUnit.Imperial ? this.lowTemp + degreeSymbol + "F" : toCelsius(this.lowTemp) + degreeSymbol + "C";
   }
   GetWindString() {
     switch (windUnit) {
@@ -11262,230 +11263,6 @@ var GenerateWeather = class {
   }
 };
 
-// build/dist/components/calendar-day.js
-var CalendarDay = ({
-  day,
-  quarterClicked,
-  showWeather = true
-}) => {
-  return jsx("div", {
-    css: {
-      padding: "0.5rem",
-      borderWidth: "1px",
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.5rem"
-    }
-  }, jsx("div", {
-    css: {
-      display: "flex",
-      justifyContent: "space-between"
-    }
-  }, jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      width: "1.25rem"
-    }
-  }, jsx("div", {
-    css: {
-      "@media (min-width: 1024px)": {
-        display: "none"
-      }
-    }
-  }, day.name), jsx("div", {
-    css: [{
-      display: "flex",
-      gap: "0.25rem"
-    }, day.number === 1 ? {
-      fontWeight: "700"
-    } : {}]
-  }, day.number, jsx("div", null, getMoonEmoji(day.moon)), jsx("div", null, getWeatherIcon(day))))), jsx("div", {
-    css: {
-      width: "100%"
-    }
-  }, jsx(day_counter_default, {
-    quarters: day.quarters,
-    spendQuarter: () => quarterClicked(day)
-  })), showWeather && jsx("div", {
-    css: {}
-  }, jsx("div", null, "Högt: ", getTempString(day.temp)), jsx("div", null, "Lågt: ", getTempString(day.lowTemp)), jsx("div", null, day.downpour), jsx("div", null, day.stormType), jsx("div", null, day.stormType), jsx("div", null, day.eventType?.name)));
-};
-var calendar_day_default = CalendarDay;
-
-// build/dist/models/calendar.model.js
-var month = ["Åldervinter", "Ungvår", "Åldervår", "Ungsommar", "Åldersommar", "Unghöst", "Ålderhöst", "Ungvinter"];
-var numberOfMonths = () => 8;
-var dayNames = ["Soldag", "Måndag", "Bloddag", "Jorddag", "Växtdag", "Skördedag", "Stilledag"];
-var getMonthName = (monthNumber) => month[monthNumber % 8];
-var getDayName = (dayNumber) => dayNames[dayNumber % 7];
-var getDayNumber = (dayName) => {
-  switch (dayName) {
-    case "Stilledag":
-      return 7;
-    case "Skördedag":
-      return 6;
-    case "Växtdag":
-      return 5;
-    case "Jorddag":
-      return 4;
-    case "Bloddag":
-      return 3;
-    case "Måndag":
-      return 2;
-    case "Soldag":
-    default:
-      return 1;
-  }
-};
-var getMoonPhase = (day) => {
-  switch (true) {
-    case day % 30 === 0:
-      return "full";
-    case day % 15 === 0:
-      return "new";
-    default:
-      return void 0;
-  }
-};
-var dayInMonth = (m3) => {
-  switch (m3) {
-    case "Åldervinter":
-    case "Åldervår":
-    case "Ungsommar":
-    case "Åldersommar":
-    case "Ålderhöst":
-      return 46;
-    default:
-      return 45;
-  }
-};
-var getCal = (startYear = 1165) => {
-  const dayOffset = startYear % 1165 % 7;
-  const weather = new GenerateWeather(365, [], 48, 50, 6, "");
-  const weatherDays = weather.weatherSystems.reduce((acc, cur) => {
-    acc.push(cur.days);
-    return acc;
-  }, []).flat();
-  const cal = range(numberOfMonths()).reduce((cal2, m3) => {
-    const monthName = getMonthName(m3);
-    cal2.cal.months[m3] = {
-      name: monthName,
-      days: range(dayInMonth(monthName)).map((d3) => {
-        const {
-          temp,
-          lowTemp,
-          downpour,
-          stormType,
-          eventType,
-          isCloudy,
-          isPartlyCloudy
-        } = weatherDays[cal2.daysPassed + d3];
-        return {
-          number: d3 + 1,
-          name: getDayName(cal2.daysPassed + d3),
-          monthName,
-          quarters: [false, false, false, false],
-          moon: getMoonPhase(cal2.daysPassed + d3 + 1 + 9),
-          temp,
-          lowTemp,
-          downpour,
-          stormType,
-          eventType,
-          isCloudy,
-          isPartlyCloudy
-        };
-      })
-    };
-    cal2.daysPassed += dayInMonth(monthName);
-    return cal2;
-  }, {
-    daysPassed: dayOffset,
-    cal: {
-      year: startYear,
-      months: {}
-    }
-  });
-  return cal.cal;
-};
-
-// build/dist/components/calendar-day-names.js
-var CalendarDayNames = () => {
-  return jsx(react.Fragment, null, range(7).map((i2) => jsx("div", {
-    css: {
-      display: "none",
-      textTransform: "uppercase",
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
-      paddingTop: "0.25rem",
-      paddingBottom: "0.25rem",
-      borderBottomWidth: "2px",
-      "--tw-border-opacity": "1",
-      borderBottomColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
-      padding: "0.5rem",
-      alignItems: "center",
-      justifyContent: "center",
-      fontWeight: "700",
-      "@media (min-width: 1024px)": {
-        display: "flex"
-      }
-    },
-    key: getDayName(i2)
-  }, getDayName(i2))));
-};
-var calendar_day_names_default = CalendarDayNames;
-
-// build/dist/components/calendar-filler-day.js
-var CalendarFillerDays = ({
-  day
-}) => {
-  const fillerDays = getDayNumber(day.name) - 1;
-  const fillerDaysMobile = fillerDays % 3;
-  const fillerDaysDesktop = fillerDays - fillerDaysMobile;
-  return jsx(react.Fragment, null, range(fillerDaysMobile).map((i2) => jsx("div", {
-    css: {
-      borderWidth: "1px",
-      padding: "0.5rem",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center"
-    },
-    key: `${day.monthName}-empty-day-${getDayName(i2)}`
-  })), range(fillerDaysDesktop).map((i2) => jsx("div", {
-    css: {
-      borderWidth: "1px",
-      padding: "0.5rem",
-      alignItems: "center",
-      justifyContent: "center",
-      display: "none",
-      "@media (min-width: 1024px)": {
-        display: "flex"
-      }
-    },
-    key: `${day.monthName}-empty-day-${getDayName(i2)}`
-  })));
-};
-var calendar_filler_day_default = CalendarFillerDays;
-
-// build/dist/components/page-header.js
-var PageHeader = ({
-  children
-}) => {
-  return jsx("h1", {
-    css: {
-      textAlign: "center",
-      fontSize: "2.25rem",
-      lineHeight: "2.5rem",
-      "@media (min-width: 1024px)": {
-        fontSize: "3.75rem",
-        lineHeight: "1"
-      }
-    },
-    className: "yx-heading"
-  }, children);
-};
-var page_header_default = PageHeader;
-
 // build/dist/pkg/react-i18next.js
 var defineProperty = createCommonjsModule(function(module) {
   function _defineProperty4(obj, key, value) {
@@ -11893,6 +11670,453 @@ function I18nextProvider(_ref) {
   }, children);
 }
 
+// build/dist/components/calendar-month.js
+var spendQuarter = (quarters) => {
+  const spent = (quarters.filter((q3) => q3).length + 1) % 5;
+  return [...range(spent).map((_24) => true), ...range(4 - spent).map((_24) => false)];
+};
+var quarterReducer = (cal, monthIndex, day) => {
+  return {
+    ...cal,
+    months: {
+      ...cal.months,
+      [monthIndex]: {
+        ...cal.months[monthIndex],
+        days: cal.months[monthIndex].days.map((d3) => {
+          if (d3.number === day.number) {
+            d3.quarters = spendQuarter(d3.quarters);
+          }
+          return d3;
+        })
+      }
+    }
+  };
+};
+var CalendarMonth = ({
+  monthIndex,
+  showWeather = true
+}) => {
+  const {
+    t: t3
+  } = useTranslation("calendar");
+  const {
+    calendar,
+    setCalendar
+  } = useContext(CalendarContext);
+  const quarterClicked = (day) => {
+    setCalendar(quarterReducer(calendar, monthIndex, day));
+  };
+  return jsx("div", {
+    css: {
+      marginBottom: "1rem"
+    }
+  }, jsx(parchment_default, {
+    deps: [showWeather]
+  }, jsx("h2", {
+    css: {
+      fontSize: "2.25rem",
+      lineHeight: "2.5rem",
+      textAlign: "center",
+      display: "flex",
+      marginBottom: "1rem"
+    },
+    className: "yx-heading"
+  }, t3(calendar.months[monthIndex].name)), jsx("div", {
+    css: {
+      display: "grid",
+      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+      "@media (min-width: 1024px)": {
+        gridTemplateColumns: "repeat(7, minmax(0, 1fr))"
+      }
+    }
+  }, jsx(calendar_day_names_default, null), jsx(calendar_filler_day_default, {
+    day: calendar.months[monthIndex].days[0]
+  }), calendar.months[monthIndex].days.map((d3) => jsx(calendar_day_default, {
+    day: d3,
+    key: `${d3.monthName}${d3.number}`,
+    showWeather,
+    quarterClicked
+  })))));
+};
+var calendar_month_default = CalendarMonth;
+
+// build/dist/hooks/use-local-storage.js
+function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error2) {
+      console.log(error2);
+      return initialValue;
+    }
+  });
+  const setValue = (value) => {
+    try {
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error2) {
+      console.log(error2);
+    }
+  };
+  return [storedValue, setValue];
+}
+
+// build/dist/hooks/use-window-scroll-position.js
+function useWindowScrollPosition(localStorageKey, setCondition) {
+  const [scrollYStorage, setScrollYStorage] = useLocalStorage(localStorageKey, 0);
+  const handleScroll = () => {
+    if (setCondition && window.scrollY !== 0) {
+      setScrollYStorage(window.scrollY);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  useLayoutEffect(() => {
+    if (setCondition) {
+      setTimeout(() => {
+        window.scrollTo(0, scrollYStorage);
+      }, 0);
+    }
+  }, [setCondition, scrollYStorage]);
+}
+
+// build/dist/models/calendar.model.js
+var month = ["WinterWane", "SpringRise", "SpringWane", "SummerRise", "SummerWane", "AutumnRise", "AutumnWane", "WinterRise"];
+var numberOfMonths = () => 8;
+var dayNames = ["SunDay", "MoonDay", "BloodDay", "EarthDay", "GrowthDay", "HarvestDay", "StillDay"];
+var getMonthName = (monthNumber) => month[monthNumber % 8];
+var getDayName = (dayNumber) => dayNames[dayNumber % 7];
+var getDayNumber = (dayName) => {
+  switch (dayName) {
+    case "StillDay":
+      return 7;
+    case "HarvestDay":
+      return 6;
+    case "GrowthDay":
+      return 5;
+    case "EarthDay":
+      return 4;
+    case "BloodDay":
+      return 3;
+    case "MoonDay":
+      return 2;
+    case "SunDay":
+    default:
+      return 1;
+  }
+};
+var getMoonPhase = (day) => {
+  switch (true) {
+    case day % 30 === 0:
+      return "full";
+    case day % 15 === 0:
+      return "new";
+    default:
+      return void 0;
+  }
+};
+var dayInMonth = (m3) => {
+  switch (m3) {
+    case "WinterWane":
+    case "SpringWane":
+    case "SummerRise":
+    case "SummerWane":
+    case "AutumnWane":
+      return 46;
+    default:
+      return 45;
+  }
+};
+var getCal = (startYear = 1165) => {
+  const dayOffset = startYear % 1165 % 7;
+  const weather = new GenerateWeather(365, [], 48, 50, 6, "");
+  const weatherDays = weather.weatherSystems.reduce((acc, cur) => {
+    acc.push(cur.days);
+    return acc;
+  }, []).flat();
+  const cal = range(numberOfMonths()).reduce((cal2, m3) => {
+    const monthName = getMonthName(m3);
+    cal2.cal.months[m3] = {
+      name: monthName,
+      days: range(dayInMonth(monthName)).map((d3) => {
+        const {
+          temp,
+          lowTemp,
+          downpour,
+          stormType,
+          eventType,
+          isCloudy,
+          isPartlyCloudy
+        } = weatherDays[cal2.daysPassed + d3];
+        return {
+          number: d3 + 1,
+          name: getDayName(cal2.daysPassed + d3),
+          monthName,
+          quarters: [false, false, false, false],
+          moon: getMoonPhase(cal2.daysPassed + d3 + 1 + 9),
+          temp,
+          lowTemp,
+          downpour,
+          stormType,
+          eventType,
+          isCloudy,
+          isPartlyCloudy
+        };
+      })
+    };
+    cal2.daysPassed += dayInMonth(monthName);
+    return cal2;
+  }, {
+    daysPassed: dayOffset,
+    cal: {
+      year: startYear,
+      months: {}
+    }
+  });
+  return cal.cal;
+};
+
+// build/dist/pages/calendar.page.js
+var DEFAULT_CALENDAR = getCal(1165);
+var DEFAULT_SHOW_WEATHER = true;
+var CALENDAR_KEY_V1 = "calendar";
+var CALENDAR_KEY = "calendar_v2";
+var CALENDAR_SHOW_WEATHER_KEY = "calendar_show_weather";
+var CALENDAR_SCROLL_POSITION = "calendar_scroll";
+var CalendarContext = /* @__PURE__ */ createContext({
+  calendar: DEFAULT_CALENDAR,
+  setCalendar: (_24) => {
+  }
+});
+var CalendarPage = () => {
+  const {
+    t: t3
+  } = useTranslation("calendar");
+  const calendarFromStorage = localStorage.getItem(CALENDAR_KEY) ?? void 0;
+  const showWeatherFromStorage = localStorage.getItem(CALENDAR_SHOW_WEATHER_KEY) ?? void 0;
+  localStorage.removeItem(CALENDAR_KEY_V1);
+  const calendarFromStorageOrDefault = notNullish(calendarFromStorage) ? JSON.parse(calendarFromStorage) : DEFAULT_CALENDAR;
+  const showWeatherFromStorageOrDefault = notNullish(showWeatherFromStorage) ? JSON.parse(showWeatherFromStorage) : DEFAULT_SHOW_WEATHER;
+  const [calendar, setCalendar] = useLocalStorage(CALENDAR_KEY, calendarFromStorageOrDefault);
+  const [showWeather, setShowWeather] = useLocalStorage(CALENDAR_SHOW_WEATHER_KEY, showWeatherFromStorageOrDefault);
+  const handleTemperatureChange = (unit) => {
+    setCalendar({
+      ...calendar,
+      temperatureUnit: unit
+    });
+  };
+  useWindowScrollPosition(CALENDAR_SCROLL_POSITION, notNullish(calendar));
+  return jsx("div", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      rowGap: "2rem",
+      width: "100%"
+    }
+  }, jsx(page_header_default, null, t3("Title")), jsx("div", {
+    css: {
+      textAlign: "center",
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      marginBottom: "0.5rem",
+      textTransform: "none"
+    },
+    className: "yx-prose"
+  }, t3("Year"), " ", calendar.year, " ", t3("AS")), jsx("div", {
+    css: {
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
+      padding: "0.5rem",
+      display: "flex",
+      justifyContent: "flex-end",
+      gap: "0.5rem"
+    }
+  }, jsx(Button_default, {
+    isSmall: true,
+    variant: "secondary",
+    onClick: () => handleTemperatureChange(calendar.temperatureUnit === TemperatureUnit.Metric ? TemperatureUnit.Imperial : TemperatureUnit.Metric)
+  }, t3("Use"), " ", calendar.temperatureUnit === TemperatureUnit.Metric ? t3("F") : t3("C")), jsx(Button_default, {
+    variant: "secondary",
+    isSmall: true,
+    onClick: () => setShowWeather(!showWeather)
+  }, showWeather ? t3("Weather-Hide") : t3("Weather-Show"))), jsx("div", {
+    css: {}
+  }, jsx(CalendarContext.Provider, {
+    value: {
+      calendar,
+      setCalendar
+    }
+  }, jsx(calendar_month_default, {
+    monthIndex: 0,
+    showWeather
+  }), jsx(calendar_month_default, {
+    monthIndex: 1,
+    showWeather
+  }), jsx(calendar_month_default, {
+    monthIndex: 2,
+    showWeather
+  }), jsx(calendar_month_default, {
+    monthIndex: 3,
+    showWeather
+  }), jsx(calendar_month_default, {
+    monthIndex: 4,
+    showWeather
+  }), jsx(calendar_month_default, {
+    monthIndex: 5,
+    showWeather
+  }), jsx(calendar_month_default, {
+    monthIndex: 6,
+    showWeather
+  }), jsx(calendar_month_default, {
+    monthIndex: 7,
+    showWeather
+  }))));
+};
+
+// build/dist/components/calendar-day.js
+var CalendarDay = ({
+  day,
+  quarterClicked,
+  showWeather = true
+}) => {
+  const {
+    t: t3
+  } = useTranslation("calendar");
+  const {
+    calendar
+  } = useContext(CalendarContext);
+  const formatTemperature = (temp) => {
+    return calendar.temperatureUnit === TemperatureUnit.Metric ? getTempString(temp) : getFahrenheitTempString(temp);
+  };
+  return jsx("div", {
+    css: {
+      padding: "0.5rem",
+      borderWidth: "1px",
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.5rem"
+    }
+  }, jsx("div", {
+    css: {
+      display: "flex",
+      justifyContent: "space-between"
+    }
+  }, jsx("div", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      width: "1.25rem"
+    }
+  }, jsx("div", {
+    css: {
+      "@media (min-width: 1024px)": {
+        display: "none"
+      }
+    }
+  }, day.name), jsx("div", {
+    css: [{
+      display: "flex",
+      gap: "0.25rem"
+    }, day.number === 1 ? {
+      fontWeight: "700"
+    } : {}]
+  }, day.number, jsx("div", null, getMoonEmoji(day.moon)), jsx("div", null, getWeatherIcon(day))))), jsx("div", {
+    css: {
+      width: "100%"
+    }
+  }, jsx(day_counter_default, {
+    quarters: day.quarters,
+    spendQuarter: () => quarterClicked(day)
+  })), showWeather && jsx("div", {
+    css: {}
+  }, jsx("div", null, t3("Weather-High"), ": ", formatTemperature(day.temp)), jsx("div", null, t3("Weather-Low"), ": ", formatTemperature(day.lowTemp)), jsx("div", null, t3(day.downpour)), jsx("div", null, t3(day.stormType)), jsx("div", null, t3(day.stormType)), jsx("div", null, t3(day.eventType?.name ?? ""))));
+};
+var calendar_day_default = CalendarDay;
+
+// build/dist/components/calendar-day-names.js
+var CalendarDayNames = () => {
+  const {
+    t: t3
+  } = useTranslation("calendar");
+  return jsx(react.Fragment, null, range(7).map((i2) => jsx("div", {
+    css: {
+      display: "none",
+      textTransform: "uppercase",
+      paddingLeft: "0.5rem",
+      paddingRight: "0.5rem",
+      paddingTop: "0.25rem",
+      paddingBottom: "0.25rem",
+      borderBottomWidth: "2px",
+      "--tw-border-opacity": "1",
+      borderBottomColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
+      padding: "0.5rem",
+      alignItems: "center",
+      justifyContent: "center",
+      fontWeight: "700",
+      "@media (min-width: 1024px)": {
+        display: "flex"
+      }
+    },
+    key: getDayName(i2)
+  }, t3(getDayName(i2)))));
+};
+var calendar_day_names_default = CalendarDayNames;
+
+// build/dist/components/calendar-filler-day.js
+var CalendarFillerDays = ({
+  day
+}) => {
+  const fillerDays = getDayNumber(day.name) - 1;
+  const fillerDaysMobile = fillerDays % 3;
+  const fillerDaysDesktop = fillerDays - fillerDaysMobile;
+  return jsx(react.Fragment, null, range(fillerDaysMobile).map((i2) => jsx("div", {
+    css: {
+      borderWidth: "1px",
+      padding: "0.5rem",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    },
+    key: `${day.monthName}-empty-day-${getDayName(i2)}`
+  })), range(fillerDaysDesktop).map((i2) => jsx("div", {
+    css: {
+      borderWidth: "1px",
+      padding: "0.5rem",
+      alignItems: "center",
+      justifyContent: "center",
+      display: "none",
+      "@media (min-width: 1024px)": {
+        display: "flex"
+      }
+    },
+    key: `${day.monthName}-empty-day-${getDayName(i2)}`
+  })));
+};
+var calendar_filler_day_default = CalendarFillerDays;
+
+// build/dist/components/page-header.js
+var PageHeader = ({
+  children
+}) => {
+  return jsx("h1", {
+    css: {
+      textAlign: "center",
+      fontSize: "2.25rem",
+      lineHeight: "2.5rem",
+      "@media (min-width: 1024px)": {
+        fontSize: "3.75rem",
+        lineHeight: "1"
+      }
+    },
+    className: "yx-heading"
+  }, children);
+};
+var page_header_default = PageHeader;
+
 // build/dist/components/language-button.js
 var LanguageButton = styled_default.button(({
   selected
@@ -12256,197 +12480,6 @@ var YxansKlaganSvg = () => jsx("div", {
   className: "cls-3",
   d: "M242.94 56.85l.26 2a7.23 7.23 0 00.31.75c.14.32.34.73.57 1.22L258 79.21v-9.13l-.18-2.75-.13-2.62-.26-2-.43-1.32-.39-.92-.53-.57-.44-.22-.65-.13h-.74l-.09-1.62h9.56v1.66h-1l-.82.31-.62.83-.52 1.49-.39 2.53-.27 3.75-.1 5.21v6.94l1.49 1.53a11.27 11.27 0 002.18.92l-2.81 2.9-1.35 1.83-1.14 1.75-.75 1.49-.57 1.79a15.65 15.65 0 00-.75-2.1l-.92-1.35-17.1-24 .26 13.41.36 5.32.26 1.62.3 1.18.4.87.43.48.48.22.7.13h.66v1.49h-9.43v-1.44h.87l.7-.22.61-.61.53-1.14.43-2.27.31-3 .13-4.19.09-5.46v-7.08a6.89 6.89 0 00-1.62-1.61 13.62 13.62 0 00-2.18-.83l.61-1.18.79-1.18 1.26-.92 1.27-.78 3.16-1 3.29-.35m0-.75h-.08l-3.29.35h-.14l-3.16 1a.53.53 0 00-.17.08l-1.27.79h-.05l-1.26.91a.86.86 0 00-.19.19l-.78 1.18a.25.25 0 000 .07l-.61 1.18a.7.7 0 000 .63.73.73 0 00.46.43 12.48 12.48 0 012 .76 5.39 5.39 0 011.26 1.23v6.82l-.09 5.45-.13 4.15-.3 3-.41 2.15-.43.94-.39.38-.43.14h-.78a.75.75 0 00-.71.75v1.44a.75.75 0 00.75.75h9.43a.75.75 0 00.75-.73v-1.43a.19.19 0 000-.08.75.75 0 00-.75-.75h-.59l-.54-.1-.26-.12-.25-.28-.32-.7-.28-1.09-.25-1.54-.35-5.29-.21-11 15.69 22 .91 1.33c0 .08.19.44.66 1.91a.74.74 0 00.71.53.75.75 0 00.72-.53l.55-1.73L259 90l1.11-1.72 1.31-1.76 2.76-2.89a.74.74 0 00-.29-1.22 13.72 13.72 0 01-2-.79l-1.22-1.25v-6.66l.17-5.22.26-3.7.38-2.43L262 61l.42-.55.49-.19h.82a.74.74 0 00.75-.75v-1.62a.75.75 0 00-.75-.75h-9.56a.77.77 0 00-.55.24.76.76 0 00-.2.56l.09 1.61a.75.75 0 00.7.71h.69l.51.1.22.11.35.37.32.75.32 1.26.25 1.89.13 2.59.18 2.76v6.83l-12.5-16.53-.15-.32-.38-.82c-.12-.27-.2-.47-.25-.61l-.26-1.93a.74.74 0 00-.74-.65z"
 })))));
-
-// build/dist/components/calendar-month.js
-var spendQuarter = (quarters) => {
-  const spent = (quarters.filter((q3) => q3).length + 1) % 5;
-  return [...range(spent).map((_24) => true), ...range(4 - spent).map((_24) => false)];
-};
-var quarterReducer = (cal, monthIndex, day) => {
-  return {
-    ...cal,
-    months: {
-      ...cal.months,
-      [monthIndex]: {
-        ...cal.months[monthIndex],
-        days: cal.months[monthIndex].days.map((d3) => {
-          if (d3.number === day.number) {
-            d3.quarters = spendQuarter(d3.quarters);
-          }
-          return d3;
-        })
-      }
-    }
-  };
-};
-var CalendarMonth = ({
-  monthIndex,
-  showWeather = true
-}) => {
-  const {
-    calendar,
-    setCalendar
-  } = useContext(CalendarContext);
-  const quarterClicked = (day) => {
-    setCalendar(quarterReducer(calendar, monthIndex, day));
-  };
-  return jsx("div", {
-    css: {
-      marginBottom: "1rem"
-    }
-  }, jsx(parchment_default, {
-    deps: [showWeather]
-  }, jsx("h2", {
-    css: {
-      fontSize: "2.25rem",
-      lineHeight: "2.5rem",
-      textAlign: "center",
-      display: "flex",
-      marginBottom: "1rem"
-    },
-    className: "yx-heading"
-  }, calendar.months[monthIndex].name), jsx("div", {
-    css: {
-      display: "grid",
-      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-      "@media (min-width: 1024px)": {
-        gridTemplateColumns: "repeat(7, minmax(0, 1fr))"
-      }
-    }
-  }, jsx(calendar_day_names_default, null), jsx(calendar_filler_day_default, {
-    day: calendar.months[monthIndex].days[0]
-  }), calendar.months[monthIndex].days.map((d3) => jsx(calendar_day_default, {
-    day: d3,
-    key: `${d3.monthName}${d3.number}`,
-    showWeather,
-    quarterClicked
-  })))));
-};
-var calendar_month_default = CalendarMonth;
-
-// build/dist/hooks/use-local-storage.js
-function useLocalStorage(key, initialValue) {
-  const [storedValue, setStoredValue] = useState(() => {
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error2) {
-      console.log(error2);
-      return initialValue;
-    }
-  });
-  const setValue = (value) => {
-    try {
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-      window.localStorage.setItem(key, JSON.stringify(valueToStore));
-    } catch (error2) {
-      console.log(error2);
-    }
-  };
-  return [storedValue, setValue];
-}
-
-// build/dist/hooks/use-window-scroll-position.js
-function useWindowScrollPosition(localStorageKey, setCondition) {
-  const [scrollYStorage, setScrollYStorage] = useLocalStorage(localStorageKey, 0);
-  const handleScroll = () => {
-    if (setCondition && window.scrollY !== 0) {
-      setScrollYStorage(window.scrollY);
-    }
-  };
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-  useLayoutEffect(() => {
-    if (setCondition) {
-      setTimeout(() => {
-        window.scrollTo(0, scrollYStorage);
-      }, 0);
-    }
-  }, [setCondition, scrollYStorage]);
-}
-
-// build/dist/pages/calendar.page.js
-var DEFAULT_CALENDAR = getCal(1165);
-var DEFAULT_SHOW_WEATHER = true;
-var CALENDAR_KEY = "calendar";
-var CALENDAR_SHOW_WEATHER_KEY = "calendar_show_weather";
-var CALENDAR_SCROLL_POSITION = "calendar_scroll";
-var CalendarContext = /* @__PURE__ */ createContext({
-  calendar: DEFAULT_CALENDAR,
-  setCalendar: (_24) => {
-  }
-});
-var CalendarPage = () => {
-  const calendarFromStorage = localStorage.getItem(CALENDAR_KEY) ?? void 0;
-  const showWeatherFromStorage = localStorage.getItem(CALENDAR_SHOW_WEATHER_KEY) ?? void 0;
-  const calendarFromStorageOrDefault = notNullish(calendarFromStorage) ? JSON.parse(calendarFromStorage) : DEFAULT_CALENDAR;
-  const showWeatherFromStorageOrDefault = notNullish(showWeatherFromStorage) ? JSON.parse(showWeatherFromStorage) : DEFAULT_SHOW_WEATHER;
-  const [calendar, setCalendar] = useLocalStorage(CALENDAR_KEY, calendarFromStorageOrDefault);
-  const [showWeather, setShowWeather] = useLocalStorage(CALENDAR_SHOW_WEATHER_KEY, showWeatherFromStorageOrDefault);
-  useWindowScrollPosition(CALENDAR_SCROLL_POSITION, notNullish(calendar));
-  return jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      rowGap: "2rem",
-      width: "100%"
-    }
-  }, jsx(page_header_default, null, "Kalender"), jsx("div", {
-    css: {
-      textAlign: "center",
-      fontSize: "1.25rem",
-      lineHeight: "1.75rem",
-      marginBottom: "0.5rem",
-      textTransform: "none"
-    },
-    className: "yx-prose"
-  }, "År ", calendar.year, " E.S. (Efter skiftet)"), jsx("div", {
-    css: {
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
-      padding: "0.5rem",
-      display: "flex",
-      justifyContent: "flex-end"
-    }
-  }, jsx(Button_default, {
-    isSmall: true,
-    onClick: () => setShowWeather(!showWeather)
-  }, showWeather ? "Dölj väder" : "Visa väder")), jsx("div", {
-    css: {}
-  }, jsx(CalendarContext.Provider, {
-    value: {
-      calendar,
-      setCalendar
-    }
-  }, jsx(calendar_month_default, {
-    monthIndex: 0,
-    showWeather
-  }), jsx(calendar_month_default, {
-    monthIndex: 1,
-    showWeather
-  }), jsx(calendar_month_default, {
-    monthIndex: 2,
-    showWeather
-  }), jsx(calendar_month_default, {
-    monthIndex: 3,
-    showWeather
-  }), jsx(calendar_month_default, {
-    monthIndex: 4,
-    showWeather
-  }), jsx(calendar_month_default, {
-    monthIndex: 5,
-    showWeather
-  }), jsx(calendar_month_default, {
-    monthIndex: 6,
-    showWeather
-  }), jsx(calendar_month_default, {
-    monthIndex: 7,
-    showWeather
-  }))));
-};
 
 // build/dist/components/dice-display.js
 var DiceDisplay = ({
@@ -15789,7 +15822,8 @@ var App = () => {
       height: "100%",
       display: "flex",
       flexDirection: "column",
-      justifyContent: "space-between"
+      justifyContent: "space-between",
+      paddingBottom: "1rem"
     }
   }, jsx("nav", {
     css: {
@@ -19534,7 +19568,7 @@ i18nReact.use(i18next_http_backend_default).use(i18next_browser_languagedetector
   fallbackLng: "en",
   debug: false,
   supportedLngs: ["en", "sv"],
-  ns: ["core"],
+  ns: ["core", "calendar"],
   backend: {
     loadPath
   },
