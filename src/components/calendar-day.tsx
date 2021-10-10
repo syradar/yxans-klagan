@@ -1,13 +1,17 @@
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import 'twin.macro'
 import tw from 'twin.macro'
 import { DayCounter } from '.'
 import {
+  getFahrenheitTempString,
   getMoonEmoji,
   getTempString,
   getWeatherIcon,
+  TemperatureUnit,
 } from '../functions/weather.functions'
 import { Day } from '../models/calendar.model'
+import { useTranslation } from 'react-i18next'
+import { CalendarContext } from '../pages/calendar.page'
 
 interface CalendarDayProps {
   day: Day
@@ -20,6 +24,15 @@ const CalendarDay: FC<CalendarDayProps> = ({
   quarterClicked,
   showWeather = true,
 }: CalendarDayProps) => {
+  const { t } = useTranslation('calendar')
+  const { calendar } = useContext(CalendarContext)
+
+  const formatTemperature = (temp: number) => {
+    return calendar.temperatureUnit === TemperatureUnit.Metric
+      ? getTempString(temp)
+      : getFahrenheitTempString(temp)
+  }
+
   return (
     <div tw="p-2 border flex flex-col gap-2">
       <div tw="flex justify-between">
@@ -40,12 +53,16 @@ const CalendarDay: FC<CalendarDayProps> = ({
       </div>
       {showWeather && (
         <div tw="">
-          <div>Högt: {getTempString(day.temp)}</div>
-          <div>Lågt: {getTempString(day.lowTemp)}</div>
-          <div>{day.downpour}</div>
-          <div>{day.stormType}</div>
-          <div>{day.stormType}</div>
-          <div>{day.eventType?.name}</div>
+          <div>
+            {t('Weather-High')}: {formatTemperature(day.temp)}
+          </div>
+          <div>
+            {t('Weather-Low')}: {formatTemperature(day.lowTemp)}
+          </div>
+          <div>{t(day.downpour)}</div>
+          <div>{t(day.stormType)}</div>
+          <div>{t(day.stormType)}</div>
+          <div>{t(day.eventType?.name ?? '')}</div>
         </div>
       )}
     </div>

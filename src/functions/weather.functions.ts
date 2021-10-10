@@ -21,6 +21,9 @@ function toCelsius(fahrenheit: number) {
 export const getTempString = (fahrenheit: number) =>
   `${toCelsius(fahrenheit)} ${degreeSymbol}C`
 
+export const getFahrenheitTempString = (fahrenheit: number) =>
+  `${fahrenheit} ${degreeSymbol}F`
+
 export function toKilometers(miles: number) {
   return Math.floor(1.6 * miles)
 }
@@ -32,11 +35,12 @@ const SUPERNATURAL_CHANCE = 6
 const degreeSymbol = '°'
 const TEMP_CHANGE_TYPES = [1, 1, 0.3, 3]
 
-enum Units {
+export enum TemperatureUnit {
   Imperial,
   Metric,
 }
-const units: Units = Units.Metric
+
+const units: TemperatureUnit = TemperatureUnit.Metric
 
 enum WindUnitType {
   KPH = 'Metric (kph wind)',
@@ -57,21 +61,21 @@ export interface WeatherEvent {
 }
 
 export enum StormType {
-  None = '',
-  Windstorm = 'Storm',
-  Snowstorm = 'Snöstorm',
-  Rainstorm = 'Regnstorm',
+  None = 'StormNone',
+  Windstorm = 'StormWind',
+  Snowstorm = 'StormSnow',
+  Rainstorm = 'StormRain',
 }
 
 export enum Downpour {
-  None = '',
-  Drizzle = 'Duggregn',
-  Showers = 'Regnskurar',
-  LightRain = 'Regn',
-  Raining = 'Hällregn',
-  LightSnow = 'Lätt snöfall',
-  SnowShowers = 'Snöskurar',
-  Snowing = 'Snöfall',
+  None = 'DownPourNone',
+  Drizzle = 'DownPourDrizzle',
+  Showers = 'DownPourShowers',
+  LightRain = 'DownPourLightRain',
+  Raining = 'DownPourRaining',
+  LightSnow = 'DownPourLightSnow',
+  SnowShowers = 'DownPourSnowShowers',
+  Snowing = 'DownPourSnowing',
 }
 
 interface WeatherDayDto {
@@ -172,13 +176,13 @@ export class WeatherDay {
   }
 
   GetHighString() {
-    return units === Units.Imperial
+    return units === TemperatureUnit.Imperial
       ? this.temp + degreeSymbol + 'F'
       : toCelsius(this.temp) + degreeSymbol + 'C'
   }
 
   GetLowString() {
-    return units === Units.Imperial
+    return units === TemperatureUnit.Imperial
       ? this.lowTemp + degreeSymbol + 'F'
       : toCelsius(this.lowTemp) + degreeSymbol + 'C'
   }

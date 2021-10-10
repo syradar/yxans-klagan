@@ -1,8 +1,10 @@
 import React, { createContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import 'twin.macro'
 import { Button, PageHeader } from '../components'
 import CalendarMonth from '../components/calendar-month'
 import { notNullish } from '../functions/utils.functions'
+import { TemperatureUnit } from '../functions/weather.functions'
 import { useLocalStorage } from '../hooks/use-local-storage'
 import useWindowScrollPosition from '../hooks/use-window-scroll-position'
 import { Calendar, getCal } from '../models/calendar.model'
@@ -10,7 +12,8 @@ import { Calendar, getCal } from '../models/calendar.model'
 const DEFAULT_CALENDAR = getCal(1165)
 const DEFAULT_SHOW_WEATHER = true
 
-const CALENDAR_KEY = 'calendar'
+const CALENDAR_KEY_V1 = 'calendar'
+const CALENDAR_KEY = 'calendar_v2'
 const CALENDAR_SHOW_WEATHER_KEY = 'calendar_show_weather'
 const CALENDAR_SCROLL_POSITION = 'calendar_scroll'
 
@@ -26,9 +29,12 @@ export const CalendarContext = createContext<CalendarContext>({
 })
 
 export const CalendarPage = () => {
+  const { t } = useTranslation('calendar')
   const calendarFromStorage = localStorage.getItem(CALENDAR_KEY) ?? undefined
   const showWeatherFromStorage =
     localStorage.getItem(CALENDAR_SHOW_WEATHER_KEY) ?? undefined
+
+  localStorage.removeItem(CALENDAR_KEY_V1)
 
   const calendarFromStorageOrDefault = notNullish(calendarFromStorage)
     ? JSON.parse(calendarFromStorage)
@@ -48,17 +54,41 @@ export const CalendarPage = () => {
     showWeatherFromStorageOrDefault,
   )
 
+  const handleTemperatureChange = (unit: TemperatureUnit) => {
+    setCalendar({ ...calendar, temperatureUnit: unit })
+  }
+
   useWindowScrollPosition(CALENDAR_SCROLL_POSITION, notNullish(calendar))
 
   return (
     <div tw="flex flex-col gap-y-8 w-full">
-      <PageHeader>Kalender</PageHeader>
+      <PageHeader>{t('Title')}</PageHeader>
       <div tw="text-center text-xl mb-2 normal-case" className="yx-prose">
-        År {calendar.year} E.S. (Efter skiftet)
+        {t('Year')} {calendar.year} {t('AS')}
       </div>
-      <div tw="bg-gray-200 p-2 flex justify-end">
-        <Button isSmall onClick={() => setShowWeather(!showWeather)}>
-          {showWeather ? 'Dölj väder' : 'Visa väder'}
+      <div tw="bg-gray-200 p-2 flex justify-end gap-2">
+        <Button
+          isSmall
+          variant="secondary"
+          onClick={() =>
+            handleTemperatureChange(
+              calendar.temperatureUnit === TemperatureUnit.Metric
+                ? TemperatureUnit.Imperial
+                : TemperatureUnit.Metric,
+            )
+          }
+        >
+          {t('Use')}{' '}
+          {calendar.temperatureUnit === TemperatureUnit.Metric
+            ? t('F')
+            : t('C')}
+        </Button>
+        <Button
+          variant="secondary"
+          isSmall
+          onClick={() => setShowWeather(!showWeather)}
+        >
+          {showWeather ? t('Weather-Hide') : t('Weather-Show')}
         </Button>
       </div>
 

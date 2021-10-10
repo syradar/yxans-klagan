@@ -3,19 +3,20 @@ import {
   Downpour,
   GenerateWeather,
   StormType,
+  TemperatureUnit,
   WeatherDay,
   WeatherEvent,
 } from '../functions/weather.functions'
 
 const month = [
-  'Åldervinter',
-  'Ungvår',
-  'Åldervår',
-  'Ungsommar',
-  'Åldersommar',
-  'Unghöst',
-  'Ålderhöst',
-  'Ungvinter',
+  'WinterWane',
+  'SpringRise',
+  'SpringWane',
+  'SummerRise',
+  'SummerWane',
+  'AutumnRise',
+  'AutumnWane',
+  'WinterRise',
 ] as const
 export type MonthNames = typeof month[number]
 
@@ -27,13 +28,13 @@ export type Month = {
 const numberOfMonths = (): 8 => 8
 
 const dayNames = [
-  'Soldag',
-  'Måndag',
-  'Bloddag',
-  'Jorddag',
-  'Växtdag',
-  'Skördedag',
-  'Stilledag',
+  'SunDay',
+  'MoonDay',
+  'BloodDay',
+  'EarthDay',
+  'GrowthDay',
+  'HarvestDay',
+  'StillDay',
 ] as const
 export type DayNames = typeof dayNames[number]
 
@@ -45,19 +46,19 @@ export const getDayName = (dayNumber: number): DayNames =>
 
 export const getDayNumber = (dayName: DayNames): number => {
   switch (dayName) {
-    case 'Stilledag':
+    case 'StillDay':
       return 7
-    case 'Skördedag':
+    case 'HarvestDay':
       return 6
-    case 'Växtdag':
+    case 'GrowthDay':
       return 5
-    case 'Jorddag':
+    case 'EarthDay':
       return 4
-    case 'Bloddag':
+    case 'BloodDay':
       return 3
-    case 'Måndag':
+    case 'MoonDay':
       return 2
-    case 'Soldag':
+    case 'SunDay':
     default:
       return 1
   }
@@ -92,11 +93,11 @@ export const getMoonPhase = (day: number): 'full' | 'new' | undefined => {
 
 export const dayInMonth = (m: MonthNames): 45 | 46 => {
   switch (m) {
-    case 'Åldervinter':
-    case 'Åldervår':
-    case 'Ungsommar':
-    case 'Åldersommar':
-    case 'Ålderhöst':
+    case 'WinterWane':
+    case 'SpringWane':
+    case 'SummerRise':
+    case 'SummerWane':
+    case 'AutumnWane':
       return 46
     default:
       return 45
@@ -106,6 +107,7 @@ export const dayInMonth = (m: MonthNames): 45 | 46 => {
 export type MonthIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7
 
 export type Calendar = {
+  temperatureUnit: TemperatureUnit
   year: number
   months: {
     [k in MonthIndex]: Month
