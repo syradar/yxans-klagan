@@ -10543,7 +10543,6 @@ var inRange = (range2) => (val) => {
   }
   return val > range2[0] && val < range2[1];
 };
-var isDevelopment = () => NODE_ENV === "development";
 
 // build/dist/functions/weather.functions.js
 var normalizeTempDeltaWithWetness = (temp, wetnessPercent) => {
@@ -18305,6 +18304,358 @@ var I18n = function(_EventEmitter) {
 var i18next = new I18n();
 var i18next_default = i18next;
 
+// build/dist/pkg/i18next-browser-languagedetector.js
+var arr = [];
+var each = arr.forEach;
+var slice = arr.slice;
+function defaults(obj) {
+  each.call(slice.call(arguments, 1), function(source) {
+    if (source) {
+      for (var prop in source) {
+        if (obj[prop] === void 0)
+          obj[prop] = source[prop];
+      }
+    }
+  });
+  return obj;
+}
+var fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
+var serializeCookie = function serializeCookie2(name, val, options) {
+  var opt = options || {};
+  opt.path = opt.path || "/";
+  var value = encodeURIComponent(val);
+  var str = name + "=" + value;
+  if (opt.maxAge > 0) {
+    var maxAge = opt.maxAge - 0;
+    if (isNaN(maxAge))
+      throw new Error("maxAge should be a Number");
+    str += "; Max-Age=" + Math.floor(maxAge);
+  }
+  if (opt.domain) {
+    if (!fieldContentRegExp.test(opt.domain)) {
+      throw new TypeError("option domain is invalid");
+    }
+    str += "; Domain=" + opt.domain;
+  }
+  if (opt.path) {
+    if (!fieldContentRegExp.test(opt.path)) {
+      throw new TypeError("option path is invalid");
+    }
+    str += "; Path=" + opt.path;
+  }
+  if (opt.expires) {
+    if (typeof opt.expires.toUTCString !== "function") {
+      throw new TypeError("option expires is invalid");
+    }
+    str += "; Expires=" + opt.expires.toUTCString();
+  }
+  if (opt.httpOnly)
+    str += "; HttpOnly";
+  if (opt.secure)
+    str += "; Secure";
+  if (opt.sameSite) {
+    var sameSite = typeof opt.sameSite === "string" ? opt.sameSite.toLowerCase() : opt.sameSite;
+    switch (sameSite) {
+      case true:
+        str += "; SameSite=Strict";
+        break;
+      case "lax":
+        str += "; SameSite=Lax";
+        break;
+      case "strict":
+        str += "; SameSite=Strict";
+        break;
+      case "none":
+        str += "; SameSite=None";
+        break;
+      default:
+        throw new TypeError("option sameSite is invalid");
+    }
+  }
+  return str;
+};
+var cookie = {
+  create: function create(name, value, minutes, domain) {
+    var cookieOptions = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : {
+      path: "/",
+      sameSite: "strict"
+    };
+    if (minutes) {
+      cookieOptions.expires = new Date();
+      cookieOptions.expires.setTime(cookieOptions.expires.getTime() + minutes * 60 * 1e3);
+    }
+    if (domain)
+      cookieOptions.domain = domain;
+    document.cookie = serializeCookie(name, encodeURIComponent(value), cookieOptions);
+  },
+  read: function read(name) {
+    var nameEQ = name + "=";
+    var ca2 = document.cookie.split(";");
+    for (var i2 = 0; i2 < ca2.length; i2++) {
+      var c3 = ca2[i2];
+      while (c3.charAt(0) === " ") {
+        c3 = c3.substring(1, c3.length);
+      }
+      if (c3.indexOf(nameEQ) === 0)
+        return c3.substring(nameEQ.length, c3.length);
+    }
+    return null;
+  },
+  remove: function remove2(name) {
+    this.create(name, "", -1);
+  }
+};
+var cookie$1 = {
+  name: "cookie",
+  lookup: function lookup(options) {
+    var found;
+    if (options.lookupCookie && typeof document !== "undefined") {
+      var c3 = cookie.read(options.lookupCookie);
+      if (c3)
+        found = c3;
+    }
+    return found;
+  },
+  cacheUserLanguage: function cacheUserLanguage(lng, options) {
+    if (options.lookupCookie && typeof document !== "undefined") {
+      cookie.create(options.lookupCookie, lng, options.cookieMinutes, options.cookieDomain, options.cookieOptions);
+    }
+  }
+};
+var querystring = {
+  name: "querystring",
+  lookup: function lookup2(options) {
+    var found;
+    if (typeof window !== "undefined") {
+      var query = window.location.search.substring(1);
+      var params = query.split("&");
+      for (var i2 = 0; i2 < params.length; i2++) {
+        var pos = params[i2].indexOf("=");
+        if (pos > 0) {
+          var key = params[i2].substring(0, pos);
+          if (key === options.lookupQuerystring) {
+            found = params[i2].substring(pos + 1);
+          }
+        }
+      }
+    }
+    return found;
+  }
+};
+var hasLocalStorageSupport = null;
+var localStorageAvailable = function localStorageAvailable2() {
+  if (hasLocalStorageSupport !== null)
+    return hasLocalStorageSupport;
+  try {
+    hasLocalStorageSupport = window !== "undefined" && window.localStorage !== null;
+    var testKey = "i18next.translate.boo";
+    window.localStorage.setItem(testKey, "foo");
+    window.localStorage.removeItem(testKey);
+  } catch (e3) {
+    hasLocalStorageSupport = false;
+  }
+  return hasLocalStorageSupport;
+};
+var localStorage2 = {
+  name: "localStorage",
+  lookup: function lookup3(options) {
+    var found;
+    if (options.lookupLocalStorage && localStorageAvailable()) {
+      var lng = window.localStorage.getItem(options.lookupLocalStorage);
+      if (lng)
+        found = lng;
+    }
+    return found;
+  },
+  cacheUserLanguage: function cacheUserLanguage2(lng, options) {
+    if (options.lookupLocalStorage && localStorageAvailable()) {
+      window.localStorage.setItem(options.lookupLocalStorage, lng);
+    }
+  }
+};
+var hasSessionStorageSupport = null;
+var sessionStorageAvailable = function sessionStorageAvailable2() {
+  if (hasSessionStorageSupport !== null)
+    return hasSessionStorageSupport;
+  try {
+    hasSessionStorageSupport = window !== "undefined" && window.sessionStorage !== null;
+    var testKey = "i18next.translate.boo";
+    window.sessionStorage.setItem(testKey, "foo");
+    window.sessionStorage.removeItem(testKey);
+  } catch (e3) {
+    hasSessionStorageSupport = false;
+  }
+  return hasSessionStorageSupport;
+};
+var sessionStorage = {
+  name: "sessionStorage",
+  lookup: function lookup4(options) {
+    var found;
+    if (options.lookupSessionStorage && sessionStorageAvailable()) {
+      var lng = window.sessionStorage.getItem(options.lookupSessionStorage);
+      if (lng)
+        found = lng;
+    }
+    return found;
+  },
+  cacheUserLanguage: function cacheUserLanguage3(lng, options) {
+    if (options.lookupSessionStorage && sessionStorageAvailable()) {
+      window.sessionStorage.setItem(options.lookupSessionStorage, lng);
+    }
+  }
+};
+var navigator$1 = {
+  name: "navigator",
+  lookup: function lookup5(options) {
+    var found = [];
+    if (typeof navigator !== "undefined") {
+      if (navigator.languages) {
+        for (var i2 = 0; i2 < navigator.languages.length; i2++) {
+          found.push(navigator.languages[i2]);
+        }
+      }
+      if (navigator.userLanguage) {
+        found.push(navigator.userLanguage);
+      }
+      if (navigator.language) {
+        found.push(navigator.language);
+      }
+    }
+    return found.length > 0 ? found : void 0;
+  }
+};
+var htmlTag = {
+  name: "htmlTag",
+  lookup: function lookup6(options) {
+    var found;
+    var htmlTag2 = options.htmlTag || (typeof document !== "undefined" ? document.documentElement : null);
+    if (htmlTag2 && typeof htmlTag2.getAttribute === "function") {
+      found = htmlTag2.getAttribute("lang");
+    }
+    return found;
+  }
+};
+var path = {
+  name: "path",
+  lookup: function lookup7(options) {
+    var found;
+    if (typeof window !== "undefined") {
+      var language = window.location.pathname.match(/\/([a-zA-Z-]*)/g);
+      if (language instanceof Array) {
+        if (typeof options.lookupFromPathIndex === "number") {
+          if (typeof language[options.lookupFromPathIndex] !== "string") {
+            return void 0;
+          }
+          found = language[options.lookupFromPathIndex].replace("/", "");
+        } else {
+          found = language[0].replace("/", "");
+        }
+      }
+    }
+    return found;
+  }
+};
+var subdomain = {
+  name: "subdomain",
+  lookup: function lookup8(options) {
+    var found;
+    if (typeof window !== "undefined") {
+      var language = window.location.href.match(/(?:http[s]*\:\/\/)*(.*?)\.(?=[^\/]*\..{2,5})/gi);
+      if (language instanceof Array) {
+        if (typeof options.lookupFromSubdomainIndex === "number") {
+          found = language[options.lookupFromSubdomainIndex].replace("http://", "").replace("https://", "").replace(".", "");
+        } else {
+          found = language[0].replace("http://", "").replace("https://", "").replace(".", "");
+        }
+      }
+    }
+    return found;
+  }
+};
+function getDefaults2() {
+  return {
+    order: ["querystring", "cookie", "localStorage", "sessionStorage", "navigator", "htmlTag"],
+    lookupQuerystring: "lng",
+    lookupCookie: "i18next",
+    lookupLocalStorage: "i18nextLng",
+    lookupSessionStorage: "i18nextLng",
+    caches: ["localStorage"],
+    excludeCacheFor: ["cimode"]
+  };
+}
+var Browser = /* @__PURE__ */ function() {
+  function Browser2(services) {
+    var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+    _classCallCheck2(this, Browser2);
+    this.type = "languageDetector";
+    this.detectors = {};
+    this.init(services, options);
+  }
+  _createClass2(Browser2, [{
+    key: "init",
+    value: function init2(services) {
+      var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+      var i18nOptions = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
+      this.services = services;
+      this.options = defaults(options, this.options || {}, getDefaults2());
+      if (this.options.lookupFromUrlIndex)
+        this.options.lookupFromPathIndex = this.options.lookupFromUrlIndex;
+      this.i18nOptions = i18nOptions;
+      this.addDetector(cookie$1);
+      this.addDetector(querystring);
+      this.addDetector(localStorage2);
+      this.addDetector(sessionStorage);
+      this.addDetector(navigator$1);
+      this.addDetector(htmlTag);
+      this.addDetector(path);
+      this.addDetector(subdomain);
+    }
+  }, {
+    key: "addDetector",
+    value: function addDetector(detector) {
+      this.detectors[detector.name] = detector;
+    }
+  }, {
+    key: "detect",
+    value: function detect(detectionOrder) {
+      var _this = this;
+      if (!detectionOrder)
+        detectionOrder = this.options.order;
+      var detected = [];
+      detectionOrder.forEach(function(detectorName) {
+        if (_this.detectors[detectorName]) {
+          var lookup9 = _this.detectors[detectorName].lookup(_this.options);
+          if (lookup9 && typeof lookup9 === "string")
+            lookup9 = [lookup9];
+          if (lookup9)
+            detected = detected.concat(lookup9);
+        }
+      });
+      if (this.services.languageUtils.getBestMatchFromCodes)
+        return detected;
+      return detected.length > 0 ? detected[0] : null;
+    }
+  }, {
+    key: "cacheUserLanguage",
+    value: function cacheUserLanguage4(lng, caches) {
+      var _this2 = this;
+      if (!caches)
+        caches = this.options.caches;
+      if (!caches)
+        return;
+      if (this.options.excludeCacheFor && this.options.excludeCacheFor.indexOf(lng) > -1)
+        return;
+      caches.forEach(function(cacheName) {
+        if (_this2.detectors[cacheName])
+          _this2.detectors[cacheName].cacheUserLanguage(lng, _this2.options);
+      });
+    }
+  }]);
+  return Browser2;
+}();
+Browser.type = "languageDetector";
+var i18next_browser_languagedetector_default = Browser;
+
 // build/dist/pkg/i18next-http-backend.js
 function _typeof2(obj) {
   "@babel/helpers - typeof";
@@ -18319,11 +18670,11 @@ function _typeof2(obj) {
   }
   return _typeof2(obj);
 }
-var arr = [];
-var each = arr.forEach;
-var slice = arr.slice;
-function defaults(obj) {
-  each.call(slice.call(arguments, 1), function(source) {
+var arr2 = [];
+var each2 = arr2.forEach;
+var slice2 = arr2.slice;
+function defaults2(obj) {
+  each2.call(slice2.call(arguments, 1), function(source) {
     if (source) {
       for (var prop in source) {
         if (obj[prop] === void 0)
@@ -18886,10 +19237,10 @@ var requestWithFetch = function requestWithFetch2(options, url, payload, callbac
   if (options.queryStringParams) {
     url = addQueryString(url, options.queryStringParams);
   }
-  var headers = defaults({}, typeof options.customHeaders === "function" ? options.customHeaders() : options.customHeaders);
+  var headers = defaults2({}, typeof options.customHeaders === "function" ? options.customHeaders() : options.customHeaders);
   if (payload)
     headers["Content-Type"] = "application/json";
-  fetchApi(url, defaults({
+  fetchApi(url, defaults2({
     method: payload ? "POST" : "GET",
     body: payload ? options.stringify(payload) : void 0,
     headers
@@ -18998,7 +19349,7 @@ function _defineProperty3(obj, key, value) {
   }
   return obj;
 }
-var getDefaults2 = function getDefaults3() {
+var getDefaults3 = function getDefaults4() {
   return {
     loadPath: "/locales/{{lng}}/{{ns}}.json",
     addPath: "/locales/add/{{lng}}/{{ns}}",
@@ -19042,7 +19393,7 @@ var Backend = function() {
       var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
       var allOptions = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
       this.services = services;
-      this.options = defaults(options, this.options || {}, getDefaults2());
+      this.options = defaults2(options, this.options || {}, getDefaults3());
       this.allOptions = allOptions;
       if (this.services && this.options.reloadInterval) {
         setInterval(function() {
@@ -19176,361 +19527,9 @@ var Backend = function() {
 Backend.type = "backend";
 var i18next_http_backend_default = Backend;
 
-// build/dist/pkg/i18next-browser-languagedetector.js
-var arr2 = [];
-var each2 = arr2.forEach;
-var slice2 = arr2.slice;
-function defaults2(obj) {
-  each2.call(slice2.call(arguments, 1), function(source) {
-    if (source) {
-      for (var prop in source) {
-        if (obj[prop] === void 0)
-          obj[prop] = source[prop];
-      }
-    }
-  });
-  return obj;
-}
-var fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
-var serializeCookie = function serializeCookie2(name, val, options) {
-  var opt = options || {};
-  opt.path = opt.path || "/";
-  var value = encodeURIComponent(val);
-  var str = name + "=" + value;
-  if (opt.maxAge > 0) {
-    var maxAge = opt.maxAge - 0;
-    if (isNaN(maxAge))
-      throw new Error("maxAge should be a Number");
-    str += "; Max-Age=" + Math.floor(maxAge);
-  }
-  if (opt.domain) {
-    if (!fieldContentRegExp.test(opt.domain)) {
-      throw new TypeError("option domain is invalid");
-    }
-    str += "; Domain=" + opt.domain;
-  }
-  if (opt.path) {
-    if (!fieldContentRegExp.test(opt.path)) {
-      throw new TypeError("option path is invalid");
-    }
-    str += "; Path=" + opt.path;
-  }
-  if (opt.expires) {
-    if (typeof opt.expires.toUTCString !== "function") {
-      throw new TypeError("option expires is invalid");
-    }
-    str += "; Expires=" + opt.expires.toUTCString();
-  }
-  if (opt.httpOnly)
-    str += "; HttpOnly";
-  if (opt.secure)
-    str += "; Secure";
-  if (opt.sameSite) {
-    var sameSite = typeof opt.sameSite === "string" ? opt.sameSite.toLowerCase() : opt.sameSite;
-    switch (sameSite) {
-      case true:
-        str += "; SameSite=Strict";
-        break;
-      case "lax":
-        str += "; SameSite=Lax";
-        break;
-      case "strict":
-        str += "; SameSite=Strict";
-        break;
-      case "none":
-        str += "; SameSite=None";
-        break;
-      default:
-        throw new TypeError("option sameSite is invalid");
-    }
-  }
-  return str;
-};
-var cookie = {
-  create: function create(name, value, minutes, domain) {
-    var cookieOptions = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : {
-      path: "/",
-      sameSite: "strict"
-    };
-    if (minutes) {
-      cookieOptions.expires = new Date();
-      cookieOptions.expires.setTime(cookieOptions.expires.getTime() + minutes * 60 * 1e3);
-    }
-    if (domain)
-      cookieOptions.domain = domain;
-    document.cookie = serializeCookie(name, encodeURIComponent(value), cookieOptions);
-  },
-  read: function read(name) {
-    var nameEQ = name + "=";
-    var ca2 = document.cookie.split(";");
-    for (var i2 = 0; i2 < ca2.length; i2++) {
-      var c3 = ca2[i2];
-      while (c3.charAt(0) === " ") {
-        c3 = c3.substring(1, c3.length);
-      }
-      if (c3.indexOf(nameEQ) === 0)
-        return c3.substring(nameEQ.length, c3.length);
-    }
-    return null;
-  },
-  remove: function remove2(name) {
-    this.create(name, "", -1);
-  }
-};
-var cookie$1 = {
-  name: "cookie",
-  lookup: function lookup(options) {
-    var found;
-    if (options.lookupCookie && typeof document !== "undefined") {
-      var c3 = cookie.read(options.lookupCookie);
-      if (c3)
-        found = c3;
-    }
-    return found;
-  },
-  cacheUserLanguage: function cacheUserLanguage(lng, options) {
-    if (options.lookupCookie && typeof document !== "undefined") {
-      cookie.create(options.lookupCookie, lng, options.cookieMinutes, options.cookieDomain, options.cookieOptions);
-    }
-  }
-};
-var querystring = {
-  name: "querystring",
-  lookup: function lookup2(options) {
-    var found;
-    if (typeof window !== "undefined") {
-      var query = window.location.search.substring(1);
-      var params = query.split("&");
-      for (var i2 = 0; i2 < params.length; i2++) {
-        var pos = params[i2].indexOf("=");
-        if (pos > 0) {
-          var key = params[i2].substring(0, pos);
-          if (key === options.lookupQuerystring) {
-            found = params[i2].substring(pos + 1);
-          }
-        }
-      }
-    }
-    return found;
-  }
-};
-var hasLocalStorageSupport = null;
-var localStorageAvailable = function localStorageAvailable2() {
-  if (hasLocalStorageSupport !== null)
-    return hasLocalStorageSupport;
-  try {
-    hasLocalStorageSupport = window !== "undefined" && window.localStorage !== null;
-    var testKey = "i18next.translate.boo";
-    window.localStorage.setItem(testKey, "foo");
-    window.localStorage.removeItem(testKey);
-  } catch (e3) {
-    hasLocalStorageSupport = false;
-  }
-  return hasLocalStorageSupport;
-};
-var localStorage2 = {
-  name: "localStorage",
-  lookup: function lookup3(options) {
-    var found;
-    if (options.lookupLocalStorage && localStorageAvailable()) {
-      var lng = window.localStorage.getItem(options.lookupLocalStorage);
-      if (lng)
-        found = lng;
-    }
-    return found;
-  },
-  cacheUserLanguage: function cacheUserLanguage2(lng, options) {
-    if (options.lookupLocalStorage && localStorageAvailable()) {
-      window.localStorage.setItem(options.lookupLocalStorage, lng);
-    }
-  }
-};
-var hasSessionStorageSupport = null;
-var sessionStorageAvailable = function sessionStorageAvailable2() {
-  if (hasSessionStorageSupport !== null)
-    return hasSessionStorageSupport;
-  try {
-    hasSessionStorageSupport = window !== "undefined" && window.sessionStorage !== null;
-    var testKey = "i18next.translate.boo";
-    window.sessionStorage.setItem(testKey, "foo");
-    window.sessionStorage.removeItem(testKey);
-  } catch (e3) {
-    hasSessionStorageSupport = false;
-  }
-  return hasSessionStorageSupport;
-};
-var sessionStorage = {
-  name: "sessionStorage",
-  lookup: function lookup4(options) {
-    var found;
-    if (options.lookupSessionStorage && sessionStorageAvailable()) {
-      var lng = window.sessionStorage.getItem(options.lookupSessionStorage);
-      if (lng)
-        found = lng;
-    }
-    return found;
-  },
-  cacheUserLanguage: function cacheUserLanguage3(lng, options) {
-    if (options.lookupSessionStorage && sessionStorageAvailable()) {
-      window.sessionStorage.setItem(options.lookupSessionStorage, lng);
-    }
-  }
-};
-var navigator$1 = {
-  name: "navigator",
-  lookup: function lookup5(options) {
-    var found = [];
-    if (typeof navigator !== "undefined") {
-      if (navigator.languages) {
-        for (var i2 = 0; i2 < navigator.languages.length; i2++) {
-          found.push(navigator.languages[i2]);
-        }
-      }
-      if (navigator.userLanguage) {
-        found.push(navigator.userLanguage);
-      }
-      if (navigator.language) {
-        found.push(navigator.language);
-      }
-    }
-    return found.length > 0 ? found : void 0;
-  }
-};
-var htmlTag = {
-  name: "htmlTag",
-  lookup: function lookup6(options) {
-    var found;
-    var htmlTag2 = options.htmlTag || (typeof document !== "undefined" ? document.documentElement : null);
-    if (htmlTag2 && typeof htmlTag2.getAttribute === "function") {
-      found = htmlTag2.getAttribute("lang");
-    }
-    return found;
-  }
-};
-var path = {
-  name: "path",
-  lookup: function lookup7(options) {
-    var found;
-    if (typeof window !== "undefined") {
-      var language = window.location.pathname.match(/\/([a-zA-Z-]*)/g);
-      if (language instanceof Array) {
-        if (typeof options.lookupFromPathIndex === "number") {
-          if (typeof language[options.lookupFromPathIndex] !== "string") {
-            return void 0;
-          }
-          found = language[options.lookupFromPathIndex].replace("/", "");
-        } else {
-          found = language[0].replace("/", "");
-        }
-      }
-    }
-    return found;
-  }
-};
-var subdomain = {
-  name: "subdomain",
-  lookup: function lookup8(options) {
-    var found;
-    if (typeof window !== "undefined") {
-      var language = window.location.href.match(/(?:http[s]*\:\/\/)*(.*?)\.(?=[^\/]*\..{2,5})/gi);
-      if (language instanceof Array) {
-        if (typeof options.lookupFromSubdomainIndex === "number") {
-          found = language[options.lookupFromSubdomainIndex].replace("http://", "").replace("https://", "").replace(".", "");
-        } else {
-          found = language[0].replace("http://", "").replace("https://", "").replace(".", "");
-        }
-      }
-    }
-    return found;
-  }
-};
-function getDefaults4() {
-  return {
-    order: ["querystring", "cookie", "localStorage", "sessionStorage", "navigator", "htmlTag"],
-    lookupQuerystring: "lng",
-    lookupCookie: "i18next",
-    lookupLocalStorage: "i18nextLng",
-    lookupSessionStorage: "i18nextLng",
-    caches: ["localStorage"],
-    excludeCacheFor: ["cimode"]
-  };
-}
-var Browser = /* @__PURE__ */ function() {
-  function Browser2(services) {
-    var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-    _classCallCheck2(this, Browser2);
-    this.type = "languageDetector";
-    this.detectors = {};
-    this.init(services, options);
-  }
-  _createClass2(Browser2, [{
-    key: "init",
-    value: function init2(services) {
-      var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-      var i18nOptions = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
-      this.services = services;
-      this.options = defaults2(options, this.options || {}, getDefaults4());
-      if (this.options.lookupFromUrlIndex)
-        this.options.lookupFromPathIndex = this.options.lookupFromUrlIndex;
-      this.i18nOptions = i18nOptions;
-      this.addDetector(cookie$1);
-      this.addDetector(querystring);
-      this.addDetector(localStorage2);
-      this.addDetector(sessionStorage);
-      this.addDetector(navigator$1);
-      this.addDetector(htmlTag);
-      this.addDetector(path);
-      this.addDetector(subdomain);
-    }
-  }, {
-    key: "addDetector",
-    value: function addDetector(detector) {
-      this.detectors[detector.name] = detector;
-    }
-  }, {
-    key: "detect",
-    value: function detect(detectionOrder) {
-      var _this = this;
-      if (!detectionOrder)
-        detectionOrder = this.options.order;
-      var detected = [];
-      detectionOrder.forEach(function(detectorName) {
-        if (_this.detectors[detectorName]) {
-          var lookup9 = _this.detectors[detectorName].lookup(_this.options);
-          if (lookup9 && typeof lookup9 === "string")
-            lookup9 = [lookup9];
-          if (lookup9)
-            detected = detected.concat(lookup9);
-        }
-      });
-      if (this.services.languageUtils.getBestMatchFromCodes)
-        return detected;
-      return detected.length > 0 ? detected[0] : null;
-    }
-  }, {
-    key: "cacheUserLanguage",
-    value: function cacheUserLanguage4(lng, caches) {
-      var _this2 = this;
-      if (!caches)
-        caches = this.options.caches;
-      if (!caches)
-        return;
-      if (this.options.excludeCacheFor && this.options.excludeCacheFor.indexOf(lng) > -1)
-        return;
-      caches.forEach(function(cacheName) {
-        if (_this2.detectors[cacheName])
-          _this2.detectors[cacheName].cacheUserLanguage(lng, _this2.options);
-      });
-    }
-  }]);
-  return Browser2;
-}();
-Browser.type = "languageDetector";
-var i18next_browser_languagedetector_default = Browser;
-
 // build/dist/i18n.js
 var i18nReact = i18next_default;
-var loadPath = isDevelopment() ? "locales/{{lng}}/{{ns}}.json" : "yxans-klagan/locales/{{lng}}/{{ns}}.json";
+var loadPath = "locales/{{lng}}/{{ns}}.json";
 i18nReact.use(i18next_http_backend_default).use(i18next_browser_languagedetector_default).use(initReactI18next).init({
   fallbackLng: "en",
   debug: false,
