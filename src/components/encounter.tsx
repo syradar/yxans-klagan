@@ -22,7 +22,6 @@ export const Encounter = ({ encounter }: EncounterProps) => {
   }
 
   useEffect(() => {
-    console.log('update', transition)
     setTransition(true)
 
     setTimeout(() => {

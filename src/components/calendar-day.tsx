@@ -7,7 +7,7 @@ import {
   getTempString,
   getWeatherIcon,
 } from '../functions/weather.functions'
-import { Day, getDayName } from '../models/calendar.model'
+import { Day } from '../models/calendar.model'
 
 interface CalendarDayProps {
   day: Day
