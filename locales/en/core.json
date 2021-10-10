@@ -1,11 +1,11 @@
 {
   "Language-Swedish": "Svenska",
   "Language-English": "English",
-  "Menu-Session": "Session",
-  "Menu-Encounters": "Encounters",
-  "Menu-Map": "Map",
+  "Menu-Session": "Spelmöte",
+  "Menu-Encounters": "Slumpmöten",
+  "Menu-Map": "Karta",
   "Menu-Calendar": "Calendar",
-  "Menu-Gear": "Gear",
-  "Menu-Names": "Names",
-  "Menu-Dice": "Dice"
+  "Menu-Gear": "Utrustning",
+  "Menu-Names": "Namn",
+  "Menu-Dice": "Tärningar"
 }
