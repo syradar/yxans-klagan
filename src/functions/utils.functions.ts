@@ -13,3 +13,10 @@ export const inRange =
 
     return val > range[0] && val < range[1]
   }
+
+export const isString = (x: unknown): x is string => typeof x === 'string'
+
+export const isObject = (x: unknown): x is Record<string, unknown> =>
+  typeof x === 'object'
+
+export const isArray = (x: unknown): x is string => Array.isArray(x)
