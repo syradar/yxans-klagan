@@ -102,6 +102,18 @@ type OddNumbers =
   | 47
   | 49
   | 51
+const buildRegex = (
+  letters: typeof oddLetters | typeof evenLetters,
+  numbers: typeof oddNumbers | typeof evenNumbers,
+) => {
+  const ls = letters.join('|')
+  const ns = numbers.join('|')
+
+  const pattern = `^(${ls})(${ns})$`
+  console.log(pattern)
+
+  return pattern
+}
 
 type AKey = `${OddLetter}${EvenNumbers}`
 type BKey = `${EvenLetter}${OddNumbers}`
