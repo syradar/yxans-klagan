@@ -1,0 +1,16 @@
+{
+  "Title": "Map",
+  "DownloadMapData": "Download map data",
+  "PasteMapData": "Paste map data JSON",
+  "Popover-Hide": "Hide",
+  "Popover-Explore": "Explore",
+  "Popover-Forget": "Forget",
+  "Popover-Explored": "Explored",
+  "Popover-Unexplored": "Unexplored",
+  "InvalidJson": "Invalid JSON",
+  "NotObject": "JSON was not an object",
+  "NoHexesProp": "JSON did not contain 'hexes' property",
+  "HexesNotArray": "Property 'hexes' was not an array",
+  "InvalidHexData": "Hex Data did not look like: { hexKey: HexKey, explored: boolean}",
+  "GeneralPasteError": "Unknown Paste Error"
+}

@@ -10469,6 +10469,13 @@ function reduceFn(reducer, acc, list) {
   return acc;
 }
 var reduce = curry(reduceFn);
+function has(prop, obj) {
+  if (arguments.length === 1)
+    return (_obj) => has(prop, _obj);
+  if (!obj)
+    return false;
+  return obj.hasOwnProperty(prop);
+}
 function sum(list) {
   return list.reduce((prev, current) => prev + current, 0);
 }
@@ -10543,6 +10550,7 @@ var inRange = (range2) => (val) => {
   }
   return val > range2[0] && val < range2[1];
 };
+var isString = (x3) => typeof x3 === "string";
 
 // build/dist/functions/weather.functions.js
 var normalizeTempDeltaWithWetness = (temp, wetnessPercent) => {
@@ -13506,6 +13514,9 @@ var MapPopover = ({
   onExploreChanged,
   onHide
 }) => {
+  const {
+    t: t3
+  } = useTranslation("map");
   const ref = useRef(null);
   const [show, setShow] = useState(true);
   const initialPosition = -9999;
@@ -13590,7 +13601,7 @@ var MapPopover = ({
       fontSize: "1.5rem",
       lineHeight: "2rem"
     }
-  }, options.hex.hexKey, ":", " ", options.hex.explored ? "Utforskad" : "Ej utforskad"), jsx("div", {
+  }, options.hex.hexKey, ":", " ", options.hex.explored ? t3("Popover-Explored") : t3("Popover-Unexplored")), jsx("div", {
     css: {
       display: "flex",
       gap: "0.5rem"
@@ -13602,7 +13613,7 @@ var MapPopover = ({
       onHide();
       setShow(false);
     }
-  }, "Dölj"), options.hex.explored ? jsx(Button_default, {
+  }, t3("Popover-Hide")), options.hex.explored ? jsx(Button_default, {
     isSmall: true,
     onClick: () => {
       setShow(false);
@@ -13612,7 +13623,7 @@ var MapPopover = ({
         explored: false
       });
     }
-  }, "Glöm bort") : jsx(Button_default, {
+  }, t3("Popover-Forget")) : jsx(Button_default, {
     isSmall: true,
     onClick: () => {
       setShow(false);
@@ -13622,7 +13633,89 @@ var MapPopover = ({
         explored: true
       });
     }
-  }, "Utforska"))));
+  }, t3("Popover-Explore")))));
+};
+
+// build/dist/components/paste-data.js
+var PasteData = ({
+  onData,
+  onFocusTextArea,
+  label
+}) => {
+  const textAreaRef = useRef(null);
+  const spanRef = useRef(null);
+  const [textareaHasFocus, setTextareaHasFocus] = useState(false);
+  const handlePaste = (e3) => {
+    const pasteData = e3.clipboardData.getData("text").trim();
+    if (pasteData !== "") {
+      onData(pasteData);
+    }
+    e3.stopPropagation();
+    e3.preventDefault();
+    textAreaRef.current?.blur();
+    setTextareaHasFocus(false);
+  };
+  const handleTextAreaFocus = () => {
+    setTextareaHasFocus(true);
+    onFocusTextArea();
+  };
+  const handleTextAreaBlur = () => {
+    setTextareaHasFocus(false);
+  };
+  return jsx("div", {
+    css: {
+      position: "relative",
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(255, 255, 255, var(--tw-bg-opacity))",
+      borderWidth: "2px",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
+      "@media (pointer: fine)": {
+        ":hover": {
+          "--tw-border-opacity": "1",
+          borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+        }
+      },
+      ":focus": {
+        outline: "2px solid transparent",
+        outlineOffset: "2px"
+      }
+    }
+  }, jsx("textarea", {
+    ref: textAreaRef,
+    css: [{
+      padding: "0.5rem 1rem"
+    }, {
+      position: "absolute",
+      width: "100%",
+      opacity: "0",
+      ":focus": {
+        opacity: "1",
+        outline: "2px solid transparent",
+        outlineOffset: "2px"
+      },
+      backgroundColor: "rgba(0, 0, 0, 0)"
+    }],
+    onFocus: (_24) => handleTextAreaFocus(),
+    onBlur: (_24) => handleTextAreaBlur(),
+    onPasteCapture: handlePaste
+  }), jsx("span", {
+    ref: spanRef,
+    css: [{
+      display: "block",
+      paddingLeft: "1rem",
+      paddingRight: "1rem",
+      paddingTop: "0.5rem",
+      paddingBottom: "0.5rem",
+      fontWeight: "700",
+      textTransform: "uppercase",
+      letterSpacing: "0.025em"
+    }, textareaHasFocus ? {
+      opacity: "0"
+    } : {
+      opacity: "1"
+    }]
+  }, label));
 };
 
 // build/dist/components/polygon.js
@@ -14704,6 +14797,16 @@ var hexData = {
 };
 
 // build/dist/models/map.model.js
+var aKeyRegex = /^(A|C|E|G|I|K|M|O|Q|S|U|W|Y|Aa|Ac|Ae|Ag|Ai|Ak|Am|Ao)(2|4|6|8|10|12|14|16|18|20|22|24|26|28|30|32|34|36|38|40|42|44|46|48|50)$/;
+var bKeyRegex = /^(B|D|F|H|J|L|N|P|R|T|V|X|Z|Ab|Ad|Af|Ah|Aj|Al|An)(1|3|5|7|9|11|13|15|17|19|21|23|25|27|29|31|33|35|37|39|41|43|45|47|49|51)$/;
+var isHexKey = (s) => {
+  const isAKey = aKeyRegex.test(s);
+  const isBKey = bKeyRegex.test(s);
+  if (s === "Ai38") {
+    console.log("isHexKey", s, isAKey);
+  }
+  return isAKey || isBKey;
+};
 var createInitialHexas = (hexData2) => {
   return Object.entries(hexData2).map(([hexKey, points]) => ({
     hexKey,
@@ -14716,6 +14819,9 @@ var initialHexas = createInitialHexas(hexData);
 // build/dist/pages/map.page.js
 var MAP_STORAGE_KEY = "map";
 var MapPage = () => {
+  const {
+    t: t3
+  } = useTranslation("map");
   const hexasFromStorage = localStorage.getItem(MAP_STORAGE_KEY) ?? void 0;
   const constructHexas = (hexasFromStorage2) => {
     if (!hexasFromStorage2) {
@@ -14729,6 +14835,7 @@ var MapPage = () => {
       };
     });
   };
+  const [pasteError, setPasteError] = useState(void 0);
   const atLeastOneExploredHex = (hexas2) => hexas2.filter((h2) => h2.explored).length > 0;
   const [hexas, setHexas] = useState(constructHexas(hexasFromStorage));
   const [hasExploredHexas, setHasExploredHexas] = useState(atLeastOneExploredHex(hexas));
@@ -14821,6 +14928,83 @@ var MapPage = () => {
       hexes: hexStorages
     }, "map");
   };
+  const handlePasteMapData = (s) => {
+    setPasteError(void 0);
+    let data;
+    try {
+      data = validateData(s);
+    } catch (error2) {
+      if (error2 instanceof Error) {
+        setPasteError(getPasteErrorLabel(error2));
+      }
+      return;
+    }
+    setHexas(initialHexas.map((hex) => {
+      return {
+        ...hex,
+        ...data.find((h2) => h2.hexKey === hex.hexKey) ?? {}
+      };
+    }));
+  };
+  const parseJson = (s) => {
+    try {
+      return JSON.parse(s);
+    } catch (e3) {
+      return void 0;
+    }
+  };
+  const getPasteErrorLabel = (e3) => {
+    switch (e3.message) {
+      case "InvalidJson":
+        return "InvalidJson";
+      case "NotObject":
+        return "NotObject";
+      case "NoHexesProp":
+        return "NoHexesProp";
+      case "HexesNotArray":
+        return "HexesNotArray";
+      case "InvalidHexData":
+        return "InvalidHexData";
+      default:
+        return "GeneralPasteError";
+    }
+  };
+  const validateData = (s) => {
+    const parsedMapData = parseJson(s);
+    if (isNullish(parsedMapData)) {
+      throw new Error("InvalidJson");
+    }
+    if (typeof parsedMapData !== "object") {
+      throw new Error("NotObject");
+    }
+    const hasHexesProp = has("hexes", parsedMapData);
+    if (!hasHexesProp) {
+      throw new Error("NoHexesProp");
+    }
+    const isHexesArray = Array.isArray(parsedMapData.hexes);
+    if (!isHexesArray) {
+      throw new Error("HexesNotArray");
+    }
+    const isValidHexData = parsedMapData.hexes.every((h2) => {
+      const hasKey = has("hexKey", h2);
+      const hasExplored = has("explored", h2);
+      if (!hasKey || !hasExplored) {
+        return false;
+      }
+      const validKey = isString(h2.hexKey) && isHexKey(h2.hexKey);
+      if (!validKey) {
+        return false;
+      }
+      if (typeof h2.explored !== "boolean") {
+        return false;
+      }
+      return true;
+    });
+    if (!isValidHexData) {
+      throw new Error("InvalidHexData");
+    }
+    return parsedMapData.hexes;
+  };
   useEffect(() => {
     const hexStorages = hexas.map(({
       hexKey,
@@ -14839,7 +15023,7 @@ var MapPage = () => {
       rowGap: "2rem",
       width: "100%"
     }
-  }, jsx(page_header_default, null, "Karta"), jsx("div", null, jsx(parchment_default, {
+  }, jsx(page_header_default, null, t3("Title")), jsx("div", null, jsx(parchment_default, {
     deps: [tooltip],
     ref: parchmentRef
   }, jsx("div", {
@@ -14874,20 +15058,36 @@ var MapPage = () => {
     hex,
     onMouseOver: (e3) => handleMouseOver(e3, hex),
     onClick: (e3) => handleHexClick(e3, hex)
-  }))))), jsx("div", {
+  }))))), jsx("div", null, pasteError && jsx("div", {
+    css: {
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(239, 68, 68, var(--tw-bg-opacity))",
+      "--tw-text-opacity": "1",
+      color: "rgba(255, 255, 255, var(--tw-text-opacity))",
+      fontWeight: "700",
+      padding: "0.5rem",
+      display: "flex",
+      justifyContent: "flex-end"
+    }
+  }, t3(pasteError)), jsx("div", {
     css: {
       "--tw-bg-opacity": "1",
       backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
       padding: "0.5rem",
       display: "flex",
-      justifyContent: "flex-end"
+      justifyContent: "flex-end",
+      gap: "0.5rem"
     }
   }, jsx(Button_default, {
     isSmall: true,
     variant: !hasExploredHexas ? "disabled" : void 0,
     disabled: !hasExploredHexas,
     onClick: () => handleFileDownload()
-  }, "Ladda ned kartdata")));
+  }, t3("DownloadMapData")), jsx(PasteData, {
+    onFocusTextArea: () => setPasteError(void 0),
+    label: t3("PasteMapData"),
+    onData: handlePasteMapData
+  }))));
 };
 
 // build/dist/models/name.model.js
@@ -19568,7 +19768,7 @@ i18nReact.use(i18next_http_backend_default).use(i18next_browser_languagedetector
   fallbackLng: "en",
   debug: false,
   supportedLngs: ["en", "sv"],
-  ns: ["core", "calendar"],
+  ns: ["core", "calendar", "map"],
   backend: {
     loadPath
   },
