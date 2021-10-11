@@ -1,15 +1,21 @@
+import { has } from 'rambda'
 import React, { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import 'twin.macro'
 import { Button, PageHeader, Parchment } from '../components'
 import { Map } from '../components/map'
 import { MapPopover, MapPopoverOptions } from '../components/map-popover'
+import { PasteData } from '../components/paste-data'
 import { Polygon } from '../components/polygon'
 import { downloadFile } from '../functions/file.functions'
-import { Hex, HexStorage, initialHexas } from '../models/map.model'
+import { isNullish, isString } from '../functions/utils.functions'
+import { Hex, HexStorage, initialHexas, isHexKey } from '../models/map.model'
 
 const MAP_STORAGE_KEY = 'map'
 
 export const MapPage = () => {
+  const { t } = useTranslation('map')
+
   const hexasFromStorage = localStorage.getItem(MAP_STORAGE_KEY) ?? undefined
 
   const constructHexas = (hexasFromStorage?: string): Hex[] => {
@@ -26,6 +32,7 @@ export const MapPage = () => {
       }
     })
   }
+  const [pasteError, setPasteError] = useState<string | undefined>(undefined)
 
   const atLeastOneExploredHex = (hexas: Hex[]): boolean =>
     hexas.filter((h) => h.explored).length > 0
@@ -155,6 +162,103 @@ export const MapPage = () => {
     downloadFile({ hexes: hexStorages }, 'map')
   }
 
+  const handlePasteMapData = (s: string) => {
+    setPasteError(undefined)
+    let data: HexStorage[]
+
+    try {
+      data = validateData(s)
+    } catch (error) {
+      if (error instanceof Error) {
+        setPasteError(getPasteErrorLabel(error))
+      }
+
+      return
+    }
+
+    setHexas(
+      initialHexas.map((hex) => {
+        return {
+          ...hex,
+          ...(data.find((h) => h.hexKey === hex.hexKey) ?? {}),
+        }
+      }),
+    )
+  }
+
+  const parseJson = (s: string): { hexes: HexStorage[] } | undefined => {
+    try {
+      return JSON.parse(s)
+    } catch (e) {
+      return undefined
+    }
+  }
+
+  const getPasteErrorLabel = (e: Error): string => {
+    switch (e.message) {
+      case 'InvalidJson':
+        return 'InvalidJson'
+      case 'NotObject':
+        return 'NotObject'
+      case 'NoHexesProp':
+        return 'NoHexesProp'
+      case 'HexesNotArray':
+        return 'HexesNotArray'
+      case 'InvalidHexData':
+        return 'InvalidHexData'
+      default:
+        return 'GeneralPasteError'
+    }
+  }
+
+  const validateData = (s: string): HexStorage[] => {
+    const parsedMapData = parseJson(s)
+
+    if (isNullish(parsedMapData)) {
+      throw new Error('InvalidJson')
+    }
+
+    if (typeof parsedMapData !== 'object') {
+      throw new Error('NotObject')
+    }
+
+    const hasHexesProp = has('hexes', parsedMapData)
+    if (!hasHexesProp) {
+      throw new Error('NoHexesProp')
+    }
+
+    const isHexesArray = Array.isArray(parsedMapData.hexes)
+    if (!isHexesArray) {
+      throw new Error('HexesNotArray')
+    }
+
+    const isValidHexData = parsedMapData.hexes.every((h: HexStorage) => {
+      const hasKey = has('hexKey', h)
+      const hasExplored = has('explored', h)
+
+      if (!hasKey || !hasExplored) {
+        return false
+      }
+
+      const validKey = isString(h.hexKey) && isHexKey(h.hexKey)
+      if (!validKey) {
+        return false
+      }
+
+      if (typeof h.explored !== 'boolean') {
+        return false
+      }
+
+      return true
+    })
+
+    if (!isValidHexData) {
+      throw new Error('InvalidHexData')
+    }
+
+    return parsedMapData.hexes
+  }
+
   useEffect(() => {
     const hexStorages: HexStorage[] = hexas.map(({ hexKey, explored }) => ({
       hexKey,
@@ -168,7 +272,7 @@ export const MapPage = () => {
 
   return (
     <div tw="flex flex-col gap-y-8 w-full">
-      <PageHeader>Karta</PageHeader>
+      <PageHeader>{t('Title')}</PageHeader>
 
       <div>
         <Parchment deps={[tooltip]} ref={parchmentRef}>
@@ -201,15 +305,27 @@ export const MapPage = () => {
         </Parchment>
       </div>
 
-      <div tw="bg-gray-200 p-2 flex justify-end">
-        <Button
-          isSmall
-          variant={!hasExploredHexas ? 'disabled' : undefined}
-          disabled={!hasExploredHexas}
-          onClick={() => handleFileDownload()}
-        >
-          Ladda ned kartdata
-        </Button>
+      <div>
+        {pasteError && (
+          <div tw="bg-red-500 text-white font-bold p-2 flex justify-end">
+            {t(pasteError)}
+          </div>
+        )}
+        <div tw="bg-gray-200 p-2 flex justify-end gap-2">
+          <Button
+            isSmall
+            variant={!hasExploredHexas ? 'disabled' : undefined}
+            disabled={!hasExploredHexas}
+            onClick={() => handleFileDownload()}
+          >
+            {t('DownloadMapData')}
+          </Button>
+          <PasteData
+            onFocusTextArea={() => setPasteError(undefined)}
+            label={t('PasteMapData')}
+            onData={handlePasteMapData}
+          ></PasteData>
+        </div>
       </div>
     </div>
   )

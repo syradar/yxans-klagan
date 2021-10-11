@@ -1,0 +1,16 @@
+{
+  "Title": "Karta",
+  "DownloadMapData": "Ladda ned kartdata",
+  "PasteMapData": "Klistra in kartdata JSON",
+  "Popover-Hide": "Dölj",
+  "Popover-Explore": "Utforska",
+  "Popover-Forget": "Glöm bort",
+  "Popover-Explored": "Utforskad",
+  "Popover-Unexplored": "Ej utforskad",
+  "InvalidJson": "Ogiltig JSON",
+  "NotObject": "JSON var inte ett object",
+  "NoHexesProp": "JSON hade inget fält 'hexes'",
+  "HexesNotArray": "Fältet 'hexes' var inte en array",
+  "InvalidHexData": "Hex Data såg inte ut som: { hexKey: HexKey, explored: boolean}",
+  "GeneralPasteError": "Okänt inklistringsfel"
+}

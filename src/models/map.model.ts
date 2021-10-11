@@ -2,117 +2,81 @@
 
 import { hexData } from '../data/hex.data'
 
-// prettier-ignore
-type OddLetter =
-  | 'A'
-  | 'C'
-  | 'E'
-  | 'G'
-  | 'I'
-  | 'K'
-  | 'M'
-  | 'O'
-  | 'Q'
-  | 'S'
-  | 'U'
-  | 'W'
-  | 'Y'
-  | 'Aa'
-  | 'Ac'
-  | 'Ae'
-  | 'Ag'
-  | 'Ai'
-  | 'Ak'
-  | 'Am'
-  | 'Ao'
+const oddLetters = [
+  'A',
+  'C',
+  'E',
+  'G',
+  'I',
+  'K',
+  'M',
+  'O',
+  'Q',
+  'S',
+  'U',
+  'W',
+  'Y',
+  'Aa',
+  'Ac',
+  'Ae',
+  'Ag',
+  'Ai',
+  'Ak',
+  'Am',
+  'Ao',
+] as const
+type OddLetter = typeof oddLetters[number]
 
-type EvenLetter =
-  | 'B'
-  | 'D'
-  | 'F'
-  | 'H'
-  | 'J'
-  | 'L'
-  | 'N'
-  | 'P'
-  | 'R'
-  | 'T'
-  | 'V'
-  | 'X'
-  | 'Z'
-  | 'Ab'
-  | 'Ad'
-  | 'Af'
-  | 'Ah'
-  | 'Aj'
-  | 'Al'
-  | 'An'
+const evenLetters = [
+  'B',
+  'D',
+  'F',
+  'H',
+  'J',
+  'L',
+  'N',
+  'P',
+  'R',
+  'T',
+  'V',
+  'X',
+  'Z',
+  'Ab',
+  'Ad',
+  'Af',
+  'Ah',
+  'Aj',
+  'Al',
+  'An',
+] as const
+type EvenLetter = typeof evenLetters[number]
 
-type EvenNumbers =
-  | 2
-  | 4
-  | 6
-  | 8
-  | 10
-  | 12
-  | 14
-  | 16
-  | 18
-  | 20
-  | 22
-  | 24
-  | 26
-  | 28
-  | 30
-  | 32
-  | 34
-  | 36
-  | 38
-  | 40
-  | 42
-  | 44
-  | 46
-  | 48
-  | 50
+const evenNumbers = [
+  2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40,
+  42, 44, 46, 48, 50,
+] as const
+type EvenNumbers = typeof evenNumbers[number]
 
-type OddNumbers =
-  | 1
-  | 3
-  | 5
-  | 7
-  | 9
-  | 11
-  | 13
-  | 15
-  | 17
-  | 19
-  | 21
-  | 23
-  | 25
-  | 27
-  | 29
-  | 31
-  | 33
-  | 35
-  | 37
-  | 39
-  | 41
-  | 43
-  | 45
-  | 47
-  | 49
-  | 51
-const buildRegex = (
-  letters: typeof oddLetters | typeof evenLetters,
-  numbers: typeof oddNumbers | typeof evenNumbers,
-) => {
-  const ls = letters.join('|')
-  const ns = numbers.join('|')
+const oddNumbers = [
+  1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41,
+  43, 45, 47, 49, 51,
+] as const
+type OddNumbers = typeof oddNumbers[number]
 
-  const pattern = `^(${ls})(${ns})$`
-  console.log(pattern)
+const aKeyRegex =
+  /^(A|C|E|G|I|K|M|O|Q|S|U|W|Y|Aa|Ac|Ae|Ag|Ai|Ak|Am|Ao)(2|4|6|8|10|12|14|16|18|20|22|24|26|28|30|32|34|36|38|40|42|44|46|48|50)$/
+const bKeyRegex =
+  /^(B|D|F|H|J|L|N|P|R|T|V|X|Z|Ab|Ad|Af|Ah|Aj|Al|An)(1|3|5|7|9|11|13|15|17|19|21|23|25|27|29|31|33|35|37|39|41|43|45|47|49|51)$/
 
-  return pattern
+export const isHexKey = (s: string): s is HexKey => {
+  const isAKey = aKeyRegex.test(s)
+  const isBKey = bKeyRegex.test(s)
+
+  if (s === 'Ai38') {
+    console.log('isHexKey', s, isAKey)
+  }
+
+  return isAKey || isBKey
 }
 
 type AKey = `${OddLetter}${EvenNumbers}`

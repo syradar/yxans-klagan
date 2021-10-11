@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import 'twin.macro'
 import tw from 'twin.macro'
 import { Button } from '.'
@@ -25,6 +26,7 @@ export const MapPopover = ({
   onExploreChanged,
   onHide,
 }: MapPopoverProps) => {
+  const { t } = useTranslation('map')
   const ref = useRef<HTMLDivElement>(null)
   const [show, setShow] = useState<boolean>(true)
   const initialPosition = -9999
@@ -94,7 +96,9 @@ export const MapPopover = ({
         <>
           <div tw="text-2xl">
             {options.hex.hexKey}:{' '}
-            {options.hex.explored ? 'Utforskad' : 'Ej utforskad'}
+            {options.hex.explored
+              ? t('Popover-Explored')
+              : t('Popover-Unexplored')}
           </div>
           <div tw="flex gap-2">
             <Button
@@ -105,7 +109,7 @@ export const MapPopover = ({
                 setShow(false)
               }}
             >
-              Dölj
+              {t('Popover-Hide')}
             </Button>
             {options.hex.explored ? (
               <Button
@@ -116,7 +120,7 @@ export const MapPopover = ({
                   onExploreChanged({ ...options.hex, explored: false })
                 }}
               >
-                Glöm bort
+                {t('Popover-Forget')}
               </Button>
             ) : (
               <Button
@@ -127,7 +131,7 @@ export const MapPopover = ({
                   onExploreChanged({ ...options.hex, explored: true })
                 }}
               >
-                Utforska
+                {t('Popover-Explore')}
               </Button>
             )}
           </div>
