@@ -19,7 +19,7 @@ const Parchment = React.forwardRef<SVGSVGElement, ParchmentProps>(
       } else {
         console.log('null content ref')
       }
-    }, [currentWidth, ...(deps ? deps : [])])
+    }, [currentWidth, contentRef?.current, ...(deps ? deps : [])])
 
     const dim = 98
     const width = 2.5
