@@ -35,5 +35,9 @@
   "DownPourRaining": "Raining",
   "DownPourLightSnow": "Lätt snowfall",
   "DownPourSnowShowers": "Snow showers",
-  "DownPourSnowing": "Snowing"
+  "DownPourSnowing": "Snowing",
+  "ShowMonth": "Show month",
+  "HideMonth": "Hide month",
+  "ShowAll": "Expand months",
+  "HideAll": "Collapse months"
 }

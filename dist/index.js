@@ -472,8 +472,6 @@ var react = createCommonjsModule(function(module) {
 
 // build/dist/pkg/react.js
 var Suspense = react.Suspense;
-var createContext = react.createContext;
-var useContext = react.useContext;
 var useEffect = react.useEffect;
 var useLayoutEffect = react.useLayoutEffect;
 var useRef = react.useRef;
@@ -10222,7 +10220,7 @@ var KinNameList = ({
   });
   const [names, setNames] = useState(randomNames());
   const getNames = () => setNames(randomNames());
-  return jsx(react.Fragment, null, jsx("button", {
+  return jsx("div", null, jsx("button", {
     css: {
       display: "flex",
       gap: "0.5rem",
@@ -10254,8 +10252,8 @@ var KinNameList = ({
     svg: {}
   })), jsx("div", {
     css: {
-      display: "grid",
-      gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+      display: "flex",
+      gap: "4rem"
     }
   }, jsx("div", null, jsx("h3", {
     css: {
@@ -10313,7 +10311,7 @@ var Parchment = /* @__PURE__ */ react.forwardRef(({
     } else {
       console.log("null content ref");
     }
-  }, [currentWidth, ...deps ? deps : []]);
+  }, [currentWidth, contentRef?.current, ...deps ? deps : []]);
   const dim = 98;
   const width = 2.5;
   return jsx("svg", {
@@ -10357,12 +10355,11 @@ var Parchment = /* @__PURE__ */ react.forwardRef(({
     width: "100%",
     height: "100%"
   }, jsx("div", {
-    css: {
-      paddingLeft: "2rem",
-      paddingRight: "2rem",
-      paddingTop: "2rem",
-      paddingBottom: "2rem"
-    },
+    css: [{
+      padding: "1rem"
+    }, {
+      padding: `2rem calc(1rem + ${(100 - dim) * 1}%)`
+    }],
     ref: contentRef
   }, children && children)));
 });
@@ -10419,6 +10416,413 @@ var Quarter = styled_default.div(({
   backgroundColor: "rgba(209, 213, 219, var(--tw-bg-opacity))"
 }]);
 var day_counter_default = DayCounter;
+
+// build/dist/pkg/react-i18next.js
+var defineProperty = createCommonjsModule(function(module) {
+  function _defineProperty4(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+    return obj;
+  }
+  module.exports = _defineProperty4;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var _defineProperty = /* @__PURE__ */ getDefaultExportFromCjs(defineProperty);
+var classCallCheck = createCommonjsModule(function(module) {
+  function _classCallCheck4(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+  module.exports = _classCallCheck4;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var _classCallCheck = /* @__PURE__ */ getDefaultExportFromCjs(classCallCheck);
+var createClass = createCommonjsModule(function(module) {
+  function _defineProperties3(target, props) {
+    for (var i2 = 0; i2 < props.length; i2++) {
+      var descriptor = props[i2];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor)
+        descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+  function _createClass4(Constructor, protoProps, staticProps) {
+    if (protoProps)
+      _defineProperties3(Constructor.prototype, protoProps);
+    if (staticProps)
+      _defineProperties3(Constructor, staticProps);
+    return Constructor;
+  }
+  module.exports = _createClass4;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var _createClass = /* @__PURE__ */ getDefaultExportFromCjs(createClass);
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) {
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread(target) {
+  for (var i2 = 1; i2 < arguments.length; i2++) {
+    var source = arguments[i2] != null ? arguments[i2] : {};
+    if (i2 % 2) {
+      ownKeys(Object(source), true).forEach(function(key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+var defaultOptions = {
+  bindI18n: "languageChanged",
+  bindI18nStore: "",
+  transEmptyNodeValue: "",
+  transSupportBasicHtmlNodes: true,
+  transWrapTextNodes: "",
+  transKeepBasicHtmlNodesFor: ["br", "strong", "i", "p"],
+  useSuspense: true
+};
+var i18nInstance;
+var I18nContext = /* @__PURE__ */ react.createContext();
+function setDefaults() {
+  var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
+  defaultOptions = _objectSpread(_objectSpread({}, defaultOptions), options);
+}
+function getDefaults() {
+  return defaultOptions;
+}
+var ReportNamespaces = function() {
+  function ReportNamespaces2() {
+    _classCallCheck(this, ReportNamespaces2);
+    this.usedNamespaces = {};
+  }
+  _createClass(ReportNamespaces2, [{
+    key: "addUsedNamespaces",
+    value: function addUsedNamespaces(namespaces) {
+      var _this = this;
+      namespaces.forEach(function(ns) {
+        if (!_this.usedNamespaces[ns])
+          _this.usedNamespaces[ns] = true;
+      });
+    }
+  }, {
+    key: "getUsedNamespaces",
+    value: function getUsedNamespaces() {
+      return Object.keys(this.usedNamespaces);
+    }
+  }]);
+  return ReportNamespaces2;
+}();
+function setI18n(instance) {
+  i18nInstance = instance;
+}
+function getI18n() {
+  return i18nInstance;
+}
+var initReactI18next = {
+  type: "3rdParty",
+  init: function init(instance) {
+    setDefaults(instance.options.react);
+    setI18n(instance);
+  }
+};
+function warn() {
+  if (console && console.warn) {
+    var _console;
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    if (typeof args[0] === "string")
+      args[0] = "react-i18next:: ".concat(args[0]);
+    (_console = console).warn.apply(_console, args);
+  }
+}
+var alreadyWarned = {};
+function warnOnce() {
+  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    args[_key2] = arguments[_key2];
+  }
+  if (typeof args[0] === "string" && alreadyWarned[args[0]])
+    return;
+  if (typeof args[0] === "string")
+    alreadyWarned[args[0]] = new Date();
+  warn.apply(void 0, args);
+}
+function loadNamespaces(i18n, ns, cb2) {
+  i18n.loadNamespaces(ns, function() {
+    if (i18n.isInitialized) {
+      cb2();
+    } else {
+      var initialized = function initialized2() {
+        setTimeout(function() {
+          i18n.off("initialized", initialized2);
+        }, 0);
+        cb2();
+      };
+      i18n.on("initialized", initialized);
+    }
+  });
+}
+function hasLoadedNamespace(ns, i18n) {
+  var options = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
+  if (!i18n.languages || !i18n.languages.length) {
+    warnOnce("i18n.languages were undefined or empty", i18n.languages);
+    return true;
+  }
+  var lng = i18n.languages[0];
+  var fallbackLng = i18n.options ? i18n.options.fallbackLng : false;
+  var lastLng = i18n.languages[i18n.languages.length - 1];
+  if (lng.toLowerCase() === "cimode")
+    return true;
+  var loadNotPending = function loadNotPending2(l2, n3) {
+    var loadState = i18n.services.backendConnector.state["".concat(l2, "|").concat(n3)];
+    return loadState === -1 || loadState === 2;
+  };
+  if (options.bindI18n && options.bindI18n.indexOf("languageChanging") > -1 && i18n.services.backendConnector.backend && i18n.isLanguageChangingTo && !loadNotPending(i18n.isLanguageChangingTo, ns))
+    return false;
+  if (i18n.hasResourceBundle(lng, ns))
+    return true;
+  if (!i18n.services.backendConnector.backend)
+    return true;
+  if (loadNotPending(lng, ns) && (!fallbackLng || loadNotPending(lastLng, ns)))
+    return true;
+  return false;
+}
+var arrayWithHoles = createCommonjsModule(function(module) {
+  function _arrayWithHoles(arr3) {
+    if (Array.isArray(arr3))
+      return arr3;
+  }
+  module.exports = _arrayWithHoles;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var iterableToArrayLimit = createCommonjsModule(function(module) {
+  function _iterableToArrayLimit(arr3, i2) {
+    var _i = arr3 == null ? null : typeof Symbol !== "undefined" && arr3[Symbol.iterator] || arr3["@@iterator"];
+    if (_i == null)
+      return;
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _s, _e;
+    try {
+      for (_i = _i.call(arr3); !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
+        if (i2 && _arr.length === i2)
+          break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"] != null)
+          _i["return"]();
+      } finally {
+        if (_d)
+          throw _e;
+      }
+    }
+    return _arr;
+  }
+  module.exports = _iterableToArrayLimit;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var arrayLikeToArray = createCommonjsModule(function(module) {
+  function _arrayLikeToArray(arr3, len) {
+    if (len == null || len > arr3.length)
+      len = arr3.length;
+    for (var i2 = 0, arr22 = new Array(len); i2 < len; i2++) {
+      arr22[i2] = arr3[i2];
+    }
+    return arr22;
+  }
+  module.exports = _arrayLikeToArray;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var unsupportedIterableToArray = createCommonjsModule(function(module) {
+  function _unsupportedIterableToArray(o, minLen) {
+    if (!o)
+      return;
+    if (typeof o === "string")
+      return arrayLikeToArray(o, minLen);
+    var n3 = Object.prototype.toString.call(o).slice(8, -1);
+    if (n3 === "Object" && o.constructor)
+      n3 = o.constructor.name;
+    if (n3 === "Map" || n3 === "Set")
+      return Array.from(o);
+    if (n3 === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n3))
+      return arrayLikeToArray(o, minLen);
+  }
+  module.exports = _unsupportedIterableToArray;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var nonIterableRest = createCommonjsModule(function(module) {
+  function _nonIterableRest() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+  module.exports = _nonIterableRest;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var slicedToArray = createCommonjsModule(function(module) {
+  function _slicedToArray2(arr3, i2) {
+    return arrayWithHoles(arr3) || iterableToArrayLimit(arr3, i2) || unsupportedIterableToArray(arr3, i2) || nonIterableRest();
+  }
+  module.exports = _slicedToArray2;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var _slicedToArray = /* @__PURE__ */ getDefaultExportFromCjs(slicedToArray);
+function ownKeys$1(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) {
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$1(target) {
+  for (var i2 = 1; i2 < arguments.length; i2++) {
+    var source = arguments[i2] != null ? arguments[i2] : {};
+    if (i2 % 2) {
+      ownKeys$1(Object(source), true).forEach(function(key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$1(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function useTranslation(ns) {
+  var props = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+  var i18nFromProps = props.i18n;
+  var _ref = react.useContext(I18nContext) || {}, i18nFromContext = _ref.i18n, defaultNSFromContext = _ref.defaultNS;
+  var i18n = i18nFromProps || i18nFromContext || getI18n();
+  if (i18n && !i18n.reportNamespaces)
+    i18n.reportNamespaces = new ReportNamespaces();
+  if (!i18n) {
+    warnOnce("You will need to pass in an i18next instance by using initReactI18next");
+    var notReadyT = function notReadyT2(k3) {
+      return Array.isArray(k3) ? k3[k3.length - 1] : k3;
+    };
+    var retNotReady = [notReadyT, {}, false];
+    retNotReady.t = notReadyT;
+    retNotReady.i18n = {};
+    retNotReady.ready = false;
+    return retNotReady;
+  }
+  if (i18n.options.react && i18n.options.react.wait !== void 0)
+    warnOnce("It seems you are still using the old wait option, you may migrate to the new useSuspense behaviour.");
+  var i18nOptions = _objectSpread$1(_objectSpread$1(_objectSpread$1({}, getDefaults()), i18n.options.react), props);
+  var useSuspense = i18nOptions.useSuspense, keyPrefix = i18nOptions.keyPrefix;
+  var namespaces = ns || defaultNSFromContext || i18n.options && i18n.options.defaultNS;
+  namespaces = typeof namespaces === "string" ? [namespaces] : namespaces || ["translation"];
+  if (i18n.reportNamespaces.addUsedNamespaces)
+    i18n.reportNamespaces.addUsedNamespaces(namespaces);
+  var ready = (i18n.isInitialized || i18n.initializedStoreOnce) && namespaces.every(function(n3) {
+    return hasLoadedNamespace(n3, i18n, i18nOptions);
+  });
+  function getT() {
+    return i18n.getFixedT(null, i18nOptions.nsMode === "fallback" ? namespaces : namespaces[0], keyPrefix);
+  }
+  var _useState = react.useState(getT), _useState2 = _slicedToArray(_useState, 2), t3 = _useState2[0], setT = _useState2[1];
+  var isMounted = react.useRef(true);
+  react.useEffect(function() {
+    var bindI18n = i18nOptions.bindI18n, bindI18nStore = i18nOptions.bindI18nStore;
+    isMounted.current = true;
+    if (!ready && !useSuspense) {
+      loadNamespaces(i18n, namespaces, function() {
+        if (isMounted.current)
+          setT(getT);
+      });
+    }
+    function boundReset() {
+      if (isMounted.current)
+        setT(getT);
+    }
+    if (bindI18n && i18n)
+      i18n.on(bindI18n, boundReset);
+    if (bindI18nStore && i18n)
+      i18n.store.on(bindI18nStore, boundReset);
+    return function() {
+      isMounted.current = false;
+      if (bindI18n && i18n)
+        bindI18n.split(" ").forEach(function(e3) {
+          return i18n.off(e3, boundReset);
+        });
+      if (bindI18nStore && i18n)
+        bindI18nStore.split(" ").forEach(function(e3) {
+          return i18n.store.off(e3, boundReset);
+        });
+    };
+  }, [i18n, namespaces.join()]);
+  var isInitial = react.useRef(true);
+  react.useEffect(function() {
+    if (isMounted.current && !isInitial.current) {
+      setT(getT);
+    }
+    isInitial.current = false;
+  }, [i18n]);
+  var ret = [t3, i18n, ready];
+  ret.t = t3;
+  ret.i18n = i18n;
+  ret.ready = ready;
+  if (ready)
+    return ret;
+  if (!ready && !useSuspense)
+    return ret;
+  throw new Promise(function(resolve) {
+    loadNamespaces(i18n, namespaces, function() {
+      resolve();
+    });
+  });
+}
+function I18nextProvider(_ref) {
+  var i18n = _ref.i18n, defaultNS = _ref.defaultNS, children = _ref.children;
+  var value = react.useMemo(function() {
+    return {
+      i18n,
+      defaultNS
+    };
+  }, [i18n, defaultNS]);
+  return /* @__PURE__ */ react.createElement(I18nContext.Provider, {
+    value
+  }, children);
+}
 
 // build/dist/pkg/rambda.js
 function curry(fn, args = []) {
@@ -11271,526 +11675,63 @@ var GenerateWeather = class {
   }
 };
 
-// build/dist/pkg/react-i18next.js
-var defineProperty = createCommonjsModule(function(module) {
-  function _defineProperty4(obj, key, value) {
-    if (key in obj) {
-      Object.defineProperty(obj, key, {
-        value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      });
-    } else {
-      obj[key] = value;
-    }
-    return obj;
-  }
-  module.exports = _defineProperty4;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var _defineProperty = /* @__PURE__ */ getDefaultExportFromCjs(defineProperty);
-var classCallCheck = createCommonjsModule(function(module) {
-  function _classCallCheck4(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
-  module.exports = _classCallCheck4;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var _classCallCheck = /* @__PURE__ */ getDefaultExportFromCjs(classCallCheck);
-var createClass = createCommonjsModule(function(module) {
-  function _defineProperties3(target, props) {
-    for (var i2 = 0; i2 < props.length; i2++) {
-      var descriptor = props[i2];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor)
-        descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-  function _createClass4(Constructor, protoProps, staticProps) {
-    if (protoProps)
-      _defineProperties3(Constructor.prototype, protoProps);
-    if (staticProps)
-      _defineProperties3(Constructor, staticProps);
-    return Constructor;
-  }
-  module.exports = _createClass4;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var _createClass = /* @__PURE__ */ getDefaultExportFromCjs(createClass);
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) {
-      symbols = symbols.filter(function(sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
-    }
-    keys.push.apply(keys, symbols);
-  }
-  return keys;
-}
-function _objectSpread(target) {
-  for (var i2 = 1; i2 < arguments.length; i2++) {
-    var source = arguments[i2] != null ? arguments[i2] : {};
-    if (i2 % 2) {
-      ownKeys(Object(source), true).forEach(function(key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys(Object(source)).forEach(function(key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
-  return target;
-}
-var defaultOptions = {
-  bindI18n: "languageChanged",
-  bindI18nStore: "",
-  transEmptyNodeValue: "",
-  transSupportBasicHtmlNodes: true,
-  transWrapTextNodes: "",
-  transKeepBasicHtmlNodesFor: ["br", "strong", "i", "p"],
-  useSuspense: true
-};
-var i18nInstance;
-var I18nContext = /* @__PURE__ */ react.createContext();
-function setDefaults() {
-  var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-  defaultOptions = _objectSpread(_objectSpread({}, defaultOptions), options);
-}
-function getDefaults() {
-  return defaultOptions;
-}
-var ReportNamespaces = function() {
-  function ReportNamespaces2() {
-    _classCallCheck(this, ReportNamespaces2);
-    this.usedNamespaces = {};
-  }
-  _createClass(ReportNamespaces2, [{
-    key: "addUsedNamespaces",
-    value: function addUsedNamespaces(namespaces) {
-      var _this = this;
-      namespaces.forEach(function(ns) {
-        if (!_this.usedNamespaces[ns])
-          _this.usedNamespaces[ns] = true;
-      });
-    }
-  }, {
-    key: "getUsedNamespaces",
-    value: function getUsedNamespaces() {
-      return Object.keys(this.usedNamespaces);
-    }
-  }]);
-  return ReportNamespaces2;
-}();
-function setI18n(instance) {
-  i18nInstance = instance;
-}
-function getI18n() {
-  return i18nInstance;
-}
-var initReactI18next = {
-  type: "3rdParty",
-  init: function init(instance) {
-    setDefaults(instance.options.react);
-    setI18n(instance);
-  }
-};
-function warn() {
-  if (console && console.warn) {
-    var _console;
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    if (typeof args[0] === "string")
-      args[0] = "react-i18next:: ".concat(args[0]);
-    (_console = console).warn.apply(_console, args);
-  }
-}
-var alreadyWarned = {};
-function warnOnce() {
-  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-    args[_key2] = arguments[_key2];
-  }
-  if (typeof args[0] === "string" && alreadyWarned[args[0]])
-    return;
-  if (typeof args[0] === "string")
-    alreadyWarned[args[0]] = new Date();
-  warn.apply(void 0, args);
-}
-function loadNamespaces(i18n, ns, cb2) {
-  i18n.loadNamespaces(ns, function() {
-    if (i18n.isInitialized) {
-      cb2();
-    } else {
-      var initialized = function initialized2() {
-        setTimeout(function() {
-          i18n.off("initialized", initialized2);
-        }, 0);
-        cb2();
-      };
-      i18n.on("initialized", initialized);
-    }
-  });
-}
-function hasLoadedNamespace(ns, i18n) {
-  var options = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
-  if (!i18n.languages || !i18n.languages.length) {
-    warnOnce("i18n.languages were undefined or empty", i18n.languages);
-    return true;
-  }
-  var lng = i18n.languages[0];
-  var fallbackLng = i18n.options ? i18n.options.fallbackLng : false;
-  var lastLng = i18n.languages[i18n.languages.length - 1];
-  if (lng.toLowerCase() === "cimode")
-    return true;
-  var loadNotPending = function loadNotPending2(l2, n3) {
-    var loadState = i18n.services.backendConnector.state["".concat(l2, "|").concat(n3)];
-    return loadState === -1 || loadState === 2;
-  };
-  if (options.bindI18n && options.bindI18n.indexOf("languageChanging") > -1 && i18n.services.backendConnector.backend && i18n.isLanguageChangingTo && !loadNotPending(i18n.isLanguageChangingTo, ns))
-    return false;
-  if (i18n.hasResourceBundle(lng, ns))
-    return true;
-  if (!i18n.services.backendConnector.backend)
-    return true;
-  if (loadNotPending(lng, ns) && (!fallbackLng || loadNotPending(lastLng, ns)))
-    return true;
-  return false;
-}
-var arrayWithHoles = createCommonjsModule(function(module) {
-  function _arrayWithHoles(arr3) {
-    if (Array.isArray(arr3))
-      return arr3;
-  }
-  module.exports = _arrayWithHoles;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var iterableToArrayLimit = createCommonjsModule(function(module) {
-  function _iterableToArrayLimit(arr3, i2) {
-    var _i = arr3 == null ? null : typeof Symbol !== "undefined" && arr3[Symbol.iterator] || arr3["@@iterator"];
-    if (_i == null)
-      return;
-    var _arr = [];
-    var _n = true;
-    var _d = false;
-    var _s, _e;
-    try {
-      for (_i = _i.call(arr3); !(_n = (_s = _i.next()).done); _n = true) {
-        _arr.push(_s.value);
-        if (i2 && _arr.length === i2)
-          break;
-      }
-    } catch (err) {
-      _d = true;
-      _e = err;
-    } finally {
-      try {
-        if (!_n && _i["return"] != null)
-          _i["return"]();
-      } finally {
-        if (_d)
-          throw _e;
-      }
-    }
-    return _arr;
-  }
-  module.exports = _iterableToArrayLimit;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var arrayLikeToArray = createCommonjsModule(function(module) {
-  function _arrayLikeToArray(arr3, len) {
-    if (len == null || len > arr3.length)
-      len = arr3.length;
-    for (var i2 = 0, arr22 = new Array(len); i2 < len; i2++) {
-      arr22[i2] = arr3[i2];
-    }
-    return arr22;
-  }
-  module.exports = _arrayLikeToArray;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var unsupportedIterableToArray = createCommonjsModule(function(module) {
-  function _unsupportedIterableToArray(o, minLen) {
-    if (!o)
-      return;
-    if (typeof o === "string")
-      return arrayLikeToArray(o, minLen);
-    var n3 = Object.prototype.toString.call(o).slice(8, -1);
-    if (n3 === "Object" && o.constructor)
-      n3 = o.constructor.name;
-    if (n3 === "Map" || n3 === "Set")
-      return Array.from(o);
-    if (n3 === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n3))
-      return arrayLikeToArray(o, minLen);
-  }
-  module.exports = _unsupportedIterableToArray;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var nonIterableRest = createCommonjsModule(function(module) {
-  function _nonIterableRest() {
-    throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-  }
-  module.exports = _nonIterableRest;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var slicedToArray = createCommonjsModule(function(module) {
-  function _slicedToArray2(arr3, i2) {
-    return arrayWithHoles(arr3) || iterableToArrayLimit(arr3, i2) || unsupportedIterableToArray(arr3, i2) || nonIterableRest();
-  }
-  module.exports = _slicedToArray2;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var _slicedToArray = /* @__PURE__ */ getDefaultExportFromCjs(slicedToArray);
-function ownKeys$1(object, enumerableOnly) {
-  var keys = Object.keys(object);
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) {
-      symbols = symbols.filter(function(sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
-    }
-    keys.push.apply(keys, symbols);
-  }
-  return keys;
-}
-function _objectSpread$1(target) {
-  for (var i2 = 1; i2 < arguments.length; i2++) {
-    var source = arguments[i2] != null ? arguments[i2] : {};
-    if (i2 % 2) {
-      ownKeys$1(Object(source), true).forEach(function(key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys$1(Object(source)).forEach(function(key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
-  return target;
-}
-function useTranslation(ns) {
-  var props = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-  var i18nFromProps = props.i18n;
-  var _ref = react.useContext(I18nContext) || {}, i18nFromContext = _ref.i18n, defaultNSFromContext = _ref.defaultNS;
-  var i18n = i18nFromProps || i18nFromContext || getI18n();
-  if (i18n && !i18n.reportNamespaces)
-    i18n.reportNamespaces = new ReportNamespaces();
-  if (!i18n) {
-    warnOnce("You will need to pass in an i18next instance by using initReactI18next");
-    var notReadyT = function notReadyT2(k3) {
-      return Array.isArray(k3) ? k3[k3.length - 1] : k3;
-    };
-    var retNotReady = [notReadyT, {}, false];
-    retNotReady.t = notReadyT;
-    retNotReady.i18n = {};
-    retNotReady.ready = false;
-    return retNotReady;
-  }
-  if (i18n.options.react && i18n.options.react.wait !== void 0)
-    warnOnce("It seems you are still using the old wait option, you may migrate to the new useSuspense behaviour.");
-  var i18nOptions = _objectSpread$1(_objectSpread$1(_objectSpread$1({}, getDefaults()), i18n.options.react), props);
-  var useSuspense = i18nOptions.useSuspense, keyPrefix = i18nOptions.keyPrefix;
-  var namespaces = ns || defaultNSFromContext || i18n.options && i18n.options.defaultNS;
-  namespaces = typeof namespaces === "string" ? [namespaces] : namespaces || ["translation"];
-  if (i18n.reportNamespaces.addUsedNamespaces)
-    i18n.reportNamespaces.addUsedNamespaces(namespaces);
-  var ready = (i18n.isInitialized || i18n.initializedStoreOnce) && namespaces.every(function(n3) {
-    return hasLoadedNamespace(n3, i18n, i18nOptions);
-  });
-  function getT() {
-    return i18n.getFixedT(null, i18nOptions.nsMode === "fallback" ? namespaces : namespaces[0], keyPrefix);
-  }
-  var _useState = react.useState(getT), _useState2 = _slicedToArray(_useState, 2), t3 = _useState2[0], setT = _useState2[1];
-  var isMounted = react.useRef(true);
-  react.useEffect(function() {
-    var bindI18n = i18nOptions.bindI18n, bindI18nStore = i18nOptions.bindI18nStore;
-    isMounted.current = true;
-    if (!ready && !useSuspense) {
-      loadNamespaces(i18n, namespaces, function() {
-        if (isMounted.current)
-          setT(getT);
-      });
-    }
-    function boundReset() {
-      if (isMounted.current)
-        setT(getT);
-    }
-    if (bindI18n && i18n)
-      i18n.on(bindI18n, boundReset);
-    if (bindI18nStore && i18n)
-      i18n.store.on(bindI18nStore, boundReset);
-    return function() {
-      isMounted.current = false;
-      if (bindI18n && i18n)
-        bindI18n.split(" ").forEach(function(e3) {
-          return i18n.off(e3, boundReset);
-        });
-      if (bindI18nStore && i18n)
-        bindI18nStore.split(" ").forEach(function(e3) {
-          return i18n.store.off(e3, boundReset);
-        });
-    };
-  }, [i18n, namespaces.join()]);
-  var isInitial = react.useRef(true);
-  react.useEffect(function() {
-    if (isMounted.current && !isInitial.current) {
-      setT(getT);
-    }
-    isInitial.current = false;
-  }, [i18n]);
-  var ret = [t3, i18n, ready];
-  ret.t = t3;
-  ret.i18n = i18n;
-  ret.ready = ready;
-  if (ready)
-    return ret;
-  if (!ready && !useSuspense)
-    return ret;
-  throw new Promise(function(resolve) {
-    loadNamespaces(i18n, namespaces, function() {
-      resolve();
-    });
-  });
-}
-function I18nextProvider(_ref) {
-  var i18n = _ref.i18n, defaultNS = _ref.defaultNS, children = _ref.children;
-  var value = react.useMemo(function() {
-    return {
-      i18n,
-      defaultNS
-    };
-  }, [i18n, defaultNS]);
-  return /* @__PURE__ */ react.createElement(I18nContext.Provider, {
-    value
-  }, children);
-}
-
-// build/dist/components/calendar-month.js
-var spendQuarter = (quarters) => {
-  const spent = (quarters.filter((q3) => q3).length + 1) % 5;
-  return [...range(spent).map((_24) => true), ...range(4 - spent).map((_24) => false)];
-};
-var quarterReducer = (cal, monthIndex, day) => {
-  return {
-    ...cal,
-    months: {
-      ...cal.months,
-      [monthIndex]: {
-        ...cal.months[monthIndex],
-        days: cal.months[monthIndex].days.map((d3) => {
-          if (d3.number === day.number) {
-            d3.quarters = spendQuarter(d3.quarters);
-          }
-          return d3;
-        })
-      }
-    }
-  };
-};
-var CalendarMonth = ({
-  monthIndex,
-  showWeather = true
+// build/dist/components/calendar-day.js
+var CalendarDay = ({
+  day,
+  quarterClicked,
+  showWeather = true,
+  temperatureUnit
 }) => {
   const {
     t: t3
   } = useTranslation("calendar");
-  const {
-    calendar,
-    setCalendar
-  } = useContext(CalendarContext);
-  const quarterClicked = (day) => {
-    setCalendar(quarterReducer(calendar, monthIndex, day));
+  const formatTemperature = (temp) => {
+    return temperatureUnit === TemperatureUnit.Metric ? getTempString(temp) : getFahrenheitTempString(temp);
   };
   return jsx("div", {
     css: {
-      marginBottom: "1rem"
-    }
-  }, jsx(parchment_default, {
-    deps: [showWeather]
-  }, jsx("h2", {
-    css: {
-      fontSize: "2.25rem",
-      lineHeight: "2.5rem",
-      textAlign: "center",
+      padding: "0.5rem",
+      borderWidth: "1px",
       display: "flex",
-      marginBottom: "1rem"
-    },
-    className: "yx-heading"
-  }, t3(calendar.months[monthIndex].name)), jsx("div", {
+      flexDirection: "column",
+      gap: "0.5rem"
+    }
+  }, jsx("div", {
     css: {
-      display: "grid",
-      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+      display: "flex",
+      justifyContent: "space-between"
+    }
+  }, jsx("div", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      width: "1.25rem"
+    }
+  }, jsx("div", {
+    css: {
       "@media (min-width: 1024px)": {
-        gridTemplateColumns: "repeat(7, minmax(0, 1fr))"
+        display: "none"
       }
     }
-  }, jsx(calendar_day_names_default, null), jsx(calendar_filler_day_default, {
-    day: calendar.months[monthIndex].days[0]
-  }), calendar.months[monthIndex].days.map((d3) => jsx(calendar_day_default, {
-    day: d3,
-    key: `${d3.monthName}${d3.number}`,
-    showWeather,
-    quarterClicked
-  })))));
+  }, t3(day.name)), jsx("div", {
+    css: [{
+      display: "flex",
+      gap: "0.25rem"
+    }, day.number === 1 ? {
+      fontWeight: "700"
+    } : {}]
+  }, day.number, jsx("div", null, getMoonEmoji(day.moon)), jsx("div", null, getWeatherIcon(day))))), jsx("div", {
+    css: {
+      width: "100%"
+    }
+  }, jsx(day_counter_default, {
+    quarters: day.quarters,
+    spendQuarter: () => quarterClicked(day)
+  })), showWeather && jsx("div", {
+    css: {}
+  }, jsx("div", null, t3("Weather-High"), ": ", formatTemperature(day.temp)), jsx("div", null, t3("Weather-Low"), ": ", formatTemperature(day.lowTemp)), jsx("div", null, t3(day.downpour)), jsx("div", null, t3(day.stormType)), jsx("div", null, t3(day.stormType)), jsx("div", null, t3(day.eventType?.name ?? ""))));
 };
-var calendar_month_default = CalendarMonth;
-
-// build/dist/hooks/use-local-storage.js
-function useLocalStorage(key, initialValue) {
-  const [storedValue, setStoredValue] = useState(() => {
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error2) {
-      console.log(error2);
-      return initialValue;
-    }
-  });
-  const setValue = (value) => {
-    try {
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-      window.localStorage.setItem(key, JSON.stringify(valueToStore));
-    } catch (error2) {
-      console.log(error2);
-    }
-  };
-  return [storedValue, setValue];
-}
-
-// build/dist/hooks/use-window-scroll-position.js
-function useWindowScrollPosition(localStorageKey, setCondition) {
-  const [scrollYStorage, setScrollYStorage] = useLocalStorage(localStorageKey, 0);
-  const handleScroll = () => {
-    if (setCondition && window.scrollY !== 0) {
-      setScrollYStorage(window.scrollY);
-    }
-  };
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-  useLayoutEffect(() => {
-    if (setCondition) {
-      setTimeout(() => {
-        window.scrollTo(0, scrollYStorage);
-      }, 0);
-    }
-  }, [setCondition, scrollYStorage]);
-}
+var calendar_day_default = CalendarDay;
 
 // build/dist/models/calendar.model.js
 var month = ["WinterWane", "SpringRise", "SpringWane", "SummerRise", "SummerWane", "AutumnRise", "AutumnWane", "WinterRise"];
@@ -11839,6 +11780,37 @@ var dayInMonth = (m3) => {
       return 45;
   }
 };
+var createMonth = (monthName, weatherDays, daysPassed) => {
+  return {
+    name: monthName,
+    collapsed: false,
+    days: range(dayInMonth(monthName)).map((d3) => {
+      const {
+        temp,
+        lowTemp,
+        downpour,
+        stormType,
+        eventType,
+        isCloudy,
+        isPartlyCloudy
+      } = weatherDays[daysPassed + d3];
+      return {
+        number: d3 + 1,
+        name: getDayName(daysPassed + d3),
+        monthName,
+        quarters: [false, false, false, false],
+        moon: getMoonPhase(daysPassed + d3 + 1 + 9),
+        temp,
+        lowTemp,
+        downpour,
+        stormType,
+        eventType,
+        isCloudy,
+        isPartlyCloudy
+      };
+    })
+  };
+};
 var getCal = (startYear = 1165) => {
   const dayOffset = startYear % 1165 % 7;
   const weather = new GenerateWeather(365, [], 48, 50, 6, "");
@@ -11848,231 +11820,71 @@ var getCal = (startYear = 1165) => {
   }, []).flat();
   const cal = range(numberOfMonths()).reduce((cal2, m3) => {
     const monthName = getMonthName(m3);
-    cal2.cal.months[m3] = {
-      name: monthName,
-      days: range(dayInMonth(monthName)).map((d3) => {
-        const {
-          temp,
-          lowTemp,
-          downpour,
-          stormType,
-          eventType,
-          isCloudy,
-          isPartlyCloudy
-        } = weatherDays[cal2.daysPassed + d3];
-        return {
-          number: d3 + 1,
-          name: getDayName(cal2.daysPassed + d3),
-          monthName,
-          quarters: [false, false, false, false],
-          moon: getMoonPhase(cal2.daysPassed + d3 + 1 + 9),
-          temp,
-          lowTemp,
-          downpour,
-          stormType,
-          eventType,
-          isCloudy,
-          isPartlyCloudy
-        };
-      })
-    };
+    cal2.cal.months.push(createMonth(monthName, weatherDays, cal2.daysPassed));
     cal2.daysPassed += dayInMonth(monthName);
     return cal2;
   }, {
     daysPassed: dayOffset,
     cal: {
       year: startYear,
-      months: {}
+      months: [],
+      temperatureUnit: TemperatureUnit.Metric
     }
   });
   return cal.cal;
 };
-
-// build/dist/pages/calendar.page.js
-var DEFAULT_CALENDAR = getCal(1165);
-var DEFAULT_SHOW_WEATHER = true;
+var parseV1AndV2Calendar = (cal) => {
+  return {
+    ...cal,
+    months: [{
+      ...cal.months[0],
+      collapsed: false
+    }, {
+      ...cal.months[1],
+      collapsed: false
+    }, {
+      ...cal.months[2],
+      collapsed: false
+    }, {
+      ...cal.months[3],
+      collapsed: false
+    }, {
+      ...cal.months[4],
+      collapsed: false
+    }, {
+      ...cal.months[5],
+      collapsed: false
+    }, {
+      ...cal.months[6],
+      collapsed: false
+    }],
+    temperatureUnit: TemperatureUnit.Metric
+  };
+};
 var CALENDAR_KEY_V1 = "calendar";
-var CALENDAR_KEY = "calendar_v2";
-var CALENDAR_SHOW_WEATHER_KEY = "calendar_show_weather";
-var CALENDAR_SCROLL_POSITION = "calendar_scroll";
-var CalendarContext = /* @__PURE__ */ createContext({
-  calendar: DEFAULT_CALENDAR,
-  setCalendar: (_24) => {
-  }
-});
-var CalendarPage = () => {
-  const {
-    t: t3
-  } = useTranslation("calendar");
-  const calendarFromStorage = localStorage.getItem(CALENDAR_KEY) ?? void 0;
-  const showWeatherFromStorage = localStorage.getItem(CALENDAR_SHOW_WEATHER_KEY) ?? void 0;
+var CALENDAR_KEY_V2 = "calendar_v2";
+var CALENDAR_KEY_V3 = "calendar_v3";
+var parseCalendar = (json, oldFormat = false) => {
   localStorage.removeItem(CALENDAR_KEY_V1);
-  const calendarFromStorageOrDefault = notNullish(calendarFromStorage) ? JSON.parse(calendarFromStorage) : DEFAULT_CALENDAR;
-  const showWeatherFromStorageOrDefault = notNullish(showWeatherFromStorage) ? JSON.parse(showWeatherFromStorage) : DEFAULT_SHOW_WEATHER;
-  const [calendar, setCalendar] = useLocalStorage(CALENDAR_KEY, calendarFromStorageOrDefault);
-  const [showWeather, setShowWeather] = useLocalStorage(CALENDAR_SHOW_WEATHER_KEY, showWeatherFromStorageOrDefault);
-  const handleTemperatureChange = (unit) => {
-    setCalendar({
-      ...calendar,
-      temperatureUnit: unit
-    });
-  };
-  useWindowScrollPosition(CALENDAR_SCROLL_POSITION, notNullish(calendar));
-  return jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      rowGap: "2rem",
-      width: "100%"
-    }
-  }, jsx(page_header_default, null, t3("Title")), jsx("div", {
-    css: {
-      textAlign: "center",
-      fontSize: "1.25rem",
-      lineHeight: "1.75rem",
-      marginBottom: "0.5rem",
-      textTransform: "none"
-    },
-    className: "yx-prose"
-  }, t3("Year"), " ", calendar.year, " ", t3("AS")), jsx("div", {
-    css: {
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
-      padding: "0.5rem",
-      display: "flex",
-      justifyContent: "flex-end",
-      gap: "0.5rem"
-    }
-  }, jsx(Button_default, {
-    isSmall: true,
-    variant: "secondary",
-    onClick: () => handleTemperatureChange(calendar.temperatureUnit === TemperatureUnit.Metric ? TemperatureUnit.Imperial : TemperatureUnit.Metric)
-  }, t3("Use"), " ", calendar.temperatureUnit === TemperatureUnit.Metric ? t3("F") : t3("C")), jsx(Button_default, {
-    variant: "secondary",
-    isSmall: true,
-    onClick: () => setShowWeather(!showWeather)
-  }, showWeather ? t3("Weather-Hide") : t3("Weather-Show"))), jsx("div", {
-    css: {}
-  }, jsx(CalendarContext.Provider, {
-    value: {
-      calendar,
-      setCalendar
-    }
-  }, jsx(calendar_month_default, {
-    monthIndex: 0,
-    showWeather
-  }), jsx(calendar_month_default, {
-    monthIndex: 1,
-    showWeather
-  }), jsx(calendar_month_default, {
-    monthIndex: 2,
-    showWeather
-  }), jsx(calendar_month_default, {
-    monthIndex: 3,
-    showWeather
-  }), jsx(calendar_month_default, {
-    monthIndex: 4,
-    showWeather
-  }), jsx(calendar_month_default, {
-    monthIndex: 5,
-    showWeather
-  }), jsx(calendar_month_default, {
-    monthIndex: 6,
-    showWeather
-  }), jsx(calendar_month_default, {
-    monthIndex: 7,
-    showWeather
-  }))));
+  localStorage.removeItem(CALENDAR_KEY_V2);
+  return oldFormat ? parseV1AndV2Calendar(JSON.parse(json)) : JSON.parse(json);
 };
-
-// build/dist/components/calendar-day.js
-var CalendarDay = ({
-  day,
-  quarterClicked,
-  showWeather = true
-}) => {
-  const {
-    t: t3
-  } = useTranslation("calendar");
-  const {
-    calendar
-  } = useContext(CalendarContext);
-  const formatTemperature = (temp) => {
-    return calendar.temperatureUnit === TemperatureUnit.Metric ? getTempString(temp) : getFahrenheitTempString(temp);
-  };
-  return jsx("div", {
-    css: {
-      padding: "0.5rem",
-      borderWidth: "1px",
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.5rem"
-    }
-  }, jsx("div", {
-    css: {
-      display: "flex",
-      justifyContent: "space-between"
-    }
-  }, jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      width: "1.25rem"
-    }
-  }, jsx("div", {
-    css: {
-      "@media (min-width: 1024px)": {
-        display: "none"
-      }
-    }
-  }, day.name), jsx("div", {
-    css: [{
-      display: "flex",
-      gap: "0.25rem"
-    }, day.number === 1 ? {
-      fontWeight: "700"
-    } : {}]
-  }, day.number, jsx("div", null, getMoonEmoji(day.moon)), jsx("div", null, getWeatherIcon(day))))), jsx("div", {
-    css: {
-      width: "100%"
-    }
-  }, jsx(day_counter_default, {
-    quarters: day.quarters,
-    spendQuarter: () => quarterClicked(day)
-  })), showWeather && jsx("div", {
-    css: {}
-  }, jsx("div", null, t3("Weather-High"), ": ", formatTemperature(day.temp)), jsx("div", null, t3("Weather-Low"), ": ", formatTemperature(day.lowTemp)), jsx("div", null, t3(day.downpour)), jsx("div", null, t3(day.stormType)), jsx("div", null, t3(day.stormType)), jsx("div", null, t3(day.eventType?.name ?? ""))));
+var loadCalendar = () => {
+  const calV1 = localStorage.getItem(CALENDAR_KEY_V1);
+  const calV2 = localStorage.getItem(CALENDAR_KEY_V2);
+  const calV3 = localStorage.getItem(CALENDAR_KEY_V3);
+  if (calV3) {
+    return parseCalendar(calV3);
+  }
+  if (calV2) {
+    console.log(calV2);
+    return parseCalendar(calV2, true);
+  }
+  if (calV1) {
+    return parseCalendar(calV1, true);
+  }
+  return getCal(1165);
 };
-var calendar_day_default = CalendarDay;
-
-// build/dist/components/calendar-day-names.js
-var CalendarDayNames = () => {
-  const {
-    t: t3
-  } = useTranslation("calendar");
-  return jsx(react.Fragment, null, range(7).map((i2) => jsx("div", {
-    css: {
-      display: "none",
-      textTransform: "uppercase",
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
-      paddingTop: "0.25rem",
-      paddingBottom: "0.25rem",
-      borderBottomWidth: "2px",
-      "--tw-border-opacity": "1",
-      borderBottomColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
-      padding: "0.5rem",
-      alignItems: "center",
-      justifyContent: "center",
-      fontWeight: "700",
-      "@media (min-width: 1024px)": {
-        display: "flex"
-      }
-    },
-    key: getDayName(i2)
-  }, t3(getDayName(i2)))));
-};
-var calendar_day_names_default = CalendarDayNames;
 
 // build/dist/components/calendar-filler-day.js
 var CalendarFillerDays = ({
@@ -12489,6 +12301,320 @@ var YxansKlaganSvg = () => jsx("div", {
   d: "M242.94 56.85l.26 2a7.23 7.23 0 00.31.75c.14.32.34.73.57 1.22L258 79.21v-9.13l-.18-2.75-.13-2.62-.26-2-.43-1.32-.39-.92-.53-.57-.44-.22-.65-.13h-.74l-.09-1.62h9.56v1.66h-1l-.82.31-.62.83-.52 1.49-.39 2.53-.27 3.75-.1 5.21v6.94l1.49 1.53a11.27 11.27 0 002.18.92l-2.81 2.9-1.35 1.83-1.14 1.75-.75 1.49-.57 1.79a15.65 15.65 0 00-.75-2.1l-.92-1.35-17.1-24 .26 13.41.36 5.32.26 1.62.3 1.18.4.87.43.48.48.22.7.13h.66v1.49h-9.43v-1.44h.87l.7-.22.61-.61.53-1.14.43-2.27.31-3 .13-4.19.09-5.46v-7.08a6.89 6.89 0 00-1.62-1.61 13.62 13.62 0 00-2.18-.83l.61-1.18.79-1.18 1.26-.92 1.27-.78 3.16-1 3.29-.35m0-.75h-.08l-3.29.35h-.14l-3.16 1a.53.53 0 00-.17.08l-1.27.79h-.05l-1.26.91a.86.86 0 00-.19.19l-.78 1.18a.25.25 0 000 .07l-.61 1.18a.7.7 0 000 .63.73.73 0 00.46.43 12.48 12.48 0 012 .76 5.39 5.39 0 011.26 1.23v6.82l-.09 5.45-.13 4.15-.3 3-.41 2.15-.43.94-.39.38-.43.14h-.78a.75.75 0 00-.71.75v1.44a.75.75 0 00.75.75h9.43a.75.75 0 00.75-.73v-1.43a.19.19 0 000-.08.75.75 0 00-.75-.75h-.59l-.54-.1-.26-.12-.25-.28-.32-.7-.28-1.09-.25-1.54-.35-5.29-.21-11 15.69 22 .91 1.33c0 .08.19.44.66 1.91a.74.74 0 00.71.53.75.75 0 00.72-.53l.55-1.73L259 90l1.11-1.72 1.31-1.76 2.76-2.89a.74.74 0 00-.29-1.22 13.72 13.72 0 01-2-.79l-1.22-1.25v-6.66l.17-5.22.26-3.7.38-2.43L262 61l.42-.55.49-.19h.82a.74.74 0 00.75-.75v-1.62a.75.75 0 00-.75-.75h-9.56a.77.77 0 00-.55.24.76.76 0 00-.2.56l.09 1.61a.75.75 0 00.7.71h.69l.51.1.22.11.35.37.32.75.32 1.26.25 1.89.13 2.59.18 2.76v6.83l-12.5-16.53-.15-.32-.38-.82c-.12-.27-.2-.47-.25-.61l-.26-1.93a.74.74 0 00-.74-.65z"
 })))));
 
+// build/dist/components/calendar-day-names.js
+var DayName = styled_default.div(() => [{
+  display: "none",
+  textTransform: "uppercase",
+  paddingLeft: "0.5rem",
+  paddingRight: "0.5rem",
+  paddingTop: "0.25rem",
+  paddingBottom: "0.25rem",
+  borderBottomWidth: "2px",
+  "--tw-border-opacity": "1",
+  borderBottomColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
+  padding: "0.5rem",
+  alignItems: "center",
+  justifyContent: "center",
+  fontWeight: "700",
+  "@media (min-width: 1024px)": {
+    display: "flex"
+  }
+}]);
+var CalendarDayNames = () => {
+  const {
+    t: t3
+  } = useTranslation("calendar");
+  return jsx(react.Fragment, null, jsx(DayName, null, t3("SunDay")), jsx(DayName, null, t3("MoonDay")), jsx(DayName, null, t3("BloodDay")), jsx(DayName, null, t3("EarthDay")), jsx(DayName, null, t3("GrowthDay")), jsx(DayName, null, t3("HarvestDay")), jsx(DayName, null, t3("StillDay")));
+};
+
+// build/dist/components/month-collapse-button.js
+var MonthCollapseButton = ({
+  collapsed,
+  onMonthCollapseClick
+}) => {
+  const {
+    t: t3
+  } = useTranslation("calendar");
+  return jsx("button", {
+    "aria-label": t3(collapsed ? `ShowMonth` : `HideMonth`),
+    css: {
+      borderWidth: "2px",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
+      aspectRatio: "1",
+      position: "relative",
+      width: "2rem",
+      height: "2rem",
+      ":hover": {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+      }
+    },
+    onClick: onMonthCollapseClick
+  }, jsx("div", {
+    css: {
+      position: "absolute",
+      height: "0.25rem",
+      width: "1rem",
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
+      top: "50%",
+      left: "50%",
+      "--tw-translate-x": "-50%",
+      transform: "var(--tw-transform)",
+      "--tw-translate-y": "-50%",
+      transitionProperty: "transform",
+      transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+      transitionDuration: "150ms"
+    }
+  }), jsx("div", {
+    css: [{
+      position: "absolute",
+      height: "0.25rem",
+      width: "1rem",
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
+      top: "50%",
+      left: "50%",
+      "--tw-translate-x": "-50%",
+      transform: "var(--tw-transform)",
+      "--tw-translate-y": "-50%",
+      transitionProperty: "transform",
+      transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+      transitionDuration: "150ms"
+    }, collapsed ? {
+      "--tw-rotate": "-90deg",
+      transform: "var(--tw-transform)"
+    } : {
+      "--tw-rotate": "0deg",
+      transform: "var(--tw-transform)"
+    }]
+  }));
+};
+
+// build/dist/components/calendar-month.js
+var spendQuarter = (quarters) => {
+  const spent = (quarters.filter((q3) => q3).length + 1) % 5;
+  return [...range(spent).map((_24) => true), ...range(4 - spent).map((_24) => false)];
+};
+var quarterReducer = (month2, day) => {
+  return {
+    ...month2,
+    days: month2.days.map((d3) => {
+      if (d3.number === day.number) {
+        d3.quarters = spendQuarter(d3.quarters);
+      }
+      return d3;
+    })
+  };
+};
+var CalendarMonth = ({
+  month: month2,
+  showWeather = true,
+  temperatureUnit,
+  onMonthUpdate
+}) => {
+  const {
+    t: t3
+  } = useTranslation("calendar");
+  const quarterClicked = (day) => {
+    onMonthUpdate(quarterReducer(month2, day));
+  };
+  const toggleCollapse = () => {
+    onMonthUpdate({
+      ...month2,
+      collapsed: !month2.collapsed
+    });
+  };
+  return jsx("div", {
+    css: {
+      marginBottom: "1rem"
+    }
+  }, jsx(parchment_default, {
+    deps: [showWeather, month2, month2.collapsed]
+  }, jsx("h2", {
+    css: {
+      fontSize: "2.25rem",
+      lineHeight: "2.5rem",
+      textAlign: "center",
+      display: "flex",
+      gap: "0.5rem",
+      alignItems: "center"
+    },
+    className: "yx-heading"
+  }, jsx(MonthCollapseButton, {
+    collapsed: month2.collapsed,
+    onMonthCollapseClick: toggleCollapse
+  }), t3(month2.name)), !month2.collapsed && jsx("div", {
+    css: {
+      marginTop: "1rem",
+      display: "grid",
+      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+      "@media (min-width: 1024px)": {
+        gridTemplateColumns: "repeat(7, minmax(0, 1fr))"
+      }
+    }
+  }, jsx(CalendarDayNames, null), jsx(calendar_filler_day_default, {
+    day: month2.days[0]
+  }), month2.days.map((d3) => jsx(calendar_day_default, {
+    day: d3,
+    temperatureUnit,
+    key: `${d3.monthName}${d3.number}`,
+    showWeather,
+    quarterClicked
+  })))));
+};
+var calendar_month_default = CalendarMonth;
+
+// build/dist/hooks/use-local-storage.js
+function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error2) {
+      console.log(error2);
+      return initialValue;
+    }
+  });
+  const setValue = (value) => {
+    try {
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error2) {
+      console.log(error2);
+    }
+  };
+  return [storedValue, setValue];
+}
+
+// build/dist/hooks/use-window-scroll-position.js
+function useWindowScrollPosition(localStorageKey, setCondition) {
+  const [scrollYStorage, setScrollYStorage] = useLocalStorage(localStorageKey, 0);
+  const currentScroll = useRef(0);
+  const handleScroll = () => {
+    if (setCondition && window.scrollY !== 0) {
+      currentScroll.current = window.scrollY;
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      setScrollYStorage(currentScroll.current);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  useLayoutEffect(() => {
+    if (setCondition) {
+      setTimeout(() => {
+        window.scrollTo(0, scrollYStorage);
+      }, 100);
+    }
+  }, [setCondition, scrollYStorage]);
+}
+
+// build/dist/pages/calendar.page.js
+var DEFAULT_SHOW_WEATHER = true;
+var CALENDAR_SHOW_WEATHER_KEY = "calendar_show_weather";
+var CALENDAR_SCROLL_POSITION = "calendar_scroll";
+var CalendarPage = () => {
+  const {
+    t: t3
+  } = useTranslation("calendar");
+  const showWeatherFromStorage = localStorage.getItem(CALENDAR_SHOW_WEATHER_KEY) ?? void 0;
+  const calendarFromStorageOrDefault = loadCalendar();
+  const showWeatherFromStorageOrDefault = notNullish(showWeatherFromStorage) ? JSON.parse(showWeatherFromStorage) : DEFAULT_SHOW_WEATHER;
+  const [calendarState, setCalendarState] = useState(calendarFromStorageOrDefault);
+  const [calendar, setCalendar] = useLocalStorage(CALENDAR_KEY_V3, calendarFromStorageOrDefault);
+  useEffect(() => {
+    setCalendar(calendarState);
+    setAllCollapsed(calendarState.months.every((m3) => m3.collapsed));
+  }, [calendarState]);
+  const [showWeather, setShowWeather] = useLocalStorage(CALENDAR_SHOW_WEATHER_KEY, showWeatherFromStorageOrDefault);
+  const [allCollapsed, setAllCollapsed] = useState(void 0);
+  const handleMonthUpdate = (month2) => {
+    setCalendarState({
+      ...calendarState,
+      months: calendarState.months.map((m3) => {
+        if (m3.name !== month2.name) {
+          return m3;
+        }
+        return month2;
+      })
+    });
+  };
+  const handleTemperatureChange = (unit) => {
+    setCalendarState({
+      ...calendar,
+      temperatureUnit: unit
+    });
+  };
+  const collapseAll = (cal, collapse) => {
+    return {
+      ...cal,
+      months: cal.months.map((month2) => {
+        return {
+          ...month2,
+          collapsed: collapse
+        };
+      })
+    };
+  };
+  const handleToggleCollapseAll = () => {
+    setCalendarState(collapseAll(calendarState, !allCollapsed));
+  };
+  useWindowScrollPosition(CALENDAR_SCROLL_POSITION, notNullish(calendar));
+  return jsx("div", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      rowGap: "2rem",
+      width: "100%"
+    }
+  }, jsx(page_header_default, null, t3("Title")), jsx("div", {
+    css: {
+      textAlign: "center",
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      marginBottom: "0.5rem",
+      textTransform: "none"
+    },
+    className: "yx-prose"
+  }, t3("Year"), " ", calendarState.year, " ", t3("AS")), jsx("div", {
+    css: {
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
+      padding: "0.5rem",
+      display: "flex",
+      justifyContent: "flex-end",
+      gap: "0.5rem"
+    }
+  }, jsx(Button_default, {
+    isSmall: true,
+    variant: "secondary",
+    onClick: () => handleToggleCollapseAll()
+  }, t3(allCollapsed ? `ShowAll` : `HideAll`)), jsx(Button_default, {
+    isSmall: true,
+    variant: "secondary",
+    onClick: () => handleTemperatureChange(calendar.temperatureUnit === TemperatureUnit.Metric ? TemperatureUnit.Imperial : TemperatureUnit.Metric)
+  }, t3("Use"), " ", calendar.temperatureUnit === TemperatureUnit.Metric ? t3("F") : t3("C")), jsx(Button_default, {
+    variant: "secondary",
+    isSmall: true,
+    onClick: () => setShowWeather(!showWeather)
+  }, showWeather ? t3("Weather-Hide") : t3("Weather-Show"))), jsx("div", null, calendarState.months.map((month2) => {
+    return jsx(calendar_month_default, {
+      key: month2.name,
+      month: month2,
+      showWeather,
+      onMonthUpdate: handleMonthUpdate,
+      temperatureUnit: calendarState.temperatureUnit
+    });
+  })));
+};
+
 // build/dist/components/dice-display.js
 var DiceDisplay = ({
   value
@@ -12661,6 +12787,7 @@ var Encounter = ({
       alignItems: "center",
       justifyContent: "center",
       aspectRatio: "1",
+      height: "3rem",
       borderRadius: "9999px"
     }
   }, encounter.id), jsx("h2", {
@@ -14802,9 +14929,6 @@ var bKeyRegex = /^(B|D|F|H|J|L|N|P|R|T|V|X|Z|Ab|Ad|Af|Ah|Aj|Al|An)(1|3|5|7|9|11|
 var isHexKey = (s) => {
   const isAKey = aKeyRegex.test(s);
   const isBKey = bKeyRegex.test(s);
-  if (s === "Ai38") {
-    console.log("isHexKey", s, isAKey);
-  }
   return isAKey || isBKey;
 };
 var createInitialHexas = (hexData2) => {
@@ -15264,34 +15388,41 @@ var NameGeneratorPage = () => {
     }
   }, jsx(page_header_default, null, "Namn"), jsx("div", {
     css: {
-      display: "grid",
+      display: "flex",
+      flexWrap: "wrap",
       gap: "1rem",
-      "@media (min-width: 1024px)": {
-        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+      "@media (min-width: 1280px)": {
+        minWidth: "600px"
       }
     }
   }, jsx("div", {
     css: {
-      maxWidth: "65ch",
-      width: "100%"
+      flexBasis: "500px"
     }
   }, jsx(parchment_default, null, jsx(kin_name_list_default, {
+    css: {
+      padding: "0px"
+    },
     title: "Eländare",
     nameFunc: getRandomEländerName
   }))), jsx("div", {
     css: {
-      maxWidth: "65ch",
-      width: "100%"
+      flexBasis: "500px"
     }
   }, jsx(parchment_default, null, jsx(kin_name_list_default, {
+    css: {
+      padding: "0px"
+    },
     title: "Alderlänningar",
     nameFunc: getRandomAlderlänningarName
   }))), jsx("div", {
     css: {
-      maxWidth: "65ch",
-      width: "100%"
+      flexBasis: "500px"
     }
   }, jsx(parchment_default, null, jsx(kin_name_list_default, {
+    css: {
+      padding: "0px"
+    },
     title: "Aslener",
     nameFunc: getRandomAslenerName
   })))));
@@ -16046,9 +16177,7 @@ var App = () => {
     to: "/gear"
   }, t3("Menu-Gear")), jsx(MenuLink, {
     to: "/names"
-  }, t3("Menu-Names")), jsx(MenuLink, {
-    to: "/dice"
-  }, t3("Menu-Dice"))), jsx(LanguageSwitcher, null))), jsx("main", {
+  }, t3("Menu-Names"))), jsx(LanguageSwitcher, null))), jsx("main", {
     css: {
       width: "100%",
       marginTop: "1rem",
