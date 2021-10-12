@@ -31,7 +31,7 @@ export default function useWindowScrollPosition(
     if (setCondition) {
       setTimeout(() => {
         window.scrollTo(0, scrollYStorage)
-      }, 0)
+      }, 100)
     }
-  }, [setCondition])
+  }, [setCondition, scrollYStorage])
 }

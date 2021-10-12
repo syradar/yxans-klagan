@@ -36,7 +36,7 @@ export const Encounter = ({ encounter }: EncounterProps) => {
     >
       <Parchment deps={[encounter.id]}>
         <div tw="flex gap-2 mb-4 items-center">
-          <div tw="text-4xl text-center font-bold p-2 border-4 w-12 flex items-center justify-center aspect-ratio[1] rounded-full">
+          <div tw="text-4xl text-center font-bold p-2 border-4 w-12 flex items-center justify-center aspect-ratio[1] h-12 rounded-full">
             {encounter.id}
           </div>
           <h2 tw="text-4xl text-center flex" className="yx-heading">

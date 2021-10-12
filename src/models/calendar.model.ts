@@ -20,9 +20,15 @@ const month = [
 ] as const
 export type MonthNames = typeof month[number]
 
+export type MonthV1AndV2 = {
+  name: MonthNames
+  days: Day[]
+}
+
 export type Month = {
   name: MonthNames
   days: Day[]
+  collapsed: boolean
 }
 
 const numberOfMonths = (): 8 => 8
@@ -105,12 +111,68 @@ export const dayInMonth = (m: MonthNames): 45 | 46 => {
 }
 
 export type MonthIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7
+export const isMonthIndex = (val: number): val is MonthIndex => {
+  switch (val) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+      return true
+    default:
+      return false
+  }
+}
+
+export type CalendarV1AndV2 = {
+  temperatureUnit: TemperatureUnit
+  year: number
+  months: { [M in MonthIndex]: MonthV1AndV2 }
+}
 
 export type Calendar = {
   temperatureUnit: TemperatureUnit
   year: number
-  months: {
-    [k in MonthIndex]: Month
+  months: Month[]
+}
+
+const createMonth = (
+  monthName: MonthNames,
+  weatherDays: WeatherDay[],
+  daysPassed: number,
+) => {
+  return {
+    name: monthName,
+    collapsed: false,
+    days: range(dayInMonth(monthName)).map((d) => {
+      const {
+        temp,
+        lowTemp,
+        downpour,
+        stormType,
+        eventType,
+        isCloudy,
+        isPartlyCloudy,
+      } = weatherDays[daysPassed + d]
+
+      return {
+        number: d + 1,
+        name: getDayName(daysPassed + d),
+        monthName: monthName,
+        quarters: [false, false, false, false],
+        moon: getMoonPhase(daysPassed + d + 1 + 9),
+        temp,
+        lowTemp,
+        downpour,
+        stormType,
+        eventType,
+        isCloudy,
+        isPartlyCloudy,
+      }
+    }) as Day[],
   }
 }
 
@@ -129,42 +191,69 @@ export const getCal = (startYear = 1165): Calendar => {
   const cal = range(numberOfMonths()).reduce(
     (cal, m) => {
       const monthName = getMonthName(m)
-      cal.cal.months[m as MonthIndex] = {
-        name: monthName,
-        days: range(dayInMonth(monthName)).map((d) => {
-          const {
-            temp,
-            lowTemp,
-            downpour,
-            stormType,
-            eventType,
-            isCloudy,
-            isPartlyCloudy,
-          } = weatherDays[cal.daysPassed + d]
-
-          return {
-            number: d + 1,
-            name: getDayName(cal.daysPassed + d),
-            monthName: monthName,
-            quarters: [false, false, false, false],
-            moon: getMoonPhase(cal.daysPassed + d + 1 + 9),
-            temp,
-            lowTemp,
-            downpour,
-            stormType,
-            eventType,
-            isCloudy,
-            isPartlyCloudy,
-          }
-        }),
-      }
+      cal.cal.months.push(createMonth(monthName, weatherDays, cal.daysPassed))
       cal.daysPassed += dayInMonth(monthName)
 
       return cal
     },
 
-    { daysPassed: dayOffset, cal: { year: startYear, months: {} } as Calendar },
+    {
+      daysPassed: dayOffset,
+      cal: {
+        year: startYear,
+        months: [] as Month[],
+        temperatureUnit: TemperatureUnit.Metric,
+      } as Calendar,
+    },
   )
 
   return cal.cal
+}
+export const parseV1AndV2Calendar = (cal: CalendarV1AndV2): Calendar => {
+  return {
+    ...cal,
+    months: [
+      { ...cal.months[0], collapsed: false },
+      { ...cal.months[1], collapsed: false },
+      { ...cal.months[2], collapsed: false },
+      { ...cal.months[3], collapsed: false },
+      { ...cal.months[4], collapsed: false },
+      { ...cal.months[5], collapsed: false },
+      { ...cal.months[6], collapsed: false },
+    ],
+    temperatureUnit: TemperatureUnit.Metric,
+  }
+}
+
+const CALENDAR_KEY_V1 = 'calendar'
+const CALENDAR_KEY_V2 = 'calendar_v2'
+export const CALENDAR_KEY_V3 = 'calendar_v3'
+
+const parseCalendar = (json: string, oldFormat = false): Calendar => {
+  localStorage.removeItem(CALENDAR_KEY_V1)
+  localStorage.removeItem(CALENDAR_KEY_V2)
+
+  return oldFormat ? parseV1AndV2Calendar(JSON.parse(json)) : JSON.parse(json)
+}
+
+export const loadCalendar = (): Calendar => {
+  const calV1 = localStorage.getItem(CALENDAR_KEY_V1)
+  const calV2 = localStorage.getItem(CALENDAR_KEY_V2)
+  const calV3 = localStorage.getItem(CALENDAR_KEY_V3)
+
+  if (calV3) {
+    return parseCalendar(calV3)
+  }
+
+  if (calV2) {
+    console.log(calV2)
+
+    return parseCalendar(calV2, true)
+  }
+
+  if (calV1) {
+    return parseCalendar(calV1, true)
+  }
+
+  return getCal(1165)
 }

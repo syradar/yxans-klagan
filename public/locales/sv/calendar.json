@@ -35,5 +35,9 @@
   "DownPourRaining": "Hällregn",
   "DownPourLightSnow": "Lätt snöfall",
   "DownPourSnowShowers": "Snöskurar",
-  "DownPourSnowing": "Snöfall"
+  "DownPourSnowing": "Snöfall",
+  "ShowMonth": "Show månad",
+  "HideMonth": "Hide månad",
+  "ShowAll": "Expandera månader",
+  "HideAll": "Kollapsa månader"
 }

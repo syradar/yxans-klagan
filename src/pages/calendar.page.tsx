@@ -1,4 +1,4 @@
-import React, { createContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import 'twin.macro'
 import { Button, PageHeader } from '../components'
@@ -7,55 +7,85 @@ import { notNullish } from '../functions/utils.functions'
 import { TemperatureUnit } from '../functions/weather.functions'
 import { useLocalStorage } from '../hooks/use-local-storage'
 import useWindowScrollPosition from '../hooks/use-window-scroll-position'
-import { Calendar, getCal } from '../models/calendar.model'
+import {
+  Calendar,
+  CALENDAR_KEY_V3,
+  loadCalendar,
+  Month,
+} from '../models/calendar.model'
 
-const DEFAULT_CALENDAR = getCal(1165)
 const DEFAULT_SHOW_WEATHER = true
 
-const CALENDAR_KEY_V1 = 'calendar'
-const CALENDAR_KEY = 'calendar_v2'
 const CALENDAR_SHOW_WEATHER_KEY = 'calendar_show_weather'
 const CALENDAR_SCROLL_POSITION = 'calendar_scroll'
 
-type CalendarContext = {
-  calendar: Calendar
-  setCalendar: (cal: Calendar) => void
-}
-
-export const CalendarContext = createContext<CalendarContext>({
-  calendar: DEFAULT_CALENDAR,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setCalendar: (_: Calendar) => {},
-})
-
 export const CalendarPage = () => {
   const { t } = useTranslation('calendar')
-  const calendarFromStorage = localStorage.getItem(CALENDAR_KEY) ?? undefined
   const showWeatherFromStorage =
     localStorage.getItem(CALENDAR_SHOW_WEATHER_KEY) ?? undefined
 
-  localStorage.removeItem(CALENDAR_KEY_V1)
-
-  const calendarFromStorageOrDefault = notNullish(calendarFromStorage)
-    ? JSON.parse(calendarFromStorage)
-    : DEFAULT_CALENDAR
+  const calendarFromStorageOrDefault: Calendar = loadCalendar()
 
   const showWeatherFromStorageOrDefault = notNullish(showWeatherFromStorage)
     ? JSON.parse(showWeatherFromStorage)
     : DEFAULT_SHOW_WEATHER
 
-  const [calendar, setCalendar] = useLocalStorage<Calendar>(
-    CALENDAR_KEY,
+  const [calendarState, setCalendarState] = useState<Calendar>(
     calendarFromStorageOrDefault,
   )
+
+  const [calendar, setCalendar] = useLocalStorage<Calendar>(
+    CALENDAR_KEY_V3,
+    calendarFromStorageOrDefault,
+  )
+
+  useEffect(() => {
+    setCalendar(calendarState)
+    setAllCollapsed(calendarState.months.every((m) => m.collapsed))
+    // setTimeout(() => {
+    // }, 10)
+  }, [calendarState])
 
   const [showWeather, setShowWeather] = useLocalStorage<boolean>(
     CALENDAR_SHOW_WEATHER_KEY,
     showWeatherFromStorageOrDefault,
   )
 
+  const [allCollapsed, setAllCollapsed] = useState<boolean | undefined>(
+    undefined,
+  )
+
+  const handleMonthUpdate = (month: Month) => {
+    setCalendarState({
+      ...calendarState,
+      months: calendarState.months.map((m) => {
+        if (m.name !== month.name) {
+          return m
+        }
+
+        return month
+      }),
+    })
+  }
+
   const handleTemperatureChange = (unit: TemperatureUnit) => {
-    setCalendar({ ...calendar, temperatureUnit: unit })
+    setCalendarState({ ...calendar, temperatureUnit: unit })
+  }
+
+  const collapseAll = (cal: Calendar, collapse: boolean) => {
+    return {
+      ...cal,
+      months: cal.months.map((month) => {
+        return {
+          ...month,
+          collapsed: collapse,
+        }
+      }),
+    }
+  }
+
+  const handleToggleCollapseAll = () => {
+    setCalendarState(collapseAll(calendarState, !allCollapsed))
   }
 
   useWindowScrollPosition(CALENDAR_SCROLL_POSITION, notNullish(calendar))
@@ -64,9 +94,17 @@ export const CalendarPage = () => {
     <div tw="flex flex-col gap-y-8 w-full">
       <PageHeader>{t('Title')}</PageHeader>
       <div tw="text-center text-xl mb-2 normal-case" className="yx-prose">
-        {t('Year')} {calendar.year} {t('AS')}
+        {t('Year')} {calendarState.year} {t('AS')}
       </div>
       <div tw="bg-gray-200 p-2 flex justify-end gap-2">
+        <Button
+          isSmall
+          variant="secondary"
+          onClick={() => handleToggleCollapseAll()}
+        >
+          {t(allCollapsed ? `ShowAll` : `HideAll`)}
+        </Button>
+
         <Button
           isSmall
           variant="secondary"
@@ -91,54 +129,18 @@ export const CalendarPage = () => {
           {showWeather ? t('Weather-Hide') : t('Weather-Show')}
         </Button>
       </div>
-
-      <div tw="">
-        <CalendarContext.Provider
-          value={{
-            calendar,
-            setCalendar,
-          }}
-        >
-          <CalendarMonth
-            monthIndex={0}
-            showWeather={showWeather}
-          ></CalendarMonth>
-
-          <CalendarMonth
-            monthIndex={1}
-            showWeather={showWeather}
-          ></CalendarMonth>
-
-          <CalendarMonth
-            monthIndex={2}
-            showWeather={showWeather}
-          ></CalendarMonth>
-
-          <CalendarMonth
-            monthIndex={3}
-            showWeather={showWeather}
-          ></CalendarMonth>
-
-          <CalendarMonth
-            monthIndex={4}
-            showWeather={showWeather}
-          ></CalendarMonth>
-
-          <CalendarMonth
-            monthIndex={5}
-            showWeather={showWeather}
-          ></CalendarMonth>
-
-          <CalendarMonth
-            monthIndex={6}
-            showWeather={showWeather}
-          ></CalendarMonth>
-
-          <CalendarMonth
-            monthIndex={7}
-            showWeather={showWeather}
-          ></CalendarMonth>
-        </CalendarContext.Provider>
+      <div>
+        {calendarState.months.map((month) => {
+          return (
+            <CalendarMonth
+              key={month.name}
+              month={month}
+              showWeather={showWeather}
+              onMonthUpdate={handleMonthUpdate}
+              temperatureUnit={calendarState.temperatureUnit}
+            ></CalendarMonth>
+          )
+        })}
       </div>
     </div>
   )

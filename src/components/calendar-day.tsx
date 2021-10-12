@@ -1,4 +1,5 @@
-import React, { FC, useContext } from 'react'
+import React, { FC } from 'react'
+import { useTranslation } from 'react-i18next'
 import 'twin.macro'
 import tw from 'twin.macro'
 import { DayCounter } from '.'
@@ -10,25 +11,24 @@ import {
   TemperatureUnit,
 } from '../functions/weather.functions'
 import { Day } from '../models/calendar.model'
-import { useTranslation } from 'react-i18next'
-import { CalendarContext } from '../pages/calendar.page'
 
 interface CalendarDayProps {
   day: Day
   quarterClicked: (day: Day) => void
   showWeather: boolean
+  temperatureUnit: TemperatureUnit
 }
 
 const CalendarDay: FC<CalendarDayProps> = ({
   day,
   quarterClicked,
   showWeather = true,
+  temperatureUnit,
 }: CalendarDayProps) => {
   const { t } = useTranslation('calendar')
-  const { calendar } = useContext(CalendarContext)
 
   const formatTemperature = (temp: number) => {
-    return calendar.temperatureUnit === TemperatureUnit.Metric
+    return temperatureUnit === TemperatureUnit.Metric
       ? getTempString(temp)
       : getFahrenheitTempString(temp)
   }

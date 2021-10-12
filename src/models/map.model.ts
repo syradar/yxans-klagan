@@ -72,10 +72,6 @@ export const isHexKey = (s: string): s is HexKey => {
   const isAKey = aKeyRegex.test(s)
   const isBKey = bKeyRegex.test(s)
 
-  if (s === 'Ai38') {
-    console.log('isHexKey', s, isAKey)
-  }
-
   return isAKey || isBKey
 }
 
