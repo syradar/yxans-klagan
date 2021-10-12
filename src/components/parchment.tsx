@@ -19,7 +19,7 @@ const Parchment = React.forwardRef<SVGSVGElement, ParchmentProps>(
       } else {
         console.log('null content ref')
       }
-    }, [currentWidth, ...(deps ? deps : [])])
+    }, [currentWidth, contentRef?.current, ...(deps ? deps : [])])
 
     const dim = 98
     const width = 2.5
@@ -70,7 +70,13 @@ const Parchment = React.forwardRef<SVGSVGElement, ParchmentProps>(
           y={`${width}px`}
         />
         <foreignObject width="100%" height="100%">
-          <div tw="px-8 py-8" ref={contentRef}>
+          <div
+            tw="p-4 "
+            css={{
+              padding: `2rem calc(1rem + ${(100 - dim) * 1}%)`,
+            }}
+            ref={contentRef}
+          >
             {children && children}
           </div>
         </foreignObject>
@@ -82,3 +88,7 @@ const Parchment = React.forwardRef<SVGSVGElement, ParchmentProps>(
 Parchment.displayName = 'Parchment'
 
 export default Parchment
+
+// clamp(.5rem, calc(1rem + ${
+//   (100 - dim) * 0.5
+// }%),  calc(2rem + ${(100 - dim) * 0.5}%))`

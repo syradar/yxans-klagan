@@ -12,26 +12,31 @@ export const NameGeneratorPage = () => {
     <div tw="flex flex-col gap-y-8 w-full">
       <PageHeader>Namn</PageHeader>
 
-      <div tw="grid lg:(grid-cols-2) gap-4">
-        <div tw="max-w-prose w-full">
+      <div tw="flex flex-wrap xl:(min-w-[600px]) gap-4">
+        <div tw=" flex-basis[500px]">
           <Parchment>
             <KinNameList
+              tw="p-0"
               title={'Eländare'}
               nameFunc={getRandomEländerName}
             ></KinNameList>
           </Parchment>
         </div>
-        <div tw="max-w-prose w-full">
+
+        <div tw=" flex-basis[500px]">
           <Parchment>
             <KinNameList
+              tw="p-0"
               title={'Alderlänningar'}
               nameFunc={getRandomAlderlänningarName}
             ></KinNameList>
           </Parchment>
         </div>
-        <div tw="max-w-prose w-full">
+
+        <div tw=" flex-basis[500px]">
           <Parchment>
             <KinNameList
+              tw="p-0"
               title={'Aslener'}
               nameFunc={getRandomAslenerName}
             ></KinNameList>

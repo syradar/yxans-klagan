@@ -1,24 +1,24 @@
 import React from 'react'
-import 'twin.macro'
-import { range } from '../functions/array.functions'
-import { getDayName } from '../models/calendar.model'
 import { useTranslation } from 'react-i18next'
+import 'twin.macro'
+import tw, { styled } from 'twin.macro'
 
-const CalendarDayNames = () => {
+const DayName = styled.div(() => [
+  tw`hidden lg:(flex) uppercase px-2 py-1 border-b-2 border-b-black p-2 items-center justify-center font-bold`,
+])
+
+export const CalendarDayNames = () => {
   const { t } = useTranslation('calendar')
 
   return (
     <>
-      {range(7).map((i) => (
-        <div
-          tw="hidden lg:(flex) uppercase px-2 py-1 border-b-2 border-b-black p-2 items-center justify-center font-bold"
-          key={getDayName(i)}
-        >
-          {t(getDayName(i))}
-        </div>
-      ))}
+      <DayName>{t('SunDay')}</DayName>
+      <DayName>{t('MoonDay')}</DayName>
+      <DayName>{t('BloodDay')}</DayName>
+      <DayName>{t('EarthDay')}</DayName>
+      <DayName>{t('GrowthDay')}</DayName>
+      <DayName>{t('HarvestDay')}</DayName>
+      <DayName>{t('StillDay')}</DayName>
     </>
   )
 }
-
-export default CalendarDayNames

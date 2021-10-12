@@ -85,7 +85,7 @@ const App = () => {
               <MenuLink to="/calendar">{t('Menu-Calendar')}</MenuLink>
               <MenuLink to="/gear">{t('Menu-Gear')}</MenuLink>
               <MenuLink to="/names">{t('Menu-Names')}</MenuLink>
-              <MenuLink to="/dice">{t('Menu-Dice')}</MenuLink>
+              {/* <MenuLink to="/dice">{t('Menu-Dice')}</MenuLink> */}
             </nav>
             <LanguageSwitcher></LanguageSwitcher>
           </div>

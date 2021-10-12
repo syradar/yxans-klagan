@@ -1,13 +1,17 @@
-import React, { FC, useContext } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import 'twin.macro'
-import { CalendarDay, CalendarDayNames, CalendarFillerDays, Parchment } from '.'
+import { CalendarDay, CalendarFillerDays, Parchment } from '.'
 import { range } from '../functions/array.functions'
-import { Calendar, Day, MonthIndex } from '../models/calendar.model'
-import { CalendarContext } from '../pages/calendar.page'
+import { TemperatureUnit } from '../functions/weather.functions'
+import { Day, Month } from '../models/calendar.model'
+import { CalendarDayNames } from './calendar-day-names'
+import { MonthCollapseButton } from './month-collapse-button'
 
 interface CalendarMonthProps {
-  monthIndex: MonthIndex
+  month: Month
+  onMonthUpdate: (month: Month) => void
+  temperatureUnit: TemperatureUnit
   showWeather: boolean
 }
 
@@ -22,59 +26,64 @@ const spendQuarter = (
   ] as [boolean, boolean, boolean, boolean]
 }
 
-const quarterReducer = (
-  cal: Calendar,
-  monthIndex: MonthIndex,
-  day: Day,
-): Calendar => {
+const quarterReducer = (month: Month, day: Day): Month => {
   return {
-    ...cal,
-    months: {
-      ...cal.months,
-      [monthIndex]: {
-        ...cal.months[monthIndex],
-        days: cal.months[monthIndex].days.map((d) => {
-          if (d.number === day.number) {
-            d.quarters = spendQuarter(d.quarters)
-          }
+    ...month,
+    days: month.days.map((d) => {
+      if (d.number === day.number) {
+        d.quarters = spendQuarter(d.quarters)
+      }
 
-          return d
-        }),
-      },
-    },
+      return d
+    }),
   }
 }
 
-const CalendarMonth: FC<CalendarMonthProps> = ({
-  monthIndex,
+const CalendarMonth = ({
+  month,
   showWeather = true,
+  temperatureUnit,
+  onMonthUpdate,
 }: CalendarMonthProps) => {
   const { t } = useTranslation('calendar')
-  const { calendar, setCalendar } = useContext(CalendarContext)
 
   const quarterClicked = (day: Day): void => {
-    setCalendar(quarterReducer(calendar, monthIndex, day))
+    onMonthUpdate(quarterReducer(month, day))
+  }
+
+  const toggleCollapse = () => {
+    onMonthUpdate({ ...month, collapsed: !month.collapsed })
   }
 
   return (
     <div tw="mb-4">
-      <Parchment deps={[showWeather]}>
-        <h2 tw="text-4xl text-center flex mb-4" className="yx-heading">
-          {t(calendar.months[monthIndex].name)}
+      <Parchment deps={[showWeather, month, month.collapsed]}>
+        <h2
+          tw="text-4xl text-center flex gap-2 items-center"
+          className="yx-heading"
+        >
+          <MonthCollapseButton
+            collapsed={month.collapsed}
+            onMonthCollapseClick={toggleCollapse}
+          ></MonthCollapseButton>
+          {t(month.name)}
         </h2>
 
-        <div tw="grid grid-cols-3 lg:(grid-cols-7)">
-          <CalendarDayNames />
-          <CalendarFillerDays day={calendar.months[monthIndex].days[0]} />
-          {calendar.months[monthIndex].days.map((d) => (
-            <CalendarDay
-              day={d}
-              key={`${d.monthName}${d.number}`}
-              showWeather={showWeather}
-              quarterClicked={quarterClicked}
-            ></CalendarDay>
-          ))}
-        </div>
+        {!month.collapsed && (
+          <div tw="mt-4 grid grid-cols-3 lg:(grid-cols-7)">
+            <CalendarDayNames />
+            <CalendarFillerDays day={month.days[0]} />
+            {month.days.map((d) => (
+              <CalendarDay
+                day={d}
+                temperatureUnit={temperatureUnit}
+                key={`${d.monthName}${d.number}`}
+                showWeather={showWeather}
+                quarterClicked={quarterClicked}
+              ></CalendarDay>
+            ))}
+          </div>
+        )}
       </Parchment>
     </div>
   )

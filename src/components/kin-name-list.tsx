@@ -23,7 +23,7 @@ const KinNameList: FC<KinNameListProps> = ({
   const getNames = () => setNames(randomNames())
 
   return (
-    <>
+    <div>
       <button
         tw="flex gap-2 items-center mb-4 hover:text-yellow-500"
         onClick={() => getNames()}
@@ -33,7 +33,7 @@ const KinNameList: FC<KinNameListProps> = ({
         </h2>
         <ReloadIcon container={tw`w-6 h-6`} svg={tw``}></ReloadIcon>
       </button>
-      <div tw="grid grid-cols-2">
+      <div tw="flex gap-16">
         <div>
           <h3 tw="font-semibold text-2xl uppercase">Kvinnor</h3>
 
@@ -58,7 +58,7 @@ const KinNameList: FC<KinNameListProps> = ({
           )}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
