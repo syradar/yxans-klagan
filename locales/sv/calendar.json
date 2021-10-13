@@ -39,5 +39,9 @@
   "ShowMonth": "Show månad",
   "HideMonth": "Hide månad",
   "ShowAll": "Expandera månader",
-  "HideAll": "Kollapsa månader"
+  "HideAll": "Kollapsa månader",
+  "Options-StartingYear": "Välj startår",
+  "Options-StartingYearWarning": "Varning: Genom att ändra startår kommer du att rensa kalendern!",
+  "Options-StartingYearNag": "Ja, jag vill ändra startår och rensa kalendern",
+  "Options-StartingDay": "Välj startdag"
 }

@@ -39,5 +39,9 @@
   "ShowMonth": "Show month",
   "HideMonth": "Hide month",
   "ShowAll": "Expand months",
-  "HideAll": "Collapse months"
+  "HideAll": "Collapse months",
+  "Options-StartingYear": "Choose starting year",
+  "Options-StartingYearWarning": "Warning: By changing the starting year the calender will reset!",
+  "Options-StartingYearNag": "Yes, I want to change the starting year and reset the calendar",
+  "Options-StartingDay": "Choose starting day"
 }

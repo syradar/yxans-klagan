@@ -10074,6 +10074,7 @@ var Button_default = Button;
 
 // build/dist/components/stepper.js
 var stepButtonStyles = () => [{
+  height: "2.5rem",
   fontWeight: "700",
   paddingTop: "0px",
   paddingBottom: "0px",
@@ -10091,11 +10092,6 @@ var stepButtonStyles = () => [{
   "--tw-border-opacity": "1",
   borderColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
   borderRadius: "0px"
-}, {
-  ":hover": {
-    "--tw-bg-opacity": "1",
-    backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))"
-  }
 }];
 var Stepper = ({
   value,
@@ -10132,14 +10128,28 @@ var Stepper = ({
       display: "inline-flex"
     }
   }, jsx("button", {
-    css: stepButtonStyles(),
+    css: [{
+      width: "2.5rem",
+      ":hover": {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+      },
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
+      "--tw-text-opacity": "1",
+      color: "rgba(255, 255, 255, var(--tw-text-opacity))"
+    }, stepButtonStyles()],
     type: "button",
     onClick: decrement,
     "aria-controls": id2
   }, "–"), jsx("input", {
     css: [...stepButtonStyles(), {
       borderLeftWidth: "0px",
-      borderRightWidth: "0px"
+      borderRightWidth: "0px",
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(255, 255, 255, var(--tw-bg-opacity))"
     }, {
       "::-webkit-inner-spin-button": {
         " -webkit-appearance": "none",
@@ -10156,9 +10166,22 @@ var Stepper = ({
     value,
     min,
     max,
-    onChange: (e3) => handleChange(e3.target.value)
+    onChange: (e3) => handleChange(e3.target.value),
+    disabled: true
   }), jsx("button", {
-    css: stepButtonStyles(),
+    css: [{
+      width: "2.5rem",
+      ":hover": {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+      },
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
+      "--tw-text-opacity": "1",
+      color: "rgba(255, 255, 255, var(--tw-text-opacity))"
+    }, stepButtonStyles()],
     type: "button",
     onClick: increment,
     "aria-controls": id2
@@ -10879,6 +10902,12 @@ function has(prop, obj) {
   if (!obj)
     return false;
   return obj.hasOwnProperty(prop);
+}
+function last(listOrString) {
+  if (typeof listOrString === "string") {
+    return listOrString[listOrString.length - 1] || "";
+  }
+  return listOrString[listOrString.length - 1];
 }
 function sum(list) {
   return list.reduce((prev, current) => prev + current, 0);
@@ -11780,39 +11809,31 @@ var dayInMonth = (m3) => {
       return 45;
   }
 };
-var createMonth = (monthName, weatherDays, daysPassed) => {
+var createMonth = (monthName, weatherDays, daysPassed, dayOffset) => {
   return {
     name: monthName,
     collapsed: false,
     days: range(dayInMonth(monthName)).map((d3) => {
-      const {
-        temp,
-        lowTemp,
-        downpour,
-        stormType,
-        eventType,
-        isCloudy,
-        isPartlyCloudy
-      } = weatherDays[daysPassed + d3];
+      const weatherDay = weatherDays[daysPassed + d3];
       return {
         number: d3 + 1,
-        name: getDayName(daysPassed + d3),
+        name: getDayName(daysPassed + d3 + dayOffset),
         monthName,
         quarters: [false, false, false, false],
         moon: getMoonPhase(daysPassed + d3 + 1 + 9),
-        temp,
-        lowTemp,
-        downpour,
-        stormType,
-        eventType,
-        isCloudy,
-        isPartlyCloudy
+        temp: weatherDay.temp,
+        lowTemp: weatherDay.lowTemp,
+        downpour: weatherDay.downpour,
+        stormType: weatherDay.stormType,
+        eventType: weatherDay.eventType,
+        isCloudy: weatherDay.isCloudy,
+        isPartlyCloudy: weatherDay.isPartlyCloudy
       };
     })
   };
 };
-var getCal = (startYear = 1165) => {
-  const dayOffset = startYear % 1165 % 7;
+var getCal = (startYear = 1165, startDay) => {
+  const dayOffset = startDay ? getDayNumber(startDay) - 1 : startYear % 1165 % 7;
   const weather = new GenerateWeather(365, [], 48, 50, 6, "");
   const weatherDays = weather.weatherSystems.reduce((acc, cur) => {
     acc.push(cur.days);
@@ -11820,15 +11841,16 @@ var getCal = (startYear = 1165) => {
   }, []).flat();
   const cal = range(numberOfMonths()).reduce((cal2, m3) => {
     const monthName = getMonthName(m3);
-    cal2.cal.months.push(createMonth(monthName, weatherDays, cal2.daysPassed));
+    cal2.cal.months.push(createMonth(monthName, weatherDays, cal2.daysPassed, dayOffset));
     cal2.daysPassed += dayInMonth(monthName);
     return cal2;
   }, {
-    daysPassed: dayOffset,
+    daysPassed: 0,
     cal: {
       year: startYear,
       months: [],
-      temperatureUnit: TemperatureUnit.Metric
+      temperatureUnit: TemperatureUnit.Metric,
+      startDay
     }
   });
   return cal.cal;
@@ -11858,23 +11880,30 @@ var parseV1AndV2Calendar = (cal) => {
       ...cal.months[6],
       collapsed: false
     }],
-    temperatureUnit: TemperatureUnit.Metric
+    temperatureUnit: TemperatureUnit.Metric,
+    startDay: "SunDay"
   };
 };
 var CALENDAR_KEY_V1 = "calendar";
 var CALENDAR_KEY_V2 = "calendar_v2";
 var CALENDAR_KEY_V3 = "calendar_v3";
+var CALENDAR_KEY_V4 = "calendar_v4";
 var parseCalendar = (json, oldFormat = false) => {
   localStorage.removeItem(CALENDAR_KEY_V1);
   localStorage.removeItem(CALENDAR_KEY_V2);
+  localStorage.removeItem(CALENDAR_KEY_V3);
   return oldFormat ? parseV1AndV2Calendar(JSON.parse(json)) : JSON.parse(json);
 };
 var loadCalendar = () => {
   const calV1 = localStorage.getItem(CALENDAR_KEY_V1);
   const calV2 = localStorage.getItem(CALENDAR_KEY_V2);
   const calV3 = localStorage.getItem(CALENDAR_KEY_V3);
+  const calV4 = localStorage.getItem(CALENDAR_KEY_V4);
+  if (calV4) {
+    return parseCalendar(calV4);
+  }
   if (calV3) {
-    return parseCalendar(calV3);
+    return parseCalendar(calV3, true);
   }
   if (calV2) {
     console.log(calV2);
@@ -11884,6 +11913,27 @@ var loadCalendar = () => {
     return parseCalendar(calV1, true);
   }
   return getCal(1165);
+};
+var updateStartingDay = (cal, startDay) => {
+  const dayOffset = getDayNumber(startDay) - 1;
+  let daysPassed = 0;
+  const newCal = {
+    ...cal,
+    months: cal.months.map((m3) => {
+      return {
+        ...m3,
+        days: m3.days.map((d3) => {
+          daysPassed += 1;
+          return {
+            ...d3,
+            name: getDayName(getDayNumber("SunDay") + dayOffset + daysPassed - 2)
+          };
+        })
+      };
+    }),
+    startDay
+  };
+  return newCal;
 };
 
 // build/dist/components/calendar-filler-day.js
@@ -12528,13 +12578,20 @@ var CalendarPage = () => {
   const calendarFromStorageOrDefault = loadCalendar();
   const showWeatherFromStorageOrDefault = notNullish(showWeatherFromStorage) ? JSON.parse(showWeatherFromStorage) : DEFAULT_SHOW_WEATHER;
   const [calendarState, setCalendarState] = useState(calendarFromStorageOrDefault);
-  const [calendar, setCalendar] = useLocalStorage(CALENDAR_KEY_V3, calendarFromStorageOrDefault);
+  const [calendar, setCalendar] = useLocalStorage(CALENDAR_KEY_V4, calendarFromStorageOrDefault);
   useEffect(() => {
     setCalendar(calendarState);
     setAllCollapsed(calendarState.months.every((m3) => m3.collapsed));
   }, [calendarState]);
   const [showWeather, setShowWeather] = useLocalStorage(CALENDAR_SHOW_WEATHER_KEY, showWeatherFromStorageOrDefault);
   const [allCollapsed, setAllCollapsed] = useState(void 0);
+  const [showCalenderOptions, setShowCalenderOptions] = useState(false);
+  const [showYearOption, setShowYearOption] = useState(false);
+  useEffect(() => {
+    if (!showCalenderOptions) {
+      setShowYearOption(false);
+    }
+  }, [showCalenderOptions]);
   const handleMonthUpdate = (month2) => {
     setCalendarState({
       ...calendarState,
@@ -12566,6 +12623,14 @@ var CalendarPage = () => {
   const handleToggleCollapseAll = () => {
     setCalendarState(collapseAll(calendarState, !allCollapsed));
   };
+  const handleUpdatingStartingDay = (dayName) => {
+    setCalendarState(updateStartingDay(calendarState, dayName));
+  };
+  const handleUpdatingYear = (newYear) => {
+    const lastDay = last(last(calendarState.months).days).name;
+    const nextYearsStartDay = getDayName(getDayNumber(lastDay));
+    setCalendarState(getCal(newYear, nextYearsStartDay));
+  };
   useWindowScrollPosition(CALENDAR_SCROLL_POSITION, notNullish(calendar));
   return jsx("div", {
     css: {
@@ -12585,10 +12650,17 @@ var CalendarPage = () => {
     className: "yx-prose"
   }, t3("Year"), " ", calendarState.year, " ", t3("AS")), jsx("div", {
     css: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "0px"
+    }
+  }, jsx("div", {
+    css: {
       "--tw-bg-opacity": "1",
       backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
       padding: "0.5rem",
       display: "flex",
+      flexWrap: "wrap",
       justifyContent: "flex-end",
       gap: "0.5rem"
     }
@@ -12604,7 +12676,119 @@ var CalendarPage = () => {
     variant: "secondary",
     isSmall: true,
     onClick: () => setShowWeather(!showWeather)
-  }, showWeather ? t3("Weather-Hide") : t3("Weather-Show"))), jsx("div", null, calendarState.months.map((month2) => {
+  }, showWeather ? t3("Weather-Hide") : t3("Weather-Show")), jsx(Button_default, {
+    css: [showCalenderOptions ? {
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
+      "--tw-text-opacity": "1",
+      color: "rgba(255, 255, 255, var(--tw-text-opacity))"
+    } : {}],
+    variant: "secondary",
+    isSmall: true,
+    onClick: () => setShowCalenderOptions(!showCalenderOptions)
+  }, "...")), showCalenderOptions && jsx("div", {
+    css: {
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
+      paddingTop: "2rem",
+      paddingBottom: "2rem",
+      paddingLeft: "1rem",
+      paddingRight: "1rem",
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.5rem"
+    }
+  }, jsx("h3", {
+    css: {
+      fontWeight: "700",
+      textTransform: "uppercase",
+      letterSpacing: "0.025em"
+    }
+  }, t3("Options-StartingYear")), jsx("div", {
+    css: {
+      padding: "1rem",
+      borderWidth: "2px",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(220, 38, 38, var(--tw-border-opacity))",
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(254, 226, 226, var(--tw-bg-opacity))",
+      fontWeight: "700",
+      display: "flex",
+      flexDirection: "column",
+      gap: "1rem"
+    }
+  }, jsx("p", {
+    css: {
+      marginBottom: "0.5rem",
+      "--tw-text-opacity": "1",
+      color: "rgba(220, 38, 38, var(--tw-text-opacity))"
+    }
+  }, t3("Options-StartingYearWarning")), jsx("div", null, jsx(Button_default, {
+    css: {
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(220, 38, 38, var(--tw-border-opacity))",
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(254, 202, 202, var(--tw-bg-opacity))",
+      "--tw-text-opacity": "1",
+      color: "rgba(185, 28, 28, var(--tw-text-opacity))",
+      ":hover": {
+        "--tw-text-opacity": "1",
+        color: "rgba(255, 255, 255, var(--tw-text-opacity))",
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(220, 38, 38, var(--tw-bg-opacity))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(220, 38, 38, var(--tw-border-opacity))"
+      }
+    },
+    isSmall: true,
+    onClick: () => setShowYearOption(true),
+    disabled: showYearOption,
+    variant: showYearOption ? "disabled" : void 0
+  }, t3("Options-StartingYearNag"))), showYearOption && jsx(stepper_default, {
+    max: 1e4,
+    min: -2e3,
+    value: calendarState.year,
+    id: "yearChanger",
+    onChange: (val) => {
+      handleUpdatingYear(val);
+    }
+  })), jsx("h3", {
+    css: {
+      marginTop: "1rem",
+      fontWeight: "700",
+      textTransform: "uppercase",
+      letterSpacing: "0.025em"
+    }
+  }, t3("Options-StartingDay")), jsx("div", {
+    css: {
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "0.5rem"
+    }
+  }, jsx(Button_default, {
+    onClick: () => handleUpdatingStartingDay("SunDay"),
+    isSmall: true
+  }, t3("SunDay")), jsx(Button_default, {
+    onClick: () => handleUpdatingStartingDay("MoonDay"),
+    isSmall: true
+  }, t3("MoonDay")), jsx(Button_default, {
+    onClick: () => handleUpdatingStartingDay("BloodDay"),
+    isSmall: true
+  }, t3("BloodDay")), jsx(Button_default, {
+    onClick: () => handleUpdatingStartingDay("EarthDay"),
+    isSmall: true
+  }, t3("EarthDay")), jsx(Button_default, {
+    onClick: () => handleUpdatingStartingDay("GrowthDay"),
+    isSmall: true
+  }, t3("GrowthDay")), jsx(Button_default, {
+    onClick: () => handleUpdatingStartingDay("HarvestDay"),
+    isSmall: true
+  }, t3("HarvestDay")), jsx(Button_default, {
+    onClick: () => handleUpdatingStartingDay("StillDay"),
+    isSmall: true
+  }, t3("StillDay"))))), jsx("div", null, calendarState.months.map((month2) => {
     return jsx(calendar_month_default, {
       key: month2.name,
       month: month2,
