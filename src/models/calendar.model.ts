@@ -127,57 +127,53 @@ export const isMonthIndex = (val: number): val is MonthIndex => {
   }
 }
 
-export type CalendarV1AndV2 = {
+type CalendarV1AndV2 = {
   temperatureUnit: TemperatureUnit
   year: number
   months: { [M in MonthIndex]: MonthV1AndV2 }
 }
 
-export type Calendar = {
+export type CalendarV4 = {
   temperatureUnit: TemperatureUnit
   year: number
   months: Month[]
+  startDay: DayNames
 }
 
 const createMonth = (
   monthName: MonthNames,
   weatherDays: WeatherDay[],
   daysPassed: number,
+  dayOffset: number,
 ) => {
   return {
     name: monthName,
     collapsed: false,
     days: range(dayInMonth(monthName)).map((d) => {
-      const {
-        temp,
-        lowTemp,
-        downpour,
-        stormType,
-        eventType,
-        isCloudy,
-        isPartlyCloudy,
-      } = weatherDays[daysPassed + d]
+      const weatherDay = weatherDays[daysPassed + d]
 
       return {
         number: d + 1,
-        name: getDayName(daysPassed + d),
+        name: getDayName(daysPassed + d + dayOffset),
         monthName: monthName,
         quarters: [false, false, false, false],
         moon: getMoonPhase(daysPassed + d + 1 + 9),
-        temp,
-        lowTemp,
-        downpour,
-        stormType,
-        eventType,
-        isCloudy,
-        isPartlyCloudy,
+        temp: weatherDay.temp,
+        lowTemp: weatherDay.lowTemp,
+        downpour: weatherDay.downpour,
+        stormType: weatherDay.stormType,
+        eventType: weatherDay.eventType,
+        isCloudy: weatherDay.isCloudy,
+        isPartlyCloudy: weatherDay.isPartlyCloudy,
       }
     }) as Day[],
   }
 }
 
-export const getCal = (startYear = 1165): Calendar => {
-  const dayOffset = (startYear % 1165) % 7
+export const getCal = (startYear = 1165, startDay?: DayNames): CalendarV4 => {
+  const dayOffset = startDay
+    ? getDayNumber(startDay) - 1
+    : (startYear % 1165) % 7
 
   const weather = new GenerateWeather(365, [], 48, 50, 6, '')
   const weatherDays = weather.weatherSystems
@@ -191,25 +187,28 @@ export const getCal = (startYear = 1165): Calendar => {
   const cal = range(numberOfMonths()).reduce(
     (cal, m) => {
       const monthName = getMonthName(m)
-      cal.cal.months.push(createMonth(monthName, weatherDays, cal.daysPassed))
+      cal.cal.months.push(
+        createMonth(monthName, weatherDays, cal.daysPassed, dayOffset),
+      )
       cal.daysPassed += dayInMonth(monthName)
 
       return cal
     },
 
     {
-      daysPassed: dayOffset,
+      daysPassed: 0,
       cal: {
         year: startYear,
         months: [] as Month[],
         temperatureUnit: TemperatureUnit.Metric,
-      } as Calendar,
+        startDay,
+      } as CalendarV4,
     },
   )
 
   return cal.cal
 }
-export const parseV1AndV2Calendar = (cal: CalendarV1AndV2): Calendar => {
+export const parseV1AndV2Calendar = (cal: CalendarV1AndV2): CalendarV4 => {
   return {
     ...cal,
     months: [
@@ -222,27 +221,35 @@ export const parseV1AndV2Calendar = (cal: CalendarV1AndV2): Calendar => {
       { ...cal.months[6], collapsed: false },
     ],
     temperatureUnit: TemperatureUnit.Metric,
+    startDay: 'SunDay',
   }
 }
 
 const CALENDAR_KEY_V1 = 'calendar'
 const CALENDAR_KEY_V2 = 'calendar_v2'
-export const CALENDAR_KEY_V3 = 'calendar_v3'
+const CALENDAR_KEY_V3 = 'calendar_v3'
+export const CALENDAR_KEY_V4 = 'calendar_v4'
 
-const parseCalendar = (json: string, oldFormat = false): Calendar => {
+const parseCalendar = (json: string, oldFormat = false): CalendarV4 => {
   localStorage.removeItem(CALENDAR_KEY_V1)
   localStorage.removeItem(CALENDAR_KEY_V2)
+  localStorage.removeItem(CALENDAR_KEY_V3)
 
   return oldFormat ? parseV1AndV2Calendar(JSON.parse(json)) : JSON.parse(json)
 }
 
-export const loadCalendar = (): Calendar => {
+export const loadCalendar = (): CalendarV4 => {
   const calV1 = localStorage.getItem(CALENDAR_KEY_V1)
   const calV2 = localStorage.getItem(CALENDAR_KEY_V2)
   const calV3 = localStorage.getItem(CALENDAR_KEY_V3)
+  const calV4 = localStorage.getItem(CALENDAR_KEY_V4)
+
+  if (calV4) {
+    return parseCalendar(calV4)
+  }
 
   if (calV3) {
-    return parseCalendar(calV3)
+    return parseCalendar(calV3, true)
   }
 
   if (calV2) {
@@ -256,4 +263,34 @@ export const loadCalendar = (): Calendar => {
   }
 
   return getCal(1165)
+}
+
+export const updateStartingDay = (
+  cal: CalendarV4,
+  startDay: DayNames,
+): CalendarV4 => {
+  const dayOffset = getDayNumber(startDay) - 1
+  let daysPassed = 0
+
+  const newCal = {
+    ...cal,
+    months: cal.months.map((m) => {
+      return {
+        ...m,
+        days: m.days.map((d) => {
+          daysPassed += 1
+
+          return {
+            ...d,
+            name: getDayName(
+              getDayNumber('SunDay') + dayOffset + daysPassed - 2,
+            ),
+          }
+        }),
+      }
+    }),
+    startDay,
+  }
+
+  return newCal
 }

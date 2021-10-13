@@ -12,9 +12,8 @@ export interface StepperProps {
 }
 
 const stepButtonStyles = () => [
-  tw`font-bold py-0 px-1 text-center uppercase tracking-wide focus:outline-none`,
+  tw`h-10 font-bold py-0 px-1 text-center uppercase tracking-wide focus:outline-none`,
   tw`border-2 border-black rounded-none`,
-  tw`hover:bg-yellow-500`,
 ]
 
 const Stepper = ({
@@ -51,6 +50,7 @@ const Stepper = ({
       )}
       <div tw="w-auto inline-flex">
         <button
+          tw="w-10 hover:(bg-yellow-500 border-yellow-500) bg-black text-white"
           css={stepButtonStyles()}
           type="button"
           onClick={decrement}
@@ -61,7 +61,7 @@ const Stepper = ({
         <input
           css={[
             ...stepButtonStyles(),
-            tw`border-l-0 border-r-0`,
+            tw`border-l-0 border-r-0 bg-white`,
             {
               '::-webkit-inner-spin-button': {
                 ' -webkit-appearance': 'none',
@@ -80,8 +80,10 @@ const Stepper = ({
           min={min}
           max={max}
           onChange={(e) => handleChange(e.target.value)}
+          disabled
         />
         <button
+          tw="w-10 hover:(bg-yellow-500 border-yellow-500) bg-black text-white"
           css={stepButtonStyles()}
           type="button"
           onClick={increment}
