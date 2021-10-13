@@ -2,6 +2,7 @@ import { last } from 'rambda'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import 'twin.macro'
+import tw from 'twin.macro'
 import { Button, PageHeader, Stepper } from '../components'
 import CalendarMonth from '../components/calendar-month'
 import { notNullish } from '../functions/utils.functions'
@@ -48,8 +49,6 @@ export const CalendarPage = () => {
   useEffect(() => {
     setCalendar(calendarState)
     setAllCollapsed(calendarState.months.every((m) => m.collapsed))
-    // setTimeout(() => {
-    // }, 10)
   }, [calendarState])
 
   const [showWeather, setShowWeather] = useLocalStorage<boolean>(
@@ -62,6 +61,13 @@ export const CalendarPage = () => {
   )
 
   const [showCalenderOptions, setShowCalenderOptions] = useState<boolean>(false)
+  const [showYearOption, setShowYearOption] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (!showCalenderOptions) {
+      setShowYearOption(false)
+    }
+  }, [showCalenderOptions])
 
   const handleMonthUpdate = (month: Month) => {
     setCalendarState({
@@ -116,7 +122,7 @@ export const CalendarPage = () => {
         {t('Year')} {calendarState.year} {t('AS')}
       </div>
       <div tw="flex flex-col gap-0">
-        <div tw="bg-gray-200 p-2 flex justify-end gap-2">
+        <div tw="bg-gray-200 p-2 flex flex-wrap justify-end gap-2">
           <Button
             isSmall
             variant="secondary"
@@ -149,6 +155,9 @@ export const CalendarPage = () => {
             {showWeather ? t('Weather-Hide') : t('Weather-Show')}
           </Button>
           <Button
+            css={[
+              showCalenderOptions ? tw`bg-black border-black text-white` : tw``,
+            ]}
             variant="secondary"
             isSmall
             onClick={() => setShowCalenderOptions(!showCalenderOptions)}
@@ -157,22 +166,39 @@ export const CalendarPage = () => {
           </Button>
         </div>
         {showCalenderOptions && (
-          <div tw="bg-gray-200 p-4 flex flex-col gap-2">
-            <h3 tw="font-bold uppercase tracking-wide">Choose Year</h3>
-            <p tw="p-4 bg-red-500 text-red-100 font-bold">
-              Warning: Changing the year will reset the calender!
-            </p>
-            <Stepper
-              max={10000}
-              min={-2000}
-              value={calendarState.year}
-              id="yearChanger"
-              onChange={(val) => {
-                handleUpdatingYear(val)
-              }}
-            ></Stepper>
+          <div tw="bg-gray-200 py-8 px-4 flex flex-col gap-2">
+            <h3 tw="font-bold uppercase tracking-wide">
+              {t('Options-StartingYear')}
+            </h3>
+            <div tw="p-4 border-2 border-red-600 bg-red-100 font-bold flex flex-col gap-4">
+              <p tw="mb-2 text-red-600">{t('Options-StartingYearWarning')}</p>
+
+              <div>
+                <Button
+                  tw="border-red-600 bg-red-200 text-red-700 hover:(text-white bg-red-600 border-red-600)"
+                  isSmall
+                  onClick={() => setShowYearOption(true)}
+                  disabled={showYearOption}
+                  variant={showYearOption ? 'disabled' : undefined}
+                >
+                  {t('Options-StartingYearNag')}
+                </Button>
+              </div>
+              {showYearOption && (
+                <Stepper
+                  max={10000}
+                  min={-2000}
+                  value={calendarState.year}
+                  id="yearChanger"
+                  onChange={(val) => {
+                    handleUpdatingYear(val)
+                  }}
+                ></Stepper>
+              )}
+            </div>
+
             <h3 tw="mt-4 font-bold uppercase tracking-wide">
-              Choose starting Day
+              {t('Options-StartingDay')}
             </h3>
             <div tw="flex flex-wrap gap-2">
               <Button
