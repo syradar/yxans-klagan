@@ -19,6 +19,7 @@ import { MapPage } from './pages/map.page'
 import { NameGeneratorPage } from './pages/name-generator.page'
 import { SessionPage } from './pages/session.page'
 import { useTranslation } from 'react-i18next'
+import { MonstersPage } from './pages/monsters.page'
 
 const styles = {
   // Move long class sets out of jsx to keep it scannable
@@ -64,6 +65,10 @@ const App = () => {
       path: '/encounter',
       element: <EncounterPage />,
     },
+    {
+      path: '/monsters',
+      element: <MonstersPage />,
+    },
   ])
 
   const { t } = useTranslation('core')
@@ -81,6 +86,7 @@ const App = () => {
             <nav tw="text-lg w-full flex flex-col gap-y-1">
               <MenuLink to="/session">{t('Menu-Session')}</MenuLink>
               <MenuLink to="/encounter">{t('Menu-Encounters')}</MenuLink>
+              <MenuLink to="/monsters">{t('Menu-Monsters')}</MenuLink>
               <MenuLink to="/map">{t('Menu-Map')}</MenuLink>
               <MenuLink to="/calendar">{t('Menu-Calendar')}</MenuLink>
               <MenuLink to="/gear">{t('Menu-Gear')}</MenuLink>
