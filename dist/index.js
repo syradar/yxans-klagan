@@ -10394,7 +10394,7 @@ var Parchment = /* @__PURE__ */ react.forwardRef(({
       padding: `2rem calc(1rem + ${(100 - dim) * 1}%)`
     }],
     ref: contentRef
-  }, children && children)));
+  }, children)));
 });
 Parchment.displayName = "Parchment";
 var parchment_default = Parchment;
