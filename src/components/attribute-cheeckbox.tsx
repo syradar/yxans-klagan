@@ -13,7 +13,7 @@ export const AttributeCheckbox = () => {
       >
         <div
           css={[
-            tw`absolute top-1/2 left-1/2 w-[175%] h-[20%] bg-gray-800`,
+            tw`absolute pointer-events-none top-1/2 left-1/2 w-[175%] h-[20%] bg-gray-800`,
             tw`opacity-100 rotate-[110deg] -translate-x-1/2 -translate-y-1/2 rounded-full`,
             tw`transition-all transition-timing-function[cubic-bezier(0, 0.9, 0, 1)]`,
             !checked && tw`opacity-0 translate-x-[-25%] translate-y-[-1000%]`,
