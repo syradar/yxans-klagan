@@ -16254,6 +16254,480 @@ var SessionPage = () => {
   })), jsx("div", null, legend)))));
 };
 
+// build/dist/components/list-item.js
+var ListButton = styled_default.button([
+  {
+    paddingLeft: "1rem",
+    paddingRight: "1rem",
+    paddingTop: "0.5rem",
+    paddingBottom: "0.5rem",
+    userSelect: "none",
+    ":focus": {
+      outline: "2px solid transparent",
+      outlineOffset: "2px"
+    },
+    width: "100%"
+  },
+  {
+    borderRadius: "0px",
+    borderWidth: "1px",
+    "--tw-border-opacity": "1",
+    borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
+    borderBottomWidth: "0px",
+    ":last-child": {
+      borderBottomWidth: "1px"
+    }
+  },
+  {
+    "@media (pointer: fine)": {
+      ":hover": {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+      }
+    }
+  },
+  {
+    "--tw-bg-opacity": "1",
+    backgroundColor: "rgba(255, 255, 255, var(--tw-bg-opacity))",
+    "--tw-text-opacity": "1",
+    color: "rgba(0, 0, 0, var(--tw-text-opacity))"
+  },
+  {
+    fontSize: "0.875rem",
+    lineHeight: "1.25rem",
+    textAlign: "left"
+  }
+]);
+var ListItem = ({
+  children,
+  onClick
+}) => {
+  return jsx(ListButton, {
+    onClick,
+    role: "listitem"
+  }, children);
+};
+
+// build/dist/components/attribute-cheeckbox.js
+var AttributeCheckbox = () => {
+  const [checked, setChecked] = useState(false);
+  return jsx("div", {
+    css: {
+      height: "1.25rem"
+    }
+  }, jsx("button", {
+    css: {
+      width: "1rem",
+      height: "1rem",
+      borderWidth: "2px",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))",
+      borderRadius: "0px",
+      position: "relative",
+      ":hover": {
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+      }
+    },
+    onClick: () => setChecked(!checked)
+  }, jsx("div", {
+    css: [{
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      width: "175%",
+      height: "12.5%",
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))"
+    }, {
+      opacity: "1",
+      "--tw-rotate": "110deg",
+      transform: "var(--tw-transform)",
+      "--tw-translate-x": "-50%",
+      "--tw-translate-y": "-50%",
+      borderRadius: "9999px"
+    }, {
+      transitionProperty: "all",
+      transitionTimingFunction: "cubic-bezier(0, 0.9, 0, 1)",
+      transitionDuration: "150ms"
+    }, !checked && {
+      opacity: "0",
+      "--tw-translate-x": "-25%",
+      transform: "var(--tw-transform)",
+      "--tw-translate-y": "-1000%"
+    }],
+    "aria-hidden": "true"
+  })));
+};
+
+// build/dist/components/monster-attributes.js
+var MonsterAttribute = ({
+  attribute: {
+    label,
+    values
+  }
+}) => {
+  const {
+    t: t3
+  } = useTranslation("monsters");
+  return jsx("div", {
+    css: css`
+        -webkit-backface-visibility: hidden;
+      `
+  }, jsx("label", {
+    css: {
+      fontWeight: "500"
+    },
+    htmlFor: "monster-strength"
+  }, t3(`Attributes.${label}`)), jsx("div", {
+    id: "monster-strength",
+    css: {
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "0.25rem"
+    }
+  }, values.map((_24, index) => jsx(AttributeCheckbox, {
+    key: `${label}-${index}`
+  }))));
+};
+
+// build/dist/data/monster.data.js
+var bookMonsters = [{
+  name: "Giant",
+  attributes: {
+    strength: 12,
+    agility: 2
+  },
+  pageReference: 120
+}, {
+  name: "Avgrundsmask",
+  attributes: {
+    strength: 14,
+    agility: 2
+  },
+  pageReference: 72
+}, {
+  name: "Blodling",
+  attributes: {
+    strength: 8,
+    agility: 4
+  },
+  pageReference: 74
+}, {
+  name: "DragonSmall",
+  attributes: {
+    strength: 32,
+    agility: 2,
+    wits: 4,
+    empathy: 2
+  },
+  pageReference: 82
+}, {
+  name: "DragonLarge",
+  attributes: {
+    strength: 48,
+    agility: 4,
+    wits: 6,
+    empathy: 3
+  },
+  pageReference: 82
+}, {
+  name: "Drake",
+  attributes: {
+    strength: 25,
+    agility: 3,
+    wits: 5,
+    empathy: 2
+  },
+  pageReference: 84
+}, {
+  name: "DeathKnight",
+  attributes: {
+    strength: 12,
+    agility: 3,
+    wits: 3,
+    empathy: 2
+  },
+  pageReference: 86
+}, {
+  name: "Ent",
+  attributes: {
+    strength: 16,
+    agility: 3,
+    wits: 5,
+    empathy: 3
+  },
+  pageReference: 88
+}, {
+  name: "FlyingLizard",
+  attributes: {
+    strength: 14,
+    agility: 5
+  },
+  pageReference: 90
+}, {
+  name: "Ghast",
+  attributes: {
+    strength: 8,
+    agility: 3,
+    wits: 3,
+    empathy: 2
+  },
+  pageReference: 92
+}, {
+  name: "Gryphon",
+  attributes: {
+    strength: 12,
+    agility: 5
+  },
+  pageReference: 94
+}, {
+  name: "GreyBear",
+  attributes: {
+    strength: 14,
+    agility: 2
+  },
+  pageReference: 96
+}, {
+  name: "Harpies",
+  attributes: {
+    strength: 8,
+    agility: 3,
+    wits: 2,
+    empathy: 1
+  },
+  pageReference: 98
+}, {
+  name: "Hydra",
+  attributes: {
+    strength: 4,
+    agility: 4
+  },
+  pageReference: 100
+}, {
+  name: "Insectoid",
+  attributes: {
+    strength: 5,
+    agility: 3
+  },
+  pageReference: 102
+}, {
+  name: "GiantSquid",
+  attributes: {
+    strength: 14,
+    agility: 4
+  },
+  pageReference: 106
+}, {
+  name: "Manticore",
+  attributes: {
+    strength: 15,
+    agility: 4
+  },
+  pageReference: 108
+}, {
+  name: "Minotaur",
+  attributes: {
+    strength: 10,
+    agility: 4,
+    wits: 2,
+    empathy: 2
+  },
+  pageReference: 110
+}, {
+  name: "NightWulf",
+  attributes: {
+    strength: 8,
+    agility: 4
+  },
+  pageReference: 112
+}, {
+  name: "UndeadVandöd",
+  attributes: {
+    strength: 3,
+    agility: 2
+  },
+  pageReference: 114
+}, {
+  name: "UndedSkeleton",
+  attributes: {
+    strength: 3,
+    agility: 2
+  },
+  pageReference: 114
+}, {
+  name: "UndeadCorpseMuncher",
+  attributes: {
+    strength: 4,
+    agility: 2
+  },
+  pageReference: 114
+}, {
+  name: "SeaSnake",
+  attributes: {
+    strength: 18,
+    agility: 3
+  },
+  pageReference: 116
+}, {
+  name: "Stranglevine",
+  attributes: {
+    strength: 8,
+    agility: 3
+  },
+  pageReference: 118
+}, {
+  name: "Troll",
+  attributes: {
+    strength: 8,
+    agility: 3
+  },
+  pageReference: 120
+}];
+
+// build/dist/functions/monster.functions.js
+var createMonstersViewModel = (monsters) => {
+  return monsters.map((m3) => {
+    return {
+      ...m3,
+      attributes: {
+        strength: numToBooleans("Strength", m3.attributes.strength),
+        agility: numToBooleans("Agility", m3.attributes.agility),
+        wits: numToBooleans("Wits", m3.attributes.wits),
+        empathy: numToBooleans("Empathy", m3.attributes.empathy)
+      }
+    };
+  });
+};
+var numToBooleans = (label, num) => {
+  if (!num)
+    return void 0;
+  return {
+    label,
+    values: range(num).map((_24) => false)
+  };
+};
+
+// build/dist/pages/monsters.page.js
+var MonstersPage = () => {
+  const {
+    t: t3,
+    i18n
+  } = useTranslation(["monsters", "common"]);
+  const monsters = createMonstersViewModel(bookMonsters);
+  const [monster, setMonster] = useState(monsters[0]);
+  const monsterComparer = (a2, b2) => {
+    const ma2 = t3(`Monster.${a2.name}`);
+    const mb2 = t3(`Monster.${b2.name}`);
+    if (ma2 < mb2) {
+      return -1;
+    }
+    if (ma2 > mb2) {
+      return 1;
+    }
+    return 0;
+  };
+  return jsx("div", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      rowGap: "2rem",
+      width: "100%"
+    }
+  }, jsx(page_header_default, null, t3("Title")), jsx("div", {
+    css: {
+      display: "grid",
+      gap: "4rem",
+      "@media (min-width: 1024px)": {
+        gridTemplateColumns: "25% 1fr"
+      }
+    }
+  }, jsx("div", null, jsx("h3", {
+    css: {
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      fontWeight: "700",
+      marginBottom: "0.5rem"
+    }
+  }, t3(`BookMonsters`)), jsx("ul", {
+    css: [{
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(243, 244, 246, var(--tw-bg-opacity))",
+      maxHeight: "24rem",
+      "@media (min-width: 1024px)": {
+        maxHeight: "initial"
+      },
+      "@media (min-width: 1280px)": {
+        maxHeight: "initial"
+      },
+      "@media (min-width: 1536px)": {
+        maxHeight: "initial"
+      }
+    }, css`
+              overflow-y: overlay;
+            `]
+  }, monsters.sort(monsterComparer).map((m3) => jsx(ListItem, {
+    key: m3.name,
+    onClick: () => setMonster(m3)
+  }, t3(`Monster.${m3.name}`))))), jsx(parchment_default, {
+    css: {
+      "@media (min-width: 1024px)": {
+        width: "75%"
+      }
+    },
+    deps: [monster, i18n.language]
+  }, jsx("header", {
+    css: {
+      marginBottom: "1rem"
+    }
+  }, jsx("h2", {
+    css: {
+      fontSize: "2.25rem",
+      lineHeight: "2.5rem",
+      marginBottom: "0.5rem"
+    },
+    className: "yx-heading"
+  }, t3(`Monster.${monster.name}`)), monster.pageReference && jsx("div", null, t3("Page", {
+    ns: "common"
+  }), ": ", monster.pageReference, " ", t3("GMBook", {
+    ns: "common"
+  }))), jsx("h3", {
+    css: {
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      fontWeight: "700"
+    }
+  }, t3(`Attribute`)), jsx("div", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.5rem"
+    }
+  }, monster.attributes.strength && jsx(MonsterAttribute, {
+    key: `${monster.name}-strength`,
+    attribute: {
+      ...monster.attributes.strength
+    }
+  }), monster.attributes.agility && jsx(MonsterAttribute, {
+    key: `${monster.name}-agility`,
+    attribute: {
+      ...monster.attributes.agility
+    }
+  }), monster.attributes.wits && jsx(MonsterAttribute, {
+    key: `${monster.name}-wits`,
+    attribute: {
+      ...monster.attributes.wits
+    }
+  }), monster.attributes.empathy && jsx(MonsterAttribute, {
+    key: `${monster.name}-empathy`,
+    attribute: {
+      ...monster.attributes.empathy
+    }
+  })))));
+};
+
 // build/dist/App.js
 var styles = {
   container: () => [
@@ -16293,6 +16767,9 @@ var App = () => {
   }, {
     path: "/encounter",
     element: jsx(EncounterPage, null)
+  }, {
+    path: "/monsters",
+    element: jsx(MonstersPage, null)
   }]);
   const {
     t: t3
@@ -16354,6 +16831,8 @@ var App = () => {
   }, t3("Menu-Session")), jsx(MenuLink, {
     to: "/encounter"
   }, t3("Menu-Encounters")), jsx(MenuLink, {
+    to: "/monsters"
+  }, t3("Menu-Monsters")), jsx(MenuLink, {
     to: "/map"
   }, t3("Menu-Map")), jsx(MenuLink, {
     to: "/calendar"
@@ -20081,7 +20560,8 @@ i18nReact.use(i18next_http_backend_default).use(i18next_browser_languagedetector
   fallbackLng: "en",
   debug: false,
   supportedLngs: ["en", "sv"],
-  ns: ["core", "calendar", "map"],
+  ns: ["core", "common", "calendar", "map", "monsters"],
+  keySeparator: ".",
   backend: {
     loadPath
   },

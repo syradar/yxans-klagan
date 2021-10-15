@@ -1,0 +1,38 @@
+{
+  "Title": "Monster",
+  "Attribute": "Grundegenskaper",
+  "Attributes": {
+    "Strength": "Styrka",
+    "Agility": "Smidighet",
+    "Wits": "Intelligens",
+    "Empathy": "Karisma"
+  },
+  "BookMonsters": "Monster från boken",
+  "Monster": {
+    "Giant": "Jätte",
+    "Avgrundsmask": "Avgrundsmask",
+    "Blodling": "Blodling",
+    "DragonSmall": "Drake, liten",
+    "DragonLarge": "Drake, stor",
+    "Drake": "Drakorm",
+    "DeathKnight": "Dödsriddare",
+    "Ent": "Ent",
+    "FlyingLizard": "Flygödla",
+    "Ghast": "Gast",
+    "Gryphon": "Grip",
+    "GreyBear": "Gråbjörn",
+    "Harpies": "Harpyor",
+    "Hydra": "Hydra",
+    "Insectoid": "Insektoid",
+    "GiantSquid": "Jättebläckfisk",
+    "Manticore": "Mantikora",
+    "Minotaur": "Minotaur",
+    "NightWulf": "Nattulv",
+    "UndeadVandöd": "Vandöd",
+    "UndedSkeleton": "Skelett",
+    "UndeadCorpseMuncher": "Likätare",
+    "SeaSnake": "Sjöorm",
+    "Stranglevine": "Stryparranka",
+    "Troll": "Troll"
+  }
+}

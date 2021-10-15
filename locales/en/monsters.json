@@ -1,0 +1,38 @@
+{
+  "Title": "Monsters",
+  "Attribute": "Attributes",
+  "Attributes": {
+    "Strength": "Strength",
+    "Agility": "Agility",
+    "Wits": "Wits",
+    "Empathy": "Empathy"
+  },
+  "BookMonsters": "Monsters from the book",
+  "Monster": {
+    "Giant": "Giant",
+    "Avgrundsmask": "Earthwurm",
+    "Blodling": "Blodling",
+    "DragonSmall": "Dragon, small",
+    "DragonLarge": "Dragon, large",
+    "Drake": "Drake",
+    "DeathKnight": "Death Knight",
+    "Ent": "Ent",
+    "FlyingLizard": "Flying Lizard",
+    "Ghast": "Ghast",
+    "Gryphon": "Gryphon",
+    "GreyBear": "Grey Bear",
+    "Harpies": "Harpies",
+    "Hydra": "Hydra",
+    "Insectoid": "Insectoid",
+    "GiantSquid": "Giant Squid",
+    "Manticore": "Manticore",
+    "Minotaur": "Minotaur",
+    "NightWulf": "Night Wulf",
+    "UndeadVandöd": "Undead",
+    "UndedSkeleton": "Skeleton",
+    "UndeadCorpseMuncher": "Corpse Muncher",
+    "SeaSnake": "Sea Snake",
+    "Stranglevine": "Stranglevine",
+    "Troll": "Troll"
+  }
+}
