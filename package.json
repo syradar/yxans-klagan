@@ -58,15 +58,6 @@
       "preset": "emotion"
     }
   },
-  "jest": {
-    "testEnvironment": "node",
-    "collectCoverage": true,
-    "testResultsProcessor": "jest-sonar-reporter",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test/"
-    ]
-  },
   "jestSonar": {
     "reportPath": "reports",
     "reportFile": "test-report.xml",
