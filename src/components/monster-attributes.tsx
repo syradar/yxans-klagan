@@ -21,7 +21,7 @@ export const MonsterAttribute = ({
         -webkit-backface-visibility: hidden;
       `}
     >
-      <label tw="font-medium" htmlFor="monster-strength">
+      <label tw="font-medium mb-1 block" htmlFor="monster-strength">
         {t(`Attributes.${label}`)}
       </label>
       <div
