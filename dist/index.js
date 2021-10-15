@@ -10191,6 +10191,16 @@ var stepper_default = Stepper;
 
 // build/dist/functions/array.functions.js
 var range = (val) => [...Array(val).keys()];
+var chunkArray = (array, perChunk = 5) => {
+  return array.reduce((acc, cur, index) => {
+    const chunkIndex = Math.floor(index / perChunk);
+    if (!acc[chunkIndex]) {
+      acc[chunkIndex] = [];
+    }
+    acc[chunkIndex].push(cur);
+    return acc;
+  }, []);
+};
 
 // build/dist/models/gender.model.js
 var Gender;
@@ -16313,14 +16323,10 @@ var ListItem = ({
 // build/dist/components/attribute-cheeckbox.js
 var AttributeCheckbox = () => {
   const [checked, setChecked] = useState(false);
-  return jsx("div", {
+  return jsx("div", null, jsx("button", {
     css: {
-      height: "1.25rem"
-    }
-  }, jsx("button", {
-    css: {
-      width: "1rem",
-      height: "1rem",
+      width: "1.25rem",
+      height: "1.25rem",
       borderWidth: "2px",
       "--tw-border-opacity": "1",
       borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))",
@@ -16329,6 +16335,14 @@ var AttributeCheckbox = () => {
       ":hover": {
         "--tw-border-opacity": "1",
         borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+      },
+      "@media (pointer: fine)": {
+        ":focus": {
+          outline: "2px solid transparent",
+          outlineOffset: "2px",
+          "--tw-border-opacity": "1",
+          borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+        }
       }
     },
     onClick: () => setChecked(!checked)
@@ -16338,9 +16352,9 @@ var AttributeCheckbox = () => {
       top: "50%",
       left: "50%",
       width: "175%",
-      height: "12.5%",
+      height: "20%",
       "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))"
+      backgroundColor: "rgba(31, 41, 55, var(--tw-bg-opacity))"
     }, {
       opacity: "1",
       "--tw-rotate": "110deg",
@@ -16378,19 +16392,29 @@ var MonsterAttribute = ({
       `
   }, jsx("label", {
     css: {
-      fontWeight: "500"
+      fontWeight: "500",
+      marginBottom: "0.25rem",
+      display: "block"
     },
     htmlFor: "monster-strength"
   }, t3(`Attributes.${label}`)), jsx("div", {
-    id: "monster-strength",
+    id: `monster-${label}-grid`,
+    css: {
+      display: "grid",
+      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+      columnGap: "1rem",
+      rowGap: "0.25rem",
+      maxWidth: "fit-content"
+    }
+  }, chunkArray(values).map((chunk, chunkIndex) => jsx("div", {
     css: {
       display: "flex",
-      flexWrap: "wrap",
       gap: "0.25rem"
-    }
-  }, values.map((_24, index) => jsx(AttributeCheckbox, {
-    key: `${label}-${index}`
-  }))));
+    },
+    key: `${label}-${chunkIndex}`
+  }, chunk.map((_24, index) => jsx(AttributeCheckbox, {
+    key: `${label}-${chunkIndex}-${index}`
+  }))))));
 };
 
 // build/dist/data/monster.data.js
