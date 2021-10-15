@@ -7,7 +7,7 @@ export const bookMonsters: Monster[] = [
     pageReference: 120,
   },
   {
-    name: 'Avgrundsmask',
+    name: 'AbyssWorm',
     attributes: { strength: 14, agility: 2 },
     pageReference: 72,
   },
@@ -27,7 +27,7 @@ export const bookMonsters: Monster[] = [
     pageReference: 82,
   },
   {
-    name: 'Drake',
+    name: 'Drakewyrm',
     attributes: { strength: 25, agility: 3, wits: 5, empathy: 2 },
     pageReference: 84,
   },
@@ -42,12 +42,12 @@ export const bookMonsters: Monster[] = [
     pageReference: 88,
   },
   {
-    name: 'FlyingLizard',
+    name: 'Wyvern',
     attributes: { strength: 14, agility: 5 },
     pageReference: 90,
   },
   {
-    name: 'Ghast',
+    name: 'Ghost',
     attributes: { strength: 8, agility: 3, wits: 3, empathy: 2 },
     pageReference: 92,
   },
@@ -57,7 +57,7 @@ export const bookMonsters: Monster[] = [
     pageReference: 94,
   },
   {
-    name: 'GreyBear',
+    name: 'GrayBear',
     attributes: { strength: 14, agility: 2 },
     pageReference: 96,
   },
@@ -92,32 +92,32 @@ export const bookMonsters: Monster[] = [
     pageReference: 110,
   },
   {
-    name: 'NightWulf',
+    name: 'NightWarg',
     attributes: { strength: 8, agility: 4 },
     pageReference: 112,
   },
   {
-    name: 'UndeadVandöd',
+    name: 'RestlessDead',
     attributes: { strength: 3, agility: 2 },
     pageReference: 114,
   },
   {
-    name: 'UndedSkeleton',
+    name: 'Skeleton',
     attributes: { strength: 3, agility: 2 },
     pageReference: 114,
   },
   {
-    name: 'UndeadCorpseMuncher',
+    name: 'Ghoul',
     attributes: { strength: 4, agility: 2 },
     pageReference: 114,
   },
   {
-    name: 'SeaSnake',
+    name: 'SeaSerpent',
     attributes: { strength: 18, agility: 3 },
     pageReference: 116,
   },
   {
-    name: 'Stranglevine',
+    name: 'StranglingVine',
     attributes: { strength: 8, agility: 3 },
     pageReference: 118,
   },
