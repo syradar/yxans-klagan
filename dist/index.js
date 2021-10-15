@@ -16349,6 +16349,7 @@ var AttributeCheckbox = () => {
   }, jsx("div", {
     css: [{
       position: "absolute",
+      pointerEvents: "none",
       top: "50%",
       left: "50%",
       width: "175%",
