@@ -25,10 +25,7 @@ export const MonsterAttribute = ({
       </label>
       <div id="monster-strength" tw="flex flex-wrap gap-1">
         {values.map((_, index) => (
-          <AttributeCheckbox
-            key={`${label}-${index}`}
-            name="strength"
-          ></AttributeCheckbox>
+          <AttributeCheckbox key={`${label}-${index}`}></AttributeCheckbox>
         ))}
       </div>
     </div>
