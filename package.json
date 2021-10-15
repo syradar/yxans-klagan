@@ -66,5 +66,10 @@
       "/node_modules/",
       "/test/"
     ]
+  },
+  "jestSonar": {
+    "reportPath": "reports",
+    "reportFile": "test-report.xml",
+    "indent": 4
   }
 }
