@@ -862,35 +862,53 @@ const supernaturalEvents: SupernaturalWeatherEvent[] = [
     weight: 1,
     applyEffects: (e: WeatherDay) => {
       const t: Partial<WeatherEvent> = {}
-      e.hasEvent ||
-        (e.isStorm
-          ? e.isRaining
-            ? ((t.name = 'Fire Storm'),
-              (t.description =
-                'Fire storms are serious and random supernatural events that can happen during the middle of an otherwise normal storm.  The clouds will suddenly turn red and orange with black streaks and snow or rain will turn to sheets of flame that often explode when they strike the ground.  The fire storm portion of a storm will typically only last for a few minutes to an hour, and there is usually a few minutes of warning between the clouds changing color and the fire storm starting.  Anyone caught outside is likely to take severe fire damage, wooden structures or trees will sometimes catch fire and such an event can be devastating for a community.  They can cause wildfires, but usually any fires that are lit during the Fire Storm are extinguished when the storm system returns to normal.'))
-            : ((t.name = 'Blaze Winds'),
-              (t.description =
-                "Sometimes during powerful wind storms, the wind itself catches fire.  This is foretold by a sudden and sharp increase in temperature, which feels like opening an oven door or putting your face over a campfire.  When this happens, you'll usually only have a few minutes to seek shelter from the wind (ie: in the leeward side of buildings, hills, etc.).  When the wind catches fire, it will create huge sheets of flame five to ten feet wide and sometimes hundreds of feet long.  These sudden bursts of flame are very damaging to living beings and can set buildings and trees on fire, which is then aggravated by the powerful winds of the regular windstorm itself.  These usually cause wildfires, and an outbreak of Blaze Winds can devastate whole areas."),
-              (e.temp += 40))
-          : e.isRaining
-          ? e.temp < 32
-            ? ((t.name = 'Blaze Snow'),
-              (t.description =
-                "Blaze snow is a strange phenomenon where highly flammable snow falls from the sky. Any source of fire will cause this flammable snow to burn.  This creates a beautiful effect around torches, candles and other sources of flame as they seem to dance and grow brighter while it's snowing, but any accumulation of blaze snow can be very dangerous because bringing a source of fire close to it will cause whole areas to catch fire.  Blaze snow clouds have coal-black streaks in them, and the snow itself looks more oily than usual."))
-            : ((t.name = 'Ash Rain'),
-              (t.description =
-                "Ash Rain happens when too much magical fire comes in contact with normal rain clouds.  They continue to operate as clouds are expected to, but when it's time for them to rain, ash falls from them instead.  This is usually seen as a bad omen by the superstitious, and can cause serious problems: the ash makes it difficult to see while it's falling, it accumulates like snow but does not melt away and requires actual rain to wash it away, it makes it difficult to breathe and if you're out in it you can find yourself swiftly overheating."),
-              (e.temp += 10))
-          : e.wind > 10
-          ? ((t.name = 'Dragon Winds'),
-            (t.description =
-              'Dragon winds are a serious danger in areas where magical weather is common.  They have picked up some amount of magical fire, and as such they bring unnaturally high temperatures.  They are very drying, and anyone breathing outside for more than a few minutes risks damage to their lungs, throat and eyes.  Dragon winds can also set small flammable objects on fire, such as candle wicks and loose papers, and powerful gusts have been known to light trees and even buildings on fire.'),
-            e.temp < 100 ? (e.temp = 100 + 25 * Math.random()) : (e.temp += 30))
-          : ((t.name = 'Fire in the Sky'),
-            (t.description =
-              'Sometimes, on calm days with few clouds, wild magic can cause the sky itself to catch fire.  Innocent clouds are lit ablaze, small ones burn for several minutes and larger ones can burn for hours.  The temperature also becomes unnaturally hotter.'),
-            (e.temp += 20)),
-        (e.supernaturalEvent = t))
+      if (!e.hasEvent) {
+        return
+      }
+
+      if (e.isStorm) {
+        if (e.isRaining) {
+          t.name = 'Fire Storm'
+          t.description =
+            'Fire storms are serious and random supernatural events that can happen during the middle of an otherwise normal storm.  The clouds will suddenly turn red and orange with black streaks and snow or rain will turn to sheets of flame that often explode when they strike the ground.  The fire storm portion of a storm will typically only last for a few minutes to an hour, and there is usually a few minutes of warning between the clouds changing color and the fire storm starting.  Anyone caught outside is likely to take severe fire damage, wooden structures or trees will sometimes catch fire and such an event can be devastating for a community.  They can cause wildfires, but usually any fires that are lit during the Fire Storm are extinguished when the storm system returns to normal.'
+        } else {
+          t.name = 'Blaze Winds'
+          t.description =
+            "Sometimes during powerful wind storms, the wind itself catches fire.  This is foretold by a sudden and sharp increase in temperature, which feels like opening an oven door or putting your face over a campfire.  When this happens, you'll usually only have a few minutes to seek shelter from the wind (ie: in the leeward side of buildings, hills, etc.).  When the wind catches fire, it will create huge sheets of flame five to ten feet wide and sometimes hundreds of feet long.  These sudden bursts of flame are very damaging to living beings and can set buildings and trees on fire, which is then aggravated by the powerful winds of the regular windstorm itself.  These usually cause wildfires, and an outbreak of Blaze Winds can devastate whole areas."
+          e.temp += 40
+        }
+      } else {
+        if (e.isRaining) {
+          if (e.temp < 32) {
+            t.name = 'Blaze Snow'
+            t.description =
+              "Blaze snow is a strange phenomenon where highly flammable snow falls from the sky. Any source of fire will cause this flammable snow to burn.  This creates a beautiful effect around torches, candles and other sources of flame as they seem to dance and grow brighter while it's snowing, but any accumulation of blaze snow can be very dangerous because bringing a source of fire close to it will cause whole areas to catch fire.  Blaze snow clouds have coal-black streaks in them, and the snow itself looks more oily than usual."
+          } else {
+            t.name = 'Ash Rain'
+            t.description =
+              "Ash Rain happens when too much magical fire comes in contact with normal rain clouds.  They continue to operate as clouds are expected to, but when it's time for them to rain, ash falls from them instead.  This is usually seen as a bad omen by the superstitious, and can cause serious problems: the ash makes it difficult to see while it's falling, it accumulates like snow but does not melt away and requires actual rain to wash it away, it makes it difficult to breathe and if you're out in it you can find yourself swiftly overheating."
+            e.temp += 10
+          }
+        } else {
+          if (e.wind > 10) {
+            t.name = 'Dragon Winds'
+            t.description =
+              'Dragon winds are a serious danger in areas where magical weather is common.  They have picked up some amount of magical fire, and as such they bring unnaturally high temperatures.  They are very drying, and anyone breathing outside for more than a few minutes risks damage to their lungs, throat and eyes.  Dragon winds can also set small flammable objects on fire, such as candle wicks and loose papers, and powerful gusts have been known to light trees and even buildings on fire.'
+            if (e.temp < 100) {
+              e.temp = 100 + 25 * Math.random()
+            } else {
+              e.temp += 30
+            }
+          } else {
+            t.name = 'Fire in the Sky'
+            t.description =
+              'Sometimes, on calm days with few clouds, wild magic can cause the sky itself to catch fire.  Innocent clouds are lit ablaze, small ones burn for several minutes and larger ones can burn for hours.  The temperature also becomes unnaturally hotter.'
+            e.temp += 20
+          }
+        }
+      }
+
+      e.supernaturalEvent = t
     },
   },
   {
