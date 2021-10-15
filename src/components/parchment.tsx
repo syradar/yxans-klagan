@@ -77,7 +77,7 @@ const Parchment = React.forwardRef<SVGSVGElement, ParchmentProps>(
             }}
             ref={contentRef}
           >
-            {children && children}
+            {children}
           </div>
         </foreignObject>
       </svg>
