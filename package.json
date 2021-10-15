@@ -6,7 +6,7 @@
     "start": "snowpack dev",
     "build": "snowpack build",
     "test": "jest",
-    "test:ci": "jest",
+    "test:ci": "jest --coverage",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
     "deploy": "gh-pages -d build"
   },
