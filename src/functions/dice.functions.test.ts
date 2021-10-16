@@ -38,7 +38,7 @@ describe('dice functions', () => {
       [[{ weight: 0, type: 'hej' }], 'hej'],
       [
         [
-          { weight: 0, type: 'hej' },
+          { weight: -1, type: 'hej' },
           { weight: 100, type: 'då' },
         ],
         'då',

@@ -12,7 +12,7 @@ export const NameList = ({ names }: NameListProps) => {
   return (
     <>
       {names.length > 0 && (
-        <ul>
+        <ul data-testid="namelist">
           {names.map((name, i) => (
             <li key={i}>{name.map((n) => t(n, { ns: 'names' })).join(' ')}</li>
           ))}

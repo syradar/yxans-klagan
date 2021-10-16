@@ -5,7 +5,7 @@ import { PageHeader, Parchment } from '../components'
 import { KinNameList } from '../components/kin-name-list'
 import {
   getRandomAilanderName,
-  getRandomAlderlanderarName,
+  getRandomAlderlanderName,
   getRandomAsleneName,
 } from '../functions/name.functions'
 import { HumanKin } from '../models/name.model'
@@ -33,7 +33,7 @@ export const NameGeneratorPage = () => {
             <KinNameList
               tw="p-0"
               title={HumanKin.Alderlander}
-              nameFunc={getRandomAlderlanderarName}
+              nameFunc={getRandomAlderlanderName}
             ></KinNameList>
           </Parchment>
         </div>

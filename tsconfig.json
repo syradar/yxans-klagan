@@ -3,7 +3,7 @@
     "module": "ESNext",
     "target": "ESNext",
     "moduleResolution": "node",
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "baseUrl": "./",
     "paths": {},
     "noEmit": true,
@@ -16,7 +16,8 @@
     "noImplicitReturns": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "jsxImportSource": "@emotion/react"
+    "jsxImportSource": "@emotion/react",
+    "allowJs": true
   },
   "include": ["src", "types"]
 }
