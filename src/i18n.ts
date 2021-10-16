@@ -25,7 +25,7 @@ i18nReact
     fallbackLng: 'en',
     debug: false,
     supportedLngs: ['en', 'sv'],
-    ns: ['core', 'common', 'calendar', 'map', 'monsters'],
+    ns: ['core', 'common', 'calendar', 'map', 'monsters', 'names'],
     keySeparator: '.',
     backend: {
       loadPath,

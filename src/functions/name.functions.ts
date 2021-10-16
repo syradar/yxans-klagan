@@ -1,54 +1,55 @@
+import { humanNames, villageNamesEn, villageNamesSv } from '../data/name.data'
 import { Gender } from '../models/gender.model'
-import {
-  humanNames,
-  NameList,
-  NameType,
-  villageNames,
-} from '../models/name.model'
+import { ValidLanguage } from '../models/language.model'
+import { NameList, NameType, VillageNameModel } from '../models/name.model'
 import { choose, weightedRandom } from './dice.functions'
 
-export const getRandomEländerName = (g: Gender = Gender.Female): string => {
-  const { type, firstName } = getNameTypeAndFirstName(g, humanNames.Eländer)
-
-  switch (type) {
-    case NameType.FamilyName:
-      return `${firstName} ${choose(humanNames.Eländer.family ?? [])}`
-    case NameType.HomeName:
-      return `${firstName} av ${getRandomVillageName()}`
-    case NameType.FirstName:
-    default:
-      return firstName
-  }
-}
-
-export const getRandomAlderlänningarName = (
+export const getRandomAilanderName = (
   g: Gender = Gender.Female,
-): string => {
-  const { type, firstName } = getNameTypeAndFirstName(
-    g,
-    humanNames.Alderlänning,
-  )
+  lang: ValidLanguage,
+): string[] => {
+  const { type, firstName } = getNameTypeAndFirstName(g, humanNames.Ailander)
 
   switch (type) {
     case NameType.FamilyName:
-      return `${firstName} ${choose(humanNames.Eländer.family ?? [])}`
+      return [firstName, choose(humanNames.Ailander.family ?? [])]
     case NameType.HomeName:
-      return `${firstName} av ${getRandomVillageName()}`
+      return [firstName, 'OF', getRandomVillageName(lang)]
     case NameType.FirstName:
     default:
-      return firstName
+      return [firstName]
   }
 }
 
-export const getRandomAslenerName = (g: Gender = Gender.Female): string => {
-  const { type, firstName } = getNameTypeAndFirstName(g, humanNames.Aslener)
+export const getRandomAlderlanderarName = (
+  g: Gender = Gender.Female,
+  lang: ValidLanguage,
+): string[] => {
+  const { type, firstName } = getNameTypeAndFirstName(g, humanNames.Alderlander)
+
+  switch (type) {
+    case NameType.FamilyName:
+      return [firstName, choose(humanNames.Alderlander.family ?? [])]
+    case NameType.HomeName:
+      return [firstName, 'OF', getRandomVillageName(lang)]
+    case NameType.FirstName:
+    default:
+      return [firstName]
+  }
+}
+
+export const getRandomAsleneName = (
+  g: Gender = Gender.Female,
+  _: ValidLanguage,
+): string[] => {
+  const { type, firstName } = getNameTypeAndFirstName(g, humanNames.Aslene)
 
   switch (type) {
     case NameType.NickName:
-      return `${firstName} den ${choose(humanNames.Aslener.nickName ?? [])}`
+      return [firstName, 'THE', choose(humanNames.Aslene.nickName ?? [])]
     case NameType.FirstName:
     default:
-      return firstName
+      return [firstName]
   }
 }
 
@@ -59,5 +60,27 @@ export const getNameTypeAndFirstName = (g: Gender, nl: NameList) => {
   }
 }
 
-export const getRandomVillageName = () =>
-  `${choose(villageNames.prefix)}${choose(villageNames.suffix)}`
+const getVillageNameList = (lang: ValidLanguage): VillageNameModel => {
+  switch (lang) {
+    case 'sv':
+      return villageNamesSv
+    case 'en':
+      return villageNamesEn
+    default: {
+      const exhaustiveCheck: never = lang
+      throw new Error(exhaustiveCheck)
+    }
+  }
+}
+
+export const capitalize = (s: string): string =>
+  `${s.charAt(0).toUpperCase()}${s.slice(1)}`
+
+export const getRandomVillageName = (lang: ValidLanguage) => {
+  const { prefix, suffix } = getVillageNameList(lang)
+  const separator = lang === 'en' ? ' ' : ''
+
+  return [choose(prefix), choose(suffix)]
+    .map((fix) => (lang === 'en' ? capitalize(fix) : fix))
+    .join(separator)
+}
