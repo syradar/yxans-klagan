@@ -1,7 +1,6 @@
 export { default as Button } from './Button'
 export { default as Logo } from './Logo'
 export { default as Stepper } from './stepper'
-export { default as KinNameList } from './kin-name-list'
 export { default as Parchment } from './parchment'
 export { default as DayCounter } from './day-counter'
 export { default as CalendarDay } from './calendar-day'
