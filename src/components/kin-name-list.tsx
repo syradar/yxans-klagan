@@ -7,16 +7,14 @@ import { Gender } from '../models/gender.model'
 import { ValidLanguage } from '../models/language.model'
 import { HumanKin } from '../models/name.model'
 import { ReloadIcon } from './icons'
+import { NameList } from './name-list'
 
 interface KinNameListProps {
   title: HumanKin
   nameFunc: (g: Gender, lang: ValidLanguage) => string[]
 }
 
-const KinNameList: FC<KinNameListProps> = ({
-  title,
-  nameFunc,
-}: KinNameListProps) => {
+export const KinNameList = ({ title, nameFunc }: KinNameListProps) => {
   const { t, i18n } = useTranslation(['common', 'names'])
 
   const randomNames = (count = 10) => ({
@@ -49,34 +47,14 @@ const KinNameList: FC<KinNameListProps> = ({
       <div tw="grid grid-cols-2 gap-16">
         <div>
           <h3 tw="font-semibold text-2xl uppercase">{t('Gender.Women')}</h3>
-
-          {names.female.length > 0 && (
-            <ul>
-              {names.female.map((name, i) => (
-                <li key={i}>
-                  {name.map((n) => t(n, { ns: 'names' })).join(' ')}
-                </li>
-              ))}
-            </ul>
-          )}
+          <NameList names={names.female}></NameList>
         </div>
 
         <div>
           <h3 tw="font-semibold text-2xl uppercase">{t('Gender.Men')}</h3>
-
-          {names.male.length > 0 && (
-            <ul>
-              {names.male.map((name, i) => (
-                <li key={i}>
-                  {name.map((n) => t(n, { ns: 'names' })).join(' ')}
-                </li>
-              ))}
-            </ul>
-          )}
+          <NameList names={names.male}></NameList>
         </div>
       </div>
     </div>
   )
 }
-
-export default KinNameList

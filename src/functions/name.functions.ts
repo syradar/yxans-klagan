@@ -5,7 +5,7 @@ import { NameList, NameType, VillageNameModel } from '../models/name.model'
 import { choose, weightedRandom } from './dice.functions'
 
 export const getRandomAilanderName = (
-  g: Gender = Gender.Female,
+  g: Gender,
   lang: ValidLanguage,
 ): string[] => {
   const { type, firstName } = getNameTypeAndFirstName(g, humanNames.Ailander)
@@ -22,7 +22,7 @@ export const getRandomAilanderName = (
 }
 
 export const getRandomAlderlanderarName = (
-  g: Gender = Gender.Female,
+  g: Gender,
   lang: ValidLanguage,
 ): string[] => {
   const { type, firstName } = getNameTypeAndFirstName(g, humanNames.Alderlander)
@@ -38,10 +38,7 @@ export const getRandomAlderlanderarName = (
   }
 }
 
-export const getRandomAsleneName = (
-  g: Gender = Gender.Female,
-  _: ValidLanguage,
-): string[] => {
+export const getRandomAsleneName = (g: Gender, _: ValidLanguage): string[] => {
   const { type, firstName } = getNameTypeAndFirstName(g, humanNames.Aslene)
 
   switch (type) {

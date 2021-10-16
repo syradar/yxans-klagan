@@ -1,7 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import 'twin.macro'
-import { KinNameList, PageHeader, Parchment } from '../components'
+import { PageHeader, Parchment } from '../components'
+import { KinNameList } from '../components/kin-name-list'
 import {
   getRandomAilanderName,
   getRandomAlderlanderarName,
