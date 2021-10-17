@@ -1,4 +1,15 @@
 {
   "Page": "Sida",
-  "GMBook": "SL"
+  "GMBook": "SL",
+  "Kin": {
+    "Alderlander": "Alderlänning",
+    "Ailander": "Eländer",
+    "Aslene": "Aslener"
+  },
+  "Gender": {
+    "Man": "Man",
+    "Men": "Män",
+    "Woman": "Kvinna",
+    "Women": "Kvinnor"
+  }
 }

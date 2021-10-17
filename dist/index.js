@@ -9272,66 +9272,97 @@ function createHashHistory(b2) {
     }
   };
 }
-function _extends2() {
-  _extends2 = Object.assign || function(target) {
-    for (var i2 = 1; i2 < arguments.length; i2++) {
-      var source = arguments[i2];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends2.apply(this, arguments);
-}
+/**
+ * React Router v6.0.0-beta.7
+ *
+ * Copyright (c) Remix Software Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.md file in the root directory of this source tree.
+ *
+ * @license MIT
+ */
 function invariant(cond, message) {
   if (!cond)
     throw new Error(message);
 }
-var NavigatorContext = /* @__PURE__ */ react.createContext(null);
-var LocationContext = /* @__PURE__ */ react.createContext({
-  static: false
-});
+var NavigationContext = /* @__PURE__ */ react.createContext(null);
+var LocationContext = /* @__PURE__ */ react.createContext(null);
 var RouteContext = /* @__PURE__ */ react.createContext({
   outlet: null,
-  params: {},
-  pathname: "",
-  basename: "",
-  route: null
+  matches: []
 });
 function Outlet(_props) {
   return useOutlet();
 }
 function Router(_ref3) {
   let {
-    children = null,
     action = r3.Pop,
-    location,
+    basename: basenameProp = "/",
+    children = null,
+    location: locationProp,
     navigator: navigator2,
     static: staticProp = false
   } = _ref3;
   !!useInRouterContext() ? invariant(false) : void 0;
-  return /* @__PURE__ */ react.createElement(NavigatorContext.Provider, {
-    value: navigator2
+  let basename = normalizePathname(basenameProp);
+  let navigationContext = react.useMemo(() => ({
+    basename,
+    navigator: navigator2,
+    static: staticProp
+  }), [basename, navigator2, staticProp]);
+  if (typeof locationProp === "string") {
+    locationProp = J2(locationProp);
+  }
+  let {
+    pathname = "/",
+    search = "",
+    hash = "",
+    state = null,
+    key = "default"
+  } = locationProp;
+  let location = react.useMemo(() => {
+    let trailingPathname = stripBasename(pathname, basename);
+    if (trailingPathname == null) {
+      return null;
+    }
+    return {
+      pathname: trailingPathname,
+      search,
+      hash,
+      state,
+      key
+    };
+  }, [basename, pathname, search, hash, state, key]);
+  if (location == null) {
+    return null;
+  }
+  return /* @__PURE__ */ react.createElement(NavigationContext.Provider, {
+    value: navigationContext
   }, /* @__PURE__ */ react.createElement(LocationContext.Provider, {
     children,
     value: {
       action,
-      location,
-      static: staticProp
+      location
     }
   }));
 }
 function useHref(to) {
   !useInRouterContext() ? invariant(false) : void 0;
-  let navigator2 = react.useContext(NavigatorContext);
+  let {
+    basename,
+    navigator: navigator2
+  } = react.useContext(NavigationContext);
   let path2 = useResolvedPath(to);
+  if (basename !== "/") {
+    let toPathname = getToPathname(to);
+    let endsWithSlash = toPathname != null && toPathname.endsWith("/");
+    path2.pathname = path2.pathname === "/" ? basename + (endsWithSlash ? "/" : "") : joinPaths([basename, path2.pathname]);
+  }
   return navigator2.createHref(path2);
 }
 function useInRouterContext() {
-  return react.useContext(LocationContext).location != null;
+  return react.useContext(LocationContext) != null;
 }
 function useLocation() {
   !useInRouterContext() ? invariant(false) : void 0;
@@ -9339,14 +9370,17 @@ function useLocation() {
 }
 function useNavigate() {
   !useInRouterContext() ? invariant(false) : void 0;
-  let navigator2 = react.useContext(NavigatorContext);
   let {
     basename,
-    pathname: parentRoutePathname
+    navigator: navigator2
+  } = react.useContext(NavigationContext);
+  let {
+    matches
   } = react.useContext(RouteContext);
   let {
-    pathname: currentLocationPathname
+    pathname: locationPathname
   } = useLocation();
+  let routePathnamesJson = JSON.stringify(matches.map((match) => match.pathnameBase));
   let activeRef = react.useRef(false);
   react.useEffect(() => {
     activeRef.current = true;
@@ -9355,16 +9389,18 @@ function useNavigate() {
     if (options === void 0) {
       options = {};
     }
-    if (activeRef.current) {
-      if (typeof to === "number") {
-        navigator2.go(to);
-      } else {
-        let toPathname = to === "" || to.pathname === "" ? "/" : typeof to === "string" ? J2(to).pathname : to.pathname;
-        let path2 = resolvePath(to, toPathname ? parentRoutePathname : currentLocationPathname, basename);
-        (!!options.replace ? navigator2.replace : navigator2.push)(path2, options.state);
-      }
+    if (!activeRef.current)
+      return;
+    if (typeof to === "number") {
+      navigator2.go(to);
+      return;
     }
-  }, [basename, navigator2, parentRoutePathname, currentLocationPathname]);
+    let path2 = resolveTo(to, JSON.parse(routePathnamesJson), locationPathname);
+    if (basename !== "/") {
+      path2.pathname = joinPaths([basename, path2.pathname]);
+    }
+    (!!options.replace ? navigator2.replace : navigator2.push)(path2, options.state);
+  }, [basename, navigator2, routePathnamesJson, locationPathname]);
   return navigate;
 }
 function useOutlet() {
@@ -9372,65 +9408,59 @@ function useOutlet() {
 }
 function useResolvedPath(to) {
   let {
-    pathname,
-    basename
+    matches
   } = react.useContext(RouteContext);
-  return react.useMemo(() => resolvePath(to, pathname, basename), [to, pathname, basename]);
-}
-function useRoutes(routes, _temp) {
   let {
-    basename = "",
-    location: locationArg
-  } = _temp === void 0 ? {} : _temp;
+    pathname: locationPathname
+  } = useLocation();
+  let routePathnamesJson = JSON.stringify(matches.map((match) => match.pathnameBase));
+  return react.useMemo(() => resolveTo(to, JSON.parse(routePathnamesJson), locationPathname), [to, routePathnamesJson, locationPathname]);
+}
+function useRoutes(routes, locationArg) {
   !useInRouterContext() ? invariant(false) : void 0;
   let {
-    route: parentRoute,
-    pathname: parentPathname,
-    params: parentParams
+    matches: parentMatches
   } = react.useContext(RouteContext);
+  let routeMatch = parentMatches[parentMatches.length - 1];
+  let parentParams = routeMatch ? routeMatch.params : {};
+  let parentPathname = routeMatch ? routeMatch.pathname : "/";
+  let parentPathnameBase = routeMatch ? routeMatch.pathnameBase : "/";
+  let parentRoute = routeMatch && routeMatch.route;
   let locationFromContext = useLocation();
-  let location = locationArg !== null && locationArg !== void 0 ? locationArg : locationFromContext;
-  let basenameForMatching = basename ? joinPaths([parentPathname, basename]) : parentPathname;
-  let matches = react.useMemo(() => matchRoutes(routes, location, basenameForMatching), [routes, location, basenameForMatching]);
-  if (!matches) {
-    return null;
-  }
-  let params = Object.assign({}, parentParams);
-  let element = matches.reduceRight((outlet, match) => {
-    Object.assign(params, match.params);
-    return /* @__PURE__ */ react.createElement(RouteContext.Provider, {
-      children: match.route.element || /* @__PURE__ */ react.createElement(Outlet, null),
-      value: {
-        outlet,
-        params,
-        pathname: joinPaths([basenameForMatching, match.pathname]),
-        basename,
-        route: match.route
-      }
-    });
-  }, null);
-  return element;
-}
-function matchRoutes(routes, location, basename) {
-  if (basename === void 0) {
-    basename = "";
-  }
-  if (typeof location === "string") {
-    location = J2(location);
+  let location;
+  if (locationArg) {
+    var _parsedLocationArg$pa;
+    let parsedLocationArg = typeof locationArg === "string" ? J2(locationArg) : locationArg;
+    !(parentPathnameBase === "/" || ((_parsedLocationArg$pa = parsedLocationArg.pathname) == null ? void 0 : _parsedLocationArg$pa.startsWith(parentPathnameBase))) ? invariant(false) : void 0;
+    location = parsedLocationArg;
+  } else {
+    location = locationFromContext;
   }
   let pathname = location.pathname || "/";
-  if (basename) {
-    let base = basename.replace(/^\/*/, "/").replace(/\/+$/, "");
-    if (!pathname.toLowerCase().startsWith(base.toLowerCase())) {
-      return null;
-    }
-    pathname = pathname.slice(base.length) || "/";
+  let remainingPathname = parentPathnameBase === "/" ? pathname : pathname.slice(parentPathnameBase.length) || "/";
+  let matches = matchRoutes(routes, {
+    pathname: remainingPathname
+  });
+  return _renderMatches(matches && matches.map((match) => Object.assign({}, match, {
+    params: Object.assign({}, parentParams, match.params),
+    pathname: joinPaths([parentPathnameBase, match.pathname]),
+    pathnameBase: joinPaths([parentPathnameBase, match.pathnameBase])
+  })), parentMatches);
+}
+function matchRoutes(routes, locationArg, basename) {
+  if (basename === void 0) {
+    basename = "/";
+  }
+  let location = typeof locationArg === "string" ? J2(locationArg) : locationArg;
+  let pathname = stripBasename(location.pathname || "/", basename);
+  if (pathname == null) {
+    return null;
   }
   let branches = flattenRoutes(routes);
   rankRouteBranches(branches);
   let matches = null;
   for (let i2 = 0; matches == null && i2 < branches.length; ++i2) {
-    matches = matchRouteBranch(branches[i2], pathname, routes);
+    matches = matchRouteBranch(branches[i2], routes, pathname);
   }
   return matches;
 }
@@ -9460,29 +9490,19 @@ function flattenRoutes(routes, branches, parentsMeta, parentPath) {
       !(route.index !== true) ? invariant(false) : void 0;
       flattenRoutes(route.children, branches, routesMeta, path2);
     }
+    if (route.path == null && !route.index) {
+      return;
+    }
     branches.push({
       path: path2,
+      score: computeScore(path2),
       routesMeta
     });
   });
   return branches;
 }
 function rankRouteBranches(branches) {
-  let pathScores = {};
-  let pathIndexes = {};
-  branches.forEach((_ref5) => {
-    let {
-      path: path2,
-      routesMeta
-    } = _ref5;
-    pathScores[path2] = computeScore(path2);
-    pathIndexes[path2] = routesMeta.map((meta) => meta.childrenIndex);
-  });
-  branches.sort((a2, b2) => {
-    let aScore = pathScores[a2.path];
-    let bScore = pathScores[b2.path];
-    return aScore !== bScore ? bScore - aScore : compareIndexes(pathIndexes[a2.path], pathIndexes[b2.path]);
-  });
+  branches.sort((a2, b2) => a2.score !== b2.score ? b2.score - a2.score : compareIndexes(a2.routesMeta.map((meta) => meta.childrenIndex), b2.routesMeta.map((meta) => meta.childrenIndex)));
 }
 var paramRe = /^:\w+$/;
 var dynamicSegmentValue = 2;
@@ -9502,35 +9522,55 @@ function compareIndexes(a2, b2) {
   let siblings = a2.length === b2.length && a2.slice(0, -1).every((n3, i2) => n3 === b2[i2]);
   return siblings ? a2[a2.length - 1] - b2[b2.length - 1] : 0;
 }
-function matchRouteBranch(branch, pathname, originalRoutes) {
-  let matchedPathname = "/";
-  let matchedParams = {};
+function matchRouteBranch(branch, routesArg, pathname) {
+  let routes = routesArg;
   let {
     routesMeta
   } = branch;
-  let routes = originalRoutes;
+  let matchedParams = {};
+  let matchedPathname = "/";
   let matches = [];
   for (let i2 = 0; i2 < routesMeta.length; ++i2) {
     let meta = routesMeta[i2];
+    let end = i2 === routesMeta.length - 1;
     let remainingPathname = matchedPathname === "/" ? pathname : pathname.slice(matchedPathname.length) || "/";
     let match = matchPath({
       path: meta.relativePath,
       caseSensitive: meta.caseSensitive,
-      end: i2 === routesMeta.length - 1
+      end
     }, remainingPathname);
     if (!match)
       return null;
-    matchedParams = _extends2({}, matchedParams, match.params);
-    matchedPathname = joinPaths([matchedPathname, match.pathname]);
+    Object.assign(matchedParams, match.params);
     let route = routes[meta.childrenIndex];
     matches.push({
       params: matchedParams,
-      pathname: matchedPathname,
+      pathname: joinPaths([matchedPathname, match.pathname]),
+      pathnameBase: joinPaths([matchedPathname, match.pathnameBase]),
       route
     });
+    if (match.pathnameBase !== "/") {
+      matchedPathname = joinPaths([matchedPathname, match.pathnameBase]);
+    }
     routes = route.children;
   }
   return matches;
+}
+function _renderMatches(matches, parentMatches) {
+  if (parentMatches === void 0) {
+    parentMatches = [];
+  }
+  if (matches == null)
+    return null;
+  return matches.reduceRight((outlet, match, index) => {
+    return /* @__PURE__ */ react.createElement(RouteContext.Provider, {
+      children: match.route.element || /* @__PURE__ */ react.createElement(Outlet, null),
+      value: {
+        outlet,
+        matches: parentMatches.concat(matches.slice(0, index + 1))
+      }
+    });
+  }, null);
 }
 function matchPath(pattern, pathname) {
   if (typeof pattern === "string") {
@@ -9544,15 +9584,21 @@ function matchPath(pattern, pathname) {
   let match = pathname.match(matcher);
   if (!match)
     return null;
-  let matchedPathname = match[1];
-  let values = match.slice(2);
+  let matchedPathname = match[0];
+  let pathnameBase = matchedPathname.replace(/(.)\/+$/, "$1");
+  let captureGroups = match.slice(1);
   let params = paramNames.reduce((memo, paramName, index) => {
-    memo[paramName] = safelyDecodeURIComponent(values[index] || "");
+    if (paramName === "*") {
+      let splatValue = captureGroups[index] || "";
+      pathnameBase = matchedPathname.slice(0, matchedPathname.length - splatValue.length).replace(/(.)\/+$/, "$1");
+    }
+    memo[paramName] = safelyDecodeURIComponent(captureGroups[index] || "");
     return memo;
   }, {});
   return {
     params,
     pathname: matchedPathname,
+    pathnameBase,
     pattern
   };
 }
@@ -9563,26 +9609,19 @@ function compilePath(path2, caseSensitive, end) {
   if (end === void 0) {
     end = true;
   }
-  let keys = [];
-  let source = "^(" + path2.replace(/^\/*/, "/").replace(/\/?\*?$/, "").replace(/[\\.*+^$?{}|()[\]]/g, "\\$&").replace(/:(\w+)/g, (_24, key) => {
-    keys.push(key);
+  let paramNames = [];
+  let regexpSource = "^" + path2.replace(/\/*\*?$/, "").replace(/^\/*/, "/").replace(/[\\.*+^$?{}|()[\]]/g, "\\$&").replace(/:(\w+)/g, (_24, paramName) => {
+    paramNames.push(paramName);
     return "([^\\/]+)";
-  }) + ")";
+  });
   if (path2.endsWith("*")) {
-    if (path2.endsWith("/*")) {
-      source += "(?:\\/(.+)|\\/?)";
-    } else {
-      source += "(.*)";
-    }
-    keys.push("*");
-  } else if (end) {
-    source += "\\/?";
+    paramNames.push("*");
+    regexpSource += path2 === "*" || path2 === "/*" ? "(.*)$" : "(?:\\/(.+)|\\/*)$";
+  } else {
+    regexpSource += end ? "\\/*$" : "(?:\\b|$)";
   }
-  if (end)
-    source += "$";
-  let flags = caseSensitive ? void 0 : "i";
-  let matcher = new RegExp(source, flags);
-  return [matcher, keys];
+  let matcher = new RegExp(regexpSource, caseSensitive ? void 0 : "i");
+  return [matcher, paramNames];
 }
 function safelyDecodeURIComponent(value, paramName) {
   try {
@@ -9591,34 +9630,25 @@ function safelyDecodeURIComponent(value, paramName) {
     return value;
   }
 }
-function resolvePath(to, fromPathname, basename) {
+function resolvePath(to, fromPathname) {
   if (fromPathname === void 0) {
     fromPathname = "/";
-  }
-  if (basename === void 0) {
-    basename = "";
   }
   let {
     pathname: toPathname,
     search = "",
     hash = ""
   } = typeof to === "string" ? J2(to) : to;
-  let pathname = toPathname ? resolvePathname(toPathname, toPathname.startsWith("/") ? basename ? normalizeSlashes("/" + basename) : "/" : fromPathname) : fromPathname;
+  let pathname = toPathname ? toPathname.startsWith("/") ? toPathname : resolvePathname(toPathname, fromPathname) : fromPathname;
   return {
     pathname,
     search: normalizeSearch(search),
     hash: normalizeHash(hash)
   };
 }
-var trimTrailingSlashes = (path2) => path2.replace(/\/+$/, "");
-var normalizeSlashes = (path2) => path2.replace(/\/\/+/g, "/");
-var joinPaths = (paths) => normalizeSlashes(paths.join("/"));
-var splitPath = (path2) => normalizeSlashes(path2).split("/");
-var normalizeSearch = (search) => !search || search === "?" ? "" : search.startsWith("?") ? search : "?" + search;
-var normalizeHash = (hash) => !hash || hash === "#" ? "" : hash.startsWith("#") ? hash : "#" + hash;
-function resolvePathname(toPathname, fromPathname) {
-  let segments = splitPath(trimTrailingSlashes(fromPathname));
-  let relativeSegments = splitPath(toPathname);
+function resolvePathname(relativePath, fromPathname) {
+  let segments = fromPathname.replace(/\/+$/, "").split("/");
+  let relativeSegments = relativePath.split("/");
   relativeSegments.forEach((segment) => {
     if (segment === "..") {
       if (segments.length > 1)
@@ -9627,10 +9657,63 @@ function resolvePathname(toPathname, fromPathname) {
       segments.push(segment);
     }
   });
-  return segments.length > 1 ? joinPaths(segments) : "/";
+  return segments.length > 1 ? segments.join("/") : "/";
 }
-function _extends$1() {
-  _extends$1 = Object.assign || function(target) {
+function resolveTo(toArg, routePathnames, locationPathname) {
+  let to = typeof toArg === "string" ? J2(toArg) : toArg;
+  let toPathname = toArg === "" || to.pathname === "" ? "/" : to.pathname;
+  let from;
+  if (toPathname == null) {
+    from = locationPathname;
+  } else {
+    let routePathnameIndex = routePathnames.length - 1;
+    if (toPathname.startsWith("..")) {
+      let toSegments = toPathname.split("/");
+      while (toSegments[0] === "..") {
+        toSegments.shift();
+        routePathnameIndex -= 1;
+      }
+      to.pathname = toSegments.join("/");
+    }
+    from = routePathnameIndex >= 0 ? routePathnames[routePathnameIndex] : "/";
+  }
+  let path2 = resolvePath(to, from);
+  if (toPathname && toPathname !== "/" && toPathname.endsWith("/") && !path2.pathname.endsWith("/")) {
+    path2.pathname += "/";
+  }
+  return path2;
+}
+function getToPathname(to) {
+  return to === "" || to.pathname === "" ? "/" : typeof to === "string" ? J2(to).pathname : to.pathname;
+}
+function stripBasename(pathname, basename) {
+  if (basename === "/")
+    return pathname;
+  if (!pathname.toLowerCase().startsWith(basename.toLowerCase())) {
+    return null;
+  }
+  let nextChar = pathname.charAt(basename.length);
+  if (nextChar && nextChar !== "/") {
+    return null;
+  }
+  return pathname.slice(basename.length) || "/";
+}
+var joinPaths = (paths) => paths.join("/").replace(/\/\/+/g, "/");
+var normalizePathname = (pathname) => pathname.replace(/\/+$/, "").replace(/^\/*/, "/");
+var normalizeSearch = (search) => !search || search === "?" ? "" : search.startsWith("?") ? search : "?" + search;
+var normalizeHash = (hash) => !hash || hash === "#" ? "" : hash.startsWith("#") ? hash : "#" + hash;
+/**
+ * React Router DOM v6.0.0-beta.7
+ *
+ * Copyright (c) Remix Software Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.md file in the root directory of this source tree.
+ *
+ * @license MIT
+ */
+function _extends2() {
+  _extends2 = Object.assign || function(target) {
     for (var i2 = 1; i2 < arguments.length; i2++) {
       var source = arguments[i2];
       for (var key in source) {
@@ -9641,7 +9724,7 @@ function _extends$1() {
     }
     return target;
   };
-  return _extends$1.apply(this, arguments);
+  return _extends2.apply(this, arguments);
 }
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null)
@@ -9660,6 +9743,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 var _excluded = ["onClick", "replace", "state", "target", "to"];
 function HashRouter(_ref2) {
   let {
+    basename,
     children,
     window: window2
   } = _ref2;
@@ -9676,6 +9760,7 @@ function HashRouter(_ref2) {
   });
   react.useLayoutEffect(() => history.listen(setState), [history]);
   return /* @__PURE__ */ react.createElement(Router, {
+    basename,
     children,
     action: state.action,
     location: state.location,
@@ -9706,7 +9791,7 @@ var Link = /* @__PURE__ */ react.forwardRef(function LinkWithRef(_ref3, ref) {
       internalOnClick(event);
     }
   }
-  return /* @__PURE__ */ react.createElement("a", _extends$1({}, rest, {
+  return /* @__PURE__ */ react.createElement("a", _extends2({}, rest, {
     href,
     onClick: handleClick,
     ref,
@@ -10189,127 +10274,6 @@ var Stepper = ({
 };
 var stepper_default = Stepper;
 
-// build/dist/functions/array.functions.js
-var range = (val) => [...Array(val).keys()];
-var chunkArray = (array, perChunk = 5) => {
-  return array.reduce((acc, cur, index) => {
-    const chunkIndex = Math.floor(index / perChunk);
-    if (!acc[chunkIndex]) {
-      acc[chunkIndex] = [];
-    }
-    acc[chunkIndex].push(cur);
-    return acc;
-  }, []);
-};
-
-// build/dist/models/gender.model.js
-var Gender;
-(function(Gender2) {
-  Gender2["Female"] = "Female";
-  Gender2["Male"] = "Male";
-})(Gender || (Gender = {}));
-
-// build/dist/components/icons/reload-icon.js
-var ReloadSvg = ({
-  svg: color = {
-    "--tw-text-opacity": "1",
-    color: "rgba(0, 0, 0, var(--tw-text-opacity))"
-  },
-  container: classes = {
-    height: "1rem",
-    width: "1rem"
-  }
-}) => jsx("div", {
-  css: [classes]
-}, jsx("svg", {
-  css: [{
-    width: "100%",
-    height: "100%"
-  }, {
-    fill: "currentColor"
-  }, color],
-  fill: "none",
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 52 50"
-}, jsx("path", {
-  d: "M42.14 6.8c.181.171.36.345.538.522l-7.071 7.071c-.178-.177-.359-.35-.544-.517L42.139 6.8z"
-}), jsx("path", {
-  d: "M42.678 7.322a24.991 24.991 0 0 0-.539-.522l-7.076 7.076c.185.168.366.34.544.517l7.07-7.07z"
-}), jsx("path", {
-  d: "m42.678 7.322-7.071 7.071c-.178-.177-.359-.35-.544-.517l-4.46 4.46 20.913 5.603-5.603-20.913L42.139 6.8c.182.171.362.345.539.522z"
-}), jsx("path", {
-  d: "M40.219 44.834a25 25 0 0 0 8.93-13.364l-9.66-2.588a15 15 0 1 1-4.426-15.006L42.139 6.8a25 25 0 1 0-1.92 38.034z"
-})));
-var reload_icon_default = ReloadSvg;
-
-// build/dist/components/kin-name-list.js
-var KinNameList = ({
-  title,
-  nameFunc
-}) => {
-  const randomNames = (count = 10) => ({
-    female: range(count).map((_24) => nameFunc(Gender.Female)),
-    male: range(count).map((_24) => nameFunc(Gender.Male))
-  });
-  const [names, setNames] = useState(randomNames());
-  const getNames = () => setNames(randomNames());
-  return jsx("div", null, jsx("button", {
-    css: {
-      display: "flex",
-      gap: "0.5rem",
-      alignItems: "center",
-      marginBottom: "1rem",
-      ":hover": {
-        "--tw-text-opacity": "1",
-        color: "rgba(245, 158, 11, var(--tw-text-opacity))"
-      }
-    },
-    onClick: () => getNames()
-  }, jsx("h2", {
-    css: {
-      fontSize: "1.5rem",
-      lineHeight: "2rem",
-      textAlign: "center",
-      display: "flex",
-      "@media (min-width: 1024px)": {
-        fontSize: "2.25rem",
-        lineHeight: "2.5rem"
-      }
-    },
-    className: "yx-heading"
-  }, title), jsx(reload_icon_default, {
-    container: {
-      width: "1.5rem",
-      height: "1.5rem"
-    },
-    svg: {}
-  })), jsx("div", {
-    css: {
-      display: "flex",
-      gap: "4rem"
-    }
-  }, jsx("div", null, jsx("h3", {
-    css: {
-      fontWeight: "600",
-      fontSize: "1.5rem",
-      lineHeight: "2rem",
-      textTransform: "uppercase"
-    }
-  }, "Kvinnor"), names.female.length > 0 && jsx("ul", null, names.female.map((name, i2) => jsx("li", {
-    key: i2
-  }, name)))), jsx("div", null, jsx("h3", {
-    css: {
-      fontWeight: "600",
-      fontSize: "1.5rem",
-      lineHeight: "2rem",
-      textTransform: "uppercase"
-    }
-  }, "Män"), names.male.length > 0 && jsx("ul", null, names.male.map((name, i2) => jsx("li", {
-    key: i2
-  }, name))))));
-};
-var kin_name_list_default = KinNameList;
-
 // build/dist/hooks/use-current-width.js
 var getWidth = () => window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 var useCurrentWidth = () => {
@@ -10647,15 +10611,15 @@ function hasLoadedNamespace(ns, i18n) {
   return false;
 }
 var arrayWithHoles = createCommonjsModule(function(module) {
-  function _arrayWithHoles(arr3) {
+  function _arrayWithHoles2(arr3) {
     if (Array.isArray(arr3))
       return arr3;
   }
-  module.exports = _arrayWithHoles;
+  module.exports = _arrayWithHoles2;
   module.exports["default"] = module.exports, module.exports.__esModule = true;
 });
 var iterableToArrayLimit = createCommonjsModule(function(module) {
-  function _iterableToArrayLimit(arr3, i2) {
+  function _iterableToArrayLimit2(arr3, i2) {
     var _i = arr3 == null ? null : typeof Symbol !== "undefined" && arr3[Symbol.iterator] || arr3["@@iterator"];
     if (_i == null)
       return;
@@ -10683,11 +10647,11 @@ var iterableToArrayLimit = createCommonjsModule(function(module) {
     }
     return _arr;
   }
-  module.exports = _iterableToArrayLimit;
+  module.exports = _iterableToArrayLimit2;
   module.exports["default"] = module.exports, module.exports.__esModule = true;
 });
 var arrayLikeToArray = createCommonjsModule(function(module) {
-  function _arrayLikeToArray(arr3, len) {
+  function _arrayLikeToArray2(arr3, len) {
     if (len == null || len > arr3.length)
       len = arr3.length;
     for (var i2 = 0, arr22 = new Array(len); i2 < len; i2++) {
@@ -10695,11 +10659,11 @@ var arrayLikeToArray = createCommonjsModule(function(module) {
     }
     return arr22;
   }
-  module.exports = _arrayLikeToArray;
+  module.exports = _arrayLikeToArray2;
   module.exports["default"] = module.exports, module.exports.__esModule = true;
 });
 var unsupportedIterableToArray = createCommonjsModule(function(module) {
-  function _unsupportedIterableToArray(o, minLen) {
+  function _unsupportedIterableToArray2(o, minLen) {
     if (!o)
       return;
     if (typeof o === "string")
@@ -10712,21 +10676,21 @@ var unsupportedIterableToArray = createCommonjsModule(function(module) {
     if (n3 === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n3))
       return arrayLikeToArray(o, minLen);
   }
-  module.exports = _unsupportedIterableToArray;
+  module.exports = _unsupportedIterableToArray2;
   module.exports["default"] = module.exports, module.exports.__esModule = true;
 });
 var nonIterableRest = createCommonjsModule(function(module) {
-  function _nonIterableRest() {
+  function _nonIterableRest2() {
     throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
   }
-  module.exports = _nonIterableRest;
+  module.exports = _nonIterableRest2;
   module.exports["default"] = module.exports, module.exports.__esModule = true;
 });
 var slicedToArray = createCommonjsModule(function(module) {
-  function _slicedToArray2(arr3, i2) {
+  function _slicedToArray3(arr3, i2) {
     return arrayWithHoles(arr3) || iterableToArrayLimit(arr3, i2) || unsupportedIterableToArray(arr3, i2) || nonIterableRest();
   }
-  module.exports = _slicedToArray2;
+  module.exports = _slicedToArray3;
   module.exports["default"] = module.exports, module.exports.__esModule = true;
 });
 var _slicedToArray = /* @__PURE__ */ getDefaultExportFromCjs(slicedToArray);
@@ -10856,6 +10820,19 @@ function I18nextProvider(_ref) {
     value
   }, children);
 }
+
+// build/dist/functions/array.functions.js
+var range = (val) => [...Array(val).keys()];
+var chunkArray = (array, perChunk = 5) => {
+  return array.reduce((acc, cur, index) => {
+    const chunkIndex = Math.floor(index / perChunk);
+    if (!acc[chunkIndex]) {
+      acc[chunkIndex] = [];
+    }
+    acc[chunkIndex].push(cur);
+    return acc;
+  }, []);
+};
 
 // build/dist/pkg/rambda.js
 function curry(fn, args = []) {
@@ -15446,6 +15423,137 @@ var MapPage = () => {
   }))));
 };
 
+// build/dist/models/gender.model.js
+var Gender;
+(function(Gender2) {
+  Gender2["Female"] = "Female";
+  Gender2["Male"] = "Male";
+})(Gender || (Gender = {}));
+
+// build/dist/components/icons/reload-icon.js
+var ReloadSvg = ({
+  svg: color = {
+    "--tw-text-opacity": "1",
+    color: "rgba(0, 0, 0, var(--tw-text-opacity))"
+  },
+  container: classes = {
+    height: "1rem",
+    width: "1rem"
+  }
+}) => jsx("div", {
+  css: [classes]
+}, jsx("svg", {
+  css: [{
+    width: "100%",
+    height: "100%"
+  }, {
+    fill: "currentColor"
+  }, color],
+  fill: "none",
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 52 50"
+}, jsx("path", {
+  d: "M42.14 6.8c.181.171.36.345.538.522l-7.071 7.071c-.178-.177-.359-.35-.544-.517L42.139 6.8z"
+}), jsx("path", {
+  d: "M42.678 7.322a24.991 24.991 0 0 0-.539-.522l-7.076 7.076c.185.168.366.34.544.517l7.07-7.07z"
+}), jsx("path", {
+  d: "m42.678 7.322-7.071 7.071c-.178-.177-.359-.35-.544-.517l-4.46 4.46 20.913 5.603-5.603-20.913L42.139 6.8c.182.171.362.345.539.522z"
+}), jsx("path", {
+  d: "M40.219 44.834a25 25 0 0 0 8.93-13.364l-9.66-2.588a15 15 0 1 1-4.426-15.006L42.139 6.8a25 25 0 1 0-1.92 38.034z"
+})));
+var reload_icon_default = ReloadSvg;
+
+// build/dist/components/name-list.js
+var NameList = ({
+  names
+}) => {
+  const {
+    t: t3
+  } = useTranslation(["names"]);
+  return jsx(react.Fragment, null, names.length > 0 && jsx("ul", {
+    "data-testid": "namelist"
+  }, names.map((name, i2) => jsx("li", {
+    key: i2
+  }, name.map((n3) => t3(n3, {
+    ns: "names"
+  })).join(" ")))));
+};
+
+// build/dist/components/kin-name-list.js
+var KinNameList = ({
+  title,
+  nameFunc
+}) => {
+  const {
+    t: t3,
+    i18n
+  } = useTranslation(["common", "names"]);
+  const randomNames = (count = 10) => ({
+    female: range(count).map((_24) => nameFunc(Gender.Female, i18n.language)),
+    male: range(count).map((_24) => nameFunc(Gender.Male, i18n.language))
+  });
+  const [names, setNames] = useState(randomNames());
+  const getNames = () => setNames(randomNames());
+  useEffect(() => {
+    setNames(randomNames());
+  }, [i18n.language]);
+  return jsx("div", null, jsx("button", {
+    css: {
+      display: "flex",
+      gap: "0.5rem",
+      alignItems: "center",
+      marginBottom: "1rem",
+      ":hover": {
+        "--tw-text-opacity": "1",
+        color: "rgba(245, 158, 11, var(--tw-text-opacity))"
+      }
+    },
+    onClick: () => getNames()
+  }, jsx("h2", {
+    css: {
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      textAlign: "center",
+      display: "flex",
+      "@media (min-width: 1024px)": {
+        fontSize: "2.25rem",
+        lineHeight: "2.5rem"
+      }
+    },
+    className: "yx-heading"
+  }, t3(`Kin.${title}`)), jsx(reload_icon_default, {
+    container: {
+      width: "1.5rem",
+      height: "1.5rem"
+    },
+    svg: {}
+  })), jsx("div", {
+    css: {
+      display: "grid",
+      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+      gap: "4rem"
+    }
+  }, jsx("div", null, jsx("h3", {
+    css: {
+      fontWeight: "600",
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      textTransform: "uppercase"
+    }
+  }, t3("Gender.Women")), jsx(NameList, {
+    names: names.female
+  })), jsx("div", null, jsx("h3", {
+    css: {
+      fontWeight: "600",
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      textTransform: "uppercase"
+    }
+  }, t3("Gender.Men")), jsx(NameList, {
+    names: names.male
+  }))));
+};
+
 // build/dist/models/name.model.js
 var NameType;
 (function(NameType2) {
@@ -15461,16 +15569,18 @@ var KinType;
 })(KinType || (KinType = {}));
 var HumanKin;
 (function(HumanKin2) {
-  HumanKin2["Alderlänning"] = "Alderlänning";
-  HumanKin2["Eländer"] = "Eländer";
-  HumanKin2["Aslener"] = "Aslener";
+  HumanKin2["Alderlander"] = "Alderlander";
+  HumanKin2["Ailander"] = "Ailander";
+  HumanKin2["Aslene"] = "Aslene";
 })(HumanKin || (HumanKin = {}));
 var ElfKin;
 (function(ElfKin2) {
   ElfKin2["Elf"] = "Elf";
 })(ElfKin || (ElfKin = {}));
+
+// build/dist/data/name.data.js
 var humanNames = {
-  Alderlänning: {
+  Alderlander: {
     Male: {
       probabilites: [{
         type: NameType.FirstName,
@@ -15499,7 +15609,7 @@ var humanNames = {
     },
     family: ["Adogit", "Aelvaeones", "Batini", "Bergio", "Braemi", "Bui", "Chali", "Danduti", "Dani", "Eunixi", "Evagres", "Favonae ", "Fosi", "Grannii", "Hallin", "Hasdingi", "Helissi", "Heruli", "Hilleviones", "Ingriones", "Lemovii", "Levoni", "Manimi", "Mattiaci", "Naharvali", "Nemetes", "Njars", "Otingis", "Pharodini", "Quadi", "Racatae", "Racatriae", "Salii", "Scirii", "Segni", "Sigulones", "Suevi", "Taetel", "Teutons", "Thervingi", "Theustes", "Tubanti", "Ubi", "Vagoth", "Vangiones", "Varini", "Vinoiloth ", "Viruni", "Vispi ", "Zumi"]
   },
-  Aslener: {
+  Aslene: {
     Male: {
       probabilites: [{
         type: NameType.FirstName,
@@ -15520,9 +15630,9 @@ var humanNames = {
       }],
       rawNames: ["Adara", "Alena", "Arete", "Asta", "Callia", "Cassia", "Charis", "Cyma", "Damia", "Delbin", "Doria", "Eleni", "Elna", "Evadne", "Evania", "Evanthe", "Filia", "Helia", "Hesper", "Io", "Iona", "Ionia", "Isaura", "Ismini", "Kaia", "Kama", "Kepa", "Kolete", "Lana", "Lelia", "Lenore", "Melania", "Melita", "Metea", "Mona", "Nora", "Nyssa", "Odele", "Pallas", "Panthea", "Pelegia", "Perrine", "Philippa", "Rhea", "Rita", "Sappho", "Sonia", "Tessa", "Vania", "Zenobia"]
     },
-    nickName: ["Äventyrlige", "Arge", "Skallige", "Blodige", "Djärve", "Noggranne", "Slarvige", "Försiktig", "Duktige", "Förvirrade", "Grymme", "Direkte", "Energiske", "Tjocka", "Varsamme", "Gode", "Hårige", "Stilige", "Lycklige", "Hoppfulle", "Muntra", "Glad", "Mäktige", "Lindriga", "Vilseledne", "Dystere", "Gamle", "Skarpsynte", "Stolte", "Snabbe", "Pålitlige", "Ledsne", "Kloke", "Korte", "Sömnig", "Långsamme", "Kraftige", "Starke", "Rejäle", "Snabbe", "Pratsamme", "Långe", "Fruktansvärde", "Tunne", "Fule", "Fåfänglige", "Svage", "Kloke", "Unge"]
+    nickName: ["NickNames.Adventurous", "NickNames.Angry", "NickNames.Bald", "NickNames.Bloody", "NickNames.Bold", "NickNames.Accurate", "NickNames.Sloppy", "NickNames.Careful", "NickNames.Able", "NickNames.Confused", "NickNames.Cruel", "NickNames.Direct", "NickNames.Dashing", "NickNames.Thick", "NickNames.Wary", "NickNames.Good", "NickNames.Hairy", "NickNames.Stylish", "NickNames.Blessed", "NickNames.Jumping", "NickNames.Hopeful", "NickNames.Cheerful", "NickNames.Happy", "NickNames.Mighty", "NickNames.Gentle", "NickNames.Misled", "NickNames.Somber", "NickNames.Old", "NickNames.KeenEyed", "NickNames.Proud", "NickNames.Trustworthy", "NickNames.Sad", "NickNames.Short", "NickNames.Sleepy", "NickNames.Slow", "NickNames.Powerful", "NickNames.Strong", "NickNames.Honest", "NickNames.Fast", "NickNames.Talkative", "NickNames.Long", "NickNames.Terrible", "NickNames.Thin", "NickNames.Ugly", "NickNames.Vain", "NickNames.Weak", "NickNames.Wise", "NickNames.Young"]
   },
-  Eländer: {
+  Ailander: {
     Male: {
       probabilites: [{
         type: NameType.FirstName,
@@ -15552,54 +15662,49 @@ var humanNames = {
     family: ["Adlard", "Almer", "Alston", "Alvar", "Balston", "Brunger", "Brunwin", "Burch", "Burward", "Cobbald", "Dewdney", "Eddols", "Elphee", "Elvey", "Erwin", "Frewer", "Frewin", "Goldbard", "Goldhawk", "Hulbert", "Isgar", "Kenway", "Kerrich", "Kerrich", "Lambrick", "Leavins", "Leavold", "Lewin", "Litwin", "Litwin", "Medwin", "Orrick", "Osmer", "Othen", "Quenell", "Seavers", "Siggers", "Sirett", "Stannard", "Wackrill", "Walwin", "Wennell", "Whatman", "Winbolt", "Winbow", "Woolgar", "Wyard", "Wyberg", "Wymer", "Yonwin"]
   }
 };
-var villageNames = {
+var villageNamesSv = {
   prefix: ["Bärnsten", "Ängel", "Själ", "Bäck", "Vik", "Kittel", "Pil", "Höst", "Kal", "Fjärd", "Strand", "Björn", "Klock", "Svart", "Dyster", "Blind", "Ben", "Block", "Bro", "Gryt", "Skör", "Brons", "Borg", "Grott", "Kyl", "Ler", "Klar", "Klipp", "Moln", "Kall", "Häll", "Kråk", "Kristall", "Fördömda", "Mörk", "Gryning", "Död", "Djup", "Rådjurs", "Demon", "Dagg", "Dunkel", "Öde", "Smuts", "Hund", "Drak", "Torr", "Skymnings", "Damm", "Örn", "Jord", "Öst", "Brun", "Kant", "Äldre", "Gammel", "Glöd", "Eviga", "Rättvisa", "Fall", "Falsk", "Fager", "Bortre", "Fe", "Fruktans", "Flamm", "Platt", "Frej", "Frost", "Spöke", "Glimm", "Dunkel", "Guld", "Gräs", "Grå", "Grön", "Dyster", "Smuts", "Hassel", "Hjärt", "Hög", "Dov", "Honungs", "Hund", "Is", "Järn", "Kil", "Riddar", "Sjö", "Sista", "Ljus", "Kalk", "Liten", "Förlorade", "Galen", "Magiker", "Lönn", "Mitt", "Makt", "Kvarn", "Dimm", "Mån", "Moss", "Ler", "Stum", "Myt", "Aldrig", "Ny", "Natt", "Norr", "Ek", "Hav", "Gammal", "Ox", "Pärl", "Tall", "Damm", "Ren", "Snabb", "Vredes", "Korp", "Röd", "Rimfrost", "Flod", "Sten", "Skälm", "Ros", "Rost", "Salt", "Sand", "Bränn", "Skydd", "Skugg", "Skimmer", "Slöj", "Tyst", "Silkes", "Silver", "Slät", "Slask", "Lömsk", "Små", "Lill", "Slät", "Orm", "Snö", "Söder", "Vår", "Hjort", "Stjärn", "Imm", "Stål", "Brant", "Stilla", "Sten", "Storm", "Sommar", "Sol", "Kärr", "Svan", "Snabb", "Törne", "Timmer", "Handel", "Väst", "Val", "Dugg", "Vit", "Vild", "Vilda", "Vind", "Vinter", "Varg"],
   suffix: ["tunnland", "band", "kärr", "vik", "klocka", "född", "städ", "born", "brott", "bryt", "bäck", "fäste", "bränna", "grav", "röse", "kalla", "kyla", "klippa", "kust", "krön", "korsning", "dal", "gryt", "driva", "klar", "falla", "falls", "fälla", "fält", "ved", "skog", "fort", "front", "frost", "garde", "port", "dalgång", "brott", "grav", "lund", "vakt", "klyfta", "bukt", "hall", "helga", "tuna", "hand", "hamn", "tillflykt", "roder", "kulle", "fäste", "holde", "sänka", "horn", "värd", "torn", "landa", "ljus", "gap", "äng", "ren", "myr", "vall", "hed", "Mer", "pik", "mun", "passage", "topp", "platts", "damm", "hamn", "post", "ände", "vila", "sten", "springa", "ärr", "skugga", "klippa", "skal", "skydda", "strand", "fylke", "sida", "stava", "spira", "by", "häx", "helga", "stjärna", "storm", "strå", "toppen", "flod", "sta", "dal", "dala", "valv", "ådra", "utsikt", "bya", "mur", "tumla", "Skydd", "Utsikt", "vatten", "brunn", "brygga", "veke", "vind", "trä", "gård"]
 };
+var villageNamesEn = {
+  prefix: ["Amber", "Angel", "Soul", "Stream", "Bay", "Cauldron", "Arrow", "Autumn", "Bald", "Bay", "Beach", "Bear", "Clock", "Black", "Gloomy", "Blind", "Bone", "Block", "Bridge", "Pot", "Fragile", "Bronze", "Fort", "Cave", "Leg", "Smiles", "Clear", "Killing", "Cloud", "Cold", "Slab", "Crow", "Crystal", "Damned", "Dark", "Dawn", "Death", "Depth", "Deer", "Demon", "Dew", "Dim", "Fate", "Dirt", "Dog", "Drake", "Dry", "Twilight", "Dust", "Eagle", "Soil", "East", "Brown", "Edge", "Elder", "Old", "Glow", "Eternal", "Justice", "Case", "Fake", "Fair", "Far", "Fairy", "Fear", "Flame", "Flat", "Free", "Frost", "Ghost", "Glimmer", "Murky", "Gold", "Grass", "Gray", "Green", "Gloomy", "Dirt", "Hazel", "Heart", "High", "Dull", "Honey", "Dog", "Ice", "Iron", "Wedge", "Knights", "Lake", "Last", "Light", "Lime", "Small", "Lost", "Crazy", "Magician", "Maple", "Middle", "Power", "Grinder", "Fog", "Moon", "Moss", "Smiles", "Speechless", "Myth", "Never", "New", "Night", "North", "Oak", "Sea", "Old", "Ox", "Pearl", "Pine", "Dust", "Clean", "Fast", "Peace", "Raven", "Red", "Frost", "River", "Stone", "Rogue", "Rose", "Rust", "Salt", "Sand", "Burn", "Protection", "Shadow", "Shimmer", "Veil", "Silent", "Silk", "Silver", "Smooth", "Slush", "Sneaky", "Small", "Little", "Smooth", "Snake", "Snow", "South", "Spring", "Deer", "Star", "Mist", "Steel", "Steep", "Still", "Stone", "Storm", "Summer", "Solar", "Marsh", "Swan", "Fast", "Thorn", "Timber", "Trade", "West", "Choice", "Dugg", "White", "Wild", "Wild", "Wind", "Winter", "Wolf"],
+  suffix: ["acres", "band", "marsh", "bay", "clock", "born", "cleaning", "born", "crime", "break", "stream", "attachment", "burn", "grave", "cairn", "call", "cold", "cut", "coastal", "crown", "crossing", "valley", "gryt", "drive", "clear", "fall", "falls", "trap", "field", "firewood", "forest", "fast", "front", "frost", "garde", "port", "valley", "crime", "grave", "grove", "guard", "gap", "bay", "hall", "sanctify", "tuna", "hand", "port", "refuge", "rudder", "hill", "attachment", "hold", "lower", "horn", "host", "tower", "land", "light", "gap", "meadow", "clean", "mire", "mound", "heath", "more", "pike", "mouth", "passage", "top", "flats", "dust", "port", "mail", "end", "rest", "stone", "run", "scar", "shadow", "cut", "shell", "protect", "beach", "county", "page", "spell", "scepter", "village", "witch", "sanctify", "star", "storm", "straw", "top", "river", "stand", "valley", "dale", "vault", "lode", "view", "village", "wall", "tumble", "protection", "view", "water", "well", "bridge", "wick", "wind", "wood", "courtyard"]
+};
 
 // build/dist/functions/name.functions.js
-var getRandomEländerName = (g3 = Gender.Female) => {
+var getRandomName = (g3, lang, nameList, chooseFunc = choose) => {
   const {
     type,
     firstName
-  } = getNameTypeAndFirstName(g3, humanNames.Eländer);
+  } = getNameTypeAndFirstName(g3, nameList);
   switch (type) {
-    case NameType.FamilyName:
-      return `${firstName} ${choose(humanNames.Eländer.family ?? [])}`;
+    case NameType.FamilyName: {
+      if (!nameList.family || nameList.family.length === 0) {
+        return [firstName];
+      }
+      return [firstName, chooseFunc(nameList.family)];
+    }
+    case NameType.NickName: {
+      if (!nameList.nickName || nameList.nickName.length === 0) {
+        return [firstName];
+      }
+      return [firstName, "THE", chooseFunc(nameList.nickName)];
+    }
     case NameType.HomeName:
-      return `${firstName} av ${getRandomVillageName()}`;
+      return [firstName, "OF", formatVillageName(getVillagePrefixAndSuffix(lang, chooseFunc), lang)];
     case NameType.FirstName:
     default:
-      return firstName;
+      return [firstName];
   }
 };
-var getRandomAlderlänningarName = (g3 = Gender.Female) => {
-  const {
-    type,
-    firstName
-  } = getNameTypeAndFirstName(g3, humanNames.Alderlänning);
-  switch (type) {
-    case NameType.FamilyName:
-      return `${firstName} ${choose(humanNames.Eländer.family ?? [])}`;
-    case NameType.HomeName:
-      return `${firstName} av ${getRandomVillageName()}`;
-    case NameType.FirstName:
-    default:
-      return firstName;
-  }
+var getRandomAilanderName = (g3, lang, nameList = humanNames.Ailander, chooseFunc = choose) => {
+  return getRandomName(g3, lang, nameList, chooseFunc);
 };
-var getRandomAslenerName = (g3 = Gender.Female) => {
-  const {
-    type,
-    firstName
-  } = getNameTypeAndFirstName(g3, humanNames.Aslener);
-  switch (type) {
-    case NameType.NickName:
-      return `${firstName} den ${choose(humanNames.Aslener.nickName ?? [])}`;
-    case NameType.FirstName:
-    default:
-      return firstName;
-  }
+var getRandomAlderlanderName = (g3, lang, nameList = humanNames.Ailander, chooseFunc = choose) => {
+  return getRandomName(g3, lang, nameList, chooseFunc);
+};
+var getRandomAsleneName = (g3, lang, nameList = humanNames.Aslene, chooseFunc = choose) => {
+  return getRandomName(g3, lang, nameList, chooseFunc);
 };
 var getNameTypeAndFirstName = (g3, nl) => {
   return {
@@ -15607,10 +15712,36 @@ var getNameTypeAndFirstName = (g3, nl) => {
     firstName: choose(nl[g3].rawNames)
   };
 };
-var getRandomVillageName = () => `${choose(villageNames.prefix)}${choose(villageNames.suffix)}`;
+var getVillageNameList = (lang) => {
+  switch (lang) {
+    case "sv":
+      return villageNamesSv;
+    case "en":
+      return villageNamesEn;
+    default: {
+      const exhaustiveCheck = lang;
+      throw new Error(exhaustiveCheck);
+    }
+  }
+};
+var capitalize = (s) => `${s.charAt(0).toUpperCase()}${s.slice(1)}`;
+var getVillagePrefixAndSuffix = (lang, choiceFunc = choose) => {
+  const {
+    prefix,
+    suffix
+  } = getVillageNameList(lang);
+  return [choiceFunc(prefix), choiceFunc(suffix)];
+};
+var formatVillageName = (prefixAndSuffix, lang) => {
+  const separator = lang === "en" ? " " : "";
+  return prefixAndSuffix.map((fix) => lang === "en" ? capitalize(fix) : fix).join(separator);
+};
 
 // build/dist/pages/name-generator.page.js
 var NameGeneratorPage = () => {
+  const {
+    t: t3
+  } = useTranslation("names");
   return jsx("div", {
     css: {
       display: "flex",
@@ -15618,7 +15749,7 @@ var NameGeneratorPage = () => {
       rowGap: "2rem",
       width: "100%"
     }
-  }, jsx(page_header_default, null, "Namn"), jsx("div", {
+  }, jsx(page_header_default, null, t3("Title")), jsx("div", {
     css: {
       display: "flex",
       flexWrap: "wrap",
@@ -15631,32 +15762,32 @@ var NameGeneratorPage = () => {
     css: {
       flexBasis: "500px"
     }
-  }, jsx(parchment_default, null, jsx(kin_name_list_default, {
+  }, jsx(parchment_default, null, jsx(KinNameList, {
     css: {
       padding: "0px"
     },
-    title: "Eländare",
-    nameFunc: getRandomEländerName
+    title: HumanKin.Ailander,
+    nameFunc: getRandomAilanderName
   }))), jsx("div", {
     css: {
       flexBasis: "500px"
     }
-  }, jsx(parchment_default, null, jsx(kin_name_list_default, {
+  }, jsx(parchment_default, null, jsx(KinNameList, {
     css: {
       padding: "0px"
     },
-    title: "Alderlänningar",
-    nameFunc: getRandomAlderlänningarName
+    title: HumanKin.Alderlander,
+    nameFunc: getRandomAlderlanderName
   }))), jsx("div", {
     css: {
       flexBasis: "500px"
     }
-  }, jsx(parchment_default, null, jsx(kin_name_list_default, {
+  }, jsx(parchment_default, null, jsx(KinNameList, {
     css: {
       padding: "0px"
     },
-    title: "Aslener",
-    nameFunc: getRandomAslenerName
+    title: HumanKin.Aslene,
+    nameFunc: getRandomAsleneName
   })))));
 };
 
@@ -17118,6 +17249,65 @@ function _inherits(subClass, superClass) {
   if (superClass)
     _setPrototypeOf(subClass, superClass);
 }
+function _arrayWithHoles(arr3) {
+  if (Array.isArray(arr3))
+    return arr3;
+}
+function _iterableToArrayLimit(arr3, i2) {
+  var _i = arr3 == null ? null : typeof Symbol !== "undefined" && arr3[Symbol.iterator] || arr3["@@iterator"];
+  if (_i == null)
+    return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _s, _e;
+  try {
+    for (_i = _i.call(arr3); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+      if (i2 && _arr.length === i2)
+        break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null)
+        _i["return"]();
+    } finally {
+      if (_d)
+        throw _e;
+    }
+  }
+  return _arr;
+}
+function _arrayLikeToArray(arr3, len) {
+  if (len == null || len > arr3.length)
+    len = arr3.length;
+  for (var i2 = 0, arr22 = new Array(len); i2 < len; i2++) {
+    arr22[i2] = arr3[i2];
+  }
+  return arr22;
+}
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o)
+    return;
+  if (typeof o === "string")
+    return _arrayLikeToArray(o, minLen);
+  var n3 = Object.prototype.toString.call(o).slice(8, -1);
+  if (n3 === "Object" && o.constructor)
+    n3 = o.constructor.name;
+  if (n3 === "Map" || n3 === "Set")
+    return Array.from(o);
+  if (n3 === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n3))
+    return _arrayLikeToArray(o, minLen);
+}
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _slicedToArray2(arr3, i2) {
+  return _arrayWithHoles(arr3) || _iterableToArrayLimit(arr3, i2) || _unsupportedIterableToArray(arr3, i2) || _nonIterableRest();
+}
 var consoleLogger = {
   type: "logger",
   log: function log(args) {
@@ -17948,7 +18138,7 @@ var Translator = function(_EventEmitter) {
   }]);
   return Translator2;
 }(EventEmitter);
-function capitalize(string) {
+function capitalize2(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 var LanguageUtil = function() {
@@ -17993,7 +18183,7 @@ var LanguageUtil = function() {
           p3[0] = p3[0].toLowerCase();
           p3[1] = p3[1].toUpperCase();
           if (specialCases.indexOf(p3[1].toLowerCase()) > -1)
-            p3[1] = capitalize(p3[1].toLowerCase());
+            p3[1] = capitalize2(p3[1].toLowerCase());
         } else if (p3.length === 3) {
           p3[0] = p3[0].toLowerCase();
           if (p3[1].length === 2)
@@ -18001,9 +18191,9 @@ var LanguageUtil = function() {
           if (p3[0] !== "sgn" && p3[2].length === 2)
             p3[2] = p3[2].toUpperCase();
           if (specialCases.indexOf(p3[1].toLowerCase()) > -1)
-            p3[1] = capitalize(p3[1].toLowerCase());
+            p3[1] = capitalize2(p3[1].toLowerCase());
           if (specialCases.indexOf(p3[2].toLowerCase()) > -1)
-            p3[2] = capitalize(p3[2].toLowerCase());
+            p3[2] = capitalize2(p3[2].toLowerCase());
         }
         return p3.join("-");
       }
@@ -18599,6 +18789,109 @@ var Interpolator = function() {
   }]);
   return Interpolator2;
 }();
+function parseFormatStr(formatStr) {
+  var formatName = formatStr.toLowerCase();
+  var formatOptions = {};
+  if (formatStr.indexOf("(") > -1) {
+    var p3 = formatStr.split("(");
+    formatName = p3[0].toLowerCase();
+    var optStr = p3[1].substring(0, p3[1].length - 1);
+    if (formatName === "currency" && optStr.indexOf(":") < 0) {
+      if (!formatOptions.currency)
+        formatOptions.currency = optStr.trim();
+    } else if (formatName === "relativetime" && optStr.indexOf(":") < 0) {
+      if (!formatOptions.range)
+        formatOptions.range = optStr.trim();
+    } else {
+      var opts = optStr.split(";");
+      opts.forEach(function(opt) {
+        if (!opt)
+          return;
+        var _opt$split = opt.split(":"), _opt$split2 = _slicedToArray2(_opt$split, 2), key = _opt$split2[0], val = _opt$split2[1];
+        if (val.trim() === "false")
+          formatOptions[key.trim()] = false;
+        if (val.trim() === "true")
+          formatOptions[key.trim()] = true;
+        if (!isNaN(val.trim()))
+          formatOptions[key.trim()] = parseInt(val.trim(), 10);
+        if (!formatOptions[key.trim()])
+          formatOptions[key.trim()] = val.trim();
+      });
+    }
+  }
+  return {
+    formatName,
+    formatOptions
+  };
+}
+var Formatter = function() {
+  function Formatter2() {
+    var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
+    _classCallCheck2(this, Formatter2);
+    this.logger = baseLogger.create("formatter");
+    this.options = options;
+    this.formats = {
+      number: function number(val, lng, options2) {
+        return new Intl.NumberFormat(lng, options2).format(val);
+      },
+      currency: function currency(val, lng, options2) {
+        return new Intl.NumberFormat(lng, _objectSpread2({}, options2, {
+          style: "currency"
+        })).format(val);
+      },
+      datetime: function datetime(val, lng, options2) {
+        return new Intl.DateTimeFormat(lng, _objectSpread2({}, options2)).format(val);
+      },
+      relativetime: function relativetime(val, lng, options2) {
+        return new Intl.RelativeTimeFormat(lng, _objectSpread2({}, options2)).format(val, options2.range || "day");
+      },
+      list: function list(val, lng, options2) {
+        return new Intl.ListFormat(lng, _objectSpread2({}, options2)).format(val);
+      }
+    };
+    this.init(options);
+  }
+  _createClass2(Formatter2, [{
+    key: "init",
+    value: function init2(services) {
+      var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {
+        interpolation: {}
+      };
+      var iOpts = options.interpolation;
+      this.formatSeparator = iOpts.formatSeparator ? iOpts.formatSeparator : iOpts.formatSeparator || ",";
+    }
+  }, {
+    key: "add",
+    value: function add(name, fc2) {
+      this.formats[name] = fc2;
+    }
+  }, {
+    key: "format",
+    value: function format(value, _format, lng, options) {
+      var _this = this;
+      var formats = _format.split(this.formatSeparator);
+      var result = formats.reduce(function(mem, f2) {
+        var _parseFormatStr = parseFormatStr(f2), formatName = _parseFormatStr.formatName, formatOptions = _parseFormatStr.formatOptions;
+        if (_this.formats[formatName]) {
+          var formatted = mem;
+          try {
+            var valOptions = options && options.formatParams && options.formatParams[options.interpolationkey] || {};
+            var l2 = valOptions.locale || valOptions.lng || options.locale || options.lng || lng;
+            formatted = _this.formats[formatName](mem, l2, _objectSpread2({}, formatOptions, options, valOptions));
+          } catch (error2) {
+            _this.logger.warn(error2);
+          }
+          return formatted;
+        } else {
+          _this.logger.warn("there was no format function for ".concat(formatName));
+        }
+        return mem;
+      }, value);
+      return result;
+    }
+  }]);
+  return Formatter2;
+}();
 function remove(arr3, what) {
   var found = arr3.indexOf(what);
   while (found !== -1) {
@@ -18938,16 +19231,14 @@ var I18n = function(_EventEmitter) {
           options.defaultNS = options.ns[0];
         }
       }
-      this.options = _objectSpread2({}, get(), this.options, transformOptions(options));
+      var defOpts = get();
+      this.options = _objectSpread2({}, defOpts, this.options, transformOptions(options));
       if (options.keySeparator !== void 0) {
         this.options.userDefinedKeySeparator = options.keySeparator;
       }
       if (options.nsSeparator !== void 0) {
         this.options.userDefinedNsSeparator = options.nsSeparator;
       }
-      this.format = this.options.interpolation.format;
-      if (!callback)
-        callback = noop;
       function createClassOnDemand(ClassOrObject) {
         if (!ClassOrObject)
           return null;
@@ -18961,6 +19252,12 @@ var I18n = function(_EventEmitter) {
         } else {
           baseLogger.init(null, this.options);
         }
+        var formatter;
+        if (this.modules.formatter) {
+          formatter = this.modules.formatter;
+        } else if (typeof Intl !== "undefined") {
+          formatter = Formatter;
+        }
         var lu = new LanguageUtil(this.options);
         this.store = new ResourceStore(this.options.resources, this.options);
         var s = this.services;
@@ -18972,6 +19269,11 @@ var I18n = function(_EventEmitter) {
           compatibilityJSON: this.options.compatibilityJSON,
           simplifyPluralSuffix: this.options.simplifyPluralSuffix
         });
+        if (formatter && this.options.interpolation.format === defOpts.interpolation.format) {
+          s.formatter = createClassOnDemand(formatter);
+          s.formatter.init(s, this.options);
+          this.options.interpolation.format = s.formatter.format.bind(s.formatter);
+        }
         s.interpolator = new Interpolator(this.options);
         s.utils = {
           hasLoadedNamespace: this.hasLoadedNamespace.bind(this)
@@ -19004,6 +19306,9 @@ var I18n = function(_EventEmitter) {
             m3.init(_this2);
         });
       }
+      this.format = this.options.interpolation.format;
+      if (!callback)
+        callback = noop;
       if (this.options.fallbackLng && !this.services.languageDetector && !this.options.lng) {
         var codes = this.services.languageUtils.getFallbackCodes(this.options.fallbackLng);
         if (codes.length > 0 && codes[0] !== "dev")
@@ -19127,6 +19432,9 @@ var I18n = function(_EventEmitter) {
       }
       if (module.type === "postProcessor") {
         postProcessor.addPostProcessor(module);
+      }
+      if (module.type === "formatter") {
+        this.modules.formatter = module;
       }
       if (module.type === "3rdParty") {
         this.modules.external.push(module);
@@ -20623,7 +20931,7 @@ i18nReact.use(i18next_http_backend_default).use(i18next_browser_languagedetector
   fallbackLng: "en",
   debug: false,
   supportedLngs: ["en", "sv"],
-  ns: ["core", "common", "calendar", "map", "monsters"],
+  ns: ["core", "common", "calendar", "map", "monsters", "names"],
   keySeparator: ".",
   backend: {
     loadPath

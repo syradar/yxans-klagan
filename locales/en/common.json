@@ -1,4 +1,15 @@
 {
   "Page": "Page",
-  "GMBook": "GM"
+  "GMBook": "GM",
+  "Kin": {
+    "Alderlander": "Alderlander",
+    "Ailander": "Ailander",
+    "Aslene": "Aslene"
+  },
+  "Gender": {
+    "Man": "Man",
+    "Men": "Men",
+    "Woman": "Woman",
+    "Women": "Women"
+  }
 }
