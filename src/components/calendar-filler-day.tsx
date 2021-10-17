@@ -7,7 +7,7 @@ interface CalendarFillerDaysProps {
   day: Day
 }
 
-const CalendarFillerDays: FC<CalendarFillerDaysProps> = ({
+export const CalendarFillerDays: FC<CalendarFillerDaysProps> = ({
   day,
 }: CalendarFillerDaysProps) => {
   const fillerDays = getDayNumber(day.name) - 1
@@ -31,5 +31,3 @@ const CalendarFillerDays: FC<CalendarFillerDaysProps> = ({
     </>
   )
 }
-
-export default CalendarFillerDays

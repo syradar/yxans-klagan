@@ -1,6 +1,5 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import { css } from 'twin.macro'
 import { chunkArray } from '../functions/array.functions'
 import { AttributeViewModel } from '../models/attributes.model'

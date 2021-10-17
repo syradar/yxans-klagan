@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import 'twin.macro'
 import tw, { TwStyle } from 'twin.macro'
 
 interface IconProps {
@@ -7,7 +6,7 @@ interface IconProps {
   container?: TwStyle
 }
 
-const ReloadSvg: FC<IconProps> = ({
+export const ReloadIcon: FC<IconProps> = ({
   svg: color = tw`text-black`,
   container: classes = tw`h-4 w-4`,
 }: IconProps) => (
@@ -26,5 +25,3 @@ const ReloadSvg: FC<IconProps> = ({
     </svg>
   </div>
 )
-
-export default ReloadSvg

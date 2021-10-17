@@ -185,19 +185,19 @@ export const getCal = (startYear = 1165, startDay?: DayNames): CalendarV4 => {
     .flat()
 
   const cal = range(numberOfMonths()).reduce(
-    (cal, m) => {
+    (calendar, m) => {
       const monthName = getMonthName(m)
-      cal.cal.months.push(
-        createMonth(monthName, weatherDays, cal.daysPassed, dayOffset),
+      calendar.calendar.months.push(
+        createMonth(monthName, weatherDays, calendar.daysPassed, dayOffset),
       )
-      cal.daysPassed += dayInMonth(monthName)
+      calendar.daysPassed += dayInMonth(monthName)
 
-      return cal
+      return calendar
     },
 
     {
       daysPassed: 0,
-      cal: {
+      calendar: {
         year: startYear,
         months: [] as Month[],
         temperatureUnit: TemperatureUnit.Metric,
@@ -206,7 +206,7 @@ export const getCal = (startYear = 1165, startDay?: DayNames): CalendarV4 => {
     },
   )
 
-  return cal.cal
+  return cal.calendar
 }
 export const parseV1AndV2Calendar = (cal: CalendarV1AndV2): CalendarV4 => {
   return {
@@ -272,7 +272,7 @@ export const updateStartingDay = (
   const dayOffset = getDayNumber(startDay) - 1
   let daysPassed = 0
 
-  const newCal = {
+  return {
     ...cal,
     months: cal.months.map((m) => {
       return {
@@ -291,6 +291,4 @@ export const updateStartingDay = (
     }),
     startDay,
   }
-
-  return newCal
 }

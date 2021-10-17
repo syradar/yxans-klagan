@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import 'twin.macro'
 import tw from 'twin.macro'
-import { Parchment } from '.'
 import { getTerrainName } from '../functions/terrain.functions'
 import { EncounterViewModel } from '../models/encounter.model'
 import { Terrain } from '../models/terrain.model'
+import { Parchment } from './parchment'
 
 interface EncounterProps {
   encounter: EncounterViewModel

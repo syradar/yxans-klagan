@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import 'twin.macro'
 import tw, { styled } from 'twin.macro'
 
 interface DayCounterProps {
@@ -7,7 +6,7 @@ interface DayCounterProps {
   spendQuarter: () => void
 }
 
-const DayCounter: FC<DayCounterProps> = ({
+export const DayCounter: FC<DayCounterProps> = ({
   quarters,
   spendQuarter,
 }: DayCounterProps) => {
@@ -37,5 +36,3 @@ const Quarter = styled.div(({ spent, index }: QuarterProps) => [
   index === 3 && tw``,
   spent && tw`bg-gray-300`,
 ])
-
-export default DayCounter

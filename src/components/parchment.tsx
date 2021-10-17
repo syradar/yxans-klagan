@@ -7,7 +7,7 @@ interface ParchmentProps {
   deps?: unknown[]
 }
 
-const Parchment = React.forwardRef<SVGSVGElement, ParchmentProps>(
+export const Parchment = React.forwardRef<SVGSVGElement, ParchmentProps>(
   ({ children, deps }: ParchmentProps, forwardedRef) => {
     const [svgHeight, setSvgHeight] = useState(0)
     const contentRef = useRef<HTMLDivElement>(null)
@@ -86,9 +86,3 @@ const Parchment = React.forwardRef<SVGSVGElement, ParchmentProps>(
 )
 
 Parchment.displayName = 'Parchment'
-
-export default Parchment
-
-// clamp(.5rem, calc(1rem + ${
-//   (100 - dim) * 0.5
-// }%),  calc(2rem + ${(100 - dim) * 0.5}%))`

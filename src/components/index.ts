@@ -1,8 +1,0 @@
-export { default as Button } from './Button'
-export { default as Logo } from './Logo'
-export { default as Stepper } from './stepper'
-export { default as Parchment } from './parchment'
-export { default as DayCounter } from './day-counter'
-export { default as CalendarDay } from './calendar-day'
-export { default as CalendarFillerDays } from './calendar-filler-day'
-export { default as PageHeader } from './page-header'

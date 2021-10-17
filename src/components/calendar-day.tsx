@@ -1,8 +1,7 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import tw from 'twin.macro'
-import { DayCounter } from '.'
+
 import {
   getFahrenheitTempString,
   getMoonEmoji,
@@ -11,6 +10,7 @@ import {
   TemperatureUnit,
 } from '../functions/weather.functions'
 import { Day } from '../models/calendar.model'
+import { DayCounter } from './day-counter'
 
 interface CalendarDayProps {
   day: Day
@@ -19,7 +19,7 @@ interface CalendarDayProps {
   temperatureUnit: TemperatureUnit
 }
 
-const CalendarDay: FC<CalendarDayProps> = ({
+export const CalendarDay: FC<CalendarDayProps> = ({
   day,
   quarterClicked,
   showWeather = true,
@@ -68,5 +68,3 @@ const CalendarDay: FC<CalendarDayProps> = ({
     </div>
   )
 }
-
-export default CalendarDay

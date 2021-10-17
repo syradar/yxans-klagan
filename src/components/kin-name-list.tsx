@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import tw from 'twin.macro'
 import { range } from '../functions/array.functions'
 import { Gender } from '../models/gender.model'
 import { ValidLanguage } from '../models/language.model'
 import { HumanKin } from '../models/name.model'
-import { ReloadIcon } from './icons'
+import { ReloadIcon } from './icons/reload-icon'
 import { NameList } from './name-list'
 
 interface KinNameListProps {

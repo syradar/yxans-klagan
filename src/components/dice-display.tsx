@@ -9,5 +9,3 @@ interface DiceProps {
 export const DiceDisplay = ({ value }: DiceProps) => {
   return <>{value}</>
 }
-
-export default DiceDisplay
