@@ -5,7 +5,6 @@ import {
 } from '../models/encounter.model'
 import { ValidLanguage } from '../models/language.model'
 import { getTerrainKeys, Terrain } from '../models/terrain.model'
-import { getRandomT66 } from './dice.functions'
 
 export const getTerrainsByEncounterId = (id: number): Terrain[] => {
   if (id === 0 || id === 1) {

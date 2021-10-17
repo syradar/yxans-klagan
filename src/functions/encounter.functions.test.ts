@@ -2,6 +2,7 @@ import { EncounterViewModel } from '../models/encounter.model'
 import { getTerrainKeys, Terrain } from '../models/terrain.model'
 import {
   getEncounterById,
+  getRandomEncounter,
   getTerrainsByEncounterId,
 } from './encounter.functions'
 
@@ -38,6 +39,18 @@ describe('Encounter Functions', () => {
       }
 
       const result = getEncounterById(id, 'sv')
+
+      expect(result).toEqual(expected)
+    })
+  })
+
+  describe('getRandomEncounter', () => {
+    it.each([
+      [0, -1],
+      [0, 6],
+      [16, 42],
+    ])('should return encounter %s if roll is %s', (expected, roll) => {
+      const result = getRandomEncounter(roll, 'Plains', 'sv').id
 
       expect(result).toEqual(expected)
     })
