@@ -1,24 +1,29 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import 'twin.macro'
-import { KinNameList, PageHeader, Parchment } from '../components'
+import { PageHeader, Parchment } from '../components'
+import { KinNameList } from '../components/kin-name-list'
 import {
-  getRandomAlderlänningarName,
-  getRandomAslenerName,
-  getRandomEländerName,
+  getRandomAilanderName,
+  getRandomAlderlanderName,
+  getRandomAsleneName,
 } from '../functions/name.functions'
+import { HumanKin } from '../models/name.model'
 
 export const NameGeneratorPage = () => {
+  const { t } = useTranslation('names')
+
   return (
     <div tw="flex flex-col gap-y-8 w-full">
-      <PageHeader>Namn</PageHeader>
+      <PageHeader>{t('Title')}</PageHeader>
 
       <div tw="flex flex-wrap xl:(min-w-[600px]) gap-4">
         <div tw=" flex-basis[500px]">
           <Parchment>
             <KinNameList
               tw="p-0"
-              title={'Eländare'}
-              nameFunc={getRandomEländerName}
+              title={HumanKin.Ailander}
+              nameFunc={getRandomAilanderName}
             ></KinNameList>
           </Parchment>
         </div>
@@ -27,8 +32,8 @@ export const NameGeneratorPage = () => {
           <Parchment>
             <KinNameList
               tw="p-0"
-              title={'Alderlänningar'}
-              nameFunc={getRandomAlderlänningarName}
+              title={HumanKin.Alderlander}
+              nameFunc={getRandomAlderlanderName}
             ></KinNameList>
           </Parchment>
         </div>
@@ -37,8 +42,8 @@ export const NameGeneratorPage = () => {
           <Parchment>
             <KinNameList
               tw="p-0"
-              title={'Aslener'}
-              nameFunc={getRandomAslenerName}
+              title={HumanKin.Aslene}
+              nameFunc={getRandomAsleneName}
             ></KinNameList>
           </Parchment>
         </div>
