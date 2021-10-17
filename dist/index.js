@@ -12914,36 +12914,20 @@ var DiceRollerPage = () => {
   }))))))));
 };
 
-// build/dist/models/terrain.model.js
-var terrain = ["plains", "forest", "darkForest", "hills", "mountain", "lake", "swamp", "mire", "ruinCity"];
-var getTerrainKeys = () => [...terrain];
-var terrainNameMap = {
-  plains: "Slätt",
-  forest: "Skog",
-  darkForest: "Mörk skog",
-  hills: "Kullar",
-  mountain: "Berg",
-  lake: "Sjö",
-  swamp: "Träsk",
-  mire: "Myr",
-  ruinCity: "Ruinstad"
-};
-
-// build/dist/functions/terrain.functions.js
-var getTerrainName = (terrain2) => {
-  return terrainNameMap[terrain2];
-};
-
 // build/dist/components/encounter.js
 var Encounter = ({
   encounter
 }) => {
+  const {
+    t: t3,
+    i18n
+  } = useTranslation(["encounters", "common"]);
   const [transition, setTransition] = useState(false);
   const formatTerrains = (terrains) => {
     if (terrains.length >= 9) {
-      return "Alla";
+      return t3("Terrain.All");
     }
-    return terrains.map(getTerrainName).join(", ");
+    return terrains.map((terrain2) => t3(`Terrain.${terrain2}`)).join(", ");
   };
   useEffect(() => {
     setTransition(true);
@@ -12963,7 +12947,7 @@ var Encounter = ({
       transform: "var(--tw-transform)"
     }]
   }, jsx(Parchment, {
-    deps: [encounter.id]
+    deps: [encounter.id, i18n.language]
   }, jsx("div", {
     css: {
       display: "flex",
@@ -12995,12 +12979,14 @@ var Encounter = ({
       display: "flex"
     },
     className: "yx-heading"
-  }, encounter.title)), jsx("div", null, "Terrängtyp: ", formatTerrains(encounter.terrains)), jsx("div", null, "Sida: ", encounter.page)));
+  }, encounter.title)), jsx("div", null, t3("TerrainType"), ": ", formatTerrains(encounter.terrains)), jsx("div", null, t3("Page", {
+    ns: "common"
+  }), ": ", encounter.page)));
 };
 
 // build/dist/data/encounter.data.js
 var encounterTable = {
-  plains: {
+  Plains: {
     41: 1,
     42: 16,
     43: 2,
@@ -13020,7 +13006,7 @@ var encounterTable = {
     65: 15,
     66: 30
   },
-  forest: {
+  Forest: {
     41: 1,
     42: 16,
     43: 17,
@@ -13040,7 +13026,7 @@ var encounterTable = {
     65: 13,
     66: 26
   },
-  darkForest: {
+  DarkForest: {
     41: 1,
     42: 1,
     43: 18,
@@ -13060,7 +13046,7 @@ var encounterTable = {
     65: 27,
     66: 30
   },
-  hills: {
+  Hills: {
     41: 1,
     42: 2,
     43: 31,
@@ -13080,7 +13066,7 @@ var encounterTable = {
     65: 13,
     66: 14
   },
-  mountain: {
+  Mountain: {
     41: 1,
     42: 35,
     43: 31,
@@ -13100,7 +13086,7 @@ var encounterTable = {
     65: 13,
     66: 37
   },
-  lake: {
+  Lake: {
     41: 0,
     42: 0,
     43: 1,
@@ -13120,7 +13106,7 @@ var encounterTable = {
     65: 41,
     66: 41
   },
-  swamp: {
+  Swamp: {
     41: 1,
     42: 5,
     43: 9,
@@ -13140,7 +13126,7 @@ var encounterTable = {
     65: 42,
     66: 42
   },
-  mire: {
+  Mire: {
     41: 1,
     42: 4,
     43: 5,
@@ -13160,7 +13146,7 @@ var encounterTable = {
     65: 34,
     66: 42
   },
-  ruinCity: {
+  RuinCity: {
     41: 1,
     42: 4,
     43: 5,
@@ -13182,187 +13168,371 @@ var encounterTable = {
   }
 };
 var allEncounters = {
-  "0": {
-    title: "Inget möte",
-    page: 142
+  en: {
+    "0": {
+      title: "No Encounter",
+      page: 142
+    },
+    "1": {
+      title: "The Blood Mist",
+      page: 143
+    },
+    "2": {
+      title: "Duel in the Woods",
+      page: 144
+    },
+    "3": {
+      title: "The Orcish Fugitive",
+      page: 144
+    },
+    "4": {
+      title: "Death from Above",
+      page: 144
+    },
+    "5": {
+      title: `The Harpies' Feast`,
+      page: 145
+    },
+    "6": {
+      title: "The Horse",
+      page: 145
+    },
+    "7": {
+      title: "The Massacre Lure",
+      page: 145
+    },
+    "8": {
+      title: "The Great Insulter",
+      page: 146
+    },
+    "9": {
+      title: "The Ruins of Old",
+      page: 146
+    },
+    "10": {
+      title: "The Fox",
+      page: 147
+    },
+    "11": {
+      title: "The Forgotten Prince",
+      page: 147
+    },
+    "12": {
+      title: "The Hungry Robbers",
+      page: 148
+    },
+    "13": {
+      title: "The Plague Brother",
+      page: 148
+    },
+    "14": {
+      title: "Flagellants",
+      page: 148
+    },
+    "15": {
+      title: "Beggars",
+      page: 149
+    },
+    "16": {
+      title: "The Dwarf Balloon Pilot",
+      page: 149
+    },
+    "17": {
+      title: "Wedding",
+      page: 150
+    },
+    "18": {
+      title: "The Demon Baker",
+      page: 150
+    },
+    "19": {
+      title: "The Animal Sanctum",
+      page: 151
+    },
+    "20": {
+      title: "The Burial Procession",
+      page: 151
+    },
+    "21": {
+      title: "The Vengeful Spirit",
+      page: 152
+    },
+    "22": {
+      title: "The Glass-Blower",
+      page: 152
+    },
+    "23": {
+      title: "The Puppy",
+      page: 153
+    },
+    "24": {
+      title: "The Cursed Ogre",
+      page: 153
+    },
+    "25": {
+      title: "Candle-Makers",
+      page: 153
+    },
+    "26": {
+      title: "Forest Fire",
+      page: 154
+    },
+    "27": {
+      title: "Black Sand",
+      page: 154
+    },
+    "28": {
+      title: "The Empty House",
+      page: 155
+    },
+    "29": {
+      title: "The Rustle of Bones",
+      page: 155
+    },
+    "30": {
+      title: "Teramalda",
+      page: 155
+    },
+    "31": {
+      title: "The Stone Singers",
+      page: 156
+    },
+    "32": {
+      title: "Rats",
+      page: 156
+    },
+    "33": {
+      title: `The Minotaur's Lament`,
+      page: 157
+    },
+    "34": {
+      title: "The Restless Dead",
+      page: 157
+    },
+    "35": {
+      title: "The Sleepy Troll",
+      page: 158
+    },
+    "36": {
+      title: "The Furless",
+      page: 158
+    },
+    "37": {
+      title: "Roadblock",
+      page: 159
+    },
+    "38": {
+      title: "The Infected",
+      page: 159
+    },
+    "39": {
+      title: "The Stowaway",
+      page: 160
+    },
+    "40": {
+      title: "Death from Below",
+      page: 160
+    },
+    "41": {
+      title: "The Trader of Souls",
+      page: 160
+    },
+    "42": {
+      title: "The Lizard Hunters",
+      page: 161
+    },
+    "43": {
+      title: "Buried Alive",
+      page: 161
+    }
   },
-  "1": {
-    title: "Blodsdimma",
-    page: 143
-  },
-  "2": {
-    title: "Duellen",
-    page: 144
-  },
-  "3": {
-    title: "Orhcer",
-    page: 144
-  },
-  "4": {
-    title: "Grip",
-    page: 144
-  },
-  "5": {
-    title: "Harpyor",
-    page: 145
-  },
-  "6": {
-    title: "Hästen",
-    page: 145
-  },
-  "7": {
-    title: "Massakern",
-    page: 145
-  },
-  "8": {
-    title: "Okvädaren",
-    page: 146
-  },
-  "9": {
-    title: "Ruin",
-    page: 146
-  },
-  "10": {
-    title: "Räven",
-    page: 147
-  },
-  "11": {
-    title: "Röse",
-    page: 147
-  },
-  "12": {
-    title: "Rövare",
-    page: 148
-  },
-  "13": {
-    title: "Sista vilan",
-    page: 148
-  },
-  "14": {
-    title: "Självspäkarna",
-    page: 148
-  },
-  "15": {
-    title: "Tiggarna",
-    page: 149
-  },
-  "16": {
-    title: "Ballongdvärgen",
-    page: 149
-  },
-  "17": {
-    title: "Bröllopet",
-    page: 150
-  },
-  "18": {
-    title: "Demonbagaren",
-    page: 150
-  },
-  "19": {
-    title: "Djurens heliga plats",
-    page: 151
-  },
-  "20": {
-    title: "Enternas gravmarsch",
-    page: 151
-  },
-  "21": {
-    title: "Gast",
-    page: 152
-  },
-  "22": {
-    title: "Glasblåsaren",
-    page: 152
-  },
-  "23": {
-    title: "Hundvalpen",
-    page: 153
-  },
-  "24": {
-    title: "Rese",
-    page: 153
-  },
-  "25": {
-    title: "Ljusstöparna",
-    page: 153
-  },
-  "26": {
-    title: "Skogsbranden",
-    page: 154
-  },
-  "27": {
-    title: "Svart sand",
-    page: 154
-  },
-  "28": {
-    title: "Tvätt på tork",
-    page: 155
-  },
-  "29": {
-    title: "Skelett",
-    page: 155
-  },
-  "30": {
-    title: "Teramalda",
-    page: 155
-  },
-  "31": {
-    title: "Dvärgarnas bygge",
-    page: 156
-  },
-  "32": {
-    title: "Råttorna",
-    page: 156
-  },
-  "33": {
-    title: "Minotaurens klagan",
-    page: 157
-  },
-  "34": {
-    title: "De odöda",
-    page: 157
-  },
-  "35": {
-    title: "Bergstrollet",
-    page: 158
-  },
-  "36": {
-    title: "Pälslösingarna",
-    page: 158
-  },
-  "37": {
-    title: "Vägspärren",
-    page: 159
-  },
-  "38": {
-    title: "Den pestsmittade",
-    page: 159
-  },
-  "39": {
-    title: "Handelskogg",
-    page: 160
-  },
-  "40": {
-    title: "Jättebläckfisk",
-    page: 160
-  },
-  "41": {
-    title: "Själasäljaren",
-    page: 160
-  },
-  "42": {
-    title: "Reptilfolk",
-    page: 161
-  },
-  "43": {
-    title: "De levande begravda",
-    page: 161
+  sv: {
+    "0": {
+      title: "Inget möte",
+      page: 142
+    },
+    "1": {
+      title: "Blodsdimma",
+      page: 143
+    },
+    "2": {
+      title: "Duellen",
+      page: 144
+    },
+    "3": {
+      title: "Orhcer",
+      page: 144
+    },
+    "4": {
+      title: "Grip",
+      page: 144
+    },
+    "5": {
+      title: "Harpyor",
+      page: 145
+    },
+    "6": {
+      title: "Hästen",
+      page: 145
+    },
+    "7": {
+      title: "Massakern",
+      page: 145
+    },
+    "8": {
+      title: "Okvädaren",
+      page: 146
+    },
+    "9": {
+      title: "Ruin",
+      page: 146
+    },
+    "10": {
+      title: "Räven",
+      page: 147
+    },
+    "11": {
+      title: "Röse",
+      page: 147
+    },
+    "12": {
+      title: "Rövare",
+      page: 148
+    },
+    "13": {
+      title: "Sista vilan",
+      page: 148
+    },
+    "14": {
+      title: "Självspäkarna",
+      page: 148
+    },
+    "15": {
+      title: "Tiggarna",
+      page: 149
+    },
+    "16": {
+      title: "Ballongdvärgen",
+      page: 149
+    },
+    "17": {
+      title: "Bröllopet",
+      page: 150
+    },
+    "18": {
+      title: "Demonbagaren",
+      page: 150
+    },
+    "19": {
+      title: "Djurens heliga plats",
+      page: 151
+    },
+    "20": {
+      title: "Enternas gravmarsch",
+      page: 151
+    },
+    "21": {
+      title: "Gast",
+      page: 152
+    },
+    "22": {
+      title: "Glasblåsaren",
+      page: 152
+    },
+    "23": {
+      title: "Hundvalpen",
+      page: 153
+    },
+    "24": {
+      title: "Rese",
+      page: 153
+    },
+    "25": {
+      title: "Ljusstöparna",
+      page: 153
+    },
+    "26": {
+      title: "Skogsbranden",
+      page: 154
+    },
+    "27": {
+      title: "Svart sand",
+      page: 154
+    },
+    "28": {
+      title: "Tvätt på tork",
+      page: 155
+    },
+    "29": {
+      title: "Skelett",
+      page: 155
+    },
+    "30": {
+      title: "Teramalda",
+      page: 155
+    },
+    "31": {
+      title: "Dvärgarnas bygge",
+      page: 156
+    },
+    "32": {
+      title: "Råttorna",
+      page: 156
+    },
+    "33": {
+      title: "Minotaurens klagan",
+      page: 157
+    },
+    "34": {
+      title: "De odöda",
+      page: 157
+    },
+    "35": {
+      title: "Bergstrollet",
+      page: 158
+    },
+    "36": {
+      title: "Pälslösingarna",
+      page: 158
+    },
+    "37": {
+      title: "Vägspärren",
+      page: 159
+    },
+    "38": {
+      title: "Den pestsmittade",
+      page: 159
+    },
+    "39": {
+      title: "Handelskogg",
+      page: 160
+    },
+    "40": {
+      title: "Jättebläckfisk",
+      page: 160
+    },
+    "41": {
+      title: "Själasäljaren",
+      page: 160
+    },
+    "42": {
+      title: "Reptilfolk",
+      page: 161
+    },
+    "43": {
+      title: "De levande begravda",
+      page: 161
+    }
   }
 };
 
 // build/dist/models/encounter.model.js
 var rollWithEncounters = [41, 42, 43, 44, 45, 46, 51, 52, 53, 54, 55, 56, 61, 62, 63, 64, 65, 66];
 var isRollsWithEncounters = (roll) => rollWithEncounters.includes(roll);
+
+// build/dist/models/terrain.model.js
+var terrain = ["Plains", "Forest", "DarkForest", "Hills", "Mountain", "Lake", "Swamp", "Mire", "RuinCity"];
+var getTerrainKeys = () => [...terrain];
 
 // build/dist/functions/encounter.functions.js
 var getTerrainsByEncounterId = (id2) => {
@@ -13377,31 +13547,38 @@ var getTerrainsByEncounterId = (id2) => {
     return acc;
   }, []);
 };
-var createEncounterViewModel = (id2) => ({
+var createEncounterViewModel = (id2, lang) => ({
   id: id2,
-  ...allEncounters[id2],
+  ...allEncounters[lang][id2],
   terrains: getTerrainsByEncounterId(id2)
 });
-var getRandomEncounter = (terrain2) => {
-  const roll = getRandomT66();
+var getEncounterById = (id2, lang) => {
+  return createEncounterViewModel(id2, lang);
+};
+var getRandomEncounter = (roll, terrain2, lang) => {
   if (!isRollsWithEncounters(roll)) {
-    return createEncounterViewModel(0);
+    return createEncounterViewModel(0, lang);
   }
   const randomEncounterId = encounterTable[terrain2][roll];
-  const encounterExists = Object.keys(allEncounters).includes(randomEncounterId.toString());
+  const encounterExists = Object.keys(allEncounters[lang]).includes(randomEncounterId.toString());
   if (!encounterExists) {
-    return createEncounterViewModel(0);
+    return createEncounterViewModel(0, lang);
   }
-  return createEncounterViewModel(randomEncounterId);
+  return createEncounterViewModel(randomEncounterId, lang);
 };
 
 // build/dist/pages/encounter.page.js
 var EncounterPage = () => {
+  const {
+    t: t3,
+    i18n
+  } = useTranslation("encounters");
   const [encounter, setEncounter] = useState(void 0);
   const [oldTerrain, setOldTerrain] = useState(void 0);
   const [encounterLog, setEncounterLog] = useState([]);
-  const handleClick = (terrain2) => {
-    const randomEncounter = getRandomEncounter(terrain2);
+  const generateNewEncounter = (terrain2) => {
+    const roll = getRandomT66();
+    const randomEncounter = getRandomEncounter(roll, terrain2, i18n.language);
     setEncounter(randomEncounter);
     if (terrain2 === void 0 && oldTerrain === void 0 || terrain2 === oldTerrain) {
       setEncounterLog([{
@@ -13416,6 +13593,20 @@ var EncounterPage = () => {
     }
     setOldTerrain(terrain2);
   };
+  const handleClick = (terrain2) => {
+    generateNewEncounter(terrain2);
+  };
+  useEffect(() => {
+    if (oldTerrain && encounter) {
+      setEncounter(getEncounterById(encounter.id, i18n.language));
+      setEncounterLog(encounterLog.map((el) => {
+        return {
+          ...el,
+          ...getEncounterById(el.id, i18n.language)
+        };
+      }));
+    }
+  }, [i18n.language]);
   return jsx("div", {
     css: {
       display: "flex",
@@ -13424,7 +13615,7 @@ var EncounterPage = () => {
       width: "100%",
       alignItems: "center"
     }
-  }, jsx(PageHeader, null, "Slumpmöten"), jsx("div", {
+  }, jsx(PageHeader, null, t3("Title")), jsx("div", {
     css: {
       width: "100%",
       "--tw-bg-opacity": "1",
@@ -13440,13 +13631,13 @@ var EncounterPage = () => {
         display: "flex"
       }
     }
-  }, getTerrainKeys().map((t3) => jsx(Button, {
-    key: t3,
+  }, getTerrainKeys().map((terrain2) => jsx(Button, {
+    key: terrain2,
     isSmall: true,
     onClick: () => {
-      handleClick(t3);
+      handleClick(terrain2);
     }
-  }, getTerrainName(t3)))), jsx("div", {
+  }, t3(`Terrain.${terrain2}`)))), jsx("div", {
     css: {
       width: "100%",
       display: "grid",
@@ -20918,7 +21109,7 @@ i18nReact.use(i18next_http_backend_default).use(i18next_browser_languagedetector
   fallbackLng: "en",
   debug: false,
   supportedLngs: ["en", "sv"],
-  ns: ["core", "common", "calendar", "map", "monsters", "names"],
+  ns: ["core", "common", "calendar", "map", "monsters", "names", "encounters"],
   keySeparator: ".",
   backend: {
     loadPath
