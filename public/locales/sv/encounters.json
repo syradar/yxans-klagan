@@ -1,0 +1,16 @@
+{
+  "Title": "Slumpmöten",
+  "TerrainType": "Terrängtyp",
+  "Terrain": {
+    "All": "Alla",
+    "Plains": "Slätt",
+    "Forest": "Skog",
+    "DarkForest": "Mörk skog",
+    "Hills": "Kullar",
+    "Mountain": "Berg",
+    "Lake": "Sjö",
+    "Swamp": "Träsk",
+    "Mire": "Myr",
+    "RuinCity": "Ruinstad"
+  }
+}
