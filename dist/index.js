@@ -9058,7 +9058,413 @@ var customStyles = css`
 var GlobalStyles = () => jsx(react.Fragment, null, jsx(_GlobalStyles, null), jsx(Global, {
   styles: customStyles
 }));
-var GlobalStyles_default = GlobalStyles;
+
+// build/dist/pkg/react-i18next.js
+var defineProperty = createCommonjsModule(function(module) {
+  function _defineProperty4(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+    return obj;
+  }
+  module.exports = _defineProperty4;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var _defineProperty = /* @__PURE__ */ getDefaultExportFromCjs(defineProperty);
+var classCallCheck = createCommonjsModule(function(module) {
+  function _classCallCheck4(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+  module.exports = _classCallCheck4;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var _classCallCheck = /* @__PURE__ */ getDefaultExportFromCjs(classCallCheck);
+var createClass = createCommonjsModule(function(module) {
+  function _defineProperties3(target, props) {
+    for (var i2 = 0; i2 < props.length; i2++) {
+      var descriptor = props[i2];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor)
+        descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+  function _createClass4(Constructor, protoProps, staticProps) {
+    if (protoProps)
+      _defineProperties3(Constructor.prototype, protoProps);
+    if (staticProps)
+      _defineProperties3(Constructor, staticProps);
+    return Constructor;
+  }
+  module.exports = _createClass4;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var _createClass = /* @__PURE__ */ getDefaultExportFromCjs(createClass);
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) {
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread(target) {
+  for (var i2 = 1; i2 < arguments.length; i2++) {
+    var source = arguments[i2] != null ? arguments[i2] : {};
+    if (i2 % 2) {
+      ownKeys(Object(source), true).forEach(function(key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+var defaultOptions = {
+  bindI18n: "languageChanged",
+  bindI18nStore: "",
+  transEmptyNodeValue: "",
+  transSupportBasicHtmlNodes: true,
+  transWrapTextNodes: "",
+  transKeepBasicHtmlNodesFor: ["br", "strong", "i", "p"],
+  useSuspense: true
+};
+var i18nInstance;
+var I18nContext = /* @__PURE__ */ react.createContext();
+function setDefaults() {
+  var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
+  defaultOptions = _objectSpread(_objectSpread({}, defaultOptions), options);
+}
+function getDefaults() {
+  return defaultOptions;
+}
+var ReportNamespaces = function() {
+  function ReportNamespaces2() {
+    _classCallCheck(this, ReportNamespaces2);
+    this.usedNamespaces = {};
+  }
+  _createClass(ReportNamespaces2, [{
+    key: "addUsedNamespaces",
+    value: function addUsedNamespaces(namespaces) {
+      var _this = this;
+      namespaces.forEach(function(ns) {
+        if (!_this.usedNamespaces[ns])
+          _this.usedNamespaces[ns] = true;
+      });
+    }
+  }, {
+    key: "getUsedNamespaces",
+    value: function getUsedNamespaces() {
+      return Object.keys(this.usedNamespaces);
+    }
+  }]);
+  return ReportNamespaces2;
+}();
+function setI18n(instance) {
+  i18nInstance = instance;
+}
+function getI18n() {
+  return i18nInstance;
+}
+var initReactI18next = {
+  type: "3rdParty",
+  init: function init(instance) {
+    setDefaults(instance.options.react);
+    setI18n(instance);
+  }
+};
+function warn() {
+  if (console && console.warn) {
+    var _console;
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    if (typeof args[0] === "string")
+      args[0] = "react-i18next:: ".concat(args[0]);
+    (_console = console).warn.apply(_console, args);
+  }
+}
+var alreadyWarned = {};
+function warnOnce() {
+  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    args[_key2] = arguments[_key2];
+  }
+  if (typeof args[0] === "string" && alreadyWarned[args[0]])
+    return;
+  if (typeof args[0] === "string")
+    alreadyWarned[args[0]] = new Date();
+  warn.apply(void 0, args);
+}
+function loadNamespaces(i18n, ns, cb2) {
+  i18n.loadNamespaces(ns, function() {
+    if (i18n.isInitialized) {
+      cb2();
+    } else {
+      var initialized = function initialized2() {
+        setTimeout(function() {
+          i18n.off("initialized", initialized2);
+        }, 0);
+        cb2();
+      };
+      i18n.on("initialized", initialized);
+    }
+  });
+}
+function hasLoadedNamespace(ns, i18n) {
+  var options = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
+  if (!i18n.languages || !i18n.languages.length) {
+    warnOnce("i18n.languages were undefined or empty", i18n.languages);
+    return true;
+  }
+  var lng = i18n.languages[0];
+  var fallbackLng = i18n.options ? i18n.options.fallbackLng : false;
+  var lastLng = i18n.languages[i18n.languages.length - 1];
+  if (lng.toLowerCase() === "cimode")
+    return true;
+  var loadNotPending = function loadNotPending2(l2, n3) {
+    var loadState = i18n.services.backendConnector.state["".concat(l2, "|").concat(n3)];
+    return loadState === -1 || loadState === 2;
+  };
+  if (options.bindI18n && options.bindI18n.indexOf("languageChanging") > -1 && i18n.services.backendConnector.backend && i18n.isLanguageChangingTo && !loadNotPending(i18n.isLanguageChangingTo, ns))
+    return false;
+  if (i18n.hasResourceBundle(lng, ns))
+    return true;
+  if (!i18n.services.backendConnector.backend)
+    return true;
+  if (loadNotPending(lng, ns) && (!fallbackLng || loadNotPending(lastLng, ns)))
+    return true;
+  return false;
+}
+var arrayWithHoles = createCommonjsModule(function(module) {
+  function _arrayWithHoles2(arr3) {
+    if (Array.isArray(arr3))
+      return arr3;
+  }
+  module.exports = _arrayWithHoles2;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var iterableToArrayLimit = createCommonjsModule(function(module) {
+  function _iterableToArrayLimit2(arr3, i2) {
+    var _i = arr3 == null ? null : typeof Symbol !== "undefined" && arr3[Symbol.iterator] || arr3["@@iterator"];
+    if (_i == null)
+      return;
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _s, _e;
+    try {
+      for (_i = _i.call(arr3); !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
+        if (i2 && _arr.length === i2)
+          break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"] != null)
+          _i["return"]();
+      } finally {
+        if (_d)
+          throw _e;
+      }
+    }
+    return _arr;
+  }
+  module.exports = _iterableToArrayLimit2;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var arrayLikeToArray = createCommonjsModule(function(module) {
+  function _arrayLikeToArray2(arr3, len) {
+    if (len == null || len > arr3.length)
+      len = arr3.length;
+    for (var i2 = 0, arr22 = new Array(len); i2 < len; i2++) {
+      arr22[i2] = arr3[i2];
+    }
+    return arr22;
+  }
+  module.exports = _arrayLikeToArray2;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var unsupportedIterableToArray = createCommonjsModule(function(module) {
+  function _unsupportedIterableToArray2(o, minLen) {
+    if (!o)
+      return;
+    if (typeof o === "string")
+      return arrayLikeToArray(o, minLen);
+    var n3 = Object.prototype.toString.call(o).slice(8, -1);
+    if (n3 === "Object" && o.constructor)
+      n3 = o.constructor.name;
+    if (n3 === "Map" || n3 === "Set")
+      return Array.from(o);
+    if (n3 === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n3))
+      return arrayLikeToArray(o, minLen);
+  }
+  module.exports = _unsupportedIterableToArray2;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var nonIterableRest = createCommonjsModule(function(module) {
+  function _nonIterableRest2() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+  module.exports = _nonIterableRest2;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var slicedToArray = createCommonjsModule(function(module) {
+  function _slicedToArray3(arr3, i2) {
+    return arrayWithHoles(arr3) || iterableToArrayLimit(arr3, i2) || unsupportedIterableToArray(arr3, i2) || nonIterableRest();
+  }
+  module.exports = _slicedToArray3;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var _slicedToArray = /* @__PURE__ */ getDefaultExportFromCjs(slicedToArray);
+function ownKeys$1(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) {
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$1(target) {
+  for (var i2 = 1; i2 < arguments.length; i2++) {
+    var source = arguments[i2] != null ? arguments[i2] : {};
+    if (i2 % 2) {
+      ownKeys$1(Object(source), true).forEach(function(key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$1(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function useTranslation(ns) {
+  var props = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+  var i18nFromProps = props.i18n;
+  var _ref = react.useContext(I18nContext) || {}, i18nFromContext = _ref.i18n, defaultNSFromContext = _ref.defaultNS;
+  var i18n = i18nFromProps || i18nFromContext || getI18n();
+  if (i18n && !i18n.reportNamespaces)
+    i18n.reportNamespaces = new ReportNamespaces();
+  if (!i18n) {
+    warnOnce("You will need to pass in an i18next instance by using initReactI18next");
+    var notReadyT = function notReadyT2(k3) {
+      return Array.isArray(k3) ? k3[k3.length - 1] : k3;
+    };
+    var retNotReady = [notReadyT, {}, false];
+    retNotReady.t = notReadyT;
+    retNotReady.i18n = {};
+    retNotReady.ready = false;
+    return retNotReady;
+  }
+  if (i18n.options.react && i18n.options.react.wait !== void 0)
+    warnOnce("It seems you are still using the old wait option, you may migrate to the new useSuspense behaviour.");
+  var i18nOptions = _objectSpread$1(_objectSpread$1(_objectSpread$1({}, getDefaults()), i18n.options.react), props);
+  var useSuspense = i18nOptions.useSuspense, keyPrefix = i18nOptions.keyPrefix;
+  var namespaces = ns || defaultNSFromContext || i18n.options && i18n.options.defaultNS;
+  namespaces = typeof namespaces === "string" ? [namespaces] : namespaces || ["translation"];
+  if (i18n.reportNamespaces.addUsedNamespaces)
+    i18n.reportNamespaces.addUsedNamespaces(namespaces);
+  var ready = (i18n.isInitialized || i18n.initializedStoreOnce) && namespaces.every(function(n3) {
+    return hasLoadedNamespace(n3, i18n, i18nOptions);
+  });
+  function getT() {
+    return i18n.getFixedT(null, i18nOptions.nsMode === "fallback" ? namespaces : namespaces[0], keyPrefix);
+  }
+  var _useState = react.useState(getT), _useState2 = _slicedToArray(_useState, 2), t3 = _useState2[0], setT = _useState2[1];
+  var isMounted = react.useRef(true);
+  react.useEffect(function() {
+    var bindI18n = i18nOptions.bindI18n, bindI18nStore = i18nOptions.bindI18nStore;
+    isMounted.current = true;
+    if (!ready && !useSuspense) {
+      loadNamespaces(i18n, namespaces, function() {
+        if (isMounted.current)
+          setT(getT);
+      });
+    }
+    function boundReset() {
+      if (isMounted.current)
+        setT(getT);
+    }
+    if (bindI18n && i18n)
+      i18n.on(bindI18n, boundReset);
+    if (bindI18nStore && i18n)
+      i18n.store.on(bindI18nStore, boundReset);
+    return function() {
+      isMounted.current = false;
+      if (bindI18n && i18n)
+        bindI18n.split(" ").forEach(function(e3) {
+          return i18n.off(e3, boundReset);
+        });
+      if (bindI18nStore && i18n)
+        bindI18nStore.split(" ").forEach(function(e3) {
+          return i18n.store.off(e3, boundReset);
+        });
+    };
+  }, [i18n, namespaces.join()]);
+  var isInitial = react.useRef(true);
+  react.useEffect(function() {
+    if (isMounted.current && !isInitial.current) {
+      setT(getT);
+    }
+    isInitial.current = false;
+  }, [i18n]);
+  var ret = [t3, i18n, ready];
+  ret.t = t3;
+  ret.i18n = i18n;
+  ret.ready = ready;
+  if (ready)
+    return ret;
+  if (!ready && !useSuspense)
+    return ret;
+  throw new Promise(function(resolve) {
+    loadNamespaces(i18n, namespaces, function() {
+      resolve();
+    });
+  });
+}
+function I18nextProvider(_ref) {
+  var i18n = _ref.i18n, defaultNS = _ref.defaultNS, children = _ref.children;
+  var value = react.useMemo(function() {
+    return {
+      i18n,
+      defaultNS
+    };
+  }, [i18n, defaultNS]);
+  return /* @__PURE__ */ react.createElement(I18nContext.Provider, {
+    value
+  }, children);
+}
 
 // build/dist/pkg/common/extends-7477639a.js
 function _extends() {
@@ -10073,18 +10479,17 @@ tags.forEach(function(tagName) {
 });
 var styled_default = newStyled;
 
-// build/dist/components/Button.js
-var Button = styled_default.button(({
-  variant,
-  isSmall
+// build/dist/components/language-button.js
+var LanguageButton = styled_default.button(({
+  selected
 }) => [
   {
     transform: "var(--tw-transform)",
-    paddingLeft: "2rem",
-    paddingRight: "2rem",
-    paddingTop: "0.5rem",
-    paddingBottom: "0.5rem",
-    fontWeight: "700",
+    paddingLeft: "1rem",
+    paddingRight: "1rem",
+    paddingTop: "0.25rem",
+    paddingBottom: "0.25rem",
+    fontWeight: "500",
     textTransform: "uppercase",
     userSelect: "none",
     letterSpacing: "0.025em",
@@ -10096,183 +10501,77 @@ var Button = styled_default.button(({
   },
   {
     borderWidth: "2px",
-    "--tw-border-opacity": "1",
-    borderColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
+    borderColor: "rgba(0, 0, 0, 0)",
     borderRadius: "0px"
   },
   {
     "@media (pointer: fine)": {
       ":hover": {
-        "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
         "--tw-border-opacity": "1",
-        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))",
-        "--tw-text-opacity": "1",
-        color: "rgba(0, 0, 0, var(--tw-text-opacity))"
+        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
       }
     }
   },
   {
-    "--tw-bg-opacity": "1",
-    backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
     "--tw-text-opacity": "1",
-    color: "rgba(255, 255, 255, var(--tw-text-opacity))"
-  },
-  variant === "secondary" && [
-    {
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(255, 255, 255, var(--tw-bg-opacity))",
-      "--tw-text-opacity": "1",
-      color: "rgba(0, 0, 0, var(--tw-text-opacity))"
-    }
-  ],
-  variant === "disabled" && [
-    {
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(156, 163, 175, var(--tw-bg-opacity))",
-      "--tw-text-opacity": "1",
-      color: "rgba(209, 213, 219, var(--tw-text-opacity))",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))",
-      cursor: "not-allowed",
-      ":hover": {
-        "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(156, 163, 175, var(--tw-bg-opacity))",
-        "--tw-text-opacity": "1",
-        color: "rgba(209, 213, 219, var(--tw-text-opacity))",
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
-      }
-    }
-  ],
-  isSmall ? {
+    color: "rgba(0, 0, 0, var(--tw-text-opacity))",
     fontSize: "0.875rem",
-    lineHeight: "1.25rem",
-    paddingLeft: "1rem",
-    paddingRight: "1rem"
-  } : {
-    fontSize: "1.125rem",
-    lineHeight: "1.75rem"
-  }
+    lineHeight: "1.25rem"
+  },
+  selected ? {
+    fontWeight: "700",
+    cursor: "not-allowed",
+    ":hover": {
+      borderColor: "rgba(0, 0, 0, 0)"
+    }
+  } : {}
 ]);
-var Button_default = Button;
 
-// build/dist/components/stepper.js
-var stepButtonStyles = () => [{
-  height: "2.5rem",
-  fontWeight: "700",
-  paddingTop: "0px",
-  paddingBottom: "0px",
-  paddingLeft: "0.25rem",
-  paddingRight: "0.25rem",
-  textAlign: "center",
-  textTransform: "uppercase",
-  letterSpacing: "0.025em",
-  ":focus": {
-    outline: "2px solid transparent",
-    outlineOffset: "2px"
-  }
-}, {
-  borderWidth: "2px",
-  "--tw-border-opacity": "1",
-  borderColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
-  borderRadius: "0px"
-}];
-var Stepper = ({
-  value,
-  id: id2,
-  twProps,
-  max,
-  min,
-  label,
-  onChange
-}) => {
-  const decrement = () => {
-    if (value > min) {
-      onChange(value - 1);
-    }
-  };
-  const increment = () => {
-    if (value < max) {
-      onChange(value + 1);
-    }
-  };
-  const handleChange = (e3) => {
-    onChange(parseInt(e3, 10) || 0);
+// build/dist/components/language-switcher.js
+var LanguageSwitcher = () => {
+  const {
+    t: t3,
+    i18n
+  } = useTranslation("core");
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
   };
   return jsx("div", {
-    css: twProps
-  }, label && jsx("label", {
     css: {
-      display: "block"
-    },
-    htmlFor: id2
-  }, label), jsx("div", {
-    css: {
-      width: "auto",
-      display: "inline-flex"
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      paddingLeft: "1rem",
+      paddingRight: "1rem"
     }
-  }, jsx("button", {
-    css: [{
-      width: "2.5rem",
-      ":hover": {
-        "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
-      },
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
-      "--tw-text-opacity": "1",
-      color: "rgba(255, 255, 255, var(--tw-text-opacity))"
-    }, stepButtonStyles()],
-    type: "button",
-    onClick: decrement,
-    "aria-controls": id2
-  }, "–"), jsx("input", {
-    css: [...stepButtonStyles(), {
-      borderLeftWidth: "0px",
-      borderRightWidth: "0px",
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(255, 255, 255, var(--tw-bg-opacity))"
-    }, {
-      "::-webkit-inner-spin-button": {
-        " -webkit-appearance": "none",
-        margin: "0"
-      },
-      "::-webkit-outer-spin-button": {
-        " -webkit-appearance": "none",
-        margin: "0"
-      }
-    }],
-    type: "number",
-    step: "1",
-    id: id2,
-    value,
-    min,
-    max,
-    onChange: (e3) => handleChange(e3.target.value),
-    disabled: true
-  }), jsx("button", {
-    css: [{
-      width: "2.5rem",
-      ":hover": {
-        "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
-      },
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
-      "--tw-text-opacity": "1",
-      color: "rgba(255, 255, 255, var(--tw-text-opacity))"
-    }, stepButtonStyles()],
-    type: "button",
-    onClick: increment,
-    "aria-controls": id2
-  }, "+")));
+  }, jsx(LanguageButton, {
+    selected: i18n.language === "sv",
+    onClick: () => changeLanguage("sv"),
+    disabled: i18n.language === "sv"
+  }, t3("Language-Swedish")), jsx(LanguageButton, {
+    selected: i18n.language === "en",
+    onClick: () => changeLanguage("en"),
+    disabled: i18n.language === "en"
+  }, t3("Language-English")));
 };
-var stepper_default = Stepper;
+
+// build/dist/components/page-header.js
+var PageHeader = ({
+  children
+}) => {
+  return jsx("h1", {
+    css: {
+      textAlign: "center",
+      fontSize: "2.25rem",
+      lineHeight: "2.5rem",
+      "@media (min-width: 1024px)": {
+        fontSize: "3.75rem",
+        lineHeight: "1"
+      }
+    },
+    className: "yx-heading"
+  }, children);
+};
 
 // build/dist/hooks/use-current-width.js
 var getWidth = () => window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -10361,478 +10660,293 @@ var Parchment = /* @__PURE__ */ react.forwardRef(({
   }, children)));
 });
 Parchment.displayName = "Parchment";
-var parchment_default = Parchment;
 
-// build/dist/components/day-counter.js
-var DayCounter = ({
-  quarters,
-  spendQuarter: spendQuarter2
-}) => {
-  return jsx("button", {
-    css: {
-      width: "100%",
-      display: "grid",
-      gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-      gap: "0px",
-      ":hover": {
-        "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))"
-      }
-    },
-    onClick: () => spendQuarter2()
-  }, jsx(Quarter, {
-    spent: quarters[0],
-    index: 0
-  }), jsx(Quarter, {
-    spent: quarters[1],
-    index: 1
-  }), jsx(Quarter, {
-    spent: quarters[2],
-    index: 2
-  }), jsx(Quarter, {
-    spent: quarters[3],
-    index: 3
-  }));
-};
-var Quarter = styled_default.div(({
-  spent,
-  index
-}) => [{
-  height: "1rem",
-  borderWidth: "1px",
-  "--tw-border-opacity": "1",
-  borderColor: "rgba(107, 114, 128, var(--tw-border-opacity))"
-}, index === 0 && {
-  borderRightWidth: "0px"
-}, index === 1 && {
-  borderRightWidth: "0px"
-}, index === 2 && {
-  borderRightWidth: "0px"
-}, index === 3 && {}, spent && {
-  "--tw-bg-opacity": "1",
-  backgroundColor: "rgba(209, 213, 219, var(--tw-bg-opacity))"
-}]);
-var day_counter_default = DayCounter;
-
-// build/dist/pkg/react-i18next.js
-var defineProperty = createCommonjsModule(function(module) {
-  function _defineProperty4(obj, key, value) {
-    if (key in obj) {
-      Object.defineProperty(obj, key, {
-        value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      });
-    } else {
-      obj[key] = value;
-    }
-    return obj;
-  }
-  module.exports = _defineProperty4;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var _defineProperty = /* @__PURE__ */ getDefaultExportFromCjs(defineProperty);
-var classCallCheck = createCommonjsModule(function(module) {
-  function _classCallCheck4(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
+// build/dist/logo.js
+var YxansKlaganLogo = () => jsx(YxansKlaganSvg, null);
+var YxansKlaganSvg = () => jsx("div", {
+  css: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    width: "8rem",
+    transitionProperty: "transform",
+    transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+    transitionDuration: "150ms",
+    ":hover": {
+      "--tw-scale-x": "1.05",
+      "--tw-scale-y": "1.05",
+      transform: "var(--tw-transform)"
     }
   }
-  module.exports = _classCallCheck4;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var _classCallCheck = /* @__PURE__ */ getDefaultExportFromCjs(classCallCheck);
-var createClass = createCommonjsModule(function(module) {
-  function _defineProperties3(target, props) {
-    for (var i2 = 0; i2 < props.length; i2++) {
-      var descriptor = props[i2];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor)
-        descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-  function _createClass4(Constructor, protoProps, staticProps) {
-    if (protoProps)
-      _defineProperties3(Constructor.prototype, protoProps);
-    if (staticProps)
-      _defineProperties3(Constructor, staticProps);
-    return Constructor;
-  }
-  module.exports = _createClass4;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var _createClass = /* @__PURE__ */ getDefaultExportFromCjs(createClass);
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) {
-      symbols = symbols.filter(function(sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
-    }
-    keys.push.apply(keys, symbols);
-  }
-  return keys;
-}
-function _objectSpread(target) {
-  for (var i2 = 1; i2 < arguments.length; i2++) {
-    var source = arguments[i2] != null ? arguments[i2] : {};
-    if (i2 % 2) {
-      ownKeys(Object(source), true).forEach(function(key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys(Object(source)).forEach(function(key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
-  return target;
-}
-var defaultOptions = {
-  bindI18n: "languageChanged",
-  bindI18nStore: "",
-  transEmptyNodeValue: "",
-  transSupportBasicHtmlNodes: true,
-  transWrapTextNodes: "",
-  transKeepBasicHtmlNodesFor: ["br", "strong", "i", "p"],
-  useSuspense: true
-};
-var i18nInstance;
-var I18nContext = /* @__PURE__ */ react.createContext();
-function setDefaults() {
-  var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-  defaultOptions = _objectSpread(_objectSpread({}, defaultOptions), options);
-}
-function getDefaults() {
-  return defaultOptions;
-}
-var ReportNamespaces = function() {
-  function ReportNamespaces2() {
-    _classCallCheck(this, ReportNamespaces2);
-    this.usedNamespaces = {};
-  }
-  _createClass(ReportNamespaces2, [{
-    key: "addUsedNamespaces",
-    value: function addUsedNamespaces(namespaces) {
-      var _this = this;
-      namespaces.forEach(function(ns) {
-        if (!_this.usedNamespaces[ns])
-          _this.usedNamespaces[ns] = true;
-      });
-    }
-  }, {
-    key: "getUsedNamespaces",
-    value: function getUsedNamespaces() {
-      return Object.keys(this.usedNamespaces);
-    }
-  }]);
-  return ReportNamespaces2;
-}();
-function setI18n(instance) {
-  i18nInstance = instance;
-}
-function getI18n() {
-  return i18nInstance;
-}
-var initReactI18next = {
-  type: "3rdParty",
-  init: function init(instance) {
-    setDefaults(instance.options.react);
-    setI18n(instance);
-  }
-};
-function warn() {
-  if (console && console.warn) {
-    var _console;
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    if (typeof args[0] === "string")
-      args[0] = "react-i18next:: ".concat(args[0]);
-    (_console = console).warn.apply(_console, args);
-  }
-}
-var alreadyWarned = {};
-function warnOnce() {
-  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-    args[_key2] = arguments[_key2];
-  }
-  if (typeof args[0] === "string" && alreadyWarned[args[0]])
-    return;
-  if (typeof args[0] === "string")
-    alreadyWarned[args[0]] = new Date();
-  warn.apply(void 0, args);
-}
-function loadNamespaces(i18n, ns, cb2) {
-  i18n.loadNamespaces(ns, function() {
-    if (i18n.isInitialized) {
-      cb2();
-    } else {
-      var initialized = function initialized2() {
-        setTimeout(function() {
-          i18n.off("initialized", initialized2);
-        }, 0);
-        cb2();
-      };
-      i18n.on("initialized", initialized);
-    }
-  });
-}
-function hasLoadedNamespace(ns, i18n) {
-  var options = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
-  if (!i18n.languages || !i18n.languages.length) {
-    warnOnce("i18n.languages were undefined or empty", i18n.languages);
-    return true;
-  }
-  var lng = i18n.languages[0];
-  var fallbackLng = i18n.options ? i18n.options.fallbackLng : false;
-  var lastLng = i18n.languages[i18n.languages.length - 1];
-  if (lng.toLowerCase() === "cimode")
-    return true;
-  var loadNotPending = function loadNotPending2(l2, n3) {
-    var loadState = i18n.services.backendConnector.state["".concat(l2, "|").concat(n3)];
-    return loadState === -1 || loadState === 2;
-  };
-  if (options.bindI18n && options.bindI18n.indexOf("languageChanging") > -1 && i18n.services.backendConnector.backend && i18n.isLanguageChangingTo && !loadNotPending(i18n.isLanguageChangingTo, ns))
-    return false;
-  if (i18n.hasResourceBundle(lng, ns))
-    return true;
-  if (!i18n.services.backendConnector.backend)
-    return true;
-  if (loadNotPending(lng, ns) && (!fallbackLng || loadNotPending(lastLng, ns)))
-    return true;
-  return false;
-}
-var arrayWithHoles = createCommonjsModule(function(module) {
-  function _arrayWithHoles2(arr3) {
-    if (Array.isArray(arr3))
-      return arr3;
-  }
-  module.exports = _arrayWithHoles2;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var iterableToArrayLimit = createCommonjsModule(function(module) {
-  function _iterableToArrayLimit2(arr3, i2) {
-    var _i = arr3 == null ? null : typeof Symbol !== "undefined" && arr3[Symbol.iterator] || arr3["@@iterator"];
-    if (_i == null)
-      return;
-    var _arr = [];
-    var _n = true;
-    var _d = false;
-    var _s, _e;
-    try {
-      for (_i = _i.call(arr3); !(_n = (_s = _i.next()).done); _n = true) {
-        _arr.push(_s.value);
-        if (i2 && _arr.length === i2)
-          break;
-      }
-    } catch (err) {
-      _d = true;
-      _e = err;
-    } finally {
-      try {
-        if (!_n && _i["return"] != null)
-          _i["return"]();
-      } finally {
-        if (_d)
-          throw _e;
-      }
-    }
-    return _arr;
-  }
-  module.exports = _iterableToArrayLimit2;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var arrayLikeToArray = createCommonjsModule(function(module) {
-  function _arrayLikeToArray2(arr3, len) {
-    if (len == null || len > arr3.length)
-      len = arr3.length;
-    for (var i2 = 0, arr22 = new Array(len); i2 < len; i2++) {
-      arr22[i2] = arr3[i2];
-    }
-    return arr22;
-  }
-  module.exports = _arrayLikeToArray2;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var unsupportedIterableToArray = createCommonjsModule(function(module) {
-  function _unsupportedIterableToArray2(o, minLen) {
-    if (!o)
-      return;
-    if (typeof o === "string")
-      return arrayLikeToArray(o, minLen);
-    var n3 = Object.prototype.toString.call(o).slice(8, -1);
-    if (n3 === "Object" && o.constructor)
-      n3 = o.constructor.name;
-    if (n3 === "Map" || n3 === "Set")
-      return Array.from(o);
-    if (n3 === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n3))
-      return arrayLikeToArray(o, minLen);
-  }
-  module.exports = _unsupportedIterableToArray2;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var nonIterableRest = createCommonjsModule(function(module) {
-  function _nonIterableRest2() {
-    throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-  }
-  module.exports = _nonIterableRest2;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var slicedToArray = createCommonjsModule(function(module) {
-  function _slicedToArray3(arr3, i2) {
-    return arrayWithHoles(arr3) || iterableToArrayLimit(arr3, i2) || unsupportedIterableToArray(arr3, i2) || nonIterableRest();
-  }
-  module.exports = _slicedToArray3;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var _slicedToArray = /* @__PURE__ */ getDefaultExportFromCjs(slicedToArray);
-function ownKeys$1(object, enumerableOnly) {
-  var keys = Object.keys(object);
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) {
-      symbols = symbols.filter(function(sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
-    }
-    keys.push.apply(keys, symbols);
-  }
-  return keys;
-}
-function _objectSpread$1(target) {
-  for (var i2 = 1; i2 < arguments.length; i2++) {
-    var source = arguments[i2] != null ? arguments[i2] : {};
-    if (i2 % 2) {
-      ownKeys$1(Object(source), true).forEach(function(key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys$1(Object(source)).forEach(function(key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
-  return target;
-}
-function useTranslation(ns) {
-  var props = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-  var i18nFromProps = props.i18n;
-  var _ref = react.useContext(I18nContext) || {}, i18nFromContext = _ref.i18n, defaultNSFromContext = _ref.defaultNS;
-  var i18n = i18nFromProps || i18nFromContext || getI18n();
-  if (i18n && !i18n.reportNamespaces)
-    i18n.reportNamespaces = new ReportNamespaces();
-  if (!i18n) {
-    warnOnce("You will need to pass in an i18next instance by using initReactI18next");
-    var notReadyT = function notReadyT2(k3) {
-      return Array.isArray(k3) ? k3[k3.length - 1] : k3;
-    };
-    var retNotReady = [notReadyT, {}, false];
-    retNotReady.t = notReadyT;
-    retNotReady.i18n = {};
-    retNotReady.ready = false;
-    return retNotReady;
-  }
-  if (i18n.options.react && i18n.options.react.wait !== void 0)
-    warnOnce("It seems you are still using the old wait option, you may migrate to the new useSuspense behaviour.");
-  var i18nOptions = _objectSpread$1(_objectSpread$1(_objectSpread$1({}, getDefaults()), i18n.options.react), props);
-  var useSuspense = i18nOptions.useSuspense, keyPrefix = i18nOptions.keyPrefix;
-  var namespaces = ns || defaultNSFromContext || i18n.options && i18n.options.defaultNS;
-  namespaces = typeof namespaces === "string" ? [namespaces] : namespaces || ["translation"];
-  if (i18n.reportNamespaces.addUsedNamespaces)
-    i18n.reportNamespaces.addUsedNamespaces(namespaces);
-  var ready = (i18n.isInitialized || i18n.initializedStoreOnce) && namespaces.every(function(n3) {
-    return hasLoadedNamespace(n3, i18n, i18nOptions);
-  });
-  function getT() {
-    return i18n.getFixedT(null, i18nOptions.nsMode === "fallback" ? namespaces : namespaces[0], keyPrefix);
-  }
-  var _useState = react.useState(getT), _useState2 = _slicedToArray(_useState, 2), t3 = _useState2[0], setT = _useState2[1];
-  var isMounted = react.useRef(true);
-  react.useEffect(function() {
-    var bindI18n = i18nOptions.bindI18n, bindI18nStore = i18nOptions.bindI18nStore;
-    isMounted.current = true;
-    if (!ready && !useSuspense) {
-      loadNamespaces(i18n, namespaces, function() {
-        if (isMounted.current)
-          setT(getT);
-      });
-    }
-    function boundReset() {
-      if (isMounted.current)
-        setT(getT);
-    }
-    if (bindI18n && i18n)
-      i18n.on(bindI18n, boundReset);
-    if (bindI18nStore && i18n)
-      i18n.store.on(bindI18nStore, boundReset);
-    return function() {
-      isMounted.current = false;
-      if (bindI18n && i18n)
-        bindI18n.split(" ").forEach(function(e3) {
-          return i18n.off(e3, boundReset);
-        });
-      if (bindI18nStore && i18n)
-        bindI18nStore.split(" ").forEach(function(e3) {
-          return i18n.store.off(e3, boundReset);
-        });
-    };
-  }, [i18n, namespaces.join()]);
-  var isInitial = react.useRef(true);
-  react.useEffect(function() {
-    if (isMounted.current && !isInitial.current) {
-      setT(getT);
-    }
-    isInitial.current = false;
-  }, [i18n]);
-  var ret = [t3, i18n, ready];
-  ret.t = t3;
-  ret.i18n = i18n;
-  ret.ready = ready;
-  if (ready)
-    return ret;
-  if (!ready && !useSuspense)
-    return ret;
-  throw new Promise(function(resolve) {
-    loadNamespaces(i18n, namespaces, function() {
-      resolve();
-    });
-  });
-}
-function I18nextProvider(_ref) {
-  var i18n = _ref.i18n, defaultNS = _ref.defaultNS, children = _ref.children;
-  var value = react.useMemo(function() {
-    return {
-      i18n,
-      defaultNS
-    };
-  }, [i18n, defaultNS]);
-  return /* @__PURE__ */ react.createElement(I18nContext.Provider, {
-    value
-  }, children);
-}
-
-// build/dist/functions/array.functions.js
-var range = (val) => [...Array(val).keys()];
-var chunkArray = (array, perChunk = 5) => {
-  return array.reduce((acc, cur, index) => {
-    const chunkIndex = Math.floor(index / perChunk);
-    if (!acc[chunkIndex]) {
-      acc[chunkIndex] = [];
-    }
-    acc[chunkIndex].push(cur);
-    return acc;
-  }, []);
-};
+}, jsx("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  xmlnsXlink: "http://www.w3.org/1999/xlink",
+  viewBox: "0 0 264.74 93.88"
+}, jsx("defs", null, jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1",
+  x1: "21.55",
+  y1: "1",
+  x2: "21.55",
+  y2: "59.25",
+  gradientUnits: "userSpaceOnUse"
+}, jsx("stop", {
+  offset: "0",
+  stopColor: "#7f3644"
+}), jsx("stop", {
+  offset: "1",
+  stopColor: "#b8595a"
+})), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-2",
+  x1: "21.55",
+  y1: "60.25",
+  x2: "21.55",
+  y2: "0",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-3",
+  x1: "55.53",
+  y1: "8.71",
+  x2: "55.53",
+  y2: "44.74",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-4",
+  x1: "55.53",
+  y1: "45.74",
+  x2: "55.53",
+  y2: "7.71",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-5",
+  x1: "90.4",
+  y1: "9.45",
+  x2: "90.4",
+  y2: "41.99",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-6",
+  x1: "90.4",
+  y1: "42.99",
+  x2: "90.4",
+  y2: "8.45",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-7",
+  x1: "127.73",
+  y1: "8.71",
+  x2: "127.73",
+  y2: "44.74",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-8",
+  x1: "127.73",
+  y1: "45.74",
+  x2: "127.73",
+  y2: "7.71",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-9",
+  x1: "161.66",
+  y1: "8.71",
+  x2: "161.66",
+  y2: "41.94",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-10",
+  x1: "161.66",
+  y1: "42.94",
+  x2: "161.66",
+  y2: "7.71",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-11",
+  x1: "59.63",
+  y1: "49.05",
+  x2: "59.63",
+  y2: "89.99",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-12",
+  x1: "59.63",
+  y1: "90.99",
+  x2: "59.63",
+  y2: "48.05",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-13",
+  x1: "100.13",
+  y1: "58.16",
+  x2: "100.13",
+  y2: "91.22",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-14",
+  x1: "100.13",
+  y1: "92.22",
+  x2: "100.13",
+  y2: "57.16",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-15",
+  x1: "135.68",
+  y1: "57.59",
+  x2: "135.68",
+  y2: "90.13",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-16",
+  x1: "135.68",
+  y1: "91.13",
+  x2: "135.68",
+  y2: "56.59",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-17",
+  x1: "172.53",
+  y1: "56.5",
+  x2: "172.53",
+  y2: "89.99",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-18",
+  x1: "172.53",
+  y1: "90.99",
+  x2: "172.53",
+  y2: "55.5",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-19",
+  x1: "209.9",
+  y1: "57.59",
+  x2: "209.9",
+  y2: "90.13",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-20",
+  x1: "209.9",
+  y1: "91.13",
+  x2: "209.9",
+  y2: "56.59",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-21",
+  x1: "248.15",
+  y1: "56.85",
+  x2: "248.15",
+  y2: "92.88",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("linearGradient", {
+  id: "New_Gradient_Swatch_1-22",
+  x1: "248.15",
+  y1: "93.88",
+  x2: "248.15",
+  y2: "55.85",
+  xlinkHref: "#New_Gradient_Swatch_1"
+}), jsx("style", null)), jsx("g", {
+  id: "Layer_2",
+  "data-name": "Layer 2"
+}, jsx("g", {
+  id: "Layer_1-2",
+  "data-name": "Layer 1"
+}, jsx("path", {
+  d: "M26.39 21.36v32.43l.32 2a3 3 0 01.16.44 3.93 3.93 0 00.39.76l1.09.38 1.31.06-.11 1.85H12v-1.8l1.42-.05 1.06-.43.5-1.2.27-2-.06-30.57L5.75 8.75l-.63-.9a4.34 4.34 0 00-.46-.57c-.15-.18-.3-.38-.47-.6A5.46 5.46 0 003.56 6l-1.3-.8L1 4.77l1.31-.93L3.89 3l3.93-1.24 4.37-.71L16 1l-.65 1-.22 1.2.38 1.31.6 1L24.86 18l2.4-3.6 1.58-3.49.66-2.81V6.57l-.06-.88a5.53 5.53 0 00-1-1.36l2.35-.93 2.45-.87L35.56 2l2.73-.49 3.82-.28z",
+  fill: "url(#New_Gradient_Swatch_1)"
+}), jsx("path", {
+  d: "M16 1l-.65 1-.22 1.2.38 1.31.6 1L24.86 18l2.4-3.6 1.58-3.49.66-2.81V6.57l-.06-.88a5.53 5.53 0 00-1-1.36l2.35-.93 2.45-.87L35.56 2l2.73-.49 3.82-.28-15.72 20.13v32.43l.32 2a3 3 0 01.16.44 3.93 3.93 0 00.39.76l1.09.38 1.31.06-.11 1.85H12v-1.8l1.42-.05 1.06-.43.5-1.2.27-2-.06-30.57L5.75 8.75l-.63-.9a4.34 4.34 0 00-.46-.57c-.15-.18-.3-.38-.47-.6A5.46 5.46 0 003.56 6l-1.3-.8L1 4.77l1.31-.93L3.89 3l3.93-1.24 4.37-.71L16 1m0-1l-3.82.05-.18.02-4.34.71h-.14L3.59 2.07a.76.76 0 00-.16.06L1.85 3h-.12L.42 4a1 1 0 00-.41 1 1 1 0 00.66.8l1.17.41L3 6.76a4.52 4.52 0 01.44.52c.18.23.33.44.49.62A.27.27 0 004 8a5.2 5.2 0 01.35.44l.46.65.17.25 9.22 14.12.05 30.21L14 55.5l-.28.69-.54.21-1.25.05a1 1 0 00-1 1v1.8a1 1 0 001 1h17.62a1 1 0 001-.94l.11-1.86a1 1 0 00-.26-.73 1 1 0 00-.7-.32h-1.16l-.6-.21a2.31 2.31 0 01-.12-.27c-.06-.18-.1-.31-.14-.4l-.29-1.76v-32L42.9 1.89a1 1 0 00-.79-1.62H42l-3.78.28h-.11l-2.73.49-2.33.5h-.12l-2.46.87-2.38.94a1 1 0 00-.61.73 1 1 0 00.27.91 4.28 4.28 0 01.71.94V8l-.61 2.63-1.51 3.33-1.54 2.32L17 5l-.52-.89-.28-1 .14-.77.51-.76A1 1 0 0017 1a1 1 0 00-1-1zm0 2z",
+  fill: "url(#New_Gradient_Swatch_1-2)"
+}), jsx("path", {
+  className: "cls-3",
+  d: "M16 1l-.65 1-.22 1.2.38 1.31.6 1L24.86 18l2.4-3.6 1.58-3.49.66-2.81V6.57l-.06-.88a5.53 5.53 0 00-1-1.36l2.35-.93 2.45-.87L35.56 2l2.73-.49 3.82-.28-15.72 20.13v32.43l.32 2a3 3 0 01.16.44 3.93 3.93 0 00.39.76l1.09.38 1.31.06-.11 1.85H12v-1.8l1.42-.05 1.06-.43.5-1.2.27-2-.06-30.57L5.75 8.75l-.63-.9a4.34 4.34 0 00-.46-.57c-.15-.18-.3-.38-.47-.6A5.46 5.46 0 003.56 6l-1.3-.8L1 4.77l1.31-.93L3.89 3l3.93-1.24 4.37-.71L16 1m0-.75L12.18.3h-.11L7.7 1h-.1L3.66 2.3l-.11.05L2 3.17l-.09.06-1.34.93a.74.74 0 00-.31.71.77.77 0 00.49.61l1.19.41 1.16.68a4.54 4.54 0 01.49.56c.18.22.33.43.48.62l.06.06a3.62 3.62 0 01.38.47l.49.65.17.25 9.32 14.21.05 30.3-.25 1.87-.34.82-.68.27-1.29.05a.76.76 0 00-.72.75v1.8A.75.75 0 0012 60h17.55a.75.75 0 00.75-.7l.11-1.86a.79.79 0 00-.19-.55.73.73 0 00-.53-.24h-1.2l-.73-.26a2.2 2.2 0 01-.18-.39c-.06-.2-.11-.32-.14-.41l-.3-1.81V21.62L42.7 1.74a.76.76 0 00-.59-1.22L38.23.8h-.07l-2.74.49-2.31.49h-.1l-2.45.87-2.38.94a.76.76 0 00-.45.55.74.74 0 00.2.68 5 5 0 01.77 1l.05.7V8l-.62 2.68-1.53 3.39-1.76 2.63-8.08-11.57-.54-.93-.31-1.06.16-.87.54-.82a.7.7 0 00.15-.45.75.75 0 00-.76-.75zm0 1.5z"
+}), jsx("path", {
+  d: "M59.48 35.39l-5-6-2.8 3.18-1.87 2.63-1.1 2-.35 1.66.35 1a2.64 2.64 0 00.83.53l1.27.17L50.7 42H38.47v-1.45a10.25 10.25 0 001.44-.22l.79-.33 1-.57 1-.87 1.3-1.2 3.62-4.06 5.2-6.64-9.15-10.61-1.36-1.23a2.87 2.87 0 00-.67-.35l-1.12-.39 1.53-1.31 1.66-1.09 2.19-.83 2.31-.74 4.11-.66a7.51 7.51 0 00-.4 1.75 5.22 5.22 0 00.7 1.92l5.16 6.81 1.79-3.18 1.22-2.67.53-2-.14-1.58-1.09-1.05L67 8.93l5.59-.22L59.66 22.6 66 31.07l3.49 3a11.79 11.79 0 002.19.92l-2.8 2.92-1.35 1.84-1.15 1.74L65.6 43l-.6 1.74a15.65 15.65 0 00-.75-2.1l-.92-1.35z",
+  fill: "url(#New_Gradient_Swatch_1-3)"
+}), jsx("path", {
+  d: "M72.58 8.71L59.66 22.6 66 31.07l3.49 3a11.79 11.79 0 002.19.92l-2.8 2.92-1.35 1.84-1.15 1.74L65.6 43l-.6 1.74a15.65 15.65 0 00-.75-2.1l-.92-1.35-3.88-5.9-5-6-2.8 3.18-1.87 2.63-1.1 2-.35 1.66.35 1a2.64 2.64 0 00.83.53l1.27.17L50.7 42H38.47v-1.45a10.25 10.25 0 001.44-.22l.79-.33 1-.57 1-.87 1.3-1.2 3.62-4.06 5.2-6.64-9.15-10.61-1.36-1.23a2.87 2.87 0 00-.67-.35l-1.12-.39 1.53-1.31 1.66-1.09 2.19-.83 2.31-.74 4.11-.66a7.51 7.51 0 00-.4 1.75 5.22 5.22 0 00.7 1.92l5.16 6.81 1.79-3.18 1.22-2.67.53-2-.14-1.58-1.09-1.05L67 8.93l5.59-.22M72.58 7.71L67 7.93l-7 .52a1 1 0 00-.86.66 1 1 0 00.23 1.05l.84.83.08 1-.45 1.71-1.18 2.55-1 1.82-4.18-5.52a4.93 4.93 0 01-.55-1.39 6.31 6.31 0 01.33-1.39.86.86 0 00.07-.36 1 1 0 00-1-1h-.14l-4.09.65h-.14l-2.32.75h-.05l-2.18.83-.2.1-1.66 1.1-.09.07-1.54 1.31a1 1 0 00-.33.95 1 1 0 00.67.76l1.08.38a1.88 1.88 0 01.38.18L43 16.75l8.6 9.94-4.68 6-3.56 4-1.36 1.1-.92.8-.87.49-.64.29a7.83 7.83 0 01-1.14.18 1 1 0 00-1 1V42a1 1 0 001 1H50.7a1 1 0 001-.94l.09-1.49a1 1 0 00-.87-1.05l-1.11-.15a1.47 1.47 0 01-.27-.16l-.16-.43.26-1.24 1-1.82 1.82-2.53 2-2.27L58.67 36l3.86 5.85.91 1.34c0 .09.19.47.64 1.86a1 1 0 001 .7 1 1 0 001-.7l.55-1.71.58-1.34 1.1-1.67 1.3-1.76 2.75-2.88a1 1 0 00.25-.93A1 1 0 0072 34a11 11 0 01-1.91-.77l-3.37-2.86-5.72-7.7L73.29 9.42a1 1 0 00-.7-1.71zm0 2z",
+  fill: "url(#New_Gradient_Swatch_1-4)"
+}), jsx("path", {
+  className: "cls-3",
+  d: "M72.58 8.71L59.66 22.6 66 31.07l3.49 3a11.79 11.79 0 002.19.92l-2.8 2.92-1.35 1.84-1.15 1.74L65.6 43l-.6 1.74a15.65 15.65 0 00-.75-2.1l-.92-1.35-3.88-5.9-5-6-2.8 3.18-1.87 2.63-1.1 2-.35 1.66.35 1a2.64 2.64 0 00.83.53l1.27.17L50.7 42H38.47v-1.45a10.25 10.25 0 001.44-.22l.79-.33 1-.57 1-.87 1.3-1.2 3.62-4.06 5.2-6.64-9.15-10.61-1.36-1.23a2.87 2.87 0 00-.67-.35l-1.12-.39 1.53-1.31 1.66-1.09 2.19-.83 2.31-.74 4.11-.66a7.51 7.51 0 00-.4 1.75 5.22 5.22 0 00.7 1.92l5.16 6.81 1.79-3.18 1.22-2.67.53-2-.14-1.58-1.09-1.05L67 8.93l5.59-.22M72.58 8L67 8.18l-7 .52a.76.76 0 00-.64.49.72.72 0 00.17.79l.9.9.1 1.17-.48 1.78-1.15 2.57-1.22 2.17-4.42-5.85a4.29 4.29 0 01-.59-1.52A6.39 6.39 0 0153 9.73a.87.87 0 000-.28.75.75 0 00-.75-.75h-.14l-4.09.66h-.11l-2.31.74-2.16.9-.14.07-1.66 1.1h-.07L40 13.51a.75.75 0 00-.25.71.73.73 0 00.5.57c.42.14.79.27 1.08.39a1.61 1.61 0 01.47.23l1.29 1.16 8.74 10.11-4.82 6.15-3.56 4L42.21 38l-.94.82-.91.51-.68.3a8.57 8.57 0 01-1.21.19.75.75 0 00-.75.75V42a.76.76 0 00.75.75H50.7a.75.75 0 00.75-.71l.09-1.48a.75.75 0 00-.65-.79l-1.15-.16a1.69 1.69 0 01-.41-.24l-.21-.57.28-1.34 1-1.88L52.25 33l2.19-2.5 4.43 5.32 3.87 5.86.91 1.35a17 17 0 01.67 1.97.73.73 0 00.71.52.73.73 0 00.71-.52l.56-1.74.7-1.39 1.11-1.71 1.3-1.76 2.77-2.89a.75.75 0 00-.3-1.23 10.5 10.5 0 01-2-.81l-3.4-2.89-5.88-7.9L73.11 9.25a.76.76 0 00.22-.54.74.74 0 00-.74-.71zm0 1.5z"
+}), jsx("path", {
+  d: "M93.29 42v-1.45a5.42 5.42 0 00.89-.07l1-.15.61-.31.52-.52v-.66a3.28 3.28 0 00-.21-1.26l-2.62-7.43-13 5.55-.7 1.92-.48 1.14-.09.74a2.75 2.75 0 001 .83l1.7.17L82 42h-9.42v-1.45l1.36-.22 1.31-.44.91-.74.84-.83 10.17-23.58-.18-1-.39-.7-1.7-.22.87-.83 1.23-.75 3.06-1.18 3.45-.61h3.15a6.45 6.45 0 00-.61.66 2.41 2.41 0 00-.35.5 1.16 1.16 0 00-.15.52 7.1 7.1 0 000 .72v.57L105 38.36l1.45 1.4 1.74.79V42zm-4.85-25l-4.72 10.92 7.51-3.27z",
+  fill: "url(#New_Gradient_Swatch_1-5)"
+}), jsx("path", {
+  d: "M96.65 9.45a6.45 6.45 0 00-.61.66 2.41 2.41 0 00-.35.5 1.16 1.16 0 00-.15.52 7.1 7.1 0 000 .72v.57L105 38.36l1.45 1.4 1.74.79V42h-14.9v-1.45a5.42 5.42 0 00.89-.07l1-.15.61-.31.52-.52v-.66a3.28 3.28 0 00-.21-1.26l-2.62-7.43-13 5.55-.7 1.92-.48 1.14-.09.74a2.75 2.75 0 001 .83l1.7.17L82 42h-9.42v-1.45l1.36-.22 1.31-.44.91-.74.84-.83 10.17-23.58-.18-1-.39-.7-1.7-.22.87-.83 1.23-.75 3.06-1.18 3.45-.61h3.15M83.72 27.92l7.51-3.27L88.44 17l-4.72 10.92M96.65 8.45h-3.32l-3.45.61-.18.05-3.06 1.18a.66.66 0 00-.19.09l-1.22.79-.15.11-.87.83a1 1 0 00-.26 1 1 1 0 00.82.68L86 14l.06.12.09.5-10 23.13-.65.65-.74.6-1.06.35-1.28.21a1 1 0 00-.84 1V42a1 1 0 001 1H82a1 1 0 001-1v-1.49a1 1 0 00-.9-1l-1.5-.16a1.42 1.42 0 01-.3-.2V39l.43-1 .55-1.51 11.59-5 2.26 6.42a2.29 2.29 0 01.17.85v.3l-.14.14-.33.16-.86.13a4.93 4.93 0 01-.75.06 1 1 0 00-1 1V42a1 1 0 001 1h14.93a1 1 0 001-1v-1.45a1 1 0 00-.59-.91l-1.58-.72-1.16-1.12-9.31-25.56v-.39-.64a1 1 0 010-.12 2.63 2.63 0 01.25-.35c.13-.15.32-.35.54-.58a1 1 0 00.22-1.09 1 1 0 00-.92-.62zm0 2zM85.64 26l2.72-6.29 1.64 4.4L85.64 26z",
+  fill: "url(#New_Gradient_Swatch_1-6)"
+}), jsx("path", {
+  className: "cls-3",
+  d: "M96.65 9.45a6.45 6.45 0 00-.61.66 2.41 2.41 0 00-.35.5 1.16 1.16 0 00-.15.52 7.1 7.1 0 000 .72v.57L105 38.36l1.45 1.4 1.74.79V42h-14.9v-1.45a5.42 5.42 0 00.89-.07l1-.15.61-.31.52-.52v-.66a3.28 3.28 0 00-.21-1.26l-2.62-7.43-13 5.55-.7 1.92-.48 1.14-.09.74a2.75 2.75 0 001 .83l1.7.17L82 42h-9.42v-1.45l1.36-.22 1.31-.44.91-.74.84-.83 10.17-23.58-.18-1-.39-.7-1.7-.22.87-.83 1.23-.75 3.06-1.18 3.45-.61h3.15M83.72 27.92l7.51-3.27L88.44 17l-4.72 10.92M96.65 8.7h-3.28l-3.45.61h-.13l-3.07 1.18-.13.07-1.22.79a.47.47 0 00-.12.09l-.87.83a.75.75 0 00.43 1.28l1.32.17.15.26.11.62-10 23.24-.7.7-.78.63-1.12.38-1.3.21a.75.75 0 00-.63.74V42a.76.76 0 00.75.75H82a.75.75 0 00.75-.73v-1.49a.74.74 0 00-.67-.76l-1.56-.16a2.46 2.46 0 01-.49-.34v-.31l.44-1 .6-1.65 11.94-5.1 2.35 6.67a2.52 2.52 0 01.18 1v.39l-.24.24-.39.2-.91.13a5.22 5.22 0 01-.78.06.74.74 0 00-.75.75V42a.75.75 0 00.75.75h14.93A.76.76 0 00109 42v-1.45a.76.76 0 00-.44-.69l-1.63-.73-1.22-1.19-9.45-25.65v-.44-.66a.79.79 0 01.06-.22 4.72 4.72 0 01.27-.39c.14-.16.33-.37.57-.6a.74.74 0 00.16-.81.75.75 0 00-.69-.47zm0 1.5zM85.16 26.48L88.38 19l1.9 5.21-5.12 2.24z"
+}), jsx("path", {
+  d: "M140.44 37.88l-1.36 1.84-1.14 1.74-.74 1.54-.57 1.79a15.65 15.65 0 00-.75-2.1l-.88-1.4-17.1-24 .26 13.41.35 5.33.26 1.61.23 1.16.39.87.44.49.48.21.7.13h.65v1.49h-9.43v-1.44h.87l.7-.22.61-.61.52-1.13.44-2.27.31-3 .13-4.19.09-5.46V16.6a6.77 6.77 0 00-1.62-1.62 14.73 14.73 0 00-2.18-.83l.61-1.18.79-1.18 1.26-.91 1.27-.79 3.16-1 3.29-.35.26 2c.06.17.16.42.31.74s.33.73.57 1.22l13.9 18.39-.05-9.13-.17-2.75-.13-2.62-.26-2-.35-1.36-.39-.92-.53-.56-.44-.22-.65-.13-.74-.05-.09-1.61h9.56v1.66h-1l-.83.3-.61.83-.44 1.47-.4 2.57-.27 3.76-.17 5.24v6.94l1.49 1.49a11.79 11.79 0 002.19.92z",
+  fill: "url(#New_Gradient_Swatch_1-7)"
+}), jsx("path", {
+  d: "M122.52 8.71l.26 2c.06.17.16.42.31.74s.33.73.57 1.22l13.9 18.39-.05-9.13-.17-2.75-.13-2.62-.26-2-.35-1.36-.39-.92-.53-.56-.44-.22-.65-.13-.74-.05-.09-1.61h9.56v1.66h-1l-.83.3-.61.83-.48 1.5-.4 2.57-.27 3.76-.17 5.24v6.94l1.49 1.49a11.79 11.79 0 002.19.92l-2.8 2.92-1.36 1.84-1.14 1.74-.74 1.58-.57 1.79a15.65 15.65 0 00-.75-2.1l-.88-1.4-17.1-24 .26 13.41.35 5.33.26 1.61.23 1.16.39.87.44.49.48.21.7.13h.65v1.49h-9.43v-1.44h.87l.7-.22.61-.61.52-1.13.44-2.27.31-3 .13-4.19.09-5.46V16.6a6.77 6.77 0 00-1.62-1.62 14.73 14.73 0 00-2.18-.83l.61-1.18.79-1.18 1.26-.91 1.27-.79 3.16-1 3.29-.35M122.51 7.71h-.11l-3.29.35h-.18l-3.16 1a1.28 1.28 0 00-.24.11l-1.26.79a.09.09 0 00-.06 0l-1.27.91a1 1 0 00-.25.26l-.78 1.18-.06.09-.61 1.18a1 1 0 00.58 1.41 13.7 13.7 0 012 .74 5.35 5.35 0 011.13 1.1v6.73l-.14 5.44-.13 4.15-.3 2.93-.38 2.15-.39.86-.31.31-.35.11h-.75a1 1 0 00-.94 1V42a1 1 0 001 1h9.43a1 1 0 001-1v-1.42a.31.31 0 000-.1 1 1 0 00-1-1h-.57l-.49-.09-.18-.08-.19-.21-.29-.65-.28-1-.24-1.53-.35-5.28-.2-10.12 15.23 21.38.89 1.31c0 .09.19.47.64 1.86a1 1 0 00.95.7 1 1 0 001-.7l.55-1.71.68-1.37 1.1-1.67 1.3-1.76 2.76-2.91a1 1 0 00.25-.93 1 1 0 00-.64-.71 11.83 11.83 0 01-1.88-.75l-1.12-1.15v-6.54l.17-5.21.26-3.68.37-2.4.45-1.25.34-.47.38-.14h.78a1 1 0 001-1V9.76a1 1 0 00-1-1h-9.56a1 1 0 00-.73.31 1 1 0 00-.27.74l.09 1.62a1 1 0 00.94.94h.67l.46.09.15.08.28.31.3.68.31 1.27.25 1.86.13 2.58.17 2.74v6.09l-12-15.91-.1-.2c-.17-.36-.31-.66-.42-.91s-.19-.43-.24-.56l-.25-1.91a1 1 0 00-1-.87z",
+  fill: "url(#New_Gradient_Swatch_1-8)"
+}), jsx("path", {
+  className: "cls-3",
+  d: "M122.52 8.71l.26 2c.06.17.16.42.31.74s.33.73.57 1.22l13.9 18.39-.05-9.13-.17-2.75-.13-2.62-.26-2-.35-1.36-.39-.92-.53-.56-.44-.22-.65-.13-.74-.05-.09-1.61h9.56v1.66h-1l-.83.3-.61.83-.48 1.5-.4 2.57-.27 3.76-.17 5.24v6.94l1.49 1.49a11.79 11.79 0 002.19.92l-2.8 2.92-1.36 1.84-1.14 1.74-.74 1.58-.57 1.79a15.65 15.65 0 00-.75-2.1l-.88-1.4-17.1-24 .26 13.41.35 5.33.26 1.61.23 1.16.39.87.44.49.48.21.7.13h.65v1.49h-9.43v-1.44h.87l.7-.22.61-.61.52-1.13.44-2.27.31-3 .13-4.19.09-5.46V16.6a6.77 6.77 0 00-1.62-1.62 14.73 14.73 0 00-2.18-.83l.61-1.18.79-1.18 1.26-.91 1.27-.79 3.16-1 3.29-.35M122.52 8h-.08l-3.29.35h-.14l-3.16 1-.17.08-1.27.79-1.26.92a.58.58 0 00-.19.19l-.78 1.18a.16.16 0 000 .07l-.62 1.18a.73.73 0 000 .63.71.71 0 00.46.42 13.27 13.27 0 012 .76 5.5 5.5 0 011.26 1.24v6.81l-.09 5.45-.13 4.15-.3 3-.42 2.15-.42.93-.39.38-.43.14h-.78a.75.75 0 00-.71.75V42a.75.75 0 00.75.75h9.43a.74.74 0 00.75-.73V40.6a.28.28 0 000-.09.76.76 0 00-.75-.75h-.59l-.54-.1-.26-.11-.25-.28-.32-.71-.28-1.08-.25-1.55-.35-5.29-.21-10.95 15.69 22 .9 1.32a16.22 16.22 0 01.66 1.92.75.75 0 00.72.52.74.74 0 00.71-.52l.55-1.74.7-1.39 1.12-1.71 1.3-1.76 2.77-2.89a.81.81 0 00.19-.7.75.75 0 00-.49-.53 11 11 0 01-1.94-.79l-1.22-1.25v-6.6l.17-5.22.26-3.7.38-2.43.46-1.31.41-.56.5-.18h.82a.75.75 0 00.75-.75V9.76a.74.74 0 00-.75-.75h-9.56a.75.75 0 00-.55.23.76.76 0 00-.2.56l.09 1.61a.75.75 0 00.7.71h.69l.51.1.22.12.35.37.31.74.33 1.26.25 1.89.13 2.59.18 2.76v6.83L124.3 12.29l-.11-.23c-.16-.35-.31-.66-.42-.91a5.73 5.73 0 01-.25-.6l-.26-1.94a.74.74 0 00-.74-.65z"
+}), jsx("path", {
+  d: "M176.82 32.51l-.35 1.49-.88 1.88-.91 1.44-1.23 1.22-1.31 1.09-1.39.7-2.75 1.18-2 .3a18.84 18.84 0 01-2.62.13h-.53a18.35 18.35 0 01-2.79-.13l-2.8-.48-4-.87-1.57-.18h-1.66L148 41l-1.66.91v-2.15c0-.14.06-.31.09-.48s.06-.38.09-.61c.14-.41.26-.76.35-1.05a4 4 0 01.22-.65l.78-1.75 1.13-1.57 1.27-1.49 1.48-1.16 1.7-1.13a12.32 12.32 0 00.09 1.92l.46 1.81.66 1.36 1.09 1.74 1.36 1.23 1.57 1 1.53.48 2.53.43.92-.23 1.39-.38 1.71-.78 1-1.09.88-1.31.26-1.23.09-1.05v-.91c-.12-.41-.22-.73-.29-1a4.76 4.76 0 00-.19-.53l-.88-1.61-1.18-1.09-1.31-1.05-1.92-.66-2.05-.35-2.53-.39c-.39-.06-.86-.16-1.45-.31s-1.28-.33-2.09-.56l-2.41-1.14-1.6-1.17-1.31-1.53-.74-1.4-.26-1.31-.09-1.17v-1c.06-.35.12-.64.17-.88a2.76 2.76 0 01.18-.52l.7-1.62.91-1.18L152 11l1.31-.83 1.65-.74 3.89-.74h4l3.8.7 1.65.61 1.58.65 1.48.57 1.36.13 1.22-.26 1.14-.44 1.57-1a6.52 6.52 0 01-.22 2.35l-.43 1.73-.48 1.09-.92 1.27-1 .44-1.18.22-1.35-.05-1.31-.52-.74-.7-.66-.79-1.27-1.57-1.22-.74-1.22-.61-2.36-.31-2.49-.09a6.15 6.15 0 00-1.53.4l-1 .56a3.05 3.05 0 00-.66 1l-.39 1.22v1.22l.4 1.18 1 1.27 1.27 1 2.23.61 2.31.31h1.1a2.51 2.51 0 00.5.06c.21 0 .48 0 .8.11l2.14.31.81.3c.39.15.93.34 1.6.57l1.79.88 1.31 1.09 1.18 1.18 1 1.74.74 1.53.6 3.09z",
+  fill: "url(#New_Gradient_Swatch_1-9)"
+}), jsx("path", {
+  d: "M162.8 8.71l3.8.7 1.65.61 1.58.65 1.48.57 1.36.13 1.22-.26 1.14-.44 1.57-1a6.52 6.52 0 01-.22 2.35l-.38 1.71-.48 1.09-.92 1.27-1 .44-1.18.22-1.35-.05-1.31-.52-.74-.7-.66-.79-1.27-1.57-1.22-.74-1.22-.61-2.36-.31-2.49-.09a6.15 6.15 0 00-1.53.4l-1 .56a3.05 3.05 0 00-.66 1l-.39 1.22v1.22l.4 1.18 1 1.27 1.27 1 2.23.61 2.31.31h1.1a2.51 2.51 0 00.5.06c.21 0 .48 0 .8.11l2.14.31.81.3c.39.15.93.34 1.6.57l1.79.88 1.31 1.09 1.18 1.18 1 1.74.74 1.53.6 3.09-.17 1.53-.36 1.47-.88 1.88-.91 1.44-1.23 1.22-1.31 1.09-1.39.7-2.75 1.18-2 .3a18.84 18.84 0 01-2.62.13h-.53a18.35 18.35 0 01-2.79-.13l-2.8-.48-4-.87-1.57-.18h-1.66L148 41l-1.66.91v-2.15c0-.14.06-.31.09-.48s.06-.38.09-.61c.14-.41.26-.76.35-1.05a4 4 0 01.22-.65l.78-1.75 1.13-1.57 1.27-1.49 1.48-1.16 1.7-1.13a12.32 12.32 0 00.09 1.92l.46 1.81.66 1.36 1.09 1.74 1.36 1.23 1.57 1 1.53.48 2.53.43.92-.23 1.39-.38 1.71-.78 1-1.09.88-1.31.26-1.23.09-1.05v-.91c-.12-.41-.22-.73-.29-1a4.76 4.76 0 00-.19-.53l-.88-1.61-1.18-1.09-1.31-1.05-1.92-.66-2.05-.35-2.53-.39c-.39-.06-.86-.16-1.45-.31s-1.28-.33-2.09-.56l-2.41-1.14-1.6-1.17-1.31-1.53-.74-1.4-.26-1.31-.09-1.17v-1c.06-.35.12-.64.17-.88a2.76 2.76 0 01.18-.52l.7-1.62.91-1.18L152 11l1.31-.83 1.65-.74 3.89-.74h4M162.8 7.71h-4.19l-3.88.74a1 1 0 00-.23.07l-1.65.74-.13.07-1.31.83a.75.75 0 00-.17.14L150 11.63l-.08.09-.92 1.18a1 1 0 00-.13.22l-.69 1.59a3.92 3.92 0 00-.23.69c-.07.27-.13.58-.2 1a.91.91 0 000 .17v1.12l.09 1.18a.5.5 0 000 .12l.26 1.31a.79.79 0 00.1.27l.74 1.4a.57.57 0 00.12.18l1.31 1.53a.75.75 0 00.16.15l1.53 1.17a.64.64 0 00.18.1l2.4 1.14.15.06c.9.25 1.57.44 2.13.57s1.14.27 1.54.33l2.52.39 2 .33 1.68.58 1.15.91 1 1 .8 1.47s0 .1.12.35l.24.8v.73l-.08 1-.21 1-.73 1.09-.81.88-1.45.67-1.31.35-.7.18-2.26-.39-1.36-.54-1.38-.85-1.18-1.07-1-1.58-.58-1.2-.41-1.73a13.37 13.37 0 01-.06-1.69 1 1 0 00-.53-.88 1 1 0 00-.47-.12.92.92 0 00-.55.17l-1.71 1.13h-.05l-1.53 1.18a.67.67 0 00-.15.14l-1.27 1.5-.06.08-1.13 1.57a.51.51 0 00-.09.16l-.79 1.75a6.84 6.84 0 00-.26.77c-.09.29-.2.62-.33 1a.79.79 0 00-.06.22c0 .22 0 .41-.08.57s-.05.31-.08.45a1.23 1.23 0 000 .19v2.18a1 1 0 00.49.87 1.06 1.06 0 001 0l1.59-.88 1.84-.69h1.43l1.48.17 3.92.86 2.84.49a18.92 18.92 0 003 .14h.53a19.31 19.31 0 002.77-.14l2-.3a1 1 0 00.23-.07l2.75-1.13h.06l1.4-.7.19-.13 1.31-1.09.07-.06 1.22-1.22a.75.75 0 00.14-.17l.92-1.44.06-.12.87-1.88a1.18 1.18 0 00.07-.2l.35-1.52a.5.5 0 000-.12l.16-1.51a1.22 1.22 0 000-.27l-.48-3.1a1.15 1.15 0 00-.09-.28l-.74-1.53v-.05l-1-1.75a.87.87 0 00-.17-.22l-1.17-1.18-.07-.06-1.28-1.09a.86.86 0 00-.2-.13l-1.8-.88h-.1l-1.62-.56-.78-.3a1.05 1.05 0 00-.24-.06l-2.13-.31c-.31-.05-.62-.09-.88-.11a2.85 2.85 0 01-.32 0 1.07 1.07 0 00-.25 0h-1l-2.18-.29-2-.54-1-.78-.85-1-.29-.87v-.9l.34-1a.25.25 0 000-.07 4.58 4.58 0 01.33-.46l.85-.48a5.51 5.51 0 011.11-.26l2.34.08 2.14.28 1 .51 1 .63 1.16 1.44.67.8.08.09.74.7a1 1 0 00.32.19l1.31.53a.93.93 0 00.33.07h1.54l1.18-.22a1.09 1.09 0 00.24-.07l1-.44a1 1 0 00.39-.32l.92-1.27a1.62 1.62 0 00.1-.18l.49-1.09a.83.83 0 00.06-.21l.33-1.62a7.86 7.86 0 00.26-2.61v-.23a1 1 0 00-1-1 1 1 0 00-.56.17l-1.47 1-1 .37-1 .21-1.07-.1-1.35-.52-1.55-.64-1.7-.63-.16-.05-3.73-.71a.55.55 0 00-.18 0z",
+  fill: "url(#New_Gradient_Swatch_1-10)"
+}), jsx("path", {
+  className: "cls-3",
+  d: "M162.8 8.71l3.8.7 1.65.61 1.58.65 1.48.57 1.36.13 1.22-.26 1.14-.44 1.57-1a6.52 6.52 0 01-.22 2.35l-.38 1.71-.48 1.09-.92 1.27-1 .44-1.18.22-1.35-.05-1.31-.52-.74-.7-.66-.79-1.27-1.57-1.22-.74-1.22-.61-2.36-.31-2.49-.09a6.15 6.15 0 00-1.53.4l-1 .56a3.05 3.05 0 00-.66 1l-.39 1.22v1.22l.4 1.18 1 1.27 1.27 1 2.23.61 2.31.31h1.1a2.51 2.51 0 00.5.06c.21 0 .48 0 .8.11l2.14.31.81.3c.39.15.93.34 1.6.57l1.79.88 1.31 1.09 1.18 1.18 1 1.74.74 1.53.6 3.09-.17 1.53-.36 1.47-.88 1.88-.91 1.44-1.23 1.22-1.31 1.09-1.39.7-2.75 1.18-2 .3a18.84 18.84 0 01-2.62.13h-.53a18.35 18.35 0 01-2.79-.13l-2.8-.48-4-.87-1.57-.18h-1.66L148 41l-1.66.91v-2.15c0-.14.06-.31.09-.48s.06-.38.09-.61c.14-.41.26-.76.35-1.05a4 4 0 01.22-.65l.78-1.75 1.13-1.57 1.27-1.49 1.48-1.16 1.7-1.13a12.32 12.32 0 00.09 1.92l.46 1.81.66 1.36 1.09 1.74 1.36 1.23 1.57 1 1.53.48 2.53.43.92-.23 1.39-.38 1.71-.78 1-1.09.88-1.31.26-1.23.09-1.05v-.91c-.12-.41-.22-.73-.29-1a4.76 4.76 0 00-.19-.53l-.88-1.61-1.18-1.09-1.31-1.05-1.92-.66-2.05-.35-2.53-.39c-.39-.06-.86-.16-1.45-.31s-1.28-.33-2.09-.56l-2.41-1.14-1.6-1.17-1.31-1.53-.74-1.4-.26-1.31-.09-1.17v-1c.06-.35.12-.64.17-.88a2.76 2.76 0 01.18-.52l.7-1.62.91-1.18L152 11l1.31-.83 1.65-.74 3.89-.74h4M162.8 8h-4.12l-3.89.75a.49.49 0 00-.16 0l-1.63.76-.09.05-1.31.83a.45.45 0 00-.13.1l-1.32 1.31-.06.07-.91 1.18a.59.59 0 00-.1.17l-.69 1.59a3 3 0 00-.22.66 8.81 8.81 0 00-.19.93.53.53 0 000 .13v1.1l.09 1.18v.09l.27 1.31a.58.58 0 00.07.21l.74 1.39a.42.42 0 00.09.14l1.31 1.53.12.11 1.57 1.18.13.08 2.4 1.13.12.05c.89.25 1.57.43 2.12.57s1.12.26 1.51.32l2.53.39 2 .34 1.74.59 1.18 1 1.07 1 .82 1.51a3.93 3.93 0 01.14.39c.06.21.14.49.25.84v.78l-.09 1-.22 1-.76 1.14-.86.94-1.51.7-1.34.35-.75.2-2.33-.4-1.39-.49-1.43-.88-1.23-1.1-1-1.63-.61-1.24-.41-1.76a11.83 11.83 0 01-.07-1.74.75.75 0 00-.39-.66.8.8 0 00-.36-.09.75.75 0 00-.41.12l-1.71 1.14-1.53 1.18-.11.11-1.27 1.48v.06l-1.1 1.57-.06.12-.79 1.75c-.08.2-.16.44-.25.74s-.2.63-.34 1a.75.75 0 000 .16c0 .22-.06.41-.08.58s-.06.32-.08.46a.59.59 0 000 .14v2.18a.74.74 0 00.75.75.81.81 0 00.37-.09l1.61-.89 1.9-.71h1.48l1.51.17 3.93.87 2.83.48a18.39 18.39 0 002.92.14h.53a20.49 20.49 0 002.73-.13l2-.31a.48.48 0 00.17 0l2.5-1.1h.05l1.4-.7a.42.42 0 00.14-.09l1.31-1.09h.06l1.22-1.22a.64.64 0 00.1-.13l.92-1.44a.36.36 0 000-.09l.88-1.87v-.15l.35-1.53v-.08l.18-1.53a1.27 1.27 0 000-.2l-.48-3.1a.79.79 0 00-.06-.22l-.63-1.63-1-1.79a.61.61 0 00-.12-.16l-1.18-1.18-1.31-1.09-.15-.1-1.79-.87h-.09c-.66-.23-1.19-.41-1.57-.56l-.8-.3h-.17l-2.14-.31a5.63 5.63 0 00-.86-.11 1.33 1.33 0 01-.36-.05h-1.24l-2.21-.3-2-.55-1.08-.82-.91-1.1-.31-.94v-1l.36-1.1a.43.43 0 010-.05 2 2 0 01.41-.6l.89-.5a5.23 5.23 0 011.21-.29l2.38.08 2.2.28 1.08.54 1.08.66 1.18 1.47.67.8.06.06.75.7a.51.51 0 00.23.15l1.31.53a.74.74 0 00.25.05h1.5l1.18-.22.17-.05 1-.44a.78.78 0 00.3-.24l.92-1.27a.54.54 0 00.07-.13l.49-1.1a.88.88 0 00.05-.15l.33-1.65a7.5 7.5 0 00.25-2.54v-.13a.74.74 0 00-.75-.75.75.75 0 00-.42.13l-1.49 1-1 .39-1 .23-1.14-.12-1.57-.51-1.56-.64-1.69-.63h-.12l-3.8-.7z"
+}), jsx("path", {
+  d: "M80.73 90H62v-2.13l1.47-.06.49-.21a6.76 6.76 0 01.65-.23l.55-1.2.38-2-.16-.76-.22-1.2-.43-1.21-.65-1.58-.88-1.69-1.15-1.69-1.36-1.59-1.64-1.36-1.63-.93-2.24-.71-2.57-.33-.11 13.41.17 1.47.27 1 1.2.93 2 .06-.06 2H38.47v-1.91h1.37l1.31-.49.43-1 .42-2.22V54.13c-.07-.3-.1-.42-.1-.38l-.22-1a4 4 0 00-1.2-1l-1.91-.16-.06-1.75h17.54v1.8h-1.42a2.14 2.14 0 00-1.15.39l-.6 1.2-.27 2-.11 13.42 2.08-6 1.09-2.45L57 57.73l1.31-2 1.53-2 1.63-1.47 1.75-1.48 2.46-.82 2-.44 2.18.39 1.42.33 1.2.16 1.58-.4 2-.93.22 1.31.06.87-.28 2.08-.92 1.75-1.24 1.56-1.69 1-1.69.65h-2.34l-.35-.08-.83-.37h-2.38l-1.37.16-1.68.93L60 60l-1.5 1.77-1.3 1.91-1.15 2.46L55 68.7a23.8 23.8 0 013.44.17l2.68.43 2.73.77c.18 0 .46.11.84.22a15.51 15.51 0 011.5.54L68.44 72l.74.44c.31.18.66.4 1.06.66L72 74.6l1.64 1.53 2 3L76.85 82l.43 2.51.06 1.49.33 1 1.2.93 1.91.06z",
+  fill: "url(#New_Gradient_Swatch_1-11)"
+}), jsx("path", {
+  d: "M76.08 49.05l.22 1.31.06.87-.28 2.08-.92 1.75-1.26 1.58-1.69 1-1.69.65h-2.34l-.35-.08-.83-.37h-2.38l-1.37.16-1.68.93L60 60l-1.5 1.77-1.3 1.91-1.15 2.46L55 68.7a23.8 23.8 0 013.44.17l2.68.43 2.73.77c.18 0 .46.11.84.22a15.51 15.51 0 011.5.54L68.44 72l.74.44c.31.18.66.4 1.06.66L72 74.6l1.64 1.53 2 3L76.85 82l.43 2.51.06 1.49.33 1 1.2.93 1.91.06v2H62v-2.12l1.47-.06.49-.21a6.76 6.76 0 01.65-.23l.55-1.2.38-2-.16-.76-.22-1.2-.43-1.21-.65-1.58-.88-1.69-1.15-1.69-1.36-1.59-1.64-1.36-1.63-.93-2.24-.71-2.57-.33-.11 13.41.17 1.47.27 1 1.2.93 2 .06-.06 2H38.47v-1.91h1.37l1.31-.49.43-1 .42-2.22V54.13a2.54 2.54 0 00-.1-.39l-.22-1a4 4 0 00-1.2-1l-1.91-.16-.06-1.75h17.54v1.8h-1.42a2.14 2.14 0 00-1.15.39l-.6 1.2-.27 2-.11 13.43 2.08-6 1.09-2.45L57 57.73l1.31-2 1.53-2 1.63-1.47 1.75-1.48 2.46-.82 2-.44 2.18.39 1.42.33 1.2.16 1.58-.4 2-.93m0-1a1 1 0 00-.41.09l-1.92.84-1.3.31-1-.13-1.37-.32H70l-2.18-.38h-.38l-2 .44h-.11l-2.46.82a.94.94 0 00-.32.19L60.8 51.4 59.15 53a.86.86 0 00-.13.14l-1.53 2a.15.15 0 000 .06l-1.31 2v.07l-1.31 2.46v.06l-1.09 2.46v.08l-.08.23.06-7.2.24-1.74.39-.78a1 1 0 01.39-.11h1.46a1 1 0 001-1v-1.8a1 1 0 00-1-1H38.47a1 1 0 00-1 1l.06 1.75a1 1 0 00.91 1l1.69.15a2.71 2.71 0 01.59.47l.16.74a1 1 0 000 .16 1 1 0 010 .12l.06 30-.4 2-.22.5-.76.29h-1.21a1 1 0 00-1 1V90a1 1 0 001 1h17.7a1 1 0 001-1l.06-2a1 1 0 00-1-1h-1.64l-.68-.53-.16-.58-.15-1.34.1-12.18 1.36.17 2 .65 1.47.83L60 75.2l1.27 1.48 1.08 1.6.83 1.6.62 1.51.35 1 .2 1.13.13.59-.32 1.71-.31.68-.31.12-.36.15-1.26.05a1 1 0 00-1 1V90a1 1 0 001 1h18.81a1 1 0 001-1v-2a1 1 0 00-1-1h-1.58l-.7-.54-.19-.61-.06-1.34a.57.57 0 000-.13l-.44-2.51a.83.83 0 00-.06-.21l-1.2-2.89a.69.69 0 00-.1-.19l-2-3a1.07 1.07 0 00-.14-.16l-1.63-1.53-1.75-1.48-.11-.08-1.09-.67-.68-.48L66.68 70h-.1a14.44 14.44 0 00-1.6-.58c-.41-.12-.68-.19-.89-.23l-2.69-.76h-.11l-2.68-.44a17.39 17.39 0 00-2.12-.16l.51-1.29 1.1-2.36 1.23-1.8 1.36-1.61 1.43-1 1.44-.77 1.12-.13h2.1l.64.26h.1l.43.1a3.26 3.26 0 00.41.05h2.15a.92.92 0 00.36-.07l1.69-.65a.8.8 0 00.16-.08l1.7-1a1.13 1.13 0 00.26-.23l1.25-1.58a1.3 1.3 0 00.1-.15l.97-1.74a1.35 1.35 0 00.11-.34l.27-2.08a1.21 1.21 0 000-.19l-.06-.88v-.09l-.22-1.31a1 1 0 00-.52-.72.94.94 0 00-.47-.12z",
+  fill: "url(#New_Gradient_Swatch_1-12)"
+}), jsx("path", {
+  className: "cls-3",
+  d: "M76.08 49.05l.22 1.31.06.87-.28 2.08-.92 1.75-1.26 1.58-1.69 1-1.69.65h-2.34l-.35-.08-.83-.37h-2.38l-1.37.16-1.68.93L60 60l-1.5 1.77-1.3 1.91-1.15 2.46L55 68.7a23.8 23.8 0 013.44.17l2.68.43 2.73.77c.18 0 .46.11.84.22a15.51 15.51 0 011.5.54L68.44 72l.74.44c.31.18.66.4 1.06.66L72 74.6l1.64 1.53 2 3L76.85 82l.43 2.51.06 1.49.33 1 1.2.93 1.91.06v2H62v-2.12l1.47-.06.49-.21a6.76 6.76 0 01.65-.23l.55-1.2.38-2-.16-.76-.22-1.2-.43-1.21-.65-1.58-.88-1.69-1.15-1.69-1.36-1.59-1.64-1.36-1.63-.93-2.24-.71-2.57-.33-.11 13.41.17 1.47.27 1 1.2.93 2 .06-.06 2H38.47v-1.91h1.37l1.31-.49.43-1 .42-2.22V54.13a2.54 2.54 0 00-.1-.39l-.22-1a4 4 0 00-1.2-1l-1.91-.16-.06-1.75h17.54v1.8h-1.42a2.14 2.14 0 00-1.15.39l-.6 1.2-.27 2-.11 13.43 2.08-6 1.09-2.45L57 57.73l1.31-2 1.53-2 1.63-1.47 1.75-1.48 2.46-.82 2-.44 2.18.39 1.42.33 1.2.16 1.58-.4 2-.93m0-.75a.7.7 0 00-.31.07l-2 .9-1.38.33-1-.14-1.37-.34-2.22-.39H67.49l-2 .44h-.08L63 50a.72.72 0 00-.24.14L61 51.64l-1.66 1.5-.09.1-1.53 2-1.31 2v.06L55 59.83a.08.08 0 010 .05l-1.09 2.46v.06l-.58 1.68.07-8.75.25-1.8.45-.89a1.26 1.26 0 01.57-.17h1.45a.76.76 0 00.72-.75v-1.8a.75.75 0 00-.75-.75H38.47a.79.79 0 00-.54.22.81.81 0 00-.21.55l.06 1.75a.74.74 0 00.68.72l1.75.15a3.08 3.08 0 01.73.6l.19.8a.74.74 0 000 .14 1.46 1.46 0 010 .17l.06 30.08-.41 2-.27.62-.9.34h-1.25a.76.76 0 00-.72.75V90a.75.75 0 00.75.75h17.66a.75.75 0 00.75-.75l.06-2a.75.75 0 00-.73-.77H54.4l-.81-.63-.18-.68-.16-1.37.1-12.55 1.67.22 2.09.66 1.51.85L60.16 75l1.3 1.5 1.09 1.62.84 1.63.61 1.55.35 1.07.21 1.15.14.64-.31 1.84-.37.81-.4.14-.39.17-1.31.05a.74.74 0 00-.72.75V90a.74.74 0 00.75.75h18.78a.75.75 0 00.75-.73v-2a.74.74 0 00-.73-.77h-1.66l-.83-.64-.22-.71-.04-1.45a.38.38 0 000-.1l-.43-2.51a1 1 0 000-.16l-1.2-2.89a.91.91 0 00-.07-.14l-2-3-.11-.12L72.56 74l-1.78-1.5-.09-.06q-.6-.39-1.08-.66l-.73-.44-2.27-1.22h-.07c-.64-.26-1.17-.45-1.58-.57s-.68-.19-.88-.23l-2.7-.76h-.08l-2.68-.43a17.48 17.48 0 00-2.5-.13l.62-1.54 1.11-2.37 1.25-1.83 1.39-1.64 1.47-1 1.53-.84 1.18-.14h2.15l.69.27h.08l.4.1a3.18 3.18 0 00.4 0h2.13a.86.86 0 00.27 0l1.69-.65.12-.06 1.7-1a.81.81 0 00.19-.18l1.25-1.58a.44.44 0 00.08-.11l.93-1.75a.73.73 0 00.08-.25l.27-2.08a.76.76 0 000-.15l-.06-.87a.17.17 0 000-.07l-.22-1.31a.74.74 0 00-.74-.63z"
+}), jsx("path", {
+  d: "M112.25 91.22l-.68-.44c-.22-.15-.44-.29-.68-.43a4.7 4.7 0 00-1.53-.22H86v-1.44h1.23a3.76 3.76 0 01.39-.17 5.12 5.12 0 01.52-.18l.44-1 .26-1.62V61.53c-.06-.23-.09-.34-.09-.3l-.17-.79-1-.75-1.58-.18v-1.35h14v1.39l-1.14.05a1.75 1.75 0 00-.92.3l-.48 1-.22 1.58-.08 26.25h1.65a4.54 4.54 0 00.57-.06l2.4-.39 2-.44 1.2-.35c.36-.12.7-.25 1-.39l1.7-.84 1.62-.91 1.46-1.35 1.14-1.26.69-1.23.7-1.83 1 1z",
+  fill: "url(#New_Gradient_Swatch_1-13)"
+}), jsx("path", {
+  d: "M100 58.16v1.39l-1.14.05a1.75 1.75 0 00-.92.3l-.48 1-.22 1.58-.08 26.25h1.65a4.54 4.54 0 00.57-.06l2.4-.39 2-.44 1.2-.35c.36-.12.7-.25 1-.39l1.7-.84 1.62-.91 1.46-1.35 1.14-1.26.69-1.23.7-1.83 1 1-2 10.53-.68-.44c-.22-.15-.44-.29-.68-.43a4.7 4.7 0 00-1.53-.22H86v-1.43h1.23a3.76 3.76 0 01.39-.17 5.12 5.12 0 01.52-.18l.44-1 .26-1.62V61.53a1.31 1.31 0 00-.09-.31l-.17-.79-1-.75-1.58-.17v-1.35h14m0-1H86a1 1 0 00-1 1v1.35a1 1 0 00.88 1l1.25.15.46.35.1.44V85.6l-.12 1.4-.2.43-.17.06-.26.12h-1a1 1 0 00-1 1v1.44a1 1 0 001 1h23.41a4.08 4.08 0 011.11.13l.55.35.7.46a1 1 0 00.53.15.89.89 0 00.39-.09 1 1 0 00.59-.72l2-10.53a1 1 0 00-.22-.8l-1-1a1 1 0 00-.71-.29.65.65 0 00-.2 0 1 1 0 00-.73.62l-.67 1.76-.61 1.07-1 1.13-1.36 1.17-1.51.85-1.67.82a7.15 7.15 0 01-.89.33c-.36.12-.74.23-1.16.34l-1.89.42-2.38.39c-.15 0-.31 0-.49.06h-.53l.08-25.18.19-1.35.27-.53a.41.41 0 01.16 0l1.17-.05a1 1 0 001-1v-1.4a1 1 0 00-1-1z",
+  fill: "url(#New_Gradient_Swatch_1-14)"
+}), jsx("path", {
+  className: "cls-3",
+  d: "M100 58.16v1.39l-1.14.05a1.75 1.75 0 00-.92.3l-.48 1-.22 1.58-.08 26.25h1.65a4.54 4.54 0 00.57-.06l2.4-.39 2-.44 1.2-.35c.36-.12.7-.25 1-.39l1.7-.84 1.62-.91 1.46-1.35 1.14-1.26.69-1.23.7-1.83 1 1-2 10.53-.68-.44c-.22-.15-.44-.29-.68-.43a4.7 4.7 0 00-1.53-.22H86v-1.43h1.23a3.76 3.76 0 01.39-.17 5.12 5.12 0 01.52-.18l.44-1 .26-1.62V61.53a1.31 1.31 0 00-.09-.31l-.17-.79-1-.75-1.58-.17v-1.35h14m0-.75H86a.75.75 0 00-.53.22.72.72 0 00-.21.55v1.35a.74.74 0 00.66.72l1.32.16.58.44.12.53v24.23l-.23 1.45-.26.57-.25.09a3 3 0 00-.3.13h-1.07a.74.74 0 00-.73.75v1.44a.76.76 0 00.75.75h23.41a4.35 4.35 0 011.21.15l.59.38.69.44a.72.72 0 00.4.12.66.66 0 00.3-.07.74.74 0 00.43-.54L115 80.84a.77.77 0 00-.21-.68l-1-1a.71.71 0 00-.53-.22h-.15a.77.77 0 00-.55.47l-.68 1.78-.63 1.11-1 1.16-1.38 1.19-1.56.88-1.66.81a8.35 8.35 0 01-.92.35c-.36.12-.75.23-1.17.34l-1.94.43-2.36.39-.51.06H97.95L98 62.49l.2-1.4.32-.65a.86.86 0 01.35-.09l1.13-.05a.74.74 0 00.73-.75v-1.39a.75.75 0 00-.75-.75z"
+}), jsx("path", {
+  d: "M138.56 90.13v-1.44a7.09 7.09 0 00.9-.07l1-.15.61-.31.53-.52v-.66a3.21 3.21 0 00-.22-1.27l-2.62-7.42-13 5.55-.7 1.92-.48 1.13-.09.75a3 3 0 001 .83l1.71.17v1.49h-9.43v-1.44l1.35-.22 1.32-.44.91-.74.83-.83 10.18-23.59-.18-1-.39-.69-1.7-.22.87-.83 1.22-.79 3.06-1.18 3.45-.61h3.15c-.27.26-.47.48-.62.65a4.26 4.26 0 00-.35.51 1.31 1.31 0 00-.15.52v1.29l9.52 25.94 1.44 1.4 1.75.79v1.44zm-4.85-25L129 76.06l7.51-3.27z",
+  fill: "url(#New_Gradient_Swatch_1-15)"
+}), jsx("path", {
+  d: "M141.93 57.59c-.27.26-.47.48-.62.65a4.26 4.26 0 00-.35.51 1.31 1.31 0 00-.15.52v1.29l9.52 25.94 1.44 1.4 1.75.79v1.44h-14.96v-1.44a7.09 7.09 0 00.9-.07l1-.15.61-.31.53-.52v-.66a3.21 3.21 0 00-.22-1.27l-2.62-7.42-13 5.55-.7 1.92-.48 1.13-.09.75a3 3 0 001 .83l1.71.17v1.49h-9.43v-1.44l1.35-.22 1.32-.44.91-.74.83-.83 10.18-23.59-.18-1-.39-.69-1.7-.22.87-.83 1.22-.79 3.06-1.18 3.45-.61h3.15M129 76.06l7.51-3.27-2.8-7.65L129 76.06m12.93-19.47h-3.32l-3.46.62a.61.61 0 00-.18.05l-3.06 1.18a.76.76 0 00-.18.09l-1.22.78-.15.12-.87.83a1 1 0 00.56 1.72l1.2.15.07.12.09.49-10 23.14-.66.65-.73.6-1.07.35-1.27.21a1 1 0 00-.84 1v1.44a1 1 0 001 1h9.43a1 1 0 001-1v-1.48a1 1 0 00-.89-1l-1.51-.16a2.23 2.23 0 01-.3-.2v-.14l.42-1 .57-1.56 11.59-5 2.27 6.42a2.55 2.55 0 01.17.84v.31l-.15.14-.33.16-.85.13a5 5 0 01-.76.06 1 1 0 00-1 1v1.44a1 1 0 001 1h15a1 1 0 001-1v-1.4a1 1 0 00-.59-.92l-1.59-.71-1.15-1.12-9.38-25.56V60a6.13 6.13 0 010-.65.27.27 0 010-.12 3.21 3.21 0 01.24-.34c.12-.14.3-.34.55-.58a1 1 0 00.22-1.09 1 1 0 00-.92-.62zm0 2zm-11 15.54l2.71-6.29 1.62 4.41-4.33 1.88z",
+  fill: "url(#New_Gradient_Swatch_1-16)"
+}), jsx("path", {
+  className: "cls-3",
+  d: "M141.93 57.59c-.27.26-.47.48-.62.65a4.26 4.26 0 00-.35.51 1.31 1.31 0 00-.15.52v1.29l9.52 25.94 1.44 1.4 1.75.79v1.44h-14.96v-1.44a7.09 7.09 0 00.9-.07l1-.15.61-.31.53-.52v-.66a3.21 3.21 0 00-.22-1.27l-2.62-7.42-13 5.55-.7 1.92-.48 1.13-.09.75a3 3 0 001 .83l1.71.17v1.49h-9.43v-1.44l1.35-.22 1.32-.44.91-.74.83-.83 10.18-23.59-.18-1-.39-.69-1.7-.22.87-.83 1.22-.79 3.06-1.18 3.45-.61h3.15M129 76.06l7.51-3.27-2.8-7.65L129 76.06m12.93-19.22h-3.28l-3.45.61h-.14L132 58.68l-.13.07-1.23.78-.11.09-.87.83a.75.75 0 00-.2.78.76.76 0 00.62.51l1.33.17.15.26.11.61L121.64 86l-.7.7-.78.63-1.13.38-1.29.21a.75.75 0 00-.63.74v1.44a.76.76 0 00.75.75h9.43a.75.75 0 00.75-.73v-1.49a.75.75 0 00-.67-.77l-1.56-.16a2.24 2.24 0 01-.48-.33v-.31l.43-1 .61-1.65 11.93-5.11 2.43 6.7a2.44 2.44 0 01.19 1v.4l-.24.23-.4.2-.9.14a5.35 5.35 0 01-.79.06.75.75 0 00-.75.75v1.44a.76.76 0 00.75.75h14.91a.76.76 0 00.75-.75v-1.53a.75.75 0 00-.44-.69l-1.63-.73-1.18-1.19-9.41-25.66V60a6.24 6.24 0 010-.66.6.6 0 01.06-.23 2.28 2.28 0 01.27-.38 8.2 8.2 0 01.56-.6.74.74 0 00-.52-1.28zm0 1.5zm-11.49 16.28l3.21-7.45 1.91 5.21-5.12 2.24z"
+}), jsx("path", {
+  d: "M188 73l-.83.47-.74.53-.31.88-.17 1.17v5.29l.13 1.27.22.78a5.58 5.58 0 001.18.74l1.57.14-4.67 2.35-2.8 1.14-2.18.83-2.1.57-2 .48-1.53.26-2.36.08-3.15-.26-1.57-.3-1.32-.42-1.71-.78-1.35-.88-1.18-.83-1.09-1-1.04-1.19-1.27-1.66-1.75-3-.52-1.44c-.06-.24-.13-.5-.22-.81s-.19-.66-.31-1.07l-.21-1.66-.09-2c0-.18.06-.42.09-.73s.07-.67.13-1.11a7.64 7.64 0 01.31-1.84l.69-2 .88-1.93 1-1.53L159 62l1.39-1.27 1.88-1.39 1.88-1 2.4-1 2-.48 2-.39h1 .13l.88.06 1.88.13 1.83.49 1.75.61 3.27 1.7a4.9 4.9 0 01.48.22l.61.3 1.1.22 1.18-.26 1.13-.44 1.66-1.18-.13 3.28L187 63l-.35 1.09-.65.88-.7.65-1.05.35-1.09.18c-.24 0-.56-.09-1-.18s-.95-.22-1.59-.39l-1-.52-1.22-1.23-1.09-1.31-1.26-1.35-1.42-1.17-2.09-.74-2.49-.45-2 .66-1.4.61-1.36 1.22-1 1.22-.7 1.36-.74 1.92-.39 2-.18 2.09v1.71l.22 1.91.4 1.66.56 1.53.7 1.14.92 1.13 1.44 1.54 1.44 1.26 1.57 1 1.71.83 1.44.44 2.14.39h3.49l.33-.06h.15l.09-6.86-.31-1.83-.65-1.79-1-1-1.26-.82-1.36-.14-1.15.07a5.81 5.81 0 00-1.49.92l-.74.74-1.09 1.4-1.13 3-4.65-3.14 1.79-3.09 1.17-.92 1-.83 1.14-.65 1.22-.18 1.4-.13 3 .44 3.36.83 3.71.78 2.45.35h3.37l2.61-.36.31 1.18z",
+  fill: "url(#New_Gradient_Swatch_1-17)"
+}), jsx("path", {
+  d: "M171.61 56.5h.13l.88.06 1.88.13 1.83.49 1.75.61 3.27 1.7a4.9 4.9 0 01.48.22l.61.3 1.1.22 1.18-.26 1.13-.44 1.66-1.18-.13 3.28L187 63l-.35 1.09-.65.88-.7.65-1.05.35-1.09.18c-.24 0-.56-.09-1-.18s-.95-.22-1.59-.39l-1-.52-1.22-1.23-1.09-1.31-1.26-1.35-1.42-1.17-2.09-.74-2.49-.45-2 .66-1.4.61-1.36 1.22-1 1.22-.7 1.36-.74 1.92-.39 2-.18 2.09v1.71l.22 1.91.4 1.66.56 1.53.7 1.14.92 1.13 1.44 1.54 1.44 1.26 1.57 1 1.71.83 1.44.44 2.14.39h3.49l.33-.06h.15l.09-6.86-.31-1.83-.65-1.79-1-1-1.26-.82-1.36-.14-1.15.07a5.81 5.81 0 00-1.49.92l-.74.74-1.09 1.4-1.13 3-4.65-3.14 1.79-3.09 1.17-.92 1-.83 1.14-.65 1.22-.18 1.4-.13 3 .44 3.36.83 3.71.78 2.45.35h3.37l2.61-.36.31 1.18L188 73l-.83.47-.74.53-.31.88-.17 1.17v5.29l.13 1.27.22.78a5.58 5.58 0 001.18.74l1.57.14-4.67 2.35-2.8 1.14-2.18.83-2.1.57-2 .48-1.53.26-2.36.08-3.15-.26-1.57-.3-1.32-.42-1.71-.78-1.35-.88-1.18-.83-1.09-1-1.04-1.19-1.27-1.66-1.75-3-.52-1.44c-.06-.24-.13-.5-.22-.81s-.19-.66-.31-1.07l-.21-1.66-.09-2c0-.18.06-.42.09-.73s.07-.67.13-1.11a7.64 7.64 0 01.31-1.84l.69-2 .88-1.93 1-1.53L159 62l1.39-1.27 1.88-1.39 1.88-1 2.4-1 2-.48 2-.39h1M171.62 55.5h-1.2l-2 .4-2 .49-.16.05-2.4 1h-.07l-1.88 1-.14.08-1.87 1.4-.08.06-1.4 1.27-.1.11L157 63v.07l-1.05 1.53a1.09 1.09 0 00-.08.15l-.88 1.92v.09l-.7 2a.19.19 0 000 .07 8.81 8.81 0 00-.34 2c-.06.43-.1.8-.13 1.1a5.94 5.94 0 01-.08.66 1.27 1.27 0 000 .2l.09 2a.25.25 0 000 .08l.21 1.66v.14l.07.24.24.83c.09.3.15.56.21.79v.09L155 80a.8.8 0 00.08.16l1.75 3 .07.09 1.26 1.66.08.09 1.09 1.14 1.12 1.07a.52.52 0 00.11.1l1.18.83 1.39.9.12.06 1.71.79h.11l1.35.44h.12l1.57.31h.11l3.14.26h.12l2.36-.08h.14l1.52-.26h.07l2-.48 2.12-.58h.1l2.21-.8 2.82-1.14h.07l4.67-2.35a1 1 0 00-.36-1.89l-1.37-.12c-.29-.15-.48-.27-.59-.34l-.11-.39-.13-1.18v-5.16l.15-1 .17-.49.44-.31.67-.39 2.35-.58a1 1 0 00.62-.45 1 1 0 00.11-.77l-.37-1.14a1 1 0 00-1-.75H190l-2.55.35H184.23l-2.35-.33-3.68-.78-3.33-.82h-.09l-3-.44h-.24l-1.4.14-1.27.18a.9.9 0 00-.36.12l-1.14.65-.13.1-1 .83-1.15.9a1 1 0 00-.25.29l-1.38 2.38-.09-.4-.21-1.8V69.9l.17-2 .36-1.83.7-1.79.62-1.21L166 62l1.18-1.06 1.21-.53 1.68-.56 2.2.38 1.85.65 1.22 1 1.25 1.25 1.06 1.27.06.07 1.23 1.22a1.08 1.08 0 00.24.18l1 .54a.58.58 0 00.17.06c.64.18 1.2.32 1.65.41s.83.16 1.07.19h.27l1.1-.17h.16l1-.35a1.07 1.07 0 00.37-.22l.7-.65.12-.13.65-.88a.89.89 0 00.15-.29l.35-1.1.37-1.35a.83.83 0 000-.22l.13-3.21v-.11a1 1 0 00-1-1 1 1 0 00-.58.2l-1.55 1.1-.94.36-.91.2-.75-.15-.31-.16-.18-.09-.51-.23-3.23-1.68-.13-.06-1.75-.61h-.07l-1.84-.48a.57.57 0 00-.18 0l-1.88-.13-.83-.06h-.24zm0 2zm1.74 15.5l.86-.06 1 .1 1 .64.77.74.54 1.48.28 1.66-.08 5.86h-2.9l-2-.36-1.31-.4-1.52-.84-1.45-.89-1.34-1.17-1.39-1.47-.85-1.06-.51-.82 3.69 2.44a1 1 0 00.55.17 1.12 1.12 0 00.31 0 1 1 0 00.63-.59l1.07-2.83 1-1.22.7-.7a4.32 4.32 0 011-.65z",
+  fill: "url(#New_Gradient_Swatch_1-18)"
+}), jsx("path", {
+  className: "cls-3",
+  d: "M171.61 56.5h.13l.88.06 1.88.13 1.83.49 1.75.61 3.27 1.7a4.9 4.9 0 01.48.22l.61.3 1.1.22 1.18-.26 1.13-.44 1.66-1.18-.13 3.28L187 63l-.35 1.09-.65.88-.7.65-1.05.35-1.09.18c-.24 0-.56-.09-1-.18s-.95-.22-1.59-.39l-1-.52-1.22-1.23-1.09-1.31-1.26-1.35-1.42-1.17-2.09-.74-2.49-.45-2 .66-1.4.61-1.36 1.22-1 1.22-.7 1.36-.74 1.92-.39 2-.18 2.09v1.71l.22 1.91.4 1.66.56 1.53.7 1.14.92 1.13 1.44 1.54 1.44 1.26 1.57 1 1.71.83 1.44.44 2.14.39h3.49l.33-.06h.15l.09-6.86-.31-1.83-.65-1.79-1-1-1.26-.82-1.36-.14-1.15.07a5.81 5.81 0 00-1.49.92l-.74.74-1.09 1.4-1.13 3-4.65-3.14 1.79-3.09 1.17-.92 1-.83 1.14-.65 1.22-.18 1.4-.13 3 .44 3.36.83 3.71.78 2.45.35h3.37l2.61-.36.31 1.18L188 73l-.83.47-.74.53-.31.88-.17 1.17v5.29l.13 1.27.22.78a5.58 5.58 0 001.18.74l1.57.14-4.67 2.35-2.8 1.14-2.18.83-2.1.57-2 .48-1.53.26-2.36.08-3.15-.26-1.57-.3-1.32-.42-1.71-.78-1.35-.88-1.18-.83-1.09-1-1.04-1.19-1.27-1.66-1.75-3-.52-1.44c-.06-.24-.13-.5-.22-.81s-.19-.66-.31-1.07l-.21-1.66-.09-2c0-.18.06-.42.09-.73s.07-.67.13-1.11a7.64 7.64 0 01.31-1.84l.69-2 .88-1.93 1-1.53L159 62l1.39-1.27 1.88-1.39 1.88-1 2.4-1 2-.48 2-.39h1M171.56 55.72h-1.16l-2 .39-2.05.49h-.11l-2.4 1h-.05l-1.88 1-.11.06-1.8 1.47h-.06l-1.4 1.27-.08.08-1.31 1.61-1.05 1.53a.41.41 0 00-.07.11l-.87 1.93v.06l-.69 2a9.08 9.08 0 00-.33 2c-.06.43-.1.8-.13 1.1s0 .51-.08.68a.76.76 0 000 .15l.09 2v.07l.22 1.65v.11l.07.24.24.83c.09.31.16.57.21.79v.07l.52 1.44a.31.31 0 00.06.13L157 83l.05.07 1.26 1.66.06.07 1.13 1.2 1.11 1 .09.07 1.18.84 1.38.89h.09l1.7.78h.09l1.35.43h.09l1.57.3h.08l3.15.26h.08l2.36-.08h.1l1.53-.26 2.06-.49 2.12-.58h.07l2.18-.83 2.81-1.14h.06l4.67-2.19a.77.77 0 00.4-.82.74.74 0 00-.67-.6l-1.43-.12A6.18 6.18 0 01187 83l-.14-.5-.12-1.16v-5.2l.15-1 .21-.59.52-.36.7-.41 2.39-.59a.76.76 0 00.46-.34.72.72 0 00.09-.57L190.9 71a.75.75 0 00-.72-.57h-.11l-2.56.35h-3.26l-2.38-.34-3.68-.78-3.34-.82h-.07l-3-.44h-.18l-1.4.14-1.26.17a.82.82 0 00-.26.1l-1.14.65-.1.07-1 .83-1.16.91a.72.72 0 00-.18.21l-1.7 2.93-.24-1-.16-1.89v-1.63l.17-2 .37-1.86.71-1.82.64-1.25.92-1.12 1.22-1.1 1.26-.55 1.75-.59 2.29.4 1.9.67 1.27 1.07 1.24 1.26 1.07 1.28 1.22 1.23.19.13 1 .54h.12c.65.18 1.2.31 1.64.41s.81.15 1 .18h.21l1.09-.18a.27.27 0 00.12 0l1-.35a.74.74 0 00.27-.16l.7-.66.09-.09.65-.88a.94.94 0 00.12-.22l.34-1.09.37-1.35a.88.88 0 000-.16l.13-3.22v-.09a.75.75 0 00-.75-.75.8.8 0 00-.43.15l-1.58 1.12-1 .38-1 .22-.84-.17-.35-.17-.17-.09-.5-.23-3.25-1.69h-.1l-1.74-.61h-.06l-1.61-.48h-.14l-1.88-.14-.85-.06h-.2zm0 1.5zm1.69 15.49l.93-.07 1.1.1 1 .69.83.8.57 1.56.29 1.7.03 6.16h-3.19l-2.05-.37-1.34-.41-1.59-.87-1.48-.9-1.35-1.16-1.4-1.49-.87-1.07-.63-1-.22-.6 4.38 2.91a.75.75 0 00.41.12.59.59 0 00.23 0 .71.71 0 00.47-.44l1.09-2.86 1-1.27.71-.71a4.51 4.51 0 011.16-.71z"
+}), jsx("path", {
+  d: "M212.78 90.13v-1.44a7.09 7.09 0 00.9-.07l1-.15.62-.31.52-.52v-.66a3.21 3.21 0 00-.22-1.27l-2.6-7.42-13 5.55-.7 1.92-.48 1.13-.08.75a2.89 2.89 0 001 .83l1.71.17-.05 1.49h-9.43v-1.44l1.35-.22 1.31-.44.92-.74.83-.83 10.18-23.59-.18-1-.39-.69-1.59-.18.87-.83 1.22-.79 3.06-1.18 3.45-.61h3.14c-.26.26-.46.48-.61.65a4.26 4.26 0 00-.35.51 1.49 1.49 0 00-.15.52v1.29l9.52 25.94 1.45 1.4 1.75.79v1.44zm-4.85-25l-4.71 10.92 7.51-3.27z",
+  fill: "url(#New_Gradient_Swatch_1-19)"
+}), jsx("path", {
+  d: "M216.14 57.59c-.26.26-.46.48-.61.65a4.26 4.26 0 00-.35.51 1.49 1.49 0 00-.15.52v1.29l9.52 25.94 1.45 1.4 1.75.79v1.44h-14.97v-1.44a7.09 7.09 0 00.9-.07l1-.15.62-.31.52-.52v-.66a3.21 3.21 0 00-.22-1.27l-2.6-7.42-13 5.55-.7 1.92-.48 1.13-.08.75a2.89 2.89 0 001 .83l1.71.17-.05 1.49h-9.43v-1.44l1.35-.22 1.31-.44.92-.74.83-.83 10.18-23.59-.18-1-.39-.69-1.59-.18.87-.83 1.22-.79 3.06-1.18 3.45-.61h3.14m-12.92 18.47l7.51-3.27-2.8-7.65-4.71 10.92m12.92-19.47h-3.32l-3.44.62a.59.59 0 00-.19.05l-3.06 1.17-.18.1-1.22.78-.15.12-.87.83a1 1 0 00.56 1.72l1.2.15.07.12.09.5-10 23.12-.66.66-.73.6-1.07.35-1.27.21a1 1 0 00-.84 1v1.44a1 1 0 001 1h9.43a1 1 0 001-1l.05-1.48a1 1 0 00-.9-1l-1.51-.16a2.23 2.23 0 01-.3-.2v-.14l.43-1v-.05l.55-1.51 11.6-5 2.26 6.42a2.15 2.15 0 01.16.84v.31l-.14.14-.32.16-.86.13a5 5 0 01-.76.06 1 1 0 00-1 1v1.44a1 1 0 001 1h14.94a1 1 0 001-1v-1.4a1 1 0 00-.59-.91l-1.59-.72-1.15-1.12L216 60.38V60v-.65a.2.2 0 010-.11 2.76 2.76 0 01.24-.35c.13-.15.32-.36.55-.58a1 1 0 00-.71-1.71zm0 2zm-11 15.54l2.72-6.29 1.6 4.41-4.32 1.88z",
+  fill: "url(#New_Gradient_Swatch_1-20)"
+}), jsx("path", {
+  className: "cls-3",
+  d: "M216.14 57.59c-.26.26-.46.48-.61.65a4.26 4.26 0 00-.35.51 1.49 1.49 0 00-.15.52v1.29l9.52 25.94 1.45 1.4 1.75.79v1.44h-14.97v-1.44a7.09 7.09 0 00.9-.07l1-.15.62-.31.52-.52v-.66a3.21 3.21 0 00-.22-1.27l-2.6-7.42-13 5.55-.7 1.92-.48 1.13-.08.75a2.89 2.89 0 001 .83l1.71.17-.05 1.49h-9.43v-1.44l1.35-.22 1.31-.44.92-.74.83-.83 10.18-23.59-.18-1-.39-.69-1.59-.18.87-.83 1.22-.79 3.06-1.18 3.45-.61h3.14m-12.92 18.47l7.51-3.27-2.8-7.65-4.71 10.92m12.92-19.22h-3.27l-3.45.61h-.14l-3.06 1.18-.14.07-1.22.78-.11.09-.87.83a.75.75 0 00-.2.78.76.76 0 00.62.51l1.33.17.15.26.11.61L195.86 86l-.7.7-.78.63-1.13.38L192 88a.74.74 0 00-.63.74v1.44a.75.75 0 00.75.75h9.43a.75.75 0 00.75-.73l.05-1.49a.76.76 0 00-.68-.77l-1.56-.16a2.24 2.24 0 01-.48-.33v-.31l.45-1 .6-1.65 11.93-5.11L215 86a2.33 2.33 0 01.17 1v.4l-.24.23-.4.2-.9.14a5.25 5.25 0 01-.79.06.75.75 0 00-.75.75v1.44a.76.76 0 00.75.75h14.94a.76.76 0 00.75-.75v-1.53A.77.77 0 00228 88l-1.63-.73-1.23-1.19-9.41-25.66V60v-.66a.64.64 0 01.06-.22 2 2 0 01.27-.39c.13-.16.33-.37.56-.6a.75.75 0 00-.53-1.28zm0 1.5zm-11.48 16.28l3.22-7.45 1.9 5.21-5.12 2.24z"
+}), jsx("path", {
+  d: "M260.86 86l-1.35 1.83-1.14 1.75-.75 1.49-.57 1.79a15.65 15.65 0 00-.75-2.1l-.92-1.35-17.1-24 .26 13.41.36 5.32.26 1.62.3 1.18.4.87.43.48.48.22.7.13h.66v1.49h-9.43v-1.44h.87l.7-.22.61-.61.53-1.14.43-2.27.31-3 .13-4.19.09-5.46v-7.08a6.89 6.89 0 00-1.62-1.61 13.62 13.62 0 00-2.18-.83l.61-1.18.79-1.18 1.26-.92 1.27-.78 3.16-1 3.29-.35.26 2a7.23 7.23 0 00.31.75c.14.32.34.73.57 1.22L258 79.21v-9.13l-.18-2.75-.13-2.62-.26-2-.43-1.32-.39-.92-.53-.57-.44-.22-.65-.13h-.74l-.09-1.62h9.56v1.66h-1l-.82.31-.62.83-.52 1.49-.39 2.53-.27 3.75-.1 5.21v6.94l1.49 1.53a11.27 11.27 0 002.18.92z",
+  fill: "url(#New_Gradient_Swatch_1-21)"
+}), jsx("path", {
+  d: "M242.94 56.85l.26 2a7.23 7.23 0 00.31.75c.14.32.34.73.57 1.22L258 79.21v-9.13l-.18-2.75-.13-2.62-.26-2-.43-1.32-.39-.92-.53-.57-.44-.22-.65-.13h-.74l-.09-1.62h9.56v1.66h-1l-.82.31-.62.83-.52 1.49-.39 2.53-.27 3.75-.1 5.21v6.94l1.49 1.53a11.27 11.27 0 002.18.92l-2.81 2.9-1.35 1.83-1.14 1.75-.75 1.49-.57 1.79a15.65 15.65 0 00-.75-2.1l-.92-1.35-17.1-24 .26 13.41.36 5.32.26 1.62.3 1.18.4.87.43.48.48.22.7.13h.66v1.49h-9.43v-1.44h.87l.7-.22.61-.61.53-1.14.43-2.27.31-3 .13-4.19.09-5.46v-7.08a6.89 6.89 0 00-1.62-1.61 13.62 13.62 0 00-2.18-.83l.61-1.18.79-1.18 1.26-.92 1.27-.78 3.16-1 3.29-.35m0-1h-.11l-3.29.35h-.18l-3.16 1a.7.7 0 00-.23.11l-1.27.78h-.06l-1.27.92a1 1 0 00-.24.26l-.79 1.17a.47.47 0 00-.05.1l-.62 1.18a1 1 0 000 .84 1 1 0 00.61.57 13.77 13.77 0 012 .73 5.22 5.22 0 011.07 1.12v6.72l-.09 5.45-.13 4.15-.3 2.93-.4 2.11-.4.86-.31.31-.35.11h-.75a1 1 0 00-.94 1v1.44a1 1 0 001 1h9.43a1 1 0 001-1v-1.41a.34.34 0 000-.1 1 1 0 00-1-1h-.57l-.48-.09-.19-.08-.19-.21-.29-.66-.28-1-.23-1.53-.35-5.28-.19-10.13L254.57 90l.89 1.3c0 .11.2.49.64 1.87a1 1 0 00.95.7 1 1 0 00.95-.7l.55-1.71.68-1.37 1.1-1.67 1.3-1.76 2.75-2.88a1 1 0 00-.39-1.64 13.76 13.76 0 01-1.88-.75L261 80.24v-6.53l.17-5.21.26-3.68.37-2.4.45-1.26.34-.47.38-.14h.78a1 1 0 001-1v-1.66a1 1 0 00-1-1h-9.56a1 1 0 00-1 1.06l.09 1.61a1 1 0 00.94.95h.67l.46.09.15.08.29.3.29.69.31 1.23.25 1.86.13 2.58.18 2.73v6.1l-12-15.91-.14-.3c-.15-.31-.28-.59-.38-.82s-.19-.43-.24-.56l-.25-1.9a1 1 0 00-1-.87z",
+  fill: "url(#New_Gradient_Swatch_1-22)"
+}), jsx("path", {
+  className: "cls-3",
+  d: "M242.94 56.85l.26 2a7.23 7.23 0 00.31.75c.14.32.34.73.57 1.22L258 79.21v-9.13l-.18-2.75-.13-2.62-.26-2-.43-1.32-.39-.92-.53-.57-.44-.22-.65-.13h-.74l-.09-1.62h9.56v1.66h-1l-.82.31-.62.83-.52 1.49-.39 2.53-.27 3.75-.1 5.21v6.94l1.49 1.53a11.27 11.27 0 002.18.92l-2.81 2.9-1.35 1.83-1.14 1.75-.75 1.49-.57 1.79a15.65 15.65 0 00-.75-2.1l-.92-1.35-17.1-24 .26 13.41.36 5.32.26 1.62.3 1.18.4.87.43.48.48.22.7.13h.66v1.49h-9.43v-1.44h.87l.7-.22.61-.61.53-1.14.43-2.27.31-3 .13-4.19.09-5.46v-7.08a6.89 6.89 0 00-1.62-1.61 13.62 13.62 0 00-2.18-.83l.61-1.18.79-1.18 1.26-.92 1.27-.78 3.16-1 3.29-.35m0-.75h-.08l-3.29.35h-.14l-3.16 1a.53.53 0 00-.17.08l-1.27.79h-.05l-1.26.91a.86.86 0 00-.19.19l-.78 1.18a.25.25 0 000 .07l-.61 1.18a.7.7 0 000 .63.73.73 0 00.46.43 12.48 12.48 0 012 .76 5.39 5.39 0 011.26 1.23v6.82l-.09 5.45-.13 4.15-.3 3-.41 2.15-.43.94-.39.38-.43.14h-.78a.75.75 0 00-.71.75v1.44a.75.75 0 00.75.75h9.43a.75.75 0 00.75-.73v-1.43a.19.19 0 000-.08.75.75 0 00-.75-.75h-.59l-.54-.1-.26-.12-.25-.28-.32-.7-.28-1.09-.25-1.54-.35-5.29-.21-11 15.69 22 .91 1.33c0 .08.19.44.66 1.91a.74.74 0 00.71.53.75.75 0 00.72-.53l.55-1.73L259 90l1.11-1.72 1.31-1.76 2.76-2.89a.74.74 0 00-.29-1.22 13.72 13.72 0 01-2-.79l-1.22-1.25v-6.66l.17-5.22.26-3.7.38-2.43L262 61l.42-.55.49-.19h.82a.74.74 0 00.75-.75v-1.62a.75.75 0 00-.75-.75h-9.56a.77.77 0 00-.55.24.76.76 0 00-.2.56l.09 1.61a.75.75 0 00.7.71h.69l.51.1.22.11.35.37.32.75.32 1.26.25 1.89.13 2.59.18 2.76v6.83l-12.5-16.53-.15-.32-.38-.82c-.12-.27-.2-.47-.25-.61l-.26-1.93a.74.74 0 00-.74-.65z"
+})))));
 
 // build/dist/pkg/rambda.js
 function curry(fn, args = []) {
@@ -10916,6 +11030,102 @@ function pluck(property, list) {
   return willReturn;
 }
 var product = reduce(multiply, 1);
+
+// build/dist/components/Button.js
+var Button = styled_default.button(({
+  variant,
+  isSmall
+}) => [
+  {
+    transform: "var(--tw-transform)",
+    paddingLeft: "2rem",
+    paddingRight: "2rem",
+    paddingTop: "0.5rem",
+    paddingBottom: "0.5rem",
+    fontWeight: "700",
+    textTransform: "uppercase",
+    userSelect: "none",
+    letterSpacing: "0.025em",
+    ":focus": {
+      outline: "2px solid transparent",
+      outlineOffset: "2px"
+    },
+    transitionDuration: "75ms"
+  },
+  {
+    borderWidth: "2px",
+    "--tw-border-opacity": "1",
+    borderColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
+    borderRadius: "0px"
+  },
+  {
+    "@media (pointer: fine)": {
+      ":hover": {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(0, 0, 0, var(--tw-text-opacity))"
+      }
+    }
+  },
+  {
+    "--tw-bg-opacity": "1",
+    backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
+    "--tw-text-opacity": "1",
+    color: "rgba(255, 255, 255, var(--tw-text-opacity))"
+  },
+  variant === "secondary" && [
+    {
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(255, 255, 255, var(--tw-bg-opacity))",
+      "--tw-text-opacity": "1",
+      color: "rgba(0, 0, 0, var(--tw-text-opacity))"
+    }
+  ],
+  variant === "disabled" && [
+    {
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(156, 163, 175, var(--tw-bg-opacity))",
+      "--tw-text-opacity": "1",
+      color: "rgba(209, 213, 219, var(--tw-text-opacity))",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))",
+      cursor: "not-allowed",
+      ":hover": {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(156, 163, 175, var(--tw-bg-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(209, 213, 219, var(--tw-text-opacity))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+      }
+    }
+  ],
+  isSmall ? {
+    fontSize: "0.875rem",
+    lineHeight: "1.25rem",
+    paddingLeft: "1rem",
+    paddingRight: "1rem"
+  } : {
+    fontSize: "1.125rem",
+    lineHeight: "1.75rem"
+  }
+]);
+
+// build/dist/functions/array.functions.js
+var range = (val) => [...Array(val).keys()];
+var chunkArray = (array, perChunk = 5) => {
+  return array.reduce((acc, cur, index) => {
+    const chunkIndex = Math.floor(index / perChunk);
+    if (!acc[chunkIndex]) {
+      acc[chunkIndex] = [];
+    }
+    acc[chunkIndex].push(cur);
+    return acc;
+  }, []);
+};
 
 // build/dist/functions/dice.functions.js
 var countSuccesses = (roll) => roll < 6 ? 0 : Math.floor(roll / 2) - 2;
@@ -11729,6 +11939,56 @@ var GenerateWeather = class {
   }
 };
 
+// build/dist/components/day-counter.js
+var DayCounter = ({
+  quarters,
+  spendQuarter: spendQuarter2
+}) => {
+  return jsx("button", {
+    css: {
+      width: "100%",
+      display: "grid",
+      gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+      gap: "0px",
+      ":hover": {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))"
+      }
+    },
+    onClick: () => spendQuarter2()
+  }, jsx(Quarter, {
+    spent: quarters[0],
+    index: 0
+  }), jsx(Quarter, {
+    spent: quarters[1],
+    index: 1
+  }), jsx(Quarter, {
+    spent: quarters[2],
+    index: 2
+  }), jsx(Quarter, {
+    spent: quarters[3],
+    index: 3
+  }));
+};
+var Quarter = styled_default.div(({
+  spent,
+  index
+}) => [{
+  height: "1rem",
+  borderWidth: "1px",
+  "--tw-border-opacity": "1",
+  borderColor: "rgba(107, 114, 128, var(--tw-border-opacity))"
+}, index === 0 && {
+  borderRightWidth: "0px"
+}, index === 1 && {
+  borderRightWidth: "0px"
+}, index === 2 && {
+  borderRightWidth: "0px"
+}, index === 3 && {}, spent && {
+  "--tw-bg-opacity": "1",
+  backgroundColor: "rgba(209, 213, 219, var(--tw-bg-opacity))"
+}]);
+
 // build/dist/components/calendar-day.js
 var CalendarDay = ({
   day,
@@ -11778,14 +12038,39 @@ var CalendarDay = ({
     css: {
       width: "100%"
     }
-  }, jsx(day_counter_default, {
+  }, jsx(DayCounter, {
     quarters: day.quarters,
     spendQuarter: () => quarterClicked(day)
   })), showWeather && jsx("div", {
     css: {}
   }, jsx("div", null, t3("Weather-High"), ": ", formatTemperature(day.temp)), jsx("div", null, t3("Weather-Low"), ": ", formatTemperature(day.lowTemp)), jsx("div", null, t3(day.downpour)), jsx("div", null, t3(day.stormType)), jsx("div", null, t3(day.stormType)), jsx("div", null, t3(day.eventType?.name ?? ""))));
 };
-var calendar_day_default = CalendarDay;
+
+// build/dist/components/calendar-day-names.js
+var DayName = styled_default.div(() => [{
+  display: "none",
+  textTransform: "uppercase",
+  paddingLeft: "0.5rem",
+  paddingRight: "0.5rem",
+  paddingTop: "0.25rem",
+  paddingBottom: "0.25rem",
+  borderBottomWidth: "2px",
+  "--tw-border-opacity": "1",
+  borderBottomColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
+  padding: "0.5rem",
+  alignItems: "center",
+  justifyContent: "center",
+  fontWeight: "700",
+  "@media (min-width: 1024px)": {
+    display: "flex"
+  }
+}]);
+var CalendarDayNames = () => {
+  const {
+    t: t3
+  } = useTranslation("calendar");
+  return jsx(react.Fragment, null, jsx(DayName, null, t3("SunDay")), jsx(DayName, null, t3("MoonDay")), jsx(DayName, null, t3("BloodDay")), jsx(DayName, null, t3("EarthDay")), jsx(DayName, null, t3("GrowthDay")), jsx(DayName, null, t3("HarvestDay")), jsx(DayName, null, t3("StillDay")));
+};
 
 // build/dist/models/calendar.model.js
 var month = ["WinterWane", "SpringRise", "SpringWane", "SummerRise", "SummerWane", "AutumnRise", "AutumnWane", "WinterRise"];
@@ -11864,21 +12149,21 @@ var getCal = (startYear = 1165, startDay) => {
     acc.push(cur.days);
     return acc;
   }, []).flat();
-  const cal = range(numberOfMonths()).reduce((cal2, m3) => {
+  const cal = range(numberOfMonths()).reduce((calendar, m3) => {
     const monthName = getMonthName(m3);
-    cal2.cal.months.push(createMonth(monthName, weatherDays, cal2.daysPassed, dayOffset));
-    cal2.daysPassed += dayInMonth(monthName);
-    return cal2;
+    calendar.calendar.months.push(createMonth(monthName, weatherDays, calendar.daysPassed, dayOffset));
+    calendar.daysPassed += dayInMonth(monthName);
+    return calendar;
   }, {
     daysPassed: 0,
-    cal: {
+    calendar: {
       year: startYear,
       months: [],
       temperatureUnit: TemperatureUnit.Metric,
       startDay
     }
   });
-  return cal.cal;
+  return cal.calendar;
 };
 var parseV1AndV2Calendar = (cal) => {
   return {
@@ -11942,7 +12227,7 @@ var loadCalendar = () => {
 var updateStartingDay = (cal, startDay) => {
   const dayOffset = getDayNumber(startDay) - 1;
   let daysPassed = 0;
-  const newCal = {
+  return {
     ...cal,
     months: cal.months.map((m3) => {
       return {
@@ -11958,7 +12243,6 @@ var updateStartingDay = (cal, startDay) => {
     }),
     startDay
   };
-  return newCal;
 };
 
 // build/dist/components/calendar-filler-day.js
@@ -11990,416 +12274,6 @@ var CalendarFillerDays = ({
     },
     key: `${day.monthName}-empty-day-${getDayName(i2)}`
   })));
-};
-var calendar_filler_day_default = CalendarFillerDays;
-
-// build/dist/components/page-header.js
-var PageHeader = ({
-  children
-}) => {
-  return jsx("h1", {
-    css: {
-      textAlign: "center",
-      fontSize: "2.25rem",
-      lineHeight: "2.5rem",
-      "@media (min-width: 1024px)": {
-        fontSize: "3.75rem",
-        lineHeight: "1"
-      }
-    },
-    className: "yx-heading"
-  }, children);
-};
-var page_header_default = PageHeader;
-
-// build/dist/components/language-button.js
-var LanguageButton = styled_default.button(({
-  selected
-}) => [
-  {
-    transform: "var(--tw-transform)",
-    paddingLeft: "1rem",
-    paddingRight: "1rem",
-    paddingTop: "0.25rem",
-    paddingBottom: "0.25rem",
-    fontWeight: "500",
-    textTransform: "uppercase",
-    userSelect: "none",
-    letterSpacing: "0.025em",
-    ":focus": {
-      outline: "2px solid transparent",
-      outlineOffset: "2px"
-    },
-    transitionDuration: "75ms"
-  },
-  {
-    borderWidth: "2px",
-    borderColor: "rgba(0, 0, 0, 0)",
-    borderRadius: "0px"
-  },
-  {
-    "@media (pointer: fine)": {
-      ":hover": {
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
-      }
-    }
-  },
-  {
-    "--tw-text-opacity": "1",
-    color: "rgba(0, 0, 0, var(--tw-text-opacity))",
-    fontSize: "0.875rem",
-    lineHeight: "1.25rem"
-  },
-  selected ? {
-    fontWeight: "700",
-    cursor: "not-allowed",
-    ":hover": {
-      borderColor: "rgba(0, 0, 0, 0)"
-    }
-  } : {}
-]);
-
-// build/dist/components/language-switcher.js
-var LanguageSwitcher = () => {
-  const {
-    t: t3,
-    i18n
-  } = useTranslation("core");
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
-  return jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-between",
-      paddingLeft: "1rem",
-      paddingRight: "1rem"
-    }
-  }, jsx(LanguageButton, {
-    selected: i18n.language === "sv",
-    onClick: () => changeLanguage("sv"),
-    disabled: i18n.language === "sv"
-  }, t3("Language-Swedish")), jsx(LanguageButton, {
-    selected: i18n.language === "en",
-    onClick: () => changeLanguage("en"),
-    disabled: i18n.language === "en"
-  }, t3("Language-English")));
-};
-
-// build/dist/logo.js
-var YxansKlaganLogo = () => jsx(YxansKlaganSvg, null);
-var logo_default = YxansKlaganLogo;
-var YxansKlaganSvg = () => jsx("div", {
-  css: {
-    marginLeft: "auto",
-    marginRight: "auto",
-    width: "8rem",
-    transitionProperty: "transform",
-    transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-    transitionDuration: "150ms",
-    ":hover": {
-      "--tw-scale-x": "1.05",
-      "--tw-scale-y": "1.05",
-      transform: "var(--tw-transform)"
-    }
-  }
-}, jsx("svg", {
-  xmlns: "http://www.w3.org/2000/svg",
-  xmlnsXlink: "http://www.w3.org/1999/xlink",
-  viewBox: "0 0 264.74 93.88"
-}, jsx("defs", null, jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1",
-  x1: "21.55",
-  y1: "1",
-  x2: "21.55",
-  y2: "59.25",
-  gradientUnits: "userSpaceOnUse"
-}, jsx("stop", {
-  offset: "0",
-  stopColor: "#7f3644"
-}), jsx("stop", {
-  offset: "1",
-  stopColor: "#b8595a"
-})), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-2",
-  x1: "21.55",
-  y1: "60.25",
-  x2: "21.55",
-  y2: "0",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-3",
-  x1: "55.53",
-  y1: "8.71",
-  x2: "55.53",
-  y2: "44.74",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-4",
-  x1: "55.53",
-  y1: "45.74",
-  x2: "55.53",
-  y2: "7.71",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-5",
-  x1: "90.4",
-  y1: "9.45",
-  x2: "90.4",
-  y2: "41.99",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-6",
-  x1: "90.4",
-  y1: "42.99",
-  x2: "90.4",
-  y2: "8.45",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-7",
-  x1: "127.73",
-  y1: "8.71",
-  x2: "127.73",
-  y2: "44.74",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-8",
-  x1: "127.73",
-  y1: "45.74",
-  x2: "127.73",
-  y2: "7.71",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-9",
-  x1: "161.66",
-  y1: "8.71",
-  x2: "161.66",
-  y2: "41.94",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-10",
-  x1: "161.66",
-  y1: "42.94",
-  x2: "161.66",
-  y2: "7.71",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-11",
-  x1: "59.63",
-  y1: "49.05",
-  x2: "59.63",
-  y2: "89.99",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-12",
-  x1: "59.63",
-  y1: "90.99",
-  x2: "59.63",
-  y2: "48.05",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-13",
-  x1: "100.13",
-  y1: "58.16",
-  x2: "100.13",
-  y2: "91.22",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-14",
-  x1: "100.13",
-  y1: "92.22",
-  x2: "100.13",
-  y2: "57.16",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-15",
-  x1: "135.68",
-  y1: "57.59",
-  x2: "135.68",
-  y2: "90.13",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-16",
-  x1: "135.68",
-  y1: "91.13",
-  x2: "135.68",
-  y2: "56.59",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-17",
-  x1: "172.53",
-  y1: "56.5",
-  x2: "172.53",
-  y2: "89.99",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-18",
-  x1: "172.53",
-  y1: "90.99",
-  x2: "172.53",
-  y2: "55.5",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-19",
-  x1: "209.9",
-  y1: "57.59",
-  x2: "209.9",
-  y2: "90.13",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-20",
-  x1: "209.9",
-  y1: "91.13",
-  x2: "209.9",
-  y2: "56.59",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-21",
-  x1: "248.15",
-  y1: "56.85",
-  x2: "248.15",
-  y2: "92.88",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("linearGradient", {
-  id: "New_Gradient_Swatch_1-22",
-  x1: "248.15",
-  y1: "93.88",
-  x2: "248.15",
-  y2: "55.85",
-  xlinkHref: "#New_Gradient_Swatch_1"
-}), jsx("style", null)), jsx("g", {
-  id: "Layer_2",
-  "data-name": "Layer 2"
-}, jsx("g", {
-  id: "Layer_1-2",
-  "data-name": "Layer 1"
-}, jsx("path", {
-  d: "M26.39 21.36v32.43l.32 2a3 3 0 01.16.44 3.93 3.93 0 00.39.76l1.09.38 1.31.06-.11 1.85H12v-1.8l1.42-.05 1.06-.43.5-1.2.27-2-.06-30.57L5.75 8.75l-.63-.9a4.34 4.34 0 00-.46-.57c-.15-.18-.3-.38-.47-.6A5.46 5.46 0 003.56 6l-1.3-.8L1 4.77l1.31-.93L3.89 3l3.93-1.24 4.37-.71L16 1l-.65 1-.22 1.2.38 1.31.6 1L24.86 18l2.4-3.6 1.58-3.49.66-2.81V6.57l-.06-.88a5.53 5.53 0 00-1-1.36l2.35-.93 2.45-.87L35.56 2l2.73-.49 3.82-.28z",
-  fill: "url(#New_Gradient_Swatch_1)"
-}), jsx("path", {
-  d: "M16 1l-.65 1-.22 1.2.38 1.31.6 1L24.86 18l2.4-3.6 1.58-3.49.66-2.81V6.57l-.06-.88a5.53 5.53 0 00-1-1.36l2.35-.93 2.45-.87L35.56 2l2.73-.49 3.82-.28-15.72 20.13v32.43l.32 2a3 3 0 01.16.44 3.93 3.93 0 00.39.76l1.09.38 1.31.06-.11 1.85H12v-1.8l1.42-.05 1.06-.43.5-1.2.27-2-.06-30.57L5.75 8.75l-.63-.9a4.34 4.34 0 00-.46-.57c-.15-.18-.3-.38-.47-.6A5.46 5.46 0 003.56 6l-1.3-.8L1 4.77l1.31-.93L3.89 3l3.93-1.24 4.37-.71L16 1m0-1l-3.82.05-.18.02-4.34.71h-.14L3.59 2.07a.76.76 0 00-.16.06L1.85 3h-.12L.42 4a1 1 0 00-.41 1 1 1 0 00.66.8l1.17.41L3 6.76a4.52 4.52 0 01.44.52c.18.23.33.44.49.62A.27.27 0 004 8a5.2 5.2 0 01.35.44l.46.65.17.25 9.22 14.12.05 30.21L14 55.5l-.28.69-.54.21-1.25.05a1 1 0 00-1 1v1.8a1 1 0 001 1h17.62a1 1 0 001-.94l.11-1.86a1 1 0 00-.26-.73 1 1 0 00-.7-.32h-1.16l-.6-.21a2.31 2.31 0 01-.12-.27c-.06-.18-.1-.31-.14-.4l-.29-1.76v-32L42.9 1.89a1 1 0 00-.79-1.62H42l-3.78.28h-.11l-2.73.49-2.33.5h-.12l-2.46.87-2.38.94a1 1 0 00-.61.73 1 1 0 00.27.91 4.28 4.28 0 01.71.94V8l-.61 2.63-1.51 3.33-1.54 2.32L17 5l-.52-.89-.28-1 .14-.77.51-.76A1 1 0 0017 1a1 1 0 00-1-1zm0 2z",
-  fill: "url(#New_Gradient_Swatch_1-2)"
-}), jsx("path", {
-  className: "cls-3",
-  d: "M16 1l-.65 1-.22 1.2.38 1.31.6 1L24.86 18l2.4-3.6 1.58-3.49.66-2.81V6.57l-.06-.88a5.53 5.53 0 00-1-1.36l2.35-.93 2.45-.87L35.56 2l2.73-.49 3.82-.28-15.72 20.13v32.43l.32 2a3 3 0 01.16.44 3.93 3.93 0 00.39.76l1.09.38 1.31.06-.11 1.85H12v-1.8l1.42-.05 1.06-.43.5-1.2.27-2-.06-30.57L5.75 8.75l-.63-.9a4.34 4.34 0 00-.46-.57c-.15-.18-.3-.38-.47-.6A5.46 5.46 0 003.56 6l-1.3-.8L1 4.77l1.31-.93L3.89 3l3.93-1.24 4.37-.71L16 1m0-.75L12.18.3h-.11L7.7 1h-.1L3.66 2.3l-.11.05L2 3.17l-.09.06-1.34.93a.74.74 0 00-.31.71.77.77 0 00.49.61l1.19.41 1.16.68a4.54 4.54 0 01.49.56c.18.22.33.43.48.62l.06.06a3.62 3.62 0 01.38.47l.49.65.17.25 9.32 14.21.05 30.3-.25 1.87-.34.82-.68.27-1.29.05a.76.76 0 00-.72.75v1.8A.75.75 0 0012 60h17.55a.75.75 0 00.75-.7l.11-1.86a.79.79 0 00-.19-.55.73.73 0 00-.53-.24h-1.2l-.73-.26a2.2 2.2 0 01-.18-.39c-.06-.2-.11-.32-.14-.41l-.3-1.81V21.62L42.7 1.74a.76.76 0 00-.59-1.22L38.23.8h-.07l-2.74.49-2.31.49h-.1l-2.45.87-2.38.94a.76.76 0 00-.45.55.74.74 0 00.2.68 5 5 0 01.77 1l.05.7V8l-.62 2.68-1.53 3.39-1.76 2.63-8.08-11.57-.54-.93-.31-1.06.16-.87.54-.82a.7.7 0 00.15-.45.75.75 0 00-.76-.75zm0 1.5z"
-}), jsx("path", {
-  d: "M59.48 35.39l-5-6-2.8 3.18-1.87 2.63-1.1 2-.35 1.66.35 1a2.64 2.64 0 00.83.53l1.27.17L50.7 42H38.47v-1.45a10.25 10.25 0 001.44-.22l.79-.33 1-.57 1-.87 1.3-1.2 3.62-4.06 5.2-6.64-9.15-10.61-1.36-1.23a2.87 2.87 0 00-.67-.35l-1.12-.39 1.53-1.31 1.66-1.09 2.19-.83 2.31-.74 4.11-.66a7.51 7.51 0 00-.4 1.75 5.22 5.22 0 00.7 1.92l5.16 6.81 1.79-3.18 1.22-2.67.53-2-.14-1.58-1.09-1.05L67 8.93l5.59-.22L59.66 22.6 66 31.07l3.49 3a11.79 11.79 0 002.19.92l-2.8 2.92-1.35 1.84-1.15 1.74L65.6 43l-.6 1.74a15.65 15.65 0 00-.75-2.1l-.92-1.35z",
-  fill: "url(#New_Gradient_Swatch_1-3)"
-}), jsx("path", {
-  d: "M72.58 8.71L59.66 22.6 66 31.07l3.49 3a11.79 11.79 0 002.19.92l-2.8 2.92-1.35 1.84-1.15 1.74L65.6 43l-.6 1.74a15.65 15.65 0 00-.75-2.1l-.92-1.35-3.88-5.9-5-6-2.8 3.18-1.87 2.63-1.1 2-.35 1.66.35 1a2.64 2.64 0 00.83.53l1.27.17L50.7 42H38.47v-1.45a10.25 10.25 0 001.44-.22l.79-.33 1-.57 1-.87 1.3-1.2 3.62-4.06 5.2-6.64-9.15-10.61-1.36-1.23a2.87 2.87 0 00-.67-.35l-1.12-.39 1.53-1.31 1.66-1.09 2.19-.83 2.31-.74 4.11-.66a7.51 7.51 0 00-.4 1.75 5.22 5.22 0 00.7 1.92l5.16 6.81 1.79-3.18 1.22-2.67.53-2-.14-1.58-1.09-1.05L67 8.93l5.59-.22M72.58 7.71L67 7.93l-7 .52a1 1 0 00-.86.66 1 1 0 00.23 1.05l.84.83.08 1-.45 1.71-1.18 2.55-1 1.82-4.18-5.52a4.93 4.93 0 01-.55-1.39 6.31 6.31 0 01.33-1.39.86.86 0 00.07-.36 1 1 0 00-1-1h-.14l-4.09.65h-.14l-2.32.75h-.05l-2.18.83-.2.1-1.66 1.1-.09.07-1.54 1.31a1 1 0 00-.33.95 1 1 0 00.67.76l1.08.38a1.88 1.88 0 01.38.18L43 16.75l8.6 9.94-4.68 6-3.56 4-1.36 1.1-.92.8-.87.49-.64.29a7.83 7.83 0 01-1.14.18 1 1 0 00-1 1V42a1 1 0 001 1H50.7a1 1 0 001-.94l.09-1.49a1 1 0 00-.87-1.05l-1.11-.15a1.47 1.47 0 01-.27-.16l-.16-.43.26-1.24 1-1.82 1.82-2.53 2-2.27L58.67 36l3.86 5.85.91 1.34c0 .09.19.47.64 1.86a1 1 0 001 .7 1 1 0 001-.7l.55-1.71.58-1.34 1.1-1.67 1.3-1.76 2.75-2.88a1 1 0 00.25-.93A1 1 0 0072 34a11 11 0 01-1.91-.77l-3.37-2.86-5.72-7.7L73.29 9.42a1 1 0 00-.7-1.71zm0 2z",
-  fill: "url(#New_Gradient_Swatch_1-4)"
-}), jsx("path", {
-  className: "cls-3",
-  d: "M72.58 8.71L59.66 22.6 66 31.07l3.49 3a11.79 11.79 0 002.19.92l-2.8 2.92-1.35 1.84-1.15 1.74L65.6 43l-.6 1.74a15.65 15.65 0 00-.75-2.1l-.92-1.35-3.88-5.9-5-6-2.8 3.18-1.87 2.63-1.1 2-.35 1.66.35 1a2.64 2.64 0 00.83.53l1.27.17L50.7 42H38.47v-1.45a10.25 10.25 0 001.44-.22l.79-.33 1-.57 1-.87 1.3-1.2 3.62-4.06 5.2-6.64-9.15-10.61-1.36-1.23a2.87 2.87 0 00-.67-.35l-1.12-.39 1.53-1.31 1.66-1.09 2.19-.83 2.31-.74 4.11-.66a7.51 7.51 0 00-.4 1.75 5.22 5.22 0 00.7 1.92l5.16 6.81 1.79-3.18 1.22-2.67.53-2-.14-1.58-1.09-1.05L67 8.93l5.59-.22M72.58 8L67 8.18l-7 .52a.76.76 0 00-.64.49.72.72 0 00.17.79l.9.9.1 1.17-.48 1.78-1.15 2.57-1.22 2.17-4.42-5.85a4.29 4.29 0 01-.59-1.52A6.39 6.39 0 0153 9.73a.87.87 0 000-.28.75.75 0 00-.75-.75h-.14l-4.09.66h-.11l-2.31.74-2.16.9-.14.07-1.66 1.1h-.07L40 13.51a.75.75 0 00-.25.71.73.73 0 00.5.57c.42.14.79.27 1.08.39a1.61 1.61 0 01.47.23l1.29 1.16 8.74 10.11-4.82 6.15-3.56 4L42.21 38l-.94.82-.91.51-.68.3a8.57 8.57 0 01-1.21.19.75.75 0 00-.75.75V42a.76.76 0 00.75.75H50.7a.75.75 0 00.75-.71l.09-1.48a.75.75 0 00-.65-.79l-1.15-.16a1.69 1.69 0 01-.41-.24l-.21-.57.28-1.34 1-1.88L52.25 33l2.19-2.5 4.43 5.32 3.87 5.86.91 1.35a17 17 0 01.67 1.97.73.73 0 00.71.52.73.73 0 00.71-.52l.56-1.74.7-1.39 1.11-1.71 1.3-1.76 2.77-2.89a.75.75 0 00-.3-1.23 10.5 10.5 0 01-2-.81l-3.4-2.89-5.88-7.9L73.11 9.25a.76.76 0 00.22-.54.74.74 0 00-.74-.71zm0 1.5z"
-}), jsx("path", {
-  d: "M93.29 42v-1.45a5.42 5.42 0 00.89-.07l1-.15.61-.31.52-.52v-.66a3.28 3.28 0 00-.21-1.26l-2.62-7.43-13 5.55-.7 1.92-.48 1.14-.09.74a2.75 2.75 0 001 .83l1.7.17L82 42h-9.42v-1.45l1.36-.22 1.31-.44.91-.74.84-.83 10.17-23.58-.18-1-.39-.7-1.7-.22.87-.83 1.23-.75 3.06-1.18 3.45-.61h3.15a6.45 6.45 0 00-.61.66 2.41 2.41 0 00-.35.5 1.16 1.16 0 00-.15.52 7.1 7.1 0 000 .72v.57L105 38.36l1.45 1.4 1.74.79V42zm-4.85-25l-4.72 10.92 7.51-3.27z",
-  fill: "url(#New_Gradient_Swatch_1-5)"
-}), jsx("path", {
-  d: "M96.65 9.45a6.45 6.45 0 00-.61.66 2.41 2.41 0 00-.35.5 1.16 1.16 0 00-.15.52 7.1 7.1 0 000 .72v.57L105 38.36l1.45 1.4 1.74.79V42h-14.9v-1.45a5.42 5.42 0 00.89-.07l1-.15.61-.31.52-.52v-.66a3.28 3.28 0 00-.21-1.26l-2.62-7.43-13 5.55-.7 1.92-.48 1.14-.09.74a2.75 2.75 0 001 .83l1.7.17L82 42h-9.42v-1.45l1.36-.22 1.31-.44.91-.74.84-.83 10.17-23.58-.18-1-.39-.7-1.7-.22.87-.83 1.23-.75 3.06-1.18 3.45-.61h3.15M83.72 27.92l7.51-3.27L88.44 17l-4.72 10.92M96.65 8.45h-3.32l-3.45.61-.18.05-3.06 1.18a.66.66 0 00-.19.09l-1.22.79-.15.11-.87.83a1 1 0 00-.26 1 1 1 0 00.82.68L86 14l.06.12.09.5-10 23.13-.65.65-.74.6-1.06.35-1.28.21a1 1 0 00-.84 1V42a1 1 0 001 1H82a1 1 0 001-1v-1.49a1 1 0 00-.9-1l-1.5-.16a1.42 1.42 0 01-.3-.2V39l.43-1 .55-1.51 11.59-5 2.26 6.42a2.29 2.29 0 01.17.85v.3l-.14.14-.33.16-.86.13a4.93 4.93 0 01-.75.06 1 1 0 00-1 1V42a1 1 0 001 1h14.93a1 1 0 001-1v-1.45a1 1 0 00-.59-.91l-1.58-.72-1.16-1.12-9.31-25.56v-.39-.64a1 1 0 010-.12 2.63 2.63 0 01.25-.35c.13-.15.32-.35.54-.58a1 1 0 00.22-1.09 1 1 0 00-.92-.62zm0 2zM85.64 26l2.72-6.29 1.64 4.4L85.64 26z",
-  fill: "url(#New_Gradient_Swatch_1-6)"
-}), jsx("path", {
-  className: "cls-3",
-  d: "M96.65 9.45a6.45 6.45 0 00-.61.66 2.41 2.41 0 00-.35.5 1.16 1.16 0 00-.15.52 7.1 7.1 0 000 .72v.57L105 38.36l1.45 1.4 1.74.79V42h-14.9v-1.45a5.42 5.42 0 00.89-.07l1-.15.61-.31.52-.52v-.66a3.28 3.28 0 00-.21-1.26l-2.62-7.43-13 5.55-.7 1.92-.48 1.14-.09.74a2.75 2.75 0 001 .83l1.7.17L82 42h-9.42v-1.45l1.36-.22 1.31-.44.91-.74.84-.83 10.17-23.58-.18-1-.39-.7-1.7-.22.87-.83 1.23-.75 3.06-1.18 3.45-.61h3.15M83.72 27.92l7.51-3.27L88.44 17l-4.72 10.92M96.65 8.7h-3.28l-3.45.61h-.13l-3.07 1.18-.13.07-1.22.79a.47.47 0 00-.12.09l-.87.83a.75.75 0 00.43 1.28l1.32.17.15.26.11.62-10 23.24-.7.7-.78.63-1.12.38-1.3.21a.75.75 0 00-.63.74V42a.76.76 0 00.75.75H82a.75.75 0 00.75-.73v-1.49a.74.74 0 00-.67-.76l-1.56-.16a2.46 2.46 0 01-.49-.34v-.31l.44-1 .6-1.65 11.94-5.1 2.35 6.67a2.52 2.52 0 01.18 1v.39l-.24.24-.39.2-.91.13a5.22 5.22 0 01-.78.06.74.74 0 00-.75.75V42a.75.75 0 00.75.75h14.93A.76.76 0 00109 42v-1.45a.76.76 0 00-.44-.69l-1.63-.73-1.22-1.19-9.45-25.65v-.44-.66a.79.79 0 01.06-.22 4.72 4.72 0 01.27-.39c.14-.16.33-.37.57-.6a.74.74 0 00.16-.81.75.75 0 00-.69-.47zm0 1.5zM85.16 26.48L88.38 19l1.9 5.21-5.12 2.24z"
-}), jsx("path", {
-  d: "M140.44 37.88l-1.36 1.84-1.14 1.74-.74 1.54-.57 1.79a15.65 15.65 0 00-.75-2.1l-.88-1.4-17.1-24 .26 13.41.35 5.33.26 1.61.23 1.16.39.87.44.49.48.21.7.13h.65v1.49h-9.43v-1.44h.87l.7-.22.61-.61.52-1.13.44-2.27.31-3 .13-4.19.09-5.46V16.6a6.77 6.77 0 00-1.62-1.62 14.73 14.73 0 00-2.18-.83l.61-1.18.79-1.18 1.26-.91 1.27-.79 3.16-1 3.29-.35.26 2c.06.17.16.42.31.74s.33.73.57 1.22l13.9 18.39-.05-9.13-.17-2.75-.13-2.62-.26-2-.35-1.36-.39-.92-.53-.56-.44-.22-.65-.13-.74-.05-.09-1.61h9.56v1.66h-1l-.83.3-.61.83-.44 1.47-.4 2.57-.27 3.76-.17 5.24v6.94l1.49 1.49a11.79 11.79 0 002.19.92z",
-  fill: "url(#New_Gradient_Swatch_1-7)"
-}), jsx("path", {
-  d: "M122.52 8.71l.26 2c.06.17.16.42.31.74s.33.73.57 1.22l13.9 18.39-.05-9.13-.17-2.75-.13-2.62-.26-2-.35-1.36-.39-.92-.53-.56-.44-.22-.65-.13-.74-.05-.09-1.61h9.56v1.66h-1l-.83.3-.61.83-.48 1.5-.4 2.57-.27 3.76-.17 5.24v6.94l1.49 1.49a11.79 11.79 0 002.19.92l-2.8 2.92-1.36 1.84-1.14 1.74-.74 1.58-.57 1.79a15.65 15.65 0 00-.75-2.1l-.88-1.4-17.1-24 .26 13.41.35 5.33.26 1.61.23 1.16.39.87.44.49.48.21.7.13h.65v1.49h-9.43v-1.44h.87l.7-.22.61-.61.52-1.13.44-2.27.31-3 .13-4.19.09-5.46V16.6a6.77 6.77 0 00-1.62-1.62 14.73 14.73 0 00-2.18-.83l.61-1.18.79-1.18 1.26-.91 1.27-.79 3.16-1 3.29-.35M122.51 7.71h-.11l-3.29.35h-.18l-3.16 1a1.28 1.28 0 00-.24.11l-1.26.79a.09.09 0 00-.06 0l-1.27.91a1 1 0 00-.25.26l-.78 1.18-.06.09-.61 1.18a1 1 0 00.58 1.41 13.7 13.7 0 012 .74 5.35 5.35 0 011.13 1.1v6.73l-.14 5.44-.13 4.15-.3 2.93-.38 2.15-.39.86-.31.31-.35.11h-.75a1 1 0 00-.94 1V42a1 1 0 001 1h9.43a1 1 0 001-1v-1.42a.31.31 0 000-.1 1 1 0 00-1-1h-.57l-.49-.09-.18-.08-.19-.21-.29-.65-.28-1-.24-1.53-.35-5.28-.2-10.12 15.23 21.38.89 1.31c0 .09.19.47.64 1.86a1 1 0 00.95.7 1 1 0 001-.7l.55-1.71.68-1.37 1.1-1.67 1.3-1.76 2.76-2.91a1 1 0 00.25-.93 1 1 0 00-.64-.71 11.83 11.83 0 01-1.88-.75l-1.12-1.15v-6.54l.17-5.21.26-3.68.37-2.4.45-1.25.34-.47.38-.14h.78a1 1 0 001-1V9.76a1 1 0 00-1-1h-9.56a1 1 0 00-.73.31 1 1 0 00-.27.74l.09 1.62a1 1 0 00.94.94h.67l.46.09.15.08.28.31.3.68.31 1.27.25 1.86.13 2.58.17 2.74v6.09l-12-15.91-.1-.2c-.17-.36-.31-.66-.42-.91s-.19-.43-.24-.56l-.25-1.91a1 1 0 00-1-.87z",
-  fill: "url(#New_Gradient_Swatch_1-8)"
-}), jsx("path", {
-  className: "cls-3",
-  d: "M122.52 8.71l.26 2c.06.17.16.42.31.74s.33.73.57 1.22l13.9 18.39-.05-9.13-.17-2.75-.13-2.62-.26-2-.35-1.36-.39-.92-.53-.56-.44-.22-.65-.13-.74-.05-.09-1.61h9.56v1.66h-1l-.83.3-.61.83-.48 1.5-.4 2.57-.27 3.76-.17 5.24v6.94l1.49 1.49a11.79 11.79 0 002.19.92l-2.8 2.92-1.36 1.84-1.14 1.74-.74 1.58-.57 1.79a15.65 15.65 0 00-.75-2.1l-.88-1.4-17.1-24 .26 13.41.35 5.33.26 1.61.23 1.16.39.87.44.49.48.21.7.13h.65v1.49h-9.43v-1.44h.87l.7-.22.61-.61.52-1.13.44-2.27.31-3 .13-4.19.09-5.46V16.6a6.77 6.77 0 00-1.62-1.62 14.73 14.73 0 00-2.18-.83l.61-1.18.79-1.18 1.26-.91 1.27-.79 3.16-1 3.29-.35M122.52 8h-.08l-3.29.35h-.14l-3.16 1-.17.08-1.27.79-1.26.92a.58.58 0 00-.19.19l-.78 1.18a.16.16 0 000 .07l-.62 1.18a.73.73 0 000 .63.71.71 0 00.46.42 13.27 13.27 0 012 .76 5.5 5.5 0 011.26 1.24v6.81l-.09 5.45-.13 4.15-.3 3-.42 2.15-.42.93-.39.38-.43.14h-.78a.75.75 0 00-.71.75V42a.75.75 0 00.75.75h9.43a.74.74 0 00.75-.73V40.6a.28.28 0 000-.09.76.76 0 00-.75-.75h-.59l-.54-.1-.26-.11-.25-.28-.32-.71-.28-1.08-.25-1.55-.35-5.29-.21-10.95 15.69 22 .9 1.32a16.22 16.22 0 01.66 1.92.75.75 0 00.72.52.74.74 0 00.71-.52l.55-1.74.7-1.39 1.12-1.71 1.3-1.76 2.77-2.89a.81.81 0 00.19-.7.75.75 0 00-.49-.53 11 11 0 01-1.94-.79l-1.22-1.25v-6.6l.17-5.22.26-3.7.38-2.43.46-1.31.41-.56.5-.18h.82a.75.75 0 00.75-.75V9.76a.74.74 0 00-.75-.75h-9.56a.75.75 0 00-.55.23.76.76 0 00-.2.56l.09 1.61a.75.75 0 00.7.71h.69l.51.1.22.12.35.37.31.74.33 1.26.25 1.89.13 2.59.18 2.76v6.83L124.3 12.29l-.11-.23c-.16-.35-.31-.66-.42-.91a5.73 5.73 0 01-.25-.6l-.26-1.94a.74.74 0 00-.74-.65z"
-}), jsx("path", {
-  d: "M176.82 32.51l-.35 1.49-.88 1.88-.91 1.44-1.23 1.22-1.31 1.09-1.39.7-2.75 1.18-2 .3a18.84 18.84 0 01-2.62.13h-.53a18.35 18.35 0 01-2.79-.13l-2.8-.48-4-.87-1.57-.18h-1.66L148 41l-1.66.91v-2.15c0-.14.06-.31.09-.48s.06-.38.09-.61c.14-.41.26-.76.35-1.05a4 4 0 01.22-.65l.78-1.75 1.13-1.57 1.27-1.49 1.48-1.16 1.7-1.13a12.32 12.32 0 00.09 1.92l.46 1.81.66 1.36 1.09 1.74 1.36 1.23 1.57 1 1.53.48 2.53.43.92-.23 1.39-.38 1.71-.78 1-1.09.88-1.31.26-1.23.09-1.05v-.91c-.12-.41-.22-.73-.29-1a4.76 4.76 0 00-.19-.53l-.88-1.61-1.18-1.09-1.31-1.05-1.92-.66-2.05-.35-2.53-.39c-.39-.06-.86-.16-1.45-.31s-1.28-.33-2.09-.56l-2.41-1.14-1.6-1.17-1.31-1.53-.74-1.4-.26-1.31-.09-1.17v-1c.06-.35.12-.64.17-.88a2.76 2.76 0 01.18-.52l.7-1.62.91-1.18L152 11l1.31-.83 1.65-.74 3.89-.74h4l3.8.7 1.65.61 1.58.65 1.48.57 1.36.13 1.22-.26 1.14-.44 1.57-1a6.52 6.52 0 01-.22 2.35l-.43 1.73-.48 1.09-.92 1.27-1 .44-1.18.22-1.35-.05-1.31-.52-.74-.7-.66-.79-1.27-1.57-1.22-.74-1.22-.61-2.36-.31-2.49-.09a6.15 6.15 0 00-1.53.4l-1 .56a3.05 3.05 0 00-.66 1l-.39 1.22v1.22l.4 1.18 1 1.27 1.27 1 2.23.61 2.31.31h1.1a2.51 2.51 0 00.5.06c.21 0 .48 0 .8.11l2.14.31.81.3c.39.15.93.34 1.6.57l1.79.88 1.31 1.09 1.18 1.18 1 1.74.74 1.53.6 3.09z",
-  fill: "url(#New_Gradient_Swatch_1-9)"
-}), jsx("path", {
-  d: "M162.8 8.71l3.8.7 1.65.61 1.58.65 1.48.57 1.36.13 1.22-.26 1.14-.44 1.57-1a6.52 6.52 0 01-.22 2.35l-.38 1.71-.48 1.09-.92 1.27-1 .44-1.18.22-1.35-.05-1.31-.52-.74-.7-.66-.79-1.27-1.57-1.22-.74-1.22-.61-2.36-.31-2.49-.09a6.15 6.15 0 00-1.53.4l-1 .56a3.05 3.05 0 00-.66 1l-.39 1.22v1.22l.4 1.18 1 1.27 1.27 1 2.23.61 2.31.31h1.1a2.51 2.51 0 00.5.06c.21 0 .48 0 .8.11l2.14.31.81.3c.39.15.93.34 1.6.57l1.79.88 1.31 1.09 1.18 1.18 1 1.74.74 1.53.6 3.09-.17 1.53-.36 1.47-.88 1.88-.91 1.44-1.23 1.22-1.31 1.09-1.39.7-2.75 1.18-2 .3a18.84 18.84 0 01-2.62.13h-.53a18.35 18.35 0 01-2.79-.13l-2.8-.48-4-.87-1.57-.18h-1.66L148 41l-1.66.91v-2.15c0-.14.06-.31.09-.48s.06-.38.09-.61c.14-.41.26-.76.35-1.05a4 4 0 01.22-.65l.78-1.75 1.13-1.57 1.27-1.49 1.48-1.16 1.7-1.13a12.32 12.32 0 00.09 1.92l.46 1.81.66 1.36 1.09 1.74 1.36 1.23 1.57 1 1.53.48 2.53.43.92-.23 1.39-.38 1.71-.78 1-1.09.88-1.31.26-1.23.09-1.05v-.91c-.12-.41-.22-.73-.29-1a4.76 4.76 0 00-.19-.53l-.88-1.61-1.18-1.09-1.31-1.05-1.92-.66-2.05-.35-2.53-.39c-.39-.06-.86-.16-1.45-.31s-1.28-.33-2.09-.56l-2.41-1.14-1.6-1.17-1.31-1.53-.74-1.4-.26-1.31-.09-1.17v-1c.06-.35.12-.64.17-.88a2.76 2.76 0 01.18-.52l.7-1.62.91-1.18L152 11l1.31-.83 1.65-.74 3.89-.74h4M162.8 7.71h-4.19l-3.88.74a1 1 0 00-.23.07l-1.65.74-.13.07-1.31.83a.75.75 0 00-.17.14L150 11.63l-.08.09-.92 1.18a1 1 0 00-.13.22l-.69 1.59a3.92 3.92 0 00-.23.69c-.07.27-.13.58-.2 1a.91.91 0 000 .17v1.12l.09 1.18a.5.5 0 000 .12l.26 1.31a.79.79 0 00.1.27l.74 1.4a.57.57 0 00.12.18l1.31 1.53a.75.75 0 00.16.15l1.53 1.17a.64.64 0 00.18.1l2.4 1.14.15.06c.9.25 1.57.44 2.13.57s1.14.27 1.54.33l2.52.39 2 .33 1.68.58 1.15.91 1 1 .8 1.47s0 .1.12.35l.24.8v.73l-.08 1-.21 1-.73 1.09-.81.88-1.45.67-1.31.35-.7.18-2.26-.39-1.36-.54-1.38-.85-1.18-1.07-1-1.58-.58-1.2-.41-1.73a13.37 13.37 0 01-.06-1.69 1 1 0 00-.53-.88 1 1 0 00-.47-.12.92.92 0 00-.55.17l-1.71 1.13h-.05l-1.53 1.18a.67.67 0 00-.15.14l-1.27 1.5-.06.08-1.13 1.57a.51.51 0 00-.09.16l-.79 1.75a6.84 6.84 0 00-.26.77c-.09.29-.2.62-.33 1a.79.79 0 00-.06.22c0 .22 0 .41-.08.57s-.05.31-.08.45a1.23 1.23 0 000 .19v2.18a1 1 0 00.49.87 1.06 1.06 0 001 0l1.59-.88 1.84-.69h1.43l1.48.17 3.92.86 2.84.49a18.92 18.92 0 003 .14h.53a19.31 19.31 0 002.77-.14l2-.3a1 1 0 00.23-.07l2.75-1.13h.06l1.4-.7.19-.13 1.31-1.09.07-.06 1.22-1.22a.75.75 0 00.14-.17l.92-1.44.06-.12.87-1.88a1.18 1.18 0 00.07-.2l.35-1.52a.5.5 0 000-.12l.16-1.51a1.22 1.22 0 000-.27l-.48-3.1a1.15 1.15 0 00-.09-.28l-.74-1.53v-.05l-1-1.75a.87.87 0 00-.17-.22l-1.17-1.18-.07-.06-1.28-1.09a.86.86 0 00-.2-.13l-1.8-.88h-.1l-1.62-.56-.78-.3a1.05 1.05 0 00-.24-.06l-2.13-.31c-.31-.05-.62-.09-.88-.11a2.85 2.85 0 01-.32 0 1.07 1.07 0 00-.25 0h-1l-2.18-.29-2-.54-1-.78-.85-1-.29-.87v-.9l.34-1a.25.25 0 000-.07 4.58 4.58 0 01.33-.46l.85-.48a5.51 5.51 0 011.11-.26l2.34.08 2.14.28 1 .51 1 .63 1.16 1.44.67.8.08.09.74.7a1 1 0 00.32.19l1.31.53a.93.93 0 00.33.07h1.54l1.18-.22a1.09 1.09 0 00.24-.07l1-.44a1 1 0 00.39-.32l.92-1.27a1.62 1.62 0 00.1-.18l.49-1.09a.83.83 0 00.06-.21l.33-1.62a7.86 7.86 0 00.26-2.61v-.23a1 1 0 00-1-1 1 1 0 00-.56.17l-1.47 1-1 .37-1 .21-1.07-.1-1.35-.52-1.55-.64-1.7-.63-.16-.05-3.73-.71a.55.55 0 00-.18 0z",
-  fill: "url(#New_Gradient_Swatch_1-10)"
-}), jsx("path", {
-  className: "cls-3",
-  d: "M162.8 8.71l3.8.7 1.65.61 1.58.65 1.48.57 1.36.13 1.22-.26 1.14-.44 1.57-1a6.52 6.52 0 01-.22 2.35l-.38 1.71-.48 1.09-.92 1.27-1 .44-1.18.22-1.35-.05-1.31-.52-.74-.7-.66-.79-1.27-1.57-1.22-.74-1.22-.61-2.36-.31-2.49-.09a6.15 6.15 0 00-1.53.4l-1 .56a3.05 3.05 0 00-.66 1l-.39 1.22v1.22l.4 1.18 1 1.27 1.27 1 2.23.61 2.31.31h1.1a2.51 2.51 0 00.5.06c.21 0 .48 0 .8.11l2.14.31.81.3c.39.15.93.34 1.6.57l1.79.88 1.31 1.09 1.18 1.18 1 1.74.74 1.53.6 3.09-.17 1.53-.36 1.47-.88 1.88-.91 1.44-1.23 1.22-1.31 1.09-1.39.7-2.75 1.18-2 .3a18.84 18.84 0 01-2.62.13h-.53a18.35 18.35 0 01-2.79-.13l-2.8-.48-4-.87-1.57-.18h-1.66L148 41l-1.66.91v-2.15c0-.14.06-.31.09-.48s.06-.38.09-.61c.14-.41.26-.76.35-1.05a4 4 0 01.22-.65l.78-1.75 1.13-1.57 1.27-1.49 1.48-1.16 1.7-1.13a12.32 12.32 0 00.09 1.92l.46 1.81.66 1.36 1.09 1.74 1.36 1.23 1.57 1 1.53.48 2.53.43.92-.23 1.39-.38 1.71-.78 1-1.09.88-1.31.26-1.23.09-1.05v-.91c-.12-.41-.22-.73-.29-1a4.76 4.76 0 00-.19-.53l-.88-1.61-1.18-1.09-1.31-1.05-1.92-.66-2.05-.35-2.53-.39c-.39-.06-.86-.16-1.45-.31s-1.28-.33-2.09-.56l-2.41-1.14-1.6-1.17-1.31-1.53-.74-1.4-.26-1.31-.09-1.17v-1c.06-.35.12-.64.17-.88a2.76 2.76 0 01.18-.52l.7-1.62.91-1.18L152 11l1.31-.83 1.65-.74 3.89-.74h4M162.8 8h-4.12l-3.89.75a.49.49 0 00-.16 0l-1.63.76-.09.05-1.31.83a.45.45 0 00-.13.1l-1.32 1.31-.06.07-.91 1.18a.59.59 0 00-.1.17l-.69 1.59a3 3 0 00-.22.66 8.81 8.81 0 00-.19.93.53.53 0 000 .13v1.1l.09 1.18v.09l.27 1.31a.58.58 0 00.07.21l.74 1.39a.42.42 0 00.09.14l1.31 1.53.12.11 1.57 1.18.13.08 2.4 1.13.12.05c.89.25 1.57.43 2.12.57s1.12.26 1.51.32l2.53.39 2 .34 1.74.59 1.18 1 1.07 1 .82 1.51a3.93 3.93 0 01.14.39c.06.21.14.49.25.84v.78l-.09 1-.22 1-.76 1.14-.86.94-1.51.7-1.34.35-.75.2-2.33-.4-1.39-.49-1.43-.88-1.23-1.1-1-1.63-.61-1.24-.41-1.76a11.83 11.83 0 01-.07-1.74.75.75 0 00-.39-.66.8.8 0 00-.36-.09.75.75 0 00-.41.12l-1.71 1.14-1.53 1.18-.11.11-1.27 1.48v.06l-1.1 1.57-.06.12-.79 1.75c-.08.2-.16.44-.25.74s-.2.63-.34 1a.75.75 0 000 .16c0 .22-.06.41-.08.58s-.06.32-.08.46a.59.59 0 000 .14v2.18a.74.74 0 00.75.75.81.81 0 00.37-.09l1.61-.89 1.9-.71h1.48l1.51.17 3.93.87 2.83.48a18.39 18.39 0 002.92.14h.53a20.49 20.49 0 002.73-.13l2-.31a.48.48 0 00.17 0l2.5-1.1h.05l1.4-.7a.42.42 0 00.14-.09l1.31-1.09h.06l1.22-1.22a.64.64 0 00.1-.13l.92-1.44a.36.36 0 000-.09l.88-1.87v-.15l.35-1.53v-.08l.18-1.53a1.27 1.27 0 000-.2l-.48-3.1a.79.79 0 00-.06-.22l-.63-1.63-1-1.79a.61.61 0 00-.12-.16l-1.18-1.18-1.31-1.09-.15-.1-1.79-.87h-.09c-.66-.23-1.19-.41-1.57-.56l-.8-.3h-.17l-2.14-.31a5.63 5.63 0 00-.86-.11 1.33 1.33 0 01-.36-.05h-1.24l-2.21-.3-2-.55-1.08-.82-.91-1.1-.31-.94v-1l.36-1.1a.43.43 0 010-.05 2 2 0 01.41-.6l.89-.5a5.23 5.23 0 011.21-.29l2.38.08 2.2.28 1.08.54 1.08.66 1.18 1.47.67.8.06.06.75.7a.51.51 0 00.23.15l1.31.53a.74.74 0 00.25.05h1.5l1.18-.22.17-.05 1-.44a.78.78 0 00.3-.24l.92-1.27a.54.54 0 00.07-.13l.49-1.1a.88.88 0 00.05-.15l.33-1.65a7.5 7.5 0 00.25-2.54v-.13a.74.74 0 00-.75-.75.75.75 0 00-.42.13l-1.49 1-1 .39-1 .23-1.14-.12-1.57-.51-1.56-.64-1.69-.63h-.12l-3.8-.7z"
-}), jsx("path", {
-  d: "M80.73 90H62v-2.13l1.47-.06.49-.21a6.76 6.76 0 01.65-.23l.55-1.2.38-2-.16-.76-.22-1.2-.43-1.21-.65-1.58-.88-1.69-1.15-1.69-1.36-1.59-1.64-1.36-1.63-.93-2.24-.71-2.57-.33-.11 13.41.17 1.47.27 1 1.2.93 2 .06-.06 2H38.47v-1.91h1.37l1.31-.49.43-1 .42-2.22V54.13c-.07-.3-.1-.42-.1-.38l-.22-1a4 4 0 00-1.2-1l-1.91-.16-.06-1.75h17.54v1.8h-1.42a2.14 2.14 0 00-1.15.39l-.6 1.2-.27 2-.11 13.42 2.08-6 1.09-2.45L57 57.73l1.31-2 1.53-2 1.63-1.47 1.75-1.48 2.46-.82 2-.44 2.18.39 1.42.33 1.2.16 1.58-.4 2-.93.22 1.31.06.87-.28 2.08-.92 1.75-1.24 1.56-1.69 1-1.69.65h-2.34l-.35-.08-.83-.37h-2.38l-1.37.16-1.68.93L60 60l-1.5 1.77-1.3 1.91-1.15 2.46L55 68.7a23.8 23.8 0 013.44.17l2.68.43 2.73.77c.18 0 .46.11.84.22a15.51 15.51 0 011.5.54L68.44 72l.74.44c.31.18.66.4 1.06.66L72 74.6l1.64 1.53 2 3L76.85 82l.43 2.51.06 1.49.33 1 1.2.93 1.91.06z",
-  fill: "url(#New_Gradient_Swatch_1-11)"
-}), jsx("path", {
-  d: "M76.08 49.05l.22 1.31.06.87-.28 2.08-.92 1.75-1.26 1.58-1.69 1-1.69.65h-2.34l-.35-.08-.83-.37h-2.38l-1.37.16-1.68.93L60 60l-1.5 1.77-1.3 1.91-1.15 2.46L55 68.7a23.8 23.8 0 013.44.17l2.68.43 2.73.77c.18 0 .46.11.84.22a15.51 15.51 0 011.5.54L68.44 72l.74.44c.31.18.66.4 1.06.66L72 74.6l1.64 1.53 2 3L76.85 82l.43 2.51.06 1.49.33 1 1.2.93 1.91.06v2H62v-2.12l1.47-.06.49-.21a6.76 6.76 0 01.65-.23l.55-1.2.38-2-.16-.76-.22-1.2-.43-1.21-.65-1.58-.88-1.69-1.15-1.69-1.36-1.59-1.64-1.36-1.63-.93-2.24-.71-2.57-.33-.11 13.41.17 1.47.27 1 1.2.93 2 .06-.06 2H38.47v-1.91h1.37l1.31-.49.43-1 .42-2.22V54.13a2.54 2.54 0 00-.1-.39l-.22-1a4 4 0 00-1.2-1l-1.91-.16-.06-1.75h17.54v1.8h-1.42a2.14 2.14 0 00-1.15.39l-.6 1.2-.27 2-.11 13.43 2.08-6 1.09-2.45L57 57.73l1.31-2 1.53-2 1.63-1.47 1.75-1.48 2.46-.82 2-.44 2.18.39 1.42.33 1.2.16 1.58-.4 2-.93m0-1a1 1 0 00-.41.09l-1.92.84-1.3.31-1-.13-1.37-.32H70l-2.18-.38h-.38l-2 .44h-.11l-2.46.82a.94.94 0 00-.32.19L60.8 51.4 59.15 53a.86.86 0 00-.13.14l-1.53 2a.15.15 0 000 .06l-1.31 2v.07l-1.31 2.46v.06l-1.09 2.46v.08l-.08.23.06-7.2.24-1.74.39-.78a1 1 0 01.39-.11h1.46a1 1 0 001-1v-1.8a1 1 0 00-1-1H38.47a1 1 0 00-1 1l.06 1.75a1 1 0 00.91 1l1.69.15a2.71 2.71 0 01.59.47l.16.74a1 1 0 000 .16 1 1 0 010 .12l.06 30-.4 2-.22.5-.76.29h-1.21a1 1 0 00-1 1V90a1 1 0 001 1h17.7a1 1 0 001-1l.06-2a1 1 0 00-1-1h-1.64l-.68-.53-.16-.58-.15-1.34.1-12.18 1.36.17 2 .65 1.47.83L60 75.2l1.27 1.48 1.08 1.6.83 1.6.62 1.51.35 1 .2 1.13.13.59-.32 1.71-.31.68-.31.12-.36.15-1.26.05a1 1 0 00-1 1V90a1 1 0 001 1h18.81a1 1 0 001-1v-2a1 1 0 00-1-1h-1.58l-.7-.54-.19-.61-.06-1.34a.57.57 0 000-.13l-.44-2.51a.83.83 0 00-.06-.21l-1.2-2.89a.69.69 0 00-.1-.19l-2-3a1.07 1.07 0 00-.14-.16l-1.63-1.53-1.75-1.48-.11-.08-1.09-.67-.68-.48L66.68 70h-.1a14.44 14.44 0 00-1.6-.58c-.41-.12-.68-.19-.89-.23l-2.69-.76h-.11l-2.68-.44a17.39 17.39 0 00-2.12-.16l.51-1.29 1.1-2.36 1.23-1.8 1.36-1.61 1.43-1 1.44-.77 1.12-.13h2.1l.64.26h.1l.43.1a3.26 3.26 0 00.41.05h2.15a.92.92 0 00.36-.07l1.69-.65a.8.8 0 00.16-.08l1.7-1a1.13 1.13 0 00.26-.23l1.25-1.58a1.3 1.3 0 00.1-.15l.97-1.74a1.35 1.35 0 00.11-.34l.27-2.08a1.21 1.21 0 000-.19l-.06-.88v-.09l-.22-1.31a1 1 0 00-.52-.72.94.94 0 00-.47-.12z",
-  fill: "url(#New_Gradient_Swatch_1-12)"
-}), jsx("path", {
-  className: "cls-3",
-  d: "M76.08 49.05l.22 1.31.06.87-.28 2.08-.92 1.75-1.26 1.58-1.69 1-1.69.65h-2.34l-.35-.08-.83-.37h-2.38l-1.37.16-1.68.93L60 60l-1.5 1.77-1.3 1.91-1.15 2.46L55 68.7a23.8 23.8 0 013.44.17l2.68.43 2.73.77c.18 0 .46.11.84.22a15.51 15.51 0 011.5.54L68.44 72l.74.44c.31.18.66.4 1.06.66L72 74.6l1.64 1.53 2 3L76.85 82l.43 2.51.06 1.49.33 1 1.2.93 1.91.06v2H62v-2.12l1.47-.06.49-.21a6.76 6.76 0 01.65-.23l.55-1.2.38-2-.16-.76-.22-1.2-.43-1.21-.65-1.58-.88-1.69-1.15-1.69-1.36-1.59-1.64-1.36-1.63-.93-2.24-.71-2.57-.33-.11 13.41.17 1.47.27 1 1.2.93 2 .06-.06 2H38.47v-1.91h1.37l1.31-.49.43-1 .42-2.22V54.13a2.54 2.54 0 00-.1-.39l-.22-1a4 4 0 00-1.2-1l-1.91-.16-.06-1.75h17.54v1.8h-1.42a2.14 2.14 0 00-1.15.39l-.6 1.2-.27 2-.11 13.43 2.08-6 1.09-2.45L57 57.73l1.31-2 1.53-2 1.63-1.47 1.75-1.48 2.46-.82 2-.44 2.18.39 1.42.33 1.2.16 1.58-.4 2-.93m0-.75a.7.7 0 00-.31.07l-2 .9-1.38.33-1-.14-1.37-.34-2.22-.39H67.49l-2 .44h-.08L63 50a.72.72 0 00-.24.14L61 51.64l-1.66 1.5-.09.1-1.53 2-1.31 2v.06L55 59.83a.08.08 0 010 .05l-1.09 2.46v.06l-.58 1.68.07-8.75.25-1.8.45-.89a1.26 1.26 0 01.57-.17h1.45a.76.76 0 00.72-.75v-1.8a.75.75 0 00-.75-.75H38.47a.79.79 0 00-.54.22.81.81 0 00-.21.55l.06 1.75a.74.74 0 00.68.72l1.75.15a3.08 3.08 0 01.73.6l.19.8a.74.74 0 000 .14 1.46 1.46 0 010 .17l.06 30.08-.41 2-.27.62-.9.34h-1.25a.76.76 0 00-.72.75V90a.75.75 0 00.75.75h17.66a.75.75 0 00.75-.75l.06-2a.75.75 0 00-.73-.77H54.4l-.81-.63-.18-.68-.16-1.37.1-12.55 1.67.22 2.09.66 1.51.85L60.16 75l1.3 1.5 1.09 1.62.84 1.63.61 1.55.35 1.07.21 1.15.14.64-.31 1.84-.37.81-.4.14-.39.17-1.31.05a.74.74 0 00-.72.75V90a.74.74 0 00.75.75h18.78a.75.75 0 00.75-.73v-2a.74.74 0 00-.73-.77h-1.66l-.83-.64-.22-.71-.04-1.45a.38.38 0 000-.1l-.43-2.51a1 1 0 000-.16l-1.2-2.89a.91.91 0 00-.07-.14l-2-3-.11-.12L72.56 74l-1.78-1.5-.09-.06q-.6-.39-1.08-.66l-.73-.44-2.27-1.22h-.07c-.64-.26-1.17-.45-1.58-.57s-.68-.19-.88-.23l-2.7-.76h-.08l-2.68-.43a17.48 17.48 0 00-2.5-.13l.62-1.54 1.11-2.37 1.25-1.83 1.39-1.64 1.47-1 1.53-.84 1.18-.14h2.15l.69.27h.08l.4.1a3.18 3.18 0 00.4 0h2.13a.86.86 0 00.27 0l1.69-.65.12-.06 1.7-1a.81.81 0 00.19-.18l1.25-1.58a.44.44 0 00.08-.11l.93-1.75a.73.73 0 00.08-.25l.27-2.08a.76.76 0 000-.15l-.06-.87a.17.17 0 000-.07l-.22-1.31a.74.74 0 00-.74-.63z"
-}), jsx("path", {
-  d: "M112.25 91.22l-.68-.44c-.22-.15-.44-.29-.68-.43a4.7 4.7 0 00-1.53-.22H86v-1.44h1.23a3.76 3.76 0 01.39-.17 5.12 5.12 0 01.52-.18l.44-1 .26-1.62V61.53c-.06-.23-.09-.34-.09-.3l-.17-.79-1-.75-1.58-.18v-1.35h14v1.39l-1.14.05a1.75 1.75 0 00-.92.3l-.48 1-.22 1.58-.08 26.25h1.65a4.54 4.54 0 00.57-.06l2.4-.39 2-.44 1.2-.35c.36-.12.7-.25 1-.39l1.7-.84 1.62-.91 1.46-1.35 1.14-1.26.69-1.23.7-1.83 1 1z",
-  fill: "url(#New_Gradient_Swatch_1-13)"
-}), jsx("path", {
-  d: "M100 58.16v1.39l-1.14.05a1.75 1.75 0 00-.92.3l-.48 1-.22 1.58-.08 26.25h1.65a4.54 4.54 0 00.57-.06l2.4-.39 2-.44 1.2-.35c.36-.12.7-.25 1-.39l1.7-.84 1.62-.91 1.46-1.35 1.14-1.26.69-1.23.7-1.83 1 1-2 10.53-.68-.44c-.22-.15-.44-.29-.68-.43a4.7 4.7 0 00-1.53-.22H86v-1.43h1.23a3.76 3.76 0 01.39-.17 5.12 5.12 0 01.52-.18l.44-1 .26-1.62V61.53a1.31 1.31 0 00-.09-.31l-.17-.79-1-.75-1.58-.17v-1.35h14m0-1H86a1 1 0 00-1 1v1.35a1 1 0 00.88 1l1.25.15.46.35.1.44V85.6l-.12 1.4-.2.43-.17.06-.26.12h-1a1 1 0 00-1 1v1.44a1 1 0 001 1h23.41a4.08 4.08 0 011.11.13l.55.35.7.46a1 1 0 00.53.15.89.89 0 00.39-.09 1 1 0 00.59-.72l2-10.53a1 1 0 00-.22-.8l-1-1a1 1 0 00-.71-.29.65.65 0 00-.2 0 1 1 0 00-.73.62l-.67 1.76-.61 1.07-1 1.13-1.36 1.17-1.51.85-1.67.82a7.15 7.15 0 01-.89.33c-.36.12-.74.23-1.16.34l-1.89.42-2.38.39c-.15 0-.31 0-.49.06h-.53l.08-25.18.19-1.35.27-.53a.41.41 0 01.16 0l1.17-.05a1 1 0 001-1v-1.4a1 1 0 00-1-1z",
-  fill: "url(#New_Gradient_Swatch_1-14)"
-}), jsx("path", {
-  className: "cls-3",
-  d: "M100 58.16v1.39l-1.14.05a1.75 1.75 0 00-.92.3l-.48 1-.22 1.58-.08 26.25h1.65a4.54 4.54 0 00.57-.06l2.4-.39 2-.44 1.2-.35c.36-.12.7-.25 1-.39l1.7-.84 1.62-.91 1.46-1.35 1.14-1.26.69-1.23.7-1.83 1 1-2 10.53-.68-.44c-.22-.15-.44-.29-.68-.43a4.7 4.7 0 00-1.53-.22H86v-1.43h1.23a3.76 3.76 0 01.39-.17 5.12 5.12 0 01.52-.18l.44-1 .26-1.62V61.53a1.31 1.31 0 00-.09-.31l-.17-.79-1-.75-1.58-.17v-1.35h14m0-.75H86a.75.75 0 00-.53.22.72.72 0 00-.21.55v1.35a.74.74 0 00.66.72l1.32.16.58.44.12.53v24.23l-.23 1.45-.26.57-.25.09a3 3 0 00-.3.13h-1.07a.74.74 0 00-.73.75v1.44a.76.76 0 00.75.75h23.41a4.35 4.35 0 011.21.15l.59.38.69.44a.72.72 0 00.4.12.66.66 0 00.3-.07.74.74 0 00.43-.54L115 80.84a.77.77 0 00-.21-.68l-1-1a.71.71 0 00-.53-.22h-.15a.77.77 0 00-.55.47l-.68 1.78-.63 1.11-1 1.16-1.38 1.19-1.56.88-1.66.81a8.35 8.35 0 01-.92.35c-.36.12-.75.23-1.17.34l-1.94.43-2.36.39-.51.06H97.95L98 62.49l.2-1.4.32-.65a.86.86 0 01.35-.09l1.13-.05a.74.74 0 00.73-.75v-1.39a.75.75 0 00-.75-.75z"
-}), jsx("path", {
-  d: "M138.56 90.13v-1.44a7.09 7.09 0 00.9-.07l1-.15.61-.31.53-.52v-.66a3.21 3.21 0 00-.22-1.27l-2.62-7.42-13 5.55-.7 1.92-.48 1.13-.09.75a3 3 0 001 .83l1.71.17v1.49h-9.43v-1.44l1.35-.22 1.32-.44.91-.74.83-.83 10.18-23.59-.18-1-.39-.69-1.7-.22.87-.83 1.22-.79 3.06-1.18 3.45-.61h3.15c-.27.26-.47.48-.62.65a4.26 4.26 0 00-.35.51 1.31 1.31 0 00-.15.52v1.29l9.52 25.94 1.44 1.4 1.75.79v1.44zm-4.85-25L129 76.06l7.51-3.27z",
-  fill: "url(#New_Gradient_Swatch_1-15)"
-}), jsx("path", {
-  d: "M141.93 57.59c-.27.26-.47.48-.62.65a4.26 4.26 0 00-.35.51 1.31 1.31 0 00-.15.52v1.29l9.52 25.94 1.44 1.4 1.75.79v1.44h-14.96v-1.44a7.09 7.09 0 00.9-.07l1-.15.61-.31.53-.52v-.66a3.21 3.21 0 00-.22-1.27l-2.62-7.42-13 5.55-.7 1.92-.48 1.13-.09.75a3 3 0 001 .83l1.71.17v1.49h-9.43v-1.44l1.35-.22 1.32-.44.91-.74.83-.83 10.18-23.59-.18-1-.39-.69-1.7-.22.87-.83 1.22-.79 3.06-1.18 3.45-.61h3.15M129 76.06l7.51-3.27-2.8-7.65L129 76.06m12.93-19.47h-3.32l-3.46.62a.61.61 0 00-.18.05l-3.06 1.18a.76.76 0 00-.18.09l-1.22.78-.15.12-.87.83a1 1 0 00.56 1.72l1.2.15.07.12.09.49-10 23.14-.66.65-.73.6-1.07.35-1.27.21a1 1 0 00-.84 1v1.44a1 1 0 001 1h9.43a1 1 0 001-1v-1.48a1 1 0 00-.89-1l-1.51-.16a2.23 2.23 0 01-.3-.2v-.14l.42-1 .57-1.56 11.59-5 2.27 6.42a2.55 2.55 0 01.17.84v.31l-.15.14-.33.16-.85.13a5 5 0 01-.76.06 1 1 0 00-1 1v1.44a1 1 0 001 1h15a1 1 0 001-1v-1.4a1 1 0 00-.59-.92l-1.59-.71-1.15-1.12-9.38-25.56V60a6.13 6.13 0 010-.65.27.27 0 010-.12 3.21 3.21 0 01.24-.34c.12-.14.3-.34.55-.58a1 1 0 00.22-1.09 1 1 0 00-.92-.62zm0 2zm-11 15.54l2.71-6.29 1.62 4.41-4.33 1.88z",
-  fill: "url(#New_Gradient_Swatch_1-16)"
-}), jsx("path", {
-  className: "cls-3",
-  d: "M141.93 57.59c-.27.26-.47.48-.62.65a4.26 4.26 0 00-.35.51 1.31 1.31 0 00-.15.52v1.29l9.52 25.94 1.44 1.4 1.75.79v1.44h-14.96v-1.44a7.09 7.09 0 00.9-.07l1-.15.61-.31.53-.52v-.66a3.21 3.21 0 00-.22-1.27l-2.62-7.42-13 5.55-.7 1.92-.48 1.13-.09.75a3 3 0 001 .83l1.71.17v1.49h-9.43v-1.44l1.35-.22 1.32-.44.91-.74.83-.83 10.18-23.59-.18-1-.39-.69-1.7-.22.87-.83 1.22-.79 3.06-1.18 3.45-.61h3.15M129 76.06l7.51-3.27-2.8-7.65L129 76.06m12.93-19.22h-3.28l-3.45.61h-.14L132 58.68l-.13.07-1.23.78-.11.09-.87.83a.75.75 0 00-.2.78.76.76 0 00.62.51l1.33.17.15.26.11.61L121.64 86l-.7.7-.78.63-1.13.38-1.29.21a.75.75 0 00-.63.74v1.44a.76.76 0 00.75.75h9.43a.75.75 0 00.75-.73v-1.49a.75.75 0 00-.67-.77l-1.56-.16a2.24 2.24 0 01-.48-.33v-.31l.43-1 .61-1.65 11.93-5.11 2.43 6.7a2.44 2.44 0 01.19 1v.4l-.24.23-.4.2-.9.14a5.35 5.35 0 01-.79.06.75.75 0 00-.75.75v1.44a.76.76 0 00.75.75h14.91a.76.76 0 00.75-.75v-1.53a.75.75 0 00-.44-.69l-1.63-.73-1.18-1.19-9.41-25.66V60a6.24 6.24 0 010-.66.6.6 0 01.06-.23 2.28 2.28 0 01.27-.38 8.2 8.2 0 01.56-.6.74.74 0 00-.52-1.28zm0 1.5zm-11.49 16.28l3.21-7.45 1.91 5.21-5.12 2.24z"
-}), jsx("path", {
-  d: "M188 73l-.83.47-.74.53-.31.88-.17 1.17v5.29l.13 1.27.22.78a5.58 5.58 0 001.18.74l1.57.14-4.67 2.35-2.8 1.14-2.18.83-2.1.57-2 .48-1.53.26-2.36.08-3.15-.26-1.57-.3-1.32-.42-1.71-.78-1.35-.88-1.18-.83-1.09-1-1.04-1.19-1.27-1.66-1.75-3-.52-1.44c-.06-.24-.13-.5-.22-.81s-.19-.66-.31-1.07l-.21-1.66-.09-2c0-.18.06-.42.09-.73s.07-.67.13-1.11a7.64 7.64 0 01.31-1.84l.69-2 .88-1.93 1-1.53L159 62l1.39-1.27 1.88-1.39 1.88-1 2.4-1 2-.48 2-.39h1 .13l.88.06 1.88.13 1.83.49 1.75.61 3.27 1.7a4.9 4.9 0 01.48.22l.61.3 1.1.22 1.18-.26 1.13-.44 1.66-1.18-.13 3.28L187 63l-.35 1.09-.65.88-.7.65-1.05.35-1.09.18c-.24 0-.56-.09-1-.18s-.95-.22-1.59-.39l-1-.52-1.22-1.23-1.09-1.31-1.26-1.35-1.42-1.17-2.09-.74-2.49-.45-2 .66-1.4.61-1.36 1.22-1 1.22-.7 1.36-.74 1.92-.39 2-.18 2.09v1.71l.22 1.91.4 1.66.56 1.53.7 1.14.92 1.13 1.44 1.54 1.44 1.26 1.57 1 1.71.83 1.44.44 2.14.39h3.49l.33-.06h.15l.09-6.86-.31-1.83-.65-1.79-1-1-1.26-.82-1.36-.14-1.15.07a5.81 5.81 0 00-1.49.92l-.74.74-1.09 1.4-1.13 3-4.65-3.14 1.79-3.09 1.17-.92 1-.83 1.14-.65 1.22-.18 1.4-.13 3 .44 3.36.83 3.71.78 2.45.35h3.37l2.61-.36.31 1.18z",
-  fill: "url(#New_Gradient_Swatch_1-17)"
-}), jsx("path", {
-  d: "M171.61 56.5h.13l.88.06 1.88.13 1.83.49 1.75.61 3.27 1.7a4.9 4.9 0 01.48.22l.61.3 1.1.22 1.18-.26 1.13-.44 1.66-1.18-.13 3.28L187 63l-.35 1.09-.65.88-.7.65-1.05.35-1.09.18c-.24 0-.56-.09-1-.18s-.95-.22-1.59-.39l-1-.52-1.22-1.23-1.09-1.31-1.26-1.35-1.42-1.17-2.09-.74-2.49-.45-2 .66-1.4.61-1.36 1.22-1 1.22-.7 1.36-.74 1.92-.39 2-.18 2.09v1.71l.22 1.91.4 1.66.56 1.53.7 1.14.92 1.13 1.44 1.54 1.44 1.26 1.57 1 1.71.83 1.44.44 2.14.39h3.49l.33-.06h.15l.09-6.86-.31-1.83-.65-1.79-1-1-1.26-.82-1.36-.14-1.15.07a5.81 5.81 0 00-1.49.92l-.74.74-1.09 1.4-1.13 3-4.65-3.14 1.79-3.09 1.17-.92 1-.83 1.14-.65 1.22-.18 1.4-.13 3 .44 3.36.83 3.71.78 2.45.35h3.37l2.61-.36.31 1.18L188 73l-.83.47-.74.53-.31.88-.17 1.17v5.29l.13 1.27.22.78a5.58 5.58 0 001.18.74l1.57.14-4.67 2.35-2.8 1.14-2.18.83-2.1.57-2 .48-1.53.26-2.36.08-3.15-.26-1.57-.3-1.32-.42-1.71-.78-1.35-.88-1.18-.83-1.09-1-1.04-1.19-1.27-1.66-1.75-3-.52-1.44c-.06-.24-.13-.5-.22-.81s-.19-.66-.31-1.07l-.21-1.66-.09-2c0-.18.06-.42.09-.73s.07-.67.13-1.11a7.64 7.64 0 01.31-1.84l.69-2 .88-1.93 1-1.53L159 62l1.39-1.27 1.88-1.39 1.88-1 2.4-1 2-.48 2-.39h1M171.62 55.5h-1.2l-2 .4-2 .49-.16.05-2.4 1h-.07l-1.88 1-.14.08-1.87 1.4-.08.06-1.4 1.27-.1.11L157 63v.07l-1.05 1.53a1.09 1.09 0 00-.08.15l-.88 1.92v.09l-.7 2a.19.19 0 000 .07 8.81 8.81 0 00-.34 2c-.06.43-.1.8-.13 1.1a5.94 5.94 0 01-.08.66 1.27 1.27 0 000 .2l.09 2a.25.25 0 000 .08l.21 1.66v.14l.07.24.24.83c.09.3.15.56.21.79v.09L155 80a.8.8 0 00.08.16l1.75 3 .07.09 1.26 1.66.08.09 1.09 1.14 1.12 1.07a.52.52 0 00.11.1l1.18.83 1.39.9.12.06 1.71.79h.11l1.35.44h.12l1.57.31h.11l3.14.26h.12l2.36-.08h.14l1.52-.26h.07l2-.48 2.12-.58h.1l2.21-.8 2.82-1.14h.07l4.67-2.35a1 1 0 00-.36-1.89l-1.37-.12c-.29-.15-.48-.27-.59-.34l-.11-.39-.13-1.18v-5.16l.15-1 .17-.49.44-.31.67-.39 2.35-.58a1 1 0 00.62-.45 1 1 0 00.11-.77l-.37-1.14a1 1 0 00-1-.75H190l-2.55.35H184.23l-2.35-.33-3.68-.78-3.33-.82h-.09l-3-.44h-.24l-1.4.14-1.27.18a.9.9 0 00-.36.12l-1.14.65-.13.1-1 .83-1.15.9a1 1 0 00-.25.29l-1.38 2.38-.09-.4-.21-1.8V69.9l.17-2 .36-1.83.7-1.79.62-1.21L166 62l1.18-1.06 1.21-.53 1.68-.56 2.2.38 1.85.65 1.22 1 1.25 1.25 1.06 1.27.06.07 1.23 1.22a1.08 1.08 0 00.24.18l1 .54a.58.58 0 00.17.06c.64.18 1.2.32 1.65.41s.83.16 1.07.19h.27l1.1-.17h.16l1-.35a1.07 1.07 0 00.37-.22l.7-.65.12-.13.65-.88a.89.89 0 00.15-.29l.35-1.1.37-1.35a.83.83 0 000-.22l.13-3.21v-.11a1 1 0 00-1-1 1 1 0 00-.58.2l-1.55 1.1-.94.36-.91.2-.75-.15-.31-.16-.18-.09-.51-.23-3.23-1.68-.13-.06-1.75-.61h-.07l-1.84-.48a.57.57 0 00-.18 0l-1.88-.13-.83-.06h-.24zm0 2zm1.74 15.5l.86-.06 1 .1 1 .64.77.74.54 1.48.28 1.66-.08 5.86h-2.9l-2-.36-1.31-.4-1.52-.84-1.45-.89-1.34-1.17-1.39-1.47-.85-1.06-.51-.82 3.69 2.44a1 1 0 00.55.17 1.12 1.12 0 00.31 0 1 1 0 00.63-.59l1.07-2.83 1-1.22.7-.7a4.32 4.32 0 011-.65z",
-  fill: "url(#New_Gradient_Swatch_1-18)"
-}), jsx("path", {
-  className: "cls-3",
-  d: "M171.61 56.5h.13l.88.06 1.88.13 1.83.49 1.75.61 3.27 1.7a4.9 4.9 0 01.48.22l.61.3 1.1.22 1.18-.26 1.13-.44 1.66-1.18-.13 3.28L187 63l-.35 1.09-.65.88-.7.65-1.05.35-1.09.18c-.24 0-.56-.09-1-.18s-.95-.22-1.59-.39l-1-.52-1.22-1.23-1.09-1.31-1.26-1.35-1.42-1.17-2.09-.74-2.49-.45-2 .66-1.4.61-1.36 1.22-1 1.22-.7 1.36-.74 1.92-.39 2-.18 2.09v1.71l.22 1.91.4 1.66.56 1.53.7 1.14.92 1.13 1.44 1.54 1.44 1.26 1.57 1 1.71.83 1.44.44 2.14.39h3.49l.33-.06h.15l.09-6.86-.31-1.83-.65-1.79-1-1-1.26-.82-1.36-.14-1.15.07a5.81 5.81 0 00-1.49.92l-.74.74-1.09 1.4-1.13 3-4.65-3.14 1.79-3.09 1.17-.92 1-.83 1.14-.65 1.22-.18 1.4-.13 3 .44 3.36.83 3.71.78 2.45.35h3.37l2.61-.36.31 1.18L188 73l-.83.47-.74.53-.31.88-.17 1.17v5.29l.13 1.27.22.78a5.58 5.58 0 001.18.74l1.57.14-4.67 2.35-2.8 1.14-2.18.83-2.1.57-2 .48-1.53.26-2.36.08-3.15-.26-1.57-.3-1.32-.42-1.71-.78-1.35-.88-1.18-.83-1.09-1-1.04-1.19-1.27-1.66-1.75-3-.52-1.44c-.06-.24-.13-.5-.22-.81s-.19-.66-.31-1.07l-.21-1.66-.09-2c0-.18.06-.42.09-.73s.07-.67.13-1.11a7.64 7.64 0 01.31-1.84l.69-2 .88-1.93 1-1.53L159 62l1.39-1.27 1.88-1.39 1.88-1 2.4-1 2-.48 2-.39h1M171.56 55.72h-1.16l-2 .39-2.05.49h-.11l-2.4 1h-.05l-1.88 1-.11.06-1.8 1.47h-.06l-1.4 1.27-.08.08-1.31 1.61-1.05 1.53a.41.41 0 00-.07.11l-.87 1.93v.06l-.69 2a9.08 9.08 0 00-.33 2c-.06.43-.1.8-.13 1.1s0 .51-.08.68a.76.76 0 000 .15l.09 2v.07l.22 1.65v.11l.07.24.24.83c.09.31.16.57.21.79v.07l.52 1.44a.31.31 0 00.06.13L157 83l.05.07 1.26 1.66.06.07 1.13 1.2 1.11 1 .09.07 1.18.84 1.38.89h.09l1.7.78h.09l1.35.43h.09l1.57.3h.08l3.15.26h.08l2.36-.08h.1l1.53-.26 2.06-.49 2.12-.58h.07l2.18-.83 2.81-1.14h.06l4.67-2.19a.77.77 0 00.4-.82.74.74 0 00-.67-.6l-1.43-.12A6.18 6.18 0 01187 83l-.14-.5-.12-1.16v-5.2l.15-1 .21-.59.52-.36.7-.41 2.39-.59a.76.76 0 00.46-.34.72.72 0 00.09-.57L190.9 71a.75.75 0 00-.72-.57h-.11l-2.56.35h-3.26l-2.38-.34-3.68-.78-3.34-.82h-.07l-3-.44h-.18l-1.4.14-1.26.17a.82.82 0 00-.26.1l-1.14.65-.1.07-1 .83-1.16.91a.72.72 0 00-.18.21l-1.7 2.93-.24-1-.16-1.89v-1.63l.17-2 .37-1.86.71-1.82.64-1.25.92-1.12 1.22-1.1 1.26-.55 1.75-.59 2.29.4 1.9.67 1.27 1.07 1.24 1.26 1.07 1.28 1.22 1.23.19.13 1 .54h.12c.65.18 1.2.31 1.64.41s.81.15 1 .18h.21l1.09-.18a.27.27 0 00.12 0l1-.35a.74.74 0 00.27-.16l.7-.66.09-.09.65-.88a.94.94 0 00.12-.22l.34-1.09.37-1.35a.88.88 0 000-.16l.13-3.22v-.09a.75.75 0 00-.75-.75.8.8 0 00-.43.15l-1.58 1.12-1 .38-1 .22-.84-.17-.35-.17-.17-.09-.5-.23-3.25-1.69h-.1l-1.74-.61h-.06l-1.61-.48h-.14l-1.88-.14-.85-.06h-.2zm0 1.5zm1.69 15.49l.93-.07 1.1.1 1 .69.83.8.57 1.56.29 1.7.03 6.16h-3.19l-2.05-.37-1.34-.41-1.59-.87-1.48-.9-1.35-1.16-1.4-1.49-.87-1.07-.63-1-.22-.6 4.38 2.91a.75.75 0 00.41.12.59.59 0 00.23 0 .71.71 0 00.47-.44l1.09-2.86 1-1.27.71-.71a4.51 4.51 0 011.16-.71z"
-}), jsx("path", {
-  d: "M212.78 90.13v-1.44a7.09 7.09 0 00.9-.07l1-.15.62-.31.52-.52v-.66a3.21 3.21 0 00-.22-1.27l-2.6-7.42-13 5.55-.7 1.92-.48 1.13-.08.75a2.89 2.89 0 001 .83l1.71.17-.05 1.49h-9.43v-1.44l1.35-.22 1.31-.44.92-.74.83-.83 10.18-23.59-.18-1-.39-.69-1.59-.18.87-.83 1.22-.79 3.06-1.18 3.45-.61h3.14c-.26.26-.46.48-.61.65a4.26 4.26 0 00-.35.51 1.49 1.49 0 00-.15.52v1.29l9.52 25.94 1.45 1.4 1.75.79v1.44zm-4.85-25l-4.71 10.92 7.51-3.27z",
-  fill: "url(#New_Gradient_Swatch_1-19)"
-}), jsx("path", {
-  d: "M216.14 57.59c-.26.26-.46.48-.61.65a4.26 4.26 0 00-.35.51 1.49 1.49 0 00-.15.52v1.29l9.52 25.94 1.45 1.4 1.75.79v1.44h-14.97v-1.44a7.09 7.09 0 00.9-.07l1-.15.62-.31.52-.52v-.66a3.21 3.21 0 00-.22-1.27l-2.6-7.42-13 5.55-.7 1.92-.48 1.13-.08.75a2.89 2.89 0 001 .83l1.71.17-.05 1.49h-9.43v-1.44l1.35-.22 1.31-.44.92-.74.83-.83 10.18-23.59-.18-1-.39-.69-1.59-.18.87-.83 1.22-.79 3.06-1.18 3.45-.61h3.14m-12.92 18.47l7.51-3.27-2.8-7.65-4.71 10.92m12.92-19.47h-3.32l-3.44.62a.59.59 0 00-.19.05l-3.06 1.17-.18.1-1.22.78-.15.12-.87.83a1 1 0 00.56 1.72l1.2.15.07.12.09.5-10 23.12-.66.66-.73.6-1.07.35-1.27.21a1 1 0 00-.84 1v1.44a1 1 0 001 1h9.43a1 1 0 001-1l.05-1.48a1 1 0 00-.9-1l-1.51-.16a2.23 2.23 0 01-.3-.2v-.14l.43-1v-.05l.55-1.51 11.6-5 2.26 6.42a2.15 2.15 0 01.16.84v.31l-.14.14-.32.16-.86.13a5 5 0 01-.76.06 1 1 0 00-1 1v1.44a1 1 0 001 1h14.94a1 1 0 001-1v-1.4a1 1 0 00-.59-.91l-1.59-.72-1.15-1.12L216 60.38V60v-.65a.2.2 0 010-.11 2.76 2.76 0 01.24-.35c.13-.15.32-.36.55-.58a1 1 0 00-.71-1.71zm0 2zm-11 15.54l2.72-6.29 1.6 4.41-4.32 1.88z",
-  fill: "url(#New_Gradient_Swatch_1-20)"
-}), jsx("path", {
-  className: "cls-3",
-  d: "M216.14 57.59c-.26.26-.46.48-.61.65a4.26 4.26 0 00-.35.51 1.49 1.49 0 00-.15.52v1.29l9.52 25.94 1.45 1.4 1.75.79v1.44h-14.97v-1.44a7.09 7.09 0 00.9-.07l1-.15.62-.31.52-.52v-.66a3.21 3.21 0 00-.22-1.27l-2.6-7.42-13 5.55-.7 1.92-.48 1.13-.08.75a2.89 2.89 0 001 .83l1.71.17-.05 1.49h-9.43v-1.44l1.35-.22 1.31-.44.92-.74.83-.83 10.18-23.59-.18-1-.39-.69-1.59-.18.87-.83 1.22-.79 3.06-1.18 3.45-.61h3.14m-12.92 18.47l7.51-3.27-2.8-7.65-4.71 10.92m12.92-19.22h-3.27l-3.45.61h-.14l-3.06 1.18-.14.07-1.22.78-.11.09-.87.83a.75.75 0 00-.2.78.76.76 0 00.62.51l1.33.17.15.26.11.61L195.86 86l-.7.7-.78.63-1.13.38L192 88a.74.74 0 00-.63.74v1.44a.75.75 0 00.75.75h9.43a.75.75 0 00.75-.73l.05-1.49a.76.76 0 00-.68-.77l-1.56-.16a2.24 2.24 0 01-.48-.33v-.31l.45-1 .6-1.65 11.93-5.11L215 86a2.33 2.33 0 01.17 1v.4l-.24.23-.4.2-.9.14a5.25 5.25 0 01-.79.06.75.75 0 00-.75.75v1.44a.76.76 0 00.75.75h14.94a.76.76 0 00.75-.75v-1.53A.77.77 0 00228 88l-1.63-.73-1.23-1.19-9.41-25.66V60v-.66a.64.64 0 01.06-.22 2 2 0 01.27-.39c.13-.16.33-.37.56-.6a.75.75 0 00-.53-1.28zm0 1.5zm-11.48 16.28l3.22-7.45 1.9 5.21-5.12 2.24z"
-}), jsx("path", {
-  d: "M260.86 86l-1.35 1.83-1.14 1.75-.75 1.49-.57 1.79a15.65 15.65 0 00-.75-2.1l-.92-1.35-17.1-24 .26 13.41.36 5.32.26 1.62.3 1.18.4.87.43.48.48.22.7.13h.66v1.49h-9.43v-1.44h.87l.7-.22.61-.61.53-1.14.43-2.27.31-3 .13-4.19.09-5.46v-7.08a6.89 6.89 0 00-1.62-1.61 13.62 13.62 0 00-2.18-.83l.61-1.18.79-1.18 1.26-.92 1.27-.78 3.16-1 3.29-.35.26 2a7.23 7.23 0 00.31.75c.14.32.34.73.57 1.22L258 79.21v-9.13l-.18-2.75-.13-2.62-.26-2-.43-1.32-.39-.92-.53-.57-.44-.22-.65-.13h-.74l-.09-1.62h9.56v1.66h-1l-.82.31-.62.83-.52 1.49-.39 2.53-.27 3.75-.1 5.21v6.94l1.49 1.53a11.27 11.27 0 002.18.92z",
-  fill: "url(#New_Gradient_Swatch_1-21)"
-}), jsx("path", {
-  d: "M242.94 56.85l.26 2a7.23 7.23 0 00.31.75c.14.32.34.73.57 1.22L258 79.21v-9.13l-.18-2.75-.13-2.62-.26-2-.43-1.32-.39-.92-.53-.57-.44-.22-.65-.13h-.74l-.09-1.62h9.56v1.66h-1l-.82.31-.62.83-.52 1.49-.39 2.53-.27 3.75-.1 5.21v6.94l1.49 1.53a11.27 11.27 0 002.18.92l-2.81 2.9-1.35 1.83-1.14 1.75-.75 1.49-.57 1.79a15.65 15.65 0 00-.75-2.1l-.92-1.35-17.1-24 .26 13.41.36 5.32.26 1.62.3 1.18.4.87.43.48.48.22.7.13h.66v1.49h-9.43v-1.44h.87l.7-.22.61-.61.53-1.14.43-2.27.31-3 .13-4.19.09-5.46v-7.08a6.89 6.89 0 00-1.62-1.61 13.62 13.62 0 00-2.18-.83l.61-1.18.79-1.18 1.26-.92 1.27-.78 3.16-1 3.29-.35m0-1h-.11l-3.29.35h-.18l-3.16 1a.7.7 0 00-.23.11l-1.27.78h-.06l-1.27.92a1 1 0 00-.24.26l-.79 1.17a.47.47 0 00-.05.1l-.62 1.18a1 1 0 000 .84 1 1 0 00.61.57 13.77 13.77 0 012 .73 5.22 5.22 0 011.07 1.12v6.72l-.09 5.45-.13 4.15-.3 2.93-.4 2.11-.4.86-.31.31-.35.11h-.75a1 1 0 00-.94 1v1.44a1 1 0 001 1h9.43a1 1 0 001-1v-1.41a.34.34 0 000-.1 1 1 0 00-1-1h-.57l-.48-.09-.19-.08-.19-.21-.29-.66-.28-1-.23-1.53-.35-5.28-.19-10.13L254.57 90l.89 1.3c0 .11.2.49.64 1.87a1 1 0 00.95.7 1 1 0 00.95-.7l.55-1.71.68-1.37 1.1-1.67 1.3-1.76 2.75-2.88a1 1 0 00-.39-1.64 13.76 13.76 0 01-1.88-.75L261 80.24v-6.53l.17-5.21.26-3.68.37-2.4.45-1.26.34-.47.38-.14h.78a1 1 0 001-1v-1.66a1 1 0 00-1-1h-9.56a1 1 0 00-1 1.06l.09 1.61a1 1 0 00.94.95h.67l.46.09.15.08.29.3.29.69.31 1.23.25 1.86.13 2.58.18 2.73v6.1l-12-15.91-.14-.3c-.15-.31-.28-.59-.38-.82s-.19-.43-.24-.56l-.25-1.9a1 1 0 00-1-.87z",
-  fill: "url(#New_Gradient_Swatch_1-22)"
-}), jsx("path", {
-  className: "cls-3",
-  d: "M242.94 56.85l.26 2a7.23 7.23 0 00.31.75c.14.32.34.73.57 1.22L258 79.21v-9.13l-.18-2.75-.13-2.62-.26-2-.43-1.32-.39-.92-.53-.57-.44-.22-.65-.13h-.74l-.09-1.62h9.56v1.66h-1l-.82.31-.62.83-.52 1.49-.39 2.53-.27 3.75-.1 5.21v6.94l1.49 1.53a11.27 11.27 0 002.18.92l-2.81 2.9-1.35 1.83-1.14 1.75-.75 1.49-.57 1.79a15.65 15.65 0 00-.75-2.1l-.92-1.35-17.1-24 .26 13.41.36 5.32.26 1.62.3 1.18.4.87.43.48.48.22.7.13h.66v1.49h-9.43v-1.44h.87l.7-.22.61-.61.53-1.14.43-2.27.31-3 .13-4.19.09-5.46v-7.08a6.89 6.89 0 00-1.62-1.61 13.62 13.62 0 00-2.18-.83l.61-1.18.79-1.18 1.26-.92 1.27-.78 3.16-1 3.29-.35m0-.75h-.08l-3.29.35h-.14l-3.16 1a.53.53 0 00-.17.08l-1.27.79h-.05l-1.26.91a.86.86 0 00-.19.19l-.78 1.18a.25.25 0 000 .07l-.61 1.18a.7.7 0 000 .63.73.73 0 00.46.43 12.48 12.48 0 012 .76 5.39 5.39 0 011.26 1.23v6.82l-.09 5.45-.13 4.15-.3 3-.41 2.15-.43.94-.39.38-.43.14h-.78a.75.75 0 00-.71.75v1.44a.75.75 0 00.75.75h9.43a.75.75 0 00.75-.73v-1.43a.19.19 0 000-.08.75.75 0 00-.75-.75h-.59l-.54-.1-.26-.12-.25-.28-.32-.7-.28-1.09-.25-1.54-.35-5.29-.21-11 15.69 22 .91 1.33c0 .08.19.44.66 1.91a.74.74 0 00.71.53.75.75 0 00.72-.53l.55-1.73L259 90l1.11-1.72 1.31-1.76 2.76-2.89a.74.74 0 00-.29-1.22 13.72 13.72 0 01-2-.79l-1.22-1.25v-6.66l.17-5.22.26-3.7.38-2.43L262 61l.42-.55.49-.19h.82a.74.74 0 00.75-.75v-1.62a.75.75 0 00-.75-.75h-9.56a.77.77 0 00-.55.24.76.76 0 00-.2.56l.09 1.61a.75.75 0 00.7.71h.69l.51.1.22.11.35.37.32.75.32 1.26.25 1.89.13 2.59.18 2.76v6.83l-12.5-16.53-.15-.32-.38-.82c-.12-.27-.2-.47-.25-.61l-.26-1.93a.74.74 0 00-.74-.65z"
-})))));
-
-// build/dist/components/calendar-day-names.js
-var DayName = styled_default.div(() => [{
-  display: "none",
-  textTransform: "uppercase",
-  paddingLeft: "0.5rem",
-  paddingRight: "0.5rem",
-  paddingTop: "0.25rem",
-  paddingBottom: "0.25rem",
-  borderBottomWidth: "2px",
-  "--tw-border-opacity": "1",
-  borderBottomColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
-  padding: "0.5rem",
-  alignItems: "center",
-  justifyContent: "center",
-  fontWeight: "700",
-  "@media (min-width: 1024px)": {
-    display: "flex"
-  }
-}]);
-var CalendarDayNames = () => {
-  const {
-    t: t3
-  } = useTranslation("calendar");
-  return jsx(react.Fragment, null, jsx(DayName, null, t3("SunDay")), jsx(DayName, null, t3("MoonDay")), jsx(DayName, null, t3("BloodDay")), jsx(DayName, null, t3("EarthDay")), jsx(DayName, null, t3("GrowthDay")), jsx(DayName, null, t3("HarvestDay")), jsx(DayName, null, t3("StillDay")));
 };
 
 // build/dist/components/month-collapse-button.js
@@ -12507,7 +12381,7 @@ var CalendarMonth = ({
     css: {
       marginBottom: "1rem"
     }
-  }, jsx(parchment_default, {
+  }, jsx(Parchment, {
     deps: [showWeather, month2, month2.collapsed]
   }, jsx("h2", {
     css: {
@@ -12531,9 +12405,9 @@ var CalendarMonth = ({
         gridTemplateColumns: "repeat(7, minmax(0, 1fr))"
       }
     }
-  }, jsx(CalendarDayNames, null), jsx(calendar_filler_day_default, {
+  }, jsx(CalendarDayNames, null), jsx(CalendarFillerDays, {
     day: month2.days[0]
-  }), month2.days.map((d3) => jsx(calendar_day_default, {
+  }), month2.days.map((d3) => jsx(CalendarDay, {
     day: d3,
     temperatureUnit,
     key: `${d3.monthName}${d3.number}`,
@@ -12541,7 +12415,122 @@ var CalendarMonth = ({
     quarterClicked
   })))));
 };
-var calendar_month_default = CalendarMonth;
+
+// build/dist/components/stepper.js
+var stepButtonStyles = () => [{
+  height: "2.5rem",
+  fontWeight: "700",
+  paddingTop: "0px",
+  paddingBottom: "0px",
+  paddingLeft: "0.25rem",
+  paddingRight: "0.25rem",
+  textAlign: "center",
+  textTransform: "uppercase",
+  letterSpacing: "0.025em",
+  ":focus": {
+    outline: "2px solid transparent",
+    outlineOffset: "2px"
+  }
+}, {
+  borderWidth: "2px",
+  "--tw-border-opacity": "1",
+  borderColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
+  borderRadius: "0px"
+}];
+var Stepper = ({
+  value,
+  id: id2,
+  twProps,
+  max,
+  min,
+  label,
+  onChange
+}) => {
+  const decrement = () => {
+    if (value > min) {
+      onChange(value - 1);
+    }
+  };
+  const increment = () => {
+    if (value < max) {
+      onChange(value + 1);
+    }
+  };
+  const handleChange = (e3) => {
+    onChange(parseInt(e3, 10) || 0);
+  };
+  return jsx("div", {
+    css: twProps
+  }, label && jsx("label", {
+    css: {
+      display: "block"
+    },
+    htmlFor: id2
+  }, label), jsx("div", {
+    css: {
+      width: "auto",
+      display: "inline-flex"
+    }
+  }, jsx("button", {
+    css: [{
+      width: "2.5rem",
+      ":hover": {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+      },
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
+      "--tw-text-opacity": "1",
+      color: "rgba(255, 255, 255, var(--tw-text-opacity))"
+    }, stepButtonStyles()],
+    type: "button",
+    onClick: decrement,
+    "aria-controls": id2
+  }, "–"), jsx("input", {
+    css: [...stepButtonStyles(), {
+      borderLeftWidth: "0px",
+      borderRightWidth: "0px",
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(255, 255, 255, var(--tw-bg-opacity))"
+    }, {
+      "::-webkit-inner-spin-button": {
+        " -webkit-appearance": "none",
+        margin: "0"
+      },
+      "::-webkit-outer-spin-button": {
+        " -webkit-appearance": "none",
+        margin: "0"
+      }
+    }],
+    type: "number",
+    step: "1",
+    id: id2,
+    value,
+    min,
+    max,
+    onChange: (e3) => handleChange(e3.target.value),
+    disabled: true
+  }), jsx("button", {
+    css: [{
+      width: "2.5rem",
+      ":hover": {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+      },
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
+      "--tw-text-opacity": "1",
+      color: "rgba(255, 255, 255, var(--tw-text-opacity))"
+    }, stepButtonStyles()],
+    type: "button",
+    onClick: increment,
+    "aria-controls": id2
+  }, "+")));
+};
 
 // build/dist/hooks/use-local-storage.js
 function useLocalStorage(key, initialValue) {
@@ -12567,7 +12556,7 @@ function useLocalStorage(key, initialValue) {
 }
 
 // build/dist/hooks/use-window-scroll-position.js
-function useWindowScrollPosition(localStorageKey, setCondition) {
+var useWindowScrollPosition = (localStorageKey, setCondition) => {
   const [scrollYStorage, setScrollYStorage] = useLocalStorage(localStorageKey, 0);
   const currentScroll = useRef(0);
   const handleScroll = () => {
@@ -12589,7 +12578,7 @@ function useWindowScrollPosition(localStorageKey, setCondition) {
       }, 100);
     }
   }, [setCondition, scrollYStorage]);
-}
+};
 
 // build/dist/pages/calendar.page.js
 var DEFAULT_SHOW_WEATHER = true;
@@ -12664,7 +12653,7 @@ var CalendarPage = () => {
       rowGap: "2rem",
       width: "100%"
     }
-  }, jsx(page_header_default, null, t3("Title")), jsx("div", {
+  }, jsx(PageHeader, null, t3("Title")), jsx("div", {
     css: {
       textAlign: "center",
       fontSize: "1.25rem",
@@ -12689,19 +12678,19 @@ var CalendarPage = () => {
       justifyContent: "flex-end",
       gap: "0.5rem"
     }
-  }, jsx(Button_default, {
+  }, jsx(Button, {
     isSmall: true,
     variant: "secondary",
     onClick: () => handleToggleCollapseAll()
-  }, t3(allCollapsed ? `ShowAll` : `HideAll`)), jsx(Button_default, {
+  }, t3(allCollapsed ? `ShowAll` : `HideAll`)), jsx(Button, {
     isSmall: true,
     variant: "secondary",
     onClick: () => handleTemperatureChange(calendar.temperatureUnit === TemperatureUnit.Metric ? TemperatureUnit.Imperial : TemperatureUnit.Metric)
-  }, t3("Use"), " ", calendar.temperatureUnit === TemperatureUnit.Metric ? t3("F") : t3("C")), jsx(Button_default, {
+  }, t3("Use"), " ", calendar.temperatureUnit === TemperatureUnit.Metric ? t3("F") : t3("C")), jsx(Button, {
     variant: "secondary",
     isSmall: true,
     onClick: () => setShowWeather(!showWeather)
-  }, showWeather ? t3("Weather-Hide") : t3("Weather-Show")), jsx(Button_default, {
+  }, showWeather ? t3("Weather-Hide") : t3("Weather-Show")), jsx(Button, {
     css: [showCalenderOptions ? {
       "--tw-bg-opacity": "1",
       backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
@@ -12750,7 +12739,7 @@ var CalendarPage = () => {
       "--tw-text-opacity": "1",
       color: "rgba(220, 38, 38, var(--tw-text-opacity))"
     }
-  }, t3("Options-StartingYearWarning")), jsx("div", null, jsx(Button_default, {
+  }, t3("Options-StartingYearWarning")), jsx("div", null, jsx(Button, {
     css: {
       "--tw-border-opacity": "1",
       borderColor: "rgba(220, 38, 38, var(--tw-border-opacity))",
@@ -12771,7 +12760,7 @@ var CalendarPage = () => {
     onClick: () => setShowYearOption(true),
     disabled: showYearOption,
     variant: showYearOption ? "disabled" : void 0
-  }, t3("Options-StartingYearNag"))), showYearOption && jsx(stepper_default, {
+  }, t3("Options-StartingYearNag"))), showYearOption && jsx(Stepper, {
     max: 1e4,
     min: -2e3,
     value: calendarState.year,
@@ -12792,29 +12781,29 @@ var CalendarPage = () => {
       flexWrap: "wrap",
       gap: "0.5rem"
     }
-  }, jsx(Button_default, {
+  }, jsx(Button, {
     onClick: () => handleUpdatingStartingDay("SunDay"),
     isSmall: true
-  }, t3("SunDay")), jsx(Button_default, {
+  }, t3("SunDay")), jsx(Button, {
     onClick: () => handleUpdatingStartingDay("MoonDay"),
     isSmall: true
-  }, t3("MoonDay")), jsx(Button_default, {
+  }, t3("MoonDay")), jsx(Button, {
     onClick: () => handleUpdatingStartingDay("BloodDay"),
     isSmall: true
-  }, t3("BloodDay")), jsx(Button_default, {
+  }, t3("BloodDay")), jsx(Button, {
     onClick: () => handleUpdatingStartingDay("EarthDay"),
     isSmall: true
-  }, t3("EarthDay")), jsx(Button_default, {
+  }, t3("EarthDay")), jsx(Button, {
     onClick: () => handleUpdatingStartingDay("GrowthDay"),
     isSmall: true
-  }, t3("GrowthDay")), jsx(Button_default, {
+  }, t3("GrowthDay")), jsx(Button, {
     onClick: () => handleUpdatingStartingDay("HarvestDay"),
     isSmall: true
-  }, t3("HarvestDay")), jsx(Button_default, {
+  }, t3("HarvestDay")), jsx(Button, {
     onClick: () => handleUpdatingStartingDay("StillDay"),
     isSmall: true
   }, t3("StillDay"))))), jsx("div", null, calendarState.months.map((month2) => {
-    return jsx(calendar_month_default, {
+    return jsx(CalendarMonth, {
       key: month2.name,
       month: month2,
       showWeather,
@@ -12830,7 +12819,6 @@ var DiceDisplay = ({
 }) => {
   return jsx(react.Fragment, null, value);
 };
-var dice_display_default = DiceDisplay;
 
 // build/dist/pages/dice-roller.page.js
 var DiceRollerPage = () => {
@@ -12868,7 +12856,7 @@ var DiceRollerPage = () => {
       rowGap: "2rem",
       width: "100%"
     }
-  }, jsx(page_header_default, null, "Tärningar"), jsx(parchment_default, null, jsx("div", {
+  }, jsx(PageHeader, null, "Tärningar"), jsx(Parchment, null, jsx("div", {
     css: {
       display: "flex",
       flexDirection: "column",
@@ -12881,47 +12869,47 @@ var DiceRollerPage = () => {
       gap: "0.5rem",
       marginBottom: "1rem"
     }
-  }, jsx(stepper_default, {
+  }, jsx(Stepper, {
     id: "attributes",
     label: "Attribut",
     min: 1,
     max: 6,
     value: attributeDiceAmount,
     onChange: attributeDiceAmountChanged
-  }), jsx(stepper_default, {
+  }), jsx(Stepper, {
     id: "attributes",
     label: "Färdighet",
     min: 0,
     max: 5,
     value: skillDiceAmount,
     onChange: skillDiceAmountChanged
-  }), jsx(stepper_default, {
+  }), jsx(Stepper, {
     id: "attributes",
     label: "Gear",
     min: 0,
     max: 5,
     value: skillDiceAmount,
     onChange: skillDiceAmountChanged
-  }), jsx(stepper_default, {
+  }), jsx(Stepper, {
     id: "attributes",
     label: "Artefakt",
     min: 0,
     max: 5,
     value: skillDiceAmount,
     onChange: skillDiceAmountChanged
-  })), jsx("div", null, jsx(Button_default, {
+  })), jsx("div", null, jsx(Button, {
     onClick: () => rollDice()
-  }, "Slå tärning"), jsx(Button_default, {
+  }, "Slå tärning"), jsx(Button, {
     variant: "secondary"
-  }, "Pressa slag"), jsx(Button_default, {
+  }, "Pressa slag"), jsx(Button, {
     isSmall: true
   }, "stäng")), jsx("div", null, jsx("div", null, "Lyckade: ", successes), diceResults.attribute.length > 0 && jsx(react.Fragment, null, jsx("div", null, "Attribut"), diceResults.attribute.map((val, index) => jsx("div", {
     key: index
-  }, jsx(dice_display_default, {
+  }, jsx(DiceDisplay, {
     value: val
   })))), diceResults.skill.length > 0 && jsx(react.Fragment, null, jsx("div", null, "Färdighet"), diceResults.skill.map((val, index) => jsx("div", {
     key: index
-  }, jsx(dice_display_default, {
+  }, jsx(DiceDisplay, {
     value: val
   }))))))));
 };
@@ -12974,7 +12962,7 @@ var Encounter = ({
       "--tw-translate-y": "0.5rem",
       transform: "var(--tw-transform)"
     }]
-  }, jsx(parchment_default, {
+  }, jsx(Parchment, {
     deps: [encounter.id]
   }, jsx("div", {
     css: {
@@ -13436,7 +13424,7 @@ var EncounterPage = () => {
       width: "100%",
       alignItems: "center"
     }
-  }, jsx(page_header_default, null, "Slumpmöten"), jsx("div", {
+  }, jsx(PageHeader, null, "Slumpmöten"), jsx("div", {
     css: {
       width: "100%",
       "--tw-bg-opacity": "1",
@@ -13452,7 +13440,7 @@ var EncounterPage = () => {
         display: "flex"
       }
     }
-  }, getTerrainKeys().map((t3) => jsx(Button_default, {
+  }, getTerrainKeys().map((t3) => jsx(Button, {
     key: t3,
     isSmall: true,
     onClick: () => {
@@ -13507,7 +13495,7 @@ var GearPage = () => {
       rowGap: "2rem",
       width: "100%"
     }
-  }, jsx(page_header_default, null, "Utrustning"), jsx("div", null, jsx(parchment_default, null, jsx("h2", {
+  }, jsx(PageHeader, null, "Utrustning"), jsx("div", null, jsx(Parchment, null, jsx("h2", {
     css: {
       fontSize: "2.25rem",
       lineHeight: "2.5rem",
@@ -13869,15 +13857,15 @@ var MapPopover = ({
       setShow(true);
     }
   }, [options, ref]);
-  const getX = (options2) => {
-    if (!options2 || !ref.current) {
+  const getX = (xOptions) => {
+    if (!xOptions || !ref.current) {
       return initialPosition;
     }
     const {
       x: x3,
       mapMaxX,
       mapMinX
-    } = options2;
+    } = xOptions;
     const rect = ref.current.getBoundingClientRect();
     const popoverX = x3 - rect.width / 2;
     if (popoverX - mapMinX < 0) {
@@ -13888,14 +13876,14 @@ var MapPopover = ({
     }
     return popoverX - mapMinX;
   };
-  const getY = (options2) => {
-    if (!options2 || !ref.current) {
+  const getY = (yOptions) => {
+    if (!yOptions || !ref.current) {
       return initialPosition;
     }
     const {
       y: y4,
       mapMinY
-    } = options2;
+    } = yOptions;
     const rect = ref.current.getBoundingClientRect();
     const popoverY = y4 - rect.height - mapMinY - 2;
     if (popoverY < 0) {
@@ -13942,14 +13930,14 @@ var MapPopover = ({
       display: "flex",
       gap: "0.5rem"
     }
-  }, jsx(Button_default, {
+  }, jsx(Button, {
     isSmall: true,
     variant: "secondary",
     onClick: () => {
       onHide();
       setShow(false);
     }
-  }, t3("Popover-Hide")), options.hex.explored ? jsx(Button_default, {
+  }, t3("Popover-Hide")), options.hex.explored ? jsx(Button, {
     isSmall: true,
     onClick: () => {
       setShow(false);
@@ -13959,7 +13947,7 @@ var MapPopover = ({
         explored: false
       });
     }
-  }, t3("Popover-Forget")) : jsx(Button_default, {
+  }, t3("Popover-Forget")) : jsx(Button, {
     isSmall: true,
     onClick: () => {
       setShow(false);
@@ -15140,8 +15128,8 @@ var isHexKey = (s) => {
   const isBKey = bKeyRegex.test(s);
   return isAKey || isBKey;
 };
-var createInitialHexas = (hexData2) => {
-  return Object.entries(hexData2).map(([hexKey, points]) => ({
+var createInitialHexas = (data) => {
+  return Object.entries(data).map(([hexKey, points]) => ({
     hexKey,
     points,
     explored: false
@@ -15356,7 +15344,7 @@ var MapPage = () => {
       rowGap: "2rem",
       width: "100%"
     }
-  }, jsx(page_header_default, null, t3("Title")), jsx("div", null, jsx(parchment_default, {
+  }, jsx(PageHeader, null, t3("Title")), jsx("div", null, jsx(Parchment, {
     deps: [tooltip],
     ref: parchmentRef
   }, jsx("div", {
@@ -15411,7 +15399,7 @@ var MapPage = () => {
       justifyContent: "flex-end",
       gap: "0.5rem"
     }
-  }, jsx(Button_default, {
+  }, jsx(Button, {
     isSmall: true,
     variant: !hasExploredHexas ? "disabled" : void 0,
     disabled: !hasExploredHexas,
@@ -15423,6 +15411,495 @@ var MapPage = () => {
   }))));
 };
 
+// build/dist/components/list-item.js
+var ListButton = styled_default.button([
+  {
+    paddingLeft: "1rem",
+    paddingRight: "1rem",
+    paddingTop: "0.5rem",
+    paddingBottom: "0.5rem",
+    userSelect: "none",
+    ":focus": {
+      outline: "2px solid transparent",
+      outlineOffset: "2px"
+    },
+    width: "100%"
+  },
+  {
+    borderRadius: "0px",
+    borderWidth: "1px",
+    "--tw-border-opacity": "1",
+    borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
+    borderBottomWidth: "0px",
+    ":last-child": {
+      borderBottomWidth: "1px"
+    }
+  },
+  {
+    "@media (pointer: fine)": {
+      ":hover": {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+      }
+    }
+  },
+  {
+    "--tw-bg-opacity": "1",
+    backgroundColor: "rgba(255, 255, 255, var(--tw-bg-opacity))",
+    "--tw-text-opacity": "1",
+    color: "rgba(0, 0, 0, var(--tw-text-opacity))"
+  },
+  {
+    fontSize: "0.875rem",
+    lineHeight: "1.25rem",
+    textAlign: "left"
+  }
+]);
+var ListItem = ({
+  children,
+  onClick
+}) => {
+  return jsx(ListButton, {
+    onClick,
+    role: "listitem"
+  }, children);
+};
+
+// build/dist/components/attribute-cheeckbox.js
+var AttributeCheckbox = () => {
+  const [checked, setChecked] = useState(false);
+  return jsx("div", null, jsx("button", {
+    css: {
+      width: "1.25rem",
+      height: "1.25rem",
+      borderWidth: "2px",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))",
+      borderRadius: "0px",
+      position: "relative",
+      ":hover": {
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+      },
+      "@media (pointer: fine)": {
+        ":focus": {
+          outline: "2px solid transparent",
+          outlineOffset: "2px",
+          "--tw-border-opacity": "1",
+          borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+        }
+      }
+    },
+    onClick: () => setChecked(!checked)
+  }, jsx("div", {
+    css: [{
+      position: "absolute",
+      pointerEvents: "none",
+      top: "50%",
+      left: "50%",
+      width: "175%",
+      height: "20%",
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(31, 41, 55, var(--tw-bg-opacity))"
+    }, {
+      opacity: "1",
+      "--tw-rotate": "110deg",
+      transform: "var(--tw-transform)",
+      "--tw-translate-x": "-50%",
+      "--tw-translate-y": "-50%",
+      borderRadius: "9999px"
+    }, {
+      transitionProperty: "all",
+      transitionTimingFunction: "cubic-bezier(0, 0.9, 0, 1)",
+      transitionDuration: "150ms"
+    }, !checked && {
+      opacity: "0",
+      "--tw-translate-x": "-25%",
+      transform: "var(--tw-transform)",
+      "--tw-translate-y": "-1000%"
+    }],
+    "aria-hidden": "true"
+  })));
+};
+
+// build/dist/components/monster-attributes.js
+var MonsterAttribute = ({
+  attribute: {
+    label,
+    values
+  }
+}) => {
+  const {
+    t: t3
+  } = useTranslation("monsters");
+  return jsx("div", {
+    css: css`
+        -webkit-backface-visibility: hidden;
+      `
+  }, jsx("label", {
+    css: {
+      fontWeight: "500",
+      marginBottom: "0.25rem",
+      display: "block"
+    },
+    htmlFor: "monster-strength"
+  }, t3(`Attributes.${label}`)), jsx("div", {
+    id: `monster-${label}-grid`,
+    css: {
+      display: "grid",
+      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+      columnGap: "1rem",
+      rowGap: "0.25rem",
+      maxWidth: "fit-content"
+    }
+  }, chunkArray(values).map((chunk, chunkIndex) => jsx("div", {
+    css: {
+      display: "flex",
+      gap: "0.25rem"
+    },
+    key: `${label}-${chunkIndex}`
+  }, chunk.map((_24, index) => jsx(AttributeCheckbox, {
+    key: `${label}-${chunkIndex}-${index}`
+  }))))));
+};
+
+// build/dist/data/monster.data.js
+var bookMonsters = [{
+  name: "Giant",
+  attributes: {
+    strength: 12,
+    agility: 2
+  },
+  pageReference: 120
+}, {
+  name: "AbyssWorm",
+  attributes: {
+    strength: 14,
+    agility: 2
+  },
+  pageReference: 72
+}, {
+  name: "Blodling",
+  attributes: {
+    strength: 8,
+    agility: 4
+  },
+  pageReference: 74
+}, {
+  name: "DragonSmall",
+  attributes: {
+    strength: 32,
+    agility: 2,
+    wits: 4,
+    empathy: 2
+  },
+  pageReference: 82
+}, {
+  name: "DragonLarge",
+  attributes: {
+    strength: 48,
+    agility: 4,
+    wits: 6,
+    empathy: 3
+  },
+  pageReference: 82
+}, {
+  name: "Drakewyrm",
+  attributes: {
+    strength: 25,
+    agility: 3,
+    wits: 5,
+    empathy: 2
+  },
+  pageReference: 84
+}, {
+  name: "DeathKnight",
+  attributes: {
+    strength: 12,
+    agility: 3,
+    wits: 3,
+    empathy: 2
+  },
+  pageReference: 86
+}, {
+  name: "Ent",
+  attributes: {
+    strength: 16,
+    agility: 3,
+    wits: 5,
+    empathy: 3
+  },
+  pageReference: 88
+}, {
+  name: "Wyvern",
+  attributes: {
+    strength: 14,
+    agility: 5
+  },
+  pageReference: 90
+}, {
+  name: "Ghost",
+  attributes: {
+    strength: 8,
+    agility: 3,
+    wits: 3,
+    empathy: 2
+  },
+  pageReference: 92
+}, {
+  name: "Gryphon",
+  attributes: {
+    strength: 12,
+    agility: 5
+  },
+  pageReference: 94
+}, {
+  name: "GrayBear",
+  attributes: {
+    strength: 14,
+    agility: 2
+  },
+  pageReference: 96
+}, {
+  name: "Harpies",
+  attributes: {
+    strength: 8,
+    agility: 3,
+    wits: 2,
+    empathy: 1
+  },
+  pageReference: 98
+}, {
+  name: "Hydra",
+  attributes: {
+    strength: 4,
+    agility: 4
+  },
+  pageReference: 100
+}, {
+  name: "Insectoid",
+  attributes: {
+    strength: 5,
+    agility: 3
+  },
+  pageReference: 102
+}, {
+  name: "GiantSquid",
+  attributes: {
+    strength: 14,
+    agility: 4
+  },
+  pageReference: 106
+}, {
+  name: "Manticore",
+  attributes: {
+    strength: 15,
+    agility: 4
+  },
+  pageReference: 108
+}, {
+  name: "Minotaur",
+  attributes: {
+    strength: 10,
+    agility: 4,
+    wits: 2,
+    empathy: 2
+  },
+  pageReference: 110
+}, {
+  name: "NightWarg",
+  attributes: {
+    strength: 8,
+    agility: 4
+  },
+  pageReference: 112
+}, {
+  name: "RestlessDead",
+  attributes: {
+    strength: 3,
+    agility: 2
+  },
+  pageReference: 114
+}, {
+  name: "Skeleton",
+  attributes: {
+    strength: 3,
+    agility: 2
+  },
+  pageReference: 114
+}, {
+  name: "Ghoul",
+  attributes: {
+    strength: 4,
+    agility: 2
+  },
+  pageReference: 114
+}, {
+  name: "SeaSerpent",
+  attributes: {
+    strength: 18,
+    agility: 3
+  },
+  pageReference: 116
+}, {
+  name: "StranglingVine",
+  attributes: {
+    strength: 8,
+    agility: 3
+  },
+  pageReference: 118
+}, {
+  name: "Troll",
+  attributes: {
+    strength: 8,
+    agility: 3
+  },
+  pageReference: 120
+}];
+
+// build/dist/functions/monster.functions.js
+var createMonstersViewModel = (monsters) => {
+  return monsters.map((m3) => {
+    return {
+      ...m3,
+      attributes: {
+        strength: numToBooleans("Strength", m3.attributes.strength),
+        agility: numToBooleans("Agility", m3.attributes.agility),
+        wits: numToBooleans("Wits", m3.attributes.wits),
+        empathy: numToBooleans("Empathy", m3.attributes.empathy)
+      }
+    };
+  });
+};
+var numToBooleans = (label, num) => {
+  if (!num)
+    return void 0;
+  return {
+    label,
+    values: range(num).map((_24) => false)
+  };
+};
+
+// build/dist/pages/monsters.page.js
+var MonstersPage = () => {
+  const {
+    t: t3,
+    i18n
+  } = useTranslation(["monsters", "common"]);
+  const monsters = createMonstersViewModel(bookMonsters);
+  const [monster, setMonster] = useState(monsters[0]);
+  const monsterComparer = (a2, b2) => {
+    const ma2 = t3(`Monster.${a2.name}`);
+    const mb2 = t3(`Monster.${b2.name}`);
+    if (ma2 < mb2) {
+      return -1;
+    }
+    if (ma2 > mb2) {
+      return 1;
+    }
+    return 0;
+  };
+  return jsx("div", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      rowGap: "2rem",
+      width: "100%"
+    }
+  }, jsx(PageHeader, null, t3("Title")), jsx("div", {
+    css: {
+      display: "grid",
+      gap: "4rem",
+      "@media (min-width: 1024px)": {
+        gridTemplateColumns: "25% 1fr"
+      }
+    }
+  }, jsx("div", null, jsx("h3", {
+    css: {
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      fontWeight: "700",
+      marginBottom: "0.5rem"
+    }
+  }, t3(`BookMonsters`)), jsx("ul", {
+    css: [{
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(243, 244, 246, var(--tw-bg-opacity))",
+      maxHeight: "24rem",
+      "@media (min-width: 1024px)": {
+        maxHeight: "initial"
+      },
+      "@media (min-width: 1280px)": {
+        maxHeight: "initial"
+      },
+      "@media (min-width: 1536px)": {
+        maxHeight: "initial"
+      }
+    }, css`
+              overflow-y: overlay;
+            `]
+  }, monsters.sort(monsterComparer).map((m3) => jsx(ListItem, {
+    key: m3.name,
+    onClick: () => setMonster(m3)
+  }, t3(`Monster.${m3.name}`))))), jsx(Parchment, {
+    css: {
+      "@media (min-width: 1024px)": {
+        width: "75%"
+      }
+    },
+    deps: [monster, i18n.language]
+  }, jsx("header", {
+    css: {
+      marginBottom: "1rem"
+    }
+  }, jsx("h2", {
+    css: {
+      fontSize: "2.25rem",
+      lineHeight: "2.5rem",
+      marginBottom: "0.5rem"
+    },
+    className: "yx-heading"
+  }, t3(`Monster.${monster.name}`)), monster.pageReference && jsx("div", null, t3("Page", {
+    ns: "common"
+  }), ": ", monster.pageReference, " ", t3("GMBook", {
+    ns: "common"
+  }))), jsx("h3", {
+    css: {
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      fontWeight: "700"
+    }
+  }, t3(`Attribute`)), jsx("div", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.5rem"
+    }
+  }, monster.attributes.strength && jsx(MonsterAttribute, {
+    key: `${monster.name}-strength`,
+    attribute: {
+      ...monster.attributes.strength
+    }
+  }), monster.attributes.agility && jsx(MonsterAttribute, {
+    key: `${monster.name}-agility`,
+    attribute: {
+      ...monster.attributes.agility
+    }
+  }), monster.attributes.wits && jsx(MonsterAttribute, {
+    key: `${monster.name}-wits`,
+    attribute: {
+      ...monster.attributes.wits
+    }
+  }), monster.attributes.empathy && jsx(MonsterAttribute, {
+    key: `${monster.name}-empathy`,
+    attribute: {
+      ...monster.attributes.empathy
+    }
+  })))));
+};
+
 // build/dist/models/gender.model.js
 var Gender;
 (function(Gender2) {
@@ -15431,7 +15908,7 @@ var Gender;
 })(Gender || (Gender = {}));
 
 // build/dist/components/icons/reload-icon.js
-var ReloadSvg = ({
+var ReloadIcon = ({
   svg: color = {
     "--tw-text-opacity": "1",
     color: "rgba(0, 0, 0, var(--tw-text-opacity))"
@@ -15461,7 +15938,6 @@ var ReloadSvg = ({
 }), jsx("path", {
   d: "M40.219 44.834a25 25 0 0 0 8.93-13.364l-9.66-2.588a15 15 0 1 1-4.426-15.006L42.139 6.8a25 25 0 1 0-1.92 38.034z"
 })));
-var reload_icon_default = ReloadSvg;
 
 // build/dist/components/name-list.js
 var NameList = ({
@@ -15521,7 +15997,7 @@ var KinNameList = ({
       }
     },
     className: "yx-heading"
-  }, t3(`Kin.${title}`)), jsx(reload_icon_default, {
+  }, t3(`Kin.${title}`)), jsx(ReloadIcon, {
     container: {
       width: "1.5rem",
       height: "1.5rem"
@@ -15749,7 +16225,7 @@ var NameGeneratorPage = () => {
       rowGap: "2rem",
       width: "100%"
     }
-  }, jsx(page_header_default, null, t3("Title")), jsx("div", {
+  }, jsx(PageHeader, null, t3("Title")), jsx("div", {
     css: {
       display: "flex",
       flexWrap: "wrap",
@@ -15762,7 +16238,7 @@ var NameGeneratorPage = () => {
     css: {
       flexBasis: "500px"
     }
-  }, jsx(parchment_default, null, jsx(KinNameList, {
+  }, jsx(Parchment, null, jsx(KinNameList, {
     css: {
       padding: "0px"
     },
@@ -15772,7 +16248,7 @@ var NameGeneratorPage = () => {
     css: {
       flexBasis: "500px"
     }
-  }, jsx(parchment_default, null, jsx(KinNameList, {
+  }, jsx(Parchment, null, jsx(KinNameList, {
     css: {
       padding: "0px"
     },
@@ -15782,7 +16258,7 @@ var NameGeneratorPage = () => {
     css: {
       flexBasis: "500px"
     }
-  }, jsx(parchment_default, null, jsx(KinNameList, {
+  }, jsx(Parchment, null, jsx(KinNameList, {
     css: {
       padding: "0px"
     },
@@ -16395,7 +16871,7 @@ var SessionPage = () => {
       width: "100%",
       alignItems: "center"
     }
-  }, jsx(page_header_default, null, "Spelmöte"), jsx("div", {
+  }, jsx(PageHeader, null, "Spelmöte"), jsx("div", {
     css: {}
   }, jsx("div", {
     css: {
@@ -16404,7 +16880,7 @@ var SessionPage = () => {
         width: "65ch"
       }
     }
-  }, jsx(parchment_default, null, jsx("button", {
+  }, jsx(Parchment, null, jsx("button", {
     css: {
       display: "flex",
       gap: "0.5rem",
@@ -16424,502 +16900,13 @@ var SessionPage = () => {
       display: "flex"
     },
     className: "yx-heading"
-  }, "Sägen"), jsx(reload_icon_default, {
+  }, "Sägen"), jsx(ReloadIcon, {
     container: {
       width: "1.5rem",
       height: "1.5rem"
     },
     svg: {}
   })), jsx("div", null, legend)))));
-};
-
-// build/dist/components/list-item.js
-var ListButton = styled_default.button([
-  {
-    paddingLeft: "1rem",
-    paddingRight: "1rem",
-    paddingTop: "0.5rem",
-    paddingBottom: "0.5rem",
-    userSelect: "none",
-    ":focus": {
-      outline: "2px solid transparent",
-      outlineOffset: "2px"
-    },
-    width: "100%"
-  },
-  {
-    borderRadius: "0px",
-    borderWidth: "1px",
-    "--tw-border-opacity": "1",
-    borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
-    borderBottomWidth: "0px",
-    ":last-child": {
-      borderBottomWidth: "1px"
-    }
-  },
-  {
-    "@media (pointer: fine)": {
-      ":hover": {
-        "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
-      }
-    }
-  },
-  {
-    "--tw-bg-opacity": "1",
-    backgroundColor: "rgba(255, 255, 255, var(--tw-bg-opacity))",
-    "--tw-text-opacity": "1",
-    color: "rgba(0, 0, 0, var(--tw-text-opacity))"
-  },
-  {
-    fontSize: "0.875rem",
-    lineHeight: "1.25rem",
-    textAlign: "left"
-  }
-]);
-var ListItem = ({
-  children,
-  onClick
-}) => {
-  return jsx(ListButton, {
-    onClick,
-    role: "listitem"
-  }, children);
-};
-
-// build/dist/components/attribute-cheeckbox.js
-var AttributeCheckbox = () => {
-  const [checked, setChecked] = useState(false);
-  return jsx("div", null, jsx("button", {
-    css: {
-      width: "1.25rem",
-      height: "1.25rem",
-      borderWidth: "2px",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))",
-      borderRadius: "0px",
-      position: "relative",
-      ":hover": {
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
-      },
-      "@media (pointer: fine)": {
-        ":focus": {
-          outline: "2px solid transparent",
-          outlineOffset: "2px",
-          "--tw-border-opacity": "1",
-          borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
-        }
-      }
-    },
-    onClick: () => setChecked(!checked)
-  }, jsx("div", {
-    css: [{
-      position: "absolute",
-      pointerEvents: "none",
-      top: "50%",
-      left: "50%",
-      width: "175%",
-      height: "20%",
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(31, 41, 55, var(--tw-bg-opacity))"
-    }, {
-      opacity: "1",
-      "--tw-rotate": "110deg",
-      transform: "var(--tw-transform)",
-      "--tw-translate-x": "-50%",
-      "--tw-translate-y": "-50%",
-      borderRadius: "9999px"
-    }, {
-      transitionProperty: "all",
-      transitionTimingFunction: "cubic-bezier(0, 0.9, 0, 1)",
-      transitionDuration: "150ms"
-    }, !checked && {
-      opacity: "0",
-      "--tw-translate-x": "-25%",
-      transform: "var(--tw-transform)",
-      "--tw-translate-y": "-1000%"
-    }],
-    "aria-hidden": "true"
-  })));
-};
-
-// build/dist/components/monster-attributes.js
-var MonsterAttribute = ({
-  attribute: {
-    label,
-    values
-  }
-}) => {
-  const {
-    t: t3
-  } = useTranslation("monsters");
-  return jsx("div", {
-    css: css`
-        -webkit-backface-visibility: hidden;
-      `
-  }, jsx("label", {
-    css: {
-      fontWeight: "500",
-      marginBottom: "0.25rem",
-      display: "block"
-    },
-    htmlFor: "monster-strength"
-  }, t3(`Attributes.${label}`)), jsx("div", {
-    id: `monster-${label}-grid`,
-    css: {
-      display: "grid",
-      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-      columnGap: "1rem",
-      rowGap: "0.25rem",
-      maxWidth: "fit-content"
-    }
-  }, chunkArray(values).map((chunk, chunkIndex) => jsx("div", {
-    css: {
-      display: "flex",
-      gap: "0.25rem"
-    },
-    key: `${label}-${chunkIndex}`
-  }, chunk.map((_24, index) => jsx(AttributeCheckbox, {
-    key: `${label}-${chunkIndex}-${index}`
-  }))))));
-};
-
-// build/dist/data/monster.data.js
-var bookMonsters = [{
-  name: "Giant",
-  attributes: {
-    strength: 12,
-    agility: 2
-  },
-  pageReference: 120
-}, {
-  name: "AbyssWorm",
-  attributes: {
-    strength: 14,
-    agility: 2
-  },
-  pageReference: 72
-}, {
-  name: "Blodling",
-  attributes: {
-    strength: 8,
-    agility: 4
-  },
-  pageReference: 74
-}, {
-  name: "DragonSmall",
-  attributes: {
-    strength: 32,
-    agility: 2,
-    wits: 4,
-    empathy: 2
-  },
-  pageReference: 82
-}, {
-  name: "DragonLarge",
-  attributes: {
-    strength: 48,
-    agility: 4,
-    wits: 6,
-    empathy: 3
-  },
-  pageReference: 82
-}, {
-  name: "Drakewyrm",
-  attributes: {
-    strength: 25,
-    agility: 3,
-    wits: 5,
-    empathy: 2
-  },
-  pageReference: 84
-}, {
-  name: "DeathKnight",
-  attributes: {
-    strength: 12,
-    agility: 3,
-    wits: 3,
-    empathy: 2
-  },
-  pageReference: 86
-}, {
-  name: "Ent",
-  attributes: {
-    strength: 16,
-    agility: 3,
-    wits: 5,
-    empathy: 3
-  },
-  pageReference: 88
-}, {
-  name: "Wyvern",
-  attributes: {
-    strength: 14,
-    agility: 5
-  },
-  pageReference: 90
-}, {
-  name: "Ghost",
-  attributes: {
-    strength: 8,
-    agility: 3,
-    wits: 3,
-    empathy: 2
-  },
-  pageReference: 92
-}, {
-  name: "Gryphon",
-  attributes: {
-    strength: 12,
-    agility: 5
-  },
-  pageReference: 94
-}, {
-  name: "GrayBear",
-  attributes: {
-    strength: 14,
-    agility: 2
-  },
-  pageReference: 96
-}, {
-  name: "Harpies",
-  attributes: {
-    strength: 8,
-    agility: 3,
-    wits: 2,
-    empathy: 1
-  },
-  pageReference: 98
-}, {
-  name: "Hydra",
-  attributes: {
-    strength: 4,
-    agility: 4
-  },
-  pageReference: 100
-}, {
-  name: "Insectoid",
-  attributes: {
-    strength: 5,
-    agility: 3
-  },
-  pageReference: 102
-}, {
-  name: "GiantSquid",
-  attributes: {
-    strength: 14,
-    agility: 4
-  },
-  pageReference: 106
-}, {
-  name: "Manticore",
-  attributes: {
-    strength: 15,
-    agility: 4
-  },
-  pageReference: 108
-}, {
-  name: "Minotaur",
-  attributes: {
-    strength: 10,
-    agility: 4,
-    wits: 2,
-    empathy: 2
-  },
-  pageReference: 110
-}, {
-  name: "NightWarg",
-  attributes: {
-    strength: 8,
-    agility: 4
-  },
-  pageReference: 112
-}, {
-  name: "RestlessDead",
-  attributes: {
-    strength: 3,
-    agility: 2
-  },
-  pageReference: 114
-}, {
-  name: "Skeleton",
-  attributes: {
-    strength: 3,
-    agility: 2
-  },
-  pageReference: 114
-}, {
-  name: "Ghoul",
-  attributes: {
-    strength: 4,
-    agility: 2
-  },
-  pageReference: 114
-}, {
-  name: "SeaSerpent",
-  attributes: {
-    strength: 18,
-    agility: 3
-  },
-  pageReference: 116
-}, {
-  name: "StranglingVine",
-  attributes: {
-    strength: 8,
-    agility: 3
-  },
-  pageReference: 118
-}, {
-  name: "Troll",
-  attributes: {
-    strength: 8,
-    agility: 3
-  },
-  pageReference: 120
-}];
-
-// build/dist/functions/monster.functions.js
-var createMonstersViewModel = (monsters) => {
-  return monsters.map((m3) => {
-    return {
-      ...m3,
-      attributes: {
-        strength: numToBooleans("Strength", m3.attributes.strength),
-        agility: numToBooleans("Agility", m3.attributes.agility),
-        wits: numToBooleans("Wits", m3.attributes.wits),
-        empathy: numToBooleans("Empathy", m3.attributes.empathy)
-      }
-    };
-  });
-};
-var numToBooleans = (label, num) => {
-  if (!num)
-    return void 0;
-  return {
-    label,
-    values: range(num).map((_24) => false)
-  };
-};
-
-// build/dist/pages/monsters.page.js
-var MonstersPage = () => {
-  const {
-    t: t3,
-    i18n
-  } = useTranslation(["monsters", "common"]);
-  const monsters = createMonstersViewModel(bookMonsters);
-  const [monster, setMonster] = useState(monsters[0]);
-  const monsterComparer = (a2, b2) => {
-    const ma2 = t3(`Monster.${a2.name}`);
-    const mb2 = t3(`Monster.${b2.name}`);
-    if (ma2 < mb2) {
-      return -1;
-    }
-    if (ma2 > mb2) {
-      return 1;
-    }
-    return 0;
-  };
-  return jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      rowGap: "2rem",
-      width: "100%"
-    }
-  }, jsx(page_header_default, null, t3("Title")), jsx("div", {
-    css: {
-      display: "grid",
-      gap: "4rem",
-      "@media (min-width: 1024px)": {
-        gridTemplateColumns: "25% 1fr"
-      }
-    }
-  }, jsx("div", null, jsx("h3", {
-    css: {
-      fontSize: "1.25rem",
-      lineHeight: "1.75rem",
-      fontWeight: "700",
-      marginBottom: "0.5rem"
-    }
-  }, t3(`BookMonsters`)), jsx("ul", {
-    css: [{
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(243, 244, 246, var(--tw-bg-opacity))",
-      maxHeight: "24rem",
-      "@media (min-width: 1024px)": {
-        maxHeight: "initial"
-      },
-      "@media (min-width: 1280px)": {
-        maxHeight: "initial"
-      },
-      "@media (min-width: 1536px)": {
-        maxHeight: "initial"
-      }
-    }, css`
-              overflow-y: overlay;
-            `]
-  }, monsters.sort(monsterComparer).map((m3) => jsx(ListItem, {
-    key: m3.name,
-    onClick: () => setMonster(m3)
-  }, t3(`Monster.${m3.name}`))))), jsx(parchment_default, {
-    css: {
-      "@media (min-width: 1024px)": {
-        width: "75%"
-      }
-    },
-    deps: [monster, i18n.language]
-  }, jsx("header", {
-    css: {
-      marginBottom: "1rem"
-    }
-  }, jsx("h2", {
-    css: {
-      fontSize: "2.25rem",
-      lineHeight: "2.5rem",
-      marginBottom: "0.5rem"
-    },
-    className: "yx-heading"
-  }, t3(`Monster.${monster.name}`)), monster.pageReference && jsx("div", null, t3("Page", {
-    ns: "common"
-  }), ": ", monster.pageReference, " ", t3("GMBook", {
-    ns: "common"
-  }))), jsx("h3", {
-    css: {
-      fontSize: "1.25rem",
-      lineHeight: "1.75rem",
-      fontWeight: "700"
-    }
-  }, t3(`Attribute`)), jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.5rem"
-    }
-  }, monster.attributes.strength && jsx(MonsterAttribute, {
-    key: `${monster.name}-strength`,
-    attribute: {
-      ...monster.attributes.strength
-    }
-  }), monster.attributes.agility && jsx(MonsterAttribute, {
-    key: `${monster.name}-agility`,
-    attribute: {
-      ...monster.attributes.agility
-    }
-  }), monster.attributes.wits && jsx(MonsterAttribute, {
-    key: `${monster.name}-wits`,
-    attribute: {
-      ...monster.attributes.wits
-    }
-  }), monster.attributes.empathy && jsx(MonsterAttribute, {
-    key: `${monster.name}-empathy`,
-    attribute: {
-      ...monster.attributes.empathy
-    }
-  })))));
 };
 
 // build/dist/App.js
@@ -17003,7 +16990,7 @@ var App = () => {
       display: "block",
       width: "100%"
     }
-  }, jsx(logo_default, null))), jsx("div", {
+  }, jsx(YxansKlaganLogo, null))), jsx("div", {
     css: {
       height: "100%",
       display: "flex",
@@ -17052,9 +17039,9 @@ var HomePage = () => jsx("div", {
     rowGap: "2rem",
     maxWidth: "65ch"
   }
-}, jsx(page_header_default, null, "Svärdets Sång"), jsx(parchment_default, null, jsx("p", {
+}, jsx(PageHeader, null, "Svärdets Sång"), jsx(Parchment, null, jsx("p", {
   className: "yx-prose"
-}, "Välkomna till Svärdets sång. I detta bordsrollspel är ni inte hjältar som utför uppdrag på order av andra – i stället är ni äventyrare och skattletare fast beslutna att sätta ert eget märke på denna fördömda värld. Ni kommer att vandra genom det vilda landet, utforska glömda gravar, kämpa mot fruktansvärda monster och – om ni lever länge nog – bygga ert eget fäste och försvara det mot fiender. Under era äventyr kan ni avslöja de mörka krafter som rör sig i skuggorna och till slut kan det bli ni som avgör Det glömda landets öde.")), jsx(parchment_default, null, jsx("div", {
+}, "Välkomna till Svärdets sång. I detta bordsrollspel är ni inte hjältar som utför uppdrag på order av andra – i stället är ni äventyrare och skattletare fast beslutna att sätta ert eget märke på denna fördömda värld. Ni kommer att vandra genom det vilda landet, utforska glömda gravar, kämpa mot fruktansvärda monster och – om ni lever länge nog – bygga ert eget fäste och försvara det mot fiender. Under era äventyr kan ni avslöja de mörka krafter som rör sig i skuggorna och till slut kan det bli ni som avgör Det glömda landets öde.")), jsx(Parchment, null, jsx("div", {
   css: {
     display: "flex",
     flexDirection: "column",
@@ -20924,7 +20911,7 @@ var Backend = function() {
 Backend.type = "backend";
 var i18next_http_backend_default = Backend;
 
-// build/dist/i18n.js
+// build/dist/i18nReact.js
 var i18nReact = i18next_default;
 var loadPath = "locales/{{lng}}/{{ns}}.json";
 i18nReact.use(i18next_http_backend_default).use(i18next_browser_languagedetector_default).use(initReactI18next).init({
@@ -20940,12 +20927,12 @@ i18nReact.use(i18next_http_backend_default).use(i18next_browser_languagedetector
     escapeValue: false
   }
 });
-var i18n_default = i18nReact;
+var i18nReact_default = i18nReact;
 
 // build/dist/index.js
 import.meta.env = env_exports;
-react_dom_default.render(jsx(react.StrictMode, null, jsx(GlobalStyles_default, null), jsx(I18nextProvider, {
-  i18n: i18n_default
+react_dom_default.render(jsx(react.StrictMode, null, jsx(GlobalStyles, null), jsx(I18nextProvider, {
+  i18n: i18nReact_default
 }, jsx(Suspense, {
   fallback: "Loading..."
 }, jsx(HashRouter, null, jsx(App_default, null))))), document.getElementById("root"));
