@@ -1,6 +1,9 @@
+import { ValidLanguage } from './language.model'
 import { Terrain } from './terrain.model'
 
-export type EncounterData = { [key: number]: Encounter }
+export type EncounterData = {
+  [L in ValidLanguage]: { [key: number]: Encounter }
+}
 
 export interface Encounter {
   title: string

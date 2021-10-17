@@ -1,14 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import 'twin.macro'
 import { Button } from '../components/Button'
 import { Encounter } from '../components/encounter'
 import { PageHeader } from '../components/page-header'
-import { getRandomEncounter } from '../functions/encounter.functions'
-import { getTerrainName } from '../functions/terrain.functions'
+import {
+  getEncounterById,
+  getRandomEncounter,
+} from '../functions/encounter.functions'
 import { EncounterViewModel } from '../models/encounter.model'
+import { ValidLanguage } from '../models/language.model'
 import { getTerrainKeys, Terrain } from '../models/terrain.model'
 
 export const EncounterPage = () => {
+  const { t, i18n } = useTranslation('encounters')
   const [encounter, setEncounter] = useState<EncounterViewModel | undefined>(
     undefined,
   )
@@ -19,8 +24,11 @@ export const EncounterPage = () => {
     (EncounterViewModel & { timeStamp: number })[]
   >([])
 
-  const handleClick = (terrain: Terrain) => {
-    const randomEncounter = getRandomEncounter(terrain)
+  const generateNewEncounter = (terrain: Terrain) => {
+    const randomEncounter = getRandomEncounter(
+      terrain,
+      i18n.language as ValidLanguage,
+    )
     setEncounter(randomEncounter)
 
     if (
@@ -37,19 +45,39 @@ export const EncounterPage = () => {
     setOldTerrain(terrain)
   }
 
+  const handleClick = (terrain: Terrain) => {
+    generateNewEncounter(terrain)
+  }
+
+  useEffect(() => {
+    if (oldTerrain && encounter) {
+      setEncounter(
+        getEncounterById(encounter.id, i18n.language as ValidLanguage),
+      )
+      setEncounterLog(
+        encounterLog.map((el) => {
+          return {
+            ...el,
+            ...getEncounterById(el.id, i18n.language as ValidLanguage),
+          }
+        }),
+      )
+    }
+  }, [i18n.language])
+
   return (
     <div tw="flex flex-col gap-y-8 w-full items-center">
-      <PageHeader>Slumpmöten</PageHeader>
+      <PageHeader>{t('Title')}</PageHeader>
       <div tw="w-full bg-gray-200 p-2 grid grid-cols-2 md:grid-cols-3 lg:(flex) gap-2">
-        {getTerrainKeys().map((t) => (
+        {getTerrainKeys().map((terrain) => (
           <Button
-            key={t}
+            key={terrain}
             isSmall
             onClick={() => {
-              handleClick(t)
+              handleClick(terrain)
             }}
           >
-            {getTerrainName(t)}
+            {t(`Terrain.${terrain}`)}
           </Button>
         ))}
       </div>

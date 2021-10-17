@@ -1,0 +1,16 @@
+{
+  "Title": "Random Encounters",
+  "TerrainType": "Terrain type",
+  "Terrain": {
+    "All": "All",
+    "Plains": "Plains",
+    "Forest": "Forest",
+    "DarkForest": "Dark forest",
+    "Hills": "Hills",
+    "Mountain": "Mountains",
+    "Lake": "Lake",
+    "Swamp": "Marshlands",
+    "Mire": "Quagmire",
+    "RuinCity": "Ruins"
+  }
+}
