@@ -1,12 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import 'twin.macro'
-import { CalendarDay, CalendarFillerDays, Parchment } from '.'
 import { range } from '../functions/array.functions'
 import { TemperatureUnit } from '../functions/weather.functions'
 import { Day, Month } from '../models/calendar.model'
+import { CalendarDay } from './calendar-day'
 import { CalendarDayNames } from './calendar-day-names'
+import { CalendarFillerDays } from './calendar-filler-day'
 import { MonthCollapseButton } from './month-collapse-button'
+import { Parchment } from './parchment'
 
 interface CalendarMonthProps {
   month: Month
@@ -39,7 +41,7 @@ const quarterReducer = (month: Month, day: Day): Month => {
   }
 }
 
-const CalendarMonth = ({
+export const CalendarMonth = ({
   month,
   showWeather = true,
   temperatureUnit,
@@ -88,5 +90,3 @@ const CalendarMonth = ({
     </div>
   )
 }
-
-export default CalendarMonth

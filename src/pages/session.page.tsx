@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import tw from 'twin.macro'
-import { PageHeader, Parchment } from '../components'
-import { ReloadIcon } from '../components/icons'
+import { ReloadIcon } from '../components/icons/reload-icon'
+import { PageHeader } from '../components/page-header'
+import { Parchment } from '../components/parchment'
 import { generateLegend } from '../functions/legend.functions'
 
 export const SessionPage = () => {

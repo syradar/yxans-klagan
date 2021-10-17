@@ -19,11 +19,9 @@ const customStyles = css`
   }
 `
 
-const GlobalStyles = () => (
+export const GlobalStyles = () => (
   <>
     <BaseStyles />
     <Global styles={customStyles} />
   </>
 )
-
-export default GlobalStyles

@@ -5,7 +5,7 @@ interface ButtonProps {
   isSmall?: boolean
 }
 
-const Button = styled.button(({ variant, isSmall }: ButtonProps) => [
+export const Button = styled.button(({ variant, isSmall }: ButtonProps) => [
   // The common button styles
   tw`px-8 py-2 font-bold uppercase select-none tracking-wide focus:outline-none transform duration-75`,
   tw`border-2 border-black rounded-none`,
@@ -38,5 +38,3 @@ const Button = styled.button(({ variant, isSmall }: ButtonProps) => [
   //   color: ${theme`colors.black`};
   // `,
 ])
-
-export default Button

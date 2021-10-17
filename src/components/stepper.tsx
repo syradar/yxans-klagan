@@ -16,7 +16,7 @@ const stepButtonStyles = () => [
   tw`border-2 border-black rounded-none`,
 ]
 
-const Stepper = ({
+export const Stepper = ({
   value,
   id,
   twProps,
@@ -95,5 +95,3 @@ const Stepper = ({
     </div>
   )
 }
-
-export default Stepper

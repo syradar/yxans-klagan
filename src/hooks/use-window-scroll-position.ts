@@ -1,10 +1,10 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useLocalStorage } from './use-local-storage'
 
-export default function useWindowScrollPosition(
+export const useWindowScrollPosition = (
   localStorageKey: string,
   setCondition: boolean,
-): void {
+) => {
   const [scrollYStorage, setScrollYStorage] = useLocalStorage(
     localStorageKey,
     0,

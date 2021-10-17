@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   Link,
   LinkProps,
@@ -8,18 +9,18 @@ import {
 } from 'react-router-dom'
 import tw from 'twin.macro'
 import './App.css'
-import { PageHeader, Parchment } from './components'
 import { LanguageSwitcher } from './components/language-switcher'
-import YxansKlaganLogo from './logo'
+import { PageHeader } from './components/page-header'
+import { Parchment } from './components/parchment'
+import { YxansKlaganLogo } from './logo'
 import { CalendarPage } from './pages/calendar.page'
 import { DiceRollerPage } from './pages/dice-roller.page'
 import { EncounterPage } from './pages/encounter.page'
 import { GearPage } from './pages/gear.page'
 import { MapPage } from './pages/map.page'
+import { MonstersPage } from './pages/monsters.page'
 import { NameGeneratorPage } from './pages/name-generator.page'
 import { SessionPage } from './pages/session.page'
-import { useTranslation } from 'react-i18next'
-import { MonstersPage } from './pages/monsters.page'
 
 const styles = {
   // Move long class sets out of jsx to keep it scannable

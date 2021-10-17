@@ -1,9 +1,7 @@
 import React from 'react'
 import 'twin.macro'
 
-const YxansKlaganLogo = () => <YxansKlaganSvg />
-
-export default YxansKlaganLogo
+export const YxansKlaganLogo = () => <YxansKlaganSvg />
 
 const YxansKlaganSvg = () => (
   <div tw="mx-auto w-32 transition-transform hover:scale-105">

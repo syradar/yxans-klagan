@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import tw from 'twin.macro'
-import { Button } from '.'
 import { Hex } from '../models/map.model'
+import { Button } from './Button'
 
 export interface MapPopoverOptions {
   hex: Hex

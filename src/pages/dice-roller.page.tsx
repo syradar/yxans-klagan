@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import 'twin.macro'
-import { Button, PageHeader, Stepper } from '../components'
-import DiceDisplay from '../components/dice-display'
-import { Parchment } from '../components'
+import { Button } from '../components/Button'
+import { DiceDisplay } from '../components/dice-display'
+import { PageHeader } from '../components/page-header'
+import { Parchment } from '../components/parchment'
+import { Stepper } from '../components/stepper'
 import { range } from '../functions/array.functions'
 import { countSuccesses, getRandomInt } from '../functions/dice.functions'
 
