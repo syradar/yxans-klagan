@@ -11,7 +11,7 @@
   "Monster": {
     "Giant": "Giant",
     "AbyssWorm": "Abyss Worm",
-    "Blodling": "Blodling",
+    "Bloodling": "Bloodling",
     "DragonSmall": "Dragon, small",
     "DragonLarge": "Dragon, large",
     "Drakewyrm": "Drakewyrm",
@@ -27,7 +27,7 @@
     "GiantSquid": "Giant Squid",
     "Manticore": "Manticore",
     "Minotaur": "Minotaur",
-    "NightWarg": "Night Warg",
+    "NightWarg": "Nightwarg",
     "RestlessDead": "Restless Dead",
     "Skeleton": "Skeleton",
     "Ghoul": "Ghoul",

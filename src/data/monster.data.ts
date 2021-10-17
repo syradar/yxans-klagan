@@ -12,7 +12,7 @@ export const bookMonsters: Monster[] = [
     pageReference: 72,
   },
   {
-    name: 'Blodling',
+    name: 'Bloodling',
     attributes: { strength: 8, agility: 4 },
     pageReference: 74,
   },
