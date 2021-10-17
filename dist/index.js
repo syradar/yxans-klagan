@@ -15581,7 +15581,7 @@ var bookMonsters = [{
   },
   pageReference: 72
 }, {
-  name: "Blodling",
+  name: "Bloodling",
   attributes: {
     strength: 8,
     agility: 4
