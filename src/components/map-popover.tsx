@@ -41,12 +41,12 @@ export const MapPopover = ({
     }
   }, [options, ref])
 
-  const getX = (options?: MapPopoverOptions) => {
-    if (!options || !ref.current) {
+  const getX = (xOptions?: MapPopoverOptions) => {
+    if (!xOptions || !ref.current) {
       return initialPosition
     }
 
-    const { x, mapMaxX, mapMinX } = options
+    const { x, mapMaxX, mapMinX } = xOptions
 
     const rect = ref.current.getBoundingClientRect()
     const popoverX = x - rect.width / 2
@@ -62,12 +62,12 @@ export const MapPopover = ({
     return popoverX - mapMinX
   }
 
-  const getY = (options?: MapPopoverOptions) => {
-    if (!options || !ref.current) {
+  const getY = (yOptions?: MapPopoverOptions) => {
+    if (!yOptions || !ref.current) {
       return initialPosition
     }
 
-    const { y, mapMinY } = options
+    const { y, mapMinY } = yOptions
 
     const rect = ref.current.getBoundingClientRect()
     const popoverY = y - rect.height - mapMinY - 2
