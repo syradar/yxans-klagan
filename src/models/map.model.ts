@@ -89,8 +89,8 @@ export interface Hex {
 
 export type HexStorage = Omit<Hex, 'points'>
 
-const createInitialHexas = (hexData: HexData): Hex[] => {
-  return (Object.entries(hexData) as [HexKey, string][]).map(
+const createInitialHexas = (data: HexData): Hex[] => {
+  return (Object.entries(data) as [HexKey, string][]).map(
     ([hexKey, points]) => ({
       hexKey,
       points,

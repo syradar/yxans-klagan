@@ -1,15 +1,15 @@
-export const min = (min: number) => (val: number) => {
+export const min = (minVal: number) => (val: number) => {
   const nanError = `value was Nan`
 
-  if (isNaN(min)) {
-    throw new TypeError(`min ${nanError}`)
+  if (isNaN(minVal)) {
+    throw new TypeError(`minVal ${nanError}`)
   }
 
   if (isNaN(val)) {
     throw new TypeError(`val ${nanError}`)
   }
 
-  return val < min ? min : val
+  return val < minVal ? minVal : val
 }
 
 export const minZero = min(0)
