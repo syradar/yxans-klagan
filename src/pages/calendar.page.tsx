@@ -1,7 +1,6 @@
 import { last } from 'rambda'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import tw from 'twin.macro'
 import { Button, PageHeader, Stepper } from '../components'
 import CalendarMonth from '../components/calendar-month'

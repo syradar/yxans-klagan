@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import tw from 'twin.macro'
 import { DayCounter } from '.'
 import {

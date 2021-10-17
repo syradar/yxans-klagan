@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react'
-import 'twin.macro'
 import tw, { styled } from 'twin.macro'
 
 interface ListItemProps {

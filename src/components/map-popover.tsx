@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import tw from 'twin.macro'
 import { Button } from '.'
 import { Hex } from '../models/map.model'

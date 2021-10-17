@@ -1,6 +1,5 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import tw from 'twin.macro'
 
 interface MonthCollapseButtonProps {

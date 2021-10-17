@@ -1,5 +1,4 @@
 import React from 'react'
-import 'twin.macro'
 import tw from 'twin.macro'
 import { PageHeader, Parchment } from '../components'
 import { getRandomInt } from '../functions/dice.functions'

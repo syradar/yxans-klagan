@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import { css } from 'twin.macro'
 import { PageHeader, Parchment } from '../components'
 import { ListItem } from '../components/list-item'

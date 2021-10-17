@@ -1,6 +1,5 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import tw, { styled } from 'twin.macro'
 
 const DayName = styled.div(() => [

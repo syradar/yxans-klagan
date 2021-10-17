@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import tw from 'twin.macro'
 import { range } from '../functions/array.functions'
 import { Gender } from '../models/gender.model'

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import 'twin.macro'
 import tw from 'twin.macro'
 
 export const AttributeCheckbox = () => {

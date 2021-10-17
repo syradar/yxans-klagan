@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import 'twin.macro'
 import tw from 'twin.macro'
 import { Parchment } from '.'
 import { getTerrainName } from '../functions/terrain.functions'

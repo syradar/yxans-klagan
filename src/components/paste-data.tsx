@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react'
-import 'twin.macro'
 import tw from 'twin.macro'
 
 export interface PasteDataProps {
