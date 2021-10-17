@@ -40,11 +40,10 @@ export const getEncounterById = (
 }
 
 export const getRandomEncounter = (
+  roll: number,
   terrain: Terrain,
   lang: ValidLanguage,
 ): EncounterViewModel => {
-  const roll = getRandomT66()
-
   if (!isRollsWithEncounters(roll)) {
     return createEncounterViewModel(0, lang)
   }
