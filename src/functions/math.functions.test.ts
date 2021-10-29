@@ -10,6 +10,7 @@ describe('math functions', () => {
       [0, -Infinity, 0],
     ])('min: %i, val: %i, should be: %i', (minVal, val, expected) => {
       const result = min(minVal)(val)
+
       expect(result).toEqual(expected)
     })
 

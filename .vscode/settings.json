@@ -1,1 +1,4 @@
-{ "typescript.preferences.importModuleSpecifier": "relative" }
+{
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "jest.jestCommandLine": "yarn test"
+}
