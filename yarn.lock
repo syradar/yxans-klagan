@@ -8862,6 +8862,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"last-release-git@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "last-release-git@npm:0.0.3"
+  dependencies:
+    semver: ^5.3.0
+  checksum: 6e3cea6dbc53eb354ba50a288bb2ef2490968d0aa20b9033267bacc7a77bd51cde98397bd346fc8c8a5f56474cc320b4fdb9e4e4bdde1f42091ff33fbdc05ef0
+  languageName: node
+  linkType: hard
+
 "leven@npm:^3.1.0":
   version: 3.1.0
   resolution: "leven@npm:3.1.0"
@@ -11760,7 +11769,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"semver@npm:2 || 3 || 4 || 5, semver@npm:^5.4.1, semver@npm:^5.5.0, semver@npm:^5.5.1":
+"semver@npm:2 || 3 || 4 || 5, semver@npm:^5.3.0, semver@npm:^5.4.1, semver@npm:^5.5.0, semver@npm:^5.5.1":
   version: 5.7.1
   resolution: "semver@npm:5.7.1"
   bin:
@@ -13690,6 +13699,7 @@ resolve@^2.0.0-next.3:
     i18next-http-backend: ^1.3.1
     jest: ^27.2.5
     jest-sonar-reporter: ^2.0.0
+    last-release-git: ^0.0.3
     pinst: ^2.1.6
     prettier: ^2.4.1
     rambda: ^6.9.0
