@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/syradar/yxans-klagan/compare/v1.0.0...v1.0.1) (2021-10-30)
+
+
+### Bug Fixes
+
+* use semrel npm but do not publish ([fa1d33a](https://github.com/syradar/yxans-klagan/commit/fa1d33a44864331adbf5b44043af6118820855fa))
+
 # 1.0.0 (2021-10-30)
 
 
