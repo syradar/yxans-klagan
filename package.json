@@ -4,6 +4,7 @@
   "repository": {
     "url": "https://github.com/syradar/yxans-klagan"
   },
+  "private": true,
   "license": "MIT",
   "engines": {
     "node": "16.6.1"
