@@ -39,7 +39,7 @@ export const PasteData = ({
   }
 
   return (
-    <div tw="relative bg-white border-2 border-black pointer-fine:hover:border-yellow-500 focus:outline-none">
+    <div tw="relative bg-white border-2 border-black pointer-fine:hover:border-red-500 focus:outline-none">
       <textarea
         ref={textAreaRef}
         css={{ padding: '0.5rem 1rem' }}

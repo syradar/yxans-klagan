@@ -28,7 +28,6 @@ const styles = {
   container: () => [
     tw`bg-gray-50 flex-col min-h-screen h-full w-screen max-w-full`,
     // hasBackground && tw`wbg-gradient-to-b from-electric to-ribbon`,
-    //tw`bg-yellow-50`,
   ],
 }
 
@@ -96,6 +95,12 @@ const App = () => {
             </nav>
             <LanguageSwitcher></LanguageSwitcher>
           </div>
+          <a
+            tw="inline text-center mb-4 font-medium tracking-wide text-red-700 hover:underline"
+            href="https://github.com/syradar/yxans-klagan/issues/new/choose"
+          >
+            {t('GiveFeedback')}
+          </a>
         </div>
 
         <main tw="w-full mt-4 lg:(ml-48)">{routes}</main>
@@ -129,7 +134,7 @@ const HomePage = () => (
         <p className="yx-prose">
           Tack till{' '}
           <a
-            tw=" hover:text-yellow-500 underline"
+            tw="text-red-700 hover:underline"
             href="https://freeleaguepublishing.com/sv/"
           >
             Fria Ligan
@@ -154,10 +159,10 @@ const MenuLink: FC<LinkProps> = ({ to, children }: LinkProps) => {
 
   return (
     <Link
-      tw="px-4 py-1 w-full font-medium hover:bg-yellow-500"
+      tw="px-4 py-1 w-full font-medium hover:bg-red-500"
       css={[
         isLinkActive &&
-          tw`bg-black text-white font-semibold hover:bg-black hover:text-yellow-500`,
+          tw`bg-black text-white font-semibold hover:bg-black hover:text-red-500`,
       ]}
       to={to}
     >

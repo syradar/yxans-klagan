@@ -11,7 +11,7 @@ export const ListButton = styled.button([
   tw`px-4 py-2 select-none focus:outline-none w-full`,
   tw`rounded-none border border-gray-300 border-b-0 last:border-b`,
   // Use the variant grouping feature to add variants to multiple classes
-  tw`pointer-fine:hover:(bg-yellow-500 border-yellow-500) `,
+  tw`pointer-fine:hover:(bg-red-500 border-red-500) `,
 
   // Use props to conditionally style your components
   tw`bg-white text-black`,

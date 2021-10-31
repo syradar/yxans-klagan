@@ -12,7 +12,7 @@ export const DayCounter: FC<DayCounterProps> = ({
 }: DayCounterProps) => {
   return (
     <button
-      tw="w-full grid grid-cols-4 gap-0 hover:bg-yellow-500"
+      tw="w-full grid grid-cols-4 gap-0 hover:bg-red-500"
       onClick={() => spendQuarter()}
     >
       <Quarter spent={quarters[0]} index={0}></Quarter>

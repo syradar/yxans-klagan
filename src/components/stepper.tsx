@@ -50,7 +50,7 @@ export const Stepper = ({
       )}
       <div tw="w-auto inline-flex">
         <button
-          tw="w-10 hover:(bg-yellow-500 border-yellow-500) bg-black text-white"
+          tw="w-10 hover:(bg-red-500 border-red-500) bg-black text-white"
           css={stepButtonStyles()}
           type="button"
           onClick={decrement}
@@ -83,7 +83,7 @@ export const Stepper = ({
           disabled
         />
         <button
-          tw="w-10 hover:(bg-yellow-500 border-yellow-500) bg-black text-white"
+          tw="w-10 hover:(bg-red-500 border-red-500) bg-black text-white"
           css={stepButtonStyles()}
           type="button"
           onClick={increment}
