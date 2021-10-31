@@ -96,6 +96,12 @@ const App = () => {
             </nav>
             <LanguageSwitcher></LanguageSwitcher>
           </div>
+          <a
+            tw="inline text-center mb-4 font-medium tracking-wide text-red-700 hover:underline"
+            href="https://github.com/syradar/yxans-klagan/issues/new/choose"
+          >
+            {t('GiveFeedback')}
+          </a>
         </div>
 
         <main tw="w-full mt-4 lg:(ml-48)">{routes}</main>
