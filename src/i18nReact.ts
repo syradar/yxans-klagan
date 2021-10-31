@@ -33,6 +33,7 @@ i18nReact
       'monsters',
       'names',
       'encounters',
+      'session',
     ],
     keySeparator: '.',
     backend: {

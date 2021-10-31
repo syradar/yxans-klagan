@@ -7,32 +7,5 @@
     "Wits": "Intelligens",
     "Empathy": "Karisma"
   },
-  "BookMonsters": "Monster från boken",
-  "Monster": {
-    "Giant": "Jätte",
-    "AbyssWorm": "Avgrundsmask",
-    "Bloodling": "Blodling",
-    "DragonSmall": "Drake, liten",
-    "DragonLarge": "Drake, stor",
-    "Drakewym": "Drakorm",
-    "DeathKnight": "Dödsriddare",
-    "Ent": "Ent",
-    "Wyvern": "Flygödla",
-    "Ghost": "Gast",
-    "Gryphon": "Grip",
-    "GrayBear": "Gråbjörn",
-    "Harpies": "Harpyor",
-    "Hydra": "Hydra",
-    "Insectoid": "Insektoid",
-    "GiantSquid": "Jättebläckfisk",
-    "Manticore": "Mantikora",
-    "Minotaur": "Minotaur",
-    "NightWarg": "Nattulv",
-    "RestlessDead": "Vandöd",
-    "Skeleton": "Skelett",
-    "Ghoul": "Likätare",
-    "SeaSerpent": "Sjöorm",
-    "StranglingVine": "Stryparranka",
-    "Troll": "Troll"
-  }
+  "BookMonsters": "Monster från boken"
 }

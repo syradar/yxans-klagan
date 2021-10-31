@@ -44,7 +44,7 @@ export const MonstersPage = () => {
           >
             {monsters.sort(monsterComparer).map((m) => (
               <ListItem key={m.name} onClick={() => setMonster(m)}>
-                {t(`Monster.${m.name}`)}
+                {t(`Monster.${m.name}`, { ns: 'common' })}
               </ListItem>
             ))}
           </ul>
@@ -53,7 +53,7 @@ export const MonstersPage = () => {
         <Parchment tw="lg:(w-3/4)" deps={[monster, i18n.language]}>
           <header tw="mb-4">
             <h2 tw="text-4xl mb-2" className="yx-heading">
-              {t(`Monster.${monster.name}`)}
+              {t(`Monster.${monster.name}`, { ns: ['common'] })}
             </h2>
             {monster.pageReference && (
               <div>
