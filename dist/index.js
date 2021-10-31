@@ -10508,7 +10508,7 @@ var LanguageButton = styled_default.button(({
     "@media (pointer: fine)": {
       ":hover": {
         "--tw-border-opacity": "1",
-        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+        borderColor: "rgba(239, 68, 68, var(--tw-border-opacity))"
       }
     }
   },
@@ -11062,9 +11062,9 @@ var Button = styled_default.button(({
     "@media (pointer: fine)": {
       ":hover": {
         "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
+        backgroundColor: "rgba(239, 68, 68, var(--tw-bg-opacity))",
         "--tw-border-opacity": "1",
-        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))",
+        borderColor: "rgba(239, 68, 68, var(--tw-border-opacity))",
         "--tw-text-opacity": "1",
         color: "rgba(0, 0, 0, var(--tw-text-opacity))"
       }
@@ -11952,7 +11952,7 @@ var DayCounter = ({
       gap: "0px",
       ":hover": {
         "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))"
+        backgroundColor: "rgba(239, 68, 68, var(--tw-bg-opacity))"
       }
     },
     onClick: () => spendQuarter2()
@@ -12296,9 +12296,9 @@ var MonthCollapseButton = ({
       height: "2rem",
       ":hover": {
         "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
+        backgroundColor: "rgba(239, 68, 68, var(--tw-bg-opacity))",
         "--tw-border-opacity": "1",
-        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+        borderColor: "rgba(239, 68, 68, var(--tw-border-opacity))"
       }
     },
     onClick: onMonthCollapseClick
@@ -12476,9 +12476,9 @@ var Stepper = ({
       width: "2.5rem",
       ":hover": {
         "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
+        backgroundColor: "rgba(239, 68, 68, var(--tw-bg-opacity))",
         "--tw-border-opacity": "1",
-        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+        borderColor: "rgba(239, 68, 68, var(--tw-border-opacity))"
       },
       "--tw-bg-opacity": "1",
       backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
@@ -12517,9 +12517,9 @@ var Stepper = ({
       width: "2.5rem",
       ":hover": {
         "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
+        backgroundColor: "rgba(239, 68, 68, var(--tw-bg-opacity))",
         "--tw-border-opacity": "1",
-        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+        borderColor: "rgba(239, 68, 68, var(--tw-border-opacity))"
       },
       "--tw-bg-opacity": "1",
       backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
@@ -14196,7 +14196,7 @@ var PasteData = ({
       "@media (pointer: fine)": {
         ":hover": {
           "--tw-border-opacity": "1",
-          borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+          borderColor: "rgba(239, 68, 68, var(--tw-border-opacity))"
         }
       },
       ":focus": {
@@ -15656,9 +15656,9 @@ var ListButton = styled_default.button([
     "@media (pointer: fine)": {
       ":hover": {
         "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))",
+        backgroundColor: "rgba(239, 68, 68, var(--tw-bg-opacity))",
         "--tw-border-opacity": "1",
-        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+        borderColor: "rgba(239, 68, 68, var(--tw-border-opacity))"
       }
     }
   },
@@ -15698,14 +15698,14 @@ var AttributeCheckbox = () => {
       position: "relative",
       ":hover": {
         "--tw-border-opacity": "1",
-        borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+        borderColor: "rgba(239, 68, 68, var(--tw-border-opacity))"
       },
       "@media (pointer: fine)": {
         ":focus": {
           outline: "2px solid transparent",
           outlineOffset: "2px",
           "--tw-border-opacity": "1",
-          borderColor: "rgba(245, 158, 11, var(--tw-border-opacity))"
+          borderColor: "rgba(239, 68, 68, var(--tw-border-opacity))"
         }
       }
     },
@@ -16202,7 +16202,7 @@ var KinNameList = ({
       marginBottom: "1rem",
       ":hover": {
         "--tw-text-opacity": "1",
-        color: "rgba(245, 158, 11, var(--tw-text-opacity))"
+        color: "rgba(239, 68, 68, var(--tw-text-opacity))"
       }
     },
     onClick: () => getNames()
@@ -17196,7 +17196,7 @@ var SessionPage = () => {
       marginBottom: "1rem",
       ":hover": {
         "--tw-text-opacity": "1",
-        color: "rgba(245, 158, 11, var(--tw-text-opacity))"
+        color: "rgba(239, 68, 68, var(--tw-text-opacity))"
       }
     },
     onClick: () => getLegend()
@@ -17331,7 +17331,21 @@ var App = () => {
     to: "/gear"
   }, t3("Menu-Gear")), jsx(MenuLink, {
     to: "/names"
-  }, t3("Menu-Names"))), jsx(LanguageSwitcher, null))), jsx("main", {
+  }, t3("Menu-Names"))), jsx(LanguageSwitcher, null)), jsx("a", {
+    css: {
+      display: "inline",
+      textAlign: "center",
+      marginBottom: "1rem",
+      fontWeight: "500",
+      letterSpacing: "0.025em",
+      "--tw-text-opacity": "1",
+      color: "rgba(185, 28, 28, var(--tw-text-opacity))",
+      ":hover": {
+        textDecoration: "underline"
+      }
+    },
+    href: "https://github.com/syradar/yxans-klagan/issues/new/choose"
+  }, t3("GiveFeedback"))), jsx("main", {
     css: {
       width: "100%",
       marginTop: "1rem",
@@ -17369,11 +17383,11 @@ var HomePage = () => jsx("div", {
   className: "yx-prose"
 }, "Tack till", " ", jsx("a", {
   css: {
+    "--tw-text-opacity": "1",
+    color: "rgba(185, 28, 28, var(--tw-text-opacity))",
     ":hover": {
-      "--tw-text-opacity": "1",
-      color: "rgba(245, 158, 11, var(--tw-text-opacity))"
-    },
-    textDecoration: "underline"
+      textDecoration: "underline"
+    }
   },
   href: "https://freeleaguepublishing.com/sv/"
 }, "Fria Ligan"), " ", "för ett fantastiskt spel."), jsx("p", {
@@ -17400,7 +17414,7 @@ var MenuLink = ({
       fontWeight: "500",
       ":hover": {
         "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(245, 158, 11, var(--tw-bg-opacity))"
+        backgroundColor: "rgba(239, 68, 68, var(--tw-bg-opacity))"
       }
     }, isLinkActive && {
       "--tw-bg-opacity": "1",
@@ -17412,7 +17426,7 @@ var MenuLink = ({
         "--tw-bg-opacity": "1",
         backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
         "--tw-text-opacity": "1",
-        color: "rgba(245, 158, 11, var(--tw-text-opacity))"
+        color: "rgba(239, 68, 68, var(--tw-text-opacity))"
       }
     }],
     to
