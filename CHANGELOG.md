@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/syradar/yxans-klagan/compare/v1.0.1...v1.1.0) (2021-10-31)
+
+
+### Features
+
+* add english translation for Legend Generator ([503e1e1](https://github.com/syradar/yxans-klagan/commit/503e1e1a6ddaf0a4c542448cb1fc352b41fb9134))
+
 ## [1.0.1](https://github.com/syradar/yxans-klagan/compare/v1.0.0...v1.0.1) (2021-10-30)
 
 
