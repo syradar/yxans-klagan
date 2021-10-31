@@ -7,32 +7,5 @@
     "Wits": "Wits",
     "Empathy": "Empathy"
   },
-  "BookMonsters": "Monsters from the book",
-  "Monster": {
-    "Giant": "Giant",
-    "AbyssWorm": "Abyss Worm",
-    "Bloodling": "Bloodling",
-    "DragonSmall": "Dragon, small",
-    "DragonLarge": "Dragon, large",
-    "Drakewyrm": "Drakewyrm",
-    "DeathKnight": "Death Knight",
-    "Ent": "Ent",
-    "Wyvern": "Wyvern",
-    "Ghost": "Ghost",
-    "Gryphon": "Gryphon",
-    "GrayBear": "Gray Bear",
-    "Harpies": "Harpies",
-    "Hydra": "Hydra",
-    "Insectoid": "Insectoid",
-    "GiantSquid": "Giant Squid",
-    "Manticore": "Manticore",
-    "Minotaur": "Minotaur",
-    "NightWarg": "Nightwarg",
-    "RestlessDead": "Restless Dead",
-    "Skeleton": "Skeleton",
-    "Ghoul": "Ghoul",
-    "SeaSerpent": "Sea Serpent",
-    "StranglingVine": "Strangling Vine",
-    "Troll": "Troll"
-  }
+  "BookMonsters": "Monsters from the book"
 }

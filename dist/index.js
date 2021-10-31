@@ -12925,9 +12925,13 @@ var Encounter = ({
   const [transition, setTransition] = useState(false);
   const formatTerrains = (terrains) => {
     if (terrains.length >= 9) {
-      return t3("Terrain.All");
+      return t3("Terrain.All", {
+        ns: "common"
+      });
     }
-    return terrains.map((terrain2) => t3(`Terrain.${terrain2}`)).join(", ");
+    return terrains.map((terrain2) => t3(`Terrain.${terrain2}`, {
+      ns: "common"
+    })).join(", ");
   };
   useEffect(() => {
     setTransition(true);
@@ -13572,7 +13576,7 @@ var EncounterPage = () => {
   const {
     t: t3,
     i18n
-  } = useTranslation("encounters");
+  } = useTranslation(["encounters", "common"]);
   const [encounter, setEncounter] = useState(void 0);
   const [oldTerrain, setOldTerrain] = useState(void 0);
   const [encounterLog, setEncounterLog] = useState([]);
@@ -13637,7 +13641,9 @@ var EncounterPage = () => {
     onClick: () => {
       handleClick(terrain2);
     }
-  }, t3(`Terrain.${terrain2}`)))), jsx("div", {
+  }, t3(`Terrain.${terrain2}`, {
+    ns: "common"
+  })))), jsx("div", {
     css: {
       width: "100%",
       display: "grid",
@@ -16034,7 +16040,9 @@ var MonstersPage = () => {
   }, monsters.sort(monsterComparer).map((m3) => jsx(ListItem, {
     key: m3.name,
     onClick: () => setMonster(m3)
-  }, t3(`Monster.${m3.name}`))))), jsx(Parchment, {
+  }, t3(`Monster.${m3.name}`, {
+    ns: "common"
+  }))))), jsx(Parchment, {
     css: {
       "@media (min-width: 1024px)": {
         width: "75%"
@@ -16052,7 +16060,9 @@ var MonstersPage = () => {
       marginBottom: "0.5rem"
     },
     className: "yx-heading"
-  }, t3(`Monster.${monster.name}`)), monster.pageReference && jsx("div", null, t3("Page", {
+  }, t3(`Monster.${monster.name}`, {
+    ns: ["common"]
+  })), monster.pageReference && jsx("div", null, t3("Page", {
     ns: "common"
   }), ": ", monster.pageReference, " ", t3("GMBook", {
     ns: "common"
@@ -16459,13 +16469,77 @@ var NameGeneratorPage = () => {
 };
 
 // build/dist/functions/legend.functions.js
-var generateLegend = () => {
-  const longTimeAgo = `För länge sedan`;
+var generateLegend = (t3) => {
   const {
     description,
     age
   } = timeAgo();
-  return [longTimeAgo, description, `(${age} ES) var det en`, getText(ADJECTIVE), getText(WHO_OR_WHAT), "som sökte", getText(WHO_SEARCHED_FOR), "på grund av", getText(BECAUSE), "och begav sig till", getText(LOCATION), "som ligger", getText(DISTANCE, getRandomT6), "i", getText(TERRAIN), "i riktning", `${getText(DIRECTION, getRandomT8)}.`, "Enligt sägnen sägs det att hen", getText(WHAT_HAPPENED), "och på platsen finns", getText(ITS_TOLD_THAT), "men också", getText(ADJECTIVE_ADVERSARY), `${getText(ADVERSARY)}.`].join(" ");
+  const adjective = getText(ADJECTIVE);
+  const who_or_what = getText(WHO_OR_WHAT);
+  if (who_or_what.text() === "WhoOrWhat.Monster") {
+    who_or_what.pronoun = void 0;
+  }
+  const who_searched_for = getText(WHO_SEARCHED_FOR);
+  const because = getText(BECAUSE);
+  const location = getText(LOCATION);
+  const distance = getText(DISTANCE, getRandomT6);
+  const terrain2 = getText(TERRAIN);
+  const direction = getText(DIRECTION, getRandomT8);
+  const what_happened = getText(WHAT_HAPPENED);
+  const its_told_that = getText(ITS_TOLD_THAT);
+  const adjective_adversary = getText(ADJECTIVE_ADVERSARY);
+  const adversary = getText(ADVERSARY);
+  const sentences = [[t3(`ALongTimeAgo`, {
+    ns: ["session", "common"]
+  }), t3(description, {
+    ns: ["session", "common"]
+  }), t3(`YearsAgo`, {
+    years: age,
+    ns: ["session", "common"]
+  }), t3(`ThereWas`, {
+    ns: ["session", "common"]
+  }), t3(adjective.text(), {
+    ns: ["session", "common"]
+  }), t3(who_or_what.text(), {
+    ns: ["session", "common"]
+  }), t3(`WhoSearched`, {
+    ns: ["session", "common"]
+  }), t3(who_searched_for.text(), {
+    ns: ["session", "common"]
+  }), t3(`BecauseOf`, {
+    ns: ["session", "common"]
+  }), t3(because.text(), {
+    ns: ["session", "common"]
+  }), t3(`AndTraveledTo`, {
+    ns: ["session", "common"]
+  }), t3(location.text(), {
+    ns: ["session", "common"]
+  }), t3(`Located`, {
+    ns: ["session", "common"]
+  }), t3(distance.text(), {
+    ns: ["session", "common"]
+  }), t3(terrain2.text(), {
+    ns: ["session", "common"]
+  }), t3(`InTheDirectionOf`, {
+    ns: ["session", "common"]
+  }), t3(direction.text(), {
+    ns: ["session", "common"]
+  })].join(" "), [who_or_what.pronoun === "Third" ? t3(`AsTheLegendGoesItIsSaidThat`, {
+    context: who_or_what.pronoun,
+    ns: ["session", "common"]
+  }) : t3(`AsTheLegendGoesItIsSaidThat`, {
+    ns: ["session", "common"]
+  }), t3(what_happened.text(), {
+    context: who_or_what.pronoun,
+    ns: ["session", "common"]
+  }), t3(`AndThatAtTheLocationThere`, {
+    ns: ["session", "common"]
+  }), t3(its_told_that.text(), {
+    ns: ["session", "common"]
+  }), t3(`ButAlso`, {
+    ns: ["session", "common"]
+  }), getAdversary(adversary, adjective_adversary, t3)].join(" ")].join(". ");
+  return `${sentences}.`;
 };
 var timeAgo = () => {
   const roll = getRandomT66();
@@ -16477,24 +16551,24 @@ var timeAgo = () => {
     };
   }
   return time ?? {
-    description: "innan blodsdimmans tid",
+    description: "TimeAgo.BeforeShift",
     age: 0
   };
 };
 var TIME_AGO = [{
-  text: "innan skiftet",
+  text: "TimeAgo.BeforeShift",
   ageRange: [1100, 3e3],
   roll: [11, 12]
 }, {
-  text: "innan blodsdimman",
+  text: "TimeAgo.BeforeBloodMist",
   ageRange: [300, 1100],
   roll: [13, 14, 15, 16, 21, 22, 23, 24, 25, 26]
 }, {
-  text: "under de alderländska krigen",
+  text: "TimeAgo.DuringAlderWars",
   ageRange: [305, 360],
   roll: [31, 32, 33, 34, 35, 36, 41, 42, 43]
 }, {
-  text: "under blodsdimmans tid",
+  text: "TimeAgo.DuringBloodMist",
   ageRange: [5, 280],
   roll: [44, 45, 46, 51, 52, 53, 54, 55, 56, 61, 62, 63, 64, 65, 66]
 }];
@@ -16504,556 +16578,574 @@ var getText = (arr3, diceFn = getRandomT66) => {
     text: () => "",
     roll: []
   };
-  return result.text();
+  return result;
+};
+var getAdversary = (adversary, adjective, t3) => {
+  const _t = (key) => t3(key, {
+    ns: ["session", "common"]
+  });
+  if (adversary.text() !== "Adversary.DemonWithCount") {
+    return `${_t(adjective.text())} ${_t(adversary.text())}`;
+  }
+  const count = getRandomT6();
+  return `${count} ${_t(adjective.text())} ${_t(adversary.text())}`;
 };
 var ADJECTIVE = [{
   roll: [11],
-  text: () => "blodtörstig"
+  text: () => "Adjective.BloodThirsty"
 }, {
   roll: [12],
-  text: () => "hämndlysten"
+  text: () => "Adjective.Vengeful"
 }, {
   roll: [13],
-  text: () => "girig"
+  text: () => "Adjective.Greedy"
 }, {
   roll: [14],
-  text: () => "olyckligt"
+  text: () => "Adjective.Unhappy"
 }, {
   roll: [15],
-  text: () => "påhittig"
+  text: () => "Adjective.Ingenious"
 }, {
   roll: [16],
-  text: () => "driftig"
+  text: () => "Adjective.Enterprising"
 }, {
   roll: [21],
-  text: () => "vänlig"
+  text: () => "Adjective.Kind"
 }, {
   roll: [22],
-  text: () => "uthållig"
+  text: () => "Adjective.Perseverant"
 }, {
   roll: [23, 24],
-  text: () => "lömsk"
+  text: () => "Adjective.Treacherous"
 }, {
   roll: [25, 26],
-  text: () => "moralisk"
+  text: () => "Adjective.Moral"
 }, {
   roll: [31, 32],
-  text: () => "skicklig"
+  text: () => "Adjective.Skilled"
 }, {
   roll: [33, 34],
-  text: () => "snål"
+  text: () => "Adjective.Stingy"
 }, {
   roll: [35, 36],
-  text: () => "fåfäng"
+  text: () => "Adjective.Vain"
 }, {
   roll: [41, 42],
-  text: () => "vis"
+  text: () => "Adjective.Wise"
 }, {
   roll: [43, 44],
-  text: () => "vacker"
+  text: () => "Adjective.Beautiful"
 }, {
   roll: [45, 46],
-  text: () => "ärofull"
+  text: () => "Adjective.Honorable"
 }, {
   roll: [51, 52],
-  text: () => "missunnsam"
+  text: () => "Adjective.Jealous"
 }, {
   roll: [53, 54],
-  text: () => "grym"
+  text: () => "Adjective.Cruel"
 }, {
   roll: [55, 56],
-  text: () => "handlingskraftig"
+  text: () => "Adjective.Determined"
 }, {
   roll: [61, 62],
-  text: () => "listig"
+  text: () => "Adjective.Cunning"
 }, {
   roll: [63, 64],
-  text: () => "rädd"
+  text: () => "Adjective.Scared"
 }, {
   roll: [65, 66],
-  text: () => "ond"
+  text: () => "Adjective.Evil"
 }];
 var WHO_OR_WHAT = [{
   roll: [11],
-  text: () => "alv"
+  text: () => "WhoOrWhat.Elf"
 }, {
   roll: [12],
-  text: () => "dvärg"
+  text: () => "WhoOrWhat.Dwarf"
 }, {
   roll: [13],
-  text: () => "nasare"
+  text: () => "WhoOrWhat.Peddler"
 }, {
   roll: [14],
-  text: () => "smed"
+  text: () => "WhoOrWhat.Smith"
 }, {
   roll: [15],
-  text: () => "bonde"
+  text: () => "WhoOrWhat.Farmer"
 }, {
   roll: [16],
-  text: () => "lärling"
+  text: () => "WhoOrWhat.Apprentice"
 }, {
   roll: [21],
-  text: () => "druid"
+  text: () => "WhoOrWhat.Druid"
 }, {
   roll: [22],
-  text: () => "herde"
+  text: () => "WhoOrWhat.Shepherd"
 }, {
   roll: [23, 24],
-  text: () => "korpsyster"
+  text: () => "WhoOrWhat.RavenSister"
 }, {
   roll: [25, 26],
-  text: () => "rostbroder"
+  text: () => "WhoOrWhat.RustBrother"
 }, {
   roll: [31, 32],
-  text: () => "riddare/ryttare"
+  text: () => "WhoOrWhat.Rider"
 }, {
   roll: [33, 34],
-  text: () => "skattletare"
+  text: () => "WhoOrWhat.TreasureHunter"
 }, {
   roll: [35, 36],
-  text: () => "präst"
+  text: () => "WhoOrWhat.Priest"
 }, {
   roll: [41, 42],
-  text: () => "magiker"
+  text: () => "WhoOrWhat.Sorcerer"
 }, {
   roll: [43, 44],
-  text: () => "rövarhövding"
+  text: () => "WhoOrWhat.RobberChieftain"
 }, {
   roll: [45, 46],
-  text: () => "krigare"
+  text: () => "WhoOrWhat.Warrior"
 }, {
   roll: [51, 52],
-  text: () => "furste"
+  text: () => "WhoOrWhat.Lord"
 }, {
   roll: [53, 54],
-  text: () => "prins"
+  text: () => "WhoOrWhat.Prince"
 }, {
   roll: [55, 56],
-  text: () => "prinsessa"
+  text: () => "WhoOrWhat.Princess"
 }, {
   roll: [61, 62],
-  text: () => "drottning"
+  text: () => "WhoOrWhat.Queen"
 }, {
   roll: [63, 64],
-  text: () => "kung"
+  text: () => "WhoOrWhat.King"
 }, {
   roll: [65, 66],
   text: () => {
     const roll = getRandomInt(1, 6);
     switch (roll) {
       case 1:
-        return "trupp";
+        return "WhoOrWhat.Soldiers";
       case 2:
-        return "by";
+        return "WhoOrWhat.Village";
       case 3:
-        return "kult";
+        return "WhoOrWhat.Cult";
       case 4:
-        return "rövarband";
+        return "WhoOrWhat.BandOfRobbers";
       case 5:
-        return "kabal";
+        return "WhoOrWhat.Cabal";
       case 6:
-        return "monster";
+        return "WhoOrWhat.Monster";
       default:
-        return "rövarband";
+        return "WhoOrWhat.BandOfRobbers";
     }
-  }
+  },
+  pronoun: "Third"
 }];
 var WHO_SEARCHED_FOR = [{
   roll: [11, 12, 13, 14],
-  text: () => "ett vapen"
+  text: () => "SearchedFor.Weapon"
 }, {
   roll: [15, 16, 21, 22],
-  text: () => "en kärlek"
+  text: () => "SearchedFor.Love"
 }, {
   roll: [23, 24, 25, 26],
-  text: () => "en vän i nöd"
+  text: () => "SearchedFor.Friend"
 }, {
   roll: [31, 32, 33, 34],
-  text: () => "en fiende"
+  text: () => "SearchedFor.Enemy"
 }, {
   roll: [35, 36, 41, 42],
-  text: () => "en skatt"
+  text: () => "SearchedFor.Treasure"
 }, {
   roll: [43, 44, 45, 46],
-  text: () => "en karta"
+  text: () => "SearchedFor.Map"
 }, {
   roll: [51, 52, 53, 54],
-  text: () => "en familjemedlem"
+  text: () => "SearchedFor.FamilyMember"
 }, {
   roll: [55, 56, 61, 62],
-  text: () => "en artefakt"
+  text: () => "SearchedFor.Artifact"
 }, {
   roll: [63, 44, 65, 66],
-  text: () => "ett monster"
+  text: () => "SearchedFor.Monster"
 }];
 var BECAUSE = [{
   roll: [11, 12, 13, 14],
-  text: () => "kärlek"
+  text: () => "Because.Love"
 }, {
   roll: [15, 16],
-  text: () => "vänskap"
+  text: () => "Because.Friendship"
 }, {
   roll: [21, 22, 23, 24],
-  text: () => "ett löfte"
+  text: () => "Because.Promise"
 }, {
   roll: [25, 26, 31, 32, 33],
-  text: () => "en profetia"
+  text: () => "Because.Prophecy"
 }, {
   roll: [35, 36, 41],
-  text: () => "ett vad"
+  text: () => "Because.Bet"
 }, {
   roll: [42, 43, 44, 45],
-  text: () => "plikt"
+  text: () => "Because.Duty"
 }, {
   roll: [46, 51, 52],
-  text: () => "krig"
+  text: () => "Because.War"
 }, {
   roll: [53, 54, 55],
-  text: () => "ära"
+  text: () => "Because.Honor"
 }, {
   roll: [56, 61],
-  text: () => "vansinne"
+  text: () => "Because.Insanity"
 }, {
   roll: [62, 63],
-  text: () => "drömmar"
+  text: () => "Because.Dreams"
 }, {
   roll: [64, 65, 66],
-  text: () => "girighet"
+  text: () => "Because.Greed"
 }];
 var LOCATION = [{
   roll: [11, 12, 13, 14, 15, 16],
-  text: () => "en ruin"
+  text: () => "Location.Ruin"
 }, {
   roll: [21, 21],
-  text: () => "en gård"
+  text: () => "Location.Farm"
 }, {
   roll: [23, 24, 25, 26],
-  text: () => "en grav"
+  text: () => "Location.Grave"
 }, {
   roll: [31, 32, 33, 34],
-  text: () => "ett torn"
+  text: () => "Location.Tower"
 }, {
   roll: [35, 36],
-  text: () => "en borg"
+  text: () => "Location.Fortress"
 }, {
   roll: [41, 42, 43],
-  text: () => "en by"
+  text: () => "Location.Village"
 }, {
   roll: [44, 45, 46, 51, 52, 53],
-  text: () => "en grotta"
+  text: () => "Location.Cave"
 }, {
   roll: [54, 55, 56],
-  text: () => "en kulle"
+  text: () => "Location.Hill"
 }, {
   roll: [61, 62, 63],
-  text: () => "ett träd"
+  text: () => "Location.Tree"
 }, {
   roll: [64, 65, 66],
-  text: () => "en vattenkälla"
+  text: () => "Location.WaterSource"
 }];
 var DISTANCE = [{
   roll: [1],
-  text: () => "här"
+  text: () => "Distance.Here"
 }, {
   roll: [2],
-  text: () => "i närheten"
+  text: () => "Distance.CloseBy"
 }, {
   roll: [3],
-  text: () => "en dagsmarsch bort"
+  text: () => "Distance.OneDaysMarch"
 }, {
   roll: [4],
-  text: () => "flera dagsmarscher bort"
+  text: () => "Distance.ManyDaysMarch"
 }, {
   roll: [5],
-  text: () => "i fjärran"
+  text: () => "Distance.FarAway"
 }, {
   roll: [6],
-  text: () => "på andra sidan Det glömda landet"
+  text: () => "Distance.TheOtherSide"
 }];
 var TERRAIN = [{
   roll: [11, 12, 13, 14],
-  text: () => "ruinstad"
+  text: () => "ATerrain.RuinCity"
 }, {
   roll: [15, 16, 21],
-  text: () => "träsk"
+  text: () => "ATerrain.Swamp"
 }, {
   roll: [22, 23, 24],
-  text: () => "myrmark"
+  text: () => "ATerrain.Mire"
 }, {
   roll: [25, 26, 31, 32, 33, 34],
-  text: () => "slätt"
+  text: () => "ATerrain.Plains"
 }, {
   roll: [35, 36, 41, 42, 43, 44],
-  text: () => "skog"
+  text: () => "ATerrain.Forest"
 }, {
   roll: [45, 46, 51, 52, 53],
-  text: () => "kullar"
+  text: () => "ATerrain.Hills"
 }, {
   roll: [54, 55, 56, 61, 62, 63],
-  text: () => "mörk skog"
+  text: () => "ATerrain.DarkForest"
 }, {
   roll: [64],
-  text: () => "sjö"
+  text: () => "ATerrain.Lake"
 }, {
   roll: [65, 66],
-  text: () => "berg"
+  text: () => "ATerrain.Mountain"
 }];
 var DIRECTION = [{
   roll: [1],
-  text: () => "nord"
+  text: () => "Direction.North"
 }, {
   roll: [2],
-  text: () => "nordöst"
+  text: () => "Direction.NorthEast"
 }, {
   roll: [3],
-  text: () => "öst"
+  text: () => "Direction.East"
 }, {
   roll: [4],
-  text: () => "sydöst"
+  text: () => "Direction.SouthEast"
 }, {
   roll: [5],
-  text: () => "syd"
+  text: () => "Direction.South"
 }, {
   roll: [6],
-  text: () => "sydväst"
+  text: () => "Direction.SouthWest"
 }, {
   roll: [7],
-  text: () => "väst"
+  text: () => "Direction.West"
 }, {
   roll: [8],
-  text: () => "nordväst"
+  text: () => "Direction.NorthWest"
 }];
 var WHAT_HAPPENED = [{
   roll: [11, 12, 13, 14],
-  text: () => "blev förrådd"
+  text: () => "WhatHappened.Betrayed"
 }, {
   roll: [15, 21, 22],
-  text: () => "blev mördad"
+  text: () => "WhatHappened.Murdered"
 }, {
   roll: [23, 24, 25, 26],
-  text: () => "aldrig sågs mer"
+  text: () => "WhatHappened.NeverSeenAgain"
 }, {
   roll: [31, 32, 33],
-  text: () => "svalt ihjäl"
+  text: () => "WhatHappened.StarvedToDeath"
 }, {
   roll: [34, 35, 36],
-  text: () => "tog livet av sig"
+  text: () => "WhatHappened.CommitedSuicide"
 }, {
   roll: [41, 42, 43, 44],
-  text: () => "dog i strid"
+  text: () => "WhatHappened.DiedInBattle"
 }, {
   roll: [45, 46, 51, 52],
-  text: () => "blev förtrollad"
+  text: () => "WhatHappened.Charmed"
 }, {
   roll: [53, 54, 55, 56],
-  text: () => "blev besatt"
+  text: () => "WhatHappened.Possessed"
 }, {
   roll: [61, 62, 63],
-  text: () => "kom tillbaka förändrad"
+  text: () => "WhatHappened.CameBackChanged"
 }, {
   roll: [64, 65, 66],
-  text: () => "letar fortfarande"
+  text: () => "WhatHappened.StillLooking"
 }];
 var ITS_TOLD_THAT = [{
   roll: [11, 12, 13, 14],
-  text: () => "guld, massor av guld"
+  text: () => "ItsToldThat.Gold"
 }, {
   roll: [15, 16, 21, 22],
-  text: () => "en kraftfull artefakt"
+  text: () => "ItsToldThat.Artifact"
 }, {
   roll: [23, 24, 25, 26],
-  text: () => "en rustning"
+  text: () => "ItsToldThat.Armor"
 }, {
   roll: [31, 32, 33],
-  text: () => "ett vapen"
+  text: () => "ItsToldThat.Weapon"
 }, {
   roll: [34, 35, 36],
-  text: () => "en ovärderlig bok"
+  text: () => "ItsToldThat.Book"
 }, {
   roll: [41, 42, 43, 44],
-  text: () => "en stor skatt"
+  text: () => "ItsToldThat.Treasure"
 }, {
   roll: [45, 45, 46, 51, 52],
-  text: () => "en försvunnen krigskassa"
+  text: () => "ItsToldThat.WarChest"
 }, {
   roll: [53, 54, 55, 56],
-  text: () => "lämningarna av en viktig person"
+  text: () => "ItsToldThat.Remains"
 }, {
   roll: [61, 62, 63],
-  text: () => "en dvärgisk artefakt"
+  text: () => "ItsToldThat.DwarvenArtifact"
 }, {
   roll: [64, 65, 66],
-  text: () => "en alvrubin"
+  text: () => "ItsToldThat.ElfRuby"
 }];
 var ADJECTIVE_ADVERSARY = [{
   roll: [11, 12, 13, 14],
-  text: () => "aggresiva"
+  text: () => "AdjectiveAdversary.Aggresive"
 }, {
   roll: [15, 16, 21, 22],
-  text: () => "blodtörstiga"
+  text: () => "AdjectiveAdversary.BloodThirsty"
 }, {
   roll: [23, 24, 25],
-  text: () => "grymma"
+  text: () => "AdjectiveAdversary.Cruel"
 }, {
   roll: [26, 31, 32],
-  text: () => "fasansfulla"
+  text: () => "AdjectiveAdversary.Horrible"
 }, {
   roll: [33, 34],
-  text: () => "hungriga"
+  text: () => "AdjectiveAdversary.Hungry"
 }, {
   roll: [35, 36, 41, 42, 43],
-  text: () => "vaktande"
+  text: () => "AdjectiveAdversary.Guarding"
 }, {
   roll: [44, 45, 46],
-  text: () => "utsvultna"
+  text: () => "AdjectiveAdversary.Starving"
 }, {
   roll: [51, 52, 53, 54],
-  text: () => "giriga"
+  text: () => "AdjectiveAdversary.Greedy"
 }, {
   roll: [55, 56, 61],
-  text: () => "galna"
+  text: () => "AdjectiveAdversary.Crazy"
 }, {
   roll: [62, 63],
-  text: () => "mordiska"
+  text: () => "AdjectiveAdversary.Murderous"
 }, {
   roll: [64, 65],
-  text: () => "maniska"
+  text: () => "AdjectiveAdversary.Manic"
 }, {
   roll: [66],
-  text: () => "jagande"
+  text: () => "AdjectiveAdversary.Hunting"
 }];
 var ADVERSARY = [{
   roll: [11, 12, 13, 14],
-  text: () => "vargmän"
+  text: () => "Adversary.WolfKin"
 }, {
   roll: [15, 16, 21, 22],
-  text: () => "slavhandlare"
+  text: () => "Adversary.SlaveTraders"
 }, {
   roll: [23, 24, 25],
-  text: () => "orcher"
+  text: () => "Adversary.Orcs"
 }, {
   roll: [26, 31, 32],
-  text: () => "gastar"
+  text: () => "Adversary.Ghosts"
 }, {
   roll: [33, 34],
-  text: () => "reptilfolk"
+  text: () => "Adversary.Saurians"
 }, {
   roll: [35, 36, 41, 42, 43],
-  text: () => "järngardister"
+  text: () => "Adversary.IronGuards"
 }, {
   roll: [44, 45, 46],
-  text: () => "odöda"
+  text: () => "Adversary.Undead"
 }, {
   roll: [51, 52, 53, 54],
-  text: () => "rövare"
+  text: () => "Adversary.Robbers"
 }, {
   roll: [55, 56, 61],
-  text: () => "svartalfer"
+  text: () => "Adversary.Goblins"
 }, {
   roll: [62, 63],
-  text: () => "resar"
+  text: () => "Adversary.Ogres"
 }, {
   roll: [64, 65],
-  text: () => getText(MONSTER_LIST)
+  text: () => getText(MONSTER_LIST).text()
 }, {
   roll: [66],
   text: () => {
     const roll = getRandomInt(1, 6);
     switch (roll) {
       case 5:
-        return "två demoner";
+        return "Adversary.Demon_Two";
       case 6:
-        return `${getRandomT6()} demoner`;
+        return `Adversary.DemonWithCount`;
       case 1:
       case 2:
       case 3:
       case 4:
       default:
-        return "en demon";
+        return "Adversary.Demon_One";
     }
   }
 }];
 var MONSTER_LIST = [{
   roll: [11, 12],
-  text: () => "stryparranka"
+  text: () => "Monster.stryparranka"
 }, {
   roll: [13, 14, 15],
-  text: () => "gråbjörn"
+  text: () => "Monster.GrayBear"
 }, {
   roll: [16, 21, 22],
-  text: () => "nattulv"
+  text: () => "Monster.NightWarg"
 }, {
   roll: [23, 24],
-  text: () => "gast"
+  text: () => "Monster.Ghost"
 }, {
   roll: [25, 26],
-  text: () => "likätare"
+  text: () => "Monster.Ghoul"
 }, {
   roll: [31, 32],
-  text: () => "skelett"
+  text: () => "Monster.Skeleton"
 }, {
   roll: [33, 34],
-  text: () => "vandöd"
+  text: () => "Monster.RestlessDead"
 }, {
   roll: [35, 36],
-  text: () => "flygödla"
+  text: () => "Monster.Wyvern"
 }, {
   roll: [41, 42],
-  text: () => "harpyor"
+  text: () => "Monster.Harpies"
 }, {
   roll: [43],
-  text: () => "minotaur"
+  text: () => "Monster.Minotaur"
 }, {
   roll: [44],
-  text: () => "ent"
+  text: () => "Monster.Ent"
 }, {
   roll: [45],
-  text: () => "avgrundsmask"
+  text: () => "Monster.AbyssWorm"
 }, {
   roll: [46],
-  text: () => "jättebläckfisk"
+  text: () => "Monster.GiantSquid"
 }, {
   roll: [51],
-  text: () => "sjöorm"
+  text: () => "Monster.SeaSerpent"
 }, {
   roll: [52],
-  text: () => "troll"
+  text: () => "Monster.Troll"
 }, {
   roll: [53],
-  text: () => "dödsriddare"
+  text: () => "Monster.DeathKnight"
 }, {
   roll: [54],
-  text: () => "insektoid"
+  text: () => "Monster.Insectoid"
 }, {
   roll: [55],
-  text: () => "blodling"
+  text: () => "Monster.Bloodling"
 }, {
   roll: [56],
-  text: () => "mantikora"
+  text: () => "Monster.Manticore"
 }, {
   roll: [61],
-  text: () => "grip"
+  text: () => "Monster.Gryphon"
 }, {
   roll: [62],
-  text: () => "jätte"
+  text: () => "Monster.Giant"
 }, {
   roll: [63],
-  text: () => "hydra"
+  text: () => "Monster.Hydra"
 }, {
   roll: [64],
-  text: () => "demon"
+  text: () => "Monster.Demon"
 }, {
   roll: [65],
-  text: () => "drakorm"
+  text: () => "Monster.Drakewyrn"
 }, {
   roll: [66],
-  text: () => "drake"
+  text: () => "Monster.Dragon"
 }];
 
 // build/dist/pages/session.page.js
 var SessionPage = () => {
-  const [legend, setLegend] = useState(generateLegend());
-  const getLegend = () => setLegend(generateLegend());
+  const {
+    t: t3,
+    i18n
+  } = useTranslation(["session", "common"]);
+  const [legend, setLegend] = useState(generateLegend(t3));
+  const getLegend = () => setLegend(generateLegend(t3));
+  useEffect(() => {
+    getLegend();
+  }, [i18n.language]);
   return jsx("div", {
     css: {
       display: "flex",
@@ -17062,16 +17154,21 @@ var SessionPage = () => {
       width: "100%",
       alignItems: "center"
     }
-  }, jsx(PageHeader, null, "Spelmöte"), jsx("div", {
+  }, jsx(PageHeader, null, t3("Title")), jsx("div", {
     css: {}
   }, jsx("div", {
     css: {
       maxWidth: "65ch",
+      display: "flex",
+      flexDirection: "column",
+      gap: "2rem",
       "@media (min-width: 1024px)": {
         width: "65ch"
       }
     }
-  }, jsx(Parchment, null, jsx("button", {
+  }, jsx(Parchment, {
+    deps: [legend]
+  }, jsx("button", {
     css: {
       display: "flex",
       gap: "0.5rem",
@@ -17091,13 +17188,15 @@ var SessionPage = () => {
       display: "flex"
     },
     className: "yx-heading"
-  }, "Sägen"), jsx(ReloadIcon, {
+  }, t3("Legend")), jsx(ReloadIcon, {
     container: {
       width: "1.5rem",
       height: "1.5rem"
     },
     svg: {}
-  })), jsx("div", null, legend)))));
+  })), jsx("div", {
+    className: "yx-prose"
+  }, legend)))));
 };
 
 // build/dist/App.js
@@ -21109,7 +21208,7 @@ i18nReact.use(i18next_http_backend_default).use(i18next_browser_languagedetector
   fallbackLng: "en",
   debug: false,
   supportedLngs: ["en", "sv"],
-  ns: ["core", "common", "calendar", "map", "monsters", "names", "encounters"],
+  ns: ["core", "common", "calendar", "map", "monsters", "names", "encounters", "session"],
   keySeparator: ".",
   backend: {
     loadPath
