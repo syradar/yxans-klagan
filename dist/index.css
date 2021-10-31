@@ -72,21 +72,26 @@ main {
   font-style: normal;
   text-transform: uppercase;
 }
-.hexagon polygon {
-  stroke-width: 0.05px;
-  stroke-linejoin: miter;
-  stroke-opacity: 1;
-  stroke: black;
-}
-.hexagon:hover polygon {
-  fill: hsla(0deg, 0%, 90%, 50%);
-}
 #ravland-map .cls-1,
 #ravland-map .cls-2 {
+  stroke: #000;
+  stroke-miterlimit: 10;
+  stroke-width: 1px;
+  stroke-opacity: 0.25;
   fill: hsla(0deg, 0%, 0%, 50%);
+}
+#ravland-map.fog-of-war .cls-1,
+#ravland-map.fog-of-war .cls-2 {
+  stroke: #fff;
+  stroke-opacity: 0.25;
+  fill: hsla(0deg, 0%, 0%, 100%);
 }
 #ravland-map .hex:hover {
   fill: hsla(0deg, 0%, 0%, 25%);
+  cursor: pointer;
+}
+#ravland-map.fog-of-war .hex:hover {
+  fill: hsla(0deg, 0%, 0%, 100%);
   cursor: pointer;
 }
 #ravland-map .hex.hex-explored:hover {

@@ -14013,9 +14013,11 @@ var regularServices = [{
 
 // build/dist/components/map.js
 var Map2 = ({
+  fogOfWar,
   children
 }) => jsx("svg", {
   id: "ravland-map",
+  className: fogOfWar ? "fog-of-war" : "",
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 2057.95 1490.29"
 }, jsx("image", {
@@ -15336,6 +15338,7 @@ var initialHexas = createInitialHexas(hexData);
 
 // build/dist/pages/map.page.js
 var MAP_STORAGE_KEY = "map";
+var FOG_OF_WAR_STORAGE_KEY = "fogOfWar";
 var MapPage = () => {
   const {
     t: t3
@@ -15354,6 +15357,8 @@ var MapPage = () => {
     });
   };
   const [pasteError, setPasteError] = useState(void 0);
+  const fogOfWarFromStorage = (localStorage.getItem(FOG_OF_WAR_STORAGE_KEY) === "true" ? true : false) ?? false;
+  const [fogOfWar, setFogOfWar] = useState(fogOfWarFromStorage);
   const atLeastOneExploredHex = (hexas2) => hexas2.filter((h2) => h2.explored).length > 0;
   const [hexas, setHexas] = useState(constructHexas(hexasFromStorage));
   const [hasExploredHexas, setHasExploredHexas] = useState(atLeastOneExploredHex(hexas));
@@ -15443,7 +15448,8 @@ var MapPage = () => {
       explored
     }));
     downloadFile({
-      hexes: hexStorages
+      hexes: hexStorages,
+      fogOfWar
     }, "map");
   };
   const handlePasteMapData = (s) => {
@@ -15460,9 +15466,10 @@ var MapPage = () => {
     setHexas(initialHexas.map((hex) => {
       return {
         ...hex,
-        ...data.find((h2) => h2.hexKey === hex.hexKey) ?? {}
+        ...data.hexes.find((h2) => h2.hexKey === hex.hexKey) ?? {}
       };
     }));
+    setFogOfWar(data.fogOfWar);
   };
   const parseJson = (s) => {
     try {
@@ -15521,7 +15528,10 @@ var MapPage = () => {
     if (!isValidHexData) {
       throw new Error("InvalidHexData");
     }
-    return parsedMapData.hexes;
+    return {
+      hexes: parsedMapData.hexes,
+      fogOfWar: parsedMapData.fogOfWar
+    };
   };
   useEffect(() => {
     const hexStorages = hexas.map(({
@@ -15534,6 +15544,9 @@ var MapPage = () => {
     localStorage.setItem(MAP_STORAGE_KEY, JSON.stringify(hexStorages));
     setHasExploredHexas(atLeastOneExploredHex(hexas));
   }, [hexas]);
+  useEffect(() => {
+    localStorage.setItem(FOG_OF_WAR_STORAGE_KEY, JSON.stringify(fogOfWar));
+  }, [fogOfWar]);
   return jsx("div", {
     css: {
       display: "flex",
@@ -15571,7 +15584,9 @@ var MapPage = () => {
     options: mapPopover,
     onExploreChanged: (hex) => handleExploration(hex),
     onHide: () => handleSelectedHex(void 0)
-  }), jsx(Map2, null, hexas.map((hex, index) => jsx(Polygon, {
+  }), jsx(Map2, {
+    fogOfWar
+  }, hexas.map((hex, index) => jsx(Polygon, {
     key: index,
     hex,
     onMouseOver: (e3) => handleMouseOver(e3, hex),
@@ -15597,6 +15612,11 @@ var MapPage = () => {
       gap: "0.5rem"
     }
   }, jsx(Button, {
+    isSmall: true,
+    onClick: () => setFogOfWar(!fogOfWar)
+  }, t3("FogOfWar", {
+    context: fogOfWar ? "On" : "Off"
+  })), jsx(Button, {
     isSmall: true,
     variant: !hasExploredHexas ? "disabled" : void 0,
     disabled: !hasExploredHexas,
