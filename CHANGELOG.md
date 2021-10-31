@@ -1,3 +1,16 @@
+# [1.3.0](https://github.com/syradar/yxans-klagan/compare/v1.2.0...v1.3.0) (2021-10-31)
+
+
+### Bug Fixes
+
+* add version number to package.json ([7256911](https://github.com/syradar/yxans-klagan/commit/72569113776188457a672ca96c190f080c2a1851))
+
+
+### Features
+
+* add feedback link ([a02c299](https://github.com/syradar/yxans-klagan/commit/a02c2997174d108995783c46317616e5a7caa579))
+* **interaction color:** change interaction color to red ([20964a9](https://github.com/syradar/yxans-klagan/commit/20964a95a62b86054b8f10250e45e6988194bfcf))
+
 # [1.2.0](https://github.com/syradar/yxans-klagan/compare/v1.1.0...v1.2.0) (2021-10-31)
 
 
