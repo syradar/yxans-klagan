@@ -35,7 +35,7 @@ export const KinNameList = ({ title, nameFunc }: KinNameListProps) => {
   return (
     <div>
       <button
-        tw="flex gap-2 items-center mb-4 hover:text-yellow-500"
+        tw="flex gap-2 items-center mb-4 hover:text-red-500"
         onClick={() => getNames()}
       >
         <h2 tw="text-2xl lg:(text-4xl) text-center flex" className="yx-heading">

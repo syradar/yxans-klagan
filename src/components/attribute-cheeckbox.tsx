@@ -7,7 +7,7 @@ export const AttributeCheckbox = () => {
   return (
     <div>
       <button
-        tw="w-5 h-5 border-2 border-gray-400 rounded-none relative hover:border-yellow-500 pointer-fine:focus:(outline-none border-yellow-500)"
+        tw="w-5 h-5 border-2 border-gray-400 rounded-none relative hover:border-red-500 pointer-fine:focus:(outline-none border-red-500)"
         onClick={() => setChecked(!checked)}
       >
         <div

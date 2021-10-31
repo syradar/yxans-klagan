@@ -23,7 +23,7 @@ export const SessionPage = () => {
         <div tw="max-w-prose lg:(w-[65ch]) flex flex-col gap-8">
           <Parchment deps={[legend]}>
             <button
-              tw="flex gap-2 items-center mb-4 hover:text-yellow-500"
+              tw="flex gap-2 items-center mb-4 hover:text-red-500"
               onClick={() => getLegend()}
             >
               <h2 tw="text-4xl text-center flex" className="yx-heading">

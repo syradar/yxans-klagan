@@ -10,7 +10,7 @@ export const Button = styled.button(({ variant, isSmall }: ButtonProps) => [
   tw`px-8 py-2 font-bold uppercase select-none tracking-wide focus:outline-none transform duration-75`,
   tw`border-2 border-black rounded-none`,
   // Use the variant grouping feature to add variants to multiple classes
-  tw`pointer-fine:hover:(bg-yellow-500 border-yellow-500 text-black) `,
+  tw`pointer-fine:hover:(bg-red-500 border-red-500 text-black) `,
 
   // Use props to conditionally style your components
   tw`bg-black text-white`,
