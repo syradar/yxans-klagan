@@ -14,6 +14,7 @@ import { isNullish, isString } from '../functions/utils.functions'
 import { Hex, HexStorage, initialHexas, isHexKey } from '../models/map.model'
 
 const MAP_STORAGE_KEY = 'map'
+const FOG_OF_WAR_STORAGE_KEY = 'fogOfWar'
 
 export const MapPage = () => {
   const { t } = useTranslation('map')
@@ -35,6 +36,11 @@ export const MapPage = () => {
     })
   }
   const [pasteError, setPasteError] = useState<string | undefined>(undefined)
+
+  const fogOfWarFromStorage =
+    (localStorage.getItem(FOG_OF_WAR_STORAGE_KEY) === 'true' ? true : false) ??
+    false
+  const [fogOfWar, setFogOfWar] = useState<boolean>(fogOfWarFromStorage)
 
   const atLeastOneExploredHex = (hexas: Hex[]): boolean =>
     hexas.filter((h) => h.explored).length > 0
@@ -161,12 +167,12 @@ export const MapPage = () => {
         explored,
       }))
 
-    downloadFile({ hexes: hexStorages }, 'map')
+    downloadFile({ hexes: hexStorages, fogOfWar }, 'map')
   }
 
   const handlePasteMapData = (s: string) => {
     setPasteError(undefined)
-    let data: HexStorage[]
+    let data: { hexes: HexStorage[]; fogOfWar: boolean }
 
     try {
       data = validateData(s)
@@ -182,13 +188,16 @@ export const MapPage = () => {
       initialHexas.map((hex) => {
         return {
           ...hex,
-          ...(data.find((h) => h.hexKey === hex.hexKey) ?? {}),
+          ...(data.hexes.find((h) => h.hexKey === hex.hexKey) ?? {}),
         }
       }),
     )
+    setFogOfWar(data.fogOfWar)
   }
 
-  const parseJson = (s: string): { hexes: HexStorage[] } | undefined => {
+  const parseJson = (
+    s: string,
+  ): { hexes: HexStorage[]; fogOfWar: boolean } | undefined => {
     try {
       return JSON.parse(s)
     } catch (e) {
@@ -213,7 +222,9 @@ export const MapPage = () => {
     }
   }
 
-  const validateData = (s: string): HexStorage[] => {
+  const validateData = (
+    s: string,
+  ): { hexes: HexStorage[]; fogOfWar: boolean } => {
     const parsedMapData = parseJson(s)
 
     if (isNullish(parsedMapData)) {
@@ -258,7 +269,7 @@ export const MapPage = () => {
       throw new Error('InvalidHexData')
     }
 
-    return parsedMapData.hexes
+    return { hexes: parsedMapData.hexes, fogOfWar: parsedMapData.fogOfWar }
   }
 
   useEffect(() => {
@@ -271,6 +282,10 @@ export const MapPage = () => {
 
     setHasExploredHexas(atLeastOneExploredHex(hexas))
   }, [hexas])
+
+  useEffect(() => {
+    localStorage.setItem(FOG_OF_WAR_STORAGE_KEY, JSON.stringify(fogOfWar))
+  }, [fogOfWar])
 
   return (
     <div tw="flex flex-col gap-y-8 w-full">
@@ -294,7 +309,7 @@ export const MapPage = () => {
             onExploreChanged={(hex) => handleExploration(hex)}
             onHide={() => handleSelectedHex(undefined)}
           ></MapPopover>
-          <Map>
+          <Map fogOfWar={fogOfWar}>
             {hexas.map((hex, index) => (
               <Polygon
                 key={index}
@@ -314,6 +329,9 @@ export const MapPage = () => {
           </div>
         )}
         <div tw="bg-gray-200 p-2 flex justify-end gap-2">
+          <Button isSmall onClick={() => setFogOfWar(!fogOfWar)}>
+            {t('FogOfWar', { context: fogOfWar ? 'On' : 'Off' })}
+          </Button>
           <Button
             isSmall
             variant={!hasExploredHexas ? 'disabled' : undefined}

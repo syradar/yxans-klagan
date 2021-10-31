@@ -12,5 +12,7 @@
   "NoHexesProp": "JSON did not contain 'hexes' property",
   "HexesNotArray": "Property 'hexes' was not an array",
   "InvalidHexData": "Hex Data did not look like: { hexKey: HexKey, explored: boolean}",
-  "GeneralPasteError": "Unknown Paste Error"
+  "GeneralPasteError": "Unknown Paste Error",
+  "FogOfWar_On": "Turn off Fog of War",
+  "FogOfWar_Off": "Turn on Fog of War"
 }
