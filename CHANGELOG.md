@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/syradar/yxans-klagan/compare/v1.3.0...v1.3.1) (2021-10-31)
+
+
+### Bug Fixes
+
+* make sure to update package.json on release ([3bf214a](https://github.com/syradar/yxans-klagan/commit/3bf214a2e76c6af5cc4a2b66911d27046bda4330))
+
 # [1.3.0](https://github.com/syradar/yxans-klagan/compare/v1.2.0...v1.3.0) (2021-10-31)
 
 
