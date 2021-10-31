@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/syradar/yxans-klagan/compare/v1.1.0...v1.2.0) (2021-10-31)
+
+
+### Features
+
+* add fog of war options to map ([b965cda](https://github.com/syradar/yxans-klagan/commit/b965cdacc6963420137e607d914a361d803e831b))
+
 # [1.1.0](https://github.com/syradar/yxans-klagan/compare/v1.0.1...v1.1.0) (2021-10-31)
 
 
