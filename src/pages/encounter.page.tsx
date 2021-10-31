@@ -14,7 +14,7 @@ import { ValidLanguage } from '../models/language.model'
 import { getTerrainKeys, Terrain } from '../models/terrain.model'
 
 export const EncounterPage = () => {
-  const { t, i18n } = useTranslation('encounters')
+  const { t, i18n } = useTranslation(['encounters', 'common'])
   const [encounter, setEncounter] = useState<EncounterViewModel | undefined>(
     undefined,
   )
@@ -80,7 +80,7 @@ export const EncounterPage = () => {
               handleClick(terrain)
             }}
           >
-            {t(`Terrain.${terrain}`)}
+            {t(`Terrain.${terrain}`, { ns: 'common' })}
           </Button>
         ))}
       </div>

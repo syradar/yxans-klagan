@@ -16,10 +16,12 @@ export const Encounter = ({ encounter }: EncounterProps) => {
 
   const formatTerrains = (terrains: Terrain[]): string => {
     if (terrains.length >= 9) {
-      return t('Terrain.All')
+      return t('Terrain.All', { ns: 'common' })
     }
 
-    return terrains.map((terrain) => t(`Terrain.${terrain}`)).join(', ')
+    return terrains
+      .map((terrain) => t(`Terrain.${terrain}`, { ns: 'common' }))
+      .join(', ')
   }
 
   useEffect(() => {
