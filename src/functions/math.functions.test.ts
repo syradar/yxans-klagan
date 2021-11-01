@@ -1,4 +1,4 @@
-import { min } from './math.functions'
+import { isEven, min } from './math.functions'
 
 describe('math functions', () => {
   describe('min', () => {
@@ -20,6 +20,26 @@ describe('math functions', () => {
       [NaN, 0],
     ])('min: %i, val: %i, should throw error', (minVal, val) => {
       expect(() => min(minVal)(val)).toThrowError()
+    })
+  })
+
+  describe('isEven', () => {
+    it.each([
+      [true, 0],
+      [false, -1],
+      [true, -4],
+      [true, 2],
+      [false, 3],
+      [false, -Infinity],
+      [false, Infinity],
+    ])('min: %i, val: %i, should be: %i', (expected, val) => {
+      const result = isEven(val)
+
+      expect(result).toEqual(expected)
+    })
+
+    it('should throw error if given NaN', () => {
+      expect(() => isEven(NaN)).toThrowError()
     })
   })
 })

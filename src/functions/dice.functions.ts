@@ -1,4 +1,5 @@
 import { pluck, sum } from 'rambda'
+import { D6, D66 } from '../models/fbl-dice.model'
 
 /**
  * Can be used for any roll
@@ -15,23 +16,24 @@ export function getRandomInt(min = 1, max = 6) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-export const getRandomT6 = () => getRandomInt(1, 6)
+export const getRandomT6 = (): D6 => getRandomInt(1, 6) as D6
 
 export const getRandomT8 = () => getRandomInt(1, 8)
 
-export const getRandomT66 = () => {
-  const tens = getRandomInt() * 10
-  const ones = getRandomInt()
+export const getRandomT66 = (): D66 => {
+  const tens = getRandomT6() * 10
+  const ones = getRandomT6()
 
-  return tens + ones
+  return (tens + ones) as D66
 }
 
 export const choose = <T>(arr: readonly T[]): T =>
   arr[getRandomInt(0, arr.length - 1)]
 
-interface WeightedChoice {
+export interface WeightedChoice {
   weight: number
 }
+
 export const weightedRandom = <T extends WeightedChoice>(
   probabilities: T[],
 ): T => {

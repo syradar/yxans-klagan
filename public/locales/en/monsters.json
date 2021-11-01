@@ -7,5 +7,20 @@
     "Wits": "Wits",
     "Empathy": "Empathy"
   },
-  "BookMonsters": "Monsters from the book"
+  "BookMonsters": "Monsters from the book",
+  "TheMonsterHas": "The monster has",
+  "Head": {
+    "Missing": "a missing head",
+    "Beak": "a beak",
+    "HornWithCount": "{{count}} horns on its head",
+    "ElkHorns": "elkhorns",
+    "TentaclesWithCount": "{{count}} tentacles on its head",
+    "InsectoidEyes": "insectoid eyes",
+    "SideEyesWithCount": "{{count}} eyes on each side of its head",
+    "ManyEyes": "many eyes",
+    "BigMane": "a big mane",
+    "LongTongue": "a long tongue",
+    "BigEars": "big ears",
+    "Fin": "a fin on top of its head"
+  }
 }
