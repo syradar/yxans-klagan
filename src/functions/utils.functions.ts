@@ -1,3 +1,5 @@
+import { compose, map, range } from 'rambda'
+
 export type Nullish = null | undefined
 
 export const isNullish = (val: unknown): val is Nullish => val == null
@@ -20,3 +22,8 @@ export const isObject = (x: unknown): x is Record<string, unknown> =>
   typeof x === 'object'
 
 export const isArray = (x: unknown): x is string => Array.isArray(x)
+
+export const numberToBooleans = compose(
+  map((_) => false),
+  range(0),
+)
