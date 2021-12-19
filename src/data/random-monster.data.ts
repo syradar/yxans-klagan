@@ -1,10 +1,16 @@
 import { getRandomInt, getRandomT6 } from '../functions/dice.functions'
 import { isEven } from '../functions/math.functions'
+import { validNumber } from '../functions/utils.functions'
 import {
+  ArmorTypeLabel,
   HeadChoices,
   LimbChoices,
+  MonsterHome,
   MonsterSize,
   MonsterType,
+  MovementDistanceFunction,
+  MovementType,
+  TailChoices,
   WeightedRandomMonsterChoice,
 } from '../models/monster.model'
 
@@ -170,5 +176,187 @@ export const headChoices: WeightedRandomMonsterChoice<{
   {
     weight: 3,
     value: { key: 'RollTwice' },
+  },
+]
+
+export const tailChoices: WeightedRandomMonsterChoice<{
+  key: TailChoices
+  damage: number
+}>[] = [
+  {
+    weight: 3,
+    value: {
+      key: 'None',
+      damage: 0,
+    },
+  },
+  {
+    weight: 2,
+    value: {
+      key: 'Tail',
+      damage: 0,
+    },
+  },
+  {
+    weight: 1,
+    value: {
+      key: 'SpikedTail',
+      damage: 1,
+    },
+  },
+]
+
+export const armorChoices: WeightedRandomMonsterChoice<{
+  key: ArmorTypeLabel
+  armor: number
+}>[] = [
+  {
+    weight: 4,
+    value: {
+      key: 'Skin',
+      armor: 0,
+    },
+  },
+  {
+    weight: 4,
+    value: {
+      key: 'SoftFur',
+      armor: 1,
+    },
+  },
+  {
+    weight: 10,
+    value: {
+      key: 'ThickFur',
+      armor: 2,
+    },
+  },
+  {
+    weight: 4,
+    value: {
+      key: 'Feathers',
+      armor: 2,
+    },
+  },
+  {
+    weight: 5,
+    value: {
+      key: 'Scales',
+      armor: 3,
+    },
+  },
+  {
+    weight: 4,
+    value: {
+      key: 'Shell',
+      armor: 5,
+    },
+  },
+  {
+    weight: 3,
+    value: {
+      key: 'BonePlates',
+      armor: 7,
+    },
+  },
+  {
+    weight: 2,
+    value: {
+      key: 'ArmoredHide',
+      armor: 9,
+    },
+  },
+]
+
+export const defaultMovementDistanceFunction = (
+  movementAgility: [number, number, number],
+): MovementDistanceFunction => {
+  return (agility: number): number => {
+    if (!validNumber(agility) || agility < 0) return 0
+
+    if (agility <= 2) return movementAgility[0]
+
+    if (agility <= 4) return movementAgility[1]
+
+    return movementAgility[2]
+  }
+}
+
+export const movementTypes: WeightedRandomMonsterChoice<{
+  type: MovementType
+  distanceFn: MovementDistanceFunction
+}>[] = [
+  {
+    weight: 3,
+    value: {
+      type: 'Slithering',
+      distanceFn: defaultMovementDistanceFunction([1, 1, 2]),
+    },
+  },
+  {
+    weight: 3,
+    value: {
+      type: 'Digging',
+      distanceFn: defaultMovementDistanceFunction([1, 1, 2]),
+    },
+  },
+  {
+    weight: 5,
+    value: {
+      type: 'Swimming',
+      distanceFn: defaultMovementDistanceFunction([1, 2, 2]),
+    },
+  },
+  {
+    weight: 13,
+    value: {
+      type: 'Running',
+      distanceFn: defaultMovementDistanceFunction([1, 2, 2]),
+    },
+  },
+  {
+    weight: 6,
+    value: {
+      type: 'Flying',
+      distanceFn: defaultMovementDistanceFunction([2, 3, 3]),
+    },
+  },
+  {
+    weight: 6,
+    value: {
+      type: 'Climbing',
+      distanceFn: defaultMovementDistanceFunction([1, 2, 2]),
+    },
+  },
+]
+
+export const homes: WeightedRandomMonsterChoice<MonsterHome>[] = [
+  {
+    weight: 4,
+    value: 'Burrow',
+  },
+  {
+    weight: 5,
+    value: 'Ruin',
+  },
+  {
+    weight: 5,
+    value: 'WateringHole',
+  },
+  {
+    weight: 4,
+    value: 'TreeOrHighPoint',
+  },
+  {
+    weight: 5,
+    value: 'Cave',
+  },
+  {
+    weight: 5,
+    value: 'Ravine',
+  },
+  {
+    weight: 8,
+    value: 'Den',
   },
 ]

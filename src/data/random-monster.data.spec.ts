@@ -1,5 +1,19 @@
-import { MonsterSize, MonsterType } from '../models/monster.model'
-import { sizes, types } from './random-monster.data'
+import { compose, pluck, sum } from 'rambda'
+import {
+  MonsterHome,
+  MonsterSize,
+  MonsterType,
+  MovementDistanceFunction,
+  MovementType,
+  WeightedRandomMonsterChoice,
+} from '../models/monster.model'
+import {
+  defaultMovementDistanceFunction,
+  homes,
+  movementTypes,
+  sizes,
+  types,
+} from './random-monster.data'
 
 describe('sizes', () => {
   describe('smaller ones', () => {
@@ -50,5 +64,58 @@ describe('agility', () => {
 
       expect(result).toEqual(expected)
     })
+  })
+})
+
+describe('movementTypes', () => {
+  it('should have 36 choices', () => {
+    const movementTypeChoices = compose(
+      sum,
+      (
+        mts: WeightedRandomMonsterChoice<{
+          type: MovementType
+          distanceFn: MovementDistanceFunction
+        }>[],
+      ) => pluck('weight', mts),
+    )
+
+    const expected = 36
+    const result = movementTypeChoices(movementTypes)
+
+    expect(result).toEqual(expected)
+  })
+})
+
+describe('monsterHomes', () => {
+  it('should have 36 choices', () => {
+    const movementTypeChoices = compose(
+      sum,
+      (mts: WeightedRandomMonsterChoice<MonsterHome>[]) => pluck('weight', mts),
+    )
+
+    const expected = 36
+    const result = movementTypeChoices(homes)
+
+    expect(result).toEqual(expected)
+  })
+})
+
+describe('defaultMovementDistanceFunction', () => {
+  const defaultMovementDistanceFn = defaultMovementDistanceFunction([1, 2, 3])
+
+  it.each([
+    [0, -1],
+    [0, Infinity],
+    [0, NaN],
+    [1, 1],
+    [1, 2],
+    [2, 3],
+    [2, 4],
+    [3, 5],
+    [3, 15],
+  ])('should return %s for %s', (expected, input) => {
+    const result = defaultMovementDistanceFn(input)
+
+    expect(result).toEqual(expected)
   })
 })

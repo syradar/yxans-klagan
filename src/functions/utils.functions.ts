@@ -8,9 +8,13 @@ export const notNullish = <T>(val: T): val is NonNullable<T> => !isNullish(val)
 
 export const inRange =
   (range?: [number, number]) =>
-  (val: number): boolean => {
+  (val: number, inclusive = false): boolean => {
     if (isNullish(range)) {
       return false
+    }
+
+    if (inclusive) {
+      return val >= range[0] && val <= range[1]
     }
 
     return val > range[0] && val < range[1]
@@ -27,3 +31,39 @@ export const numberToBooleans = compose(
   map((_) => false),
   range(0),
 )
+
+interface MaybeType<T> {
+  map: <U>(fn: (val: T) => U) => MaybeType<U>
+  value: () => T | undefined
+  withDefault: <U>(defaultValue: U) => T | U
+}
+
+export const maybe = <T>(val?: T): MaybeType<T> => {
+  const innerValue = val ?? undefined
+
+  return {
+    map: (fn) => {
+      if (isNullish(innerValue)) {
+        return maybe()
+      }
+
+      return maybe(fn(innerValue))
+    },
+    value: () => innerValue,
+    withDefault: (defaultValue) => {
+      if (isNullish(innerValue)) {
+        return defaultValue
+      }
+
+      return innerValue
+    },
+  }
+}
+
+export const validNumber = (
+  num: number | Nullish,
+): num is NonNullable<number> => {
+  if (isNullish(num)) return false
+
+  return !isNaN(num) && isFinite(num)
+}

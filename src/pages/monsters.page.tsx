@@ -8,13 +8,17 @@ import { PageHeader } from '../components/page-header'
 import { Parchment } from '../components/parchment'
 import { bookMonsters } from '../data/monster.data'
 import { createMonstersViewModel } from '../functions/monster.functions'
-import { createRandomMonster } from '../functions/random-monster.functions'
+import {
+  createRandomMonster,
+  createRandomMonsterViewModel,
+} from '../functions/random-monster.functions'
 import { MonsterViewModel } from '../models/monster.model'
 
 export const MonstersPage = () => {
   const { t, i18n } = useTranslation(['monsters', 'common'])
   const monsters = createMonstersViewModel(bookMonsters)
   const [monster, setMonster] = useState(monsters[0])
+
   const monsterComparer = (
     a: MonsterViewModel,
     b: MonsterViewModel,
@@ -32,7 +36,9 @@ export const MonstersPage = () => {
     return 0
   }
 
-  const [randomMonster, setRandomMonster] = useState(createRandomMonster(t))
+  const [randomMonster, setRandomMonster] = useState(
+    createRandomMonsterViewModel(createRandomMonster(t)),
+  )
 
   return (
     <div tw="flex flex-col gap-y-8 w-full ">
@@ -42,7 +48,11 @@ export const MonstersPage = () => {
           <h3 tw="text-xl font-bold mb-2">{t(`BookMonsters`)}</h3>
           <Button
             isSmall
-            onClick={() => setRandomMonster(createRandomMonster(t))}
+            onClick={() =>
+              setRandomMonster(
+                createRandomMonsterViewModel(createRandomMonster(t)),
+              )
+            }
           >
             Random Monster
           </Button>
@@ -62,19 +72,51 @@ export const MonstersPage = () => {
 
         <Parchment tw="lg:(w-3/4)" deps={[monster, i18n.language]}>
           <div tw="mb-16 flex flex-col gap-2">
-            <div>name: {randomMonster.name}</div>
-            <div>size: {randomMonster.size}</div>
-            <div>type: {randomMonster.type}</div>
-            <div>STR: {randomMonster.attributes.strength}</div>
-            <div>AGI: {randomMonster.attributes.agility}</div>
+            <h2 tw="text-4xl mb-2" className="yx-heading">
+              {randomMonster.size} {randomMonster.type}
+            </h2>
 
-            <div>Arms: {randomMonster.limbs.Arms}</div>
-            <div>Legs: {randomMonster.limbs.Legs}</div>
-            <div>Tentacles: {randomMonster.limbs.Tentacles}</div>
-            <div>Wings: {randomMonster.limbs.Wings}</div>
+            <div className="yx-prose">
+              <p>
+                {t('TheMonsterHas')} {randomMonster.description.head}
+              </p>
+
+              <p>{randomMonster.description.limbs}</p>
+
+              <p>{t('LivesIn', { home: t(`Homes.${randomMonster.home}`) })}.</p>
+            </div>
+            {randomMonster.attributes.strength && (
+              <MonsterAttribute
+                key={`${randomMonster.size}-strength`}
+                values={[...randomMonster.attributes.strength.values]}
+                label={t(
+                  `Attributes.${randomMonster.attributes.strength.label}`,
+                )}
+              />
+            )}
+            {randomMonster.attributes.agility && (
+              <MonsterAttribute
+                key={`${randomMonster.size}-agility`}
+                values={[...randomMonster.attributes.agility.values]}
+                label={t(
+                  `Attributes.${randomMonster.attributes.agility.label}`,
+                )}
+              />
+            )}
+            {randomMonster.armor && (
+              <div>
+                <h3 tw="text-xl font-medium">{t('ArmorLabel')}</h3>
+                <MonsterAttribute
+                  key={`${randomMonster.size}-armor`}
+                  values={[...randomMonster.armor.values]}
+                  label={t(`Armor.${randomMonster.armor.label}`)}
+                />
+              </div>
+            )}
 
             <div>
-              {t('TheMonsterHas')} {randomMonster.description.head}
+              Movement: {randomMonster.movement.type}{' '}
+              {randomMonster.movement.distance}
             </div>
           </div>
           <header tw="mb-4">
@@ -93,25 +135,29 @@ export const MonstersPage = () => {
             {monster.attributes.strength && (
               <MonsterAttribute
                 key={`${monster.name}-strength`}
-                attribute={{ ...monster.attributes.strength }}
+                values={[...monster.attributes.strength.values]}
+                label={t(`Attributes.${monster.attributes.strength.label}`)}
               />
             )}
             {monster.attributes.agility && (
               <MonsterAttribute
                 key={`${monster.name}-agility`}
-                attribute={{ ...monster.attributes.agility }}
+                values={[...monster.attributes.agility.values]}
+                label={t(`Attributes.${monster.attributes.agility.label}`)}
               />
             )}
             {monster.attributes.wits && (
               <MonsterAttribute
                 key={`${monster.name}-wits`}
-                attribute={{ ...monster.attributes.wits }}
+                values={[...monster.attributes.wits.values]}
+                label={t(`Attributes.${monster.attributes.wits.label}`)}
               />
             )}
             {monster.attributes.empathy && (
               <MonsterAttribute
                 key={`${monster.name}-empathy`}
-                attribute={{ ...monster.attributes.empathy }}
+                values={[...monster.attributes.empathy.values]}
+                label={t(`Attributes.${monster.attributes.empathy.label}`)}
               />
             )}
           </div>

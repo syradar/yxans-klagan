@@ -7,5 +7,45 @@
     "Wits": "Intelligens",
     "Empathy": "Karisma"
   },
-  "BookMonsters": "Monster från boken"
+  "BookMonsters": "Monster från boken",
+  "TheMonsterHas": "Monstret",
+  "Head": {
+    "Missing": "saknar huvud",
+    "Beak": "har en näbb",
+    "HornWithCount": "har {{count}} horn på huvudet",
+    "ElkHorns": "har älghorm",
+    "TentaclesWithCount": "har {{count}} tentakler på huvudet",
+    "InsectoidEyes": "har insektsliknande ögon",
+    "SideEyesWithCount": "har {{count}} ögon på var sida på sitt huvud",
+    "ManyEyes": "har massvis med ögon",
+    "BigMane": "har en stor man",
+    "LongTongue": "har en lång tunga",
+    "BigEars": "har stora öron",
+    "Fin": "en fena på toppen av huvudet"
+  },
+  "Tail": {
+    "Tail": "har en svans",
+    "SpikedTail": "har en spikförsedd svans"
+  },
+  "ArmorLabel": "Skydd",
+  "Armor": {
+    "Skin": "Hud",
+    "SoftFur": "Mjuk päls",
+    "ThickFur": "Tjock päls",
+    "Feathers": "Fjädrar",
+    "Scales": "Fjäll",
+    "Shell": "Skal",
+    "BonePlates": "Benplattor",
+    "ArmoredHide": "Pansarhud"
+  },
+  "LivesIn": "Monstret bor i {{home}}",
+  "Homes": {
+    "Burrow": "ett gryt",
+    "Ruin": "en ruin",
+    "WateringHole": "ett vattehål",
+    "TreeOrHighPoint": "ett träd eller på en hög punkt",
+    "Cave": "en grotta",
+    "Ravine": "en ravin",
+    "Den": "en underjordisk håla"
+  }
 }

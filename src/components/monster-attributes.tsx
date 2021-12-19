@@ -1,19 +1,14 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import { css } from 'twin.macro'
 import { chunkArray } from '../functions/array.functions'
-import { AttributeViewModel } from '../models/attributes.model'
 import { AttributeCheckbox } from './attribute-cheeckbox'
 
 interface MonsterAttributeProps {
-  attribute: AttributeViewModel
+  label: string
+  values: boolean[]
 }
 
-export const MonsterAttribute = ({
-  attribute: { label, values },
-}: MonsterAttributeProps) => {
-  const { t } = useTranslation('monsters')
-
+export const MonsterAttribute = ({ label, values }: MonsterAttributeProps) => {
   return (
     <div
       css={css`
@@ -21,7 +16,7 @@ export const MonsterAttribute = ({
       `}
     >
       <label tw="font-medium mb-1 block" htmlFor="monster-strength">
-        {t(`Attributes.${label}`)}
+        {label}: {values.length}
       </label>
       <div
         id={`monster-${label}-grid`}

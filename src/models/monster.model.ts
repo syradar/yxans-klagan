@@ -17,6 +17,21 @@ export interface WeightedRandomMonsterChoice<T> extends WeightedChoice {
   value: T
 }
 
+export type ArmorTypeLabel =
+  | 'Skin'
+  | 'SoftFur'
+  | 'ThickFur'
+  | 'Feathers'
+  | 'Scales'
+  | 'Shell'
+  | 'BonePlates'
+  | 'ArmoredHide'
+
+export interface ArmorViewModel {
+  values: boolean[]
+  label: ArmorTypeLabel
+}
+
 export type MonsterSize =
   | 'Puny'
   | 'Small'
@@ -65,17 +80,9 @@ export type HeadChoices =
   | 'Fin'
   | 'RollTwice'
 
-type Tail = 'None' | 'Tail' | 'SpikedTail'
-type Armor =
-  | 'Skin'
-  | 'SoftFur'
-  | 'ThickFur'
-  | 'Feathers'
-  | 'Scales'
-  | 'Shell'
-  | 'BonePlates'
-  | 'ArmoredHid'
-type MovementTypes =
+export type TailChoices = 'None' | 'Tail' | 'SpikedTail'
+
+export type MovementType =
   | 'Slithering'
   | 'Digging'
   | 'Swimming'
@@ -83,13 +90,51 @@ type MovementTypes =
   | 'Flying'
   | 'Climbing'
 
+export type MovementDistanceFunction = (agility: number) => number
+
+export type MonsterHome =
+  | 'Burrow'
+  | 'Ruin'
+  | 'WateringHole'
+  | 'TreeOrHighPoint'
+  | 'Cave'
+  | 'Ravine'
+  | 'Den'
+
+type MonsterAttackTypes = 'Tail'
+type MonsterAttackDamage = { [T in MonsterAttackTypes]: number }
+
 export interface RandomMonster extends Monster {
   size: MonsterSize
   type: MonsterType
   limbs: MonsterLimbs
   description: {
     head: string
+    tail?: string
+    limbs: string
   }
-  // tail: Tail
-  // armorType: Armor
+  damage: MonsterAttackDamage
+  armor: ArmorViewModel
+  home: MonsterHome
+}
+
+export type MonsterMovement = {
+  type: MovementType
+  distance: number
+}
+
+export interface RandomMonsterViewModel
+  extends Omit<MonsterViewModel, 'name' | 'pageReference'> {
+  size: MonsterSize
+  type: MonsterType
+  limbs: MonsterLimbs
+  description: {
+    head: string
+    tail?: string
+    limbs: string
+  }
+  damage: MonsterAttackDamage
+  armor: ArmorViewModel
+  movement: MonsterMovement
+  home: MonsterHome
 }

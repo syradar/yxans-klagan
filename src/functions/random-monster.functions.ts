@@ -1,12 +1,41 @@
 import { TFunction } from 'react-i18next'
-import { headChoices, limbs, sizes, types } from '../data/random-monster.data'
+import {
+  armorChoices,
+  headChoices,
+  homes,
+  limbs,
+  movementTypes,
+  sizes,
+  tailChoices,
+  types,
+} from '../data/random-monster.data'
 import {
   HeadChoices,
   LimbChoices,
+  MonsterHome,
   MonsterLimbs,
+  MonsterMovement,
   RandomMonster,
+  RandomMonsterViewModel,
 } from '../models/monster.model'
-import { getRandomInt, getRandomT6, weightedRandom } from './dice.functions'
+import { createAttributesViewModel } from './attributes.functions'
+import {
+  getRandomInt,
+  getRandomT6,
+  WeightedChoice,
+  weightedRandom,
+} from './dice.functions'
+import { maybe, numberToBooleans } from './utils.functions'
+
+export const createRandomMonsterViewModel = (
+  randomMonster: RandomMonster,
+): RandomMonsterViewModel => {
+  return {
+    ...randomMonster,
+    movement: getMovement(weightedRandom, randomMonster.attributes.agility),
+    attributes: createAttributesViewModel(randomMonster.attributes),
+  }
+}
 
 export const createRandomMonster = (
   t: TFunction<('monsters' | 'common')[]>,
@@ -16,19 +45,34 @@ export const createRandomMonster = (
   const [lastHead, ...restOfHeads] = getHeads().map(({ key, count }) =>
     t(`Head.${key}`, { count }),
   )
+  const tail = weightedRandom(tailChoices).value
+  const armor = weightedRandom(armorChoices).value
+  const limbs = getMonsterLimbs()
+  const tailDescription =
+    tail.key !== 'None' ? `${t('Tail.' + tail.key)}` : undefined
 
   return {
     name: 'ted',
     attributes: { strength: strength(), agility },
     size,
     type,
-    limbs: getMonsterLimbs(),
+    limbs,
     description: {
       head:
         restOfHeads.length > 0
           ? `${restOfHeads.join(', ')} & ${lastHead}`
           : lastHead,
+      tail: tailDescription,
+      limbs: getLimbsDescription(t, limbs, tailDescription),
     },
+    damage: {
+      Tail: 0 + tail.damage,
+    },
+    armor: {
+      label: armor.key,
+      values: numberToBooleans(armor.armor),
+    },
+    home: getMonsterHome(),
   }
 }
 
@@ -66,6 +110,31 @@ const getLimbs = (): MonsterLimbs[] => {
   } while (chosenLimbs === 'Wings' && rolls < 10)
 
   return allLimbs
+}
+
+const getLimbsDescription = (
+  t: TFunction<('monsters' | 'common')[]>,
+  limbs: MonsterLimbs,
+  tail: string | undefined,
+): string => {
+  const actualLimbs: [string, number][] = Object.entries(limbs)
+    .filter(([_, value]) => value > 0)
+    .map(([k, v]) => [`Limbs.${k}`, v]) as [string, number][]
+
+  const limbsDescriptions =
+    actualLimbs.length === 0
+      ? [t('Limbs.None')]
+      : actualLimbs.map(([key, value]) => `${value} ${t(key)}`)
+
+  const tailDescription = [tail ? [tail] : []].flat()
+
+  const [lastLimb, ...restOfLimbs] = [tailDescription, limbsDescriptions]
+    .reverse()
+    .flat()
+
+  return restOfLimbs.length > 0
+    ? `${t('TheMonsterHas')} ${restOfLimbs.join(', ')} & ${lastLimb}`
+    : `${t('TheMonsterHas')} ${lastLimb}`
 }
 
 const chosenLimbsToMonsterLimbs = (lc: LimbChoices): MonsterLimbs => {
@@ -147,4 +216,26 @@ const getHeads = (): {
   } while (rolls > 0 && rolls < 10)
 
   return heads.filter((h) => h.key !== 'RollTwice')
+}
+
+export const getMovement = (
+  randomFunc: <T extends WeightedChoice>(
+    probabilities: T[],
+  ) => T = weightedRandom,
+  agility?: number,
+): MonsterMovement => {
+  const { type, distanceFn } = randomFunc(movementTypes).value
+
+  return {
+    distance: maybe(agility).map(distanceFn).withDefault(0),
+    type,
+  }
+}
+
+export const getMonsterHome = (
+  randomFunc: <T extends WeightedChoice>(
+    probabilities: T[],
+  ) => T = weightedRandom,
+): MonsterHome => {
+  return randomFunc(homes).value
 }

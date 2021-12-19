@@ -9,6 +9,7 @@
   },
   "BookMonsters": "Monsters from the book",
   "TheMonsterHas": "The monster has",
+  "TheMonsterHave": "The monster have",
   "Head": {
     "Missing": "a missing head",
     "Beak": "a beak",
@@ -22,5 +23,37 @@
     "LongTongue": "a long tongue",
     "BigEars": "big ears",
     "Fin": "a fin on top of its head"
+  },
+  "Tail": {
+    "Tail": "a tail",
+    "SpikedTail": "a spiked tail"
+  },
+  "ArmorLabel": "Armor",
+  "Armor": {
+    "Skin": "Skin",
+    "SoftFur": "Soft fur",
+    "ThickFur": "Thick fur",
+    "Feathers": "Feathers",
+    "Scales": "Scales",
+    "Shell": "Shell",
+    "BonePlates": "Bone plates",
+    "ArmoredHide": "Armored hide"
+  },
+  "LivesIn": "The monster lives in a {{home}}",
+  "Homes": {
+    "Burrow": "burrow",
+    "Ruin": "ruin",
+    "WateringHole": "watering hole",
+    "TreeOrHighPoint": "tree or on a high point",
+    "Cave": "cave",
+    "Ravine": "ravine",
+    "Den": "den"
+  },
+  "Limbs": {
+    "Arms": "arms",
+    "Legs": "legs",
+    "Tentacles": "tentacles",
+    "Wings": "wings",
+    "None": "no limbs"
   }
 }
