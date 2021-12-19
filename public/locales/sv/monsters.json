@@ -47,5 +47,23 @@
     "Cave": "en grotta",
     "Ravine": "en ravin",
     "Den": "en underjordisk håla"
+  },
+  "Skill": "Färdigheter",
+  "Skills": {
+    "Melee": "Närkamp",
+    "Move": "Rörlighet",
+    "Scouting": "Speja",
+    "Stealth": "Smyga"
+  },
+  "Movement": {
+    "Movement": "Förflyttning",
+    "Zones_one": "zon",
+    "Zones_other": "zoner",
+    "Slithering": "Slingrande",
+    "Digging": "Grävande",
+    "Swimming": "Simmande",
+    "Running": "Springande",
+    "Flying": "Flygande",
+    "Climbing": "Klättrande"
   }
 }

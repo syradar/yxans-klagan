@@ -55,5 +55,23 @@
     "Tentacles": "tentacles",
     "Wings": "wings",
     "None": "no limbs"
+  },
+  "Skill": "Skills",
+  "Skills": {
+    "Melee": "Melee",
+    "Move": "Move",
+    "Scouting": "Scouting",
+    "Stealth": "Stealth"
+  },
+  "Movement": {
+    "Movement": "Movement",
+    "Zones_one": "zone",
+    "Zones_other": "zones",
+    "Slithering": "Slithering",
+    "Digging": "Digging",
+    "Swimming": "Swimming",
+    "Running": "Running",
+    "Flying": "Flying",
+    "Climbing": "Climbing"
   }
 }

@@ -12,7 +12,10 @@ import {
   createRandomMonster,
   createRandomMonsterViewModel,
 } from '../functions/random-monster.functions'
-import { MonsterViewModel } from '../models/monster.model'
+import {
+  MonsterViewModel,
+  RandomMonsterViewModel,
+} from '../models/monster.model'
 
 export const MonstersPage = () => {
   const { t, i18n } = useTranslation(['monsters', 'common'])
@@ -34,6 +37,10 @@ export const MonstersPage = () => {
     }
 
     return 0
+  }
+
+  const hasSkills = ({ skills }: RandomMonsterViewModel): boolean => {
+    return Object.values(skills).some((sv) => sv > 0)
   }
 
   const [randomMonster, setRandomMonster] = useState(
@@ -85,6 +92,7 @@ export const MonstersPage = () => {
 
               <p>{t('LivesIn', { home: t(`Homes.${randomMonster.home}`) })}.</p>
             </div>
+            <h3 tw="text-xl font-medium">{t(`Attribute`)}</h3>
             {randomMonster.attributes.strength && (
               <MonsterAttribute
                 key={`${randomMonster.size}-strength`}
@@ -114,10 +122,42 @@ export const MonstersPage = () => {
               </div>
             )}
 
+            <h3 tw="text-xl font-medium">{t(`Movement.Movement`)}</h3>
             <div>
-              Movement: {randomMonster.movement.type}{' '}
-              {randomMonster.movement.distance}
+              {t(`Movement.${randomMonster.movement.type}`)}{' '}
+              {randomMonster.movement.distance}{' '}
+              {t(`Movement.Zones`, {
+                count: randomMonster.movement.distance,
+              })}
             </div>
+
+            <h3 tw="text-xl font-medium">{t(`Skill`)}</h3>
+            {!hasSkills(randomMonster) ? (
+              <div>No skills</div>
+            ) : (
+              <div>
+                {randomMonster.skills.Melee > 0 && (
+                  <div>
+                    {t(`Skills.Melee`)} {randomMonster.skills.Melee}
+                  </div>
+                )}
+                {randomMonster.skills.Stealth > 0 && (
+                  <div>
+                    {t(`Skills.Stealth`)} {randomMonster.skills.Stealth}
+                  </div>
+                )}
+                {randomMonster.skills.Move > 0 && (
+                  <div>
+                    {t(`Skills.Move`)} {randomMonster.skills.Move}
+                  </div>
+                )}
+                {randomMonster.skills.Scouting > 0 && (
+                  <div>
+                    {t(`Skills.Scouting`)} {randomMonster.skills.Scouting}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
           <header tw="mb-4">
             <h2 tw="text-4xl mb-2" className="yx-heading">

@@ -10,6 +10,7 @@ import {
 import {
   defaultMovementDistanceFunction,
   homes,
+  monsterSkillValues,
   movementTypes,
   sizes,
   types,
@@ -115,6 +116,20 @@ describe('defaultMovementDistanceFunction', () => {
     [3, 15],
   ])('should return %s for %s', (expected, input) => {
     const result = defaultMovementDistanceFn(input)
+
+    expect(result).toEqual(expected)
+  })
+})
+
+describe('monsterSkillValues', () => {
+  it('should have 36 choices', () => {
+    const movementTypeChoices = compose(
+      sum,
+      (mts: WeightedRandomMonsterChoice<number>[]) => pluck('weight', mts),
+    )
+
+    const expected = 36
+    const result = movementTypeChoices(monsterSkillValues)
 
     expect(result).toEqual(expected)
   })

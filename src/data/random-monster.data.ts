@@ -1,12 +1,18 @@
 import { getRandomInt, getRandomT6 } from '../functions/dice.functions'
 import { isEven } from '../functions/math.functions'
-import { validNumber } from '../functions/utils.functions'
+import {
+  maybe,
+  numberToBooleans,
+  validNumber,
+} from '../functions/utils.functions'
+import { AttributeViewModel } from '../models/attributes.model'
 import {
   ArmorTypeLabel,
   HeadChoices,
   LimbChoices,
   MonsterHome,
   MonsterSize,
+  MonsterTrait,
   MonsterType,
   MovementDistanceFunction,
   MovementType,
@@ -360,3 +366,31 @@ export const homes: WeightedRandomMonsterChoice<MonsterHome>[] = [
     value: 'Den',
   },
 ]
+
+export const monsterSkillValues: WeightedRandomMonsterChoice<number>[] = [
+  {
+    weight: 19,
+    value: 0,
+  },
+  {
+    weight: 5,
+    value: 1,
+  },
+  {
+    weight: 4,
+    value: 2,
+  },
+  {
+    weight: 4,
+    value: 3,
+  },
+  {
+    weight: 2,
+    value: 4,
+  },
+  {
+    weight: 2,
+    value: 5,
+  },
+]
+

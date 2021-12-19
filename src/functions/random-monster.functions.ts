@@ -4,6 +4,7 @@ import {
   headChoices,
   homes,
   limbs,
+  monsterSkillValues,
   movementTypes,
   sizes,
   tailChoices,
@@ -30,11 +31,19 @@ import { maybe, numberToBooleans } from './utils.functions'
 export const createRandomMonsterViewModel = (
   randomMonster: RandomMonster,
 ): RandomMonsterViewModel => {
-  return {
+  const rmvm = {
     ...randomMonster,
     movement: getMovement(weightedRandom, randomMonster.attributes.agility),
     attributes: createAttributesViewModel(randomMonster.attributes),
+    skills: {
+      Melee: weightedRandom(monsterSkillValues).value,
+      Move: weightedRandom(monsterSkillValues).value,
+      Scouting: weightedRandom(monsterSkillValues).value,
+      Stealth: weightedRandom(monsterSkillValues).value,
+    },
   }
+
+  return rmvm
 }
 
 export const createRandomMonster = (

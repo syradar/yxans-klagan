@@ -104,6 +104,9 @@ export type MonsterHome =
 type MonsterAttackTypes = 'Tail'
 type MonsterAttackDamage = { [T in MonsterAttackTypes]: number }
 
+type Skills = 'Melee' | 'Stealth' | 'Move' | 'Scouting'
+export type MonsterSkills = { [S in Skills]: number }
+
 export interface RandomMonster extends Monster {
   size: MonsterSize
   type: MonsterType
@@ -137,4 +140,5 @@ export interface RandomMonsterViewModel
   armor: ArmorViewModel
   movement: MonsterMovement
   home: MonsterHome
+  skills: MonsterSkills
 }
