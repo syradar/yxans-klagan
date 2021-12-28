@@ -9,6 +9,29 @@
   },
   "BookMonsters": "Monster från boken",
   "TheMonsterHas": "Monstret",
+  "TheMonsterHave": "Monstret har",
+  "Size": {
+    "Puny": "Ynklig",
+    "Puny_def": "Ynkligt",
+    "Small": "Nätt",
+    "Average": "Medelstor",
+    "Average_def": "Medelstort",
+    "Large": "Kraftig",
+    "Large_def": "Kraftigt",
+    "Big": "Storväxt",
+    "Huge": "Jättelik",
+    "Huge_def": "Jättelikt",
+    "Gigantic": "Gigantisk",
+    "Gigantic_def": "Gigantiskt"
+  },
+  "Type": {
+    "Grazing": "Betande kreatur",
+    "Herbivore": "Växtätare",
+    "Gatherer": "Samlare",
+    "Scavenger": "Asätare",
+    "Predator": "Rovdjur",
+    "AggressivePredator": "Aggresivt rovdjur"
+  },
   "Head": {
     "Missing": "saknar huvud",
     "Beak": "har en näbb",
@@ -65,5 +88,147 @@
     "Running": "Springande",
     "Flying": "Flygande",
     "Climbing": "Klättrande"
+  },
+  "Poisons": {
+    "Lethal": "Dödlig",
+    "Paralyzing": "Paralyserande",
+    "Sleeping": "Sövande"
+  },
+  "Trait": {
+    "Traits": "Egenskaper",
+    "Undead": {
+      "Name": "Odöd",
+      "Description": "+2 STY"
+    },
+    "Hurt": {
+      "Name": "Skadad",
+      "Description": "Half STY"
+    },
+    "Colorful": {
+      "Name": "Färggrann",
+      "Description": "Skinn, horn eller liknande är värt {{count}} silver"
+    },
+    "Poisonous": {
+      "Name": "Giftig"
+    },
+    "Regeneration": {
+      "Name": "Regenererande",
+      "Description": "Återfår T3 i STY varje runda"
+    },
+    "ResistanceMagic": {
+      "Name": "Okänslig mot magi",
+      "Description": "Motsvarande besvärjelsen Antimagi med T6 effektgrader"
+    },
+    "Camouflage": {
+      "Name": "Kamouflerad",
+      "Description": "Vanvettigt svår (−3) att upptäcka med Speja"
+    },
+    "Fast": {
+      "Name": "Snabb",
+      "Description": "Drar två iniativkort i stridens början och får agera på båda turerna"
+    },
+    "SensitiveHearing": {
+      "Name": "Känslig hörsel",
+      "Description": "+2 FV i Speja"
+    },
+    "SensitiveSmell": {
+      "Name": "Känsligt luktsinne",
+      "Description": "+2 FV i Speja"
+    },
+    "DarkVision": {
+      "Name": "Mörkerseende",
+      "Description": "Ser obehindrat i mörker"
+    },
+    "AcidGlands": {
+      "Name": "Syrakörtlar",
+      "Description": "Kan använda syraattack"
+    },
+    "FireGlands": {
+      "Name": "Eldkörtlar",
+      "Description": "Kan använda eldattack"
+    },
+    "Intelligent": {
+      "Name": "Intelligent",
+      "SkillValues": "Kan ha FV i Genomskåda och Manipulera",
+      "Telepathy": "Kan tala med telepati"
+    },
+    "CanSpeak": {
+      "Name": "Kan tala",
+      "Description": "Kan tala eller härma språk"
+    },
+    "PossessedByDemon": {
+      "Name": "Besatt av demon",
+      "Description": "Är i själva verket en demon (Se sidan 76 i Spelledarboken)"
+    }
+  },
+  "Weakness": {
+    "Weakness": "Svaghet",
+    "None": {
+      "Name": "Ingen",
+      "Description": "–"
+    },
+    "VulnerableToFire": {
+      "Name": "Känslig mot eld",
+      "Description": "Tar dubble skada av eld"
+    },
+    "VulnerableToLight": {
+      "Name": "Känslig för ljud",
+      "Description": "Tål ej ljus, måste röra sig bort från starka ljuskällor. Om ej möjligt tar varelsen T3 i skada för enskild ljuskälla, T6 i skada för större ljuskälla (som solen) varje runda"
+    },
+    "AfraidOfLoudNoises": {
+      "Name": "Rädd för höga ljud",
+      "Description": "Höga ljud skrämmer besten. Smällar eller högre ljud får den att fly, slamrande sköldar eller liknande får den att tveka och undvika källan"
+    },
+    "ProtectsOffspring": {
+      "Name": "Skyddar avkomma",
+      "Description": "Har avkomma i närheten, lämnar inte platsen där de finns"
+    },
+    "SensitiveEyes": {
+      "Name": "Känslig ögon",
+      "Description": "Attacker mot ögonen (Vanvettigt svårt -3) gör dubbel skada"
+    },
+    "ObsessedWithAllThatGlimmers": {
+      "Name": "Besatt av allt som glimrar",
+      "Description": "Får varelsen syn på något som glimrar såsom silver eller en spegel kommer den att fokusera på källan till det"
+    }
+  },
+  "Motivation": {
+    "Motivation": "Motivation",
+    "Territory": {
+      "Name": "Revir",
+      "Description": "Bunden till sitt revir"
+    },
+    "Pregnant": {
+      "Name": "Föda avkomma",
+      "Description": "Varelsen är dräktig och vill föda sin avkomma i fred"
+    },
+    "Hunger": {
+      "Name": "Hungrig",
+      "Description": "Varelsen är utsvulten och kommer attackera den saftigaste äventyraren och om möjligt försöka sluka henne"
+    },
+    "Injured": {
+      "Name": "Sjuk",
+      "Description": "Får egenskapen Skadad"
+    },
+    "Parasite": {
+      "Name": "Parasit",
+      "Description": "Kontrollerad av parasitisk varelse, beter sig underligt"
+    },
+    "Alone": {
+      "Name": "Vara i fred",
+      "Description": "Anfaller bara om trängd"
+    },
+    "Fun": {
+      "Name": "Nöje",
+      "Description": "Jagar för nöjets skull"
+    },
+    "LookingForHost": {
+      "Name": "Letar värd",
+      "Description": "Letar efter en varelse som kan agera som värd för varelsens avkomma på något sätt"
+    },
+    "GuardingTreasure": {
+      "Name": "Skatt",
+      "Description": "Vaktar skatt"
+    }
   }
 }

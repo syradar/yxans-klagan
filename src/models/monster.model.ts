@@ -1,4 +1,6 @@
+import { TFunction } from 'react-i18next'
 import { WeightedChoice } from '../functions/dice.functions'
+import { Definition } from '../types/definition.type'
 import { Attributes, AttributesViewModel } from './attributes.model'
 
 export interface Monster {
@@ -106,6 +108,26 @@ type MonsterAttackDamage = { [T in MonsterAttackTypes]: number }
 
 type Skills = 'Melee' | 'Stealth' | 'Move' | 'Scouting'
 export type MonsterSkills = { [S in Skills]: number }
+export type MonsterSkillListItem = { name: string; value: number }
+
+export type MonsterTrait = {
+  name: string
+  description: (t: TFunction<('monsters' | 'common')[]>) => string
+  apply: (rm: RandomMonster) => RandomMonster
+}
+
+export type MonsterTraitViewModel = Definition
+export type MonsterWeakness = Definition
+export type MonsterMotivation =
+  | 'Territory'
+  | 'Pregnant'
+  | 'Hunger'
+  | 'Injured'
+  | 'Parasite'
+  | 'Alone'
+  | 'Fun'
+  | 'LookingForHost'
+  | 'GuardingTreasure'
 
 export interface RandomMonster extends Monster {
   size: MonsterSize
@@ -119,6 +141,12 @@ export interface RandomMonster extends Monster {
   damage: MonsterAttackDamage
   armor: ArmorViewModel
   home: MonsterHome
+  skills: MonsterSkills
+  traits: MonsterTrait[]
+  acidGlands: boolean
+  fireGlands: boolean
+  weakness: MonsterWeakness
+  motivation: MonsterMotivation
 }
 
 export type MonsterMovement = {
@@ -140,5 +168,13 @@ export interface RandomMonsterViewModel
   armor: ArmorViewModel
   movement: MonsterMovement
   home: MonsterHome
-  skills: MonsterSkills
+  skills: MonsterSkillListItem[]
+  traits: MonsterTraitViewModel[]
+  acidGlands: boolean
+  fireGlands: boolean
+  weakness: MonsterWeakness
+  motivation: {
+    name: `Motivation.${MonsterMotivation}.Name`
+    description: `Motivation.${MonsterMotivation}.Description`
+  }
 }

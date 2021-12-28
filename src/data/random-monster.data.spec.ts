@@ -7,10 +7,13 @@ import {
   MovementType,
   WeightedRandomMonsterChoice,
 } from '../models/monster.model'
+import { Definition } from '../types/definition.type'
 import {
   defaultMovementDistanceFunction,
   homes,
+  monsterMotivation,
   monsterSkillValues,
+  monsterWeakness,
   movementTypes,
   sizes,
   types,
@@ -130,6 +133,34 @@ describe('monsterSkillValues', () => {
 
     const expected = 36
     const result = movementTypeChoices(monsterSkillValues)
+
+    expect(result).toEqual(expected)
+  })
+})
+
+describe('monsterSkillValues', () => {
+  it('should have 36 choices', () => {
+    const weaknessChoices = compose(
+      sum,
+      (mts: WeightedRandomMonsterChoice<Definition>[]) => pluck('weight', mts),
+    )
+
+    const expected = 36
+    const result = weaknessChoices(monsterWeakness)
+
+    expect(result).toEqual(expected)
+  })
+})
+
+describe('monsterSkillValues', () => {
+  it('should have 36 choices', () => {
+    const motivationChoices = compose(
+      sum,
+      (mts: WeightedRandomMonsterChoice<Definition>[]) => pluck('weight', mts),
+    )
+
+    const expected = 36
+    const result = motivationChoices(monsterMotivation)
 
     expect(result).toEqual(expected)
   })

@@ -4,42 +4,64 @@ import {
   headChoices,
   homes,
   limbs,
+  monsterMotivation,
   monsterSkillValues,
+  monsterTraits,
+  monsterWeakness,
   movementTypes,
   sizes,
   tailChoices,
   types,
 } from '../data/random-monster.data'
+import { D3 } from '../models/fbl-dice.model'
 import {
   HeadChoices,
   LimbChoices,
   MonsterHome,
   MonsterLimbs,
   MonsterMovement,
+  MonsterTrait,
   RandomMonster,
   RandomMonsterViewModel,
+  MonsterWeakness,
+  WeightedRandomMonsterChoice,
+  MonsterMotivation,
+  MonsterSkills,
+  MonsterSkillListItem,
 } from '../models/monster.model'
+import { range } from './array.functions'
 import { createAttributesViewModel } from './attributes.functions'
 import {
   getRandomInt,
-  getRandomT6,
+  rollD3,
+  rollD6,
   WeightedChoice,
   weightedRandom,
+  weightedRandomConsume,
 } from './dice.functions'
 import { maybe, numberToBooleans } from './utils.functions'
 
 export const createRandomMonsterViewModel = (
-  randomMonster: RandomMonster,
+  rm: RandomMonster,
+  t: TFunction<('monsters' | 'common')[]>,
 ): RandomMonsterViewModel => {
-  const rmvm = {
-    ...randomMonster,
-    movement: getMovement(weightedRandom, randomMonster.attributes.agility),
-    attributes: createAttributesViewModel(randomMonster.attributes),
-    skills: {
-      Melee: weightedRandom(monsterSkillValues).value,
-      Move: weightedRandom(monsterSkillValues).value,
-      Scouting: weightedRandom(monsterSkillValues).value,
-      Stealth: weightedRandom(monsterSkillValues).value,
+  const randomMonsterWithAppliedTraits = rm.traits.reduce(
+    (acc, cur) => cur.apply(acc),
+    rm,
+  )
+
+  const rmvm: RandomMonsterViewModel = {
+    ...randomMonsterWithAppliedTraits,
+    movement: getMovement(weightedRandom, rm.attributes.agility),
+    attributes: createAttributesViewModel(rm.attributes),
+    traits: rm.traits.map(({ name, description }) => ({
+      name,
+      description: description(t),
+    })),
+    skills: getMonsterSkillListItems(rm.skills),
+    motivation: {
+      name: `Motivation.${rm.motivation}.Name`,
+      description: `Motivation.${rm.motivation}.Description`,
     },
   }
 
@@ -58,7 +80,16 @@ export const createRandomMonster = (
   const armor = weightedRandom(armorChoices).value
   const limbs = getMonsterLimbs()
   const tailDescription =
-    tail.key !== 'None' ? `${t('Tail.' + tail.key)}` : undefined
+    tail.key !== 'None' ? t(`Tail.${tail.key}`) : undefined
+
+  const motivation = weightedRandom(monsterMotivation).value
+
+  const [hurt, traitsList] = getTraitListBasedOnMotivation(
+    motivation,
+    monsterTraits,
+  )
+
+  const traits = [getMonsterTraits(rollD3(), traitsList), hurt].flat()
 
   return {
     name: 'ted',
@@ -82,6 +113,17 @@ export const createRandomMonster = (
       values: numberToBooleans(armor.armor),
     },
     home: getMonsterHome(),
+    skills: {
+      Melee: weightedRandom(monsterSkillValues).value,
+      Move: weightedRandom(monsterSkillValues).value,
+      Scouting: weightedRandom(monsterSkillValues).value,
+      Stealth: weightedRandom(monsterSkillValues).value,
+    },
+    traits,
+    acidGlands: false,
+    fireGlands: false,
+    weakness: getMonsterWeakness(),
+    motivation,
   }
 }
 
@@ -157,7 +199,7 @@ const chosenLimbsToMonsterLimbs = (lc: LimbChoices): MonsterLimbs => {
     case 'Tentacles':
       return {
         ...monsterLimbs,
-        Tentacles: getRandomT6() + 2,
+        Tentacles: rollD6() + 2,
       }
     case 'TwoLegs':
       return {
@@ -247,4 +289,62 @@ export const getMonsterHome = (
   ) => T = weightedRandom,
 ): MonsterHome => {
   return randomFunc(homes).value
+}
+
+export const getTraitListBasedOnMotivation = (
+  motivation: MonsterMotivation,
+  traitsList: WeightedRandomMonsterChoice<MonsterTrait>[],
+): [MonsterTrait[], WeightedRandomMonsterChoice<MonsterTrait>[]] => {
+  if (motivation === 'Injured') {
+    const hurt = monsterTraits.find((t) => t.value.name === 'Trait.Hurt.Name')
+    const traitList = monsterTraits.filter(
+      (t) => t.value.name !== 'Trait.Hurt.Name',
+    )
+
+    return [
+      maybe(hurt)
+        .map((a) => [a.value])
+        .withDefault([]),
+      traitList,
+    ]
+  }
+
+  return [[], traitsList]
+}
+
+export const getMonsterTraits = (
+  numberOfTraits: D3,
+  traitsList: WeightedRandomMonsterChoice<MonsterTrait>[],
+): MonsterTrait[] => {
+  const result = range(numberOfTraits).reduce(
+    (acc, _) => {
+      const [chosen, rest] = weightedRandomConsume(acc.traitsLeft)
+
+      return {
+        traits: [...acc.traits, chosen.value],
+        traitsLeft: rest,
+      }
+    },
+    { traitsLeft: [...traitsList], traits: [] as MonsterTrait[] },
+  )
+
+  return result.traits
+}
+
+export const getMonsterWeakness = (): MonsterWeakness =>
+  weightedRandom(monsterWeakness).value
+
+export const getMonsterSkillListItems = (
+  skills: MonsterSkills,
+): MonsterSkillListItem[] => {
+  return [
+    skills.Melee > 0 ? [{ name: `Skills.Melee`, value: skills.Melee }] : [],
+    skills.Move > 0 ? [{ name: `Skills.Move`, value: skills.Move }] : [],
+    skills.Scouting > 0
+      ? [{ name: `Skills.Scouting`, value: skills.Scouting }]
+      : [],
+    skills.Stealth > 0
+      ? [{ name: `Skills.Stealth`, value: skills.Scouting }]
+      : [],
+  ].flat()
 }

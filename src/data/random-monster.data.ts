@@ -1,11 +1,11 @@
-import { getRandomInt, getRandomT6 } from '../functions/dice.functions'
-import { isEven } from '../functions/math.functions'
 import {
-  maybe,
-  numberToBooleans,
-  validNumber,
-} from '../functions/utils.functions'
-import { AttributeViewModel } from '../models/attributes.model'
+  getRandomInt,
+  rollD2,
+  rollD3,
+  rollD6,
+} from '../functions/dice.functions'
+import { isEven } from '../functions/math.functions'
+import { id, maybe, validNumber } from '../functions/utils.functions'
 import {
   ArmorTypeLabel,
   HeadChoices,
@@ -17,7 +17,9 @@ import {
   MovementDistanceFunction,
   MovementType,
   TailChoices,
+  MonsterWeakness,
   WeightedRandomMonsterChoice,
+  MonsterMotivation,
 } from '../models/monster.model'
 
 export const sizes: WeightedRandomMonsterChoice<{
@@ -26,33 +28,33 @@ export const sizes: WeightedRandomMonsterChoice<{
 }>[] = [
   {
     weight: 4,
-    value: { size: 'Puny', strength: (_ = getRandomT6) => 1 },
+    value: { size: 'Puny', strength: (_ = rollD6) => 1 },
   },
   {
     weight: 3,
-    value: { size: 'Small', strength: (_ = getRandomT6) => 2 },
+    value: { size: 'Small', strength: (_ = rollD6) => 2 },
   },
   {
     weight: 8,
-    value: { size: 'Average', strength: (_ = getRandomT6) => 3 },
+    value: { size: 'Average', strength: (_ = rollD6) => 3 },
   },
   {
     weight: 7,
-    value: { size: 'Large', strength: (_ = getRandomT6) => 4 },
+    value: { size: 'Large', strength: (_ = rollD6) => 4 },
   },
   {
     weight: 7,
-    value: { size: 'Big', strength: (_ = getRandomT6) => 8 },
+    value: { size: 'Big', strength: (_ = rollD6) => 8 },
   },
   {
     weight: 3,
-    value: { size: 'Huge', strength: (diceFn = getRandomT6) => 14 + diceFn() },
+    value: { size: 'Huge', strength: (diceFn = rollD6) => 14 + diceFn() },
   },
   {
     weight: 4,
     value: {
       size: 'Gigantic',
-      strength: (diceFn = getRandomT6) => 30 + diceFn() + diceFn(),
+      strength: (diceFn = rollD6) => 30 + diceFn() + diceFn(),
     },
   },
 ]
@@ -144,7 +146,7 @@ export const headChoices: WeightedRandomMonsterChoice<{
   },
   {
     weight: 4,
-    value: { key: 'TentaclesWithCount', count: getRandomT6() + 2 },
+    value: { key: 'TentaclesWithCount', count: rollD6() + 2 },
   },
   {
     weight: 2,
@@ -154,9 +156,7 @@ export const headChoices: WeightedRandomMonsterChoice<{
     weight: 3,
     value: {
       key: 'SideEyesWithCount',
-      count: [getRandomT6() + getRandomT6()].map((e) =>
-        isEven(e) ? e : e + 1,
-      )[0],
+      count: [rollD6() + rollD6()].map((e) => (isEven(e) ? e : e + 1))[0],
     },
   },
   {
@@ -394,3 +394,283 @@ export const monsterSkillValues: WeightedRandomMonsterChoice<number>[] = [
   },
 ]
 
+export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
+  {
+    weight: 1,
+    value: {
+      name: 'Trait.Undead.Name',
+      description: (t) => t('Trait.Undead.Description'),
+      apply: (rm) => ({
+        ...rm,
+        attributes: {
+          ...rm.attributes,
+          strength: maybe(rm.attributes.strength)
+            .map((s) => s + 2)
+            .withDefault(2),
+        },
+      }),
+    },
+  },
+  {
+    weight: 3,
+    value: {
+      name: 'Trait.Hurt.Name',
+      description: (t) => t('Trait.Hurt.Description'),
+      apply: (rm) => ({
+        ...rm,
+        attributes: {
+          ...rm.attributes,
+          strength: maybe(rm.attributes.strength)
+            .map((s) => Math.ceil(s / 2))
+            .withDefault(1),
+        },
+      }),
+    },
+  },
+  {
+    weight: 3,
+    value: {
+      name: 'Trait.Colorful.Name',
+      description: (t) => {
+        const silver = rollD6() + rollD6() + rollD6()
+
+        return t('Trait.Colorful.Description', { count: silver })
+      },
+      apply: id,
+    },
+  },
+  {
+    weight: 4,
+    value: {
+      name: 'Trait.Poisonous.Name',
+      description: (t) => {
+        const poisons = {
+          1: 'Poisons.Lethal',
+          2: 'Poisons.Paralyzing',
+          3: 'Poisons.Sleeping',
+        }
+        const roll = rollD3()
+
+        const strength = rollD6() + 2
+
+        return `${t(poisons[roll])} (${strength})`
+      },
+      apply: id,
+    },
+  },
+  {
+    weight: 3,
+    value: {
+      name: 'Trait.Regeneration.Name',
+      description: (t) => t('Trait.Regeneration.Description'),
+      apply: id,
+    },
+  },
+  {
+    weight: 2,
+    value: {
+      name: 'Trait.ResistanceMagic.Name',
+      description: (t) => t('Trait.ResistanceMagic.Description'),
+      apply: id,
+    },
+  },
+  {
+    weight: 3,
+    value: {
+      name: 'Trait.Camouflage.Name',
+      description: (t) => t('Trait.Camouflage.Description'),
+      apply: id,
+    },
+  },
+  {
+    weight: 2,
+    value: {
+      name: 'Trait.Fast.Name',
+      description: (t) => t('Trait.Fast.Description'),
+      apply: id,
+    },
+  },
+  {
+    weight: 4,
+    value: {
+      name: 'Trait.SensitiveHearing.Name',
+      description: (t) => t('Trait.SensitiveHearing.Description'),
+      apply: (rm) => ({
+        ...rm,
+        skills: {
+          ...rm.skills,
+          Scouting: rm.skills.Scouting + 2,
+        },
+      }),
+    },
+  },
+  {
+    weight: 2,
+    value: {
+      name: 'Trait.SensitiveSmell.Name',
+      description: (t) => t('Trait.SensitiveSmell.Description'),
+      apply: (rm) => ({
+        ...rm,
+        skills: {
+          ...rm.skills,
+          Scouting: rm.skills.Scouting + 2,
+        },
+      }),
+    },
+  },
+  {
+    weight: 3,
+    value: {
+      name: 'Trait.DarkVision.Name',
+      description: (t) => t('Trait.DarkVision.Description'),
+      apply: id,
+    },
+  },
+  {
+    weight: 1,
+    value: {
+      name: 'Trait.AcidGlands.Name',
+      description: (t) => t('Trait.AcidGlands.Description'),
+      apply: (rm) => ({
+        ...rm,
+        acidGlands: true,
+      }),
+    },
+  },
+  {
+    weight: 1,
+    value: {
+      name: 'Trait.FireGlands.Name',
+      description: (t) => t('Trait.FireGlands.Description'),
+      apply: (rm) => ({
+        ...rm,
+        fireGlands: true,
+      }),
+    },
+  },
+  {
+    weight: 1,
+    value: {
+      name: 'Trait.Intelligent.Name',
+      description: (t) => {
+        const speech =
+          rollD2() === 1
+            ? 'Trait.CanSpeak.Description'
+            : 'Trait.Intelligent.Telepathy'
+
+        const skillValues = t('Trait.Intelligent.SkillValues')
+
+        return `${t(speech)}. ${skillValues}`
+      },
+      apply: id,
+    },
+  },
+  {
+    weight: 1,
+    value: {
+      name: 'Trait.CanSpeak.Name',
+      description: (t) => t('Trait.CanSpeak.Description'),
+      apply: id,
+    },
+  },
+  {
+    weight: 1,
+    value: {
+      name: 'Trait.PossessedByDemon.Name',
+      description: (t) => t('Trait.PossessedByDemon.Description'),
+      apply: id,
+    },
+  },
+]
+
+export const monsterWeakness: WeightedRandomMonsterChoice<MonsterWeakness>[] = [
+  {
+    weight: 13,
+    value: {
+      name: 'Weakness.None.Name',
+      description: 'Weakness.None.Description',
+    },
+  },
+  {
+    weight: 5,
+    value: {
+      name: 'Weakness.VulnerableToFire.Name',
+      description: 'Weakness.VulnerableToFire.Description',
+    },
+  },
+  {
+    weight: 2,
+    value: {
+      name: 'Weakness.VulnerableToLight.Name',
+      description: 'Weakness.VulnerableToLight.Description',
+    },
+  },
+  {
+    weight: 3,
+    value: {
+      name: 'Weakness.AfraidOfLoudNoises.Name',
+      description: 'Weakness.AfraidOfLoudNoises.Description',
+    },
+  },
+  {
+    weight: 5,
+    value: {
+      name: 'Weakness.ProtectsOffspring.Name',
+      description: 'Weakness.ProtectsOffspring.Description',
+    },
+  },
+  {
+    weight: 5,
+    value: {
+      name: 'Weakness.SensitiveEyes.Name',
+      description: 'Weakness.SensitiveEyes.Description',
+    },
+  },
+  {
+    weight: 3,
+    value: {
+      name: 'Weakness.ObsessedWithAllThatGlimmers.Name',
+      description: 'Weakness.ObsessedWithAllThatGlimmers.Description',
+    },
+  },
+]
+
+export const monsterMotivation: WeightedRandomMonsterChoice<MonsterMotivation>[] =
+  [
+    {
+      weight: 13,
+      value: 'Territory',
+    },
+    {
+      weight: 4,
+      value: 'Pregnant',
+    },
+    {
+      weight: 5,
+      value: 'Hunger',
+    },
+    {
+      weight: 2,
+      value: 'Injured',
+    },
+    {
+      weight: 1,
+      value: 'Parasite',
+    },
+    {
+      weight: 5,
+      value: 'Alone',
+    },
+    {
+      weight: 2,
+      value: 'Fun',
+    },
+    {
+      weight: 2,
+      value: 'LookingForHost',
+    },
+    {
+      weight: 2,
+      value: 'GuardingTreasure',
+    },
+  ]

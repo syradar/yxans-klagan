@@ -1,4 +1,9 @@
-import { choose, countSuccesses, weightedRandom } from './dice.functions'
+import {
+  choose,
+  countSuccesses,
+  weightedRandom,
+  weightedRandomConsume,
+} from './dice.functions'
 
 describe('dice functions', () => {
   describe('countSuccesses', () => {
@@ -47,6 +52,29 @@ describe('dice functions', () => {
     ])('%j => %s', (input, expected) => {
       const result = weightedRandom(input)
       expect(result.type).toEqual(expected)
+    })
+  })
+
+  describe('weightedRandomConsume', () => {
+    it.each([
+      [[{ weight: 0, type: 'hej' }], [{ weight: 0, type: 'hej' }, []]],
+      [
+        [
+          { weight: -1, type: 'hej' },
+          { weight: 100, type: 'då' },
+          { weight: -1, type: 're' },
+        ],
+        [
+          { weight: 100, type: 'då' },
+          [
+            { weight: -1, type: 'hej' },
+            { weight: -1, type: 're' },
+          ],
+        ],
+      ],
+    ])('%j => %s', (input, expected) => {
+      const result = weightedRandomConsume(input)
+      expect(result).toEqual(expected)
     })
   })
 })

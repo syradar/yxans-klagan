@@ -4,7 +4,7 @@ import 'twin.macro'
 import { Button } from '../components/Button'
 import { Encounter } from '../components/encounter'
 import { PageHeader } from '../components/page-header'
-import { getRandomT66 } from '../functions/dice.functions'
+import { rollD66 } from '../functions/dice.functions'
 import {
   getEncounterById,
   getRandomEncounter,
@@ -26,7 +26,7 @@ export const EncounterPage = () => {
   >([])
 
   const generateNewEncounter = (terrain: Terrain) => {
-    const roll = getRandomT66()
+    const roll = rollD66()
     const randomEncounter = getRandomEncounter(
       roll,
       terrain,

@@ -1,7 +1,7 @@
 import React from 'react'
-import { css } from 'twin.macro'
 import { chunkArray } from '../functions/array.functions'
 import { AttributeCheckbox } from './attribute-cheeckbox'
+import 'twin.macro'
 
 interface MonsterAttributeProps {
   label: string
@@ -10,11 +10,7 @@ interface MonsterAttributeProps {
 
 export const MonsterAttribute = ({ label, values }: MonsterAttributeProps) => {
   return (
-    <div
-      css={css`
-        -webkit-backface-visibility: hidden;
-      `}
-    >
+    <div tw="-webkit-backface-visibility[hidden]">
       <label tw="font-medium mb-1 block" htmlFor="monster-strength">
         {label}: {values.length}
       </label>

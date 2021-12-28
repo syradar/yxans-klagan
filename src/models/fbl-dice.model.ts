@@ -1,7 +1,13 @@
 const diceSides = [6, 8, 10, 12] as const
 export type DiceSides = typeof diceSides[number]
 
+export type D2 = 1 | 2
+
+export type D3 = 1 | 2 | 3
+
 export type D6 = 1 | 2 | 3 | 4 | 5 | 6
+
+export type D8 = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
 
 export type D66 =
   | 11

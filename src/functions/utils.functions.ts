@@ -1,5 +1,7 @@
 import { compose, map, range } from 'rambda'
 
+export const id = <T>(x: T): T => x
+
 export type Nullish = null | undefined
 
 export const isNullish = (val: unknown): val is Nullish => val == null

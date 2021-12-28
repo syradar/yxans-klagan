@@ -10,6 +10,28 @@
   "BookMonsters": "Monsters from the book",
   "TheMonsterHas": "The monster has",
   "TheMonsterHave": "The monster have",
+  "Size": {
+    "Puny": "Puny",
+    "Puny_def": "Puny",
+    "Small": "Small",
+    "Average": "Average",
+    "Average_def": "Average",
+    "Large": "Large",
+    "Large_def": "Large",
+    "Big": "Big",
+    "Huge": "Huge",
+    "Huge_def": "Huge",
+    "Gigantic": "Gigantic",
+    "Gigantic_def": "Gigantic"
+  },
+  "Type": {
+    "Grazing": "Grazing",
+    "Herbivore": "Herbivore",
+    "Gatherer": "Gatherer",
+    "Scavenger": "Scavenger",
+    "Predator": "Predator",
+    "AggressivePredator": "Aggressive Predator"
+  },
   "Head": {
     "Missing": "a missing head",
     "Beak": "a beak",
@@ -73,5 +95,147 @@
     "Running": "Running",
     "Flying": "Flying",
     "Climbing": "Climbing"
+  },
+  "Poisons": {
+    "Lethal": "Lethal",
+    "Paralyzing": "Paralyzing",
+    "Sleeping": "Sleeping"
+  },
+  "Trait": {
+    "Traits": "Traits",
+    "Undead": {
+      "Name": "Undead",
+      "Description": "+2 STR"
+    },
+    "Hurt": {
+      "Name": "Hurt",
+      "Description": "Half STR"
+    },
+    "Colorful": {
+      "Name": "Colorful",
+      "Description": "Skin, horn or the like is worth {{count}} silver"
+    },
+    "Poisonous": {
+      "Name": "Poisonous"
+    },
+    "Regeneration": {
+      "Name": "Regeneration",
+      "Description": "Regenerates D3 STR each round"
+    },
+    "ResistanceMagic": {
+      "Name": "Resistance to Magic",
+      "Description": "Equivalent to the spell Anti Magic with D6 Power Levels"
+    },
+    "Camouflage": {
+      "Name": "Camouflage",
+      "Description": "Insanely hard (-3) to detect with Scouting"
+    },
+    "Fast": {
+      "Name": "Fast",
+      "Description": "Draw two initiative cards at the start of battle and may act on both turns"
+    },
+    "SensitiveHearing": {
+      "Name": "Sensitive Hearing",
+      "Description": "+2 SV to Scouting"
+    },
+    "SensitiveSmell": {
+      "Name": "Sensitive Smell",
+      "Description": "+2 SV to Scouting"
+    },
+    "DarkVision": {
+      "Name": "Dark Vision",
+      "Description": "Sees unhindered in darkness"
+    },
+    "AcidGlands": {
+      "Name": "Acid Glands",
+      "Description": "Can use Acid Attacks"
+    },
+    "FireGlands": {
+      "Name": "Fire Glands",
+      "Description": "Can use Fire Attacks"
+    },
+    "Intelligent": {
+      "Name": "Intelligent",
+      "SkillValues": "Can have SV in Insight and Manipulation",
+      "Telepathy": "Can speak using telepathy"
+    },
+    "CanSpeak": {
+      "Name": "Can Speak",
+      "Description": "Can speak or mimic language"
+    },
+    "PossessedByDemon": {
+      "Name": "Possessed by Demon",
+      "Description": "Is actually a demon. (See page 80 in the Gamemaster's Guide)"
+    }
+  },
+  "Weakness": {
+    "Weakness": "Weakness",
+    "None": {
+      "Name": "None",
+      "Description": "–"
+    },
+    "VulnerableToFire": {
+      "Name": "Vulnerable to Fire",
+      "Description": "Takes double damage from Fire."
+    },
+    "VulnerableToLight": {
+      "Name": "Vulnerable to Light",
+      "Description": "Can't tolerate light, must move away from bright lights. If that is not possible the monster takes D3 damage per light source, D6 damage from large light source (like the sun), each round."
+    },
+    "AfraidOfLoudNoises": {
+      "Name": "Afraid of loud noises",
+      "Description": "Loud noises scares the beast. Bangs and loud noises make it flee, clattering shield or the like make it hesitate and avoid the source."
+    },
+    "ProtectsOffspring": {
+      "Name": "Protecting offspring",
+      "Description": "Has offspring nearby and will not leave the places where they are."
+    },
+    "SensitiveEyes": {
+      "Name": "Sensitive eyes",
+      "Description": "Attacks against the eyes (Insanely hard -3) deals double damage."
+    },
+    "ObsessedWithAllThatGlimmers": {
+      "Name": "Obsessed with all that glimmers",
+      "Description": "If the creatures spots anything that glimmers like silver or a mirror it will focus its attention on the source."
+    }
+  },
+  "Motivation": {
+    "Motivation": "Motivation",
+    "Territory": {
+      "Name": "Territory",
+      "Description": "The creature is bound to its territory"
+    },
+    "Pregnant": {
+      "Name": "Pregnant",
+      "Description": "The creature is pregnant and wants to give birth to its offspring in peace"
+    },
+    "Hunger": {
+      "Name": "Hunger",
+      "Description": "The creature is starving and will attack the juiciest adventurer and devour her if possible"
+    },
+    "Injured": {
+      "Name": "Injured",
+      "Description": "The creature is sick (Gains the trait Injured)"
+    },
+    "Parasite": {
+      "Name": "Parasite",
+      "Description": "The creature is controlled by a parasitic entity, acts strangely"
+    },
+    "Alone": {
+      "Name": "Wants to be alone",
+      "Description": "The creature wants to be left alone and only attacks if cornered"
+    },
+    "Fun": {
+      "Name": "Fun",
+      "Description": "The creature hunts for fun"
+    },
+    "LookingForHost": {
+      "Name": "Looking for host",
+      "Description": "It is Looking for a creature that can serve as a host for its offspring in some way"
+    },
+    "GuardingTreasure": {
+      "Name": "Guarding treasure",
+      "Description": "The creature guards treasure"
+    }
   }
 }
