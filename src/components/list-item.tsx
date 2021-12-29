@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import tw, { styled } from 'twin.macro'
 
-interface ListItemProps {
+interface ListItemButtonProps {
   children: ReactNode
   onClick?: () => void
 }
@@ -9,7 +9,7 @@ interface ListItemProps {
 export const ListButton = styled.button([
   // The common button styles
   tw`px-4 py-2 select-none focus:outline-none w-full`,
-  tw`rounded-none border border-gray-300 border-b-0 last:border-b`,
+  tw`rounded-none`,
   // Use the variant grouping feature to add variants to multiple classes
   tw`pointer-fine:hover:(bg-red-500 border-red-500) `,
 
@@ -25,10 +25,6 @@ export const ListButton = styled.button([
   // `,
 ])
 
-export const ListItem = ({ children, onClick }: ListItemProps) => {
-  return (
-    <ListButton onClick={onClick} role="listitem">
-      {children}
-    </ListButton>
-  )
-}
+export const ListItemButton = ({ children, onClick }: ListItemButtonProps) => (
+  <ListButton onClick={onClick}>{children}</ListButton>
+)

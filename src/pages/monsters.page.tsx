@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { css } from 'twin.macro'
-import { Button } from '../components/Button'
-import { ListItem } from '../components/list-item'
+import 'twin.macro'
+import { List } from '../components/list'
+import { ListGroup } from '../components/list-group'
+import { ListItemButton } from '../components/list-item'
 import { MonsterDisplay } from '../components/monster-display'
 import { PageHeader } from '../components/page-header'
 import { Parchment } from '../components/parchment'
@@ -48,25 +49,33 @@ export const MonstersPage = () => {
   return (
     <div tw="flex flex-col gap-y-8 w-full ">
       <PageHeader>{t('Title')}</PageHeader>
-      <div tw="grid lg:(grid-template-columns[25% 1fr]) gap-16">
+      <div tw="grid lg:(grid-template-columns[1fr 3fr]) gap-16">
         <div>
-          <h3 tw="text-xl font-bold mb-2">{t(`GenerateMonster`)}</h3>
-          <Button tw="mb-4" isSmall onClick={() => generateRandomMonster()}>
-            Random Monster
-          </Button>
-          <h3 tw="text-xl font-bold mb-2">{t(`BookMonsters`)}</h3>
-          <ul
-            tw="bg-gray-100 max-h-96 lg:max-h-[initial] xl:max-h-[initial] 2xl:max-h-[initial]"
-            css={css`
-              overflow-y: overlay;
-            `}
-          >
-            {monsters.map((m) => (
-              <ListItem key={m.name} onClick={() => selectMonster(m)}>
-                {t(`Monster.${m.name}`, { ns: 'common' })}
-              </ListItem>
-            ))}
-          </ul>
+          <List>
+            <ListGroup tw="mb-8" label={t(`GenerateMonster`)} open={true}>
+              <ul>
+                <li tw="border border-gray-300 border-b-0 last:border-b">
+                  <ListItemButton onClick={() => generateRandomMonster()}>
+                    Random Monster
+                  </ListItemButton>
+                </li>
+              </ul>
+            </ListGroup>
+            <ListGroup label={t(`BookMonsters`)} open={true}>
+              <ul>
+                {monsters.map((m) => (
+                  <li
+                    key={m.name}
+                    tw="border border-gray-300 border-b-0 last:border-b"
+                  >
+                    <ListItemButton onClick={() => selectMonster(m)}>
+                      {t(`Monster.${m.name}`, { ns: 'common' })}
+                    </ListItemButton>
+                  </li>
+                ))}
+              </ul>
+            </ListGroup>
+          </List>
         </div>
 
         <Parchment
