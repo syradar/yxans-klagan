@@ -1,4 +1,5 @@
 import {
+  chooseFromChoiceString,
   getRandomInt,
   rollD2,
   rollD3,
@@ -7,45 +8,31 @@ import {
 import { isEven } from '../functions/math.functions'
 import { id, maybe, validNumber } from '../functions/utils.functions'
 import {
-  ArmorTypeLabel,
   HeadChoices,
   LimbChoices,
+  MonsterArmor,
+  MonsterAttacks,
   MonsterHome,
+  MonsterMotivation,
   MonsterSize,
   MonsterTrait,
   MonsterType,
+  MonsterWeakness,
   MovementDistanceFunction,
   MovementType,
   TailChoices,
-  MonsterWeakness,
   WeightedRandomMonsterChoice,
-  MonsterMotivation,
 } from '../models/monster.model'
 
 export const sizes: WeightedRandomMonsterChoice<{
   size: MonsterSize
   strength: (diceFn?: () => number) => number
 }>[] = [
-  {
-    weight: 4,
-    value: { size: 'Puny', strength: (_ = rollD6) => 1 },
-  },
-  {
-    weight: 3,
-    value: { size: 'Small', strength: (_ = rollD6) => 2 },
-  },
-  {
-    weight: 8,
-    value: { size: 'Average', strength: (_ = rollD6) => 3 },
-  },
-  {
-    weight: 7,
-    value: { size: 'Large', strength: (_ = rollD6) => 4 },
-  },
-  {
-    weight: 7,
-    value: { size: 'Big', strength: (_ = rollD6) => 8 },
-  },
+  { weight: 4, value: { size: 'Puny', strength: (_ = rollD6) => 1 } },
+  { weight: 3, value: { size: 'Small', strength: (_ = rollD6) => 2 } },
+  { weight: 8, value: { size: 'Average', strength: (_ = rollD6) => 3 } },
+  { weight: 7, value: { size: 'Large', strength: (_ = rollD6) => 4 } },
+  { weight: 7, value: { size: 'Big', strength: (_ = rollD6) => 8 } },
   {
     weight: 3,
     value: { size: 'Huge', strength: (diceFn = rollD6) => 14 + diceFn() },
@@ -63,95 +50,35 @@ export const types: WeightedRandomMonsterChoice<{
   type: MonsterType
   agility: number
 }>[] = [
-  {
-    weight: 3,
-    value: { type: 'Grazing', agility: 1 },
-  },
-  {
-    weight: 3,
-    value: { type: 'Herbivore', agility: 2 },
-  },
-  {
-    weight: 5,
-    value: { type: 'Gatherer', agility: 2 },
-  },
-  {
-    weight: 7,
-    value: { type: 'Scavenger', agility: 4 },
-  },
-  {
-    weight: 12,
-    value: { type: 'Predator', agility: 5 },
-  },
-  {
-    weight: 6,
-    value: { type: 'AggressivePredator', agility: 8 },
-  },
+  { weight: 3, value: { type: 'Grazing', agility: 1 } },
+  { weight: 3, value: { type: 'Herbivore', agility: 2 } },
+  { weight: 5, value: { type: 'Gatherer', agility: 2 } },
+  { weight: 7, value: { type: 'Scavenger', agility: 4 } },
+  { weight: 12, value: { type: 'Predator', agility: 5 } },
+  { weight: 6, value: { type: 'AggressivePredator', agility: 8 } },
 ]
 
 export const limbs: WeightedRandomMonsterChoice<LimbChoices>[] = [
-  {
-    weight: 3,
-    value: 'None',
-  },
-  {
-    weight: 5,
-    value: 'Tentacles',
-  },
-  {
-    weight: 3,
-    value: 'TwoLegs',
-  },
-  {
-    weight: 3,
-    value: 'TwoLegsTwoArms',
-  },
-  {
-    weight: 10,
-    value: 'FourLegs',
-  },
-  {
-    weight: 5,
-    value: 'FourLegsTwoArms',
-  },
-  {
-    weight: 5,
-    value: 'Wings',
-  },
-  {
-    weight: 5,
-    value: 'Many',
-  },
+  { weight: 3, value: 'None' },
+  { weight: 5, value: 'Tentacles' },
+  { weight: 3, value: 'TwoLegs' },
+  { weight: 3, value: 'TwoLegsTwoArms' },
+  { weight: 10, value: 'FourLegs' },
+  { weight: 5, value: 'FourLegsTwoArms' },
+  { weight: 5, value: 'Wings' },
+  { weight: 5, value: 'Many' },
 ]
 
 export const headChoices: WeightedRandomMonsterChoice<{
   key: HeadChoices
   count?: number
 }>[] = [
-  {
-    weight: 1,
-    value: { key: 'Missing' },
-  },
-  {
-    weight: 5,
-    value: { key: 'Beak' },
-  },
-  {
-    weight: 6,
-    value: { key: 'HornWithCount', count: getRandomInt(1, 3) },
-  },
-  {
-    weight: 3,
-    value: { key: 'ElkHorns' },
-  },
-  {
-    weight: 4,
-    value: { key: 'TentaclesWithCount', count: rollD6() + 2 },
-  },
-  {
-    weight: 2,
-    value: { key: 'InsectoidEyes' },
-  },
+  { weight: 1, value: { key: 'Missing' } },
+  { weight: 5, value: { key: 'Beak' } },
+  { weight: 6, value: { key: 'HornWithCount', count: getRandomInt(1, 3) } },
+  { weight: 3, value: { key: 'ElkHorns' } },
+  { weight: 4, value: { key: 'TentaclesWithCount', count: rollD6() + 2 } },
+  { weight: 2, value: { key: 'InsectoidEyes' } },
   {
     weight: 3,
     value: {
@@ -159,119 +86,32 @@ export const headChoices: WeightedRandomMonsterChoice<{
       count: [rollD6() + rollD6()].map((e) => (isEven(e) ? e : e + 1))[0],
     },
   },
-  {
-    weight: 1,
-    value: { key: 'ManyEyes' },
-  },
-  {
-    weight: 2,
-    value: { key: 'BigMane' },
-  },
-  {
-    weight: 1,
-    value: { key: 'LongTongue' },
-  },
-  {
-    weight: 2,
-    value: { key: 'BigEars' },
-  },
-  {
-    weight: 2,
-    value: { key: 'Fin' },
-  },
-  {
-    weight: 3,
-    value: { key: 'RollTwice' },
-  },
+  { weight: 1, value: { key: 'ManyEyes' } },
+  { weight: 2, value: { key: 'BigMane' } },
+  { weight: 1, value: { key: 'LongTongue' } },
+  { weight: 2, value: { key: 'BigEars' } },
+  { weight: 2, value: { key: 'Fin' } },
+  { weight: 3, value: { key: 'RollTwice' } },
 ]
 
 export const tailChoices: WeightedRandomMonsterChoice<{
   key: TailChoices
   damage: number
 }>[] = [
-  {
-    weight: 3,
-    value: {
-      key: 'None',
-      damage: 0,
-    },
-  },
-  {
-    weight: 2,
-    value: {
-      key: 'Tail',
-      damage: 0,
-    },
-  },
-  {
-    weight: 1,
-    value: {
-      key: 'SpikedTail',
-      damage: 1,
-    },
-  },
+  { weight: 3, value: { key: 'None', damage: 0 } },
+  { weight: 2, value: { key: 'Tail', damage: 0 } },
+  { weight: 1, value: { key: 'SpikedTail', damage: 1 } },
 ]
 
-export const armorChoices: WeightedRandomMonsterChoice<{
-  key: ArmorTypeLabel
-  armor: number
-}>[] = [
-  {
-    weight: 4,
-    value: {
-      key: 'Skin',
-      armor: 0,
-    },
-  },
-  {
-    weight: 4,
-    value: {
-      key: 'SoftFur',
-      armor: 1,
-    },
-  },
-  {
-    weight: 10,
-    value: {
-      key: 'ThickFur',
-      armor: 2,
-    },
-  },
-  {
-    weight: 4,
-    value: {
-      key: 'Feathers',
-      armor: 2,
-    },
-  },
-  {
-    weight: 5,
-    value: {
-      key: 'Scales',
-      armor: 3,
-    },
-  },
-  {
-    weight: 4,
-    value: {
-      key: 'Shell',
-      armor: 5,
-    },
-  },
-  {
-    weight: 3,
-    value: {
-      key: 'BonePlates',
-      armor: 7,
-    },
-  },
-  {
-    weight: 2,
-    value: {
-      key: 'ArmoredHide',
-      armor: 9,
-    },
-  },
+export const armorChoices: WeightedRandomMonsterChoice<MonsterArmor>[] = [
+  { weight: 4, value: { key: 'Skin', armor: 0 } },
+  { weight: 4, value: { key: 'SoftFur', armor: 1 } },
+  { weight: 10, value: { key: 'ThickFur', armor: 2 } },
+  { weight: 4, value: { key: 'Feathers', armor: 2 } },
+  { weight: 5, value: { key: 'Scales', armor: 3 } },
+  { weight: 4, value: { key: 'Shell', armor: 5 } },
+  { weight: 3, value: { key: 'BonePlates', armor: 7 } },
+  { weight: 2, value: { key: 'ArmoredHide', armor: 9 } },
 ]
 
 export const defaultMovementDistanceFunction = (
@@ -337,62 +177,16 @@ export const movementTypes: WeightedRandomMonsterChoice<{
 ]
 
 export const homes: WeightedRandomMonsterChoice<MonsterHome>[] = [
-  {
-    weight: 4,
-    value: 'Burrow',
-  },
-  {
-    weight: 5,
-    value: 'Ruin',
-  },
-  {
-    weight: 5,
-    value: 'WateringHole',
-  },
-  {
-    weight: 4,
-    value: 'TreeOrHighPoint',
-  },
-  {
-    weight: 5,
-    value: 'Cave',
-  },
-  {
-    weight: 5,
-    value: 'Ravine',
-  },
-  {
-    weight: 8,
-    value: 'Den',
-  },
+  { weight: 4, value: 'Burrow' },
+  { weight: 5, value: 'Ruin' },
+  { weight: 5, value: 'WateringHole' },
+  { weight: 4, value: 'TreeOrHighPoint' },
+  { weight: 5, value: 'Cave' },
+  { weight: 5, value: 'Ravine' },
+  { weight: 8, value: 'Den' },
 ]
 
-export const monsterSkillValues: WeightedRandomMonsterChoice<number>[] = [
-  {
-    weight: 19,
-    value: 0,
-  },
-  {
-    weight: 5,
-    value: 1,
-  },
-  {
-    weight: 4,
-    value: 2,
-  },
-  {
-    weight: 4,
-    value: 3,
-  },
-  {
-    weight: 2,
-    value: 4,
-  },
-  {
-    weight: 2,
-    value: 5,
-  },
-]
+export const monsterSkillValues = '0^19|1^5|2^4|3^4|4^2|5^2'
 
 export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
   {
@@ -637,40 +431,134 @@ export const monsterWeakness: WeightedRandomMonsterChoice<MonsterWeakness>[] = [
 
 export const monsterMotivation: WeightedRandomMonsterChoice<MonsterMotivation>[] =
   [
-    {
-      weight: 13,
-      value: 'Territory',
-    },
-    {
-      weight: 4,
-      value: 'Pregnant',
-    },
-    {
-      weight: 5,
-      value: 'Hunger',
-    },
-    {
-      weight: 2,
-      value: 'Injured',
-    },
-    {
-      weight: 1,
-      value: 'Parasite',
-    },
-    {
-      weight: 5,
-      value: 'Alone',
-    },
-    {
-      weight: 2,
-      value: 'Fun',
-    },
-    {
-      weight: 2,
-      value: 'LookingForHost',
-    },
-    {
-      weight: 2,
-      value: 'GuardingTreasure',
-    },
+    { weight: 13, value: 'Territory' },
+    { weight: 4, value: 'Pregnant' },
+    { weight: 5, value: 'Hunger' },
+    { weight: 2, value: 'Injured' },
+    { weight: 1, value: 'Parasite' },
+    { weight: 5, value: 'Alone' },
+    { weight: 2, value: 'Fun' },
+    { weight: 2, value: 'LookingForHost' },
+    { weight: 2, value: 'GuardingTreasure' },
   ]
+
+export const monsterAttacks: MonsterAttacks = {
+  Bash: {
+    type: 'Bash',
+    damage: (_) => 1,
+    reach: 'ArmsLength',
+    attack: (rm) => rm.attributes.agility,
+    description: 'Attack.Bash',
+    valid: (rm) => rm.attributes.strength >= 5,
+  },
+  Bite: {
+    type: 'Bite',
+    damage: (_) => chooseFromChoiceString('1^2|2^3|3'),
+    reach: 'ArmsLength',
+    attack: (rm) => 4 + rm.attributes.agility,
+    description: 'Attack.Bite',
+    valid: (rm) => rm.attackRequirements.fangs,
+  },
+  BreathFire: {
+    type: 'BreathFire',
+    damage: (_) => 1,
+    reach: 'Short',
+    attack: (_) => 6 + rollD6(),
+    description: 'Attack.BreathFire',
+    valid: (rm) => rm.attackRequirements.fireGlands,
+  },
+  DeadlyGaze: {
+    type: 'DeadlyGaze',
+    attack: (_) => 4 + rollD6(),
+    reach: 'Near',
+    description: 'Attack.DeadlyGaze',
+    valid: (rm) => rm.attackRequirements.undead,
+  },
+  Headbutt: {
+    type: 'Headbutt',
+    damage: (_) => chooseFromChoiceString('1^2|2'),
+    reach: 'ArmsLength',
+    attack: (rm) => 5 + rm.attributes.agility,
+    description: 'Attack.Headbutt',
+    valid: (_) => true,
+  },
+  Horn: {
+    type: 'Horn',
+    damage: (_) => chooseFromChoiceString('2^2|3'),
+    reach: 'ArmsLength',
+    attack: (rm) => 5 + rm.attributes.agility,
+    description: 'Attack.Horn',
+    valid: (rm) => rm.attackRequirements.horn,
+  },
+  Roar: {
+    type: 'Roar',
+    reach: 'ArmsLength',
+    attack: (_) => 3 + rollD3(),
+    description: 'Attack.Roar',
+    valid: (rm) => rm.attributes.strength >= 6,
+  },
+  Kick: {
+    type: 'Kick',
+    reach: 'ArmsLength',
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: (_) => 1,
+    description: 'Attack.Kick',
+    valid: (rm) => rm.attackRequirements.legs,
+  },
+  Sweep: {
+    type: 'Sweep',
+    reach: 'Near',
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: (_) => chooseFromChoiceString('1^2|2^3|3'),
+    description: 'Attack.Sweep',
+    valid: (rm) => rm.attributes.agility >= 3,
+  },
+  Slash: {
+    type: 'Slash',
+    reach: 'ArmsLength',
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: (_) => chooseFromChoiceString('1^2|2^3|3'),
+    description: 'Attack.Slash',
+    valid: (rm) => rm.attackRequirements.claws,
+  },
+  TailsSlash: {
+    type: 'TailsSlash',
+    reach: 'Near',
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: (_) => 1,
+    description: 'Attack.TailsSlash',
+    valid: (rm) => rm.attackRequirements.tail,
+  },
+  TentacleLash: {
+    type: 'TentacleLash',
+    reach: 'Near',
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: (_) => chooseFromChoiceString('1^2|2'),
+    description: 'Attack.TentacleLash',
+    valid: (rm) => rm.attackRequirements.tentacles,
+  },
+  Devour: {
+    type: 'Devour',
+    reach: 'ArmsLength',
+    attack: (_) => 4 + rollD6(),
+    damage: (_) => chooseFromChoiceString('1^2|2'),
+    description: 'Attack.Devour',
+    valid: (rm) => rm.attributes.strength >= 14,
+  },
+  SpitAcid: {
+    type: 'SpitAcid',
+    reach: 'Near',
+    attack: (_) => 4 + rollD6(),
+    damage: (_) => 1,
+    description: 'Attack.SpitAcid',
+    valid: (rm) => rm.attackRequirements.acidGlands,
+  },
+  DiveAttack: {
+    type: 'DiveAttack',
+    reach: 'Near',
+    attack: (rm) => 4 + rm.attributes.agility,
+    damage: (rm) => Math.floor(rm.attributes.agility),
+    description: 'Attack.DiveAttack',
+    valid: (rm) => rm.attackRequirements.wings,
+  },
+}

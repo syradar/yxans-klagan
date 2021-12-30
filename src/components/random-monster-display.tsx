@@ -27,7 +27,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
   }
 
   return (
-    <div tw="mb-16 flex flex-col gap-2">
+    <div tw="flex flex-col gap-2">
       <h2 tw="text-4xl mb-2" className="yx-heading">
         {t(`Size.${rm.size}`, { ...getSizeContext(rm.type) })}{' '}
         {t(`Type.${rm.type}`)}
@@ -121,6 +121,32 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
           </section>
         </div>
       </div>
+      <h3 tw="text-xl font-medium">{t(`Attack.Attacks`)}</h3>
+      <table tw="w-full">
+        <thead>
+          <tr tw="uppercase border-b-[1px] border-gray-500">
+            <th tw="font-bold p-1 text-left">Type</th>
+            <th tw="font-bold p-1 text-center">Attack</th>
+            <th tw="font-bold p-1 text-center">Damage</th>
+            <th tw="font-bold p-1 text-center">Range</th>
+            <th tw="font-bold p-1 text-left">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rm.attacks.map((a) => (
+            <tr
+              key={a.type}
+              tw="border-b-[1px] border-gray-500 odd:bg-gray-200"
+            >
+              <td tw="p-1">{a.type}</td>
+              <td tw="p-1 text-center">{a.attack}</td>
+              <td tw="p-1 text-center">{a.damage}</td>
+              <td tw="p-1 text-center">{a.reach}</td>
+              <td tw="p-1">{a.description}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }

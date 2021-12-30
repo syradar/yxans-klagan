@@ -1,5 +1,6 @@
-import { pluck, sum } from 'rambda'
+import { compose, pluck, sum } from 'rambda'
 import { D2, D3, D6, D66, D8 } from '../models/fbl-dice.model'
+import { range } from './array.functions'
 
 /**
  * Can be used for any roll
@@ -31,8 +32,17 @@ export const rollD66 = (): D66 => {
   return (tens + ones) as D66
 }
 
+export const parseChoiceString = (str: string): number[] =>
+  str
+    .split('|')
+    .map((c) => c.split('^').map((a) => parseInt(a, 10) ?? 1))
+    .map((cs) => range(cs.length === 2 ? cs[1] : 1).map((_) => cs[0]))
+    .flat()
+
 export const choose = <T>(arr: readonly T[]): T =>
   arr[getRandomInt(0, arr.length - 1)]
+
+export const chooseFromChoiceString = compose(choose, parseChoiceString)
 
 export interface WeightedChoice {
   weight: number

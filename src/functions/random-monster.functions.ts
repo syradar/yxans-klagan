@@ -1,9 +1,11 @@
+import { compose, prop } from 'rambda'
 import { TFunction } from 'react-i18next'
 import {
   armorChoices,
   headChoices,
   homes,
   limbs,
+  monsterAttacks,
   monsterMotivation,
   monsterSkillValues,
   monsterTraits,
@@ -17,21 +19,26 @@ import { D3 } from '../models/fbl-dice.model'
 import {
   HeadChoices,
   LimbChoices,
+  MonsterArmor,
+  MonsterAttacks,
+  MonsterAttackViewModel,
   MonsterHome,
   MonsterLimbs,
+  MonsterMotivation,
   MonsterMovement,
+  MonsterSkillListItem,
+  MonsterSkills,
   MonsterTrait,
+  MonsterWeakness,
   RandomMonster,
   RandomMonsterViewModel,
-  MonsterWeakness,
+  TailChoices,
   WeightedRandomMonsterChoice,
-  MonsterMotivation,
-  MonsterSkills,
-  MonsterSkillListItem,
 } from '../models/monster.model'
 import { range } from './array.functions'
 import { createAttributesViewModel } from './attributes.functions'
 import {
+  chooseFromChoiceString,
   getRandomInt,
   rollD3,
   rollD6,
@@ -63,6 +70,7 @@ export const createRandomMonsterViewModel = (
       name: `Motivation.${rm.motivation}.Name`,
       description: `Motivation.${rm.motivation}.Description`,
     },
+    attacks: createMonsterAttacks(monsterAttacks, rm),
   }
 
   return rmvm
@@ -73,79 +81,52 @@ export const createRandomMonster = (
 ): RandomMonster => {
   const { size, strength } = weightedRandom(sizes).value
   const { type, agility } = weightedRandom(types).value
-  const [lastHead, ...restOfHeads] = getHeads().map(({ key, count }) =>
-    t(`Head.${key}`, { count }),
-  )
+  const headOptions = getHeads()
   const tail = weightedRandom(tailChoices).value
-  const armor = weightedRandom(armorChoices).value
-  const limbs = getMonsterLimbs()
-  const tailDescription =
-    tail.key !== 'None' ? t(`Tail.${tail.key}`) : undefined
+  const limbs = sumMonsterLimbs(rollForMonsterLimbs())
 
   const motivation = weightedRandom(monsterMotivation).value
-
   const [hurt, traitsList] = getTraitListBasedOnMotivation(
     motivation,
     monsterTraits,
   )
-
   const traits = [getMonsterTraits(rollD3(), traitsList), hurt].flat()
 
   return {
     name: 'ted',
-    attributes: { strength: strength(), agility },
+    attributes: { strength: strength(), agility, empathy: 0, wits: 0 },
     size,
     type,
     limbs,
-    description: {
-      head:
-        restOfHeads.length > 0
-          ? `${restOfHeads.join(', ')} & ${lastHead}`
-          : lastHead,
-      tail: tailDescription,
-      limbs: getLimbsDescription(t, limbs, tailDescription),
-    },
-    damage: {
-      Tail: 0 + tail.damage,
-    },
-    armor: {
-      label: armor.key,
-      values: numberToBooleans(armor.armor),
-    },
+    description: createDescription(headOptions, tail.key, limbs, t),
+    damageModifiers: createDamageModifiers(tail.damage),
+    armor: rollForArmor(armorChoices),
     home: getMonsterHome(),
-    skills: {
-      Melee: weightedRandom(monsterSkillValues).value,
-      Move: weightedRandom(monsterSkillValues).value,
-      Scouting: weightedRandom(monsterSkillValues).value,
-      Stealth: weightedRandom(monsterSkillValues).value,
-    },
+    skills: createMonsterSkills(monsterSkillValues),
     traits,
-    acidGlands: false,
-    fireGlands: false,
     weakness: getMonsterWeakness(),
     motivation,
+    attackRequirements: createAttackRequirements(
+      traits,
+      tail.key,
+      headOptions.map((ho) => ho.key),
+      limbs,
+    ),
   }
 }
 
-const getMonsterLimbs = (): MonsterLimbs =>
-  getLimbs().reduce(
-    (acc, cur) => {
-      acc.Arms += cur.Arms
-      acc.Tentacles += cur.Tentacles
-      acc.Legs += cur.Legs
-      acc.Wings += cur.Wings
-
-      return acc
-    },
-    {
-      Arms: 0,
-      Legs: 0,
-      Tentacles: 0,
-      Wings: 0,
-    },
+const sumMonsterLimbs = (mls: MonsterLimbs[]): MonsterLimbs =>
+  mls.reduce(
+    (acc, cur) => ({
+      Arms: acc.Arms + cur.Arms,
+      Tentacles: acc.Tentacles + cur.Tentacles,
+      Legs: acc.Legs + cur.Legs,
+      Wings: acc.Wings + cur.Wings,
+    }),
+    { Arms: 0, Legs: 0, Tentacles: 0, Wings: 0 },
   )
 
-const getLimbs = (): MonsterLimbs[] => {
+const rollForMonsterLimbs = (): MonsterLimbs[] => {
   const allLimbs: MonsterLimbs[] = []
 
   let rolls = 0
@@ -168,9 +149,11 @@ const getLimbsDescription = (
   limbs: MonsterLimbs,
   tail: string | undefined,
 ): string => {
-  const actualLimbs: [string, number][] = Object.entries(limbs)
-    .filter(([_, value]) => value > 0)
-    .map(([k, v]) => [`Limbs.${k}`, v]) as [string, number][]
+  const actualLimbs: [string, number][] = Object.entries(limbs).reduce(
+    (acc, [limbName, amountOfLimb]) =>
+      amountOfLimb > 0 ? [...acc, [`Limbs.${limbName}`, amountOfLimb]] : acc,
+    [] as [string, number][],
+  )
 
   const limbsDescriptions =
     actualLimbs.length === 0
@@ -179,9 +162,7 @@ const getLimbsDescription = (
 
   const tailDescription = [tail ? [tail] : []].flat()
 
-  const [lastLimb, ...restOfLimbs] = [tailDescription, limbsDescriptions]
-    .reverse()
-    .flat()
+  const [lastLimb, ...restOfLimbs] = [tailDescription, limbsDescriptions].flat()
 
   return restOfLimbs.length > 0
     ? `${t('TheMonsterHas')} ${restOfLimbs.join(', ')} & ${lastLimb}`
@@ -195,6 +176,7 @@ const chosenLimbsToMonsterLimbs = (lc: LimbChoices): MonsterLimbs => {
     Tentacles: 0,
     Wings: 0,
   }
+
   switch (lc) {
     case 'Tentacles':
       return {
@@ -287,9 +269,7 @@ export const getMonsterHome = (
   randomFunc: <T extends WeightedChoice>(
     probabilities: T[],
   ) => T = weightedRandom,
-): MonsterHome => {
-  return randomFunc(homes).value
-}
+): MonsterHome => randomFunc(homes).value
 
 export const getTraitListBasedOnMotivation = (
   motivation: MonsterMotivation,
@@ -348,3 +328,86 @@ export const getMonsterSkillListItems = (
       : [],
   ].flat()
 }
+
+const createAttackRequirements = (
+  traits: MonsterTrait[],
+  tailKey: TailChoices,
+  headChoices: HeadChoices[],
+  limbs: MonsterLimbs,
+) => {
+  return {
+    acidGlands: traits.some((t) => t.name === 'Trait.AcidGlands.Name'),
+    fireGlands: traits.some((t) => t.name === 'Trait.FireGlands.Name'),
+    tail: tailKey !== 'None',
+    claws: limbs.Arms > 0,
+    fangs: headChoices.every((choice) => choice !== 'Missing'),
+    horn: headChoices.some((choice) => choice !== 'HornWithCount'),
+    legs: limbs.Legs > 0,
+    tentacles: limbs.Tentacles > 0,
+    undead: traits.some((t) => t.name === 'Trait.Undead.Name'),
+    wings: limbs.Wings > 0,
+  }
+}
+
+const createMonsterAttacks = (
+  allMonsterAttacks: MonsterAttacks,
+  rm: RandomMonster,
+) =>
+  Object.values(allMonsterAttacks).reduce((acc, cur) => {
+    if (cur.valid(rm)) {
+      acc.push({
+        ...cur,
+        damage: cur.damage && cur.damage(rm),
+        attack: cur.attack && cur.attack(rm),
+      })
+    }
+
+    return acc
+  }, [] as MonsterAttackViewModel[])
+
+const createMonsterSkills = (skillValueChoice: string): MonsterSkills => ({
+  Melee: chooseFromChoiceString(skillValueChoice),
+  Move: chooseFromChoiceString(skillValueChoice),
+  Scouting: chooseFromChoiceString(skillValueChoice),
+  Stealth: chooseFromChoiceString(skillValueChoice),
+})
+
+const rollForArmor = compose(
+  (ma: MonsterArmor) => ({
+    label: ma.key,
+    values: numberToBooleans(ma.armor),
+  }),
+  prop('value'),
+  (ac: WeightedRandomMonsterChoice<MonsterArmor>[]) => weightedRandom(ac),
+)
+
+const createDescription = (
+  headOptions: {
+    key: HeadChoices
+    count?: number | undefined
+  }[],
+  tailKey: TailChoices,
+  limbs: MonsterLimbs,
+  t: TFunction<('monsters' | 'common')[]>,
+) => {
+  const [lastHead, ...restOfHeads] = headOptions.map(({ key, count }) =>
+    t(`Head.${key}`, { count }),
+  )
+
+  const tailDescription = tailKey !== 'None' ? t(`Tail.${tailKey}`) : undefined
+
+  return {
+    head:
+      restOfHeads.length > 0
+        ? `${restOfHeads.join(', ')} & ${lastHead}`
+        : lastHead,
+    tail: tailDescription,
+    limbs: getLimbsDescription(t, limbs, tailDescription),
+  }
+}
+
+const createDamageModifiers = (tailDamage: number) => ({
+  Crushing: 0,
+  Slashing: 0,
+  TailAttack: tailDamage,
+})

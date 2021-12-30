@@ -29,6 +29,11 @@ export type ArmorTypeLabel =
   | 'BonePlates'
   | 'ArmoredHide'
 
+export type MonsterArmor = {
+  key: ArmorTypeLabel
+  armor: number
+}
+
 export interface ArmorViewModel {
   values: boolean[]
   label: ArmorTypeLabel
@@ -103,9 +108,6 @@ export type MonsterHome =
   | 'Ravine'
   | 'Den'
 
-type MonsterAttackTypes = 'Tail'
-type MonsterAttackDamage = { [T in MonsterAttackTypes]: number }
-
 type Skills = 'Melee' | 'Stealth' | 'Move' | 'Scouting'
 export type MonsterSkills = { [S in Skills]: number }
 export type MonsterSkillListItem = { name: string; value: number }
@@ -129,6 +131,47 @@ export type MonsterMotivation =
   | 'LookingForHost'
   | 'GuardingTreasure'
 
+export type MonsterAttackType =
+  | 'Slash'
+  | 'Bite'
+  | 'Horn'
+  | 'Headbutt'
+  | 'Roar'
+  | 'TailsSlash'
+  | 'TentacleLash'
+  | 'Bash'
+  | 'Sweep'
+  | 'BreathFire'
+  | 'SpitAcid'
+  | 'DeadlyGaze'
+  | 'Kick'
+  | 'Devour'
+  | 'DiveAttack'
+
+export type MonsterDamageType = 'Slashing' | 'Crushing' | 'TailAttack'
+
+export type MonsterAttackRange = 'ArmsLength' | 'Near' | 'Short'
+
+export type MonsterAttack = {
+  type: MonsterAttackType
+  attack?: (rm: RandomMonster) => number
+  damage?: (rm: RandomMonster) => number | string
+  reach: MonsterAttackRange
+  description: string
+  valid: (rm: RandomMonster) => boolean
+}
+
+export type MonsterAttackViewModel = {
+  type: MonsterAttackType
+  attack?: number
+  damage?: number | string
+  reach: MonsterAttackRange
+  description: string
+}
+
+export type MonsterAttacks = { [T in MonsterAttackType]: MonsterAttack }
+type MonsterDamageModifiers = { [M in MonsterDamageType]: number }
+
 export interface RandomMonster extends Monster {
   size: MonsterSize
   type: MonsterType
@@ -138,15 +181,25 @@ export interface RandomMonster extends Monster {
     tail?: string
     limbs: string
   }
-  damage: MonsterAttackDamage
   armor: ArmorViewModel
   home: MonsterHome
   skills: MonsterSkills
   traits: MonsterTrait[]
-  acidGlands: boolean
-  fireGlands: boolean
   weakness: MonsterWeakness
   motivation: MonsterMotivation
+  damageModifiers: MonsterDamageModifiers
+  attackRequirements: {
+    tail: boolean
+    tentacles: boolean
+    undead: boolean
+    acidGlands: boolean
+    fireGlands: boolean
+    fangs: boolean
+    legs: boolean
+    claws: boolean
+    horn: boolean
+    wings: boolean
+  }
 }
 
 export type MonsterMovement = {
@@ -164,17 +217,28 @@ export interface RandomMonsterViewModel
     tail?: string
     limbs: string
   }
-  damage: MonsterAttackDamage
   armor: ArmorViewModel
   movement: MonsterMovement
   home: MonsterHome
   skills: MonsterSkillListItem[]
   traits: MonsterTraitViewModel[]
-  acidGlands: boolean
-  fireGlands: boolean
   weakness: MonsterWeakness
   motivation: {
     name: `Motivation.${MonsterMotivation}.Name`
     description: `Motivation.${MonsterMotivation}.Description`
+  }
+  damageModifiers: MonsterDamageModifiers
+  attacks: MonsterAttackViewModel[]
+  attackRequirements: {
+    tail: boolean
+    tentacles: boolean
+    undead: boolean
+    acidGlands: boolean
+    fireGlands: boolean
+    fangs: boolean
+    legs: boolean
+    claws: boolean
+    horn: boolean
+    wings: boolean
   }
 }

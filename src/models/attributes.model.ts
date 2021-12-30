@@ -1,7 +1,7 @@
 export type AttributeType = 'strength' | 'agility' | 'wits' | 'empathy'
 export type AttributeTypeLabel = Capitalize<AttributeType>
 
-export type Attributes = { [T in AttributeType]?: number }
+export type Attributes = { [T in AttributeType]: number }
 
 export type AttributeViewModel = {
   label: AttributeTypeLabel
