@@ -93,37 +93,32 @@ export const createRandomMonster = (): RandomMonster => {
 
 export const createRandomMonsterViewModelFromRandomMonster =
   (t: TFunction<('monsters' | 'common')[]>) =>
-  (rm: RandomMonster): RandomMonsterViewModel => {
-    const randomMonsterWithAppliedTraits = rm.traits.reduce(
-      (acc, cur) => cur.apply(acc),
-      rm,
-    )
+  (rm: RandomMonster): RandomMonsterViewModel => ({
+    ...rm,
+    description: createDescription(rm.description, t),
+    movement: getMovement(weightedRandom, rm.attributes.agility),
+    attributes: createAttributesViewModel(rm.attributes),
+    traits: rm.traits.map(({ name, description }) => ({
+      name,
+      description: description(t),
+    })),
+    skills: getMonsterSkillListItems(rm.skills),
+    motivation: {
+      name: `Motivation.${rm.motivation}.Name`,
+      description: `Motivation.${rm.motivation}.Description`,
+    },
+    attacks: createMonsterAttacks(monsterAttacks, rm),
+  })
 
-    const rmvm: RandomMonsterViewModel = {
-      ...randomMonsterWithAppliedTraits,
-      description: createDescription(rm.description, t),
-      movement: getMovement(weightedRandom, rm.attributes.agility),
-      attributes: createAttributesViewModel(rm.attributes),
-      traits: rm.traits.map(({ name, description }) => ({
-        name,
-        description: description(t),
-      })),
-      skills: getMonsterSkillListItems(rm.skills),
-      motivation: {
-        name: `Motivation.${rm.motivation}.Name`,
-        description: `Motivation.${rm.motivation}.Description`,
-      },
-      attacks: createMonsterAttacks(monsterAttacks, rm),
-    }
-
-    return rmvm
-  }
+const applyMonsterTraits = (rm: RandomMonster): RandomMonster =>
+  rm.traits.reduce((acc, cur) => cur.apply(acc), rm)
 
 export const createRandomMonsterViewModel = (
   t: TFunction<('monsters' | 'common')[]>,
 ) =>
   compose(
     createRandomMonsterViewModelFromRandomMonster(t),
+    applyMonsterTraits,
     createRandomMonster,
   )()
 
