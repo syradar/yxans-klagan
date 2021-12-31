@@ -64,11 +64,9 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
           {rm.armor && (
             <div tw="mb-2">
               <h3 tw="text-xl font-medium">{t('ArmorLabel')}</h3>
-              <MonsterAttribute
-                key={`${rm.size}-armor`}
-                values={[...rm.armor.values]}
-                label={t(`Armor.${rm.armor.label}`)}
-              />
+              <div tw="font-medium">
+                {rm.armor.label}: {rm.armor.values.length}
+              </div>
             </div>
           )}
 
