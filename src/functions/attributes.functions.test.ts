@@ -27,10 +27,10 @@ describe('createAttributesViewModel', () => {
   const cases: [Attributes, AttributesViewModel][] = [
     [
       {
-        strength: undefined,
-        agility: undefined,
-        wits: undefined,
-        empathy: undefined,
+        strength: 0,
+        agility: 0,
+        wits: 0,
+        empathy: 0,
       },
       {
         strength: undefined,
