@@ -112,7 +112,7 @@ var react_production_min = createCommonjsModule(function(module, exports) {
   exports.Fragment = 60107;
   exports.StrictMode = 60108;
   exports.Profiler = 60114;
-  var q3 = 60109, r4 = 60110, t3 = 60112;
+  var q3 = 60109, r4 = 60110, t4 = 60112;
   exports.Suspense = 60113;
   var u = 60115, v2 = 60116;
   if (typeof Symbol === "function" && Symbol.for) {
@@ -124,7 +124,7 @@ var react_production_min = createCommonjsModule(function(module, exports) {
     exports.Profiler = w2("react.profiler");
     q3 = w2("react.provider");
     r4 = w2("react.context");
-    t3 = w2("react.forward_ref");
+    t4 = w2("react.forward_ref");
     exports.Suspense = w2("react.suspense");
     u = w2("react.memo");
     v2 = w2("react.lazy");
@@ -411,7 +411,7 @@ var react_production_min = createCommonjsModule(function(module, exports) {
   };
   exports.forwardRef = function(a2) {
     return {
-      $$typeof: t3,
+      $$typeof: t4,
       render: a2
     };
   };
@@ -492,18 +492,18 @@ var scheduler_production_min = createCommonjsModule(function(module, exports) {
     };
   }
   if (typeof window === "undefined" || typeof MessageChannel !== "function") {
-    var t3 = null, u = null, w2 = function() {
-      if (t3 !== null)
+    var t4 = null, u = null, w2 = function() {
+      if (t4 !== null)
         try {
           var a2 = exports.unstable_now();
-          t3(true, a2);
-          t3 = null;
+          t4(true, a2);
+          t4 = null;
         } catch (b2) {
           throw setTimeout(w2, 0), b2;
         }
     };
     f2 = function(a2) {
-      t3 !== null ? setTimeout(f2, 0, a2) : (t3 = a2, setTimeout(w2, 0));
+      t4 !== null ? setTimeout(f2, 0, a2) : (t4 = a2, setTimeout(w2, 0));
     };
     g3 = function(a2, b2) {
       u = setTimeout(a2, b2);
@@ -2871,13 +2871,13 @@ function jd(a2, b2, c3, d3, e3) {
         }
         var w2 = (b2 & 4) !== 0, z3 = !w2 && a2 === "scroll", u = w2 ? h3 !== null ? h3 + "Capture" : null : h3;
         w2 = [];
-        for (var t3 = d4, q3; t3 !== null; ) {
-          q3 = t3;
+        for (var t4 = d4, q3; t4 !== null; ) {
+          q3 = t4;
           var v2 = q3.stateNode;
-          q3.tag === 5 && v2 !== null && (q3 = v2, u !== null && (v2 = Ob(t3, u), v2 != null && w2.push(ef(t3, v2, q3))));
+          q3.tag === 5 && v2 !== null && (q3 = v2, u !== null && (v2 = Ob(t4, u), v2 != null && w2.push(ef(t4, v2, q3))));
           if (z3)
             break;
-          t3 = t3.return;
+          t4 = t4.return;
         }
         0 < w2.length && (h3 = new k4(h3, x3, null, c3, e4), g4.push({
           event: h3,
@@ -2902,32 +2902,32 @@ function jd(a2, b2, c3, d3, e3) {
             w2 = Bd;
             v2 = "onMouseLeave";
             u = "onMouseEnter";
-            t3 = "mouse";
+            t4 = "mouse";
             if (a2 === "pointerout" || a2 === "pointerover")
-              w2 = Td, v2 = "onPointerLeave", u = "onPointerEnter", t3 = "pointer";
+              w2 = Td, v2 = "onPointerLeave", u = "onPointerEnter", t4 = "pointer";
             z3 = k4 == null ? h3 : ue(k4);
             q3 = x3 == null ? h3 : ue(x3);
-            h3 = new w2(v2, t3 + "leave", k4, c3, e4);
+            h3 = new w2(v2, t4 + "leave", k4, c3, e4);
             h3.target = z3;
             h3.relatedTarget = q3;
             v2 = null;
-            wc(e4) === d4 && (w2 = new w2(u, t3 + "enter", x3, c3, e4), w2.target = q3, w2.relatedTarget = z3, v2 = w2);
+            wc(e4) === d4 && (w2 = new w2(u, t4 + "enter", x3, c3, e4), w2.target = q3, w2.relatedTarget = z3, v2 = w2);
             z3 = v2;
             if (k4 && x3)
               b: {
                 w2 = k4;
                 u = x3;
-                t3 = 0;
+                t4 = 0;
                 for (q3 = w2; q3; q3 = gf(q3))
-                  t3++;
+                  t4++;
                 q3 = 0;
                 for (v2 = u; v2; v2 = gf(v2))
                   q3++;
-                for (; 0 < t3 - q3; )
-                  w2 = gf(w2), t3--;
-                for (; 0 < q3 - t3; )
+                for (; 0 < t4 - q3; )
+                  w2 = gf(w2), t4--;
+                for (; 0 < q3 - t4; )
                   u = gf(u), q3--;
-                for (; t3--; ) {
+                for (; t4--; ) {
                   if (w2 === u || u !== null && w2 === u.alternate)
                     break b;
                   w2 = gf(w2);
@@ -3787,7 +3787,7 @@ function Sg(a2) {
     return null;
   }
   function x3(e4, g4, h3, k4) {
-    for (var l3 = null, t3 = null, u = g4, z3 = g4 = 0, q3 = null; u !== null && z3 < h3.length; z3++) {
+    for (var l3 = null, t4 = null, u = g4, z3 = g4 = 0, q3 = null; u !== null && z3 < h3.length; z3++) {
       u.index > z3 ? (q3 = u, u = null) : q3 = u.sibling;
       var n4 = p3(e4, u, h3[z3], k4);
       if (n4 === null) {
@@ -3796,19 +3796,19 @@ function Sg(a2) {
       }
       a2 && u && n4.alternate === null && b2(e4, u);
       g4 = f2(n4, g4, z3);
-      t3 === null ? l3 = n4 : t3.sibling = n4;
-      t3 = n4;
+      t4 === null ? l3 = n4 : t4.sibling = n4;
+      t4 = n4;
       u = q3;
     }
     if (z3 === h3.length)
       return c3(e4, u), l3;
     if (u === null) {
       for (; z3 < h3.length; z3++)
-        u = A3(e4, h3[z3], k4), u !== null && (g4 = f2(u, g4, z3), t3 === null ? l3 = u : t3.sibling = u, t3 = u);
+        u = A3(e4, h3[z3], k4), u !== null && (g4 = f2(u, g4, z3), t4 === null ? l3 = u : t4.sibling = u, t4 = u);
       return l3;
     }
     for (u = d3(e4, u); z3 < h3.length; z3++)
-      q3 = C3(u, e4, z3, h3[z3], k4), q3 !== null && (a2 && q3.alternate !== null && u.delete(q3.key === null ? z3 : q3.key), g4 = f2(q3, g4, z3), t3 === null ? l3 = q3 : t3.sibling = q3, t3 = q3);
+      q3 = C3(u, e4, z3, h3[z3], k4), q3 !== null && (a2 && q3.alternate !== null && u.delete(q3.key === null ? z3 : q3.key), g4 = f2(q3, g4, z3), t4 === null ? l3 = q3 : t4.sibling = q3, t4 = q3);
     a2 && u.forEach(function(a3) {
       return b2(e4, a3);
     });
@@ -3821,7 +3821,7 @@ function Sg(a2) {
     h3 = l3.call(h3);
     if (h3 == null)
       throw Error(y(151));
-    for (var t3 = l3 = null, u = g4, z3 = g4 = 0, q3 = null, n4 = h3.next(); u !== null && !n4.done; z3++, n4 = h3.next()) {
+    for (var t4 = l3 = null, u = g4, z3 = g4 = 0, q3 = null, n4 = h3.next(); u !== null && !n4.done; z3++, n4 = h3.next()) {
       u.index > z3 ? (q3 = u, u = null) : q3 = u.sibling;
       var w3 = p3(e4, u, n4.value, k4);
       if (w3 === null) {
@@ -3830,19 +3830,19 @@ function Sg(a2) {
       }
       a2 && u && w3.alternate === null && b2(e4, u);
       g4 = f2(w3, g4, z3);
-      t3 === null ? l3 = w3 : t3.sibling = w3;
-      t3 = w3;
+      t4 === null ? l3 = w3 : t4.sibling = w3;
+      t4 = w3;
       u = q3;
     }
     if (n4.done)
       return c3(e4, u), l3;
     if (u === null) {
       for (; !n4.done; z3++, n4 = h3.next())
-        n4 = A3(e4, n4.value, k4), n4 !== null && (g4 = f2(n4, g4, z3), t3 === null ? l3 = n4 : t3.sibling = n4, t3 = n4);
+        n4 = A3(e4, n4.value, k4), n4 !== null && (g4 = f2(n4, g4, z3), t4 === null ? l3 = n4 : t4.sibling = n4, t4 = n4);
       return l3;
     }
     for (u = d3(e4, u); !n4.done; z3++, n4 = h3.next())
-      n4 = C3(u, e4, z3, n4.value, k4), n4 !== null && (a2 && n4.alternate !== null && u.delete(n4.key === null ? z3 : n4.key), g4 = f2(n4, g4, z3), t3 === null ? l3 = n4 : t3.sibling = n4, t3 = n4);
+      n4 = C3(u, e4, z3, n4.value, k4), n4 !== null && (a2 && n4.alternate !== null && u.delete(n4.key === null ? z3 : n4.key), g4 = f2(n4, g4, z3), t4 === null ? l3 = n4 : t4.sibling = n4, t4 = n4);
     a2 && u.forEach(function(a3) {
       return b2(e4, a3);
     });
@@ -6299,9 +6299,9 @@ function Sj(a2, b2) {
                   if (h2.alternate === null)
                     h2.tag = 17;
                   else {
-                    var t3 = zg(-1, 1);
-                    t3.tag = 2;
-                    Ag(h2, t3);
+                    var t4 = zg(-1, 1);
+                    t4.tag = 2;
+                    Ag(h2, t4);
                   }
                 h2.lanes |= 1;
                 break a;
@@ -6558,16 +6558,16 @@ function dk(a2, b2) {
     do
       try {
         for (g3 = a2; Z !== null; ) {
-          var t3 = Z.flags;
-          t3 & 16 && pb(Z.stateNode, "");
-          if (t3 & 128) {
+          var t4 = Z.flags;
+          t4 & 16 && pb(Z.stateNode, "");
+          if (t4 & 128) {
             var q3 = Z.alternate;
             if (q3 !== null) {
               var v2 = q3.ref;
               v2 !== null && (typeof v2 === "function" ? v2(null) : v2.current = null);
             }
           }
-          switch (t3 & 1038) {
+          switch (t4 & 1038) {
             case 2:
               fj(Z);
               Z.flags &= -3;
@@ -6605,20 +6605,20 @@ function dk(a2, b2) {
     while (Z !== null);
     v2 = lf;
     q3 = Ne();
-    t3 = v2.focusedElem;
+    t4 = v2.focusedElem;
     g3 = v2.selectionRange;
-    if (q3 !== t3 && t3 && t3.ownerDocument && Me(t3.ownerDocument.documentElement, t3)) {
-      g3 !== null && Oe(t3) && (q3 = g3.start, v2 = g3.end, v2 === void 0 && (v2 = q3), "selectionStart" in t3 ? (t3.selectionStart = q3, t3.selectionEnd = Math.min(v2, t3.value.length)) : (v2 = (q3 = t3.ownerDocument || document) && q3.defaultView || window, v2.getSelection && (v2 = v2.getSelection(), h2 = t3.textContent.length, J3 = Math.min(g3.start, h2), g3 = g3.end === void 0 ? J3 : Math.min(g3.end, h2), !v2.extend && J3 > g3 && (h2 = g3, g3 = J3, J3 = h2), h2 = Le(t3, J3), f2 = Le(t3, g3), h2 && f2 && (v2.rangeCount !== 1 || v2.anchorNode !== h2.node || v2.anchorOffset !== h2.offset || v2.focusNode !== f2.node || v2.focusOffset !== f2.offset) && (q3 = q3.createRange(), q3.setStart(h2.node, h2.offset), v2.removeAllRanges(), J3 > g3 ? (v2.addRange(q3), v2.extend(f2.node, f2.offset)) : (q3.setEnd(f2.node, f2.offset), v2.addRange(q3))))));
+    if (q3 !== t4 && t4 && t4.ownerDocument && Me(t4.ownerDocument.documentElement, t4)) {
+      g3 !== null && Oe(t4) && (q3 = g3.start, v2 = g3.end, v2 === void 0 && (v2 = q3), "selectionStart" in t4 ? (t4.selectionStart = q3, t4.selectionEnd = Math.min(v2, t4.value.length)) : (v2 = (q3 = t4.ownerDocument || document) && q3.defaultView || window, v2.getSelection && (v2 = v2.getSelection(), h2 = t4.textContent.length, J3 = Math.min(g3.start, h2), g3 = g3.end === void 0 ? J3 : Math.min(g3.end, h2), !v2.extend && J3 > g3 && (h2 = g3, g3 = J3, J3 = h2), h2 = Le(t4, J3), f2 = Le(t4, g3), h2 && f2 && (v2.rangeCount !== 1 || v2.anchorNode !== h2.node || v2.anchorOffset !== h2.offset || v2.focusNode !== f2.node || v2.focusOffset !== f2.offset) && (q3 = q3.createRange(), q3.setStart(h2.node, h2.offset), v2.removeAllRanges(), J3 > g3 ? (v2.addRange(q3), v2.extend(f2.node, f2.offset)) : (q3.setEnd(f2.node, f2.offset), v2.addRange(q3))))));
       q3 = [];
-      for (v2 = t3; v2 = v2.parentNode; )
+      for (v2 = t4; v2 = v2.parentNode; )
         v2.nodeType === 1 && q3.push({
           element: v2,
           left: v2.scrollLeft,
           top: v2.scrollTop
         });
-      typeof t3.focus === "function" && t3.focus();
-      for (t3 = 0; t3 < q3.length; t3++)
-        v2 = q3[t3], v2.element.scrollLeft = v2.left, v2.element.scrollTop = v2.top;
+      typeof t4.focus === "function" && t4.focus();
+      for (t4 = 0; t4 < q3.length; t4++)
+        v2 = q3[t4], v2.element.scrollLeft = v2.left, v2.element.scrollTop = v2.top;
     }
     fd = !!kf;
     lf = kf = null;
@@ -6626,9 +6626,9 @@ function dk(a2, b2) {
     Z = d3;
     do
       try {
-        for (t3 = a2; Z !== null; ) {
+        for (t4 = a2; Z !== null; ) {
           var K2 = Z.flags;
-          K2 & 36 && Yi(t3, Z.alternate, Z);
+          K2 & 36 && Yi(t4, Z.alternate, Z);
           if (K2 & 128) {
             q3 = void 0;
             var Q2 = Z.ref;
@@ -7573,7 +7573,7 @@ var reactDom = createCommonjsModule(function(module) {
 });
 var react_dom_default = reactDom;
 
-// build/dist/pkg/common/extends-7c9ddf76.js
+// build/dist/pkg/common/extends-01f93a85.js
 function sheetForTag(tag) {
   if (tag.sheet) {
     return tag.sheet;
@@ -7600,7 +7600,13 @@ var StyleSheet = /* @__PURE__ */ function() {
     this._insertTag = function(tag) {
       var before;
       if (_this.tags.length === 0) {
-        before = _this.prepend ? _this.container.firstChild : _this.before;
+        if (_this.insertionPoint) {
+          before = _this.insertionPoint.nextSibling;
+        } else if (_this.prepend) {
+          before = _this.container.firstChild;
+        } else {
+          before = _this.before;
+        }
       } else {
         before = _this.tags[_this.tags.length - 1].nextSibling;
       }
@@ -7614,6 +7620,7 @@ var StyleSheet = /* @__PURE__ */ function() {
     this.key = options.key;
     this.container = options.container;
     this.prepend = options.prepend;
+    this.insertionPoint = options.insertionPoint;
     this.before = null;
   }
   var _proto = StyleSheet2.prototype;
@@ -7638,7 +7645,7 @@ var StyleSheet = /* @__PURE__ */ function() {
   };
   _proto.flush = function flush() {
     this.tags.forEach(function(tag) {
-      return tag.parentNode.removeChild(tag);
+      return tag.parentNode && tag.parentNode.removeChild(tag);
     });
     this.tags = [];
     this.ctr = 0;
@@ -7694,14 +7701,14 @@ var D2 = 0;
 var E = 0;
 var F2 = 0;
 var G2 = "";
-function H2(e3, r4, a2, c3, n3, t3, s) {
+function H2(e3, r4, a2, c3, n3, t4, s) {
   return {
     value: e3,
     root: r4,
     parent: a2,
     type: c3,
     props: n3,
-    children: t3,
+    children: t4,
     line: q,
     column: B2,
     length: s,
@@ -7824,7 +7831,7 @@ function re2(e3) {
 function ae2(e3) {
   return U2(ce2("", null, null, null, [""], e3 = T2(e3), 0, [0], e3));
 }
-function ce2(e3, r4, a2, c3, n3, t3, s, u, i2) {
+function ce2(e3, r4, a2, c3, n3, t4, s, u, i2) {
   var f2 = 0;
   var o = 0;
   var l2 = s;
@@ -7837,7 +7844,7 @@ function ce2(e3, r4, a2, c3, n3, t3, s, u, i2) {
   var k3 = 0;
   var m3 = "";
   var g3 = n3;
-  var x3 = t3;
+  var x3 = t4;
   var j2 = c3;
   var z3 = m3;
   while (w2)
@@ -7883,10 +7890,10 @@ function ce2(e3, r4, a2, c3, n3, t3, s, u, i2) {
           case 59:
             z3 += ";";
           default:
-            O2(j2 = ne2(z3, r4, a2, f2, o, n3, u, m3, g3 = [], x3 = [], l2), t3);
+            O2(j2 = ne2(z3, r4, a2, f2, o, n3, u, m3, g3 = [], x3 = [], l2), t4);
             if (k3 === 123)
               if (o === 0)
-                ce2(z3, r4, j2, j2, g3, t3, l2, u, x3);
+                ce2(z3, r4, j2, j2, g3, t4, l2, u, x3);
               else
                 switch (v2) {
                   case 100:
@@ -7926,17 +7933,17 @@ function ce2(e3, r4, a2, c3, n3, t3, s, u, i2) {
               b2 = 0;
         }
     }
-  return t3;
+  return t4;
 }
-function ne2(e3, r4, a2, c3, t3, s, u, i2, f2, o, l2) {
-  var v2 = t3 - 1;
-  var h2 = t3 === 0 ? s : [""];
+function ne2(e3, r4, a2, c3, t4, s, u, i2, f2, o, l2) {
+  var v2 = t4 - 1;
+  var h2 = t4 === 0 ? s : [""];
   var p3 = M2(h2);
   for (var b2 = 0, w2 = 0, $ = 0; b2 < c3; ++b2)
     for (var d3 = 0, m3 = C(e3, v2 + 1, v2 = k(w2 = u[b2])), x3 = e3; d3 < p3; ++d3)
       if (x3 = g(w2 > 0 ? h2[d3] + " " + m3 : y2(m3, /&\f/g, h2[d3])))
         f2[$++] = x3;
-  return H2(e3, r4, a2, t3 === 0 ? n : i2, f2, o, l2);
+  return H2(e3, r4, a2, t4 === 0 ? n : i2, f2, o, l2);
 }
 function te2(e3, r4, a2) {
   return H2(e3, r4, a2, c, d(J()), C(e3, 2, -2), 0);
@@ -8079,10 +8086,10 @@ function fe2(e3, r4, a2, s) {
 }
 function oe2(e3) {
   var r4 = M2(e3);
-  return function(a2, c3, n3, t3) {
+  return function(a2, c3, n3, t4) {
     var s = "";
     for (var u = 0; u < r4; u++)
-      s += e3[u](a2, c3, n3, t3) || "";
+      s += e3[u](a2, c3, n3, t4) || "";
     return s;
   };
 }
@@ -8124,6 +8131,22 @@ function memoize(fn) {
     return cache[arg];
   };
 }
+var identifierWithPointTracking = function identifierWithPointTracking2(begin, points, index) {
+  var previous = 0;
+  var character = 0;
+  while (true) {
+    previous = character;
+    character = N2();
+    if (previous === 38 && character === 12) {
+      points[index] = 1;
+    }
+    if (R2(character)) {
+      break;
+    }
+    L();
+  }
+  return Q(begin, E);
+};
 var toRules = function toRules2(parsed, points) {
   var index = -1;
   var character = 44;
@@ -8133,7 +8156,7 @@ var toRules = function toRules2(parsed, points) {
         if (character === 38 && N2() === 12) {
           points[index] = 1;
         }
-        parsed[index] += re2(E - 1);
+        parsed[index] += identifierWithPointTracking(E - 1, points, index);
         break;
       case 2:
         parsed[index] += V2(character);
@@ -8244,7 +8267,8 @@ var createCache = function createCache2(options) {
       container,
       nonce: options.nonce,
       speedy: options.speedy,
-      prepend: options.prepend
+      prepend: options.prepend,
+      insertionPoint: options.insertionPoint
     }),
     nonce: options.nonce,
     inserted,
@@ -8511,7 +8535,7 @@ var serializeStyles = function serializeStyles2(args, registered, mergedProps) {
     next: cursor
   };
 };
-var hasOwnProperty2 = Object.prototype.hasOwnProperty;
+var hasOwnProperty2 = {}.hasOwnProperty;
 var EmotionCacheContext = /* @__PURE__ */ react.createContext(typeof HTMLElement !== "undefined" ? /* @__PURE__ */ createCache({
   key: "css"
 }) : null);
@@ -8533,6 +8557,9 @@ var createEmotionProps = function createEmotionProps2(type, props) {
   }
   newProps[typePropName] = type;
   return newProps;
+};
+var Noop = function Noop2() {
+  return null;
 };
 var Emotion = /* @__PURE__ */ withEmotionCache(function(props, cache, ref) {
   var cssProp = props.css;
@@ -8559,7 +8586,8 @@ var Emotion = /* @__PURE__ */ withEmotionCache(function(props, cache, ref) {
   newProps.ref = ref;
   newProps.className = className;
   var ele = /* @__PURE__ */ react.createElement(type, newProps);
-  return ele;
+  var possiblyStyleElement = /* @__PURE__ */ react.createElement(Noop, null);
+  return /* @__PURE__ */ react.createElement(react.Fragment, null, possiblyStyleElement, ele);
 });
 var _extends_1 = createCommonjsModule(function(module) {
   function _extends3() {
@@ -9079,8 +9107,8 @@ var defineProperty = createCommonjsModule(function(module) {
 });
 var _defineProperty = /* @__PURE__ */ getDefaultExportFromCjs(defineProperty);
 var classCallCheck = createCommonjsModule(function(module) {
-  function _classCallCheck4(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
+  function _classCallCheck4(instance2, Constructor) {
+    if (!(instance2 instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
     }
   }
@@ -9180,17 +9208,17 @@ var ReportNamespaces = function() {
   }]);
   return ReportNamespaces2;
 }();
-function setI18n(instance) {
-  i18nInstance = instance;
+function setI18n(instance2) {
+  i18nInstance = instance2;
 }
 function getI18n() {
   return i18nInstance;
 }
 var initReactI18next = {
   type: "3rdParty",
-  init: function init(instance) {
-    setDefaults(instance.options.react);
-    setI18n(instance);
+  init: function init(instance2) {
+    setDefaults(instance2.options.react);
+    setI18n(instance2);
   }
 };
 function warn() {
@@ -9401,7 +9429,7 @@ function useTranslation(ns) {
   function getT() {
     return i18n.getFixedT(null, i18nOptions.nsMode === "fallback" ? namespaces : namespaces[0], keyPrefix);
   }
-  var _useState = react.useState(getT), _useState2 = _slicedToArray(_useState, 2), t3 = _useState2[0], setT = _useState2[1];
+  var _useState = react.useState(getT), _useState2 = _slicedToArray(_useState, 2), t4 = _useState2[0], setT = _useState2[1];
   var isMounted = react.useRef(true);
   react.useEffect(function() {
     var bindI18n = i18nOptions.bindI18n, bindI18nStore = i18nOptions.bindI18nStore;
@@ -9439,8 +9467,8 @@ function useTranslation(ns) {
     }
     isInitial.current = false;
   }, [i18n]);
-  var ret = [t3, i18n, ready];
-  ret.t = t3;
+  var ret = [t4, i18n, ready];
+  ret.t = t4;
   ret.i18n = i18n;
   ret.ready = ready;
   if (ready)
@@ -9549,15 +9577,15 @@ function createHashHistory(b2) {
     })];
   }
   function k3() {
-    if (t3)
-      c3.call(t3), t3 = null;
+    if (t4)
+      c3.call(t4), t4 = null;
     else {
       var a2 = r3.Pop, e3 = h2(), l2 = e3[0];
       e3 = e3[1];
       if (c3.length) {
         if (l2 != null) {
           var g3 = q3 - l2;
-          g3 && (t3 = {
+          g3 && (t4 = {
             action: a2,
             location: e3,
             retry: function() {
@@ -9576,7 +9604,11 @@ function createHashHistory(b2) {
   }
   function z3(a2, e3) {
     e3 === void 0 && (e3 = null);
-    return C2(_extends({}, d3, typeof a2 === "string" ? J2(a2) : a2, {
+    return C2(_extends({
+      pathname: d3.pathname,
+      hash: "",
+      search: ""
+    }, typeof a2 === "string" ? J2(a2) : a2, {
       state: e3,
       key: H3()
     }));
@@ -9636,7 +9668,7 @@ function createHashHistory(b2) {
   }
   b2 === void 0 && (b2 = {});
   b2 = b2.window;
-  var m3 = b2 === void 0 ? document.defaultView : b2, u = m3.history, t3 = null;
+  var m3 = b2 === void 0 ? document.defaultView : b2, u = m3.history, t4 = null;
   m3.addEventListener("popstate", k3);
   m3.addEventListener("hashchange", function() {
     var a2 = h2()[1];
@@ -9679,7 +9711,7 @@ function createHashHistory(b2) {
   };
 }
 /**
- * React Router v6.0.0-beta.7
+ * React Router v6.0.2
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -9703,10 +9735,10 @@ function Outlet(_props) {
 }
 function Router(_ref3) {
   let {
-    action = r3.Pop,
     basename: basenameProp = "/",
     children = null,
     location: locationProp,
+    navigationType = r3.Pop,
     navigator: navigator2,
     static: staticProp = false
   } = _ref3;
@@ -9748,8 +9780,8 @@ function Router(_ref3) {
   }, /* @__PURE__ */ react.createElement(LocationContext.Provider, {
     children,
     value: {
-      action,
-      location
+      location,
+      navigationType
     }
   }));
 }
@@ -9759,13 +9791,22 @@ function useHref(to) {
     basename,
     navigator: navigator2
   } = react.useContext(NavigationContext);
-  let path2 = useResolvedPath(to);
+  let {
+    hash,
+    pathname,
+    search
+  } = useResolvedPath(to);
+  let joinedPathname = pathname;
   if (basename !== "/") {
     let toPathname = getToPathname(to);
     let endsWithSlash = toPathname != null && toPathname.endsWith("/");
-    path2.pathname = path2.pathname === "/" ? basename + (endsWithSlash ? "/" : "") : joinPaths([basename, path2.pathname]);
+    joinedPathname = pathname === "/" ? basename + (endsWithSlash ? "/" : "") : joinPaths([basename, pathname]);
   }
-  return navigator2.createHref(path2);
+  return navigator2.createHref({
+    pathname: joinedPathname,
+    search,
+    hash
+  });
 }
 function useInRouterContext() {
   return react.useContext(LocationContext) != null;
@@ -9850,7 +9891,7 @@ function useRoutes(routes, locationArg) {
   return _renderMatches(matches && matches.map((match) => Object.assign({}, match, {
     params: Object.assign({}, parentParams, match.params),
     pathname: joinPaths([parentPathnameBase, match.pathname]),
-    pathnameBase: joinPaths([parentPathnameBase, match.pathnameBase])
+    pathnameBase: match.pathnameBase === "/" ? parentPathnameBase : joinPaths([parentPathnameBase, match.pathnameBase])
   })), parentMatches);
 }
 function matchRoutes(routes, locationArg, basename) {
@@ -9901,7 +9942,7 @@ function flattenRoutes(routes, branches, parentsMeta, parentPath) {
     }
     branches.push({
       path: path2,
-      score: computeScore(path2),
+      score: computeScore(path2, route.index),
       routesMeta
     });
   });
@@ -9911,16 +9952,20 @@ function rankRouteBranches(branches) {
   branches.sort((a2, b2) => a2.score !== b2.score ? b2.score - a2.score : compareIndexes(a2.routesMeta.map((meta) => meta.childrenIndex), b2.routesMeta.map((meta) => meta.childrenIndex)));
 }
 var paramRe = /^:\w+$/;
-var dynamicSegmentValue = 2;
+var dynamicSegmentValue = 3;
+var indexRouteValue = 2;
 var emptySegmentValue = 1;
 var staticSegmentValue = 10;
 var splatPenalty = -2;
 var isSplat = (s) => s === "*";
-function computeScore(path2) {
+function computeScore(path2, index) {
   let segments = path2.split("/");
   let initialScore = segments.length;
   if (segments.some(isSplat)) {
     initialScore += splatPenalty;
+  }
+  if (index) {
+    initialScore += indexRouteValue;
   }
   return segments.filter((s) => !isSplat(s)).reduce((score, segment) => score + (paramRe.test(segment) ? dynamicSegmentValue : segment === "" ? emptySegmentValue : staticSegmentValue), initialScore);
 }
@@ -9970,7 +10015,7 @@ function _renderMatches(matches, parentMatches) {
     return null;
   return matches.reduceRight((outlet, match, index) => {
     return /* @__PURE__ */ react.createElement(RouteContext.Provider, {
-      children: match.route.element || /* @__PURE__ */ react.createElement(Outlet, null),
+      children: match.route.element !== void 0 ? match.route.element : /* @__PURE__ */ react.createElement(Outlet, null),
       value: {
         outlet,
         matches: parentMatches.concat(matches.slice(0, index + 1))
@@ -10109,7 +10154,7 @@ var normalizePathname = (pathname) => pathname.replace(/\/+$/, "").replace(/^\/*
 var normalizeSearch = (search) => !search || search === "?" ? "" : search.startsWith("?") ? search : "?" + search;
 var normalizeHash = (hash) => !hash || hash === "#" ? "" : hash.startsWith("#") ? hash : "#" + hash;
 /**
- * React Router DOM v6.0.0-beta.7
+ * React Router DOM v6.0.2
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -10146,7 +10191,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   }
   return target;
 }
-var _excluded = ["onClick", "replace", "state", "target", "to"];
+var _excluded = ["onClick", "reloadDocument", "replace", "state", "target", "to"];
 function HashRouter(_ref2) {
   let {
     basename,
@@ -10168,8 +10213,8 @@ function HashRouter(_ref2) {
   return /* @__PURE__ */ react.createElement(Router, {
     basename,
     children,
-    action: state.action,
     location: state.location,
+    navigationType: state.action,
     navigator: history
   });
 }
@@ -10179,6 +10224,7 @@ function isModifiedEvent(event) {
 var Link = /* @__PURE__ */ react.forwardRef(function LinkWithRef(_ref3, ref) {
   let {
     onClick,
+    reloadDocument,
     replace = false,
     state,
     target,
@@ -10193,7 +10239,7 @@ var Link = /* @__PURE__ */ react.forwardRef(function LinkWithRef(_ref3, ref) {
   function handleClick(event) {
     if (onClick)
       onClick(event);
-    if (!event.defaultPrevented) {
+    if (!event.defaultPrevented && !reloadDocument) {
       internalOnClick(event);
     }
   }
@@ -10226,9 +10272,9 @@ function useLinkClickHandler(to, _temp) {
 }
 
 // build/dist/pkg/@emotion/styled.js
-var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|fallback|inert|itemProp|itemScope|itemType|itemID|itemRef|on|option|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/;
-var isPropValid = /* @__PURE__ */ memoize(function(prop) {
-  return reactPropsRegex.test(prop) || prop.charCodeAt(0) === 111 && prop.charCodeAt(1) === 110 && prop.charCodeAt(2) < 91;
+var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|enterKeyHint|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|incremental|fallback|inert|itemProp|itemScope|itemType|itemID|itemRef|on|option|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/;
+var isPropValid = /* @__PURE__ */ memoize(function(prop2) {
+  return reactPropsRegex.test(prop2) || prop2.charCodeAt(0) === 111 && prop2.charCodeAt(1) === 110 && prop2.charCodeAt(2) < 91;
 });
 var testOmitPropsOnStringTag = isPropValid;
 var testOmitPropsOnComponent = function testOmitPropsOnComponent2(key) {
@@ -10249,6 +10295,9 @@ var composeShouldForwardProps = function composeShouldForwardProps2(tag, options
     shouldForwardProp = tag.__emotion_forwardProp;
   }
   return shouldForwardProp;
+};
+var Noop3 = function Noop4() {
+  return null;
 };
 var createStyled = function createStyled2(tag, options) {
   var isReal = tag.__emotion_real === tag;
@@ -10313,7 +10362,8 @@ var createStyled = function createStyled2(tag, options) {
       newProps.className = className;
       newProps.ref = ref;
       var ele = /* @__PURE__ */ react.createElement(finalTag, newProps);
-      return ele;
+      var possiblyStyleElement = /* @__PURE__ */ react.createElement(Noop3, null);
+      return /* @__PURE__ */ react.createElement(react.Fragment, null, possiblyStyleElement, ele);
     });
     Styled.displayName = identifierName !== void 0 ? identifierName : "Styled(" + (typeof baseTag === "string" ? baseTag : baseTag.displayName || baseTag.name || "Component") + ")";
     Styled.defaultProps = tag.defaultProps;
@@ -10530,10 +10580,10 @@ var LanguageButton = styled_default.button(({
 // build/dist/components/language-switcher.js
 var LanguageSwitcher = () => {
   const {
-    t: t3,
+    t: t4,
     i18n
   } = useTranslation("core");
-  const changeLanguage = (lng) => {
+  const changeLanguage2 = (lng) => {
     i18n.changeLanguage(lng);
   };
   return jsx("div", {
@@ -10546,13 +10596,13 @@ var LanguageSwitcher = () => {
     }
   }, jsx(LanguageButton, {
     selected: i18n.language === "sv",
-    onClick: () => changeLanguage("sv"),
+    onClick: () => changeLanguage2("sv"),
     disabled: i18n.language === "sv"
-  }, t3("Language-Swedish")), jsx(LanguageButton, {
+  }, t4("Language-Swedish")), jsx(LanguageButton, {
     selected: i18n.language === "en",
-    onClick: () => changeLanguage("en"),
+    onClick: () => changeLanguage2("en"),
     disabled: i18n.language === "en"
-  }, t3("Language-English")));
+  }, t4("Language-English")));
 };
 
 // build/dist/components/page-header.js
@@ -10953,6 +11003,22 @@ function curry(fn, args = []) {
   return (..._args) => ((rest) => rest.length >= fn.length ? fn(...rest) : curry(fn, rest))([...args, ..._args]);
 }
 var _isArray = Array.isArray;
+function compose(...fns) {
+  if (fns.length === 0) {
+    throw new Error("compose requires at least one argument");
+  }
+  return (...args) => {
+    const list = fns.slice();
+    if (list.length > 0) {
+      const fn = list.pop();
+      let result = fn(...args);
+      while (list.length > 0) {
+        result = list.pop()(result);
+      }
+      return result;
+    }
+  };
+}
 var _keys = Object.keys;
 function mapArray(fn, list, isIndexed = false) {
   let index = 0;
@@ -10997,18 +11063,25 @@ function reduceFn(reducer, acc, list) {
   return acc;
 }
 var reduce = curry(reduceFn);
-function has(prop, obj) {
+function has(prop2, obj) {
   if (arguments.length === 1)
-    return (_obj) => has(prop, _obj);
+    return (_obj) => has(prop2, _obj);
   if (!obj)
     return false;
-  return obj.hasOwnProperty(prop);
+  return obj.hasOwnProperty(prop2);
 }
 function last(listOrString) {
   if (typeof listOrString === "string") {
     return listOrString[listOrString.length - 1] || "";
   }
   return listOrString[listOrString.length - 1];
+}
+function prop(propToFind, obj) {
+  if (arguments.length === 1)
+    return (_obj) => prop(propToFind, _obj);
+  if (!obj)
+    return void 0;
+  return obj[propToFind];
 }
 function sum(list) {
   return list.reduce((prev, current) => prev + current, 0);
@@ -11030,6 +11103,21 @@ function pluck(property, list) {
   return willReturn;
 }
 var product = reduce(multiply, 1);
+function range(start, end) {
+  if (arguments.length === 1)
+    return (_end) => range(start, _end);
+  if (Number.isNaN(Number(start)) || Number.isNaN(Number(end))) {
+    throw new TypeError("Both arguments to range must be numbers");
+  }
+  if (end < start)
+    return [];
+  const len = end - start;
+  const willReturn = Array(len);
+  for (let i2 = 0; i2 < len; i2++) {
+    willReturn[i2] = start + i2;
+  }
+  return willReturn;
+}
 
 // build/dist/components/Button.js
 var Button = styled_default.button(({
@@ -11115,7 +11203,7 @@ var Button = styled_default.button(({
 ]);
 
 // build/dist/functions/array.functions.js
-var range = (val) => [...Array(val).keys()];
+var range2 = (val) => [...Array(val).keys()];
 var chunkArray = (array, perChunk = 5) => {
   return array.reduce((acc, cur, index) => {
     const chunkIndex = Math.floor(index / perChunk);
@@ -11129,31 +11217,35 @@ var chunkArray = (array, perChunk = 5) => {
 
 // build/dist/functions/dice.functions.js
 var countSuccesses = (roll) => roll < 6 ? 0 : Math.floor(roll / 2) - 2;
-function getRandomInt(min = 1, max = 6) {
-  min = Math.ceil(min);
+function getRandomInt(min2 = 1, max = 6) {
+  min2 = Math.ceil(min2);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min2 + 1)) + min2;
 }
-var getRandomT6 = () => getRandomInt(1, 6);
-var getRandomT8 = () => getRandomInt(1, 8);
-var getRandomT66 = () => {
-  const tens = getRandomInt() * 10;
-  const ones = getRandomInt();
+var rollD2 = () => getRandomInt(1, 2);
+var rollD3 = () => getRandomInt(1, 3);
+var rollD6 = () => getRandomInt(1, 6);
+var rollD8 = () => getRandomInt(1, 8);
+var rollD66 = () => {
+  const tens = rollD6() * 10;
+  const ones = rollD6();
   return tens + ones;
 };
+var parseChoiceString = (str) => str.split("|").map((c3) => c3.split("^").map((a2) => parseInt(a2, 10) ?? 1)).map((cs) => range2(cs.length === 2 ? cs[1] : 1).map((_24) => cs[0])).flat();
 var choose = (arr3) => arr3[getRandomInt(0, arr3.length - 1)];
-var weightedRandom = (probabilities) => {
+var chooseFromChoiceString = compose(choose, parseChoiceString);
+var weightedRandomConsume = (probabilities) => {
   const totalWeight = sum(pluck("weight", probabilities));
   const randomInt = getRandomInt(0, totalWeight);
-  const chosen = probabilities.reduce((acc, cur) => {
-    if (acc.done) {
+  const chosen = probabilities.reduce((acc, cur, index) => {
+    if (acc.done > -1) {
       return acc;
     }
     const newLeft = acc.left - cur.weight;
     if (newLeft <= 0) {
       return {
         left: 0,
-        done: true,
+        done: index,
         data: cur
       };
     }
@@ -11163,24 +11255,54 @@ var weightedRandom = (probabilities) => {
     };
   }, {
     left: randomInt,
-    done: false,
+    done: -1,
     data: {
       weight: 0
     }
   });
-  return chosen.data;
+  const rest = probabilities.filter((_val, index) => index !== chosen.done);
+  return [chosen.data, rest];
 };
+var weightedRandom = (probabilities) => weightedRandomConsume(probabilities)[0];
 
 // build/dist/functions/utils.functions.js
+var id2 = (x3) => x3;
 var isNullish = (val) => val == null;
 var notNullish = (val) => !isNullish(val);
-var inRange = (range2) => (val) => {
-  if (isNullish(range2)) {
+var inRange = (numberRange) => (val, inclusive = false) => {
+  if (isNullish(numberRange)) {
     return false;
   }
-  return val > range2[0] && val < range2[1];
+  if (inclusive) {
+    return val >= numberRange[0] && val <= numberRange[1];
+  }
+  return val > numberRange[0] && val < numberRange[1];
 };
 var isString = (x3) => typeof x3 === "string";
+var numberToBooleans = compose(map((_24) => false), range(0));
+var maybe = (val) => {
+  const innerValue = val ?? void 0;
+  return {
+    map: (fn) => {
+      if (isNullish(innerValue)) {
+        return maybe();
+      }
+      return maybe(fn(innerValue));
+    },
+    value: () => innerValue,
+    withDefault: (defaultValue) => {
+      if (isNullish(innerValue)) {
+        return defaultValue;
+      }
+      return innerValue;
+    }
+  };
+};
+var validNumber = (num) => {
+  if (isNullish(num))
+    return false;
+  return !isNaN(num) && isFinite(num);
+};
 
 // build/dist/functions/weather.functions.js
 var normalizeTempDeltaWithWetness = (temp, wetnessPercent) => {
@@ -11253,8 +11375,8 @@ var WeatherDay = class {
     this.specialDesc = e3.specialDesc;
     this.eventType = e3.eventType;
     if (100 * Math.random() < SUPERNATURAL_CHANCE) {
-      const t3 = getRandomArrayIndex(supernaturalEvents);
-      supernaturalEvents[t3].applyEffects(this);
+      const t4 = getRandomArrayIndex(supernaturalEvents);
+      supernaturalEvents[t4].applyEffects(this);
     }
   }
   Render() {
@@ -11371,13 +11493,13 @@ var WeatherSystem = class {
   GetEventType() {
     const selectedSpecialEvents = specialEvents.map((se3) => {
       const k3 = [inRange(se3.requirements.temp)(this.temp), inRange(se3.requirements.wetness)(this.temp), inRange(se3.requirements.wind)(this.temp)].some((r4) => r4);
-      return range(k3 ? se3.weight : 0).map((_24) => se3);
+      return range2(k3 ? se3.weight : 0).map((_24) => se3);
     }).flat();
     return choose(selectedSpecialEvents);
   }
 };
 var generateDays = (temp, wetness, duration, rampupType, rampdownType, lowDelta, wind, isStorm, isCalm, hasEvent, eventType, previousSystem) => {
-  return range(duration).map((di2) => {
+  return range2(duration).map((di2) => {
     const {
       tempDelta,
       wetnessDelta
@@ -11448,8 +11570,8 @@ var getTempChange = (isFirstHalfOfDuration, durationIndex, duration) => {
   return (durationIndex + 1 - duration / 2) / (duration / 2);
 };
 var getTempOrWetnessDelta = (isFirstHalf, newChange, val) => {
-  const t3 = isFirstHalf ? val.prev : val.next;
-  return (t3 - val.current) / 2 * newChange;
+  const t4 = isFirstHalf ? val.prev : val.next;
+  return (t4 - val.current) / 2 * newChange;
 };
 var getNewTempChange = (isFirstHalf, tempChange, rampupType, rampdownType) => {
   const rampType = isFirstHalf ? rampupType : rampdownType;
@@ -11671,46 +11793,46 @@ var supernaturalEvents = [{
   requirements: {},
   weight: 1,
   applyEffects: (e3) => {
-    const t3 = {};
+    const t4 = {};
     if (!e3.hasEvent) {
       return;
     }
     if (e3.isStorm) {
       if (e3.isRaining) {
-        t3.name = "Fire Storm";
-        t3.description = "Fire storms are serious and random supernatural events that can happen during the middle of an otherwise normal storm.  The clouds will suddenly turn red and orange with black streaks and snow or rain will turn to sheets of flame that often explode when they strike the ground.  The fire storm portion of a storm will typically only last for a few minutes to an hour, and there is usually a few minutes of warning between the clouds changing color and the fire storm starting.  Anyone caught outside is likely to take severe fire damage, wooden structures or trees will sometimes catch fire and such an event can be devastating for a community.  They can cause wildfires, but usually any fires that are lit during the Fire Storm are extinguished when the storm system returns to normal.";
+        t4.name = "Fire Storm";
+        t4.description = "Fire storms are serious and random supernatural events that can happen during the middle of an otherwise normal storm.  The clouds will suddenly turn red and orange with black streaks and snow or rain will turn to sheets of flame that often explode when they strike the ground.  The fire storm portion of a storm will typically only last for a few minutes to an hour, and there is usually a few minutes of warning between the clouds changing color and the fire storm starting.  Anyone caught outside is likely to take severe fire damage, wooden structures or trees will sometimes catch fire and such an event can be devastating for a community.  They can cause wildfires, but usually any fires that are lit during the Fire Storm are extinguished when the storm system returns to normal.";
       } else {
-        t3.name = "Blaze Winds";
-        t3.description = "Sometimes during powerful wind storms, the wind itself catches fire.  This is foretold by a sudden and sharp increase in temperature, which feels like opening an oven door or putting your face over a campfire.  When this happens, you'll usually only have a few minutes to seek shelter from the wind (ie: in the leeward side of buildings, hills, etc.).  When the wind catches fire, it will create huge sheets of flame five to ten feet wide and sometimes hundreds of feet long.  These sudden bursts of flame are very damaging to living beings and can set buildings and trees on fire, which is then aggravated by the powerful winds of the regular windstorm itself.  These usually cause wildfires, and an outbreak of Blaze Winds can devastate whole areas.";
+        t4.name = "Blaze Winds";
+        t4.description = "Sometimes during powerful wind storms, the wind itself catches fire.  This is foretold by a sudden and sharp increase in temperature, which feels like opening an oven door or putting your face over a campfire.  When this happens, you'll usually only have a few minutes to seek shelter from the wind (ie: in the leeward side of buildings, hills, etc.).  When the wind catches fire, it will create huge sheets of flame five to ten feet wide and sometimes hundreds of feet long.  These sudden bursts of flame are very damaging to living beings and can set buildings and trees on fire, which is then aggravated by the powerful winds of the regular windstorm itself.  These usually cause wildfires, and an outbreak of Blaze Winds can devastate whole areas.";
         e3.temp += 40;
       }
     } else {
       if (e3.isRaining) {
         if (e3.temp < 32) {
-          t3.name = "Blaze Snow";
-          t3.description = "Blaze snow is a strange phenomenon where highly flammable snow falls from the sky. Any source of fire will cause this flammable snow to burn.  This creates a beautiful effect around torches, candles and other sources of flame as they seem to dance and grow brighter while it's snowing, but any accumulation of blaze snow can be very dangerous because bringing a source of fire close to it will cause whole areas to catch fire.  Blaze snow clouds have coal-black streaks in them, and the snow itself looks more oily than usual.";
+          t4.name = "Blaze Snow";
+          t4.description = "Blaze snow is a strange phenomenon where highly flammable snow falls from the sky. Any source of fire will cause this flammable snow to burn.  This creates a beautiful effect around torches, candles and other sources of flame as they seem to dance and grow brighter while it's snowing, but any accumulation of blaze snow can be very dangerous because bringing a source of fire close to it will cause whole areas to catch fire.  Blaze snow clouds have coal-black streaks in them, and the snow itself looks more oily than usual.";
         } else {
-          t3.name = "Ash Rain";
-          t3.description = "Ash Rain happens when too much magical fire comes in contact with normal rain clouds.  They continue to operate as clouds are expected to, but when it's time for them to rain, ash falls from them instead.  This is usually seen as a bad omen by the superstitious, and can cause serious problems: the ash makes it difficult to see while it's falling, it accumulates like snow but does not melt away and requires actual rain to wash it away, it makes it difficult to breathe and if you're out in it you can find yourself swiftly overheating.";
+          t4.name = "Ash Rain";
+          t4.description = "Ash Rain happens when too much magical fire comes in contact with normal rain clouds.  They continue to operate as clouds are expected to, but when it's time for them to rain, ash falls from them instead.  This is usually seen as a bad omen by the superstitious, and can cause serious problems: the ash makes it difficult to see while it's falling, it accumulates like snow but does not melt away and requires actual rain to wash it away, it makes it difficult to breathe and if you're out in it you can find yourself swiftly overheating.";
           e3.temp += 10;
         }
       } else {
         if (e3.wind > 10) {
-          t3.name = "Dragon Winds";
-          t3.description = "Dragon winds are a serious danger in areas where magical weather is common.  They have picked up some amount of magical fire, and as such they bring unnaturally high temperatures.  They are very drying, and anyone breathing outside for more than a few minutes risks damage to their lungs, throat and eyes.  Dragon winds can also set small flammable objects on fire, such as candle wicks and loose papers, and powerful gusts have been known to light trees and even buildings on fire.";
+          t4.name = "Dragon Winds";
+          t4.description = "Dragon winds are a serious danger in areas where magical weather is common.  They have picked up some amount of magical fire, and as such they bring unnaturally high temperatures.  They are very drying, and anyone breathing outside for more than a few minutes risks damage to their lungs, throat and eyes.  Dragon winds can also set small flammable objects on fire, such as candle wicks and loose papers, and powerful gusts have been known to light trees and even buildings on fire.";
           if (e3.temp < 100) {
             e3.temp = 100 + 25 * Math.random();
           } else {
             e3.temp += 30;
           }
         } else {
-          t3.name = "Fire in the Sky";
-          t3.description = "Sometimes, on calm days with few clouds, wild magic can cause the sky itself to catch fire.  Innocent clouds are lit ablaze, small ones burn for several minutes and larger ones can burn for hours.  The temperature also becomes unnaturally hotter.";
+          t4.name = "Fire in the Sky";
+          t4.description = "Sometimes, on calm days with few clouds, wild magic can cause the sky itself to catch fire.  Innocent clouds are lit ablaze, small ones burn for several minutes and larger ones can burn for hours.  The temperature also becomes unnaturally hotter.";
           e3.temp += 20;
         }
       }
     }
-    e3.supernaturalEvent = t3;
+    e3.supernaturalEvent = t4;
   }
 }, {
   name: "Cold",
@@ -11719,8 +11841,8 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Elemental Snowstorm", t3.description = "An elemental snowstorm has all the regular characteristics of a snowstorm: large amounts of blowing snow, high winds, and bitter cold.  It also causes accumulations of snow to spontaneously animate as snow elementals (in d20, use a water elemental).  These mindless, animate, vaguely humanoid shaped masses of living snow wander the landscape, senseless and angry and destructive.  Snow from an Elemental Snowstorm can spontaneously come to life even several days after the storm has passed.") : (t3.name = "Spiked Hail", t3.description = "As a rainstorm passes through an area of arcane cold, regular rain can turn into a dangerous substance called Spiked Hail.  Raindrops mix with arcane winds and bunch together quickly, forming large, spiked balls of ice resembling the head of a morningstar.  These spiked balls fall to the ground with tremendous force, badly damaging wooden structures, trees, and anyone unlucky enough to be caught out in it.  Spiked hail moves quickly, usually only hitting any given area for a few minutes of time, but it leaves a wide swathe of destruction in its wake.") : (t3.name = "Dire Wind", t3.description = "Frigid Dire Winds are a phenomenon much feared in regions where supernatural weather is common.  High winds mix with magical cold and as they blow, they cause thick layers of ice to form on whatever they touch.  This layer of ice forms at a rate of 1/8 of an inch every five minutes, quickly covering trees, roads, and buildings.  Living creatures trapped in a Dire Wind must keep moving to continually break off the forming ice or risk becoming frozen solid and unable to move.  The Dire Wind itself lasts anywhere from a few minutes to a few hours, but if it occurs during cold windstorms its effects can linger for days or even months until the affected surfaces melt.", e3.temp -= 10) : e3.isRaining ? e3.temp < 32 ? (t3.name = "Freeze Snow", t3.description = "When snow clouds on the horizon look more blue than grey, the experienced know that Freeze Snow is coming.  When these blueish flakes land, they emit a quick pulse of arcane cold.  When landing on plants, buildings, and ground this causes instant frost that can be treacherous to walk on, it will turn the surface of water to (thin) ice, and can cause frostbite if it lands on an animal or insect.  Freeze Snow is typically limited to the center of a cloud, so the worst of it usually passes within a few minutes to an hour, but multiple clouds can carry the problem so short bursts of it would be expected all day.", e3.temp -= 10) : (t3.name = "Blade Rain", t3.description = "When rain passes through an area of magical cold, it can turn to Blade Rain.  The droplets stretch out as they freeze, creating long, thin icicles that fall from the sky with a vengeance.  Blade rain can destroy trees, ruin roofs and cause minor injuries to living things.") : e3.wind > 10 ? (t3.name = "Ice Winds", t3.description = "When arcane cold mixes with blowing winds, dangerous Ice Winds are created.  These cold winds have the property of being able to randomly freeze water (and other easily frozen liquids) they come across.  This turns rivers and lakes to sheets of ice, even in the middle of summer, and can even cause breath clouds to freeze, fall to the ground and shatter.  They can be devastating to local ecosystems if they occur during an otherwise warm time of year.  Ice winds are typically localized to a small area, only a few miles wide at best.", e3.temp -= 10) : (t3.name = "Freeze Patches", t3.description = "On an otherwise calm day, when fine weather has mixed with dangerous magical cold, Freeze Patches can be created.  These areas of intense cold, usually -25 or colder, are small but dangerous.  Unprotected animals caught in these areas can quickly be afflicted by frostbite, especially in otherwise warm weather when they would be sweating, and plants and water can freeze solid.  A freeze patch is typically only a few dozen feet in size and invisible, detectable only through the damage they do."), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Elemental Snowstorm", t4.description = "An elemental snowstorm has all the regular characteristics of a snowstorm: large amounts of blowing snow, high winds, and bitter cold.  It also causes accumulations of snow to spontaneously animate as snow elementals (in d20, use a water elemental).  These mindless, animate, vaguely humanoid shaped masses of living snow wander the landscape, senseless and angry and destructive.  Snow from an Elemental Snowstorm can spontaneously come to life even several days after the storm has passed.") : (t4.name = "Spiked Hail", t4.description = "As a rainstorm passes through an area of arcane cold, regular rain can turn into a dangerous substance called Spiked Hail.  Raindrops mix with arcane winds and bunch together quickly, forming large, spiked balls of ice resembling the head of a morningstar.  These spiked balls fall to the ground with tremendous force, badly damaging wooden structures, trees, and anyone unlucky enough to be caught out in it.  Spiked hail moves quickly, usually only hitting any given area for a few minutes of time, but it leaves a wide swathe of destruction in its wake.") : (t4.name = "Dire Wind", t4.description = "Frigid Dire Winds are a phenomenon much feared in regions where supernatural weather is common.  High winds mix with magical cold and as they blow, they cause thick layers of ice to form on whatever they touch.  This layer of ice forms at a rate of 1/8 of an inch every five minutes, quickly covering trees, roads, and buildings.  Living creatures trapped in a Dire Wind must keep moving to continually break off the forming ice or risk becoming frozen solid and unable to move.  The Dire Wind itself lasts anywhere from a few minutes to a few hours, but if it occurs during cold windstorms its effects can linger for days or even months until the affected surfaces melt.", e3.temp -= 10) : e3.isRaining ? e3.temp < 32 ? (t4.name = "Freeze Snow", t4.description = "When snow clouds on the horizon look more blue than grey, the experienced know that Freeze Snow is coming.  When these blueish flakes land, they emit a quick pulse of arcane cold.  When landing on plants, buildings, and ground this causes instant frost that can be treacherous to walk on, it will turn the surface of water to (thin) ice, and can cause frostbite if it lands on an animal or insect.  Freeze Snow is typically limited to the center of a cloud, so the worst of it usually passes within a few minutes to an hour, but multiple clouds can carry the problem so short bursts of it would be expected all day.", e3.temp -= 10) : (t4.name = "Blade Rain", t4.description = "When rain passes through an area of magical cold, it can turn to Blade Rain.  The droplets stretch out as they freeze, creating long, thin icicles that fall from the sky with a vengeance.  Blade rain can destroy trees, ruin roofs and cause minor injuries to living things.") : e3.wind > 10 ? (t4.name = "Ice Winds", t4.description = "When arcane cold mixes with blowing winds, dangerous Ice Winds are created.  These cold winds have the property of being able to randomly freeze water (and other easily frozen liquids) they come across.  This turns rivers and lakes to sheets of ice, even in the middle of summer, and can even cause breath clouds to freeze, fall to the ground and shatter.  They can be devastating to local ecosystems if they occur during an otherwise warm time of year.  Ice winds are typically localized to a small area, only a few miles wide at best.", e3.temp -= 10) : (t4.name = "Freeze Patches", t4.description = "On an otherwise calm day, when fine weather has mixed with dangerous magical cold, Freeze Patches can be created.  These areas of intense cold, usually -25 or colder, are small but dangerous.  Unprotected animals caught in these areas can quickly be afflicted by frostbite, especially in otherwise warm weather when they would be sweating, and plants and water can freeze solid.  A freeze patch is typically only a few dozen feet in size and invisible, detectable only through the damage they do."), e3.supernaturalEvent = t4;
     }
   }
 }, {
@@ -11730,8 +11852,8 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Sly Snow", t3.description = "Sly Snow is magically intelligent snow that seeks to cause as much havoc as it can.  It blows into large drifts in front of people's doors, it gathers on tree limbs until just the right time to fall onto unsuspecting victims, and it is magically capable of going down the back of your jacket.  Sly Snow brings with it all the misery of a usual snowstorm, with biting cold, heavy winds, and significant accumulation of snow, but is also actively trying to harm, injure and annoy anyone caught out in it.") : (t3.name = "Sapient Storm", t3.description = "A Sapient Storm is a rainstorm with a literal vengeance.  Stirred by strange magics and driven by unknown motives, this storm will often seek to harm those it passes across.  It has all the wind, rain, and lightning of a regular storm but also possesses the odd desire to use them against people, often making it much more destructive than regular storms.  A Sapient Storm will typically only last a few hours before turning back into a regular storm, and can occasionally be reasoned with.") : (t3.name = "Witty Winds", t3.description = "Some winds tell jokes.  Witty Winds are magically animated windstorms, full of sound and fury but really they just want to be loved.  These winds will tell jokes, craft elaborate stories, and otherwise try to influence those caught within them.  Unfortunately, they are still destructive windstorms capable of knocking down trees and damaging structures, so listeners beware.", e3.wind += 15) : e3.isRaining ? e3.temp < 32 ? (t3.name = "Sentient Snow", t3.description = "Sentient snow is heralded by fuzzy pink clouds that look more like cotton candy than water vapor.  When their purplish snow falls to the ground, any animal that eats it instantly gains surprising intelligence.  They can suddenly speak and scheme just as well, perhaps better, than any humanoid or goblin-kin.  The effect usually lasts only a few hours, but some rare animals have been known to become permanently sentient after eating this snow.  Humanoids and other already-sentient creatures can gain a modest improvement to their own intellect by eating this snow, and some have tried to bottle it to sell the effect but when the snow melts its magic wears off, making it difficult to create a viable product.") : (t3.name = "Talking Rain", t3.description = "When Talking Rain falls, secrets will be revealed.  The clouds above start to glow a strange green and when the green water that falls from them gets on the surface of a plant, that plant begins to talk.  While they mostly sing or gossip with each other, a savvy person with an agenda can use this strange phenomenon to their benefit, because the plants hold many secrets.") : e3.wind > 10 ? (t3.name = "Walking Wind", t3.description = "When a Walking Wind blows through, even rangers and druids can be afraid.  When this magical wind touches plants, they start to exhibit distinctly animal properties.  Trees uproot themselves and begin roaming in search of fresh meat, ferns crawl along the ground as hungry scavengers, and bushes start to hop around.  Plants affected by a walking wind only stay this way while the wind is blowing, and these winds are short-lived, lasting only a few minutes to a few hours.") : (t3.name = "Conversational Clouds", t3.description = "Some clouds can talk, or so it is said.  When the right kind of magic burbles up on a beautiful and calm day, Conversational Clouds are sometimes the result.  The talkative clouds might be far away but their magical speech can reach many miles, including all the way to the ground.  They often talk about their day or other unimportant matters, but can occasionally be persuaded to speak about things they've seen.  Since clouds travel far, the information they bring can be from strange and faraway lands."), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Sly Snow", t4.description = "Sly Snow is magically intelligent snow that seeks to cause as much havoc as it can.  It blows into large drifts in front of people's doors, it gathers on tree limbs until just the right time to fall onto unsuspecting victims, and it is magically capable of going down the back of your jacket.  Sly Snow brings with it all the misery of a usual snowstorm, with biting cold, heavy winds, and significant accumulation of snow, but is also actively trying to harm, injure and annoy anyone caught out in it.") : (t4.name = "Sapient Storm", t4.description = "A Sapient Storm is a rainstorm with a literal vengeance.  Stirred by strange magics and driven by unknown motives, this storm will often seek to harm those it passes across.  It has all the wind, rain, and lightning of a regular storm but also possesses the odd desire to use them against people, often making it much more destructive than regular storms.  A Sapient Storm will typically only last a few hours before turning back into a regular storm, and can occasionally be reasoned with.") : (t4.name = "Witty Winds", t4.description = "Some winds tell jokes.  Witty Winds are magically animated windstorms, full of sound and fury but really they just want to be loved.  These winds will tell jokes, craft elaborate stories, and otherwise try to influence those caught within them.  Unfortunately, they are still destructive windstorms capable of knocking down trees and damaging structures, so listeners beware.", e3.wind += 15) : e3.isRaining ? e3.temp < 32 ? (t4.name = "Sentient Snow", t4.description = "Sentient snow is heralded by fuzzy pink clouds that look more like cotton candy than water vapor.  When their purplish snow falls to the ground, any animal that eats it instantly gains surprising intelligence.  They can suddenly speak and scheme just as well, perhaps better, than any humanoid or goblin-kin.  The effect usually lasts only a few hours, but some rare animals have been known to become permanently sentient after eating this snow.  Humanoids and other already-sentient creatures can gain a modest improvement to their own intellect by eating this snow, and some have tried to bottle it to sell the effect but when the snow melts its magic wears off, making it difficult to create a viable product.") : (t4.name = "Talking Rain", t4.description = "When Talking Rain falls, secrets will be revealed.  The clouds above start to glow a strange green and when the green water that falls from them gets on the surface of a plant, that plant begins to talk.  While they mostly sing or gossip with each other, a savvy person with an agenda can use this strange phenomenon to their benefit, because the plants hold many secrets.") : e3.wind > 10 ? (t4.name = "Walking Wind", t4.description = "When a Walking Wind blows through, even rangers and druids can be afraid.  When this magical wind touches plants, they start to exhibit distinctly animal properties.  Trees uproot themselves and begin roaming in search of fresh meat, ferns crawl along the ground as hungry scavengers, and bushes start to hop around.  Plants affected by a walking wind only stay this way while the wind is blowing, and these winds are short-lived, lasting only a few minutes to a few hours.") : (t4.name = "Conversational Clouds", t4.description = "Some clouds can talk, or so it is said.  When the right kind of magic burbles up on a beautiful and calm day, Conversational Clouds are sometimes the result.  The talkative clouds might be far away but their magical speech can reach many miles, including all the way to the ground.  They often talk about their day or other unimportant matters, but can occasionally be persuaded to speak about things they've seen.  Since clouds travel far, the information they bring can be from strange and faraway lands."), e3.supernaturalEvent = t4;
     }
   }
 }, {
@@ -11741,8 +11863,8 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Fairy Snow", t3.description = "When Fairy Snow falls, it's best to brew a little tea, make some cakes, and leave them at your door to appease the fey visitors.  Fairy Snow forms when fey magic mixes with a snowstorm.  Snowflakes start to glom together and spontaneously create mischievous fairies, who run amok and cause all sorts of havoc for the unfortunate people caught in their path.  These fairies will play pranks that range from annoying, like freezing pots of stew or piling snow up in front of doorways, to dangerous like summoning vicious dire animals in strange places (eg: the pantry, the closet, your pants).  Fairies created by Fairy Snow generally live for the life of the snowstorm only, and can usually be mollified by offerings of refreshment and sweets, but ensure you have enough or jealous fairies will make your life even worse.") : (t3.name = "Giant Growth Rainstorm", t3.description = "Giant Growth Rainstorms are a weather system much prayed for by those who have heard of them.  When fey magic mixes with a powerful weather system, dark green rain falls.  Any plants that the rain lands on suddenly start to grow enormous: grasses become as tall as trees, bushes become massive, and trees tower high in the sky.  Importantly, fruits and other edible parts of plants become so large that a single plum could feed an entire village for days.  While this is a boon for farmers and garden-growers, it can be make things very difficult for travelers and trade.  Plants that have grown giant will typically retain their size for a few months before slowly returning to normal.") : (t3.name = "Morphstorm", t3.description = "A Morphstorm is a strange phenomenon that occurs when fey magic mixes with a powerful windstorm.  It still carries all the normal dangers of a windstorm (falling tree limbs and trees, damage to structures) but also has a chance to transform parts of any people caught out in it without shelter.  This transformation will usually affect only a single body part (usually a head, sometimes legs) and turns a creature's body part into the same body part from a different animal.  People with ass's heads tend to be the most common, but dogs can end up with cow heads, squirrels with octopus legs, and so forth.  The effect lasts only as long as the windstorm does, and strong windstorms usually die down after a few hours, though some can linger for hours or days.") : e3.isRaining ? e3.temp < 32 ? (t3.name = "Clairvoyant Snow", t3.description = "When fey magic mixes with falling snow, it can create an effect known as Clairvoyant Snow.  These snow clouds sparkle and glitter completely unlike other clouds, and any intelligent thing that the snow lands on is likely to start having visions of the future.  These visions are scattered and chaotic, usually little more than a brief glimpse or half-heard sound, but with concentration some magically-inclined individuals can sit out in the middle of the blowing snow and receive full visions of events to come.") : (t3.name = "Verdant Rain", t3.description = "When regular rain mixes with heavy concentrations of fey magic, Verdant Rain can be the result.  These leafy green clouds create green rain, and when this rain strikes the ground, it immediately causes thick tangles of plants to grow.  Grasses, weeds, underbrush, bushes, ferns and even trees sprout immediately where the rain lands.  This can be a blessing in desolate areas of tundra or desert, but can make forests or jungles almost impassable.  A Verdant Rain last only a few minutes to a few hours, falling only from one or two clouds in a weather system, but the vegetation that sprouts is real and will live a full and normal life as long as it landed somewhere it could normally grow.") : e3.wind > 10 ? (t3.name = "Mischievous Winds", t3.description = "Mischievous Winds happen on blustery days, when fey magic mixes with the blowing air currents.  Mischievous Winds seem to seek to make life harder: they untie knots, unlock locks and randomly move unattended items to new locations.  If you stand very still, an activity that is likely to cause your pants to fall down in such a wind, you might be able to hear the distant sound of giggling.  No scholar has ever been able to determine if Mischievous Wind is truly sentient or merely a strangely annoying magical effect.") : (t3.name = "Smiling Sun, Gossamer Wings", t3.description = "On days when fey magic hangs heavy in the still air, the sun can smile down on the land and grant those lucky enough to feel its warmth brief use of gossamer, fairy-like wings.  These wings sprout instantly without damaging the recipient or their belongings, and with careful concentration they can be used to fly, although most creatures who have never flown before may find it difficult and clumsy to do so.  People who have seen a Smiling Sun report that the strangest part of the experience is seeing squirrels and deer flying through the air on majestic insect wings.", e3.temp += 5), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Fairy Snow", t4.description = "When Fairy Snow falls, it's best to brew a little tea, make some cakes, and leave them at your door to appease the fey visitors.  Fairy Snow forms when fey magic mixes with a snowstorm.  Snowflakes start to glom together and spontaneously create mischievous fairies, who run amok and cause all sorts of havoc for the unfortunate people caught in their path.  These fairies will play pranks that range from annoying, like freezing pots of stew or piling snow up in front of doorways, to dangerous like summoning vicious dire animals in strange places (eg: the pantry, the closet, your pants).  Fairies created by Fairy Snow generally live for the life of the snowstorm only, and can usually be mollified by offerings of refreshment and sweets, but ensure you have enough or jealous fairies will make your life even worse.") : (t4.name = "Giant Growth Rainstorm", t4.description = "Giant Growth Rainstorms are a weather system much prayed for by those who have heard of them.  When fey magic mixes with a powerful weather system, dark green rain falls.  Any plants that the rain lands on suddenly start to grow enormous: grasses become as tall as trees, bushes become massive, and trees tower high in the sky.  Importantly, fruits and other edible parts of plants become so large that a single plum could feed an entire village for days.  While this is a boon for farmers and garden-growers, it can be make things very difficult for travelers and trade.  Plants that have grown giant will typically retain their size for a few months before slowly returning to normal.") : (t4.name = "Morphstorm", t4.description = "A Morphstorm is a strange phenomenon that occurs when fey magic mixes with a powerful windstorm.  It still carries all the normal dangers of a windstorm (falling tree limbs and trees, damage to structures) but also has a chance to transform parts of any people caught out in it without shelter.  This transformation will usually affect only a single body part (usually a head, sometimes legs) and turns a creature's body part into the same body part from a different animal.  People with ass's heads tend to be the most common, but dogs can end up with cow heads, squirrels with octopus legs, and so forth.  The effect lasts only as long as the windstorm does, and strong windstorms usually die down after a few hours, though some can linger for hours or days.") : e3.isRaining ? e3.temp < 32 ? (t4.name = "Clairvoyant Snow", t4.description = "When fey magic mixes with falling snow, it can create an effect known as Clairvoyant Snow.  These snow clouds sparkle and glitter completely unlike other clouds, and any intelligent thing that the snow lands on is likely to start having visions of the future.  These visions are scattered and chaotic, usually little more than a brief glimpse or half-heard sound, but with concentration some magically-inclined individuals can sit out in the middle of the blowing snow and receive full visions of events to come.") : (t4.name = "Verdant Rain", t4.description = "When regular rain mixes with heavy concentrations of fey magic, Verdant Rain can be the result.  These leafy green clouds create green rain, and when this rain strikes the ground, it immediately causes thick tangles of plants to grow.  Grasses, weeds, underbrush, bushes, ferns and even trees sprout immediately where the rain lands.  This can be a blessing in desolate areas of tundra or desert, but can make forests or jungles almost impassable.  A Verdant Rain last only a few minutes to a few hours, falling only from one or two clouds in a weather system, but the vegetation that sprouts is real and will live a full and normal life as long as it landed somewhere it could normally grow.") : e3.wind > 10 ? (t4.name = "Mischievous Winds", t4.description = "Mischievous Winds happen on blustery days, when fey magic mixes with the blowing air currents.  Mischievous Winds seem to seek to make life harder: they untie knots, unlock locks and randomly move unattended items to new locations.  If you stand very still, an activity that is likely to cause your pants to fall down in such a wind, you might be able to hear the distant sound of giggling.  No scholar has ever been able to determine if Mischievous Wind is truly sentient or merely a strangely annoying magical effect.") : (t4.name = "Smiling Sun, Gossamer Wings", t4.description = "On days when fey magic hangs heavy in the still air, the sun can smile down on the land and grant those lucky enough to feel its warmth brief use of gossamer, fairy-like wings.  These wings sprout instantly without damaging the recipient or their belongings, and with careful concentration they can be used to fly, although most creatures who have never flown before may find it difficult and clumsy to do so.  People who have seen a Smiling Sun report that the strangest part of the experience is seeing squirrels and deer flying through the air on majestic insect wings.", e3.temp += 5), e3.supernaturalEvent = t4;
     }
   }
 }, {
@@ -11752,8 +11874,8 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Seven-League Snow", t3.description = "Seven-League Snow is a deceptively dangerous condition that can happen when teleportation magic mixes up with a powerful snowstorm.  This snow glows a faint golden color and has an enticing floral scent to it.  Any creature that eats it suddenly finds themselves able to move seven-leagues (about 24 miles) in a single step.  This effect can be disorienting and often gets the imbiber lost or in trouble because it wears off quickly (a minute or two), however savvy users can use it to travel great distances in a brief time.  It also brings some danger in that animals and monsters that eat the snow can suddenly appear in locations where they're not expected.  Seven-League Snow often moves as a single cloud in a larger snowstorm and so leaves a distinct path through a landscape.  If the snow is not eaten within an hour of falling, its magical properties fade.") : (t3.name = "Portal Storm", t3.description = "During heavy rain storms charged with teleportation magic, Portal Storms can occur.  These strange and dangerous events cause puddles and streams on the ground to become portals to other places, times, and dimensions.  Any place that water gathers becomes a potential location where a portal can form.  The unlucky or unwise can fall into these portals and be lost in these disparate dimensions.  Portal Storms can also bring unwelcome guests, as dangerous creatures from far away magical lands can cross through.  A Portal Storm will typically only last a few minutes to an hour, even if the rainstorm itself lasts longer.") : (t3.name = "Phasing Windstorm", t3.description = "A Phasing Windstorm is a much more dangerous version of a regular windstorm.  Powerful gusts of wind can fell trees and break branches, but because of the teleportation magic infused within the storm, any debris whipped up by the storm becomes partially incorporeal: it can travel through other trees, buildings and even the ground, but upon striking a living being it will become solid again.  Temperature effects from the storm are also magnified, as the wind passes through clothes and walls without stopping, becoming much more likely to freeze or exhaust anyone caught in it.  Sheltering underground or within the protection of a force effect (magical armor, force shields, etc.) will protect from these effects.") : e3.isRaining ? e3.temp < 32 ? (t3.name = "Blink Snow", t3.description = "Blink Snow happens when teleportation magic mingles with blowing snow, creating silvery snow that grants anyone it falls on strange powers.  They seem to be in many places at once, flickering to different positions in the space of around five feet at a rate of several times per second.  This makes combat especially interesting, but even friendly interactions become difficult when you can't figure out the exact location of the other person.") : (t3.name = "Timesplice Rain", t3.description = "When teleportation magic mixes with rain, it can create a strange effect where those caught up in the rain can skip around in time.  Those caught out in Timesplice Rain can be transported several minutes or several hours into the future, disappearing immediately from where they're standing and then reappearing at the new time.  For them, no time seems to have passed at all.  Timesplice Rain usually only lasts a few minutes during a rainfall but can be very disconcerting for anyone affected.") : e3.wind > 10 ? (t3.name = "Quickening Wind", t3.description = "A Quickening Wind is a strange phenomenon that happens when winds become charged with teleportation magic.  Those moving around find that regular walking or running suddenly becomes instantaneous movement from one location to another, moving up to forty five feet at a time without actually using your legs.  A Quickening Wind will typically only last a few hours.") : (t3.name = "Haste Mist", t3.description = "On calm days when teleportation magic fills the air, Haste Mist can accumulate near the ground.  These areas of golden mist can be up to a few hundred feet wide and form in the early morning, but usually burn away by noon.  Anyone who breathes in the air starts to move faster, as much as twice as fast as they regularly can, and the effect persists for several minutes after leaving an area of Haste Mist."), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Seven-League Snow", t4.description = "Seven-League Snow is a deceptively dangerous condition that can happen when teleportation magic mixes up with a powerful snowstorm.  This snow glows a faint golden color and has an enticing floral scent to it.  Any creature that eats it suddenly finds themselves able to move seven-leagues (about 24 miles) in a single step.  This effect can be disorienting and often gets the imbiber lost or in trouble because it wears off quickly (a minute or two), however savvy users can use it to travel great distances in a brief time.  It also brings some danger in that animals and monsters that eat the snow can suddenly appear in locations where they're not expected.  Seven-League Snow often moves as a single cloud in a larger snowstorm and so leaves a distinct path through a landscape.  If the snow is not eaten within an hour of falling, its magical properties fade.") : (t4.name = "Portal Storm", t4.description = "During heavy rain storms charged with teleportation magic, Portal Storms can occur.  These strange and dangerous events cause puddles and streams on the ground to become portals to other places, times, and dimensions.  Any place that water gathers becomes a potential location where a portal can form.  The unlucky or unwise can fall into these portals and be lost in these disparate dimensions.  Portal Storms can also bring unwelcome guests, as dangerous creatures from far away magical lands can cross through.  A Portal Storm will typically only last a few minutes to an hour, even if the rainstorm itself lasts longer.") : (t4.name = "Phasing Windstorm", t4.description = "A Phasing Windstorm is a much more dangerous version of a regular windstorm.  Powerful gusts of wind can fell trees and break branches, but because of the teleportation magic infused within the storm, any debris whipped up by the storm becomes partially incorporeal: it can travel through other trees, buildings and even the ground, but upon striking a living being it will become solid again.  Temperature effects from the storm are also magnified, as the wind passes through clothes and walls without stopping, becoming much more likely to freeze or exhaust anyone caught in it.  Sheltering underground or within the protection of a force effect (magical armor, force shields, etc.) will protect from these effects.") : e3.isRaining ? e3.temp < 32 ? (t4.name = "Blink Snow", t4.description = "Blink Snow happens when teleportation magic mingles with blowing snow, creating silvery snow that grants anyone it falls on strange powers.  They seem to be in many places at once, flickering to different positions in the space of around five feet at a rate of several times per second.  This makes combat especially interesting, but even friendly interactions become difficult when you can't figure out the exact location of the other person.") : (t4.name = "Timesplice Rain", t4.description = "When teleportation magic mixes with rain, it can create a strange effect where those caught up in the rain can skip around in time.  Those caught out in Timesplice Rain can be transported several minutes or several hours into the future, disappearing immediately from where they're standing and then reappearing at the new time.  For them, no time seems to have passed at all.  Timesplice Rain usually only lasts a few minutes during a rainfall but can be very disconcerting for anyone affected.") : e3.wind > 10 ? (t4.name = "Quickening Wind", t4.description = "A Quickening Wind is a strange phenomenon that happens when winds become charged with teleportation magic.  Those moving around find that regular walking or running suddenly becomes instantaneous movement from one location to another, moving up to forty five feet at a time without actually using your legs.  A Quickening Wind will typically only last a few hours.") : (t4.name = "Haste Mist", t4.description = "On calm days when teleportation magic fills the air, Haste Mist can accumulate near the ground.  These areas of golden mist can be up to a few hundred feet wide and form in the early morning, but usually burn away by noon.  Anyone who breathes in the air starts to move faster, as much as twice as fast as they regularly can, and the effect persists for several minutes after leaving an area of Haste Mist."), e3.supernaturalEvent = t4;
     }
   }
 }, {
@@ -11763,8 +11885,8 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Stone Snow", t3.description = "Stone Snow happens when gravitational magic mixes with a powerful snowstorm, resulting in a devastating magical phenomenon.  The snow looks mostly like regular snow, although it no longer sparkles like real snow, but when it lands on the ground it turns out to have the consistency, and weight, of stone.  Trees and buildings are easily crushed under this weight, as are unwary living beings.  Stone Snow is typically localized to a small area within the larger snowstorm and passes quickly, usually in a few minutes to an hour, but can leave behind a path of destruction: flattened trees, smashed buildings, and crushed wildlife.  The magical effect wears off several minutes after the Stone Snow has fallen, but by then the damage has usually been done.") : (t3.name = "Heavy Rain", t3.description = "Heavy Rain happens when gravitationally charged magic comes in contact with a rainstorm.  These clouds are a dense, dark black, and the rain that falls from them is a similarly unnerving color.  The droplets strike with notable force, causing even more damage to trees and structures than a regular rainstorm, and they cling to whatever they land on, collecting and weighing them down.  A living creature caught in Heavy Rain can become immobile from the weight, or even knocked to the ground and unable to get up, resulting in unfortunate drownings.  Heavy Rain clouds travel quickly, meaning that any given area will only experience a few minutes to an hour of the phenomenon before it passes, and regular water washes away the Heavy water.  Heavy Rain leaves a swathe of destruction in its wake: a path of drowned animals and broken trees.") : (t3.name = "Catapult Wind", t3.description = "Catapult Wind happens when gravitational magic mixes with a windstorm, creating a dangerous situation that can devastate a region.  Any debris kicked up by the storm (birds, tree branches, dust) becomes much heavier than normal, turning into dangerous projectiles that can wreck walls, smash windows, destroy roofs, and grievously harm living beings caught in the way.  Savvy weather watchers can use this to their advantage, as even just throwing a handful of gravel into the air can create a fast-moving cloud of dangerous projectiles.") : e3.isRaining ? e3.temp < 32 ? (t3.name = "Breaker Snow", t3.description = "Breaker Snow happens when gravitationally charged magic meets a snow cloud.  These blackish clouds unleash snow that is streaked through with black lines, and which is much heavier than regular snow.  It easily breaks tree limbs, knocks over trees, and collapses roofs.  Anyone unlucky enough to be caught sleeping when Breaker Snow moves through can find themselves buried underneath the heavy snow and trapped for hours, possibly even suffocated.  Breaker Snow passes through quickly, lasting only a few hours in each area, and the enchantment on the fallen snow wears off after a few minutes to an hour.") : (t3.name = "Hard Rain", t3.description = "When gravitational magic mixes with light rain, it becomes a strange phenomenon called Hard Rain.  These rain drops are still visibly like water, but they strike with the force of hail.  Hard Rain will tear through thatch roofs, break tree limbs, and can cause minor damage to living things.  Hard Rain clouds move fast and any given patch of land usually only finds itself affected by them for a half hour or so.") : e3.wind > 10 ? (t3.name = "Sinking Wind", t3.description = "When a Sinking Wind blows, sailors become afraid.  Gravitational magic mixes with natural air currents and makes everything it touches much denser: flying creatures find themselves unable to fly, swimming creatures find it very difficult to remain on the surface, and boats can find themselves pushed under the unnaturally heavy waves.") : (t3.name = "Lazy Sun", t3.description = "Some days, when gravitational magic hangs thick in the air, the sun becomes lazy and droopy.  It hangs low in the sky, becoming visibly much larger, and the day grows hotter.  Everything caught in this field of magic finds itself becoming lazier: they yawn a lot more, it's hard to summon the energy to move around and any exercise is much more likely to be fatiguing.  If you can control this reaction and muscle through it, this is the perfect time to sneak past normally hungry predators and monsters, but care must be taken because physical attacks become much stronger while under the effect of a Lazy Sun.", e3.temp += 15), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Stone Snow", t4.description = "Stone Snow happens when gravitational magic mixes with a powerful snowstorm, resulting in a devastating magical phenomenon.  The snow looks mostly like regular snow, although it no longer sparkles like real snow, but when it lands on the ground it turns out to have the consistency, and weight, of stone.  Trees and buildings are easily crushed under this weight, as are unwary living beings.  Stone Snow is typically localized to a small area within the larger snowstorm and passes quickly, usually in a few minutes to an hour, but can leave behind a path of destruction: flattened trees, smashed buildings, and crushed wildlife.  The magical effect wears off several minutes after the Stone Snow has fallen, but by then the damage has usually been done.") : (t4.name = "Heavy Rain", t4.description = "Heavy Rain happens when gravitationally charged magic comes in contact with a rainstorm.  These clouds are a dense, dark black, and the rain that falls from them is a similarly unnerving color.  The droplets strike with notable force, causing even more damage to trees and structures than a regular rainstorm, and they cling to whatever they land on, collecting and weighing them down.  A living creature caught in Heavy Rain can become immobile from the weight, or even knocked to the ground and unable to get up, resulting in unfortunate drownings.  Heavy Rain clouds travel quickly, meaning that any given area will only experience a few minutes to an hour of the phenomenon before it passes, and regular water washes away the Heavy water.  Heavy Rain leaves a swathe of destruction in its wake: a path of drowned animals and broken trees.") : (t4.name = "Catapult Wind", t4.description = "Catapult Wind happens when gravitational magic mixes with a windstorm, creating a dangerous situation that can devastate a region.  Any debris kicked up by the storm (birds, tree branches, dust) becomes much heavier than normal, turning into dangerous projectiles that can wreck walls, smash windows, destroy roofs, and grievously harm living beings caught in the way.  Savvy weather watchers can use this to their advantage, as even just throwing a handful of gravel into the air can create a fast-moving cloud of dangerous projectiles.") : e3.isRaining ? e3.temp < 32 ? (t4.name = "Breaker Snow", t4.description = "Breaker Snow happens when gravitationally charged magic meets a snow cloud.  These blackish clouds unleash snow that is streaked through with black lines, and which is much heavier than regular snow.  It easily breaks tree limbs, knocks over trees, and collapses roofs.  Anyone unlucky enough to be caught sleeping when Breaker Snow moves through can find themselves buried underneath the heavy snow and trapped for hours, possibly even suffocated.  Breaker Snow passes through quickly, lasting only a few hours in each area, and the enchantment on the fallen snow wears off after a few minutes to an hour.") : (t4.name = "Hard Rain", t4.description = "When gravitational magic mixes with light rain, it becomes a strange phenomenon called Hard Rain.  These rain drops are still visibly like water, but they strike with the force of hail.  Hard Rain will tear through thatch roofs, break tree limbs, and can cause minor damage to living things.  Hard Rain clouds move fast and any given patch of land usually only finds itself affected by them for a half hour or so.") : e3.wind > 10 ? (t4.name = "Sinking Wind", t4.description = "When a Sinking Wind blows, sailors become afraid.  Gravitational magic mixes with natural air currents and makes everything it touches much denser: flying creatures find themselves unable to fly, swimming creatures find it very difficult to remain on the surface, and boats can find themselves pushed under the unnaturally heavy waves.") : (t4.name = "Lazy Sun", t4.description = "Some days, when gravitational magic hangs thick in the air, the sun becomes lazy and droopy.  It hangs low in the sky, becoming visibly much larger, and the day grows hotter.  Everything caught in this field of magic finds itself becoming lazier: they yawn a lot more, it's hard to summon the energy to move around and any exercise is much more likely to be fatiguing.  If you can control this reaction and muscle through it, this is the perfect time to sneak past normally hungry predators and monsters, but care must be taken because physical attacks become much stronger while under the effect of a Lazy Sun.", e3.temp += 15), e3.supernaturalEvent = t4;
     }
   }
 }, {
@@ -11774,8 +11896,8 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Suspended Snow", t3.description = "When inverse gravitational magic mixes with a snowstorm, Suspended Snow can be the result.  This lighter-than-air snow falls from the sky as usual but as it gets closer to the ground it becomes lighter and lighter until it stops falling and simply hangs there.  The snow can become trapped several inches from the ground or dozens of feet, depending on how heavy it was in the first place, and this weather can create a temporarily very beautiful effect.  However, when the Suspended Snow's magic wears off after a few hours, the snow all immediately falls to the ground.  This heavy dump of the white stuff can much more easily break trees or bury unsuspecting creatures.") : (t3.name = "Backward Rain", t3.description = "Backward Rain happens when a rainstorm encounters inverted gravitational magic.  The rain becomes lighter than air and instead of falling to the ground, falls upward off of the ground.  Puddles start to dry up and rivers and lakes lose some water during this effect, but since it passes within a few hours during what is otherwise a traditional rainstorm it usually does not cause abnormal water levels.  It can alleviate flooding or other problems that have happened due to recent, excessive rain.") : (t3.name = "Mixing Wind", t3.description = "A Mixing Wind will literally mix up the landscape.  This windstorm has become charged with inverted gravitational magic and will easily pick up anything it encounters by making it much much lighter: trees, buildings, boulders, everything will get picked up by the storm and blown wherever the wind goes.  This can move entire towns and forests to new locations, and is often very disorienting for any creature caught in its grasp.  Damage is usually limited to trees and structures when this happens, if a person in a Mixing Wind gets hit by a boulder they will actually be fine because, during the windstorm, the boulder weighs little more than a puppy.  A Mixing Wind can last for a few minutes or a few hours, but the effects of it on a region can last for years.") : e3.isRaining ? e3.temp < 32 ? (t3.name = "Bounce Snow", t3.description = "Inverse gravitational magic has infused this strange, violet snow such that when you are in contact with it you find yourself able to jump much higher and farther than you ever have in your life.  As long as some Bounce Snow is touching you, you can leap and bounce with unnatural distance, sometimes thirty or more feet in one stride.  The violet clouds that produce this strange snow last only a few hours, and the magic fades from the snow on the ground a few hours after that.") : (t3.name = "Traveler's Rain", t3.description = "When a Traveler's Rain falls, inverted gravitational magic infuses the violet water and causes anything it coats to become instantly lighter.  This allows anyone trying to pick up, move, or otherwise physically affect the items to be able to do so much more easily.  A regular person can lift a boulder that's been rained on by Traveler's Rain!  This allows travelers to go much further distances without getting tired while they're under the influence of the Rain, but can have many other strange and unexpected effects too.  Traveler's Rain typically lasts for a few hours, or even several days.  Once it dries or is washed away by regular rain, the effect ends.") : e3.wind > 10 ? (t3.name = "Flying Wind", t3.description = "When a Flying Wind blows, strange gravitational magic mixes with blowing winds to create a fun but potentially dangerous effect.  Any creature touched by the wind instantly becomes much lighter and able to be blown about by the wind like a leaf.  This can be entertaining, but around treacherous terrain can also be very dangerous.  Mooring individuals with ropes is highly encouraged, though not always possible.  A Flying Wind will typically last for a few hours before fading into regular wind, and those savvy enough can use it to travel great distances, as long as they're going the same way as the wind blows and are willing to accept some danger.") : (t3.name = "Excited Sun", t3.description = "When inverted gravitational magic hangs in the air but there is little wind to disperse it, it can create areas where the sun seems to dance and jump with lightness and joy.  Creatures experiencing this phenomenon find themselves to be much happier and more full of energy than they usually are, they can run faster and jump higher and perform feats of athleticism that they otherwise could not.  Fighting is much harder under an Excited Sun, as physical attacks do not hit nearly as hard."), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Suspended Snow", t4.description = "When inverse gravitational magic mixes with a snowstorm, Suspended Snow can be the result.  This lighter-than-air snow falls from the sky as usual but as it gets closer to the ground it becomes lighter and lighter until it stops falling and simply hangs there.  The snow can become trapped several inches from the ground or dozens of feet, depending on how heavy it was in the first place, and this weather can create a temporarily very beautiful effect.  However, when the Suspended Snow's magic wears off after a few hours, the snow all immediately falls to the ground.  This heavy dump of the white stuff can much more easily break trees or bury unsuspecting creatures.") : (t4.name = "Backward Rain", t4.description = "Backward Rain happens when a rainstorm encounters inverted gravitational magic.  The rain becomes lighter than air and instead of falling to the ground, falls upward off of the ground.  Puddles start to dry up and rivers and lakes lose some water during this effect, but since it passes within a few hours during what is otherwise a traditional rainstorm it usually does not cause abnormal water levels.  It can alleviate flooding or other problems that have happened due to recent, excessive rain.") : (t4.name = "Mixing Wind", t4.description = "A Mixing Wind will literally mix up the landscape.  This windstorm has become charged with inverted gravitational magic and will easily pick up anything it encounters by making it much much lighter: trees, buildings, boulders, everything will get picked up by the storm and blown wherever the wind goes.  This can move entire towns and forests to new locations, and is often very disorienting for any creature caught in its grasp.  Damage is usually limited to trees and structures when this happens, if a person in a Mixing Wind gets hit by a boulder they will actually be fine because, during the windstorm, the boulder weighs little more than a puppy.  A Mixing Wind can last for a few minutes or a few hours, but the effects of it on a region can last for years.") : e3.isRaining ? e3.temp < 32 ? (t4.name = "Bounce Snow", t4.description = "Inverse gravitational magic has infused this strange, violet snow such that when you are in contact with it you find yourself able to jump much higher and farther than you ever have in your life.  As long as some Bounce Snow is touching you, you can leap and bounce with unnatural distance, sometimes thirty or more feet in one stride.  The violet clouds that produce this strange snow last only a few hours, and the magic fades from the snow on the ground a few hours after that.") : (t4.name = "Traveler's Rain", t4.description = "When a Traveler's Rain falls, inverted gravitational magic infuses the violet water and causes anything it coats to become instantly lighter.  This allows anyone trying to pick up, move, or otherwise physically affect the items to be able to do so much more easily.  A regular person can lift a boulder that's been rained on by Traveler's Rain!  This allows travelers to go much further distances without getting tired while they're under the influence of the Rain, but can have many other strange and unexpected effects too.  Traveler's Rain typically lasts for a few hours, or even several days.  Once it dries or is washed away by regular rain, the effect ends.") : e3.wind > 10 ? (t4.name = "Flying Wind", t4.description = "When a Flying Wind blows, strange gravitational magic mixes with blowing winds to create a fun but potentially dangerous effect.  Any creature touched by the wind instantly becomes much lighter and able to be blown about by the wind like a leaf.  This can be entertaining, but around treacherous terrain can also be very dangerous.  Mooring individuals with ropes is highly encouraged, though not always possible.  A Flying Wind will typically last for a few hours before fading into regular wind, and those savvy enough can use it to travel great distances, as long as they're going the same way as the wind blows and are willing to accept some danger.") : (t4.name = "Excited Sun", t4.description = "When inverted gravitational magic hangs in the air but there is little wind to disperse it, it can create areas where the sun seems to dance and jump with lightness and joy.  Creatures experiencing this phenomenon find themselves to be much happier and more full of energy than they usually are, they can run faster and jump higher and perform feats of athleticism that they otherwise could not.  Fighting is much harder under an Excited Sun, as physical attacks do not hit nearly as hard."), e3.supernaturalEvent = t4;
     }
   }
 }, {
@@ -11785,8 +11907,8 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Muting Snow", t3.description = "Anyone unfortunate enough to consume muting snow becomes entirely silent: their footsteps don't make noise, their weapons don't make noise, and they cannot talk.  This can be very beneficial if they are trying to sneak somewhere, but is more often inconvenient or even dangerous.  The effects of Muting Snow can remain for hours, and the snow itself maintains its magical properties for several days.") : (t3.name = "Sneaky Storm", t3.description = "Sneaky Storms happen quickly and can be quite dangerous.  Although they have all the power and fury of regular rainstorms (high wind, lots of rain, and the potential to fell trees and flood rivers) but it makes no noise.  No howling winds, no falling raindrops, even the rivers and streams and waterfalls fall silent during such a storm.  The magical portion of the storm usually only lasts a few hours, while the storm itself may rage for days.  Sneaky Storms can cause the unwary to underestimate its dangers and take risks they would not otherwise.") : (t3.name = "Voiceless Storm", t3.description = "When a Voiceless Storm rolls through, all commerce and spellcasting stops.  This powerful windstorm has been infused with silencing magic and as it blows through an area, everything goes quiet, even the wind itself.  It can still be felt and its effects, like broken trees and damaged structures, are clear but there is no noise.  People caught in these dangerous storms can't speak to communicate with one another and spellcasters who might normally use magic to calm the might of the weather find themselves unable to do so.") : e3.isRaining ? e3.temp < 32 ? (t3.name = "Silent Snow", t3.description = "When Silent Snow falls, the world becomes blanketed in quiet.  Echoes are muted, voices are muffled, and even the sounds of battle fade almost to nothing.  Footsteps on the snow, in particular, are completely silent and thieves often take advantage of this magical weather to perform nefarious deeds.  The downside is that spellcasting and communicating through voice become much harder during Silent Snow.  Those who look keenly can see that Silent Snow does not sparkle in the light like regular snow, and when that sparkle comes back (usually after a few hours) the sound returns.") : (t3.name = "Musical Rain", t3.description = "When rain mixes with sound-based magic, it can sometimes take on a life of its own.  As this rain falls, it lands with tinkly musical notes and swelling choral crescendos instead of the usual sound of rain on ground.  The music it makes is beautiful and haunting, never truly resolving but simply rising and falling in an endless virtuoso performance.") : e3.wind > 10 ? (t3.name = "Breath-Stealing Wind", t3.description = "Spellcasters know to fear a breath-stealing wind.  This breezy weather system has been combined with silencing magic in order to create a strange effect where gusts of wind actually make those they pass across quieter.  The stronger the gust, the quieter the person (or animal or other source of noise).  Savvy thieves and assassins can learn to read this wind and take advantage of it to hide their activities, but unlucky spellcasters find themselves unable to finish their verbal magic at the most inopportune times.") : (t3.name = "The World Holds its Breath", t3.description = "When The World Holds its Breath, silencing magic gathers in pockets low to the ground where it creates spaces that are completely soundless.  Anyone entering these areas finds that their footsteps grow quiet, their clothing stops making noise and they can no longer speak.  These patches of silence are eerie and can even be crippling to spellcasters who rely on verbal cues to cast.  Each patch is usually a few hundred feet in diameter, roughly circular or conforming to natural land forms.  The magic in the affected areas usually wears off after a few hours, though sometimes it can linger for days."), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Muting Snow", t4.description = "Anyone unfortunate enough to consume muting snow becomes entirely silent: their footsteps don't make noise, their weapons don't make noise, and they cannot talk.  This can be very beneficial if they are trying to sneak somewhere, but is more often inconvenient or even dangerous.  The effects of Muting Snow can remain for hours, and the snow itself maintains its magical properties for several days.") : (t4.name = "Sneaky Storm", t4.description = "Sneaky Storms happen quickly and can be quite dangerous.  Although they have all the power and fury of regular rainstorms (high wind, lots of rain, and the potential to fell trees and flood rivers) but it makes no noise.  No howling winds, no falling raindrops, even the rivers and streams and waterfalls fall silent during such a storm.  The magical portion of the storm usually only lasts a few hours, while the storm itself may rage for days.  Sneaky Storms can cause the unwary to underestimate its dangers and take risks they would not otherwise.") : (t4.name = "Voiceless Storm", t4.description = "When a Voiceless Storm rolls through, all commerce and spellcasting stops.  This powerful windstorm has been infused with silencing magic and as it blows through an area, everything goes quiet, even the wind itself.  It can still be felt and its effects, like broken trees and damaged structures, are clear but there is no noise.  People caught in these dangerous storms can't speak to communicate with one another and spellcasters who might normally use magic to calm the might of the weather find themselves unable to do so.") : e3.isRaining ? e3.temp < 32 ? (t4.name = "Silent Snow", t4.description = "When Silent Snow falls, the world becomes blanketed in quiet.  Echoes are muted, voices are muffled, and even the sounds of battle fade almost to nothing.  Footsteps on the snow, in particular, are completely silent and thieves often take advantage of this magical weather to perform nefarious deeds.  The downside is that spellcasting and communicating through voice become much harder during Silent Snow.  Those who look keenly can see that Silent Snow does not sparkle in the light like regular snow, and when that sparkle comes back (usually after a few hours) the sound returns.") : (t4.name = "Musical Rain", t4.description = "When rain mixes with sound-based magic, it can sometimes take on a life of its own.  As this rain falls, it lands with tinkly musical notes and swelling choral crescendos instead of the usual sound of rain on ground.  The music it makes is beautiful and haunting, never truly resolving but simply rising and falling in an endless virtuoso performance.") : e3.wind > 10 ? (t4.name = "Breath-Stealing Wind", t4.description = "Spellcasters know to fear a breath-stealing wind.  This breezy weather system has been combined with silencing magic in order to create a strange effect where gusts of wind actually make those they pass across quieter.  The stronger the gust, the quieter the person (or animal or other source of noise).  Savvy thieves and assassins can learn to read this wind and take advantage of it to hide their activities, but unlucky spellcasters find themselves unable to finish their verbal magic at the most inopportune times.") : (t4.name = "The World Holds its Breath", t4.description = "When The World Holds its Breath, silencing magic gathers in pockets low to the ground where it creates spaces that are completely soundless.  Anyone entering these areas finds that their footsteps grow quiet, their clothing stops making noise and they can no longer speak.  These patches of silence are eerie and can even be crippling to spellcasters who rely on verbal cues to cast.  Each patch is usually a few hundred feet in diameter, roughly circular or conforming to natural land forms.  The magic in the affected areas usually wears off after a few hours, though sometimes it can linger for days."), e3.supernaturalEvent = t4;
     }
   }
 }, {
@@ -11796,8 +11918,8 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Melting Snowstorm", t3.description = "A Melting Snowstorm is a horrifying phenomenon indeed, when chaos magic mixes with a snowstorm.  Plants and structures are affected as normal by the snow and wind and cold, but any creatures caught out in the snow find that as the snow falls on them they start to change shape.  Their bodies begin to melt into blobby puddles, held together by skin but without any internal structure.  They grow new eyes and mouths and the longer they stay in this form the more they find themselves able to create pseudopods with their horridly melted bodies.  Clothing offers some protection from this effect, though it really only slows it instead of stopping it, but fortunately once the magic wears off the creatures (usually) return to their original form and shape.  Melted creatures are often very hostile to the world around them, lashing out because they don't understand what's happening to them, and will often try to tear each other apart in fear (damage caused to a Melted being does persist after the effect wears off).  A Melting Snowstorm is usually a small pocket within a larger storm that passes quickly over the land, depositing the Melting Snow before moving on, and the magic fades from this snow a few hours after it has landed.") : (t3.name = "Tentacle Rain", t3.description = "Tentacle Rain starts out looking like Verdant Rain: it's greenish and where it lands, plants seem to start to sprout from the ground.  Something is clearly wrong, though, because the greenish color is sickly and weird and the plants that start to grow are red and purple and white, not green.  The plants grow quickly and soon it's clear that the rain has actually planted strange and weird growths: tentacles as big as trees grow where the rain has landed, eyestalks bloom like flowers, and squelching viscera rise like bushes.  These strange plants can be hostile to creatures near them, lashing out with mindless hunger to try and batter and bludgeon living creature.  Worse, these things even grow on living creatures where the rain has landed, giving them strange tentacles and other weird growths.  The Tentacle Rain passes through an area usually after a few hours, but the growths it creates remain until they die off (usually of hunger after a few days, but ones that are capable of feeding themselves enough meat can last for weeks).  After they die off, these weird growths end up rotting on the ground, spawning weird parasites and scavengers from inside their otherworldly corpses, so the aftermath of a Tentacle Rain can be quite horrifying.") : (t3.name = "Voices of Madness", t3.description = "It starts with whispers: dark and unnatural, coming from just beyond the edge of your vision and crawling in through your ears.  They don't speak any language you understand but they always tantalize with a suggestion of meaning.  Soon they become louder and more frightening: howls and screams, shouting and cajoling, all in a language you can just barely not understand.  The words sound familiar but you can't make any sense of them.  Then it gets louder still, screaming directly in your ear while the wind whips about, breaking trees and buildings and minds.  Voices of Madness happen when chaos magic mixes with a powerful windstorm, and can drive anyone caught out in it mad.  The weak-willed find themselves doing strange things: clawing at their skin, curling up into a ball and rocking, or even striking out violently at anyone nearby.  This temporary madness goes away when the magic fades, which usually happens within a few hours of the phenomenon starting.") : e3.isRaining ? e3.temp < 32 ? (t3.name = "Snow From Beyond", t3.description = "Snow From Beyond has been infused with chaos magic.  At first it may seem like normal snow, but as you get closer to it, it starts to change colors and twist before your eyes, changing the landscape simply by being on it.  Plants and non-intelligent animals can easily be transformed by this snow, growing strange tentacles or turning into amorphous blobs, and routes that travelers once knew may become dangerous and twisted, looping in on themselves and taking people to strange places they never intended to go.  These effects usually wear off a few hours after a cloud affected by Snow From Beyond leaves an area.") : (t3.name = "Hallucinatory Rain", t3.description = "Hallucinatory Rain happens when a regular rain cloud has become infused with chaos magic.  As the rain falls, anyone caught out in it starts seeing... things.  Strange creatures standing in the distance, weird whispers just behind their ear, horrifying and twisted monsters skulking about in the underbrush or the canopy.  Even their companions seem to warp and change: growing extra eyes and fangs, or having their bodies twist and twizzle into themselves.  These effects can be terrifying and make a person doubt everything they thought they knew about the world, but they are all merely illusions (or are they?).") : e3.wind > 10 ? (t3.name = "Monument Wind", t3.description = "Monument Wind is a strange phenomenon indeed.  When chaos magic mixes with a breezy day, a strange sound like off-key singing or the whispering of a thousand voices can be heard just off in the distance.  Non-intelligent creatures (and some weak-willed sentients) find themselves compelled to create monuments to the otherworldy beings they hear.  This usually involves the construction of small cairns from gravel or twigs by ground-dwelling animals and weird charms hanging from trees by birds, but some animals can work together to erect massive structures like clay obelisks or huge, weird writing on the ground.  These things that they create are real and physical and so may stay for many weeks or years after they're constructed, even when the Monument Wind has stopped.") : (t3.name = "Chaos Skies", t3.description = "When eldritch magic lingers, the sky starts to do strange things.  Clouds twist and turn into strange and disturbing shapes, the sky itself changes to odd or even frightening colors and people caught out in it find themselves starting to hallucinate.  Unintelligent animals even start to trasnform, with their limbs being replaced by tentacles and strange hooks and other horrifying changes.  When the Chaotic Skies effect passes, usually after a few hours, the transformed animals return to normal."), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Melting Snowstorm", t4.description = "A Melting Snowstorm is a horrifying phenomenon indeed, when chaos magic mixes with a snowstorm.  Plants and structures are affected as normal by the snow and wind and cold, but any creatures caught out in the snow find that as the snow falls on them they start to change shape.  Their bodies begin to melt into blobby puddles, held together by skin but without any internal structure.  They grow new eyes and mouths and the longer they stay in this form the more they find themselves able to create pseudopods with their horridly melted bodies.  Clothing offers some protection from this effect, though it really only slows it instead of stopping it, but fortunately once the magic wears off the creatures (usually) return to their original form and shape.  Melted creatures are often very hostile to the world around them, lashing out because they don't understand what's happening to them, and will often try to tear each other apart in fear (damage caused to a Melted being does persist after the effect wears off).  A Melting Snowstorm is usually a small pocket within a larger storm that passes quickly over the land, depositing the Melting Snow before moving on, and the magic fades from this snow a few hours after it has landed.") : (t4.name = "Tentacle Rain", t4.description = "Tentacle Rain starts out looking like Verdant Rain: it's greenish and where it lands, plants seem to start to sprout from the ground.  Something is clearly wrong, though, because the greenish color is sickly and weird and the plants that start to grow are red and purple and white, not green.  The plants grow quickly and soon it's clear that the rain has actually planted strange and weird growths: tentacles as big as trees grow where the rain has landed, eyestalks bloom like flowers, and squelching viscera rise like bushes.  These strange plants can be hostile to creatures near them, lashing out with mindless hunger to try and batter and bludgeon living creature.  Worse, these things even grow on living creatures where the rain has landed, giving them strange tentacles and other weird growths.  The Tentacle Rain passes through an area usually after a few hours, but the growths it creates remain until they die off (usually of hunger after a few days, but ones that are capable of feeding themselves enough meat can last for weeks).  After they die off, these weird growths end up rotting on the ground, spawning weird parasites and scavengers from inside their otherworldly corpses, so the aftermath of a Tentacle Rain can be quite horrifying.") : (t4.name = "Voices of Madness", t4.description = "It starts with whispers: dark and unnatural, coming from just beyond the edge of your vision and crawling in through your ears.  They don't speak any language you understand but they always tantalize with a suggestion of meaning.  Soon they become louder and more frightening: howls and screams, shouting and cajoling, all in a language you can just barely not understand.  The words sound familiar but you can't make any sense of them.  Then it gets louder still, screaming directly in your ear while the wind whips about, breaking trees and buildings and minds.  Voices of Madness happen when chaos magic mixes with a powerful windstorm, and can drive anyone caught out in it mad.  The weak-willed find themselves doing strange things: clawing at their skin, curling up into a ball and rocking, or even striking out violently at anyone nearby.  This temporary madness goes away when the magic fades, which usually happens within a few hours of the phenomenon starting.") : e3.isRaining ? e3.temp < 32 ? (t4.name = "Snow From Beyond", t4.description = "Snow From Beyond has been infused with chaos magic.  At first it may seem like normal snow, but as you get closer to it, it starts to change colors and twist before your eyes, changing the landscape simply by being on it.  Plants and non-intelligent animals can easily be transformed by this snow, growing strange tentacles or turning into amorphous blobs, and routes that travelers once knew may become dangerous and twisted, looping in on themselves and taking people to strange places they never intended to go.  These effects usually wear off a few hours after a cloud affected by Snow From Beyond leaves an area.") : (t4.name = "Hallucinatory Rain", t4.description = "Hallucinatory Rain happens when a regular rain cloud has become infused with chaos magic.  As the rain falls, anyone caught out in it starts seeing... things.  Strange creatures standing in the distance, weird whispers just behind their ear, horrifying and twisted monsters skulking about in the underbrush or the canopy.  Even their companions seem to warp and change: growing extra eyes and fangs, or having their bodies twist and twizzle into themselves.  These effects can be terrifying and make a person doubt everything they thought they knew about the world, but they are all merely illusions (or are they?).") : e3.wind > 10 ? (t4.name = "Monument Wind", t4.description = "Monument Wind is a strange phenomenon indeed.  When chaos magic mixes with a breezy day, a strange sound like off-key singing or the whispering of a thousand voices can be heard just off in the distance.  Non-intelligent creatures (and some weak-willed sentients) find themselves compelled to create monuments to the otherworldy beings they hear.  This usually involves the construction of small cairns from gravel or twigs by ground-dwelling animals and weird charms hanging from trees by birds, but some animals can work together to erect massive structures like clay obelisks or huge, weird writing on the ground.  These things that they create are real and physical and so may stay for many weeks or years after they're constructed, even when the Monument Wind has stopped.") : (t4.name = "Chaos Skies", t4.description = "When eldritch magic lingers, the sky starts to do strange things.  Clouds twist and turn into strange and disturbing shapes, the sky itself changes to odd or even frightening colors and people caught out in it find themselves starting to hallucinate.  Unintelligent animals even start to trasnform, with their limbs being replaced by tentacles and strange hooks and other horrifying changes.  When the Chaotic Skies effect passes, usually after a few hours, the transformed animals return to normal."), e3.supernaturalEvent = t4;
     }
   }
 }, {
@@ -11807,8 +11929,8 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Abomination Snow", t3.description = "Abomination Snow is a much-feared weather phenomenon that is whispered about in dark and frightened stories.  Snow infused with necromantic energies comes on in a fury, accompanied by biting winds and dark clouds, but as the snow falls on corpses or grave sites it causes those dead things to undergo a horrifying transformation.  The corpses start to clump together, binding to one another through magical means, and creating truly horrible amalgamations of the dead.  These things tend to be large, as big as giants in some cases, and furiously hungry to consume more people to add to their horrible bodies.  The effect lasts as long as the snowstorm does, and can be very deadly for anyone caught in it- which makes it worse by adding more corpses to the Abominations.") : (t3.name = "Life-Stealing Rain", t3.description = "When a powerful rain storm is infused with necromantic magic, it becomes Life-Stealing Rain.  This rain is a pale and ghostly blue in color, and whatever it touches starts to wither and die.  Trees become desiccated and dry, their bark flaking off, and any plants which have not lost their leaves start to lose them in copious amounts.  Animals become thin and emaciated, seeming to starve and age right before the eyes, and even structures can find themselves aging quickly, crumbling in places and rotting in others.  Each raindrop that falls on something can carry this horrible power, and the best protection against Life-Stealing Rain is to stay out of it by sheltering in a building (which may rot away around you) or a natural formation like a cave.  Life-Stealing Rain typically lasts only for a few hours in any given area before the winds cause it to move elsewhere, although the rainstorm that it was part of may still be going on.") : (t3.name = "Winds of Death", t3.description = "When a powerful windstorm mixes with necromantic magic, it starts to howl with evil intent.  These winds now are not only capable of destroying trees and buildings, but they carry with them runic shouts of destruction for life itself.  Anyone hearing the winds finds themselves buffeted by magical energy, and the weak-willed or sickly can be struck dead instantly by these sounds.  Those killed by the winds soon rise as horrible undead creatures, adding even more danger to the situation as these creatures seek to destroy the living.  The winds themselves only last for a little while, minutes at a time before blowing into a new area, but the undead it creates persist until destroyed.") : e3.isRaining ? e3.temp < 32 ? (t3.name = "Zombie Snow", t3.description = "When Zombie Snow falls, there is often no warning that people's lives are about to get very bad.  This snow charged with necromantic magic does not look any different from regular precipitation, but as it lands on corpses or grave sites the necromantic magic contained within it animates these dead things temporarily.  Zombies burst forth from graves, skeletons walk out of tombs, and fresh kills become hungry ghouls and ghasts.  These new undead are driven by an insatiable hunger for destruction and seek out living creatures to kill.  These creatures are given life by the snow, and when the weather system passes they return to their previous state of actual deadness.  In the meantime, though, they can wreak havoc on a community or ecosystem.") : (t3.name = "Dead Love's Rain", t3.description = "Dead Love's Rain happens when rain clouds pass through an area of intense necromantic magic, charging them with energies that can reach into the world beyond.  Each raindrop appears to have a tiny, perfect image of a skull in it and puddles that form seem to be teeming with spectral and ghostly images.  Anyone who imbibes this water finds themselves temporarily blinded (not technically blind, they're just now looking into the spirit plane which is dark and featureless), but in exchange they can speak into the spirit world.  This allows them to attempt to speak to things there, including dead loved ones.  To successfully contact a specific entity they need to know something of the land of the dead, and it is easy to acccidentally begin speaking to powerful, potentially evil creatures that dwell there.  The effects of the water wear off after a few minutes, and any puddles infused with this energy quickly revert to normal water after the weather system is gone.") : e3.wind > 10 ? (t3.name = "Ghost Winds", t3.description = "When necromantic magic is stirred up by blowing winds, strange things start to happen.  The wild howls with a ghostly whine and the magical energies reach deep into the spirit world and pull forth all manner of horrible apparitions: ghosts and banshees and phantasms and worse come screaming through the veil between worlds, angry at having their rest disturbed and ready to seek vengeance.  Ghost Winds typically last for a few hours at a time, and any non-corporeal undead summoned by the wind will usually be laid to rest once the wind stops.") : (t3.name = "Bells of the Afterlife", t3.description = "On calm days, when necromantic magic runs wild and infuses the very air itself, the Bells of the Afterlife can be heard.  These ghostly chimes sound like they are far off in the distance and slightly off-key, but if you stand still and listen to them long enough you find yourself being lulled into a disquieted sleep.  The sleepers fall where they were standing but suffer from strange and horrible nightmares, and as long as they are asleep a ghost is pulled from the netherworld to wander the land instead.  Waking the sleeper or waiting for the magic to wear off are the best ways to dispel these ghosts back where they came from."), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Abomination Snow", t4.description = "Abomination Snow is a much-feared weather phenomenon that is whispered about in dark and frightened stories.  Snow infused with necromantic energies comes on in a fury, accompanied by biting winds and dark clouds, but as the snow falls on corpses or grave sites it causes those dead things to undergo a horrifying transformation.  The corpses start to clump together, binding to one another through magical means, and creating truly horrible amalgamations of the dead.  These things tend to be large, as big as giants in some cases, and furiously hungry to consume more people to add to their horrible bodies.  The effect lasts as long as the snowstorm does, and can be very deadly for anyone caught in it- which makes it worse by adding more corpses to the Abominations.") : (t4.name = "Life-Stealing Rain", t4.description = "When a powerful rain storm is infused with necromantic magic, it becomes Life-Stealing Rain.  This rain is a pale and ghostly blue in color, and whatever it touches starts to wither and die.  Trees become desiccated and dry, their bark flaking off, and any plants which have not lost their leaves start to lose them in copious amounts.  Animals become thin and emaciated, seeming to starve and age right before the eyes, and even structures can find themselves aging quickly, crumbling in places and rotting in others.  Each raindrop that falls on something can carry this horrible power, and the best protection against Life-Stealing Rain is to stay out of it by sheltering in a building (which may rot away around you) or a natural formation like a cave.  Life-Stealing Rain typically lasts only for a few hours in any given area before the winds cause it to move elsewhere, although the rainstorm that it was part of may still be going on.") : (t4.name = "Winds of Death", t4.description = "When a powerful windstorm mixes with necromantic magic, it starts to howl with evil intent.  These winds now are not only capable of destroying trees and buildings, but they carry with them runic shouts of destruction for life itself.  Anyone hearing the winds finds themselves buffeted by magical energy, and the weak-willed or sickly can be struck dead instantly by these sounds.  Those killed by the winds soon rise as horrible undead creatures, adding even more danger to the situation as these creatures seek to destroy the living.  The winds themselves only last for a little while, minutes at a time before blowing into a new area, but the undead it creates persist until destroyed.") : e3.isRaining ? e3.temp < 32 ? (t4.name = "Zombie Snow", t4.description = "When Zombie Snow falls, there is often no warning that people's lives are about to get very bad.  This snow charged with necromantic magic does not look any different from regular precipitation, but as it lands on corpses or grave sites the necromantic magic contained within it animates these dead things temporarily.  Zombies burst forth from graves, skeletons walk out of tombs, and fresh kills become hungry ghouls and ghasts.  These new undead are driven by an insatiable hunger for destruction and seek out living creatures to kill.  These creatures are given life by the snow, and when the weather system passes they return to their previous state of actual deadness.  In the meantime, though, they can wreak havoc on a community or ecosystem.") : (t4.name = "Dead Love's Rain", t4.description = "Dead Love's Rain happens when rain clouds pass through an area of intense necromantic magic, charging them with energies that can reach into the world beyond.  Each raindrop appears to have a tiny, perfect image of a skull in it and puddles that form seem to be teeming with spectral and ghostly images.  Anyone who imbibes this water finds themselves temporarily blinded (not technically blind, they're just now looking into the spirit plane which is dark and featureless), but in exchange they can speak into the spirit world.  This allows them to attempt to speak to things there, including dead loved ones.  To successfully contact a specific entity they need to know something of the land of the dead, and it is easy to acccidentally begin speaking to powerful, potentially evil creatures that dwell there.  The effects of the water wear off after a few minutes, and any puddles infused with this energy quickly revert to normal water after the weather system is gone.") : e3.wind > 10 ? (t4.name = "Ghost Winds", t4.description = "When necromantic magic is stirred up by blowing winds, strange things start to happen.  The wild howls with a ghostly whine and the magical energies reach deep into the spirit world and pull forth all manner of horrible apparitions: ghosts and banshees and phantasms and worse come screaming through the veil between worlds, angry at having their rest disturbed and ready to seek vengeance.  Ghost Winds typically last for a few hours at a time, and any non-corporeal undead summoned by the wind will usually be laid to rest once the wind stops.") : (t4.name = "Bells of the Afterlife", t4.description = "On calm days, when necromantic magic runs wild and infuses the very air itself, the Bells of the Afterlife can be heard.  These ghostly chimes sound like they are far off in the distance and slightly off-key, but if you stand still and listen to them long enough you find yourself being lulled into a disquieted sleep.  The sleepers fall where they were standing but suffer from strange and horrible nightmares, and as long as they are asleep a ghost is pulled from the netherworld to wander the land instead.  Waking the sleeper or waiting for the magic to wear off are the best ways to dispel these ghosts back where they came from."), e3.supernaturalEvent = t4;
     }
   }
 }, {
@@ -11818,8 +11940,8 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Trapping Snow", t3.description = "Trapping Snow is a dangerous phenomenon which happens when friction magic mixes with a powerful snowstorm.  The snow that falls from these clouds is orangey in color and becomes nearly impossible to brush off.  Worse, anything that touches it can become stuck fast, requiring a feat of strength to pull apart.  This sticky snow accumulates differently than regular snow, making large piles and easily burying unlucky trees and buildings that might have survived a regular snowstorm.  The clouds bearing this strange snow usually turn back into regular snowstorm clouds within a few hours, and the magic which infuses the snow wears off a few hours after that.") : (t3.name = "Grease Rain", t3.description = "Grease Rain happens when negative frictional magic mixes with a powerful rainstorm, creating orange droplets that are the single greatest lubricant known.  These drops make everything they touch extremely slippery: walking on ground wet with the stuff is like walking on ice, trying to pick up or manipulate objects is even worse, and things that were supposed to be locked or tied up have a way of opening on their own.  The clouds which bear this strange rain typically last for a few hours, and the effects wear off a few hours after that.") : (t3.name = "Sticky Winds", t3.description = "When friction magic mixes with a windstorm, the result is strange.  Everything touched by these winds becomes very sticky indeed, grabbing onto anything that it in turn touches and causing it to stick fast.  This effect lasts as long as the Sticky Winds are blowing, which is typically only for a few minutes to an hour, and effectively immobilizes anything caught out in the storm.") : e3.isRaining ? e3.temp < 32 ? (t3.name = "Stick Snow", t3.description = "Stick Snow is snow charged with frictional magic.  This snow causes anything it touches to become very very sticky.  This makes surfaces coated in Stick Snow easy to climb or even hang from a roof if you throw the snow up onto an overhanging surface.  Attempts at grappling or wrestling with a Stick Snow covered target become much easier.  The clouds pass quickly, spending no more than a few minutes in an area, and the effect wears off after a few hours") : (t3.name = "Slip Rain", t3.description = "Slip Rain happens when negatively charged friction magic meets with a rain cloud.  The precipitation that results is slightly red in color, and causes any surface it comes in contact with to become instantly very slippery, like ice.  This can be fun or treacherous depending on your attitude toward the situation.  The Slip Rain remains until it evaporates away or is washed away by regular rain.") : e3.wind > 10 ? (t3.name = "Unlocking Winds", t3.description = "When a breezy day mixes with negative friction magic, everything starts to become very slippery.  It's hard to hold onto anything, as if your hands were covered in grease, and worse this effect applies to tied ropes, jars, and locks (and anything similar), often untying or opening them just from the force of the wind.") : (t3.name = "Gummy Mist", t3.description = "When frictional magic seeps into an area where there isn't a lot of wind, it becomes a strange orange-ish mist.  This mist causes things within it to greatly increase their friction, becoming very sticky.  Walking becomes a weird struggle, hair starts to do crazy things and it becomes almost impossible to slide surfaces across one another (which makes, for example, drawing swords or pulling things out of bags almost impossible).  The areas of mist typically range in size from a few dozen to a few hundred feet in size and there may be many of them in an area.  They usually evaporate away by the middle of the afternoon."), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Trapping Snow", t4.description = "Trapping Snow is a dangerous phenomenon which happens when friction magic mixes with a powerful snowstorm.  The snow that falls from these clouds is orangey in color and becomes nearly impossible to brush off.  Worse, anything that touches it can become stuck fast, requiring a feat of strength to pull apart.  This sticky snow accumulates differently than regular snow, making large piles and easily burying unlucky trees and buildings that might have survived a regular snowstorm.  The clouds bearing this strange snow usually turn back into regular snowstorm clouds within a few hours, and the magic which infuses the snow wears off a few hours after that.") : (t4.name = "Grease Rain", t4.description = "Grease Rain happens when negative frictional magic mixes with a powerful rainstorm, creating orange droplets that are the single greatest lubricant known.  These drops make everything they touch extremely slippery: walking on ground wet with the stuff is like walking on ice, trying to pick up or manipulate objects is even worse, and things that were supposed to be locked or tied up have a way of opening on their own.  The clouds which bear this strange rain typically last for a few hours, and the effects wear off a few hours after that.") : (t4.name = "Sticky Winds", t4.description = "When friction magic mixes with a windstorm, the result is strange.  Everything touched by these winds becomes very sticky indeed, grabbing onto anything that it in turn touches and causing it to stick fast.  This effect lasts as long as the Sticky Winds are blowing, which is typically only for a few minutes to an hour, and effectively immobilizes anything caught out in the storm.") : e3.isRaining ? e3.temp < 32 ? (t4.name = "Stick Snow", t4.description = "Stick Snow is snow charged with frictional magic.  This snow causes anything it touches to become very very sticky.  This makes surfaces coated in Stick Snow easy to climb or even hang from a roof if you throw the snow up onto an overhanging surface.  Attempts at grappling or wrestling with a Stick Snow covered target become much easier.  The clouds pass quickly, spending no more than a few minutes in an area, and the effect wears off after a few hours") : (t4.name = "Slip Rain", t4.description = "Slip Rain happens when negatively charged friction magic meets with a rain cloud.  The precipitation that results is slightly red in color, and causes any surface it comes in contact with to become instantly very slippery, like ice.  This can be fun or treacherous depending on your attitude toward the situation.  The Slip Rain remains until it evaporates away or is washed away by regular rain.") : e3.wind > 10 ? (t4.name = "Unlocking Winds", t4.description = "When a breezy day mixes with negative friction magic, everything starts to become very slippery.  It's hard to hold onto anything, as if your hands were covered in grease, and worse this effect applies to tied ropes, jars, and locks (and anything similar), often untying or opening them just from the force of the wind.") : (t4.name = "Gummy Mist", t4.description = "When frictional magic seeps into an area where there isn't a lot of wind, it becomes a strange orange-ish mist.  This mist causes things within it to greatly increase their friction, becoming very sticky.  Walking becomes a weird struggle, hair starts to do crazy things and it becomes almost impossible to slide surfaces across one another (which makes, for example, drawing swords or pulling things out of bags almost impossible).  The areas of mist typically range in size from a few dozen to a few hundred feet in size and there may be many of them in an area.  They usually evaporate away by the middle of the afternoon."), e3.supernaturalEvent = t4;
     }
   }
 }, {
@@ -11829,8 +11951,8 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Witty Snow", t3.description = "When particularly annoying magic mixes with a snowstorm, the effect is dangerous and obnoxious.  Each snowflake that falls finds itself desperately wanting to tell a (bad) joke that it just learned, being snow and never having known a joke before.  It will repeat this joke often and loudly to ensure that everyone can appreciate it.  As thousands upon thousands of snowflakes all try to tell jokes, their voices overlap and create an annoying cacophony of sound and bad taste.  This makes it difficult to concentrate and to hear people you're taking to, but can be a boon for anyone with an eye for underhanded deeds who does not want to be heard.  The clouds carrying this annoying snow tend to move quickly through the storm, and the magical effect wears off after several hours.") : (t3.name = "Cowbell Rain", t3.description = "When a powerful rainstorm mixes with annoying magic, the result is Cowbell Rain.  Each droplet that strikes the ground sounds like the ringing of a cowbell.  As thousands of droplets all make this sound, the noise can drive anyone crazy, although it does provide good cover for clandestine deeds that rely on not being heard to succeed.") : (t3.name = "Hello Hello Hello", t3.description = "This windstorm is greeting you: Hello Hello Hello hello hello hello.  Over and over.  The sound comes from all directions at random and inoportune times, and at least half the time it seems to also be saying a name.  Your name.  Although you mostly get used to it after a while, it can still be unnerving and distracting to hear someone saying hello specifically to you every few seconds.") : e3.isRaining ? e3.temp < 32 ? (t3.name = "Inquisitve Snow", t3.description = "Inquisitive Snow has an endless amount of questions: what are you doing?  why?  why does he look like that?  why don't you have a bigger pack?  why doesn't your pack have a certain kind of tie?  why would someone make a tie like that when this other one is better?  why is your nose so big?  why are your feet so weird? and so forth.  The snow constantly asks questions, sometimes not even waiting for an answer, sometimes simply repeating your name over and over.  Inquisitive Snow is not necessarily dangerous, but it can disrupt activities requiring concentration.  It usually lasts for a few hours but can be all day, too.") : (t3.name = "Off-Key Rain", t3.description = "Off-Key Rain is particularly annoying: it lands on the ground with the sound of musical notes and singing voices, but they are all clashing and out of tune with one another.  The cacophony is not necessarily dangerous but can disrupt tasks which require focus such as casting spells or doing taxes.") : e3.wind > 10 ? (t3.name = "Screaming Wind", t3.description = "Screaming Wind is wind that literally screams: AaaaaaAAAaaaaAAaaahh! ... Ah! Ah! Ah! .. AaaaAAh!  Ah! (and so on).  Usually not dangerous, the sound gets annoying very quickly, particularly because the wind usually varies the noises.  Sometimes there can be long minutes without any sound, and then there can be a half hour of straight screaming, which can also disrupt tasks that need concentration such as spellcasting or math.  Screaming Winds typically last for a few hours to an entire day.") : (t3.name = "Wildly Fluctuating Temperature", t3.description = "Wildly Fluctuating Temperature is a strange weather phenomenon that defies explanation.  First, it is just cold enough that you want to put on a coat.  Then, when you put that coat on, it becomes so hot that wearing a coat is uncomfortable.  It seems to change based on your personal discomfort levels, and if it isn't too hot or too cold it will get hotter or colder until it provokes a reaction.  This weather can be dangerous when you're ignoring it, because that will cause it to more wildly change its temperature to try and get your attention so that you put on or take off some clothing."), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Witty Snow", t4.description = "When particularly annoying magic mixes with a snowstorm, the effect is dangerous and obnoxious.  Each snowflake that falls finds itself desperately wanting to tell a (bad) joke that it just learned, being snow and never having known a joke before.  It will repeat this joke often and loudly to ensure that everyone can appreciate it.  As thousands upon thousands of snowflakes all try to tell jokes, their voices overlap and create an annoying cacophony of sound and bad taste.  This makes it difficult to concentrate and to hear people you're taking to, but can be a boon for anyone with an eye for underhanded deeds who does not want to be heard.  The clouds carrying this annoying snow tend to move quickly through the storm, and the magical effect wears off after several hours.") : (t4.name = "Cowbell Rain", t4.description = "When a powerful rainstorm mixes with annoying magic, the result is Cowbell Rain.  Each droplet that strikes the ground sounds like the ringing of a cowbell.  As thousands of droplets all make this sound, the noise can drive anyone crazy, although it does provide good cover for clandestine deeds that rely on not being heard to succeed.") : (t4.name = "Hello Hello Hello", t4.description = "This windstorm is greeting you: Hello Hello Hello hello hello hello.  Over and over.  The sound comes from all directions at random and inoportune times, and at least half the time it seems to also be saying a name.  Your name.  Although you mostly get used to it after a while, it can still be unnerving and distracting to hear someone saying hello specifically to you every few seconds.") : e3.isRaining ? e3.temp < 32 ? (t4.name = "Inquisitve Snow", t4.description = "Inquisitive Snow has an endless amount of questions: what are you doing?  why?  why does he look like that?  why don't you have a bigger pack?  why doesn't your pack have a certain kind of tie?  why would someone make a tie like that when this other one is better?  why is your nose so big?  why are your feet so weird? and so forth.  The snow constantly asks questions, sometimes not even waiting for an answer, sometimes simply repeating your name over and over.  Inquisitive Snow is not necessarily dangerous, but it can disrupt activities requiring concentration.  It usually lasts for a few hours but can be all day, too.") : (t4.name = "Off-Key Rain", t4.description = "Off-Key Rain is particularly annoying: it lands on the ground with the sound of musical notes and singing voices, but they are all clashing and out of tune with one another.  The cacophony is not necessarily dangerous but can disrupt tasks which require focus such as casting spells or doing taxes.") : e3.wind > 10 ? (t4.name = "Screaming Wind", t4.description = "Screaming Wind is wind that literally screams: AaaaaaAAAaaaaAAaaahh! ... Ah! Ah! Ah! .. AaaaAAh!  Ah! (and so on).  Usually not dangerous, the sound gets annoying very quickly, particularly because the wind usually varies the noises.  Sometimes there can be long minutes without any sound, and then there can be a half hour of straight screaming, which can also disrupt tasks that need concentration such as spellcasting or math.  Screaming Winds typically last for a few hours to an entire day.") : (t4.name = "Wildly Fluctuating Temperature", t4.description = "Wildly Fluctuating Temperature is a strange weather phenomenon that defies explanation.  First, it is just cold enough that you want to put on a coat.  Then, when you put that coat on, it becomes so hot that wearing a coat is uncomfortable.  It seems to change based on your personal discomfort levels, and if it isn't too hot or too cold it will get hotter or colder until it provokes a reaction.  This weather can be dangerous when you're ignoring it, because that will cause it to more wildly change its temperature to try and get your attention so that you put on or take off some clothing."), e3.supernaturalEvent = t4;
     }
   }
 }, {
@@ -11840,8 +11962,8 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Diseased Snow", t3.description = "This black and red snow is filled with evil shadow magic and brings extra danger.  In addition to the normal dangers of a snowstorm, such as falling trees and bitter cold, anyone who eats this unnatural snow finds that it corrupts their very soul.  Evil thoughts come more easily to them, divine and holy shrines will repel them and they will find themselves much more likely to hurt others.  This effect can last for days after the snow is eaten.") : (t3.name = "Wounding Rain", t3.description = "This dark red rain comes from clouds filled with evil shadow magic, and can be quite devastating when it falls.  Wounding Rain causes wounds to anything it touches, the more of it which falls on something, the worse the wounds will be.  This includes cuts and bruises as well as broken bones and worse, and anyone who stays out in a Wounding Rain becomes increasingly likely to end up dead.") : (t3.name = "Winds of Corruption", t3.description = "When evil shadow magic mixes with a powerful windstorm, Winds of Corruption are the result.  These winds fill people's lungs with evil magic, so that when they breathe out they start speaking the words to dark and evil incantations.  This causes random evil spells to suddenly start being cast, the worst of which can be summons of Devils, Demons, and other powerful evil entities.  The more people there are in an area, the more frequent and powerful these spells become, regardless of the power of the individual people.") : e3.isRaining ? e3.temp < 32 ? (t3.name = "Wicked Snow", t3.description = "When evil, shadow magic mixes with snow, it creates a much-feared phenomenon called Wicked Snow.  When these dark grey snowflakes land on anyone with pure, positive thoughts in their mind they lash out with painful bursts of negative magic.  Only those with wicked and evil intentions in their hearts can walk safely out in Wicked Snow, and the only safety is to seek shelter.  Wicked Snow typically lasts for a few hours but has been known to fall for as long as a day.") : (t3.name = "Falling Shadows", t3.description = "When a rainy day mixes with magic from the shadow realm, Falling Shadows is the result.  This rain is not wet, rather it is dark, like shadows are actually falling from the sky.  These shadows pool with other shadows and make them larger and larger, and cause the day to get darker and darker as it goes.  Creatures with darkvision or alternate methods of seeing are usually fine, but many others find themselves in complete and utter, impenetrable darkness after a few hours.  Adding more light (ie: lighting more torches) can help, but only temporarily as more and more shadows accumulate.  This strange weather usually only lasts half a day or so, but can go longer.") : e3.wind > 10 ? (t3.name = "Corrupting Wind", t3.description = "When the air is shot through with streaks of black and red and the wind speaks of evil deeds in your ear, a Corrupting Wind is blowing.  Filled with evil shadow magic, this wind can sap the power from holy places and turn sites of evil acts into shrines to evil gods.  Worse, the weak-willed can find themselves influenced by this wind, and start thinking evil thoughts like rape, murder, and burglary would be good ideas.  Even the strong-willed can find themselves being less generous and less nice while Corrupting Winds blow.") : (t3.name = "Darklight Sun", t3.description = "When evil shadow magic permeates the air and doesn't get dispersed by winds, it can create a phenomenon where the sun itself seems to disappear, fading out until it casts no light at all.  These areas of darkness can be pierced by torches, fires and other magical lights but for the unwary it can create very dangerous traveling situations."), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Diseased Snow", t4.description = "This black and red snow is filled with evil shadow magic and brings extra danger.  In addition to the normal dangers of a snowstorm, such as falling trees and bitter cold, anyone who eats this unnatural snow finds that it corrupts their very soul.  Evil thoughts come more easily to them, divine and holy shrines will repel them and they will find themselves much more likely to hurt others.  This effect can last for days after the snow is eaten.") : (t4.name = "Wounding Rain", t4.description = "This dark red rain comes from clouds filled with evil shadow magic, and can be quite devastating when it falls.  Wounding Rain causes wounds to anything it touches, the more of it which falls on something, the worse the wounds will be.  This includes cuts and bruises as well as broken bones and worse, and anyone who stays out in a Wounding Rain becomes increasingly likely to end up dead.") : (t4.name = "Winds of Corruption", t4.description = "When evil shadow magic mixes with a powerful windstorm, Winds of Corruption are the result.  These winds fill people's lungs with evil magic, so that when they breathe out they start speaking the words to dark and evil incantations.  This causes random evil spells to suddenly start being cast, the worst of which can be summons of Devils, Demons, and other powerful evil entities.  The more people there are in an area, the more frequent and powerful these spells become, regardless of the power of the individual people.") : e3.isRaining ? e3.temp < 32 ? (t4.name = "Wicked Snow", t4.description = "When evil, shadow magic mixes with snow, it creates a much-feared phenomenon called Wicked Snow.  When these dark grey snowflakes land on anyone with pure, positive thoughts in their mind they lash out with painful bursts of negative magic.  Only those with wicked and evil intentions in their hearts can walk safely out in Wicked Snow, and the only safety is to seek shelter.  Wicked Snow typically lasts for a few hours but has been known to fall for as long as a day.") : (t4.name = "Falling Shadows", t4.description = "When a rainy day mixes with magic from the shadow realm, Falling Shadows is the result.  This rain is not wet, rather it is dark, like shadows are actually falling from the sky.  These shadows pool with other shadows and make them larger and larger, and cause the day to get darker and darker as it goes.  Creatures with darkvision or alternate methods of seeing are usually fine, but many others find themselves in complete and utter, impenetrable darkness after a few hours.  Adding more light (ie: lighting more torches) can help, but only temporarily as more and more shadows accumulate.  This strange weather usually only lasts half a day or so, but can go longer.") : e3.wind > 10 ? (t4.name = "Corrupting Wind", t4.description = "When the air is shot through with streaks of black and red and the wind speaks of evil deeds in your ear, a Corrupting Wind is blowing.  Filled with evil shadow magic, this wind can sap the power from holy places and turn sites of evil acts into shrines to evil gods.  Worse, the weak-willed can find themselves influenced by this wind, and start thinking evil thoughts like rape, murder, and burglary would be good ideas.  Even the strong-willed can find themselves being less generous and less nice while Corrupting Winds blow.") : (t4.name = "Darklight Sun", t4.description = "When evil shadow magic permeates the air and doesn't get dispersed by winds, it can create a phenomenon where the sun itself seems to disappear, fading out until it casts no light at all.  These areas of darkness can be pierced by torches, fires and other magical lights but for the unwary it can create very dangerous traveling situations."), e3.supernaturalEvent = t4;
     }
   }
 }, {
@@ -11851,8 +11973,8 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Curing Snowstorm", t3.description = "A Curing Snowstorm is a boon to those who are suffering from illness and disease.  This bright, golden snow is filled with holy magic and when eaten it will cure most disease (bacteria, viruses, parasites, and even magical disease).  The snow retains its magic for only a few hours, but people who are lucky enough to imbibe it remain cured.") : (t3.name = "Healing Storm", t3.description = "Although rainstorms can be dangerous events that bring flooding and downed trees, when they mix with holy magic they become Healing Storms.  The water from these storms can fix wounds or broken bones and repair damage to plants and buildings.  These storms are much appreciated for the relief they bring to the injured.") : (t3.name = "Winds of Purification", t3.description = "When a powerful windstorm mixes with righteous magic, the winds blow golden and strong and have the power to destroy undead abominations.  Undead creatures have the magic that binds them ripped apart by these windstorms and often simply crumble to dust during the storm.  Evil and necromantic magic also becomes very difficult to cast.") : e3.isRaining ? e3.temp < 32 ? (t3.name = "Smiting Snow", t3.description = "Evil everywhere must beware Smiting Snow.  When righteous magic mixes with blowing snow, it creates shining and golden flakes that can strike down evildoers.  Anyone with ill-intent in their hearts finds themselves suddenly bombarded by painful bursts of holy energy whenever these snowflakes land on them while they are thinking of doing evil.") : (t3.name = "Bright Rain", t3.description = "When holy magic mixes with falling rain, it creates drops of water that glow brightly and create glorious puddles of light.  This light banishes shadows and can be collected to provide illumination in dark places, and because it is infused with holy energy it can do damage to evil creatures that are harmed by sunlight.  The Bright Rain usually falls for a few hours at a time before turning back to regular rain, and any water infused with the magic becomes regular water within a few hours after that.") : e3.wind > 10 ? (t3.name = "Purifying Winds", t3.description = "When the wind sparkles with golden light, it is said to be a Purifying Wind.  Charged with holy magic, it can make holy shrines more powerful and can create divine shrines in places where acts of great goodness have happened.  It even saps the power from shrines to evil deities and can purify areas of otherwise powerful evil.  Better still, people affected by a Purifying Wind will start to have good and pure thoughts.  Those who would do evil start to think it's a bad idea, and those who might normally be selfish or casually cruel find themselves helping their neighbors and even strangers instead.") : (t3.name = "Daybright Moon", t3.description = "When righteous magic collects and does not get broken up by wind, it can create a phenomenon where the night lights up nearly as bright as day.  This light is warm and comforting and can make travel possible when it would otherwise be very dangerous."), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Curing Snowstorm", t4.description = "A Curing Snowstorm is a boon to those who are suffering from illness and disease.  This bright, golden snow is filled with holy magic and when eaten it will cure most disease (bacteria, viruses, parasites, and even magical disease).  The snow retains its magic for only a few hours, but people who are lucky enough to imbibe it remain cured.") : (t4.name = "Healing Storm", t4.description = "Although rainstorms can be dangerous events that bring flooding and downed trees, when they mix with holy magic they become Healing Storms.  The water from these storms can fix wounds or broken bones and repair damage to plants and buildings.  These storms are much appreciated for the relief they bring to the injured.") : (t4.name = "Winds of Purification", t4.description = "When a powerful windstorm mixes with righteous magic, the winds blow golden and strong and have the power to destroy undead abominations.  Undead creatures have the magic that binds them ripped apart by these windstorms and often simply crumble to dust during the storm.  Evil and necromantic magic also becomes very difficult to cast.") : e3.isRaining ? e3.temp < 32 ? (t4.name = "Smiting Snow", t4.description = "Evil everywhere must beware Smiting Snow.  When righteous magic mixes with blowing snow, it creates shining and golden flakes that can strike down evildoers.  Anyone with ill-intent in their hearts finds themselves suddenly bombarded by painful bursts of holy energy whenever these snowflakes land on them while they are thinking of doing evil.") : (t4.name = "Bright Rain", t4.description = "When holy magic mixes with falling rain, it creates drops of water that glow brightly and create glorious puddles of light.  This light banishes shadows and can be collected to provide illumination in dark places, and because it is infused with holy energy it can do damage to evil creatures that are harmed by sunlight.  The Bright Rain usually falls for a few hours at a time before turning back to regular rain, and any water infused with the magic becomes regular water within a few hours after that.") : e3.wind > 10 ? (t4.name = "Purifying Winds", t4.description = "When the wind sparkles with golden light, it is said to be a Purifying Wind.  Charged with holy magic, it can make holy shrines more powerful and can create divine shrines in places where acts of great goodness have happened.  It even saps the power from shrines to evil deities and can purify areas of otherwise powerful evil.  Better still, people affected by a Purifying Wind will start to have good and pure thoughts.  Those who would do evil start to think it's a bad idea, and those who might normally be selfish or casually cruel find themselves helping their neighbors and even strangers instead.") : (t4.name = "Daybright Moon", t4.description = "When righteous magic collects and does not get broken up by wind, it can create a phenomenon where the night lights up nearly as bright as day.  This light is warm and comforting and can make travel possible when it would otherwise be very dangerous."), e3.supernaturalEvent = t4;
     }
   }
 }, {
@@ -11862,8 +11984,8 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Granite Snow", t3.description = "When a dangerous, blowing, and cold snowstorm mixes with earth magic it can create a dangerous condition known as Granite Snow.  When this happens, snowflakes turn into bits of gravel as they fall from the sky and land as a dangerous storm of grit and stone.  They act very much like hail, in that they can damage or destroy trees and buildings, and minorly harm living creatures, but they are much harder to clean up because they don't melt in warm weather or wash away easily.  Granite Snow usually passes through an area over a period of a day or so, and can drop several inches of gravel into a town or ecosystem.") : (t3.name = "Storm of Swords", t3.description = "When earth magic mixes with a powerful rainstorm, it can create a deadly effect known as a Storm of Swords.  The earth magic swirls and mixes high in the atmosphere, merging rain droplets together into large, sharp bars of metal that very much resemble swords.  Once they get large enough, these magically created swords hurtle toward the ground with the same force and deadliness of a real sword falling from the atmosphere.  The part of the storm charged with this magic typically moves quickly through an area, but the damage it leaves behind can be immense.") : (t3.name = "Midas Wind", t3.description = "Midas Wind is a particularly dangerous kind of windstorm which happens when earth magic mixes with a windy weather system.  The wind becomes charged with magic such that when it blows across a surface, it forms a thin layer of gold on that surface.  If the surface doesn't move, the layer grows thicker and thicker at a rate of about half an inch per hour.  Midas Winds pass through very quickly, but in their wake they leave many (dead or dying) golden plants, and even humans and animals can be encased in a lethal shell of gold if they don't get out of the wind fast enough.") : e3.isRaining ? e3.temp < 32 ? (t3.name = "Gold Snow", t3.description = "Gold Snow is widely considered to be a boon, although it can become dangerous in some situations.  When earth magic mixes with snow clouds, instead of creating regular snow they create tiny flakes of gold that fall from the sky.  These flakes are actual, real and pure gold and while they don't individually weigh very much, anyone who has the presence of mind can pick up piles of the stuff.  This can be dangerous because gold is heavy and can destroy roofs and trees, and also has the potential to ruin local economies with a sudden influx of wealth.") : (t3.name = "Silver Rain", t3.description = "Silver Rain is both dangerous and profitable.  Powerful earth magic mixes with a weather system and turns rain droplets into little pellets of actual silver.  These strike with the force of hail, or even harder, enough to injure creatures and break structures and trees, and they can clog up waterways and wells.  However, they are pure and solid silver and can be collected and sold for good coin, which can be a boon to the poor but also a curse for a region if it makes everyone too rich.") : e3.wind > 10 ? (t3.name = "Wandering Rock Winds", t3.description = "When Wandering Rock Winds blow, all manner of rocks start to migrate from their normal location.  Gravel, small rocks, even boulders start to move in the direction of the wind, rolling or wiggling along.  While most of the time this is a mere curiosity, the mass movement of heavy rock can sometimes trigger slides or other very hazardous conditions.") : (t3.name = "Growing Mountains", t3.description = "When powerful earth magic settles and there is no wind around to disperse it, it can create a phenomenon colloquially called Growing Mountains.  The earth magic forms misty patches on the ground, some small and some large, and starts to coalesce into actual dirt and rock.  Within a matter of minutes, a noticeable hill can be created and after several hours these hills can be very tall indeed.  The magic usually only lasts a day or less but can create low-lying mountain ranges where there were none before, or sometimes simply one big and tall mountain on an otherwise flat plain."), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Granite Snow", t4.description = "When a dangerous, blowing, and cold snowstorm mixes with earth magic it can create a dangerous condition known as Granite Snow.  When this happens, snowflakes turn into bits of gravel as they fall from the sky and land as a dangerous storm of grit and stone.  They act very much like hail, in that they can damage or destroy trees and buildings, and minorly harm living creatures, but they are much harder to clean up because they don't melt in warm weather or wash away easily.  Granite Snow usually passes through an area over a period of a day or so, and can drop several inches of gravel into a town or ecosystem.") : (t4.name = "Storm of Swords", t4.description = "When earth magic mixes with a powerful rainstorm, it can create a deadly effect known as a Storm of Swords.  The earth magic swirls and mixes high in the atmosphere, merging rain droplets together into large, sharp bars of metal that very much resemble swords.  Once they get large enough, these magically created swords hurtle toward the ground with the same force and deadliness of a real sword falling from the atmosphere.  The part of the storm charged with this magic typically moves quickly through an area, but the damage it leaves behind can be immense.") : (t4.name = "Midas Wind", t4.description = "Midas Wind is a particularly dangerous kind of windstorm which happens when earth magic mixes with a windy weather system.  The wind becomes charged with magic such that when it blows across a surface, it forms a thin layer of gold on that surface.  If the surface doesn't move, the layer grows thicker and thicker at a rate of about half an inch per hour.  Midas Winds pass through very quickly, but in their wake they leave many (dead or dying) golden plants, and even humans and animals can be encased in a lethal shell of gold if they don't get out of the wind fast enough.") : e3.isRaining ? e3.temp < 32 ? (t4.name = "Gold Snow", t4.description = "Gold Snow is widely considered to be a boon, although it can become dangerous in some situations.  When earth magic mixes with snow clouds, instead of creating regular snow they create tiny flakes of gold that fall from the sky.  These flakes are actual, real and pure gold and while they don't individually weigh very much, anyone who has the presence of mind can pick up piles of the stuff.  This can be dangerous because gold is heavy and can destroy roofs and trees, and also has the potential to ruin local economies with a sudden influx of wealth.") : (t4.name = "Silver Rain", t4.description = "Silver Rain is both dangerous and profitable.  Powerful earth magic mixes with a weather system and turns rain droplets into little pellets of actual silver.  These strike with the force of hail, or even harder, enough to injure creatures and break structures and trees, and they can clog up waterways and wells.  However, they are pure and solid silver and can be collected and sold for good coin, which can be a boon to the poor but also a curse for a region if it makes everyone too rich.") : e3.wind > 10 ? (t4.name = "Wandering Rock Winds", t4.description = "When Wandering Rock Winds blow, all manner of rocks start to migrate from their normal location.  Gravel, small rocks, even boulders start to move in the direction of the wind, rolling or wiggling along.  While most of the time this is a mere curiosity, the mass movement of heavy rock can sometimes trigger slides or other very hazardous conditions.") : (t4.name = "Growing Mountains", t4.description = "When powerful earth magic settles and there is no wind around to disperse it, it can create a phenomenon colloquially called Growing Mountains.  The earth magic forms misty patches on the ground, some small and some large, and starts to coalesce into actual dirt and rock.  Within a matter of minutes, a noticeable hill can be created and after several hours these hills can be very tall indeed.  The magic usually only lasts a day or less but can create low-lying mountain ranges where there were none before, or sometimes simply one big and tall mountain on an otherwise flat plain."), e3.supernaturalEvent = t4;
     }
   }
 }, {
@@ -11873,8 +11995,8 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Egg-Laden Snow", t3.description = "Sometimes, when a powerful winter storm meets a pocket of plague magic, it creates a horrific weather system called Egg-Laden Snow.  The snowflakes which fall from this system look superficially like regular snow, but they can be seen to twitch and writhe when observed up close.  When they land on a living thing (plant, animal, etc.) the eggs have a natural urge to try and burrow deep into bark and stems and flesh, causing extreme pain when they succeed.  It gets worse, however.  The eggs burrow as deep inside as they can go, and then hatch into thousands or millions of small insects which eat their way out of the host.  Although hardy creatures usually survive this process, people who have been caught out for too long in Egg-Laden Snow have been known to die from it.") : (t3.name = "Rain of Spores", t3.description = "When dangerous plague magic mixes with a rainstorm, it creates a strange weather condition called a Rain of Spores.  When raindrops land on something (ground, living creatures, plants) they instantly spawn a collection of fungi and mold.  Within minutes, an area can be entirely blanketed in thick, fuzzy carpets of mold and covered in growing mushrooms of all sorts.  Some of these fungi are poisonous, but the real danger becomes the spores that they give off once the storm has passed, filling the air with a thick miasma that can easily choke breathing creatures.  The storm passes relatively swiftly, but the mushrooms and molds are real and physical and will survive as long as they can find suitable nutrients and don't get cleared away by people or animals.") : (t3.name = "Blight Wind", t3.description = "Blight Wind is a horrifying windstorm that can be talked about for generations after it happens.  Plague magic mixes with a powerful windstorm and creates this monstrosity.  As the wind blows, any living thing caught out in it finds that it causes painful blisters, boils, and welts to rise on their exposed skin (bark or stems in the case of plants).  The longer something is caught out in a Blight Wind, the more debilitating this effect becomes.  Blight Winds mercifully pass through an area quickly, but they leave behind them scars that can last for lifetimes, and many years longer than that in people's memories.  Trees that saw a Blight Wind even a hundred years ago may still bear the scars of that wind.") : e3.isRaining ? e3.temp < 32 ? (t3.name = "Maggot Snow", t3.description = "Maggot Snow is a horrible weather phenomenon which occurs when plague magic mixes with snow clouds.  The clouds turn a sickly yellow color and start to squirm and wriggle in the air, and instead of snow falling from them, it's maggots.  These nearly senseless creatures mostly die on impact with the ground, but as the accumulation of maggots grows the top layers are mostly spared and can crawl about.  These maggots are particularly hungry and seek any kind of flesh to feast on, making them dangerous if you're caught out in a Maggot Snow system without any high ground to flee to.") : (t3.name = "Rain of Pus", t3.description = "Rain of Pus is a disgusting weather system which occurs when plague magic mixes with regular rain clouds.  These clouds turn the color of infected wounds, sickly shades of red and purple and green that are stomach-churning to look at, and a thick white liquid falls from them.  This pus is disgusting but also highly infectious, and living creatures caught out in it can find themselves contracting all sorts of nasty diseases from it, especially if it gets into a wound or touches a mucous membrane (nose, inside of mouth, etc.).  Pus clouds tend to pass quickly over an area, dropping their horrible issue and moving on after minutes or hours.  The pus itself remains until it is washed away by other rain or dries up in the sun, which means it can also infect waterways downstream from the main weather system.") : e3.wind > 10 ? (t3.name = "Foul Breeze", t3.description = "A Foul Breeze is a blustery, windy weather system filled with plague magic.  It is not as powerful as some plague-charged weather systems, but the air becomes a thick and foul yellow that smells terrible and blocks sight.  This miasma can cause breathing problems for those susceptible and makes it impossible to track anything by smell.  Being out in the Foul Winds too long can also cause headaches, nausea, and other minor ailments that are not necessarily debilitating but are certainly annoying and can be dangerous when traveling or fighting.") : (t3.name = "Toenail Sprouts", t3.description = "Toenail Sprouts at first do not seem like such a bad thing, although they are disgusting.  When plague magic hangs heavy in the air and isn't dispersed by weather, it can infect the ground and the plants.  Toenail Sprouts start in the morning as small, yellowish buds all along the outside of plants (grasses, trees, etc.).  They look awful but not harmful.  As the day goes on, they bloom into what looks very much like human-sized toenail clippings.  These toenails are thick and vary in color from weirdly yellow to disturbingly green and red.  Any exposed skin, and especially open wounds, which touches these sprouts becomes exposed to an infectious fungus that can severely slow down healing, in addition to being very itchy."), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Egg-Laden Snow", t4.description = "Sometimes, when a powerful winter storm meets a pocket of plague magic, it creates a horrific weather system called Egg-Laden Snow.  The snowflakes which fall from this system look superficially like regular snow, but they can be seen to twitch and writhe when observed up close.  When they land on a living thing (plant, animal, etc.) the eggs have a natural urge to try and burrow deep into bark and stems and flesh, causing extreme pain when they succeed.  It gets worse, however.  The eggs burrow as deep inside as they can go, and then hatch into thousands or millions of small insects which eat their way out of the host.  Although hardy creatures usually survive this process, people who have been caught out for too long in Egg-Laden Snow have been known to die from it.") : (t4.name = "Rain of Spores", t4.description = "When dangerous plague magic mixes with a rainstorm, it creates a strange weather condition called a Rain of Spores.  When raindrops land on something (ground, living creatures, plants) they instantly spawn a collection of fungi and mold.  Within minutes, an area can be entirely blanketed in thick, fuzzy carpets of mold and covered in growing mushrooms of all sorts.  Some of these fungi are poisonous, but the real danger becomes the spores that they give off once the storm has passed, filling the air with a thick miasma that can easily choke breathing creatures.  The storm passes relatively swiftly, but the mushrooms and molds are real and physical and will survive as long as they can find suitable nutrients and don't get cleared away by people or animals.") : (t4.name = "Blight Wind", t4.description = "Blight Wind is a horrifying windstorm that can be talked about for generations after it happens.  Plague magic mixes with a powerful windstorm and creates this monstrosity.  As the wind blows, any living thing caught out in it finds that it causes painful blisters, boils, and welts to rise on their exposed skin (bark or stems in the case of plants).  The longer something is caught out in a Blight Wind, the more debilitating this effect becomes.  Blight Winds mercifully pass through an area quickly, but they leave behind them scars that can last for lifetimes, and many years longer than that in people's memories.  Trees that saw a Blight Wind even a hundred years ago may still bear the scars of that wind.") : e3.isRaining ? e3.temp < 32 ? (t4.name = "Maggot Snow", t4.description = "Maggot Snow is a horrible weather phenomenon which occurs when plague magic mixes with snow clouds.  The clouds turn a sickly yellow color and start to squirm and wriggle in the air, and instead of snow falling from them, it's maggots.  These nearly senseless creatures mostly die on impact with the ground, but as the accumulation of maggots grows the top layers are mostly spared and can crawl about.  These maggots are particularly hungry and seek any kind of flesh to feast on, making them dangerous if you're caught out in a Maggot Snow system without any high ground to flee to.") : (t4.name = "Rain of Pus", t4.description = "Rain of Pus is a disgusting weather system which occurs when plague magic mixes with regular rain clouds.  These clouds turn the color of infected wounds, sickly shades of red and purple and green that are stomach-churning to look at, and a thick white liquid falls from them.  This pus is disgusting but also highly infectious, and living creatures caught out in it can find themselves contracting all sorts of nasty diseases from it, especially if it gets into a wound or touches a mucous membrane (nose, inside of mouth, etc.).  Pus clouds tend to pass quickly over an area, dropping their horrible issue and moving on after minutes or hours.  The pus itself remains until it is washed away by other rain or dries up in the sun, which means it can also infect waterways downstream from the main weather system.") : e3.wind > 10 ? (t4.name = "Foul Breeze", t4.description = "A Foul Breeze is a blustery, windy weather system filled with plague magic.  It is not as powerful as some plague-charged weather systems, but the air becomes a thick and foul yellow that smells terrible and blocks sight.  This miasma can cause breathing problems for those susceptible and makes it impossible to track anything by smell.  Being out in the Foul Winds too long can also cause headaches, nausea, and other minor ailments that are not necessarily debilitating but are certainly annoying and can be dangerous when traveling or fighting.") : (t4.name = "Toenail Sprouts", t4.description = "Toenail Sprouts at first do not seem like such a bad thing, although they are disgusting.  When plague magic hangs heavy in the air and isn't dispersed by weather, it can infect the ground and the plants.  Toenail Sprouts start in the morning as small, yellowish buds all along the outside of plants (grasses, trees, etc.).  They look awful but not harmful.  As the day goes on, they bloom into what looks very much like human-sized toenail clippings.  These toenails are thick and vary in color from weirdly yellow to disturbingly green and red.  Any exposed skin, and especially open wounds, which touches these sprouts becomes exposed to an infectious fungus that can severely slow down healing, in addition to being very itchy."), e3.supernaturalEvent = t4;
     }
   }
 }, {
@@ -11884,8 +12006,8 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Invisible Snowstorm", t3.description = "An Invisible Snowstorm is a snowstorm charged with invisibility magic.  It has all the usual effects of a snowstorm (cold, wind, lots of blowing snow) but you cannot see it: the clouds are invisible and the snow that falls is invisible.  This can make them treacherous because it looks like a beautiful, sunny day even though it is actually a raging, dangerous snowstorm.  Drifts are particularly perilous because they can be deep enough to swallow up a human but totally invisible.  The effect wears off several hours after falling, but the storm itself can last for a day or more.") : (t3.name = "Rain of Disappearance", t3.description = "Rain of Disappearance is a particularly disturbing weather phenomenon that can make a normal rainstorm quite dangerous.  These storm clouds become infused with invisibility magic, and so do the winds, so that anything they touch except the ground itself becomes invisible.  Creatures, plants, buildings, even rocks and boulders disappear as they become wet with the rain and battered by the winds.  This can cause the entire world to become a mostly featureless expanse of ground, hiding everything from sight.  This is especially dangerous as the rain and wind can still cause damage, but moving about becomes very perilous as everyone becomes essentially blind.  A Rain of Disappearance usually only lasts a few hours before fading back into a regular rainstorm, and the effects dissipate almost immediately after the enchanted clouds move on.") : (t3.name = "Invisible Debris Storm", t3.description = "When a windstorm mixes with invisibility magic, an Invisible Debris Storm occurs.  As the winds whip about and rip off tree limbs and unsecured bits of things from roofs, everything that is picked up by the storm becomes invisible (until it is no longer flying through the air).  This means that falling trees limbs, flying rocks, and the like are all invisible and therefore more dangerous than usual.  Invisible Debris Storms are also usually windier and more powerful than a regular wind storm, causing even more havoc.", e3.wind += 10) : e3.isRaining ? e3.temp < 32 ? (t3.name = "Thieves' Snow", t3.description = "Thieves' Snow falls with a slightly greyish tint and a mischievous sparkle to it, subtly but noticeably different from regular snow.  This snow is charged with invisibility magic and anyone who eats enough of it (about a cup) becomes invisible.  This invisibility remains for several minutes up to half an hour, as long as the imbiber doesn't do anything too vigorous (such as attacking with a weapon or casting a spell).  The snow retains this magic for several days or until melted or otherwise washed away.") : (t3.name = "Things-Go-Missing Rain", t3.description = "When Things-Go-Missing Rain falls, things go missing.  This rain is charged with random invisibility magic, and anything touched by it can suddenly become invisible.  Not everything touched by this rain goes invisible, and it won't affect something huge like the ground, but trees and buildings and altars and people have been known to disappear in areas where it falls.  The effect lasts for a few minutes or a few hours, seemingly as random as the things that go missing in the first place.  For large things, buildings and people and so forth, this is usually just an inconvenience but small things like keys and weapons can easily be misplaced or forgotten once they've become invisible.") : e3.wind > 10 ? (t3.name = "The Emperor's New Wind", t3.description = "The Emperor's New Wind is a weather system that can be hilarious but oftens cause strife in civilized societies.  The winds on these days are infused with invisibility magic and any protective covering they blow across becomes invisible.  This means people's armor and clothes, as well as animal's fur, and also things like doors or window shutters.  The things remain, they are simply invisible.  This causes people to look naked, animals to look shaved, and the secrets hidden inside houses to be revealed.  Each gust of wind usually only lasts a few moments, so the effect comes and goes wildly throughout the day as the wind rises and ebbs.") : (t3.name = "Holes in the World", t3.description = "Holes in the World is a weather phenomenon that is more distressing than dangerous, although it can be dangerous too.  When latent invisibility magic hangs in the air and is not dispersed by winds, it creates patches of ground that are infused with it.  Within these patches, everything but the ground itself becomes invisible: creatures, trees, buildings, stuff, grasses, everything.  This makes it seem as if there have suddenly been huge holes punched in the world with only bare ground remaining, but everything inside the patches is still there, it just can't be seen.  These patches usually start to disperse as the sun rises in the sky and don't often linger for more than a day."), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Invisible Snowstorm", t4.description = "An Invisible Snowstorm is a snowstorm charged with invisibility magic.  It has all the usual effects of a snowstorm (cold, wind, lots of blowing snow) but you cannot see it: the clouds are invisible and the snow that falls is invisible.  This can make them treacherous because it looks like a beautiful, sunny day even though it is actually a raging, dangerous snowstorm.  Drifts are particularly perilous because they can be deep enough to swallow up a human but totally invisible.  The effect wears off several hours after falling, but the storm itself can last for a day or more.") : (t4.name = "Rain of Disappearance", t4.description = "Rain of Disappearance is a particularly disturbing weather phenomenon that can make a normal rainstorm quite dangerous.  These storm clouds become infused with invisibility magic, and so do the winds, so that anything they touch except the ground itself becomes invisible.  Creatures, plants, buildings, even rocks and boulders disappear as they become wet with the rain and battered by the winds.  This can cause the entire world to become a mostly featureless expanse of ground, hiding everything from sight.  This is especially dangerous as the rain and wind can still cause damage, but moving about becomes very perilous as everyone becomes essentially blind.  A Rain of Disappearance usually only lasts a few hours before fading back into a regular rainstorm, and the effects dissipate almost immediately after the enchanted clouds move on.") : (t4.name = "Invisible Debris Storm", t4.description = "When a windstorm mixes with invisibility magic, an Invisible Debris Storm occurs.  As the winds whip about and rip off tree limbs and unsecured bits of things from roofs, everything that is picked up by the storm becomes invisible (until it is no longer flying through the air).  This means that falling trees limbs, flying rocks, and the like are all invisible and therefore more dangerous than usual.  Invisible Debris Storms are also usually windier and more powerful than a regular wind storm, causing even more havoc.", e3.wind += 10) : e3.isRaining ? e3.temp < 32 ? (t4.name = "Thieves' Snow", t4.description = "Thieves' Snow falls with a slightly greyish tint and a mischievous sparkle to it, subtly but noticeably different from regular snow.  This snow is charged with invisibility magic and anyone who eats enough of it (about a cup) becomes invisible.  This invisibility remains for several minutes up to half an hour, as long as the imbiber doesn't do anything too vigorous (such as attacking with a weapon or casting a spell).  The snow retains this magic for several days or until melted or otherwise washed away.") : (t4.name = "Things-Go-Missing Rain", t4.description = "When Things-Go-Missing Rain falls, things go missing.  This rain is charged with random invisibility magic, and anything touched by it can suddenly become invisible.  Not everything touched by this rain goes invisible, and it won't affect something huge like the ground, but trees and buildings and altars and people have been known to disappear in areas where it falls.  The effect lasts for a few minutes or a few hours, seemingly as random as the things that go missing in the first place.  For large things, buildings and people and so forth, this is usually just an inconvenience but small things like keys and weapons can easily be misplaced or forgotten once they've become invisible.") : e3.wind > 10 ? (t4.name = "The Emperor's New Wind", t4.description = "The Emperor's New Wind is a weather system that can be hilarious but oftens cause strife in civilized societies.  The winds on these days are infused with invisibility magic and any protective covering they blow across becomes invisible.  This means people's armor and clothes, as well as animal's fur, and also things like doors or window shutters.  The things remain, they are simply invisible.  This causes people to look naked, animals to look shaved, and the secrets hidden inside houses to be revealed.  Each gust of wind usually only lasts a few moments, so the effect comes and goes wildly throughout the day as the wind rises and ebbs.") : (t4.name = "Holes in the World", t4.description = "Holes in the World is a weather phenomenon that is more distressing than dangerous, although it can be dangerous too.  When latent invisibility magic hangs in the air and is not dispersed by winds, it creates patches of ground that are infused with it.  Within these patches, everything but the ground itself becomes invisible: creatures, trees, buildings, stuff, grasses, everything.  This makes it seem as if there have suddenly been huge holes punched in the world with only bare ground remaining, but everything inside the patches is still there, it just can't be seen.  These patches usually start to disperse as the sun rises in the sky and don't often linger for more than a day."), e3.supernaturalEvent = t4;
     }
   }
 }, {
@@ -11895,15 +12017,15 @@ var supernaturalEvents = [{
   weight: 1,
   applyEffects: (e3) => {
     if (!e3.hasEvent) {
-      const t3 = {};
-      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t3.name = "Cheesestorm", t3.description = "When a snowstorm mixes with powerful food magic, a Cheesestorm in the result.  As the snow falls it turns to cheese, usually grated flakes of perfectly aged Parmesan.  This cheese can clog gutters and waterways, although during snowstorms those are usually full anyway, and is entirely real so it can be collected for later snacking if you are so inclined.  A Cheesestorm usually turns back into a regular snowstorm within a few hours as the magic dissipates.  The cheese is heavier than snow, and so more likely to destroy buildings and trees, and when the weather starts to warm it can become moldy and biohazardous.") : (t3.name = "Winestorm", t3.description = "When food magic mixes with a powerful rainstorm, a Winestorm is the result.  The rain itself turns to wine as it falls, becoming bright red in color and intoxicating to drink.  This storm carries all the usual dangers of a rainstorm (flooding, breaking tree limbs, destroying roofs) but also has the tendency to cause most things caught out in it to become drunk, leading to shenanigans that would not normally happen out in a regular rainstorm.  Also unlike a regular rainstorm, people will usually go out and frolic in it, increasing the drunkenness and danger.  A Winestorm can last up to a day, and the wine it creates is entirely real and does not go away after the magic ends.") : (t3.name = "Winds of Plenty", t3.description = "Winds of Plenty are a regular windstorm infused with food magic.  They can be a blessing or a curse depending on how long they last.  As Winds of Plenty blow across stored or prepared food, that food starts to multiply.  The food will 'double' after five or so minutes, becoming a perfect copy of itself.  The longer this effect lasts, the more food that will result.  These winds only last a few minutes up to half an hour, but can be a boon to those starving, or dangerous to storage areas that are already close to full and which can burst under pressure.") : e3.isRaining ? e3.temp < 32 ? (t3.name = "Powdered Sugar Snow", t3.description = "When food magic mixes up with a system of snowy weather, Powdered Sugar Snow is the result.  From a distance it looks like snow but when you get close to it and start to feel it and taste it, it is clearly powdered sugar.  Powdered Sugar Snow is usually less heavy and dense than regular snow, but can cause other problems such as coughing or sneezing fits when the powdered sugar gets inhaled, and it makes everything unpleasantly sticky.  The weather system can pass over in hours but the powdered sugar is real and remains until it is washed away or otherwise removed.") : (t3.name = "Meatballs from Heaven", t3.description = "When food magic is infused into a rainy weather system, Meatballs from Heaven can be the result.  The raindrops themselves turn into meatballs and fall, sometimes accompanied by sauce or noodles as well.  These meatballs are cooked and safe to eat, but can cause quite a mess, can be damaging to structures (especially those with flat roofs), and can clog up waterways and gutter systems easily.  The weather system which spawns these meatballs usually passes in a few hours, but the meat remains until it is cleared away naturally.") : e3.wind > 10 ? (t3.name = "Something Smells Good", t3.description = "When patches of latent food magic mix with a windy weather system, the breezes themselves start to take on the scent of delicious home cooking.  Something Smells Good is literally that: the wind smells tasty and delicious, but the source of the scent can never be found.  For some this is a pleasant effect, but for others it can be distracting or drive them to madness.") : (t3.name = "Blooming Bread", t3.description = "When food magic lingers in the air and isn't cleared away by winds, Blooming Bread is the result.  Starting in the morning, loaves of bread and muffins and other baked goods start to rise up from the ground, like blooming flowers.  These baked goods grow larger and more delicious looking as the day goes on, until they reach their 'correct' size in the early afternoon.  The food is entirely real and safe to eat (although you should probably cut off the outside, since it often grows out of dirt).  The bloom typically only lasts for a few hours, but the bread it creates is real and must be dealt with like normal baked goods covering the ground."), e3.supernaturalEvent = t3;
+      const t4 = {};
+      e3.isStorm ? e3.isRaining ? e3.temp < 32 ? (t4.name = "Cheesestorm", t4.description = "When a snowstorm mixes with powerful food magic, a Cheesestorm in the result.  As the snow falls it turns to cheese, usually grated flakes of perfectly aged Parmesan.  This cheese can clog gutters and waterways, although during snowstorms those are usually full anyway, and is entirely real so it can be collected for later snacking if you are so inclined.  A Cheesestorm usually turns back into a regular snowstorm within a few hours as the magic dissipates.  The cheese is heavier than snow, and so more likely to destroy buildings and trees, and when the weather starts to warm it can become moldy and biohazardous.") : (t4.name = "Winestorm", t4.description = "When food magic mixes with a powerful rainstorm, a Winestorm is the result.  The rain itself turns to wine as it falls, becoming bright red in color and intoxicating to drink.  This storm carries all the usual dangers of a rainstorm (flooding, breaking tree limbs, destroying roofs) but also has the tendency to cause most things caught out in it to become drunk, leading to shenanigans that would not normally happen out in a regular rainstorm.  Also unlike a regular rainstorm, people will usually go out and frolic in it, increasing the drunkenness and danger.  A Winestorm can last up to a day, and the wine it creates is entirely real and does not go away after the magic ends.") : (t4.name = "Winds of Plenty", t4.description = "Winds of Plenty are a regular windstorm infused with food magic.  They can be a blessing or a curse depending on how long they last.  As Winds of Plenty blow across stored or prepared food, that food starts to multiply.  The food will 'double' after five or so minutes, becoming a perfect copy of itself.  The longer this effect lasts, the more food that will result.  These winds only last a few minutes up to half an hour, but can be a boon to those starving, or dangerous to storage areas that are already close to full and which can burst under pressure.") : e3.isRaining ? e3.temp < 32 ? (t4.name = "Powdered Sugar Snow", t4.description = "When food magic mixes up with a system of snowy weather, Powdered Sugar Snow is the result.  From a distance it looks like snow but when you get close to it and start to feel it and taste it, it is clearly powdered sugar.  Powdered Sugar Snow is usually less heavy and dense than regular snow, but can cause other problems such as coughing or sneezing fits when the powdered sugar gets inhaled, and it makes everything unpleasantly sticky.  The weather system can pass over in hours but the powdered sugar is real and remains until it is washed away or otherwise removed.") : (t4.name = "Meatballs from Heaven", t4.description = "When food magic is infused into a rainy weather system, Meatballs from Heaven can be the result.  The raindrops themselves turn into meatballs and fall, sometimes accompanied by sauce or noodles as well.  These meatballs are cooked and safe to eat, but can cause quite a mess, can be damaging to structures (especially those with flat roofs), and can clog up waterways and gutter systems easily.  The weather system which spawns these meatballs usually passes in a few hours, but the meat remains until it is cleared away naturally.") : e3.wind > 10 ? (t4.name = "Something Smells Good", t4.description = "When patches of latent food magic mix with a windy weather system, the breezes themselves start to take on the scent of delicious home cooking.  Something Smells Good is literally that: the wind smells tasty and delicious, but the source of the scent can never be found.  For some this is a pleasant effect, but for others it can be distracting or drive them to madness.") : (t4.name = "Blooming Bread", t4.description = "When food magic lingers in the air and isn't cleared away by winds, Blooming Bread is the result.  Starting in the morning, loaves of bread and muffins and other baked goods start to rise up from the ground, like blooming flowers.  These baked goods grow larger and more delicious looking as the day goes on, until they reach their 'correct' size in the early afternoon.  The food is entirely real and safe to eat (although you should probably cut off the outside, since it often grows out of dirt).  The bloom typically only lasts for a few hours, but the bread it creates is real and must be dealt with like normal baked goods covering the ground."), e3.supernaturalEvent = t4;
     }
   }
 }];
 var GenerateWeather = class {
-  constructor(days, t3 = [], climate, wetness, supernaturalFrequency, s, weatherSystems = []) {
+  constructor(days, t4 = [], climate, wetness, supernaturalFrequency, s, weatherSystems = []) {
     this.days = days;
-    this.t = t3;
+    this.t = t4;
     this.climate = climate;
     this.wetness = wetness;
     this.supernaturalFrequency = supernaturalFrequency;
@@ -11997,7 +12119,7 @@ var CalendarDay = ({
   temperatureUnit
 }) => {
   const {
-    t: t3
+    t: t4
   } = useTranslation("calendar");
   const formatTemperature = (temp) => {
     return temperatureUnit === TemperatureUnit.Metric ? getTempString(temp) : getFahrenheitTempString(temp);
@@ -12027,7 +12149,7 @@ var CalendarDay = ({
         display: "none"
       }
     }
-  }, t3(day.name)), jsx("div", {
+  }, t4(day.name)), jsx("div", {
     css: [{
       display: "flex",
       gap: "0.25rem"
@@ -12043,7 +12165,7 @@ var CalendarDay = ({
     spendQuarter: () => quarterClicked(day)
   })), showWeather && jsx("div", {
     css: {}
-  }, jsx("div", null, t3("Weather-High"), ": ", formatTemperature(day.temp)), jsx("div", null, t3("Weather-Low"), ": ", formatTemperature(day.lowTemp)), jsx("div", null, t3(day.downpour)), jsx("div", null, t3(day.stormType)), jsx("div", null, t3(day.stormType)), jsx("div", null, t3(day.eventType?.name ?? ""))));
+  }, jsx("div", null, t4("Weather-High"), ": ", formatTemperature(day.temp)), jsx("div", null, t4("Weather-Low"), ": ", formatTemperature(day.lowTemp)), jsx("div", null, t4(day.downpour)), jsx("div", null, t4(day.stormType)), jsx("div", null, t4(day.stormType)), jsx("div", null, t4(day.eventType?.name ?? ""))));
 };
 
 // build/dist/components/calendar-day-names.js
@@ -12067,9 +12189,9 @@ var DayName = styled_default.div(() => [{
 }]);
 var CalendarDayNames = () => {
   const {
-    t: t3
+    t: t4
   } = useTranslation("calendar");
-  return jsx(react.Fragment, null, jsx(DayName, null, t3("SunDay")), jsx(DayName, null, t3("MoonDay")), jsx(DayName, null, t3("BloodDay")), jsx(DayName, null, t3("EarthDay")), jsx(DayName, null, t3("GrowthDay")), jsx(DayName, null, t3("HarvestDay")), jsx(DayName, null, t3("StillDay")));
+  return jsx(react.Fragment, null, jsx(DayName, null, t4("SunDay")), jsx(DayName, null, t4("MoonDay")), jsx(DayName, null, t4("BloodDay")), jsx(DayName, null, t4("EarthDay")), jsx(DayName, null, t4("GrowthDay")), jsx(DayName, null, t4("HarvestDay")), jsx(DayName, null, t4("StillDay")));
 };
 
 // build/dist/models/calendar.model.js
@@ -12123,7 +12245,7 @@ var createMonth = (monthName, weatherDays, daysPassed, dayOffset) => {
   return {
     name: monthName,
     collapsed: false,
-    days: range(dayInMonth(monthName)).map((d3) => {
+    days: range2(dayInMonth(monthName)).map((d3) => {
       const weatherDay = weatherDays[daysPassed + d3];
       return {
         number: d3 + 1,
@@ -12149,7 +12271,7 @@ var getCal = (startYear = 1165, startDay) => {
     acc.push(cur.days);
     return acc;
   }, []).flat();
-  const cal = range(numberOfMonths()).reduce((calendar, m3) => {
+  const cal = range2(numberOfMonths()).reduce((calendar, m3) => {
     const monthName = getMonthName(m3);
     calendar.calendar.months.push(createMonth(monthName, weatherDays, calendar.daysPassed, dayOffset));
     calendar.daysPassed += dayInMonth(monthName);
@@ -12252,7 +12374,7 @@ var CalendarFillerDays = ({
   const fillerDays = getDayNumber(day.name) - 1;
   const fillerDaysMobile = fillerDays % 3;
   const fillerDaysDesktop = fillerDays - fillerDaysMobile;
-  return jsx(react.Fragment, null, range(fillerDaysMobile).map((i2) => jsx("div", {
+  return jsx(react.Fragment, null, range2(fillerDaysMobile).map((i2) => jsx("div", {
     css: {
       borderWidth: "1px",
       padding: "0.5rem",
@@ -12261,7 +12383,7 @@ var CalendarFillerDays = ({
       justifyContent: "center"
     },
     key: `${day.monthName}-empty-day-${getDayName(i2)}`
-  })), range(fillerDaysDesktop).map((i2) => jsx("div", {
+  })), range2(fillerDaysDesktop).map((i2) => jsx("div", {
     css: {
       borderWidth: "1px",
       padding: "0.5rem",
@@ -12279,34 +12401,47 @@ var CalendarFillerDays = ({
 // build/dist/components/month-collapse-button.js
 var MonthCollapseButton = ({
   collapsed,
-  onMonthCollapseClick
+  onMonthCollapseClick,
+  children,
+  small = true
 }) => {
   const {
-    t: t3
+    t: t4
   } = useTranslation("calendar");
   return jsx("button", {
-    "aria-label": t3(collapsed ? `ShowMonth` : `HideMonth`),
+    "aria-label": t4(collapsed ? `ShowMonth` : `HideMonth`),
     css: {
+      display: "flex",
+      alignItems: "center",
+      gap: "0.5rem"
+    },
+    className: "group",
+    onClick: onMonthCollapseClick,
+    type: "button"
+  }, jsx("div", {
+    css: [{
       borderWidth: "2px",
       "--tw-border-opacity": "1",
       borderColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
       aspectRatio: "1",
       position: "relative",
-      width: "2rem",
-      height: "2rem",
-      ":hover": {
+      ".group:hover &": {
         "--tw-bg-opacity": "1",
         backgroundColor: "rgba(239, 68, 68, var(--tw-bg-opacity))",
         "--tw-border-opacity": "1",
         borderColor: "rgba(239, 68, 68, var(--tw-border-opacity))"
       }
-    },
-    onClick: onMonthCollapseClick
-  }, jsx("div", {
-    css: {
-      position: "absolute",
-      height: "0.25rem",
+    }, small ? {
       width: "1rem",
+      height: "1rem"
+    } : {
+      width: "2rem",
+      height: "2rem"
+    }]
+  }, jsx("div", {
+    css: [{
+      position: "absolute",
+      width: "50%",
       "--tw-bg-opacity": "1",
       backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
       top: "50%",
@@ -12317,12 +12452,17 @@ var MonthCollapseButton = ({
       transitionProperty: "transform",
       transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
       transitionDuration: "150ms"
-    }
+    }, small ? {
+      height: "0.125rem",
+      width: "66.666667%"
+    } : {
+      height: "0.25rem"
+    }]
   }), jsx("div", {
     css: [{
       position: "absolute",
       height: "0.25rem",
-      width: "1rem",
+      width: "50%",
       "--tw-bg-opacity": "1",
       backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
       top: "50%",
@@ -12339,14 +12479,26 @@ var MonthCollapseButton = ({
     } : {
       "--tw-rotate": "0deg",
       transform: "var(--tw-transform)"
+    }, small ? {
+      height: "0.125rem",
+      width: "66.666667%"
+    } : {
+      height: "0.25rem"
     }]
-  }));
+  })), jsx("div", {
+    css: {
+      ".group:hover &": {
+        "--tw-text-opacity": "1",
+        color: "rgba(239, 68, 68, var(--tw-text-opacity))"
+      }
+    }
+  }, children));
 };
 
 // build/dist/components/calendar-month.js
 var spendQuarter = (quarters) => {
   const spent = (quarters.filter((q3) => q3).length + 1) % 5;
-  return [...range(spent).map((_24) => true), ...range(4 - spent).map((_24) => false)];
+  return [...range2(spent).map((_24) => true), ...range2(4 - spent).map((_24) => false)];
 };
 var quarterReducer = (month2, day) => {
   return {
@@ -12366,7 +12518,7 @@ var CalendarMonth = ({
   onMonthUpdate
 }) => {
   const {
-    t: t3
+    t: t4
   } = useTranslation("calendar");
   const quarterClicked = (day) => {
     onMonthUpdate(quarterReducer(month2, day));
@@ -12396,7 +12548,7 @@ var CalendarMonth = ({
   }, jsx(MonthCollapseButton, {
     collapsed: month2.collapsed,
     onMonthCollapseClick: toggleCollapse
-  }), t3(month2.name)), !month2.collapsed && jsx("div", {
+  }), t4(month2.name)), !month2.collapsed && jsx("div", {
     css: {
       marginTop: "1rem",
       display: "grid",
@@ -12439,15 +12591,15 @@ var stepButtonStyles = () => [{
 }];
 var Stepper = ({
   value,
-  id: id2,
+  id: id3,
   twProps,
   max,
-  min,
+  min: min2,
   label,
   onChange
 }) => {
   const decrement = () => {
-    if (value > min) {
+    if (value > min2) {
       onChange(value - 1);
     }
   };
@@ -12465,7 +12617,7 @@ var Stepper = ({
     css: {
       display: "block"
     },
-    htmlFor: id2
+    htmlFor: id3
   }, label), jsx("div", {
     css: {
       width: "auto",
@@ -12487,7 +12639,7 @@ var Stepper = ({
     }, stepButtonStyles()],
     type: "button",
     onClick: decrement,
-    "aria-controls": id2
+    "aria-controls": id3
   }, "–"), jsx("input", {
     css: [...stepButtonStyles(), {
       borderLeftWidth: "0px",
@@ -12506,9 +12658,9 @@ var Stepper = ({
     }],
     type: "number",
     step: "1",
-    id: id2,
+    id: id3,
     value,
-    min,
+    min: min2,
     max,
     onChange: (e3) => handleChange(e3.target.value),
     disabled: true
@@ -12528,7 +12680,7 @@ var Stepper = ({
     }, stepButtonStyles()],
     type: "button",
     onClick: increment,
-    "aria-controls": id2
+    "aria-controls": id3
   }, "+")));
 };
 
@@ -12586,7 +12738,7 @@ var CALENDAR_SHOW_WEATHER_KEY = "calendar_show_weather";
 var CALENDAR_SCROLL_POSITION = "calendar_scroll";
 var CalendarPage = () => {
   const {
-    t: t3
+    t: t4
   } = useTranslation("calendar");
   const showWeatherFromStorage = localStorage.getItem(CALENDAR_SHOW_WEATHER_KEY) ?? void 0;
   const calendarFromStorageOrDefault = loadCalendar();
@@ -12653,7 +12805,7 @@ var CalendarPage = () => {
       rowGap: "2rem",
       width: "100%"
     }
-  }, jsx(PageHeader, null, t3("Title")), jsx("div", {
+  }, jsx(PageHeader, null, t4("Title")), jsx("div", {
     css: {
       textAlign: "center",
       fontSize: "1.25rem",
@@ -12662,7 +12814,7 @@ var CalendarPage = () => {
       textTransform: "none"
     },
     className: "yx-prose"
-  }, t3("Year"), " ", calendarState.year, " ", t3("AS")), jsx("div", {
+  }, t4("Year"), " ", calendarState.year, " ", t4("AS")), jsx("div", {
     css: {
       display: "flex",
       flexDirection: "column",
@@ -12682,15 +12834,15 @@ var CalendarPage = () => {
     isSmall: true,
     variant: "secondary",
     onClick: () => handleToggleCollapseAll()
-  }, t3(allCollapsed ? `ShowAll` : `HideAll`)), jsx(Button, {
+  }, t4(allCollapsed ? `ShowAll` : `HideAll`)), jsx(Button, {
     isSmall: true,
     variant: "secondary",
     onClick: () => handleTemperatureChange(calendar.temperatureUnit === TemperatureUnit.Metric ? TemperatureUnit.Imperial : TemperatureUnit.Metric)
-  }, t3("Use"), " ", calendar.temperatureUnit === TemperatureUnit.Metric ? t3("F") : t3("C")), jsx(Button, {
+  }, t4("Use"), " ", calendar.temperatureUnit === TemperatureUnit.Metric ? t4("F") : t4("C")), jsx(Button, {
     variant: "secondary",
     isSmall: true,
     onClick: () => setShowWeather(!showWeather)
-  }, showWeather ? t3("Weather-Hide") : t3("Weather-Show")), jsx(Button, {
+  }, showWeather ? t4("Weather-Hide") : t4("Weather-Show")), jsx(Button, {
     css: [showCalenderOptions ? {
       "--tw-bg-opacity": "1",
       backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
@@ -12720,7 +12872,7 @@ var CalendarPage = () => {
       textTransform: "uppercase",
       letterSpacing: "0.025em"
     }
-  }, t3("Options-StartingYear")), jsx("div", {
+  }, t4("Options-StartingYear")), jsx("div", {
     css: {
       padding: "1rem",
       borderWidth: "2px",
@@ -12739,7 +12891,7 @@ var CalendarPage = () => {
       "--tw-text-opacity": "1",
       color: "rgba(220, 38, 38, var(--tw-text-opacity))"
     }
-  }, t3("Options-StartingYearWarning")), jsx("div", null, jsx(Button, {
+  }, t4("Options-StartingYearWarning")), jsx("div", null, jsx(Button, {
     css: {
       "--tw-border-opacity": "1",
       borderColor: "rgba(220, 38, 38, var(--tw-border-opacity))",
@@ -12760,7 +12912,7 @@ var CalendarPage = () => {
     onClick: () => setShowYearOption(true),
     disabled: showYearOption,
     variant: showYearOption ? "disabled" : void 0
-  }, t3("Options-StartingYearNag"))), showYearOption && jsx(Stepper, {
+  }, t4("Options-StartingYearNag"))), showYearOption && jsx(Stepper, {
     max: 1e4,
     min: -2e3,
     value: calendarState.year,
@@ -12775,7 +12927,7 @@ var CalendarPage = () => {
       textTransform: "uppercase",
       letterSpacing: "0.025em"
     }
-  }, t3("Options-StartingDay")), jsx("div", {
+  }, t4("Options-StartingDay")), jsx("div", {
     css: {
       display: "flex",
       flexWrap: "wrap",
@@ -12784,25 +12936,25 @@ var CalendarPage = () => {
   }, jsx(Button, {
     onClick: () => handleUpdatingStartingDay("SunDay"),
     isSmall: true
-  }, t3("SunDay")), jsx(Button, {
+  }, t4("SunDay")), jsx(Button, {
     onClick: () => handleUpdatingStartingDay("MoonDay"),
     isSmall: true
-  }, t3("MoonDay")), jsx(Button, {
+  }, t4("MoonDay")), jsx(Button, {
     onClick: () => handleUpdatingStartingDay("BloodDay"),
     isSmall: true
-  }, t3("BloodDay")), jsx(Button, {
+  }, t4("BloodDay")), jsx(Button, {
     onClick: () => handleUpdatingStartingDay("EarthDay"),
     isSmall: true
-  }, t3("EarthDay")), jsx(Button, {
+  }, t4("EarthDay")), jsx(Button, {
     onClick: () => handleUpdatingStartingDay("GrowthDay"),
     isSmall: true
-  }, t3("GrowthDay")), jsx(Button, {
+  }, t4("GrowthDay")), jsx(Button, {
     onClick: () => handleUpdatingStartingDay("HarvestDay"),
     isSmall: true
-  }, t3("HarvestDay")), jsx(Button, {
+  }, t4("HarvestDay")), jsx(Button, {
     onClick: () => handleUpdatingStartingDay("StillDay"),
     isSmall: true
-  }, t3("StillDay"))))), jsx("div", null, calendarState.months.map((month2) => {
+  }, t4("StillDay"))))), jsx("div", null, calendarState.months.map((month2) => {
     return jsx(CalendarMonth, {
       key: month2.name,
       month: month2,
@@ -12830,8 +12982,8 @@ var DiceRollerPage = () => {
   });
   const [successes, setSuccesses] = useState(0);
   const rollDice = () => {
-    const attributeResults = range(attributeDiceAmount).map((_24) => getRandomInt());
-    const skillResults = range(skillDiceAmount).map((_24) => getRandomInt());
+    const attributeResults = range2(attributeDiceAmount).map((_24) => getRandomInt());
+    const skillResults = range2(skillDiceAmount).map((_24) => getRandomInt());
     const results = {
       attribute: attributeResults,
       skill: skillResults,
@@ -12919,17 +13071,17 @@ var Encounter = ({
   encounter
 }) => {
   const {
-    t: t3,
+    t: t4,
     i18n
   } = useTranslation(["encounters", "common"]);
   const [transition, setTransition] = useState(false);
   const formatTerrains = (terrains) => {
     if (terrains.length >= 9) {
-      return t3("Terrain.All", {
+      return t4("Terrain.All", {
         ns: "common"
       });
     }
-    return terrains.map((terrain2) => t3(`Terrain.${terrain2}`, {
+    return terrains.map((terrain2) => t4(`Terrain.${terrain2}`, {
       ns: "common"
     })).join(", ");
   };
@@ -12983,7 +13135,7 @@ var Encounter = ({
       display: "flex"
     },
     className: "yx-heading"
-  }, encounter.title)), jsx("div", null, t3("TerrainType"), ": ", formatTerrains(encounter.terrains)), jsx("div", null, t3("Page", {
+  }, encounter.title)), jsx("div", null, t4("TerrainType"), ": ", formatTerrains(encounter.terrains)), jsx("div", null, t4("Page", {
     ns: "common"
   }), ": ", encounter.page)));
 };
@@ -13539,25 +13691,25 @@ var terrain = ["Plains", "Forest", "DarkForest", "Hills", "Mountain", "Lake", "S
 var getTerrainKeys = () => [...terrain];
 
 // build/dist/functions/encounter.functions.js
-var getTerrainsByEncounterId = (id2) => {
-  if (id2 === 0 || id2 === 1) {
+var getTerrainsByEncounterId = (id3) => {
+  if (id3 === 0 || id3 === 1) {
     return [...getTerrainKeys()];
   }
   return Object.entries(encounterTable).reduce((acc, [terrain2, encounters]) => {
-    const hasEncounter = Object.values(encounters).some((e3) => e3 === id2);
+    const hasEncounter = Object.values(encounters).some((e3) => e3 === id3);
     if (hasEncounter) {
       acc.push(terrain2);
     }
     return acc;
   }, []);
 };
-var createEncounterViewModel = (id2, lang) => ({
-  id: id2,
-  ...allEncounters[lang][id2],
-  terrains: getTerrainsByEncounterId(id2)
+var createEncounterViewModel = (id3, lang) => ({
+  id: id3,
+  ...allEncounters[lang][id3],
+  terrains: getTerrainsByEncounterId(id3)
 });
-var getEncounterById = (id2, lang) => {
-  return createEncounterViewModel(id2, lang);
+var getEncounterById = (id3, lang) => {
+  return createEncounterViewModel(id3, lang);
 };
 var getRandomEncounter = (roll, terrain2, lang) => {
   if (!isRollsWithEncounters(roll)) {
@@ -13574,14 +13726,14 @@ var getRandomEncounter = (roll, terrain2, lang) => {
 // build/dist/pages/encounter.page.js
 var EncounterPage = () => {
   const {
-    t: t3,
+    t: t4,
     i18n
   } = useTranslation(["encounters", "common"]);
   const [encounter, setEncounter] = useState(void 0);
   const [oldTerrain, setOldTerrain] = useState(void 0);
   const [encounterLog, setEncounterLog] = useState([]);
   const generateNewEncounter = (terrain2) => {
-    const roll = getRandomT66();
+    const roll = rollD66();
     const randomEncounter = getRandomEncounter(roll, terrain2, i18n.language);
     setEncounter(randomEncounter);
     if (terrain2 === void 0 && oldTerrain === void 0 || terrain2 === oldTerrain) {
@@ -13619,7 +13771,7 @@ var EncounterPage = () => {
       width: "100%",
       alignItems: "center"
     }
-  }, jsx(PageHeader, null, t3("Title")), jsx("div", {
+  }, jsx(PageHeader, null, t4("Title")), jsx("div", {
     css: {
       width: "100%",
       "--tw-bg-opacity": "1",
@@ -13641,7 +13793,7 @@ var EncounterPage = () => {
     onClick: () => {
       handleClick(terrain2);
     }
-  }, t3(`Terrain.${terrain2}`, {
+  }, t4(`Terrain.${terrain2}`, {
     ns: "common"
   })))), jsx("div", {
     css: {
@@ -14038,7 +14190,7 @@ var MapPopover = ({
   onHide
 }) => {
   const {
-    t: t3
+    t: t4
   } = useTranslation("map");
   const ref = useRef(null);
   const [show, setShow] = useState(true);
@@ -14124,7 +14276,7 @@ var MapPopover = ({
       fontSize: "1.5rem",
       lineHeight: "2rem"
     }
-  }, options.hex.hexKey, ":", " ", options.hex.explored ? t3("Popover-Explored") : t3("Popover-Unexplored")), jsx("div", {
+  }, options.hex.hexKey, ":", " ", options.hex.explored ? t4("Popover-Explored") : t4("Popover-Unexplored")), jsx("div", {
     css: {
       display: "flex",
       gap: "0.5rem"
@@ -14136,7 +14288,7 @@ var MapPopover = ({
       onHide();
       setShow(false);
     }
-  }, t3("Popover-Hide")), options.hex.explored ? jsx(Button, {
+  }, t4("Popover-Hide")), options.hex.explored ? jsx(Button, {
     isSmall: true,
     onClick: () => {
       setShow(false);
@@ -14146,7 +14298,7 @@ var MapPopover = ({
         explored: false
       });
     }
-  }, t3("Popover-Forget")) : jsx(Button, {
+  }, t4("Popover-Forget")) : jsx(Button, {
     isSmall: true,
     onClick: () => {
       setShow(false);
@@ -14156,7 +14308,7 @@ var MapPopover = ({
         explored: true
       });
     }
-  }, t3("Popover-Explore")))));
+  }, t4("Popover-Explore")))));
 };
 
 // build/dist/components/paste-data.js
@@ -15341,7 +15493,7 @@ var MAP_STORAGE_KEY = "map";
 var FOG_OF_WAR_STORAGE_KEY = "fogOfWar";
 var MapPage = () => {
   const {
-    t: t3
+    t: t4
   } = useTranslation("map");
   const hexasFromStorage = localStorage.getItem(MAP_STORAGE_KEY) ?? void 0;
   const constructHexas = (hexasFromStorage2) => {
@@ -15554,7 +15706,7 @@ var MapPage = () => {
       rowGap: "2rem",
       width: "100%"
     }
-  }, jsx(PageHeader, null, t3("Title")), jsx("div", null, jsx(Parchment, {
+  }, jsx(PageHeader, null, t4("Title")), jsx("div", null, jsx(Parchment, {
     deps: [tooltip],
     ref: parchmentRef
   }, jsx("div", {
@@ -15602,7 +15754,7 @@ var MapPage = () => {
       display: "flex",
       justifyContent: "flex-end"
     }
-  }, t3(pasteError)), jsx("div", {
+  }, t4(pasteError)), jsx("div", {
     css: {
       "--tw-bg-opacity": "1",
       backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
@@ -15614,18 +15766,65 @@ var MapPage = () => {
   }, jsx(Button, {
     isSmall: true,
     onClick: () => setFogOfWar(!fogOfWar)
-  }, t3("FogOfWar", {
+  }, t4("FogOfWar", {
     context: fogOfWar ? "On" : "Off"
   })), jsx(Button, {
     isSmall: true,
     variant: !hasExploredHexas ? "disabled" : void 0,
     disabled: !hasExploredHexas,
     onClick: () => handleFileDownload()
-  }, t3("DownloadMapData")), jsx(PasteData, {
+  }, t4("DownloadMapData")), jsx(PasteData, {
     onFocusTextArea: () => setPasteError(void 0),
-    label: t3("PasteMapData"),
+    label: t4("PasteMapData"),
     onData: handlePasteMapData
   }))));
+};
+
+// build/dist/components/list.js
+var List = ({
+  children
+}) => {
+  return jsx("div", {
+    css: [{
+      maxHeight: "24rem",
+      display: "flex",
+      flexDirection: "column",
+      gap: "1rem",
+      "@media (min-width: 1024px)": {
+        maxHeight: "initial"
+      },
+      "@media (min-width: 1280px)": {
+        maxHeight: "initial"
+      },
+      "@media (min-width: 1536px)": {
+        maxHeight: "initial"
+      }
+    }, css`
+        overflow: overlay;
+      `]
+  }, children);
+};
+
+// build/dist/components/list-group.js
+var ListGroup = ({
+  children,
+  label,
+  open
+}) => {
+  const [groupOpen, setGroupOpen] = useState(open);
+  return jsx("section", null, jsx(MonthCollapseButton, {
+    collapsed: !groupOpen,
+    onMonthCollapseClick: () => setGroupOpen(!groupOpen)
+  }, jsx("h3", {
+    css: {
+      fontWeight: "700"
+    }
+  }, label)), groupOpen && jsx("div", {
+    css: {
+      marginTop: "1rem",
+      paddingLeft: "1.5rem"
+    }
+  }, children));
 };
 
 // build/dist/components/list-item.js
@@ -15643,14 +15842,7 @@ var ListButton = styled_default.button([
     width: "100%"
   },
   {
-    borderRadius: "0px",
-    borderWidth: "1px",
-    "--tw-border-opacity": "1",
-    borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
-    borderBottomWidth: "0px",
-    ":last-child": {
-      borderBottomWidth: "1px"
-    }
+    borderRadius: "0px"
   },
   {
     "@media (pointer: fine)": {
@@ -15674,15 +15866,12 @@ var ListButton = styled_default.button([
     textAlign: "left"
   }
 ]);
-var ListItem = ({
+var ListItemButton = ({
   children,
   onClick
-}) => {
-  return jsx(ListButton, {
-    onClick,
-    role: "listitem"
-  }, children);
-};
+}) => jsx(ListButton, {
+  onClick
+}, children);
 
 // build/dist/components/attribute-cheeckbox.js
 var AttributeCheckbox = () => {
@@ -15709,7 +15898,11 @@ var AttributeCheckbox = () => {
         }
       }
     },
-    onClick: () => setChecked(!checked)
+    onClick: () => setChecked(!checked),
+    role: "switch",
+    "aria-checked": checked,
+    "aria-label": "toggle",
+    type: "button"
   }, jsx("div", {
     css: [{
       position: "absolute",
@@ -15743,18 +15936,13 @@ var AttributeCheckbox = () => {
 
 // build/dist/components/monster-attributes.js
 var MonsterAttribute = ({
-  attribute: {
-    label,
-    values
-  }
+  label,
+  values
 }) => {
-  const {
-    t: t3
-  } = useTranslation("monsters");
   return jsx("div", {
-    css: css`
-        -webkit-backface-visibility: hidden;
-      `
+    css: {
+      WebkitBackfaceVisibility: "hidden"
+    }
   }, jsx("label", {
     css: {
       fontWeight: "500",
@@ -15762,7 +15950,7 @@ var MonsterAttribute = ({
       display: "block"
     },
     htmlFor: "monster-strength"
-  }, t3(`Attributes.${label}`)), jsx("div", {
+  }, label, ": ", values.length), jsx("div", {
     id: `monster-${label}-grid`,
     css: {
       display: "grid",
@@ -15782,10 +15970,376 @@ var MonsterAttribute = ({
   }))))));
 };
 
+// build/dist/components/monster-display.js
+var MonsterDisplay = ({
+  m: m3
+}) => {
+  const {
+    t: t4
+  } = useTranslation(["monsters", "common"]);
+  return jsx("div", null, jsx("header", {
+    css: {
+      marginBottom: "1rem"
+    }
+  }, jsx("h2", {
+    css: {
+      fontSize: "2.25rem",
+      lineHeight: "2.5rem",
+      marginBottom: "0.5rem"
+    },
+    className: "yx-heading"
+  }, t4(`Monster.${m3.name}`, {
+    ns: ["common"]
+  })), m3.pageReference && jsx("div", null, t4("Page", {
+    ns: "common"
+  }), ": ", m3.pageReference, " ", t4("GMBook", {
+    ns: "common"
+  }))), jsx("h3", {
+    css: {
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      fontWeight: "700"
+    }
+  }, t4(`Attribute`)), jsx("div", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.5rem"
+    }
+  }, m3.attributes.strength && jsx(MonsterAttribute, {
+    key: `${m3.name}-strength`,
+    values: [...m3.attributes.strength.values],
+    label: t4(`Attributes.${m3.attributes.strength.label}`)
+  }), m3.attributes.agility && jsx(MonsterAttribute, {
+    key: `${m3.name}-agility`,
+    values: [...m3.attributes.agility.values],
+    label: t4(`Attributes.${m3.attributes.agility.label}`)
+  }), m3.attributes.wits && jsx(MonsterAttribute, {
+    key: `${m3.name}-wits`,
+    values: [...m3.attributes.wits.values],
+    label: t4(`Attributes.${m3.attributes.wits.label}`)
+  }), m3.attributes.empathy && jsx(MonsterAttribute, {
+    key: `${m3.name}-empathy`,
+    values: [...m3.attributes.empathy.values],
+    label: t4(`Attributes.${m3.attributes.empathy.label}`)
+  })));
+};
+
+// build/dist/components/definition-list.js
+var DefinitionList = ({
+  definitions
+}) => jsx("ul", {
+  css: {
+    display: "flex",
+    flexDirection: "column"
+  }
+}, definitions.map((d3) => jsx("li", {
+  key: d3.name
+}, jsx("div", {
+  css: {
+    fontWeight: "500"
+  }
+}, d3.name), jsx("div", {
+  css: {
+    marginBottom: "0.5rem"
+  }
+}, d3.description))));
+
+// build/dist/components/skill-list.js
+var SkillList = ({
+  skills
+}) => jsx("table", {
+  css: {
+    width: "100%",
+    "@media (min-width: 640px)": {
+      width: "50%"
+    }
+  }
+}, jsx("tbody", null, skills.map((s) => jsx("tr", {
+  key: s.name,
+  css: {
+    borderBottomWidth: "1px"
+  }
+}, jsx("td", {
+  css: {
+    padding: "0.25rem"
+  }
+}, s.name), jsx("td", {
+  css: {
+    padding: "0.25rem",
+    textAlign: "right"
+  }
+}, s.value)))));
+
+// build/dist/components/random-monster-display.js
+var RandomMonsterDisplay = ({
+  rm
+}) => {
+  const {
+    t: t4
+  } = useTranslation(["monsters", "common"]);
+  const getSizeContext = (type) => {
+    switch (type) {
+      case "Grazing":
+      case "Predator":
+      case "AggressivePredator":
+        return {
+          context: "def"
+        };
+      default:
+        return {};
+    }
+  };
+  return jsx("div", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.5rem"
+    }
+  }, jsx("h2", {
+    css: {
+      fontSize: "2.25rem",
+      lineHeight: "2.5rem",
+      marginBottom: "0.5rem"
+    },
+    className: "yx-heading"
+  }, t4(`Size.${rm.size}`, {
+    ...getSizeContext(rm.type)
+  }), " ", t4(`Type.${rm.type}`)), jsx("div", {
+    className: "yx-prose",
+    css: {
+      maxWidth: "65ch",
+      marginBottom: "1rem"
+    }
+  }, jsx("p", null, t4("TheMonsterHas"), " ", rm.description.head, ". ", rm.description.limbs, ".", " ", t4("LivesIn", {
+    home: t4(`Homes.${rm.home}`)
+  }), ".")), jsx("div", {
+    css: {
+      display: "flex",
+      gap: "2rem",
+      flexDirection: "column",
+      "@media (min-width: 768px)": {
+        flexDirection: "row"
+      }
+    }
+  }, jsx("div", {
+    css: {
+      flex: "1 1 0%"
+    }
+  }, jsx("h3", {
+    css: {
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      fontWeight: "500"
+    }
+  }, t4(`Attribute`)), rm.attributes.strength && jsx("div", {
+    css: {
+      marginBottom: "0.5rem"
+    }
+  }, jsx(MonsterAttribute, {
+    key: `${rm.size}-strength`,
+    values: [...rm.attributes.strength.values],
+    label: t4(`Attributes.${rm.attributes.strength.label}`)
+  })), rm.attributes.agility && jsx("div", {
+    css: {
+      marginBottom: "0.5rem"
+    }
+  }, jsx(MonsterAttribute, {
+    key: `${rm.size}-agility`,
+    values: [...rm.attributes.agility.values],
+    label: t4(`Attributes.${rm.attributes.agility.label}`)
+  })), rm.armor && jsx("div", {
+    css: {
+      marginBottom: "0.5rem"
+    }
+  }, jsx("h3", {
+    css: {
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      fontWeight: "500"
+    }
+  }, t4("ArmorLabel")), jsx("div", {
+    css: {
+      fontWeight: "500"
+    }
+  }, rm.armor.label, ": ", rm.armor.values.length)), jsx("h3", {
+    css: {
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      fontWeight: "500"
+    }
+  }, t4(`Movement.Movement`)), jsx("div", {
+    css: {
+      marginBottom: "0.5rem"
+    }
+  }, t4(`Movement.${rm.movement.type}`), " ", rm.movement.distance, " ", t4(`Movement.Zones`, {
+    count: rm.movement.distance
+  })), jsx("h3", {
+    css: {
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      fontWeight: "500"
+    }
+  }, t4(`Skill`)), rm.skills.length === 0 ? jsx("div", null, t4("Skills.None")) : jsx(SkillList, {
+    skills: rm.skills.map((s) => ({
+      ...s,
+      name: t4(s.name)
+    })).sort((a2, b2) => a2.name.localeCompare(b2.name))
+  })), jsx("div", {
+    css: {
+      flex: "1 1 0%",
+      display: "flex",
+      flexDirection: "column",
+      gap: "1rem"
+    }
+  }, jsx("section", null, jsx("h3", {
+    css: {
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      fontWeight: "500"
+    }
+  }, t4(`Trait.Traits`)), jsx(DefinitionList, {
+    definitions: rm.traits.map((trait) => ({
+      name: t4(trait.name),
+      description: trait.description
+    }))
+  })), jsx("section", null, jsx("h3", {
+    css: {
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      fontWeight: "500"
+    }
+  }, t4(`Weakness.Weakness`)), jsx(DefinitionList, {
+    definitions: [rm.weakness].map((w2) => ({
+      name: t4(w2.name),
+      description: t4(w2.description)
+    }))
+  })), jsx("section", null, jsx("h3", {
+    css: {
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      fontWeight: "500"
+    }
+  }, t4(`Motivation.Motivation`)), jsx(DefinitionList, {
+    definitions: [rm.motivation].map((m3) => ({
+      name: t4(m3.name),
+      description: t4(m3.description)
+    }))
+  })))), jsx("h3", {
+    css: {
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      fontWeight: "500"
+    }
+  }, t4(`Attack.Attacks`)), jsx("table", {
+    css: {
+      width: "100%"
+    }
+  }, jsx("thead", null, jsx("tr", {
+    css: {
+      textTransform: "uppercase",
+      borderBottomWidth: "1px",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(107, 114, 128, var(--tw-border-opacity))"
+    }
+  }, jsx("th", {
+    css: {
+      fontWeight: "700",
+      padding: "0.25rem",
+      textAlign: "left"
+    }
+  }, t4(`Attack.Type`)), jsx("th", {
+    css: {
+      fontWeight: "700",
+      padding: "0.25rem",
+      textAlign: "center"
+    }
+  }, t4(`Attack.Attack`)), jsx("th", {
+    css: {
+      fontWeight: "700",
+      padding: "0.25rem",
+      textAlign: "center"
+    }
+  }, t4(`Attack.Damage`)), jsx("th", {
+    css: {
+      fontWeight: "700",
+      padding: "0.25rem",
+      textAlign: "center"
+    }
+  }, t4(`Attack.Range`)), jsx("th", {
+    css: {
+      fontWeight: "700",
+      padding: "0.25rem",
+      textAlign: "left",
+      wordBreak: "break-all"
+    }
+  }, t4(`Attack.Description`)))), jsx("tbody", null, rm.attacks.map((a2) => jsx("tr", {
+    key: a2.type,
+    css: {
+      borderBottomWidth: "1px",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(107, 114, 128, var(--tw-border-opacity))",
+      ":nth-of-type(odd)": {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
+      }
+    }
+  }, jsx("td", {
+    css: {
+      paddingTop: "0.25rem",
+      paddingBottom: "0.25rem",
+      paddingLeft: "0.5rem",
+      paddingRight: "0.5rem"
+    }
+  }, t4(`Attack.${a2.type}.Type`)), jsx("td", {
+    css: {
+      paddingTop: "0.25rem",
+      paddingBottom: "0.25rem",
+      paddingLeft: "0.5rem",
+      paddingRight: "0.5rem",
+      textAlign: "center"
+    }
+  }, a2.attack), jsx("td", {
+    css: {
+      paddingTop: "0.25rem",
+      paddingBottom: "0.25rem",
+      paddingLeft: "0.5rem",
+      paddingRight: "0.5rem",
+      textAlign: "center"
+    }
+  }, a2.damage), jsx("td", {
+    css: {
+      paddingTop: "0.25rem",
+      paddingBottom: "0.25rem",
+      paddingLeft: "0.5rem",
+      paddingRight: "0.5rem",
+      textAlign: "center",
+      whiteSpace: "nowrap"
+    }
+  }, t4(a2.range, {
+    ns: "common"
+  })), jsx("td", {
+    css: {
+      paddingTop: "0.25rem",
+      paddingBottom: "0.25rem",
+      paddingLeft: "0.5rem",
+      paddingRight: "0.5rem",
+      wordBreak: "break-all"
+    }
+  }, t4(a2.description)))))));
+};
+
 // build/dist/data/monster.data.js
+var defaultAttributes = {
+  agility: 0,
+  empathy: 0,
+  strength: 0,
+  wits: 0
+};
 var bookMonsters = [{
   name: "Giant",
   attributes: {
+    ...defaultAttributes,
     strength: 12,
     agility: 2
   },
@@ -15793,6 +16347,7 @@ var bookMonsters = [{
 }, {
   name: "AbyssWorm",
   attributes: {
+    ...defaultAttributes,
     strength: 14,
     agility: 2
   },
@@ -15800,6 +16355,7 @@ var bookMonsters = [{
 }, {
   name: "Bloodling",
   attributes: {
+    ...defaultAttributes,
     strength: 8,
     agility: 4
   },
@@ -15852,6 +16408,7 @@ var bookMonsters = [{
 }, {
   name: "Wyvern",
   attributes: {
+    ...defaultAttributes,
     strength: 14,
     agility: 5
   },
@@ -15868,6 +16425,7 @@ var bookMonsters = [{
 }, {
   name: "Gryphon",
   attributes: {
+    ...defaultAttributes,
     strength: 12,
     agility: 5
   },
@@ -15875,6 +16433,7 @@ var bookMonsters = [{
 }, {
   name: "GrayBear",
   attributes: {
+    ...defaultAttributes,
     strength: 14,
     agility: 2
   },
@@ -15891,6 +16450,7 @@ var bookMonsters = [{
 }, {
   name: "Hydra",
   attributes: {
+    ...defaultAttributes,
     strength: 4,
     agility: 4
   },
@@ -15898,6 +16458,7 @@ var bookMonsters = [{
 }, {
   name: "Insectoid",
   attributes: {
+    ...defaultAttributes,
     strength: 5,
     agility: 3
   },
@@ -15905,6 +16466,7 @@ var bookMonsters = [{
 }, {
   name: "GiantSquid",
   attributes: {
+    ...defaultAttributes,
     strength: 14,
     agility: 4
   },
@@ -15912,6 +16474,7 @@ var bookMonsters = [{
 }, {
   name: "Manticore",
   attributes: {
+    ...defaultAttributes,
     strength: 15,
     agility: 4
   },
@@ -15928,6 +16491,7 @@ var bookMonsters = [{
 }, {
   name: "NightWarg",
   attributes: {
+    ...defaultAttributes,
     strength: 8,
     agility: 4
   },
@@ -15935,6 +16499,7 @@ var bookMonsters = [{
 }, {
   name: "RestlessDead",
   attributes: {
+    ...defaultAttributes,
     strength: 3,
     agility: 2
   },
@@ -15942,6 +16507,7 @@ var bookMonsters = [{
 }, {
   name: "Skeleton",
   attributes: {
+    ...defaultAttributes,
     strength: 3,
     agility: 2
   },
@@ -15949,6 +16515,7 @@ var bookMonsters = [{
 }, {
   name: "Ghoul",
   attributes: {
+    ...defaultAttributes,
     strength: 4,
     agility: 2
   },
@@ -15956,6 +16523,7 @@ var bookMonsters = [{
 }, {
   name: "SeaSerpent",
   attributes: {
+    ...defaultAttributes,
     strength: 18,
     agility: 3
   },
@@ -15963,6 +16531,7 @@ var bookMonsters = [{
 }, {
   name: "StranglingVine",
   attributes: {
+    ...defaultAttributes,
     strength: 8,
     agility: 3
   },
@@ -15970,54 +16539,1026 @@ var bookMonsters = [{
 }, {
   name: "Troll",
   attributes: {
+    ...defaultAttributes,
     strength: 8,
     agility: 3
   },
   pageReference: 120
 }];
 
-// build/dist/functions/monster.functions.js
-var createMonstersViewModel = (monsters) => {
-  return monsters.map((m3) => {
-    return {
-      ...m3,
-      attributes: {
-        strength: numToBooleans("Strength", m3.attributes.strength),
-        agility: numToBooleans("Agility", m3.attributes.agility),
-        wits: numToBooleans("Wits", m3.attributes.wits),
-        empathy: numToBooleans("Empathy", m3.attributes.empathy)
-      }
-    };
-  });
+// build/dist/functions/attributes.functions.js
+var createAttributesViewModel = (a2) => {
+  return {
+    strength: createAttributeViewModel("Strength", a2.strength),
+    agility: createAttributeViewModel("Agility", a2.agility),
+    wits: createAttributeViewModel("Wits", a2.wits),
+    empathy: createAttributeViewModel("Empathy", a2.empathy)
+  };
 };
-var numToBooleans = (label, num) => {
-  if (!num)
+var createAttributeViewModel = (label, num) => {
+  if (!validNumber(num) || num === 0)
     return void 0;
   return {
     label,
-    values: range(num).map((_24) => false)
+    values: numberToBooleans(num)
   };
 };
+
+// build/dist/functions/monster.functions.js
+var createMonstersViewModel = (monster) => ({
+  ...monster,
+  attributes: createAttributesViewModel(monster.attributes)
+});
+var monsterComparer = (t4) => (a2, b2) => {
+  const ma2 = t4(`Monster.${a2.name}`, {
+    ns: "common"
+  });
+  const mb2 = t4(`Monster.${b2.name}`, {
+    ns: "common"
+  });
+  if (ma2 < mb2) {
+    return -1;
+  }
+  if (ma2 > mb2) {
+    return 1;
+  }
+  return 0;
+};
+
+// build/dist/functions/math.functions.js
+var min = (minVal) => (val) => {
+  const nanError = `value was Nan`;
+  if (isNaN(minVal)) {
+    throw new TypeError(`minVal ${nanError}`);
+  }
+  if (isNaN(val)) {
+    throw new TypeError(`val ${nanError}`);
+  }
+  return val < minVal ? minVal : val;
+};
+var minZero = min(0);
+var isEven = (val) => {
+  if (isNaN(val)) {
+    throw new TypeError(`val was NaN`);
+  }
+  return val % 2 === 0;
+};
+
+// build/dist/data/random-monster.data.js
+var sizes = [{
+  weight: 4,
+  value: {
+    size: "Puny",
+    strength: (_24 = rollD6) => 1
+  }
+}, {
+  weight: 3,
+  value: {
+    size: "Small",
+    strength: (_24 = rollD6) => 2
+  }
+}, {
+  weight: 8,
+  value: {
+    size: "Average",
+    strength: (_24 = rollD6) => 3
+  }
+}, {
+  weight: 7,
+  value: {
+    size: "Large",
+    strength: (_24 = rollD6) => 4
+  }
+}, {
+  weight: 7,
+  value: {
+    size: "Big",
+    strength: (_24 = rollD6) => 8
+  }
+}, {
+  weight: 3,
+  value: {
+    size: "Huge",
+    strength: (diceFn = rollD6) => 14 + diceFn()
+  }
+}, {
+  weight: 4,
+  value: {
+    size: "Gigantic",
+    strength: (diceFn = rollD6) => 30 + diceFn() + diceFn()
+  }
+}];
+var types = [{
+  weight: 3,
+  value: {
+    type: "Grazing",
+    agility: 1
+  }
+}, {
+  weight: 3,
+  value: {
+    type: "Herbivore",
+    agility: 2
+  }
+}, {
+  weight: 5,
+  value: {
+    type: "Gatherer",
+    agility: 2
+  }
+}, {
+  weight: 7,
+  value: {
+    type: "Scavenger",
+    agility: 4
+  }
+}, {
+  weight: 12,
+  value: {
+    type: "Predator",
+    agility: 5
+  }
+}, {
+  weight: 6,
+  value: {
+    type: "AggressivePredator",
+    agility: 8
+  }
+}];
+var defaultMonsterLimbs = {
+  Arms: 0,
+  Legs: 0,
+  Tentacles: 0,
+  Wings: 0
+};
+var limbChoices = [{
+  weight: 3,
+  value: {
+    key: "None",
+    monsterLimbs: () => ({
+      ...defaultMonsterLimbs
+    })
+  }
+}, {
+  weight: 5,
+  value: {
+    key: "Tentacles",
+    monsterLimbs: () => ({
+      ...defaultMonsterLimbs,
+      Tentacles: rollD6() + 2
+    })
+  }
+}, {
+  weight: 3,
+  value: {
+    key: "TwoLegs",
+    monsterLimbs: () => ({
+      ...defaultMonsterLimbs,
+      Legs: 2
+    })
+  }
+}, {
+  weight: 3,
+  value: {
+    key: "TwoLegsTwoArms",
+    monsterLimbs: () => ({
+      ...defaultMonsterLimbs,
+      Legs: 2,
+      Arms: 2
+    })
+  }
+}, {
+  weight: 10,
+  value: {
+    key: "FourLegs",
+    monsterLimbs: () => ({
+      ...defaultMonsterLimbs,
+      Legs: 4
+    })
+  }
+}, {
+  weight: 5,
+  value: {
+    key: "FourLegsTwoArms",
+    monsterLimbs: () => ({
+      ...defaultMonsterLimbs,
+      Legs: 4,
+      Arms: 2
+    })
+  }
+}, {
+  weight: 5,
+  value: {
+    key: "Wings",
+    monsterLimbs: () => ({
+      ...defaultMonsterLimbs,
+      Wings: 2
+    })
+  }
+}, {
+  weight: 5,
+  value: {
+    key: "Many",
+    monsterLimbs: () => ({
+      ...defaultMonsterLimbs,
+      Legs: rollD3() * 2 + 2,
+      Arms: rollD3() * 2 + 2
+    })
+  }
+}];
+var headChoices = [{
+  weight: 1,
+  value: {
+    key: "Missing"
+  }
+}, {
+  weight: 5,
+  value: {
+    key: "Beak"
+  }
+}, {
+  weight: 6,
+  value: {
+    key: "HornWithCount",
+    count: getRandomInt(1, 3)
+  }
+}, {
+  weight: 3,
+  value: {
+    key: "ElkHorns"
+  }
+}, {
+  weight: 4,
+  value: {
+    key: "TentaclesWithCount",
+    count: rollD6() + 2
+  }
+}, {
+  weight: 2,
+  value: {
+    key: "InsectoidEyes"
+  }
+}, {
+  weight: 3,
+  value: {
+    key: "SideEyesWithCount",
+    count: [rollD6() + rollD6()].map((e3) => isEven(e3) ? e3 : e3 + 1)[0]
+  }
+}, {
+  weight: 1,
+  value: {
+    key: "ManyEyes"
+  }
+}, {
+  weight: 2,
+  value: {
+    key: "BigMane"
+  }
+}, {
+  weight: 1,
+  value: {
+    key: "LongTongue"
+  }
+}, {
+  weight: 2,
+  value: {
+    key: "BigEars"
+  }
+}, {
+  weight: 2,
+  value: {
+    key: "Fin"
+  }
+}, {
+  weight: 3,
+  value: {
+    key: "RollTwice"
+  }
+}];
+var tailChoices = [{
+  weight: 3,
+  value: {
+    key: "None",
+    damage: 0
+  }
+}, {
+  weight: 2,
+  value: {
+    key: "Tail",
+    damage: 0
+  }
+}, {
+  weight: 1,
+  value: {
+    key: "SpikedTail",
+    damage: 1
+  }
+}];
+var armorChoices = [{
+  weight: 4,
+  value: {
+    key: "Skin",
+    armor: 0
+  }
+}, {
+  weight: 4,
+  value: {
+    key: "SoftFur",
+    armor: 1
+  }
+}, {
+  weight: 10,
+  value: {
+    key: "ThickFur",
+    armor: 2
+  }
+}, {
+  weight: 4,
+  value: {
+    key: "Feathers",
+    armor: 2
+  }
+}, {
+  weight: 5,
+  value: {
+    key: "Scales",
+    armor: 3
+  }
+}, {
+  weight: 4,
+  value: {
+    key: "Shell",
+    armor: 5
+  }
+}, {
+  weight: 3,
+  value: {
+    key: "BonePlates",
+    armor: 7
+  }
+}, {
+  weight: 2,
+  value: {
+    key: "ArmoredHide",
+    armor: 9
+  }
+}];
+var defaultMovementDistanceFunction = (movementAgility) => {
+  return (agility) => {
+    if (!validNumber(agility) || agility < 0)
+      return 0;
+    if (agility <= 2)
+      return movementAgility[0];
+    if (agility <= 4)
+      return movementAgility[1];
+    return movementAgility[2];
+  };
+};
+var movementTypes = [{
+  weight: 3,
+  value: {
+    type: "Slithering",
+    distanceFn: defaultMovementDistanceFunction([1, 1, 2])
+  }
+}, {
+  weight: 3,
+  value: {
+    type: "Digging",
+    distanceFn: defaultMovementDistanceFunction([1, 1, 2])
+  }
+}, {
+  weight: 5,
+  value: {
+    type: "Swimming",
+    distanceFn: defaultMovementDistanceFunction([1, 2, 2])
+  }
+}, {
+  weight: 13,
+  value: {
+    type: "Running",
+    distanceFn: defaultMovementDistanceFunction([1, 2, 2])
+  }
+}, {
+  weight: 6,
+  value: {
+    type: "Flying",
+    distanceFn: defaultMovementDistanceFunction([2, 3, 3])
+  }
+}, {
+  weight: 6,
+  value: {
+    type: "Climbing",
+    distanceFn: defaultMovementDistanceFunction([1, 2, 2])
+  }
+}];
+var homes = [{
+  weight: 4,
+  value: "Burrow"
+}, {
+  weight: 5,
+  value: "Ruin"
+}, {
+  weight: 5,
+  value: "WateringHole"
+}, {
+  weight: 4,
+  value: "TreeOrHighPoint"
+}, {
+  weight: 5,
+  value: "Cave"
+}, {
+  weight: 5,
+  value: "Ravine"
+}, {
+  weight: 8,
+  value: "Den"
+}];
+var monsterSkillValues = "0^19|1^5|2^4|3^4|4^2|5^2";
+var monsterTraits = [{
+  weight: 1,
+  value: {
+    name: "Trait.Undead.Name",
+    description: (t4) => t4("Trait.Undead.Description"),
+    apply: (rm) => ({
+      ...rm,
+      attributes: {
+        ...rm.attributes,
+        strength: maybe(rm.attributes.strength).map((s) => s + 2).withDefault(2)
+      }
+    })
+  }
+}, {
+  weight: 3,
+  value: {
+    name: "Trait.Hurt.Name",
+    description: (t4) => t4("Trait.Hurt.Description"),
+    apply: (rm) => ({
+      ...rm,
+      attributes: {
+        ...rm.attributes,
+        strength: maybe(rm.attributes.strength).map((s) => Math.ceil(s / 2)).withDefault(1)
+      }
+    })
+  }
+}, {
+  weight: 3,
+  value: {
+    name: "Trait.Colorful.Name",
+    description: (t4) => {
+      const silver = rollD6() + rollD6() + rollD6();
+      return t4("Trait.Colorful.Description", {
+        count: silver
+      });
+    },
+    apply: id2
+  }
+}, {
+  weight: 4,
+  value: {
+    name: "Trait.Poisonous.Name",
+    description: (t4) => {
+      const poisons = {
+        1: "Poisons.Lethal",
+        2: "Poisons.Paralyzing",
+        3: "Poisons.Sleeping"
+      };
+      const roll = rollD3();
+      const strength = rollD6() + 2;
+      return `${t4(poisons[roll])} (${strength})`;
+    },
+    apply: id2
+  }
+}, {
+  weight: 3,
+  value: {
+    name: "Trait.Regeneration.Name",
+    description: (t4) => t4("Trait.Regeneration.Description"),
+    apply: id2
+  }
+}, {
+  weight: 2,
+  value: {
+    name: "Trait.ResistanceMagic.Name",
+    description: (t4) => t4("Trait.ResistanceMagic.Description"),
+    apply: id2
+  }
+}, {
+  weight: 3,
+  value: {
+    name: "Trait.Camouflage.Name",
+    description: (t4) => t4("Trait.Camouflage.Description"),
+    apply: id2
+  }
+}, {
+  weight: 2,
+  value: {
+    name: "Trait.Fast.Name",
+    description: (t4) => t4("Trait.Fast.Description"),
+    apply: id2
+  }
+}, {
+  weight: 4,
+  value: {
+    name: "Trait.SensitiveHearing.Name",
+    description: (t4) => t4("Trait.SensitiveHearing.Description"),
+    apply: (rm) => ({
+      ...rm,
+      skills: {
+        ...rm.skills,
+        Scouting: rm.skills.Scouting + 2
+      }
+    })
+  }
+}, {
+  weight: 2,
+  value: {
+    name: "Trait.SensitiveSmell.Name",
+    description: (t4) => t4("Trait.SensitiveSmell.Description"),
+    apply: (rm) => ({
+      ...rm,
+      skills: {
+        ...rm.skills,
+        Scouting: rm.skills.Scouting + 2
+      }
+    })
+  }
+}, {
+  weight: 3,
+  value: {
+    name: "Trait.DarkVision.Name",
+    description: (t4) => t4("Trait.DarkVision.Description"),
+    apply: id2
+  }
+}, {
+  weight: 1,
+  value: {
+    name: "Trait.AcidGlands.Name",
+    description: (t4) => t4("Trait.AcidGlands.Description"),
+    apply: (rm) => ({
+      ...rm,
+      acidGlands: true
+    })
+  }
+}, {
+  weight: 1,
+  value: {
+    name: "Trait.FireGlands.Name",
+    description: (t4) => t4("Trait.FireGlands.Description"),
+    apply: (rm) => ({
+      ...rm,
+      fireGlands: true
+    })
+  }
+}, {
+  weight: 1,
+  value: {
+    name: "Trait.Intelligent.Name",
+    description: (t4) => {
+      const speech = rollD2() === 1 ? "Trait.CanSpeak.Description" : "Trait.Intelligent.Telepathy";
+      const skillValues = t4("Trait.Intelligent.SkillValues");
+      return `${t4(speech)}. ${skillValues}`;
+    },
+    apply: id2
+  }
+}, {
+  weight: 1,
+  value: {
+    name: "Trait.CanSpeak.Name",
+    description: (t4) => t4("Trait.CanSpeak.Description"),
+    apply: id2
+  }
+}, {
+  weight: 1,
+  value: {
+    name: "Trait.PossessedByDemon.Name",
+    description: (t4) => t4("Trait.PossessedByDemon.Description"),
+    apply: id2
+  }
+}];
+var monsterWeakness = [{
+  weight: 13,
+  value: {
+    name: "Weakness.None.Name",
+    description: "Weakness.None.Description"
+  }
+}, {
+  weight: 5,
+  value: {
+    name: "Weakness.VulnerableToFire.Name",
+    description: "Weakness.VulnerableToFire.Description"
+  }
+}, {
+  weight: 2,
+  value: {
+    name: "Weakness.VulnerableToLight.Name",
+    description: "Weakness.VulnerableToLight.Description"
+  }
+}, {
+  weight: 3,
+  value: {
+    name: "Weakness.AfraidOfLoudNoises.Name",
+    description: "Weakness.AfraidOfLoudNoises.Description"
+  }
+}, {
+  weight: 5,
+  value: {
+    name: "Weakness.ProtectsOffspring.Name",
+    description: "Weakness.ProtectsOffspring.Description"
+  }
+}, {
+  weight: 5,
+  value: {
+    name: "Weakness.SensitiveEyes.Name",
+    description: "Weakness.SensitiveEyes.Description"
+  }
+}, {
+  weight: 3,
+  value: {
+    name: "Weakness.ObsessedWithAllThatGlimmers.Name",
+    description: "Weakness.ObsessedWithAllThatGlimmers.Description"
+  }
+}];
+var monsterMotivation = [{
+  weight: 13,
+  value: "Territory"
+}, {
+  weight: 4,
+  value: "Pregnant"
+}, {
+  weight: 5,
+  value: "Hunger"
+}, {
+  weight: 2,
+  value: "Injured"
+}, {
+  weight: 1,
+  value: "Parasite"
+}, {
+  weight: 5,
+  value: "Alone"
+}, {
+  weight: 2,
+  value: "Fun"
+}, {
+  weight: 2,
+  value: "LookingForHost"
+}, {
+  weight: 2,
+  value: "GuardingTreasure"
+}];
+var monsterAttacks = {
+  Bash: {
+    type: "Bash",
+    damage: (_24) => 1,
+    range: "ArmsLength",
+    attack: (rm) => rm.attributes.agility,
+    description: "Attack.Bash.Description",
+    valid: (rm) => rm.attributes.strength >= 5
+  },
+  Bite: {
+    type: "Bite",
+    damage: (_24) => chooseFromChoiceString("1^2|2^3|3"),
+    range: "ArmsLength",
+    attack: (rm) => 4 + rm.attributes.agility,
+    description: "Attack.Bite.Description",
+    valid: (rm) => rm.attackRequirements.fangs
+  },
+  BreathFire: {
+    type: "BreathFire",
+    damage: (_24) => 1,
+    range: "Short",
+    attack: (_24) => 6 + rollD6(),
+    description: "Attack.BreathFire.Description",
+    valid: (rm) => rm.attackRequirements.fireGlands
+  },
+  DeadlyGaze: {
+    type: "DeadlyGaze",
+    attack: (_24) => 4 + rollD6(),
+    range: "Near",
+    description: "Attack.DeadlyGaze.Description",
+    valid: (rm) => rm.attackRequirements.undead
+  },
+  Headbutt: {
+    type: "Headbutt",
+    damage: (_24) => chooseFromChoiceString("1^2|2"),
+    range: "ArmsLength",
+    attack: (rm) => 5 + rm.attributes.agility,
+    description: "Attack.Headbutt.Description",
+    valid: (_24) => true
+  },
+  Horn: {
+    type: "Horn",
+    damage: (_24) => chooseFromChoiceString("2^2|3"),
+    range: "ArmsLength",
+    attack: (rm) => 5 + rm.attributes.agility,
+    description: "Attack.Horn.Description",
+    valid: (rm) => rm.attackRequirements.horn
+  },
+  Roar: {
+    type: "Roar",
+    range: "ArmsLength",
+    attack: (_24) => 3 + rollD3(),
+    description: "Attack.Roar.Description",
+    valid: (rm) => rm.attributes.strength >= 6
+  },
+  Kick: {
+    type: "Kick",
+    range: "ArmsLength",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: (_24) => 1,
+    description: "Attack.Kick.Description",
+    valid: (rm) => rm.attackRequirements.legs
+  },
+  Sweep: {
+    type: "Sweep",
+    range: "Near",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: (_24) => chooseFromChoiceString("1^2|2^3|3"),
+    description: "Attack.Sweep.Description",
+    valid: (rm) => rm.attributes.agility >= 3
+  },
+  Slash: {
+    type: "Slash",
+    range: "ArmsLength",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: (_24) => chooseFromChoiceString("1^2|2^3|3"),
+    description: "Attack.Slash.Description",
+    valid: (rm) => rm.attackRequirements.claws
+  },
+  TailsSlash: {
+    type: "TailsSlash",
+    range: "Near",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: (_24) => 1,
+    description: "Attack.TailsSlash.Description",
+    valid: (rm) => rm.attackRequirements.tail
+  },
+  TentacleLash: {
+    type: "TentacleLash",
+    range: "Near",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: (_24) => chooseFromChoiceString("1^2|2"),
+    description: "Attack.TentacleLash.Description",
+    valid: (rm) => rm.attackRequirements.tentacles
+  },
+  Devour: {
+    type: "Devour",
+    range: "ArmsLength",
+    attack: (_24) => 4 + rollD6(),
+    damage: (_24) => chooseFromChoiceString("1^2|2"),
+    description: "Attack.Devour.Description",
+    valid: (rm) => rm.attributes.strength >= 14
+  },
+  SpitAcid: {
+    type: "SpitAcid",
+    range: "Near",
+    attack: (_24) => 4 + rollD6(),
+    damage: (_24) => 1,
+    description: "Attack.SpitAcid.Description",
+    valid: (rm) => rm.attackRequirements.acidGlands
+  },
+  DiveAttack: {
+    type: "DiveAttack",
+    range: "Near",
+    attack: (rm) => 4 + rm.attributes.agility,
+    damage: (rm) => Math.floor(rm.attributes.agility),
+    description: "Attack.DiveAttack.Description",
+    valid: (rm) => rm.attackRequirements.wings
+  }
+};
+
+// build/dist/functions/random-monster.functions.js
+var createRandomMonster = () => {
+  const {
+    size,
+    strength
+  } = weightedRandom(sizes).value;
+  const {
+    type,
+    agility
+  } = weightedRandom(types).value;
+  const headOptions = getHeads(headChoices);
+  const tail = weightedRandom(tailChoices).value;
+  const limbs = rollForMonsterLimbs(limbChoices);
+  const motivation = weightedRandom(monsterMotivation).value;
+  const [hurt, traitsList] = getTraitListBasedOnMotivation(motivation, monsterTraits);
+  const traits = [getMonsterTraits(rollD3(), traitsList), hurt].flat();
+  return {
+    name: "ted",
+    attributes: {
+      strength: strength(),
+      agility,
+      empathy: 0,
+      wits: 0
+    },
+    size,
+    type,
+    limbs,
+    description: {
+      heads: headOptions,
+      tail,
+      limbs
+    },
+    damageModifiers: createDamageModifiers(tail.damage),
+    armor: rollForArmor(armorChoices),
+    home: getMonsterHome(),
+    skills: createMonsterSkills(monsterSkillValues),
+    traits,
+    weakness: getMonsterWeakness(),
+    motivation,
+    attackRequirements: createAttackRequirements(traits, tail.key, headOptions.map((ho) => ho.key), limbs)
+  };
+};
+var createRandomMonsterViewModelFromRandomMonster = (t4) => (rm) => ({
+  ...rm,
+  description: createDescription(rm.description, t4),
+  movement: getMovement(weightedRandom, rm.attributes.agility),
+  attributes: createAttributesViewModel(rm.attributes),
+  traits: rm.traits.map(({
+    name,
+    description
+  }) => ({
+    name,
+    description: description(t4)
+  })),
+  skills: getMonsterSkillListItems(rm.skills),
+  motivation: {
+    name: `Motivation.${rm.motivation}.Name`,
+    description: `Motivation.${rm.motivation}.Description`
+  },
+  attacks: createMonsterAttacks(monsterAttacks, rm)
+});
+var applyMonsterTraits = (rm) => rm.traits.reduce((acc, cur) => cur.apply(acc), rm);
+var createRandomMonsterViewModel = (t4) => compose(createRandomMonsterViewModelFromRandomMonster(t4), applyMonsterTraits, createRandomMonster)();
+var rollForMonsterLimbs = (choices) => {
+  const allLimbs = [];
+  let rolls = 0;
+  let loopCondition = true;
+  while (loopCondition) {
+    const {
+      key,
+      monsterLimbs
+    } = weightedRandom(choices).value;
+    allLimbs.push(monsterLimbs());
+    rolls += 1;
+    loopCondition = key === "Wings" && rolls < 10;
+  }
+  return allLimbs.reduce((acc, cur) => ({
+    Arms: acc.Arms + cur.Arms,
+    Tentacles: acc.Tentacles + cur.Tentacles,
+    Legs: acc.Legs + cur.Legs,
+    Wings: acc.Wings + cur.Wings
+  }), {
+    ...defaultMonsterLimbs
+  });
+};
+var getLimbsDescription = (t4, limbs, tail) => {
+  const actualLimbs = Object.entries(limbs).reduce((acc, [limbName, amountOfLimb]) => amountOfLimb > 0 ? [...acc, [`Limbs.${limbName}`, amountOfLimb]] : acc, []);
+  const limbsDescriptions = actualLimbs.length === 0 ? [t4("Limbs.None")] : actualLimbs.map(([key, value]) => `${value} ${t4(key)}`);
+  const tailDescription = [tail ? [tail] : []].flat();
+  const [lastLimb, ...restOfLimbs] = [tailDescription, limbsDescriptions].flat();
+  return restOfLimbs.length > 0 ? `${t4("TheMonsterHas")} ${restOfLimbs.join(", ")} & ${lastLimb}` : `${t4("TheMonsterHas")} ${lastLimb}`;
+};
+var getHeads = (choices) => {
+  let totalRolls = 0;
+  let rollsLeft = 1;
+  const heads = [];
+  while (rollsLeft > 0) {
+    const head = weightedRandom(choices).value;
+    heads.push(head);
+    totalRolls += 1;
+    if (head.key === "RollTwice" && totalRolls < 10) {
+      rollsLeft += 2;
+    }
+    rollsLeft -= 1;
+  }
+  return heads.filter((h2) => h2.key !== "RollTwice");
+};
+var getMovement = (randomFunc = weightedRandom, agility) => {
+  const {
+    type,
+    distanceFn
+  } = randomFunc(movementTypes).value;
+  return {
+    distance: maybe(agility).map(distanceFn).withDefault(0),
+    type
+  };
+};
+var getMonsterHome = (randomFunc = weightedRandom) => randomFunc(homes).value;
+var getTraitListBasedOnMotivation = (motivation, traitsList) => {
+  if (motivation !== "Injured") {
+    return [[], traitsList];
+  }
+  const hurt = monsterTraits.find((t4) => t4.value.name === "Trait.Hurt.Name");
+  const traitList = monsterTraits.filter((t4) => t4.value.name !== "Trait.Hurt.Name");
+  return [maybe(hurt).map((a2) => [a2.value]).withDefault([]), traitList];
+};
+var getMonsterTraits = (numberOfTraits, traitsList) => range2(numberOfTraits).reduce((acc, _24) => {
+  const [chosen, rest] = weightedRandomConsume(acc.traitsLeft);
+  return {
+    traits: [...acc.traits, chosen.value],
+    traitsLeft: rest
+  };
+}, {
+  traitsLeft: [...traitsList],
+  traits: []
+}).traits;
+var getMonsterWeakness = () => weightedRandom(monsterWeakness).value;
+var getMonsterSkillListItems = (skills) => {
+  return [skills.Melee > 0 ? [{
+    name: `Skills.Melee`,
+    value: skills.Melee
+  }] : [], skills.Move > 0 ? [{
+    name: `Skills.Move`,
+    value: skills.Move
+  }] : [], skills.Scouting > 0 ? [{
+    name: `Skills.Scouting`,
+    value: skills.Scouting
+  }] : [], skills.Stealth > 0 ? [{
+    name: `Skills.Stealth`,
+    value: skills.Scouting
+  }] : []].flat();
+};
+var createAttackRequirements = (traits, tailKey, heads, limbs) => {
+  return {
+    acidGlands: traits.some((t4) => t4.name === "Trait.AcidGlands.Name"),
+    fireGlands: traits.some((t4) => t4.name === "Trait.FireGlands.Name"),
+    tail: tailKey !== "None",
+    claws: limbs.Arms > 0,
+    fangs: heads.every((choice) => choice !== "Missing"),
+    horn: heads.some((choice) => choice !== "HornWithCount"),
+    legs: limbs.Legs > 0,
+    tentacles: limbs.Tentacles > 0,
+    undead: traits.some((t4) => t4.name === "Trait.Undead.Name"),
+    wings: limbs.Wings > 0
+  };
+};
+var createMonsterAttacks = (allMonsterAttacks, rm) => Object.values(allMonsterAttacks).reduce((acc, cur) => {
+  if (cur.valid(rm)) {
+    acc.push({
+      ...cur,
+      range: `Range.${cur.range}`,
+      damage: cur.damage && cur.damage(rm),
+      attack: cur.attack && cur.attack(rm)
+    });
+  }
+  return acc;
+}, []);
+var createMonsterSkills = (skillValueChoice) => ({
+  Melee: chooseFromChoiceString(skillValueChoice),
+  Move: chooseFromChoiceString(skillValueChoice),
+  Scouting: chooseFromChoiceString(skillValueChoice),
+  Stealth: chooseFromChoiceString(skillValueChoice)
+});
+var rollForArmor = compose((ma2) => ({
+  label: ma2.key,
+  values: numberToBooleans(ma2.armor)
+}), prop("value"), (ac2) => weightedRandom(ac2));
+var createDescription = ({
+  heads,
+  limbs,
+  tail
+}, t4) => {
+  const [lastHead, ...restOfHeads] = heads.map(({
+    key,
+    count
+  }) => t4(`Head.${key}`, {
+    count
+  }));
+  const tailDescription = tail.key !== "None" ? t4(`Tail.${tail.key}`) : void 0;
+  return {
+    head: restOfHeads.length > 0 ? `${restOfHeads.join(", ")} & ${lastHead}` : lastHead,
+    tail: tailDescription,
+    limbs: getLimbsDescription(t4, limbs, tailDescription)
+  };
+};
+var createDamageModifiers = (tailDamage) => ({
+  Crushing: 0,
+  Slashing: 0,
+  TailAttack: tailDamage
+});
 
 // build/dist/pages/monsters.page.js
 var MonstersPage = () => {
   const {
-    t: t3,
+    t: t4,
     i18n
   } = useTranslation(["monsters", "common"]);
-  const monsters = createMonstersViewModel(bookMonsters);
+  const monsters = bookMonsters.map(createMonstersViewModel).sort(monsterComparer(t4));
   const [monster, setMonster] = useState(monsters[0]);
-  const monsterComparer = (a2, b2) => {
-    const ma2 = t3(`Monster.${a2.name}`);
-    const mb2 = t3(`Monster.${b2.name}`);
-    if (ma2 < mb2) {
-      return -1;
-    }
-    if (ma2 > mb2) {
-      return 1;
-    }
-    return 0;
+  const [showRandomMonster, setShowRandomMonster] = useState(true);
+  const [randomMonster, setRandomMonster] = useState(createRandomMonsterViewModel(t4));
+  const selectMonster = (m3) => {
+    setMonster(m3);
+    setShowRandomMonster(false);
   };
+  const generateRandomMonster = () => {
+    setRandomMonster(createRandomMonsterViewModel(t4));
+    setShowRandomMonster(true);
+  };
+  useEffect(() => {
+    monsters.sort(monsterComparer(t4));
+  }, [i18n.language]);
   return jsx("div", {
     css: {
       display: "flex",
@@ -16025,100 +17566,62 @@ var MonstersPage = () => {
       rowGap: "2rem",
       width: "100%"
     }
-  }, jsx(PageHeader, null, t3("Title")), jsx("div", {
+  }, jsx(PageHeader, null, t4("Title")), jsx("div", {
     css: {
       display: "grid",
       gap: "4rem",
       "@media (min-width: 1024px)": {
-        gridTemplateColumns: "25% 1fr"
+        gridTemplateColumns: "1fr 3fr"
       }
     }
-  }, jsx("div", null, jsx("h3", {
+  }, jsx("div", null, jsx(List, null, jsx(ListGroup, {
     css: {
-      fontSize: "1.25rem",
-      lineHeight: "1.75rem",
-      fontWeight: "700",
-      marginBottom: "0.5rem"
-    }
-  }, t3(`BookMonsters`)), jsx("ul", {
-    css: [{
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(243, 244, 246, var(--tw-bg-opacity))",
-      maxHeight: "24rem",
-      "@media (min-width: 1024px)": {
-        maxHeight: "initial"
-      },
-      "@media (min-width: 1280px)": {
-        maxHeight: "initial"
-      },
-      "@media (min-width: 1536px)": {
-        maxHeight: "initial"
+      marginBottom: "2rem"
+    },
+    label: t4(`GenerateMonster`),
+    open: true
+  }, jsx("ul", null, jsx("li", {
+    css: {
+      borderWidth: "1px",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
+      borderBottomWidth: "0px",
+      ":last-child": {
+        borderBottomWidth: "1px"
       }
-    }, css`
-              overflow-y: overlay;
-            `]
-  }, monsters.sort(monsterComparer).map((m3) => jsx(ListItem, {
+    }
+  }, jsx(ListItemButton, {
+    onClick: () => generateRandomMonster()
+  }, t4("RandomMonster"))))), jsx(ListGroup, {
+    label: t4(`BookMonsters`),
+    open: true
+  }, jsx("ul", null, monsters.map((m3) => jsx("li", {
     key: m3.name,
-    onClick: () => setMonster(m3)
-  }, t3(`Monster.${m3.name}`, {
+    css: {
+      borderWidth: "1px",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
+      borderBottomWidth: "0px",
+      ":last-child": {
+        borderBottomWidth: "1px"
+      }
+    }
+  }, jsx(ListItemButton, {
+    onClick: () => selectMonster(m3)
+  }, t4(`Monster.${m3.name}`, {
     ns: "common"
-  }))))), jsx(Parchment, {
+  })))))))), jsx(Parchment, {
     css: {
       "@media (min-width: 1024px)": {
         width: "75%"
       }
     },
-    deps: [monster, i18n.language]
-  }, jsx("header", {
-    css: {
-      marginBottom: "1rem"
-    }
-  }, jsx("h2", {
-    css: {
-      fontSize: "2.25rem",
-      lineHeight: "2.5rem",
-      marginBottom: "0.5rem"
-    },
-    className: "yx-heading"
-  }, t3(`Monster.${monster.name}`, {
-    ns: ["common"]
-  })), monster.pageReference && jsx("div", null, t3("Page", {
-    ns: "common"
-  }), ": ", monster.pageReference, " ", t3("GMBook", {
-    ns: "common"
-  }))), jsx("h3", {
-    css: {
-      fontSize: "1.25rem",
-      lineHeight: "1.75rem",
-      fontWeight: "700"
-    }
-  }, t3(`Attribute`)), jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.5rem"
-    }
-  }, monster.attributes.strength && jsx(MonsterAttribute, {
-    key: `${monster.name}-strength`,
-    attribute: {
-      ...monster.attributes.strength
-    }
-  }), monster.attributes.agility && jsx(MonsterAttribute, {
-    key: `${monster.name}-agility`,
-    attribute: {
-      ...monster.attributes.agility
-    }
-  }), monster.attributes.wits && jsx(MonsterAttribute, {
-    key: `${monster.name}-wits`,
-    attribute: {
-      ...monster.attributes.wits
-    }
-  }), monster.attributes.empathy && jsx(MonsterAttribute, {
-    key: `${monster.name}-empathy`,
-    attribute: {
-      ...monster.attributes.empathy
-    }
-  })))));
+    deps: [monster, randomMonster, i18n.language]
+  }, showRandomMonster ? jsx(RandomMonsterDisplay, {
+    rm: randomMonster
+  }) : jsx(MonsterDisplay, {
+    m: monster
+  }))));
 };
 
 // build/dist/models/gender.model.js
@@ -16165,13 +17668,13 @@ var NameList = ({
   names
 }) => {
   const {
-    t: t3
+    t: t4
   } = useTranslation(["names"]);
   return jsx(react.Fragment, null, names.length > 0 && jsx("ul", {
     "data-testid": "namelist"
   }, names.map((name, i2) => jsx("li", {
     key: i2
-  }, name.map((n3) => t3(n3, {
+  }, name.map((n3) => t4(n3, {
     ns: "names"
   })).join(" ")))));
 };
@@ -16182,12 +17685,12 @@ var KinNameList = ({
   nameFunc
 }) => {
   const {
-    t: t3,
+    t: t4,
     i18n
   } = useTranslation(["common", "names"]);
   const randomNames = (count = 10) => ({
-    female: range(count).map((_24) => nameFunc(Gender.Female, i18n.language)),
-    male: range(count).map((_24) => nameFunc(Gender.Male, i18n.language))
+    female: range2(count).map((_24) => nameFunc(Gender.Female, i18n.language)),
+    male: range2(count).map((_24) => nameFunc(Gender.Male, i18n.language))
   });
   const [names, setNames] = useState(randomNames());
   const getNames = () => setNames(randomNames());
@@ -16218,7 +17721,7 @@ var KinNameList = ({
       }
     },
     className: "yx-heading"
-  }, t3(`Kin.${title}`)), jsx(ReloadIcon, {
+  }, t4(`Kin.${title}`)), jsx(ReloadIcon, {
     container: {
       width: "1.5rem",
       height: "1.5rem"
@@ -16237,7 +17740,7 @@ var KinNameList = ({
       lineHeight: "2rem",
       textTransform: "uppercase"
     }
-  }, t3("Gender.Women")), jsx(NameList, {
+  }, t4("Gender.Women")), jsx(NameList, {
     names: names.female
   })), jsx("div", null, jsx("h3", {
     css: {
@@ -16246,7 +17749,7 @@ var KinNameList = ({
       lineHeight: "2rem",
       textTransform: "uppercase"
     }
-  }, t3("Gender.Men")), jsx(NameList, {
+  }, t4("Gender.Men")), jsx(NameList, {
     names: names.male
   }))));
 };
@@ -16437,7 +17940,7 @@ var formatVillageName = (prefixAndSuffix, lang) => {
 // build/dist/pages/name-generator.page.js
 var NameGeneratorPage = () => {
   const {
-    t: t3
+    t: t4
   } = useTranslation("names");
   return jsx("div", {
     css: {
@@ -16446,7 +17949,7 @@ var NameGeneratorPage = () => {
       rowGap: "2rem",
       width: "100%"
     }
-  }, jsx(PageHeader, null, t3("Title")), jsx("div", {
+  }, jsx(PageHeader, null, t4("Title")), jsx("div", {
     css: {
       display: "flex",
       flexWrap: "wrap",
@@ -16489,7 +17992,7 @@ var NameGeneratorPage = () => {
 };
 
 // build/dist/functions/legend.functions.js
-var generateLegend = (t3) => {
+var generateLegend = (t4) => {
   const {
     description,
     age
@@ -16502,67 +18005,67 @@ var generateLegend = (t3) => {
   const who_searched_for = getText(WHO_SEARCHED_FOR);
   const because = getText(BECAUSE);
   const location = getText(LOCATION);
-  const distance = getText(DISTANCE, getRandomT6);
+  const distance = getText(DISTANCE, rollD6);
   const terrain2 = getText(TERRAIN);
-  const direction = getText(DIRECTION, getRandomT8);
+  const direction = getText(DIRECTION, rollD8);
   const what_happened = getText(WHAT_HAPPENED);
   const its_told_that = getText(ITS_TOLD_THAT);
   const adjective_adversary = getText(ADJECTIVE_ADVERSARY);
   const adversary = getText(ADVERSARY);
-  const sentences = [[t3(`ALongTimeAgo`, {
+  const sentences = [[t4(`ALongTimeAgo`, {
     ns: ["session", "common"]
-  }), t3(description, {
+  }), t4(description, {
     ns: ["session", "common"]
-  }), t3(`YearsAgo`, {
+  }), t4(`YearsAgo`, {
     years: age,
     ns: ["session", "common"]
-  }), t3(`ThereWas`, {
+  }), t4(`ThereWas`, {
     ns: ["session", "common"]
-  }), t3(adjective.text(), {
+  }), t4(adjective.text(), {
     ns: ["session", "common"]
-  }), t3(who_or_what.text(), {
+  }), t4(who_or_what.text(), {
     ns: ["session", "common"]
-  }), t3(`WhoSearched`, {
+  }), t4(`WhoSearched`, {
     ns: ["session", "common"]
-  }), t3(who_searched_for.text(), {
+  }), t4(who_searched_for.text(), {
     ns: ["session", "common"]
-  }), t3(`BecauseOf`, {
+  }), t4(`BecauseOf`, {
     ns: ["session", "common"]
-  }), t3(because.text(), {
+  }), t4(because.text(), {
     ns: ["session", "common"]
-  }), t3(`AndTraveledTo`, {
+  }), t4(`AndTraveledTo`, {
     ns: ["session", "common"]
-  }), t3(location.text(), {
+  }), t4(location.text(), {
     ns: ["session", "common"]
-  }), t3(`Located`, {
+  }), t4(`Located`, {
     ns: ["session", "common"]
-  }), t3(distance.text(), {
+  }), t4(distance.text(), {
     ns: ["session", "common"]
-  }), t3(terrain2.text(), {
+  }), t4(terrain2.text(), {
     ns: ["session", "common"]
-  }), t3(`InTheDirectionOf`, {
+  }), t4(`InTheDirectionOf`, {
     ns: ["session", "common"]
-  }), t3(direction.text(), {
+  }), t4(direction.text(), {
     ns: ["session", "common"]
-  })].join(" "), [who_or_what.pronoun === "Third" ? t3(`AsTheLegendGoesItIsSaidThat`, {
+  })].join(" "), [who_or_what.pronoun === "Third" ? t4(`AsTheLegendGoesItIsSaidThat`, {
     context: who_or_what.pronoun,
     ns: ["session", "common"]
-  }) : t3(`AsTheLegendGoesItIsSaidThat`, {
+  }) : t4(`AsTheLegendGoesItIsSaidThat`, {
     ns: ["session", "common"]
-  }), t3(what_happened.text(), {
+  }), t4(what_happened.text(), {
     context: who_or_what.pronoun,
     ns: ["session", "common"]
-  }), t3(`AndThatAtTheLocationThere`, {
+  }), t4(`AndThatAtTheLocationThere`, {
     ns: ["session", "common"]
-  }), t3(its_told_that.text(), {
+  }), t4(its_told_that.text(), {
     ns: ["session", "common"]
-  }), t3(`ButAlso`, {
+  }), t4(`ButAlso`, {
     ns: ["session", "common"]
-  }), getAdversary(adversary, adjective_adversary, t3)].join(" ")].join(". ");
+  }), getAdversary(adversary, adjective_adversary, t4)].join(" ")].join(". ");
   return `${sentences}.`;
 };
 var timeAgo = () => {
-  const roll = getRandomT66();
+  const roll = rollD66();
   const time = TIME_AGO.find((ta2) => ta2.roll.includes(roll));
   if (time) {
     return {
@@ -16592,7 +18095,7 @@ var TIME_AGO = [{
   ageRange: [5, 280],
   roll: [44, 45, 46, 51, 52, 53, 54, 55, 56, 61, 62, 63, 64, 65, 66]
 }];
-var getText = (arr3, diceFn = getRandomT66) => {
+var getText = (arr3, diceFn = rollD66) => {
   const roll = diceFn();
   const result = arr3.find((a2) => a2.roll.includes(roll)) ?? {
     text: () => "",
@@ -16600,14 +18103,14 @@ var getText = (arr3, diceFn = getRandomT66) => {
   };
   return result;
 };
-var getAdversary = (adversary, adjective, t3) => {
-  const _t = (key) => t3(key, {
+var getAdversary = (adversary, adjective, t4) => {
+  const _t = (key) => t4(key, {
     ns: ["session", "common"]
   });
   if (adversary.text() !== "Adversary.DemonWithCount") {
     return `${_t(adjective.text())} ${_t(adversary.text())}`;
   }
-  const count = getRandomT6();
+  const count = rollD6();
   return `${count} ${_t(adjective.text())} ${_t(adversary.text())}`;
 };
 var ADJECTIVE = [{
@@ -17158,11 +18661,11 @@ var MONSTER_LIST = [{
 // build/dist/pages/session.page.js
 var SessionPage = () => {
   const {
-    t: t3,
+    t: t4,
     i18n
   } = useTranslation(["session", "common"]);
-  const [legend, setLegend] = useState(generateLegend(t3));
-  const getLegend = () => setLegend(generateLegend(t3));
+  const [legend, setLegend] = useState(generateLegend(t4));
+  const getLegend = () => setLegend(generateLegend(t4));
   useEffect(() => {
     getLegend();
   }, [i18n.language]);
@@ -17174,7 +18677,7 @@ var SessionPage = () => {
       width: "100%",
       alignItems: "center"
     }
-  }, jsx(PageHeader, null, t3("Title")), jsx("div", {
+  }, jsx(PageHeader, null, t4("Title")), jsx("div", {
     css: {}
   }, jsx("div", {
     css: {
@@ -17208,7 +18711,7 @@ var SessionPage = () => {
       display: "flex"
     },
     className: "yx-heading"
-  }, t3("Legend")), jsx(ReloadIcon, {
+  }, t4("Legend")), jsx(ReloadIcon, {
     container: {
       width: "1.5rem",
       height: "1.5rem"
@@ -17263,7 +18766,7 @@ var App = () => {
     element: jsx(MonstersPage, null)
   }]);
   const {
-    t: t3
+    t: t4
   } = useTranslation("core");
   return jsx("div", {
     className: "App",
@@ -17319,19 +18822,19 @@ var App = () => {
     }
   }, jsx(MenuLink, {
     to: "/session"
-  }, t3("Menu-Session")), jsx(MenuLink, {
+  }, t4("Menu-Session")), jsx(MenuLink, {
     to: "/encounter"
-  }, t3("Menu-Encounters")), jsx(MenuLink, {
+  }, t4("Menu-Encounters")), jsx(MenuLink, {
     to: "/monsters"
-  }, t3("Menu-Monsters")), jsx(MenuLink, {
+  }, t4("Menu-Monsters")), jsx(MenuLink, {
     to: "/map"
-  }, t3("Menu-Map")), jsx(MenuLink, {
+  }, t4("Menu-Map")), jsx(MenuLink, {
     to: "/calendar"
-  }, t3("Menu-Calendar")), jsx(MenuLink, {
+  }, t4("Menu-Calendar")), jsx(MenuLink, {
     to: "/gear"
-  }, t3("Menu-Gear")), jsx(MenuLink, {
+  }, t4("Menu-Gear")), jsx(MenuLink, {
     to: "/names"
-  }, t3("Menu-Names"))), jsx(LanguageSwitcher, null)), jsx("a", {
+  }, t4("Menu-Names"))), jsx(LanguageSwitcher, null)), jsx("a", {
     css: {
       display: "inline",
       textAlign: "center",
@@ -17345,7 +18848,7 @@ var App = () => {
       }
     },
     href: "https://github.com/syradar/yxans-klagan/issues/new/choose"
-  }, t3("GiveFeedback"))), jsx("main", {
+  }, t4("GiveFeedback"))), jsx("main", {
     css: {
       width: "100%",
       marginTop: "1rem",
@@ -17434,8 +18937,8 @@ var MenuLink = ({
 };
 
 // build/dist/pkg/common/createClass-b2d5451e.js
-function _classCallCheck2(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
+function _classCallCheck2(instance2, Constructor) {
+  if (!(instance2 instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
@@ -17471,73 +18974,11 @@ function _typeof(obj) {
   }
   return _typeof(obj);
 }
-function _defineProperty2(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-function _objectSpread2(target) {
-  for (var i2 = 1; i2 < arguments.length; i2++) {
-    var source = arguments[i2] != null ? Object(arguments[i2]) : {};
-    var ownKeys2 = Object.keys(source);
-    if (typeof Object.getOwnPropertySymbols === "function") {
-      ownKeys2.push.apply(ownKeys2, Object.getOwnPropertySymbols(source).filter(function(sym) {
-        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-      }));
-    }
-    ownKeys2.forEach(function(key) {
-      _defineProperty2(target, key, source[key]);
-    });
-  }
-  return target;
-}
-var _typeof_1 = createCommonjsModule(function(module) {
-  function _typeof3(obj) {
-    "@babel/helpers - typeof";
-    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-      module.exports = _typeof3 = function _typeof4(obj2) {
-        return typeof obj2;
-      };
-      module.exports["default"] = module.exports, module.exports.__esModule = true;
-    } else {
-      module.exports = _typeof3 = function _typeof4(obj2) {
-        return obj2 && typeof Symbol === "function" && obj2.constructor === Symbol && obj2 !== Symbol.prototype ? "symbol" : typeof obj2;
-      };
-      module.exports["default"] = module.exports, module.exports.__esModule = true;
-    }
-    return _typeof3(obj);
-  }
-  module.exports = _typeof3;
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-var _typeof$1 = /* @__PURE__ */ getDefaultExportFromCjs(_typeof_1);
 function _assertThisInitialized(self2) {
   if (self2 === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
   return self2;
-}
-function _possibleConstructorReturn(self2, call) {
-  if (call && (_typeof$1(call) === "object" || typeof call === "function")) {
-    return call;
-  } else if (call !== void 0) {
-    throw new TypeError("Derived constructors may only return object or undefined");
-  }
-  return _assertThisInitialized(self2);
-}
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf2(o2) {
-    return o2.__proto__ || Object.getPrototypeOf(o2);
-  };
-  return _getPrototypeOf(o);
 }
 function _setPrototypeOf(o, p3) {
   _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o2, p4) {
@@ -17559,6 +19000,53 @@ function _inherits(subClass, superClass) {
   });
   if (superClass)
     _setPrototypeOf(subClass, superClass);
+}
+var _typeof_1 = createCommonjsModule(function(module) {
+  function _typeof3(obj) {
+    "@babel/helpers - typeof";
+    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+      module.exports = _typeof3 = function _typeof4(obj2) {
+        return typeof obj2;
+      };
+      module.exports["default"] = module.exports, module.exports.__esModule = true;
+    } else {
+      module.exports = _typeof3 = function _typeof4(obj2) {
+        return obj2 && typeof Symbol === "function" && obj2.constructor === Symbol && obj2 !== Symbol.prototype ? "symbol" : typeof obj2;
+      };
+      module.exports["default"] = module.exports, module.exports.__esModule = true;
+    }
+    return _typeof3(obj);
+  }
+  module.exports = _typeof3;
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+var _typeof$1 = /* @__PURE__ */ getDefaultExportFromCjs(_typeof_1);
+function _possibleConstructorReturn(self2, call) {
+  if (call && (_typeof$1(call) === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+  return _assertThisInitialized(self2);
+}
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf2(o2) {
+    return o2.__proto__ || Object.getPrototypeOf(o2);
+  };
+  return _getPrototypeOf(o);
+}
+function _defineProperty2(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
 }
 function _arrayWithHoles(arr3) {
   if (Array.isArray(arr3))
@@ -17619,6 +19107,36 @@ function _nonIterableRest() {
 function _slicedToArray2(arr3, i2) {
   return _arrayWithHoles(arr3) || _iterableToArrayLimit(arr3, i2) || _unsupportedIterableToArray(arr3, i2) || _nonIterableRest();
 }
+function ownKeys2(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) {
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread2(target) {
+  for (var i2 = 1; i2 < arguments.length; i2++) {
+    var source = arguments[i2] != null ? arguments[i2] : {};
+    if (i2 % 2) {
+      ownKeys2(Object(source), true).forEach(function(key) {
+        _defineProperty2(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys2(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
 var consoleLogger = {
   type: "logger",
   log: function log(args) {
@@ -17643,7 +19161,7 @@ var Logger = function() {
   }
   _createClass2(Logger2, [{
     key: "init",
-    value: function init2(concreteLogger) {
+    value: function init3(concreteLogger) {
       var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
       this.prefix = options.prefix || "i18next:";
       this.logger = concreteLogger || consoleLogger;
@@ -17699,9 +19217,9 @@ var Logger = function() {
   }, {
     key: "create",
     value: function create2(moduleName) {
-      return new Logger2(this.logger, _objectSpread2({}, {
+      return new Logger2(this.logger, _objectSpread2(_objectSpread2({}, {
         prefix: "".concat(this.prefix, ":").concat(moduleName, ":")
-      }, this.options));
+      }), this.options));
     }
   }]);
   return Logger2;
@@ -17773,10 +19291,10 @@ function makeString(object) {
     return "";
   return "" + object;
 }
-function copy(a2, s, t3) {
+function copy(a2, s, t4) {
   a2.forEach(function(m3) {
     if (s[m3])
-      t3[m3] = s[m3];
+      t4[m3] = s[m3];
   });
 }
 function getLastOfPath(object, path2, Empty) {
@@ -17832,17 +19350,17 @@ function getPathWithDefaults(data, defaultData, key) {
   return getPath(defaultData, key);
 }
 function deepExtend(target, source, overwrite) {
-  for (var prop in source) {
-    if (prop !== "__proto__" && prop !== "constructor") {
-      if (prop in target) {
-        if (typeof target[prop] === "string" || target[prop] instanceof String || typeof source[prop] === "string" || source[prop] instanceof String) {
+  for (var prop2 in source) {
+    if (prop2 !== "__proto__" && prop2 !== "constructor") {
+      if (prop2 in target) {
+        if (typeof target[prop2] === "string" || target[prop2] instanceof String || typeof source[prop2] === "string" || source[prop2] instanceof String) {
           if (overwrite)
-            target[prop] = source[prop];
+            target[prop2] = source[prop2];
         } else {
-          deepExtend(target[prop], source[prop], overwrite);
+          deepExtend(target[prop2], source[prop2], overwrite);
         }
       } else {
-        target[prop] = source[prop];
+        target[prop2] = source[prop2];
       }
     }
   }
@@ -17889,6 +19407,64 @@ function looksLikeObjectPath(key, nsSeparator, keySeparator) {
   }
   return matched;
 }
+function ownKeys$12(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) {
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$12(target) {
+  for (var i2 = 1; i2 < arguments.length; i2++) {
+    var source = arguments[i2] != null ? arguments[i2] : {};
+    if (i2 % 2) {
+      ownKeys$12(Object(source), true).forEach(function(key) {
+        _defineProperty2(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$12(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived), result;
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+    return _possibleConstructorReturn(this, result);
+  };
+}
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct)
+    return false;
+  if (Reflect.construct.sham)
+    return false;
+  if (typeof Proxy === "function")
+    return true;
+  try {
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
+    }));
+    return true;
+  } catch (e3) {
+    return false;
+  }
+}
 function deepFind(obj, path2) {
   var keySeparator = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : ".";
   if (!obj)
@@ -17929,6 +19505,7 @@ function deepFind(obj, path2) {
 }
 var ResourceStore = function(_EventEmitter) {
   _inherits(ResourceStore2, _EventEmitter);
+  var _super = _createSuper(ResourceStore2);
   function ResourceStore2(data) {
     var _this;
     var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {
@@ -17936,7 +19513,7 @@ var ResourceStore = function(_EventEmitter) {
       defaultNS: "translation"
     };
     _classCallCheck2(this, ResourceStore2);
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(ResourceStore2).call(this));
+    _this = _super.call(this);
     if (isIE10) {
       EventEmitter.call(_assertThisInitialized(_this));
     }
@@ -18039,7 +19616,7 @@ var ResourceStore = function(_EventEmitter) {
       if (deep) {
         deepExtend(pack, resources, overwrite);
       } else {
-        pack = _objectSpread2({}, pack, resources);
+        pack = _objectSpread$12(_objectSpread$12({}, pack), resources);
       }
       setPath(this.data, path2, pack);
       if (!options.silent)
@@ -18065,7 +19642,7 @@ var ResourceStore = function(_EventEmitter) {
       if (!ns)
         ns = this.options.defaultNS;
       if (this.options.compatibilityAPI === "v1")
-        return _objectSpread2({}, {}, this.getResource(lng, ns));
+        return _objectSpread$12(_objectSpread$12({}, {}), this.getResource(lng, ns));
       return this.getResource(lng, ns);
     }
   }, {
@@ -18104,14 +19681,73 @@ var postProcessor = {
     return value;
   }
 };
+function ownKeys$2(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) {
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$2(target) {
+  for (var i2 = 1; i2 < arguments.length; i2++) {
+    var source = arguments[i2] != null ? arguments[i2] : {};
+    if (i2 % 2) {
+      ownKeys$2(Object(source), true).forEach(function(key) {
+        _defineProperty2(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$2(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _createSuper$1(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct$1();
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived), result;
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+    return _possibleConstructorReturn(this, result);
+  };
+}
+function _isNativeReflectConstruct$1() {
+  if (typeof Reflect === "undefined" || !Reflect.construct)
+    return false;
+  if (Reflect.construct.sham)
+    return false;
+  if (typeof Proxy === "function")
+    return true;
+  try {
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
+    }));
+    return true;
+  } catch (e3) {
+    return false;
+  }
+}
 var checkedLoadedFor = {};
 var Translator = function(_EventEmitter) {
   _inherits(Translator2, _EventEmitter);
+  var _super = _createSuper$1(Translator2);
   function Translator2(services) {
     var _this;
     var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
     _classCallCheck2(this, Translator2);
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Translator2).call(this));
+    _this = _super.call(this);
     if (isIE10) {
       EventEmitter.call(_assertThisInitialized(_this));
     }
@@ -18125,13 +19761,13 @@ var Translator = function(_EventEmitter) {
   }
   _createClass2(Translator2, [{
     key: "changeLanguage",
-    value: function changeLanguage(lng) {
+    value: function changeLanguage2(lng) {
       if (lng)
         this.language = lng;
     }
   }, {
     key: "exists",
-    value: function exists(key) {
+    value: function exists2(key) {
       var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {
         interpolation: {}
       };
@@ -18210,7 +19846,7 @@ var Translator = function(_EventEmitter) {
           if (!this.options.returnedObjectHandler) {
             this.logger.warn("accessing an object - but returnObjects options is not enabled!");
           }
-          return this.options.returnedObjectHandler ? this.options.returnedObjectHandler(resUsedKey, res, _objectSpread2({}, options, {
+          return this.options.returnedObjectHandler ? this.options.returnedObjectHandler(resUsedKey, res, _objectSpread$2(_objectSpread$2({}, options), {}, {
             ns: namespaces
           })) : "key '".concat(key, " (").concat(this.language, ")' returned an object instead of string.");
         }
@@ -18221,7 +19857,7 @@ var Translator = function(_EventEmitter) {
           for (var m3 in res) {
             if (Object.prototype.hasOwnProperty.call(res, m3)) {
               var deepKey = "".concat(newKeyToUse).concat(keySeparator).concat(m3);
-              copy2[m3] = this.translate(deepKey, _objectSpread2({}, options, {
+              copy2[m3] = this.translate(deepKey, _objectSpread$2(_objectSpread$2({}, options), {
                 joinArrays: false,
                 ns: namespaces
               }));
@@ -18256,7 +19892,7 @@ var Translator = function(_EventEmitter) {
         if (usedKey || usedDefault || updateMissing) {
           this.logger.log(updateMissing ? "updateKey" : "missingKey", lng, namespace, key, updateMissing ? defaultValue : res);
           if (keySeparator) {
-            var fk2 = this.resolve(key, _objectSpread2({}, options, {
+            var fk2 = this.resolve(key, _objectSpread$2(_objectSpread$2({}, options), {}, {
               keySeparator: false
             }));
             if (fk2 && fk2.res)
@@ -18273,11 +19909,12 @@ var Translator = function(_EventEmitter) {
           } else {
             lngs.push(options.lng || this.language);
           }
-          var send = function send2(l2, k3, fallbackValue) {
+          var send = function send2(l2, k3, specificDefaultValue) {
+            var defaultForMissing = hasDefaultValue && specificDefaultValue !== res ? specificDefaultValue : resForMissing;
             if (_this2.options.missingKeyHandler) {
-              _this2.options.missingKeyHandler(l2, namespace, k3, updateMissing ? fallbackValue : resForMissing, updateMissing, options);
+              _this2.options.missingKeyHandler(l2, namespace, k3, defaultForMissing, updateMissing, options);
             } else if (_this2.backendConnector && _this2.backendConnector.saveMissing) {
-              _this2.backendConnector.saveMissing(l2, namespace, k3, updateMissing ? fallbackValue : resForMissing, updateMissing, options);
+              _this2.backendConnector.saveMissing(l2, namespace, k3, defaultForMissing, updateMissing, options);
             }
             _this2.emit("missingKey", l2, namespace, k3, res);
           };
@@ -18311,10 +19948,10 @@ var Translator = function(_EventEmitter) {
         });
       } else if (!options.skipInterpolation) {
         if (options.interpolation)
-          this.interpolator.init(_objectSpread2({}, options, {
-            interpolation: _objectSpread2({}, this.options.interpolation, options.interpolation)
+          this.interpolator.init(_objectSpread$2(_objectSpread$2({}, options), {
+            interpolation: _objectSpread$2(_objectSpread$2({}, this.options.interpolation), options.interpolation)
           }));
-        var skipOnVariables = options.interpolation && options.interpolation.skipOnVariables || this.options.interpolation.skipOnVariables;
+        var skipOnVariables = typeof res === "string" && (options.interpolation && options.interpolation.skipOnVariables || this.options.interpolation.skipOnVariables);
         var nestBef;
         if (skipOnVariables) {
           var nb2 = res.match(this.interpolator.nestingRegexp);
@@ -18322,7 +19959,7 @@ var Translator = function(_EventEmitter) {
         }
         var data = options.replace && typeof options.replace !== "string" ? options.replace : options;
         if (this.options.interpolation.defaultVariables)
-          data = _objectSpread2({}, this.options.interpolation.defaultVariables, data);
+          data = _objectSpread$2(_objectSpread$2({}, this.options.interpolation.defaultVariables), data);
         res = this.interpolator.interpolate(res, data, options.lng || this.language, options);
         if (skipOnVariables) {
           var na2 = res.match(this.interpolator.nestingRegexp);
@@ -18347,7 +19984,7 @@ var Translator = function(_EventEmitter) {
       var postProcess = options.postProcess || this.options.postProcess;
       var postProcessorNames = typeof postProcess === "string" ? [postProcess] : postProcess;
       if (res !== void 0 && res !== null && postProcessorNames && postProcessorNames.length && options.applyPostProcessor !== false) {
-        res = postProcessor.handle(postProcessorNames, res, key, this.options && this.options.postProcessPassResolved ? _objectSpread2({
+        res = postProcessor.handle(postProcessorNames, res, key, this.options && this.options.postProcessPassResolved ? _objectSpread$2({
           i18nResolved: resolved
         }, options) : options, this);
       }
@@ -18375,6 +20012,7 @@ var Translator = function(_EventEmitter) {
         if (_this4.options.fallbackNS)
           namespaces = namespaces.concat(_this4.options.fallbackNS);
         var needsPluralHandling = options.count !== void 0 && typeof options.count !== "string";
+        var needsZeroSuffixLookup = needsPluralHandling && !options.ordinal && options.count === 0 && _this4.pluralResolver.shouldUseIntlApi();
         var needsContextHandling = options.context !== void 0 && (typeof options.context === "string" || typeof options.context === "number") && options.context !== "";
         var codes = options.lngs ? options.lngs : _this4.languageUtils.toResolveHierarchy(options.lng || _this4.language, options.fallbackLng);
         namespaces.forEach(function(ns) {
@@ -18389,20 +20027,30 @@ var Translator = function(_EventEmitter) {
             if (_this4.isValidLookup(found))
               return;
             usedLng = code;
-            var finalKey = key;
-            var finalKeys = [finalKey];
+            var finalKeys = [key];
             if (_this4.i18nFormat && _this4.i18nFormat.addLookupKeys) {
               _this4.i18nFormat.addLookupKeys(finalKeys, key, code, ns, options);
             } else {
               var pluralSuffix;
               if (needsPluralHandling)
                 pluralSuffix = _this4.pluralResolver.getSuffix(code, options.count, options);
-              if (needsPluralHandling && needsContextHandling)
-                finalKeys.push(finalKey + pluralSuffix);
-              if (needsContextHandling)
-                finalKeys.push(finalKey += "".concat(_this4.options.contextSeparator).concat(options.context));
-              if (needsPluralHandling)
-                finalKeys.push(finalKey += pluralSuffix);
+              var zeroSuffix = "_zero";
+              if (needsPluralHandling) {
+                finalKeys.push(key + pluralSuffix);
+                if (needsZeroSuffixLookup) {
+                  finalKeys.push(key + zeroSuffix);
+                }
+              }
+              if (needsContextHandling) {
+                var contextKey = "".concat(key).concat(_this4.options.contextSeparator).concat(options.context);
+                finalKeys.push(contextKey);
+                if (needsPluralHandling) {
+                  finalKeys.push(contextKey + pluralSuffix);
+                  if (needsZeroSuffixLookup) {
+                    finalKeys.push(contextKey + zeroSuffix);
+                  }
+                }
+              }
             }
             var possibleKey;
             while (possibleKey = finalKeys.pop()) {
@@ -18911,6 +20559,36 @@ var PluralResolver = function() {
   }]);
   return PluralResolver2;
 }();
+function ownKeys$3(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) {
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$3(target) {
+  for (var i2 = 1; i2 < arguments.length; i2++) {
+    var source = arguments[i2] != null ? arguments[i2] : {};
+    if (i2 % 2) {
+      ownKeys$3(Object(source), true).forEach(function(key) {
+        _defineProperty2(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$3(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
 var Interpolator = function() {
   function Interpolator2() {
     var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
@@ -18924,7 +20602,7 @@ var Interpolator = function() {
   }
   _createClass2(Interpolator2, [{
     key: "init",
-    value: function init2() {
+    value: function init3() {
       var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
       if (!options.interpolation)
         options.interpolation = {
@@ -18976,14 +20654,14 @@ var Interpolator = function() {
       var handleFormat = function handleFormat2(key) {
         if (key.indexOf(_this.formatSeparator) < 0) {
           var path2 = getPathWithDefaults(data, defaultData, key);
-          return _this.alwaysFormat ? _this.format(path2, void 0, lng, _objectSpread2({}, options, data, {
+          return _this.alwaysFormat ? _this.format(path2, void 0, lng, _objectSpread$3(_objectSpread$3(_objectSpread$3({}, options), data), {}, {
             interpolationkey: key
           })) : path2;
         }
         var p3 = key.split(_this.formatSeparator);
         var k3 = p3.shift().trim();
         var f2 = p3.join(_this.formatSeparator).trim();
-        return _this.format(getPathWithDefaults(data, defaultData, k3), f2, lng, _objectSpread2({}, options, data, {
+        return _this.format(getPathWithDefaults(data, defaultData, k3), f2, lng, _objectSpread$3(_objectSpread$3(_objectSpread$3({}, options), data), {}, {
           interpolationkey: k3
         }));
       };
@@ -19042,7 +20720,7 @@ var Interpolator = function() {
       var options = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
       var match;
       var value;
-      var clonedOptions = _objectSpread2({}, options);
+      var clonedOptions = _objectSpread$3({}, options);
       clonedOptions.applyPostProcessor = false;
       delete clonedOptions.defaultValue;
       function handleHasOptions(key, inheritedOptions) {
@@ -19057,7 +20735,7 @@ var Interpolator = function() {
         try {
           clonedOptions = JSON.parse(optionsString);
           if (inheritedOptions)
-            clonedOptions = _objectSpread2({}, inheritedOptions, clonedOptions);
+            clonedOptions = _objectSpread$3(_objectSpread$3({}, inheritedOptions), clonedOptions);
         } catch (e3) {
           this.logger.warn("failed parsing options string in nesting for key ".concat(key), e3);
           return "".concat(key).concat(sep).concat(optionsString);
@@ -19087,7 +20765,7 @@ var Interpolator = function() {
         }
         if (doReduce) {
           value = formatters.reduce(function(v2, f2) {
-            return _this2.format(v2, f2, options.lng, _objectSpread2({}, options, {
+            return _this2.format(v2, f2, options.lng, _objectSpread$3(_objectSpread$3({}, options), {}, {
               interpolationkey: match[1].trim()
             }));
           }, value.trim());
@@ -19100,12 +20778,42 @@ var Interpolator = function() {
   }]);
   return Interpolator2;
 }();
+function ownKeys$4(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) {
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$4(target) {
+  for (var i2 = 1; i2 < arguments.length; i2++) {
+    var source = arguments[i2] != null ? arguments[i2] : {};
+    if (i2 % 2) {
+      ownKeys$4(Object(source), true).forEach(function(key) {
+        _defineProperty2(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$4(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
 function parseFormatStr(formatStr) {
-  var formatName = formatStr.toLowerCase();
+  var formatName = formatStr.toLowerCase().trim();
   var formatOptions = {};
   if (formatStr.indexOf("(") > -1) {
     var p3 = formatStr.split("(");
-    formatName = p3[0].toLowerCase();
+    formatName = p3[0].toLowerCase().trim();
     var optStr = p3[1].substring(0, p3[1].length - 1);
     if (formatName === "currency" && optStr.indexOf(":") < 0) {
       if (!formatOptions.currency)
@@ -19146,25 +20854,25 @@ var Formatter = function() {
         return new Intl.NumberFormat(lng, options2).format(val);
       },
       currency: function currency(val, lng, options2) {
-        return new Intl.NumberFormat(lng, _objectSpread2({}, options2, {
+        return new Intl.NumberFormat(lng, _objectSpread$4(_objectSpread$4({}, options2), {}, {
           style: "currency"
         })).format(val);
       },
       datetime: function datetime(val, lng, options2) {
-        return new Intl.DateTimeFormat(lng, _objectSpread2({}, options2)).format(val);
+        return new Intl.DateTimeFormat(lng, _objectSpread$4({}, options2)).format(val);
       },
       relativetime: function relativetime(val, lng, options2) {
-        return new Intl.RelativeTimeFormat(lng, _objectSpread2({}, options2)).format(val, options2.range || "day");
+        return new Intl.RelativeTimeFormat(lng, _objectSpread$4({}, options2)).format(val, options2.range || "day");
       },
       list: function list(val, lng, options2) {
-        return new Intl.ListFormat(lng, _objectSpread2({}, options2)).format(val);
+        return new Intl.ListFormat(lng, _objectSpread$4({}, options2)).format(val);
       }
     };
     this.init(options);
   }
   _createClass2(Formatter2, [{
     key: "init",
-    value: function init2(services) {
+    value: function init3(services) {
       var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {
         interpolation: {}
       };
@@ -19188,7 +20896,7 @@ var Formatter = function() {
           try {
             var valOptions = options && options.formatParams && options.formatParams[options.interpolationkey] || {};
             var l2 = valOptions.locale || valOptions.lng || options.locale || options.lng || lng;
-            formatted = _this.formats[formatName](mem, l2, _objectSpread2({}, formatOptions, options, valOptions));
+            formatted = _this.formats[formatName](mem, l2, _objectSpread$4(_objectSpread$4(_objectSpread$4({}, formatOptions), options), valOptions));
           } catch (error2) {
             _this.logger.warn(error2);
           }
@@ -19203,6 +20911,64 @@ var Formatter = function() {
   }]);
   return Formatter2;
 }();
+function ownKeys$5(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) {
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$5(target) {
+  for (var i2 = 1; i2 < arguments.length; i2++) {
+    var source = arguments[i2] != null ? arguments[i2] : {};
+    if (i2 % 2) {
+      ownKeys$5(Object(source), true).forEach(function(key) {
+        _defineProperty2(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$5(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _createSuper$2(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct$2();
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived), result;
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+    return _possibleConstructorReturn(this, result);
+  };
+}
+function _isNativeReflectConstruct$2() {
+  if (typeof Reflect === "undefined" || !Reflect.construct)
+    return false;
+  if (Reflect.construct.sham)
+    return false;
+  if (typeof Proxy === "function")
+    return true;
+  try {
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
+    }));
+    return true;
+  } catch (e3) {
+    return false;
+  }
+}
 function remove(arr3, what) {
   var found = arr3.indexOf(what);
   while (found !== -1) {
@@ -19212,11 +20978,12 @@ function remove(arr3, what) {
 }
 var Connector = function(_EventEmitter) {
   _inherits(Connector2, _EventEmitter);
+  var _super = _createSuper$2(Connector2);
   function Connector2(backend, store, services) {
     var _this;
     var options = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {};
     _classCallCheck2(this, Connector2);
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Connector2).call(this));
+    _this = _super.call(this);
     if (isIE10) {
       EventEmitter.call(_assertThisInitialized(_this));
     }
@@ -19405,7 +21172,7 @@ var Connector = function(_EventEmitter) {
       if (key === void 0 || key === null || key === "")
         return;
       if (this.backend && this.backend.create) {
-        this.backend.create(languages, namespace, key, fallbackValue, null, _objectSpread2({}, options, {
+        this.backend.create(languages, namespace, key, fallbackValue, null, _objectSpread$5(_objectSpread$5({}, options), {}, {
           isUpdate
         }));
       }
@@ -19495,16 +21262,83 @@ function transformOptions(options) {
   }
   return options;
 }
+function ownKeys$6(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) {
+      symbols = symbols.filter(function(sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread$6(target) {
+  for (var i2 = 1; i2 < arguments.length; i2++) {
+    var source = arguments[i2] != null ? arguments[i2] : {};
+    if (i2 % 2) {
+      ownKeys$6(Object(source), true).forEach(function(key) {
+        _defineProperty2(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$6(Object(source)).forEach(function(key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _createSuper$3(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct$3();
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived), result;
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+    return _possibleConstructorReturn(this, result);
+  };
+}
+function _isNativeReflectConstruct$3() {
+  if (typeof Reflect === "undefined" || !Reflect.construct)
+    return false;
+  if (Reflect.construct.sham)
+    return false;
+  if (typeof Proxy === "function")
+    return true;
+  try {
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
+    }));
+    return true;
+  } catch (e3) {
+    return false;
+  }
+}
 function noop() {
+}
+function bindMemberFunctions(inst) {
+  var mems = Object.getOwnPropertyNames(Object.getPrototypeOf(inst));
+  mems.forEach(function(mem) {
+    if (typeof inst[mem] === "function") {
+      inst[mem] = inst[mem].bind(inst);
+    }
+  });
 }
 var I18n = function(_EventEmitter) {
   _inherits(I18n2, _EventEmitter);
+  var _super = _createSuper$3(I18n2);
   function I18n2() {
     var _this;
     var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
     var callback = arguments.length > 1 ? arguments[1] : void 0;
     _classCallCheck2(this, I18n2);
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(I18n2).call(this));
+    _this = _super.call(this);
     if (isIE10) {
       EventEmitter.call(_assertThisInitialized(_this));
     }
@@ -19514,6 +21348,7 @@ var I18n = function(_EventEmitter) {
     _this.modules = {
       external: []
     };
+    bindMemberFunctions(_assertThisInitialized(_this));
     if (callback && !_this.isInitialized && !options.isClone) {
       if (!_this.options.initImmediate) {
         _this.init(options, callback);
@@ -19527,7 +21362,7 @@ var I18n = function(_EventEmitter) {
   }
   _createClass2(I18n2, [{
     key: "init",
-    value: function init2() {
+    value: function init3() {
       var _this2 = this;
       var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
       var callback = arguments.length > 1 ? arguments[1] : void 0;
@@ -19543,7 +21378,8 @@ var I18n = function(_EventEmitter) {
         }
       }
       var defOpts = get();
-      this.options = _objectSpread2({}, defOpts, this.options, transformOptions(options));
+      this.options = _objectSpread$6(_objectSpread$6(_objectSpread$6({}, defOpts), this.options), transformOptions(options));
+      this.options.interpolation = _objectSpread$6({}, this.options.interpolation);
       if (options.keySeparator !== void 0) {
         this.options.userDefinedKeySeparator = options.keySeparator;
       }
@@ -19580,7 +21416,7 @@ var I18n = function(_EventEmitter) {
           compatibilityJSON: this.options.compatibilityJSON,
           simplifyPluralSuffix: this.options.simplifyPluralSuffix
         });
-        if (formatter && this.options.interpolation.format === defOpts.interpolation.format) {
+        if (formatter && (!this.options.interpolation.format || this.options.interpolation.format === defOpts.interpolation.format)) {
           s.formatter = createClassOnDemand(formatter);
           s.formatter.init(s, this.options);
           this.options.interpolation.format = s.formatter.format.bind(s.formatter);
@@ -19645,15 +21481,15 @@ var I18n = function(_EventEmitter) {
       });
       var deferred = defer();
       var load = function load2() {
-        var finish = function finish2(err, t3) {
+        var finish = function finish2(err, t4) {
           if (_this2.isInitialized && !_this2.initializedStoreOnce)
             _this2.logger.warn("init: i18next is already initialized. You should call init just once!");
           _this2.isInitialized = true;
           if (!_this2.options.isClone)
             _this2.logger.log("initialized", _this2.options);
           _this2.emit("initialized", _this2.options);
-          deferred.resolve(t3);
-          callback(err, t3);
+          deferred.resolve(t4);
+          callback(err, t4);
         };
         if (_this2.languages && _this2.options.compatibilityAPI !== "v1" && !_this2.isInitialized)
           return finish(null, _this2.t.bind(_this2));
@@ -19668,7 +21504,7 @@ var I18n = function(_EventEmitter) {
     }
   }, {
     key: "loadResources",
-    value: function loadResources(language) {
+    value: function loadResources2(language) {
       var _this3 = this;
       var callback = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : noop;
       var usedCallback = callback;
@@ -19708,7 +21544,7 @@ var I18n = function(_EventEmitter) {
     }
   }, {
     key: "reloadResources",
-    value: function reloadResources(lngs, ns, callback) {
+    value: function reloadResources2(lngs, ns, callback) {
       var deferred = defer();
       if (!lngs)
         lngs = this.languages;
@@ -19724,7 +21560,7 @@ var I18n = function(_EventEmitter) {
     }
   }, {
     key: "use",
-    value: function use(module) {
+    value: function use2(module) {
       if (!module)
         throw new Error("You are passing an undefined module! Please check the object you are passing to i18next.use()");
       if (!module.type)
@@ -19754,7 +21590,7 @@ var I18n = function(_EventEmitter) {
     }
   }, {
     key: "changeLanguage",
-    value: function changeLanguage(lng, callback) {
+    value: function changeLanguage2(lng, callback) {
       var _this4 = this;
       this.isLanguageChangingTo = lng;
       var deferred = defer();
@@ -19821,7 +21657,7 @@ var I18n = function(_EventEmitter) {
     }
   }, {
     key: "getFixedT",
-    value: function getFixedT(lng, ns, keyPrefix) {
+    value: function getFixedT2(lng, ns, keyPrefix) {
       var _this5 = this;
       var fixedT = function fixedT2(key, opts) {
         var options;
@@ -19831,7 +21667,7 @@ var I18n = function(_EventEmitter) {
           }
           options = _this5.options.overloadTranslationOptionHandler([key, opts].concat(rest));
         } else {
-          options = _objectSpread2({}, opts);
+          options = _objectSpread$6({}, opts);
         }
         options.lng = options.lng || fixedT2.lng;
         options.lngs = options.lngs || fixedT2.lngs;
@@ -19851,24 +21687,24 @@ var I18n = function(_EventEmitter) {
     }
   }, {
     key: "t",
-    value: function t3() {
+    value: function t4() {
       var _this$translator;
       return this.translator && (_this$translator = this.translator).translate.apply(_this$translator, arguments);
     }
   }, {
     key: "exists",
-    value: function exists() {
+    value: function exists2() {
       var _this$translator2;
       return this.translator && (_this$translator2 = this.translator).exists.apply(_this$translator2, arguments);
     }
   }, {
     key: "setDefaultNamespace",
-    value: function setDefaultNamespace(ns) {
+    value: function setDefaultNamespace2(ns) {
       this.options.defaultNS = ns;
     }
   }, {
     key: "hasLoadedNamespace",
-    value: function hasLoadedNamespace2(ns) {
+    value: function hasLoadedNamespace3(ns) {
       var _this6 = this;
       var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
       if (!this.isInitialized) {
@@ -19903,7 +21739,7 @@ var I18n = function(_EventEmitter) {
     }
   }, {
     key: "loadNamespaces",
-    value: function loadNamespaces2(ns, callback) {
+    value: function loadNamespaces3(ns, callback) {
       var _this7 = this;
       var deferred = defer();
       if (!this.options.ns) {
@@ -19925,7 +21761,7 @@ var I18n = function(_EventEmitter) {
     }
   }, {
     key: "loadLanguages",
-    value: function loadLanguages(lngs, callback) {
+    value: function loadLanguages2(lngs, callback) {
       var deferred = defer();
       if (typeof lngs === "string")
         lngs = [lngs];
@@ -19954,14 +21790,7 @@ var I18n = function(_EventEmitter) {
       if (!lng)
         return "rtl";
       var rtlLngs = ["ar", "shu", "sqr", "ssh", "xaa", "yhd", "yud", "aao", "abh", "abv", "acm", "acq", "acw", "acx", "acy", "adf", "ads", "aeb", "aec", "afb", "ajp", "apc", "apd", "arb", "arq", "ars", "ary", "arz", "auz", "avl", "ayh", "ayl", "ayn", "ayp", "bbz", "pga", "he", "iw", "ps", "pbt", "pbu", "pst", "prp", "prd", "ug", "ur", "ydd", "yds", "yih", "ji", "yi", "hbo", "men", "xmn", "fa", "jpr", "peo", "pes", "prs", "dv", "sam", "ckb"];
-      return rtlLngs.indexOf(this.services.languageUtils.getLanguagePartFromCode(lng)) >= 0 ? "rtl" : "ltr";
-    }
-  }, {
-    key: "createInstance",
-    value: function createInstance() {
-      var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-      var callback = arguments.length > 1 ? arguments[1] : void 0;
-      return new I18n2(options, callback);
+      return rtlLngs.indexOf(this.services.languageUtils.getLanguagePartFromCode(lng)) > -1 || lng.toLowerCase().indexOf("-arab") > 1 ? "rtl" : "ltr";
     }
   }, {
     key: "cloneInstance",
@@ -19969,7 +21798,7 @@ var I18n = function(_EventEmitter) {
       var _this8 = this;
       var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
       var callback = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : noop;
-      var mergedOptions = _objectSpread2({}, this.options, options, {
+      var mergedOptions = _objectSpread$6(_objectSpread$6(_objectSpread$6({}, this.options), options), {
         isClone: true
       });
       var clone = new I18n2(mergedOptions);
@@ -19977,7 +21806,7 @@ var I18n = function(_EventEmitter) {
       membersToCopy.forEach(function(m3) {
         clone[m3] = _this8[m3];
       });
-      clone.services = _objectSpread2({}, this.services);
+      clone.services = _objectSpread$6({}, this.services);
       clone.services.utils = {
         hasLoadedNamespace: clone.hasLoadedNamespace.bind(clone)
       };
@@ -20009,8 +21838,27 @@ var I18n = function(_EventEmitter) {
   }]);
   return I18n2;
 }(EventEmitter);
-var i18next = new I18n();
-var i18next_default = i18next;
+_defineProperty2(I18n, "createInstance", function() {
+  var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
+  var callback = arguments.length > 1 ? arguments[1] : void 0;
+  return new I18n(options, callback);
+});
+var instance = I18n.createInstance();
+instance.createInstance = I18n.createInstance;
+var createInstance = instance.createInstance;
+var init2 = instance.init;
+var loadResources = instance.loadResources;
+var reloadResources = instance.reloadResources;
+var use = instance.use;
+var changeLanguage = instance.changeLanguage;
+var getFixedT = instance.getFixedT;
+var t3 = instance.t;
+var exists = instance.exists;
+var setDefaultNamespace = instance.setDefaultNamespace;
+var hasLoadedNamespace2 = instance.hasLoadedNamespace;
+var loadNamespaces2 = instance.loadNamespaces;
+var loadLanguages = instance.loadLanguages;
+var i18next_default = instance;
 
 // build/dist/pkg/i18next-browser-languagedetector.js
 var arr = [];
@@ -20019,9 +21867,9 @@ var slice = arr.slice;
 function defaults(obj) {
   each.call(slice.call(arguments, 1), function(source) {
     if (source) {
-      for (var prop in source) {
-        if (obj[prop] === void 0)
-          obj[prop] = source[prop];
+      for (var prop2 in source) {
+        if (obj[prop2] === void 0)
+          obj[prop2] = source[prop2];
       }
     }
   });
@@ -20301,7 +22149,7 @@ var Browser = /* @__PURE__ */ function() {
   }
   _createClass2(Browser2, [{
     key: "init",
-    value: function init2(services) {
+    value: function init3(services) {
       var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
       var i18nOptions = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
       this.services = services;
@@ -20384,9 +22232,9 @@ var slice2 = arr2.slice;
 function defaults2(obj) {
   each2.call(slice2.call(arguments, 1), function(source) {
     if (source) {
-      for (var prop in source) {
-        if (obj[prop] === void 0)
-          obj[prop] = source[prop];
+      for (var prop2 in source) {
+        if (obj[prop2] === void 0)
+          obj[prop2] = source[prop2];
       }
     }
   });
@@ -20788,9 +22636,9 @@ var browserPonyfill = createCommonjsModule(function(module, exports) {
         exports2.DOMException.prototype = Object.create(Error.prototype);
         exports2.DOMException.prototype.constructor = exports2.DOMException;
       }
-      function fetch2(input, init2) {
+      function fetch2(input, init3) {
         return new Promise(function(resolve, reject) {
-          var request3 = new Request(input, init2);
+          var request3 = new Request(input, init3);
           if (request3.signal && request3.signal.aborted) {
             return reject(new exports2.DOMException("Aborted", "AbortError"));
           }
@@ -21022,8 +22870,8 @@ var request = function request2(options, url, payload, callback) {
     return requestWithXmlHttpRequest(options, url, payload, callback);
   }
 };
-function _classCallCheck3(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
+function _classCallCheck3(instance2, Constructor) {
+  if (!(instance2 instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
@@ -21096,7 +22944,7 @@ var Backend = function() {
   }
   _createClass3(Backend2, [{
     key: "init",
-    value: function init2(services) {
+    value: function init3(services) {
       var _this = this;
       var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
       var allOptions = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};

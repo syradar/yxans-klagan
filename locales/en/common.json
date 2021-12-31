@@ -71,5 +71,10 @@
     "SouthWest": "south west",
     "West": "west",
     "NorthWest": "north west"
+  },
+  "Range": {
+    "ArmsLength": "Arm's length",
+    "Near": "Near",
+    "Short": "Short"
   }
 }
