@@ -9,17 +9,17 @@ export const isNullish = (val: unknown): val is Nullish => val == null
 export const notNullish = <T>(val: T): val is NonNullable<T> => !isNullish(val)
 
 export const inRange =
-  (range?: [number, number]) =>
+  (numberRange?: [number, number]) =>
   (val: number, inclusive = false): boolean => {
-    if (isNullish(range)) {
+    if (isNullish(numberRange)) {
       return false
     }
 
     if (inclusive) {
-      return val >= range[0] && val <= range[1]
+      return val >= numberRange[0] && val <= numberRange[1]
     }
 
-    return val > range[0] && val < range[1]
+    return val > numberRange[0] && val < numberRange[1]
   }
 
 export const isString = (x: unknown): x is string => typeof x === 'string'

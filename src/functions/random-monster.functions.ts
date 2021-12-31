@@ -123,7 +123,7 @@ export const createRandomMonsterViewModel = (
   )()
 
 const rollForMonsterLimbs = (
-  limbChoices: WeightedRandomMonsterChoice<LimbChoicesWithAmount>[],
+  choices: WeightedRandomMonsterChoice<LimbChoicesWithAmount>[],
 ): MonsterLimbs => {
   const allLimbs: MonsterLimbs[] = []
 
@@ -131,7 +131,7 @@ const rollForMonsterLimbs = (
   let loopCondition = true
 
   while (loopCondition) {
-    const { key, monsterLimbs } = weightedRandom(limbChoices).value
+    const { key, monsterLimbs } = weightedRandom(choices).value
 
     allLimbs.push(monsterLimbs())
     rolls += 1
@@ -275,7 +275,7 @@ export const getMonsterSkillListItems = (
 const createAttackRequirements = (
   traits: MonsterTrait[],
   tailKey: TailChoices,
-  headChoices: HeadChoices[],
+  heads: HeadChoices[],
   limbs: MonsterLimbs,
 ) => {
   return {
@@ -283,8 +283,8 @@ const createAttackRequirements = (
     fireGlands: traits.some((t) => t.name === 'Trait.FireGlands.Name'),
     tail: tailKey !== 'None',
     claws: limbs.Arms > 0,
-    fangs: headChoices.every((choice) => choice !== 'Missing'),
-    horn: headChoices.some((choice) => choice !== 'HornWithCount'),
+    fangs: heads.every((choice) => choice !== 'Missing'),
+    horn: heads.some((choice) => choice !== 'HornWithCount'),
     legs: limbs.Legs > 0,
     tentacles: limbs.Tentacles > 0,
     undead: traits.some((t) => t.name === 'Trait.Undead.Name'),

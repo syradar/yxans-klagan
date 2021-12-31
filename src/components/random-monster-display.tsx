@@ -13,8 +13,8 @@ export interface RandomMonsterDisplayProps {
 export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
   const { t } = useTranslation(['monsters', 'common'])
 
-  const getSizeContext = (t: MonsterType) => {
-    switch (t) {
+  const getSizeContext = (type: MonsterType) => {
+    switch (type) {
       case 'Grazing':
       case 'Predator':
       case 'AggressivePredator':
