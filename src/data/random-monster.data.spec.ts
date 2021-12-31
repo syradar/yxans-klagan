@@ -1,6 +1,7 @@
 import { compose, pluck, sum } from 'rambda'
 import {
   MonsterHome,
+  MonsterMotivation,
   MonsterSize,
   MonsterType,
   MovementDistanceFunction,
@@ -126,10 +127,15 @@ describe('defaultMovementDistanceFunction', () => {
 
 describe('monsterSkillValues', () => {
   it('should have 36 choices', () => {
-    const movementTypeChoices = compose(
-      sum,
-      (mts: WeightedRandomMonsterChoice<number>[]) => pluck('weight', mts),
-    )
+    const movementTypeChoices = (str: string) =>
+      str
+        .split('|')
+        .map((c) => {
+          const cs = c.split('^')
+
+          return cs.length > 1 ? parseInt(cs[1], 10) : 1
+        })
+        .reduce((acc, cur) => acc + cur, 0)
 
     const expected = 36
     const result = movementTypeChoices(monsterSkillValues)
@@ -156,7 +162,8 @@ describe('monsterSkillValues', () => {
   it('should have 36 choices', () => {
     const motivationChoices = compose(
       sum,
-      (mts: WeightedRandomMonsterChoice<Definition>[]) => pluck('weight', mts),
+      (mts: WeightedRandomMonsterChoice<MonsterMotivation>[]) =>
+        pluck('weight', mts),
     )
 
     const expected = 36
