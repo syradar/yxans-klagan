@@ -153,7 +153,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
                   key={a.type}
                   tw="flex flex-col p-2 md:(table-row p-0) odd-of-type:bg-gray-200 md:odd-of-type:bg-gray-200 md:odd-of-type:border-r-0 sm:(odd-of-type:bg-transparent odd-of-type:border-r-[1px]) border-b-[1px] last-of-type:border-0 border-gray-500"
                   css={css`
-                    @media (min-width: 640px) and (max-width: 767.99px) {
+                    @media (min-width: 640px) and (max-width: 767px) {
                       :nth-of-type(4n + 3) {
                         background-color: rgba(
                           229,
