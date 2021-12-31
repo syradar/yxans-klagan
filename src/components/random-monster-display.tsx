@@ -136,7 +136,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
           {rm.attacks.map((a) => (
             <tr
               key={a.type}
-              tw="border-b-[1px] border-gray-500 odd:bg-gray-200"
+              tw="border-b-[1px] border-gray-500 odd-of-type:bg-gray-200"
             >
               <td tw="p-1">{a.type}</td>
               <td tw="p-1 text-center">{a.attack}</td>
