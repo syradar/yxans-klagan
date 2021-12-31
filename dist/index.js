@@ -16031,17 +16031,48 @@ var DefinitionList = ({
 }) => jsx("ul", {
   css: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    "@media (min-width: 1024px)": {
+      gap: "0.5rem"
+    }
   }
 }, definitions.map((d3) => jsx("li", {
-  key: d3.name
+  key: d3.name,
+  css: {
+    listStyle: "square",
+    listStylePosition: "inside",
+    "::marker, *::marker": {
+      "--tw-text-opacity": "1",
+      color: "rgba(239, 68, 68, var(--tw-text-opacity))"
+    },
+    "@media (min-width: 1024px)": {
+      listStyleType: "none"
+    }
+  }
 }, jsx("div", {
   css: {
-    fontWeight: "500"
+    fontWeight: "500",
+    display: "inline",
+    marginLeft: "-0.75rem",
+    marginRight: "0.25rem",
+    ":after": {
+      content: "':'"
+    },
+    "@media (min-width: 1024px)": {
+      display: "block",
+      margin: "0px",
+      ":after": {
+        content: '""',
+        display: "none"
+      }
+    }
   }
 }, d3.name), jsx("div", {
   css: {
-    marginBottom: "0.5rem"
+    display: "inline",
+    "@media (min-width: 1024px)": {
+      display: "block"
+    }
   }
 }, d3.description))));
 
@@ -16051,23 +16082,53 @@ var SkillList = ({
 }) => jsx("table", {
   css: {
     width: "100%",
-    "@media (min-width: 640px)": {
+    "@media (min-width: 1024px)": {
       width: "50%"
     }
   }
-}, jsx("tbody", null, skills.map((s) => jsx("tr", {
+}, jsx("thead", {
+  css: {
+    position: "absolute",
+    width: "1px",
+    height: "1px",
+    padding: "0",
+    margin: "-1px",
+    overflow: "hidden",
+    clip: "rect(0, 0, 0, 0)",
+    whiteSpace: "nowrap",
+    borderWidth: "0"
+  }
+}, jsx("tr", null, jsx("th", null, "Skill"), jsx("th", null, "Skill value"))), jsx("tbody", {
+  css: {
+    display: "flex",
+    gap: "1rem",
+    flexWrap: "wrap",
+    "@media (min-width: 1024px)": {
+      display: "table-row-group"
+    }
+  }
+}, skills.map((s) => jsx("tr", {
   key: s.name,
   css: {
-    borderBottomWidth: "1px"
+    display: "flex",
+    gap: "0.25rem",
+    "@media (min-width: 1024px)": {
+      display: "table-row",
+      borderBottomWidth: "1px"
+    }
   }
 }, jsx("td", {
   css: {
-    padding: "0.25rem"
+    "@media (min-width: 1024px)": {
+      padding: "0.25rem"
+    }
   }
 }, s.name), jsx("td", {
   css: {
-    padding: "0.25rem",
-    textAlign: "right"
+    "@media (min-width: 1024px)": {
+      padding: "0.25rem",
+      textAlign: "right"
+    }
   }
 }, s.value)))));
 
@@ -16113,13 +16174,26 @@ var RandomMonsterDisplay = ({
     }
   }, jsx("p", null, t4("TheMonsterHas"), " ", rm.description.head, ". ", rm.description.limbs, ".", " ", t4("LivesIn", {
     home: t4(`Homes.${rm.home}`)
-  }), ".")), jsx("div", {
+  }), ".")), jsx("section", {
+    css: {
+      display: "grid",
+      gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
+      "@media (min-width: 1890px)": {
+        gap: "2rem",
+        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+      }
+    }
+  }, jsx("div", {
     css: {
       display: "flex",
       gap: "2rem",
       flexDirection: "column",
+      marginBottom: "0.5rem",
       "@media (min-width: 768px)": {
         flexDirection: "row"
+      },
+      "@media (min-width: 1890px)": {
+        display: "flex"
       }
     }
   }, jsx("div", {
@@ -16132,7 +16206,18 @@ var RandomMonsterDisplay = ({
       lineHeight: "1.75rem",
       fontWeight: "500"
     }
-  }, t4(`Attribute`)), rm.attributes.strength && jsx("div", {
+  }, t4(`Attribute`)), jsx("div", {
+    css: {
+      marginBottom: "0.5rem",
+      "@media (min-width: 640px)": {
+        display: "flex",
+        gap: "2rem"
+      },
+      "@media (min-width: 768px)": {
+        display: "block"
+      }
+    }
+  }, rm.attributes.strength && jsx("div", {
     css: {
       marginBottom: "0.5rem"
     }
@@ -16148,33 +16233,41 @@ var RandomMonsterDisplay = ({
     key: `${rm.size}-agility`,
     values: [...rm.attributes.agility.values],
     label: t4(`Attributes.${rm.attributes.agility.label}`)
-  })), rm.armor && jsx("div", {
+  }))), jsx("section", {
     css: {
-      marginBottom: "0.5rem"
+      display: "flex",
+      flexWrap: "wrap",
+      columnGap: "2rem",
+      rowGap: "1rem",
+      "@media (min-width: 1890px)": {
+        flexDirection: "column"
+      }
+    }
+  }, rm.armor && jsx("div", null, jsx("h3", {
+    css: {
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      fontWeight: "500"
+    }
+  }, t4("ArmorLabel")), jsx("div", null, jsx("span", {
+    css: {
+      fontWeight: "500"
+    }
+  }, t4(`Armor.${rm.armor.label}`), ":", " "), rm.armor.values.length)), jsx("div", null, jsx("h3", {
+    css: {
+      fontSize: "1.25rem",
+      lineHeight: "1.75rem",
+      fontWeight: "500"
+    }
+  }, t4(`Movement.Movement`)), jsx("div", null, t4(`Movement.${rm.movement.type}`), " ", rm.movement.distance, " ", t4(`Movement.Zones`, {
+    count: rm.movement.distance
+  }))), jsx("div", {
+    css: {
+      "@media (min-width: 768px)": {
+        width: "100%"
+      }
     }
   }, jsx("h3", {
-    css: {
-      fontSize: "1.25rem",
-      lineHeight: "1.75rem",
-      fontWeight: "500"
-    }
-  }, t4("ArmorLabel")), jsx("div", {
-    css: {
-      fontWeight: "500"
-    }
-  }, rm.armor.label, ": ", rm.armor.values.length)), jsx("h3", {
-    css: {
-      fontSize: "1.25rem",
-      lineHeight: "1.75rem",
-      fontWeight: "500"
-    }
-  }, t4(`Movement.Movement`)), jsx("div", {
-    css: {
-      marginBottom: "0.5rem"
-    }
-  }, t4(`Movement.${rm.movement.type}`), " ", rm.movement.distance, " ", t4(`Movement.Zones`, {
-    count: rm.movement.distance
-  })), jsx("h3", {
     css: {
       fontSize: "1.25rem",
       lineHeight: "1.75rem",
@@ -16185,12 +16278,17 @@ var RandomMonsterDisplay = ({
       ...s,
       name: t4(s.name)
     })).sort((a2, b2) => a2.name.localeCompare(b2.name))
-  })), jsx("div", {
+  })))), jsx("div", {
     css: {
       flex: "1 1 0%",
-      display: "flex",
-      flexDirection: "column",
-      gap: "1rem"
+      display: "grid",
+      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+      gap: "1rem",
+      "@media (min-width: 1024px)": {
+        gridTemplateColumns: "none",
+        gridAutoRows: "min-content",
+        gap: "1rem"
+      }
     }
   }, jsx("section", null, jsx("h3", {
     css: {
@@ -16225,7 +16323,7 @@ var RandomMonsterDisplay = ({
       name: t4(m3.name),
       description: t4(m3.description)
     }))
-  })))), jsx("h3", {
+  })))), jsx("div", null, jsx("h3", {
     css: {
       fontSize: "1.25rem",
       lineHeight: "1.75rem",
@@ -16235,7 +16333,14 @@ var RandomMonsterDisplay = ({
     css: {
       width: "100%"
     }
-  }, jsx("thead", null, jsx("tr", {
+  }, jsx("thead", {
+    css: {
+      display: "none",
+      "@media (min-width: 768px)": {
+        display: "table-header-group"
+      }
+    }
+  }, jsx("tr", {
     css: {
       textTransform: "uppercase",
       borderBottomWidth: "1px",
@@ -16273,60 +16378,157 @@ var RandomMonsterDisplay = ({
       textAlign: "left",
       wordBreak: "break-all"
     }
-  }, t4(`Attack.Description`)))), jsx("tbody", null, rm.attacks.map((a2) => jsx("tr", {
-    key: a2.type,
+  }, t4(`Attack.Description`)))), jsx("tbody", {
     css: {
-      borderBottomWidth: "1px",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(107, 114, 128, var(--tw-border-opacity))",
+      display: "grid",
+      "@media (min-width: 640px)": {
+        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+      },
+      "@media (min-width: 768px)": {
+        display: "table-row-group"
+      }
+    }
+  }, rm.attacks.map((a2) => jsx("tr", {
+    key: a2.type,
+    css: [{
+      display: "flex",
+      flexDirection: "column",
+      padding: "0.5rem",
       ":nth-of-type(odd)": {
         "--tw-bg-opacity": "1",
         backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
+      },
+      borderBottomWidth: "1px",
+      ":last-of-type": {
+        borderWidth: "0px"
+      },
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(107, 114, 128, var(--tw-border-opacity))",
+      "@media (min-width: 640px)": {
+        ":nth-of-type(odd)": {
+          backgroundColor: "rgba(0, 0, 0, 0)",
+          borderRightWidth: "1px"
+        }
+      },
+      "@media (min-width: 768px)": {
+        display: "table-row",
+        padding: "0px",
+        ":nth-of-type(odd)": {
+          "--tw-bg-opacity": "1",
+          backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
+          borderRightWidth: "0px"
+        }
       }
-    }
+    }, css`
+                    @media (min-width: 640px) and (max-width: 767.99px) {
+                      :nth-of-type(4n + 3) {
+                        background-color: rgba(
+                          229,
+                          231,
+                          235,
+                          var(--tw-bg-opacity)
+                        );
+                      }
+                      :nth-of-type(4n + 4) {
+                        background-color: rgba(
+                          229,
+                          231,
+                          235,
+                          var(--tw-bg-opacity)
+                        );
+                      }
+                    }
+                  `]
   }, jsx("td", {
     css: {
-      paddingTop: "0.25rem",
-      paddingBottom: "0.25rem",
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem"
+      display: "block",
+      fontSize: "1.125rem",
+      lineHeight: "1.75rem",
+      fontWeight: "500",
+      "@media (min-width: 768px)": {
+        display: "table-cell",
+        paddingTop: "0.25rem",
+        paddingBottom: "0.25rem",
+        paddingLeft: "0.5rem",
+        paddingRight: "0.5rem",
+        fontSize: "1rem",
+        lineHeight: "1.5rem",
+        fontWeight: "400"
+      }
     }
   }, t4(`Attack.${a2.type}.Type`)), jsx("td", {
     css: {
-      paddingTop: "0.25rem",
-      paddingBottom: "0.25rem",
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
-      textAlign: "center"
+      display: "block",
+      "@media (min-width: 768px)": {
+        display: "table-cell",
+        paddingTop: "0.25rem",
+        paddingBottom: "0.25rem",
+        paddingLeft: "0.5rem",
+        paddingRight: "0.5rem",
+        textAlign: "center"
+      }
     }
-  }, a2.attack), jsx("td", {
+  }, jsx("span", {
     css: {
-      paddingTop: "0.25rem",
-      paddingBottom: "0.25rem",
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
-      textAlign: "center"
+      fontWeight: "500",
+      "@media (min-width: 768px)": {
+        display: "none"
+      }
     }
-  }, a2.damage), jsx("td", {
+  }, t4(`Attack.Attack`), ":", " "), a2.attack), jsx("td", {
     css: {
-      paddingTop: "0.25rem",
-      paddingBottom: "0.25rem",
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
-      textAlign: "center",
-      whiteSpace: "nowrap"
+      display: "block",
+      "@media (min-width: 768px)": {
+        display: "table-cell",
+        paddingTop: "0.25rem",
+        paddingBottom: "0.25rem",
+        paddingLeft: "0.5rem",
+        paddingRight: "0.5rem",
+        textAlign: "center"
+      }
     }
-  }, t4(a2.range, {
+  }, jsx("span", {
+    css: {
+      fontWeight: "500",
+      "@media (min-width: 768px)": {
+        display: "none"
+      }
+    }
+  }, t4(`Attack.Damage`), ":", " "), a2.damage), jsx("td", {
+    css: {
+      display: "block",
+      whiteSpace: "nowrap",
+      "@media (min-width: 768px)": {
+        display: "table-cell",
+        paddingTop: "0.25rem",
+        paddingBottom: "0.25rem",
+        paddingLeft: "0.5rem",
+        paddingRight: "0.5rem",
+        textAlign: "center"
+      }
+    }
+  }, jsx("span", {
+    css: {
+      fontWeight: "500",
+      "@media (min-width: 768px)": {
+        display: "none"
+      }
+    }
+  }, t4(`Attack.Range`), ":", " "), t4(a2.range, {
     ns: "common"
   })), jsx("td", {
     css: {
-      paddingTop: "0.25rem",
-      paddingBottom: "0.25rem",
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
-      wordBreak: "break-all"
+      display: "block",
+      "@media (min-width: 768px)": {
+        display: "table-cell",
+        paddingTop: "0.25rem",
+        paddingBottom: "0.25rem",
+        paddingLeft: "0.5rem",
+        paddingRight: "0.5rem",
+        wordBreak: "break-all"
+      }
     }
-  }, t4(a2.description)))))));
+  }, t4(a2.description)))))))));
 };
 
 // build/dist/data/monster.data.js
