@@ -12403,7 +12403,7 @@ var MonthCollapseButton = ({
   collapsed,
   onMonthCollapseClick,
   children,
-  small = true
+  small = false
 }) => {
   const {
     t: t4
@@ -15813,6 +15813,7 @@ var ListGroup = ({
 }) => {
   const [groupOpen, setGroupOpen] = useState(open);
   return jsx("section", null, jsx(MonthCollapseButton, {
+    small: true,
     collapsed: !groupOpen,
     onMonthCollapseClick: () => setGroupOpen(!groupOpen)
   }, jsx("h3", {
