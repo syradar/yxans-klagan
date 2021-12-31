@@ -66,6 +66,11 @@ export type LimbChoices =
   | 'Wings'
   | 'Many'
 
+export type LimbChoicesWithAmount = {
+  key: LimbChoices
+  monsterLimbs: () => MonsterLimbs
+}
+
 export type Limb = 'Tentacles' | 'Legs' | 'Arms' | 'Wings'
 
 export type MonsterLimbs = {
@@ -86,6 +91,11 @@ export type HeadChoices =
   | 'BigEars'
   | 'Fin'
   | 'RollTwice'
+
+export type HeadChoiceWithCount = {
+  key: HeadChoices
+  count?: number
+}
 
 export type TailChoices = 'None' | 'Tail' | 'SpikedTail'
 
@@ -172,15 +182,26 @@ export type MonsterAttackViewModel = {
 export type MonsterAttacks = { [T in MonsterAttackType]: MonsterAttack }
 type MonsterDamageModifiers = { [M in MonsterDamageType]: number }
 
+export type MonsterDescription = {
+  heads: HeadChoiceWithCount[]
+  tail: {
+    key: TailChoices
+    damage: number
+  }
+  limbs: MonsterLimbs
+}
+
+export type MonsterDescriptionViewModel = {
+  head: string
+  tail?: string
+  limbs: string
+}
+
 export interface RandomMonster extends Monster {
   size: MonsterSize
   type: MonsterType
   limbs: MonsterLimbs
-  description: {
-    head: string
-    tail?: string
-    limbs: string
-  }
+  description: MonsterDescription
   armor: ArmorViewModel
   home: MonsterHome
   skills: MonsterSkills
@@ -212,11 +233,7 @@ export interface RandomMonsterViewModel
   size: MonsterSize
   type: MonsterType
   limbs: MonsterLimbs
-  description: {
-    head: string
-    tail?: string
-    limbs: string
-  }
+  description: MonsterDescriptionViewModel
   armor: ArmorViewModel
   movement: MonsterMovement
   home: MonsterHome

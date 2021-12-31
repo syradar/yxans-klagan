@@ -13,10 +13,7 @@ import {
   createMonstersViewModel,
   monsterComparer,
 } from '../functions/monster.functions'
-import {
-  createRandomMonster,
-  createRandomMonsterViewModel,
-} from '../functions/random-monster.functions'
+import { createRandomMonsterViewModel } from '../functions/random-monster.functions'
 import { MonsterViewModel } from '../models/monster.model'
 
 export const MonstersPage = () => {
@@ -29,7 +26,7 @@ export const MonstersPage = () => {
   const [showRandomMonster, setShowRandomMonster] = useState(true)
 
   const [randomMonster, setRandomMonster] = useState(
-    createRandomMonsterViewModel(createRandomMonster(t), t),
+    createRandomMonsterViewModel(t),
   )
 
   const selectMonster = (m: MonsterViewModel) => {
@@ -38,7 +35,7 @@ export const MonstersPage = () => {
   }
 
   const generateRandomMonster = () => {
-    setRandomMonster(createRandomMonsterViewModel(createRandomMonster(t), t))
+    setRandomMonster(createRandomMonsterViewModel(t))
     setShowRandomMonster(true)
   }
 

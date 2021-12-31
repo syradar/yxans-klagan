@@ -8,11 +8,12 @@ import {
 import { isEven } from '../functions/math.functions'
 import { id, maybe, validNumber } from '../functions/utils.functions'
 import {
-  HeadChoices,
-  LimbChoices,
+  HeadChoiceWithCount,
+  LimbChoicesWithAmount,
   MonsterArmor,
   MonsterAttacks,
   MonsterHome,
+  MonsterLimbs,
   MonsterMotivation,
   MonsterSize,
   MonsterTrait,
@@ -58,21 +59,100 @@ export const types: WeightedRandomMonsterChoice<{
   { weight: 6, value: { type: 'AggressivePredator', agility: 8 } },
 ]
 
-export const limbs: WeightedRandomMonsterChoice<LimbChoices>[] = [
-  { weight: 3, value: 'None' },
-  { weight: 5, value: 'Tentacles' },
-  { weight: 3, value: 'TwoLegs' },
-  { weight: 3, value: 'TwoLegsTwoArms' },
-  { weight: 10, value: 'FourLegs' },
-  { weight: 5, value: 'FourLegsTwoArms' },
-  { weight: 5, value: 'Wings' },
-  { weight: 5, value: 'Many' },
-]
+export const defaultMonsterLimbs: MonsterLimbs = {
+  Arms: 0,
+  Legs: 0,
+  Tentacles: 0,
+  Wings: 0,
+}
 
-export const headChoices: WeightedRandomMonsterChoice<{
-  key: HeadChoices
-  count?: number
-}>[] = [
+export const limbChoices: WeightedRandomMonsterChoice<LimbChoicesWithAmount>[] =
+  [
+    {
+      weight: 3,
+      value: {
+        key: 'None',
+        monsterLimbs: () => ({
+          ...defaultMonsterLimbs,
+        }),
+      },
+    },
+    {
+      weight: 5,
+      value: {
+        key: 'Tentacles',
+        monsterLimbs: () => ({
+          ...defaultMonsterLimbs,
+          Tentacles: rollD6() + 2,
+        }),
+      },
+    },
+    {
+      weight: 3,
+      value: {
+        key: 'TwoLegs',
+        monsterLimbs: () => ({
+          ...defaultMonsterLimbs,
+          Legs: 2,
+        }),
+      },
+    },
+    {
+      weight: 3,
+      value: {
+        key: 'TwoLegsTwoArms',
+        monsterLimbs: () => ({
+          ...defaultMonsterLimbs,
+          Legs: 2,
+          Arms: 2,
+        }),
+      },
+    },
+    {
+      weight: 10,
+      value: {
+        key: 'FourLegs',
+        monsterLimbs: () => ({
+          ...defaultMonsterLimbs,
+          Legs: 4,
+        }),
+      },
+    },
+    {
+      weight: 5,
+      value: {
+        key: 'FourLegsTwoArms',
+        monsterLimbs: () => ({
+          ...defaultMonsterLimbs,
+          Legs: 4,
+          Arms: 2,
+        }),
+      },
+    },
+    {
+      weight: 5,
+      value: {
+        key: 'Wings',
+        monsterLimbs: () => ({
+          ...defaultMonsterLimbs,
+          Wings: 2,
+        }),
+      },
+    },
+    {
+      weight: 5,
+      value: {
+        key: 'Many',
+        monsterLimbs: () => ({
+          ...defaultMonsterLimbs,
+          Legs: rollD3() * 2 + 2,
+          Arms: rollD3() * 2 + 2,
+        }),
+      },
+    },
+  ]
+
+export const headChoices: WeightedRandomMonsterChoice<HeadChoiceWithCount>[] = [
   { weight: 1, value: { key: 'Missing' } },
   { weight: 5, value: { key: 'Beak' } },
   { weight: 6, value: { key: 'HornWithCount', count: getRandomInt(1, 3) } },
