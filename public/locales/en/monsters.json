@@ -10,6 +10,8 @@
   "BookMonsters": "Monsters from the book",
   "TheMonsterHas": "The monster has",
   "TheMonsterHave": "The monster have",
+  "GenerateMonster": "Generate Monster",
+  "RandomMonster": "Random Monster",
   "Size": {
     "Puny": "Puny",
     "Puny_def": "Puny",
@@ -80,6 +82,7 @@
   },
   "Skill": "Skills",
   "Skills": {
+    "None": "No skills",
     "Melee": "Melee",
     "Move": "Move",
     "Scouting": "Scouting",
@@ -236,6 +239,74 @@
     "GuardingTreasure": {
       "Name": "Guarding treasure",
       "Description": "The creature guards treasure"
+    }
+  },
+  "Attack": {
+    "Type": "Type",
+    "Attack": "Attack",
+    "Attacks": "Attacks",
+    "Damage": "Damage",
+    "Range": "Range",
+    "Description": "Description",
+    "Bash": {
+      "Type": "Crushing",
+      "Description": "Grabs an adventurer and tries to crush it."
+    },
+    "Bite": {
+      "Type": "Bite",
+      "Description": "Bites the nearest adventurer with its razorsharp teeth."
+    },
+    "BreathFire": {
+      "Type": "Breath fire",
+      "Description": "Fire blazes out from its throat against one adventurer within Short range. If hit the victim takes the same damage each round until the fire is put out, by the victim or friend that succeeds with a roll on Move (fast action)."
+    },
+    "DeadlyGaze": {
+      "Type": "Deadly gaze",
+      "Description": "The undead beast stares with dead eyes into the soul of its victim, who is hit by a Fear attack and becomes prone."
+    },
+    "Headbutt": {
+      "Type": "Headbutt",
+      "Description": "Smashes its head against the adventurer."
+    },
+    "Horn": {
+      "Type": "Horns",
+      "Description": "Tries to impale with its horns."
+    },
+    "Roar": {
+      "Type": "Roar",
+      "Description": "Gives of a deafening roar that provokes a Fear attack against all adventurers within Near range."
+    },
+    "Kick": {
+      "Type": "Kick",
+      "Description": "Kicks the nearest adventurer with all its force. If the attack hits the adventurer is thrown to Near range and becomes prone."
+    },
+    "Sweep": {
+      "Type": "Sweeping attack",
+      "Description": "Sweeps its claws (or similar) across two adventurers. If hit becomes prone."
+    },
+    "Slash": {
+      "Type": "Slash",
+      "Description": "Slashes its sharps claws over the body of an adventurer."
+    },
+    "TailsSlash": {
+      "Type": "Tail slash",
+      "Description": "Slashes an adventurer within Near range with the tip of its tail. If hit becomes prone."
+    },
+    "TentacleLash": {
+      "Type": "Tentacle slash",
+      "Description": "Slashes an adventurer within Near range with the tip of its tentacles against. If hit becomes prone."
+    },
+    "Devour": {
+      "Type": "Devour",
+      "Description": "Tries to devour an adventurer. If the attack hits the adventurer is devoured. The victim can keep attacking from the inside and the beast does not have armor on the inside. The victim crawls out when the beast is dead. Each round inside the beast the victim takes 1 damage."
+    },
+    "SpitAcid": {
+      "Type": "Spit acid",
+      "Description": "Opens its maw and lets acid rain down over all adventurers within Near range. Victims that are hit take 1 damage each round for D3 rounds."
+    },
+    "DiveAttack": {
+      "Type": "Dive attack",
+      "Description": "Sweeps through the air and slashes an adventurer within Near rangel. If hit becomes prone."
     }
   }
 }

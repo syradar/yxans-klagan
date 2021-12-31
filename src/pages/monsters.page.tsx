@@ -53,7 +53,7 @@ export const MonstersPage = () => {
               <ul>
                 <li tw="border border-gray-300 border-b-0 last:border-b">
                   <ListItemButton onClick={() => generateRandomMonster()}>
-                    Random Monster
+                    {t('RandomMonster')}
                   </ListItemButton>
                 </li>
               </ul>

@@ -166,7 +166,7 @@ export type MonsterAttack = {
   type: MonsterAttackType
   attack?: (rm: RandomMonster) => number
   damage?: (rm: RandomMonster) => number | string
-  reach: MonsterAttackRange
+  range: MonsterAttackRange
   description: string
   valid: (rm: RandomMonster) => boolean
 }
@@ -175,7 +175,7 @@ export type MonsterAttackViewModel = {
   type: MonsterAttackType
   attack?: number
   damage?: number | string
-  reach: MonsterAttackRange
+  range: `Range.${MonsterAttackRange}`
   description: string
 }
 

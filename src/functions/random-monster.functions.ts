@@ -295,11 +295,12 @@ const createAttackRequirements = (
 const createMonsterAttacks = (
   allMonsterAttacks: MonsterAttacks,
   rm: RandomMonster,
-) =>
+): MonsterAttackViewModel[] =>
   Object.values(allMonsterAttacks).reduce((acc, cur) => {
     if (cur.valid(rm)) {
       acc.push({
         ...cur,
+        range: `Range.${cur.range}`,
         damage: cur.damage && cur.damage(rm),
         attack: cur.attack && cur.attack(rm),
       })

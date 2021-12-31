@@ -82,7 +82,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
 
           <h3 tw="text-xl font-medium">{t(`Skill`)}</h3>
           {rm.skills.length === 0 ? (
-            <div>No skills</div>
+            <div>{t('Skills.None')}</div>
           ) : (
             <SkillList
               skills={rm.skills
@@ -125,11 +125,13 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
       <table tw="w-full">
         <thead>
           <tr tw="uppercase border-b-[1px] border-gray-500">
-            <th tw="font-bold p-1 text-left">Type</th>
-            <th tw="font-bold p-1 text-center">Attack</th>
-            <th tw="font-bold p-1 text-center">Damage</th>
-            <th tw="font-bold p-1 text-center">Range</th>
-            <th tw="font-bold p-1 text-left">Description</th>
+            <th tw="font-bold p-1 text-left">{t(`Attack.Type`)}</th>
+            <th tw="font-bold p-1 text-center">{t(`Attack.Attack`)}</th>
+            <th tw="font-bold p-1 text-center">{t(`Attack.Damage`)}</th>
+            <th tw="font-bold p-1 text-center">{t(`Attack.Range`)}</th>
+            <th tw="font-bold p-1 text-left word-break[break-all]">
+              {t(`Attack.Description`)}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -138,11 +140,13 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
               key={a.type}
               tw="border-b-[1px] border-gray-500 odd-of-type:bg-gray-200"
             >
-              <td tw="p-1">{a.type}</td>
-              <td tw="p-1 text-center">{a.attack}</td>
-              <td tw="p-1 text-center">{a.damage}</td>
-              <td tw="p-1 text-center">{a.reach}</td>
-              <td tw="p-1">{a.description}</td>
+              <td tw="py-1 px-2">{t(`Attack.${a.type}.Type`)}</td>
+              <td tw="py-1 px-2 text-center">{a.attack}</td>
+              <td tw="py-1 px-2 text-center">{a.damage}</td>
+              <td tw="py-1 px-2 text-center whitespace-nowrap">
+                {t(a.range, { ns: 'common' })}
+              </td>
+              <td tw="py-1 px-2 word-break[break-all]">{t(a.description)}</td>
             </tr>
           ))}
         </tbody>

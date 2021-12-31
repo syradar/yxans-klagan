@@ -10,6 +10,8 @@
   "BookMonsters": "Monster från boken",
   "TheMonsterHas": "Monstret",
   "TheMonsterHave": "Monstret har",
+  "GenerateMonster": "Skapa monster",
+  "RandomMonster": "Slumpa fram monster",
   "Size": {
     "Puny": "Ynklig",
     "Puny_def": "Ynkligt",
@@ -73,6 +75,7 @@
   },
   "Skill": "Färdigheter",
   "Skills": {
+    "None": "Inga",
     "Melee": "Närkamp",
     "Move": "Rörlighet",
     "Scouting": "Speja",
@@ -229,6 +232,74 @@
     "GuardingTreasure": {
       "Name": "Skatt",
       "Description": "Vaktar skatt"
+    }
+  },
+  "Attack": {
+    "Type": "Typ",
+    "Attack": "Attack",
+    "Attacks": "Attacker",
+    "Damage": "Skada",
+    "Range": "Räckvidd",
+    "Description": "Effekt",
+    "Bash": {
+      "Type": "Krossande",
+      "Description": "Griper tag i en äventyrare och försöker slita henne itu."
+    },
+    "Bite": {
+      "Type": "Bett",
+      "Description": "Biter närmaste äventyrare med sina sylvassa tänder."
+    },
+    "BreathFire": {
+      "Type": "Eldattack",
+      "Description": "Eld flammar ur bestens strupe och riktar in sig på en äventyrare inom Kort avstånd. Om attacken träffar tar offret samma skada igen varje runda tills elden släckts,genom att offret självt eller en vän klarar ett slag för Rörlighet (kort handling)."
+    },
+    "DeadlyGaze": {
+      "Type": "Dödande blick",
+      "Description": "Den odöda besten stirrar med döda ögon rakt in i hennes själ. Utstå en skräckattack. Äventyraren faller sedan till marken."
+    },
+    "Headbutt": {
+      "Type": "Skallning",
+      "Description": "Skallar en äventyrare."
+    },
+    "Horn": {
+      "Type": "Stångattack",
+      "Description": "Försöker genomborra en äventyrare med sina horn."
+    },
+    "Roar": {
+      "Type": "Vrål",
+      "Description": "Ger ifrån sig ett öronbedövande vrål som ger en skräckattack alla äventyrare inom Nära avstånd."
+    },
+    "Kick": {
+      "Type": "Spark",
+      "Description": "Sparkar närmaste äventyrare med fruktansvärd kraft. Om attacken träffar slungas äventyraren till Nära avstånd och landar liggande."
+    },
+    "Sweep": {
+      "Type": "Svepande attack",
+      "Description": "Klor (eller liknande vapen) sveper över två äventyrare inom Nära avstånd. Offer som träffas slås även omkull."
+    },
+    "Slash": {
+      "Type": "Rivande klor",
+      "Description": "River en äventyrare med sina vassa klor över kroppen."
+    },
+    "TailsSlash": {
+      "Type": "Svansattack",
+      "Description": "Piskar med svansspetsen mot en äventyrare inom Nära avstånd. Om attacken träffar slås offret omkull."
+    },
+    "TentacleLash": {
+      "Type": "Snärtattck",
+      "Description": "Piskar med sina tentaklers mot en äventyrare inom Nära avstånd. Om attacken träffar slås offret omkull."
+    },
+    "Devour": {
+      "Type": "Sluka",
+      "Description": "Försöker sluka en äventyrare och om attacken lyckas blir offret slukat helt. Äventyraren kan fortsätta anfalla besten inifrån och varelsen saknar dessutom skydd då. Offret tar sig ut när besten är död. Varje runda i bestens inre tar offret 1 poäng skada."
+    },
+    "SpitAcid": {
+      "Type": "Spotta syra",
+      "Description": "Besten öppnar sin käft och låter ett moln av frätande syra regna över alla äventyrare inom Nära avstånd. Offer som träffas tar 1 poäng skada igen varje runda i T3 rundor."
+    },
+    "DiveAttack": {
+      "Type": "Dykattack",
+      "Description": "Sveper genom luften och river en olycklig äventyrare inom Nära avstånd med all sin kraft. Om attacken träffar slås offret till marken."
     }
   }
 }

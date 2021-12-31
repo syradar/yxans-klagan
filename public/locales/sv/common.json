@@ -71,5 +71,10 @@
     "SouthWest": "sydväst",
     "West": "väst",
     "NorthWest": "nordväst"
+  },
+  "Range": {
+    "ArmsLength": "Armslängd",
+    "Near": "Nära",
+    "Short": "Kort"
   }
 }
