@@ -16420,7 +16420,7 @@ var RandomMonsterDisplay = ({
         }
       }
     }, css`
-                    @media (min-width: 640px) and (max-width: 767.99px) {
+                    @media (min-width: 640px) and (max-width: 767px) {
                       :nth-of-type(4n + 3) {
                         background-color: rgba(
                           229,
