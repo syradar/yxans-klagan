@@ -1,4 +1,10 @@
-import { choose, countSuccesses, weightedRandom } from './dice.functions'
+import {
+  choose,
+  countSuccesses,
+  parseChoiceString,
+  weightedRandom,
+  weightedRandomConsume,
+} from './dice.functions'
 
 describe('dice functions', () => {
   describe('countSuccesses', () => {
@@ -47,6 +53,41 @@ describe('dice functions', () => {
     ])('%j => %s', (input, expected) => {
       const result = weightedRandom(input)
       expect(result.type).toEqual(expected)
+    })
+  })
+
+  describe('weightedRandomConsume', () => {
+    it.each([
+      [[{ weight: 0, type: 'hej' }], [{ weight: 0, type: 'hej' }, []]],
+      [
+        [
+          { weight: -1, type: 'hej' },
+          { weight: 100, type: 'då' },
+          { weight: -1, type: 're' },
+        ],
+        [
+          { weight: 100, type: 'då' },
+          [
+            { weight: -1, type: 'hej' },
+            { weight: -1, type: 're' },
+          ],
+        ],
+      ],
+    ])('%j => %s', (input, expected) => {
+      const result = weightedRandomConsume(input)
+      expect(result).toEqual(expected)
+    })
+  })
+
+  describe('parseChoiceString', () => {
+    it.each([
+      ['1', [1]],
+      ['1|2', [1, 2]],
+      ['1^2|2|3', [1, 1, 2, 3]],
+      ['1^2|2^0|3^1|4', [1, 1, 3, 4]],
+    ])('%j => %s', (input, expected) => {
+      const result = parseChoiceString(input)
+      expect(result).toEqual(expected)
     })
   })
 })

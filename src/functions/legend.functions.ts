@@ -1,10 +1,5 @@
 import { TFunction } from 'react-i18next'
-import {
-  getRandomInt,
-  getRandomT6,
-  getRandomT66,
-  getRandomT8,
-} from './dice.functions'
+import { getRandomInt, rollD6, rollD66, rollD8 } from './dice.functions'
 
 export const generateLegend = (
   t: TFunction<('session' | 'common')[]>,
@@ -20,9 +15,9 @@ export const generateLegend = (
   const who_searched_for = getText(WHO_SEARCHED_FOR)
   const because = getText(BECAUSE)
   const location = getText(LOCATION)
-  const distance = getText(DISTANCE, getRandomT6)
+  const distance = getText(DISTANCE, rollD6)
   const terrain = getText(TERRAIN)
-  const direction = getText(DIRECTION, getRandomT8)
+  const direction = getText(DIRECTION, rollD8)
   const what_happened = getText(WHAT_HAPPENED)
   const its_told_that = getText(ITS_TOLD_THAT)
   const adjective_adversary = getText(ADJECTIVE_ADVERSARY)
@@ -77,7 +72,7 @@ interface TimeAgoResult {
 }
 
 const timeAgo = (): TimeAgoResult => {
-  const roll = getRandomT66()
+  const roll = rollD66()
 
   const time = TIME_AGO.find((ta) => ta.roll.includes(roll))
   if (time) {
@@ -133,7 +128,7 @@ interface LegendTableItem {
 
 const getText = (
   arr: LegendTableItem[],
-  diceFn: () => number = getRandomT66,
+  diceFn: () => number = rollD66,
 ): LegendTableItem => {
   const roll = diceFn()
 
@@ -158,7 +153,7 @@ const getAdversary = (
     return `${_t(adjective.text())} ${_t(adversary.text())}`
   }
 
-  const count = getRandomT6()
+  const count = rollD6()
 
   return `${count} ${_t(adjective.text())} ${_t(adversary.text())}`
 }

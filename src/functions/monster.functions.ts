@@ -1,34 +1,26 @@
-import {
-  AttributeTypeLabel,
-  AttributeViewModel,
-} from '../models/attributes.model'
+import { TFunction } from 'react-i18next'
 import { Monster, MonsterViewModel } from '../models/monster.model'
-import { range } from './array.functions'
+import { createAttributesViewModel } from './attributes.functions'
 
 export const createMonstersViewModel = (
-  monsters: Monster[],
-): MonsterViewModel[] => {
-  return monsters.map((m) => {
-    return {
-      ...m,
-      attributes: {
-        strength: numToBooleans('Strength', m.attributes.strength),
-        agility: numToBooleans('Agility', m.attributes.agility),
-        wits: numToBooleans('Wits', m.attributes.wits),
-        empathy: numToBooleans('Empathy', m.attributes.empathy),
-      },
+  monster: Monster,
+): MonsterViewModel => ({
+  ...monster,
+  attributes: createAttributesViewModel(monster.attributes),
+})
+
+export const monsterComparer =
+  (t: TFunction<'monsters' | 'common'>) =>
+  (a: MonsterViewModel, b: MonsterViewModel): number => {
+    const ma = t(`Monster.${a.name}`, { ns: 'common' })
+    const mb = t(`Monster.${b.name}`, { ns: 'common' })
+
+    if (ma < mb) {
+      return -1
     }
-  })
-}
+    if (ma > mb) {
+      return 1
+    }
 
-const numToBooleans = (
-  label: AttributeTypeLabel,
-  num?: number,
-): AttributeViewModel | undefined => {
-  if (!num) return undefined
-
-  return {
-    label,
-    values: range(num).map((_) => false),
+    return 0
   }
-}

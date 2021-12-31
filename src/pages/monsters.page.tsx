@@ -1,94 +1,89 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { css } from 'twin.macro'
-import { ListItem } from '../components/list-item'
-import { MonsterAttribute } from '../components/monster-attributes'
+import 'twin.macro'
+import { List } from '../components/list'
+import { ListGroup } from '../components/list-group'
+import { ListItemButton } from '../components/list-item'
+import { MonsterDisplay } from '../components/monster-display'
 import { PageHeader } from '../components/page-header'
 import { Parchment } from '../components/parchment'
+import { RandomMonsterDisplay } from '../components/random-monster-display'
 import { bookMonsters } from '../data/monster.data'
-import { createMonstersViewModel } from '../functions/monster.functions'
+import {
+  createMonstersViewModel,
+  monsterComparer,
+} from '../functions/monster.functions'
+import { createRandomMonsterViewModel } from '../functions/random-monster.functions'
 import { MonsterViewModel } from '../models/monster.model'
 
 export const MonstersPage = () => {
   const { t, i18n } = useTranslation(['monsters', 'common'])
-  const monsters = createMonstersViewModel(bookMonsters)
+  const monsters = bookMonsters
+    .map(createMonstersViewModel)
+    .sort(monsterComparer(t))
   const [monster, setMonster] = useState(monsters[0])
-  const monsterComparer = (
-    a: MonsterViewModel,
-    b: MonsterViewModel,
-  ): number => {
-    const ma = t(`Monster.${a.name}`)
-    const mb = t(`Monster.${b.name}`)
 
-    if (ma < mb) {
-      return -1
-    }
-    if (ma > mb) {
-      return 1
-    }
+  const [showRandomMonster, setShowRandomMonster] = useState(true)
 
-    return 0
+  const [randomMonster, setRandomMonster] = useState(
+    createRandomMonsterViewModel(t),
+  )
+
+  const selectMonster = (m: MonsterViewModel) => {
+    setMonster(m)
+    setShowRandomMonster(false)
   }
+
+  const generateRandomMonster = () => {
+    setRandomMonster(createRandomMonsterViewModel(t))
+    setShowRandomMonster(true)
+  }
+
+  useEffect(() => {
+    monsters.sort(monsterComparer(t))
+  }, [i18n.language])
 
   return (
     <div tw="flex flex-col gap-y-8 w-full ">
       <PageHeader>{t('Title')}</PageHeader>
-      <div tw="grid lg:(grid-template-columns[25% 1fr]) gap-16">
+      <div tw="grid lg:(grid-template-columns[1fr 3fr]) gap-16">
         <div>
-          <h3 tw="text-xl font-bold mb-2">{t(`BookMonsters`)}</h3>
-          <ul
-            tw="bg-gray-100 max-h-96 lg:max-h-[initial] xl:max-h-[initial] 2xl:max-h-[initial]"
-            css={css`
-              overflow-y: overlay;
-            `}
-          >
-            {monsters.sort(monsterComparer).map((m) => (
-              <ListItem key={m.name} onClick={() => setMonster(m)}>
-                {t(`Monster.${m.name}`, { ns: 'common' })}
-              </ListItem>
-            ))}
-          </ul>
+          <List>
+            <ListGroup tw="mb-8" label={t(`GenerateMonster`)} open={true}>
+              <ul>
+                <li tw="border border-gray-300 border-b-0 last:border-b">
+                  <ListItemButton onClick={() => generateRandomMonster()}>
+                    {t('RandomMonster')}
+                  </ListItemButton>
+                </li>
+              </ul>
+            </ListGroup>
+            <ListGroup label={t(`BookMonsters`)} open={true}>
+              <ul>
+                {monsters.map((m) => (
+                  <li
+                    key={m.name}
+                    tw="border border-gray-300 border-b-0 last:border-b"
+                  >
+                    <ListItemButton onClick={() => selectMonster(m)}>
+                      {t(`Monster.${m.name}`, { ns: 'common' })}
+                    </ListItemButton>
+                  </li>
+                ))}
+              </ul>
+            </ListGroup>
+          </List>
         </div>
 
-        <Parchment tw="lg:(w-3/4)" deps={[monster, i18n.language]}>
-          <header tw="mb-4">
-            <h2 tw="text-4xl mb-2" className="yx-heading">
-              {t(`Monster.${monster.name}`, { ns: ['common'] })}
-            </h2>
-            {monster.pageReference && (
-              <div>
-                {t('Page', { ns: 'common' })}: {monster.pageReference}{' '}
-                {t('GMBook', { ns: 'common' })}
-              </div>
-            )}
-          </header>
-          <h3 tw="text-xl font-bold">{t(`Attribute`)}</h3>
-          <div tw="flex flex-col gap-2">
-            {monster.attributes.strength && (
-              <MonsterAttribute
-                key={`${monster.name}-strength`}
-                attribute={{ ...monster.attributes.strength }}
-              />
-            )}
-            {monster.attributes.agility && (
-              <MonsterAttribute
-                key={`${monster.name}-agility`}
-                attribute={{ ...monster.attributes.agility }}
-              />
-            )}
-            {monster.attributes.wits && (
-              <MonsterAttribute
-                key={`${monster.name}-wits`}
-                attribute={{ ...monster.attributes.wits }}
-              />
-            )}
-            {monster.attributes.empathy && (
-              <MonsterAttribute
-                key={`${monster.name}-empathy`}
-                attribute={{ ...monster.attributes.empathy }}
-              />
-            )}
-          </div>
+        <Parchment
+          tw="lg:(w-3/4)"
+          deps={[monster, randomMonster, i18n.language]}
+        >
+          {showRandomMonster ? (
+            <RandomMonsterDisplay rm={randomMonster}></RandomMonsterDisplay>
+          ) : (
+            <MonsterDisplay m={monster}></MonsterDisplay>
+          )}
         </Parchment>
       </div>
     </div>

@@ -13,3 +13,11 @@ export const min = (minVal: number) => (val: number) => {
 }
 
 export const minZero = min(0)
+
+export const isEven = (val: number): boolean => {
+  if (isNaN(val)) {
+    throw new TypeError(`val was NaN`)
+  }
+
+  return val % 2 === 0
+}
