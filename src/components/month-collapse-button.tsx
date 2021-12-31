@@ -13,7 +13,7 @@ export const MonthCollapseButton = ({
   collapsed,
   onMonthCollapseClick,
   children,
-  small = true,
+  small = false,
 }: MonthCollapseButtonProps) => {
   const { t } = useTranslation('calendar')
 

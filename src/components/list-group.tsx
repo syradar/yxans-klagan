@@ -14,6 +14,7 @@ export const ListGroup = ({ children, label, open }: ListGroupProps) => {
   return (
     <section>
       <MonthCollapseButton
+        small
         collapsed={!groupOpen}
         onMonthCollapseClick={() => setGroupOpen(!groupOpen)}
       >
