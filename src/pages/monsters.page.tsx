@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import 'twin.macro'
 import { List } from '../components/list'
-import { ListGroup } from '../components/list-group'
+import { Group } from '../components/group'
 import { ListItemButton } from '../components/list-item'
 import { MonsterDisplay } from '../components/monster-display'
 import { PageHeader } from '../components/page-header'
@@ -49,7 +49,7 @@ export const MonstersPage = () => {
       <div tw="grid lg:(grid-template-columns[1fr 3fr]) gap-16">
         <div>
           <List>
-            <ListGroup tw="mb-8" label={t(`GenerateMonster`)} open={true}>
+            <Group tw="mb-8" label={t(`GenerateMonster`)} open={true}>
               <ul>
                 <li tw="border border-gray-300 border-b-0 last:border-b">
                   <ListItemButton onClick={() => generateRandomMonster()}>
@@ -57,8 +57,8 @@ export const MonstersPage = () => {
                   </ListItemButton>
                 </li>
               </ul>
-            </ListGroup>
-            <ListGroup label={t(`BookMonsters`)} open={true}>
+            </Group>
+            <Group label={t(`BookMonsters`)} open={true}>
               <ul>
                 {monsters.map((m) => (
                   <li
@@ -71,7 +71,7 @@ export const MonstersPage = () => {
                   </li>
                 ))}
               </ul>
-            </ListGroup>
+            </Group>
           </List>
         </div>
 

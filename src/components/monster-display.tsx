@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import 'twin.macro'
 import { MonsterViewModel } from '../models/monster.model'
 import { MonsterAttribute } from './monster-attributes'
+import { Pancake } from './stack'
 
 export interface MonsterDisplayProps {
   m: MonsterViewModel
@@ -25,36 +26,43 @@ export const MonsterDisplay = ({ m }: MonsterDisplayProps) => {
         )}
       </header>
       <h3 tw="text-xl font-bold">{t(`Attribute`)}</h3>
-      <div tw="flex flex-col gap-2">
+
+      <Pancake spacing="small">
         {m.attributes.strength && (
           <MonsterAttribute
             key={`${m.name}-strength`}
             values={[...m.attributes.strength.values]}
-            label={t(`Attributes.${m.attributes.strength.label}`)}
+            label={t(`Attributes.${m.attributes.strength.label}`, {
+              ns: 'common',
+            })}
           />
         )}
         {m.attributes.agility && (
           <MonsterAttribute
             key={`${m.name}-agility`}
             values={[...m.attributes.agility.values]}
-            label={t(`Attributes.${m.attributes.agility.label}`)}
+            label={t(`Attributes.${m.attributes.agility.label}`, {
+              ns: 'common',
+            })}
           />
         )}
         {m.attributes.wits && (
           <MonsterAttribute
             key={`${m.name}-wits`}
             values={[...m.attributes.wits.values]}
-            label={t(`Attributes.${m.attributes.wits.label}`)}
+            label={t(`Attributes.${m.attributes.wits.label}`, { ns: 'common' })}
           />
         )}
         {m.attributes.empathy && (
           <MonsterAttribute
             key={`${m.name}-empathy`}
             values={[...m.attributes.empathy.values]}
-            label={t(`Attributes.${m.attributes.empathy.label}`)}
+            label={t(`Attributes.${m.attributes.empathy.label}`, {
+              ns: 'common',
+            })}
           />
         )}
-      </div>
+      </Pancake>
     </div>
   )
 }

@@ -1,12 +1,5 @@
 {
   "Title": "Monster",
-  "Attribute": "Grundegenskaper",
-  "Attributes": {
-    "Strength": "Styrka",
-    "Agility": "Smidighet",
-    "Wits": "Intelligens",
-    "Empathy": "Karisma"
-  },
   "BookMonsters": "Monster från boken",
   "TheMonsterHas": "Monstret",
   "TheMonsterHave": "Monstret har",

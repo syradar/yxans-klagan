@@ -6,6 +6,7 @@ import { MonsterType, RandomMonsterViewModel } from '../models/monster.model'
 import { DefinitionList } from './definition-list'
 import { MonsterAttribute } from './monster-attributes'
 import { SkillList } from './skill-list'
+import { Pancake } from './stack'
 
 export interface RandomMonsterDisplayProps {
   rm: RandomMonsterViewModel
@@ -28,7 +29,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
   }
 
   return (
-    <div tw="flex flex-col gap-2">
+    <Pancake wrap={false}>
       <h2 tw="text-4xl mb-2" className="yx-heading">
         {t(`Size.${rm.size}`, { ...getSizeContext(rm.type) })}{' '}
         {t(`Type.${rm.type}`)}
@@ -51,7 +52,9 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
                   <MonsterAttribute
                     key={`${rm.size}-strength`}
                     values={[...rm.attributes.strength.values]}
-                    label={t(`Attributes.${rm.attributes.strength.label}`)}
+                    label={t(`Attributes.${rm.attributes.strength.label}`, {
+                      ns: 'common',
+                    })}
                   />
                 </div>
               )}
@@ -60,7 +63,9 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
                   <MonsterAttribute
                     key={`${rm.size}-agility`}
                     values={[...rm.attributes.agility.values]}
-                    label={t(`Attributes.${rm.attributes.agility.label}`)}
+                    label={t(`Attributes.${rm.attributes.agility.label}`, {
+                      ns: 'common',
+                    })}
                   />
                 </div>
               )}
@@ -194,7 +199,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
                     </span>
                     {t(a.range, { ns: 'common' })}
                   </td>
-                  <td tw="block md:(table-cell py-1 px-2 word-break[break-all]) ">
+                  <td tw="block md:(table-cell py-1 px-2) ">
                     {t(a.description)}
                   </td>
                 </tr>
@@ -203,6 +208,6 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
           </table>
         </div>
       </section>
-    </div>
+    </Pancake>
   )
 }

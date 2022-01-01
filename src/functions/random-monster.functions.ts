@@ -31,7 +31,6 @@ import {
   MonsterMotivation,
   MonsterMovement,
   MonsterSkillListItem,
-  MonsterSkills,
   MonsterTrait,
   MonsterWeakness,
   RandomMonster,
@@ -39,6 +38,7 @@ import {
   TailChoices,
   WeightedRandomMonsterChoice,
 } from '../models/monster.model'
+import { MonsterSkillsValues } from '../models/skills.model'
 import { range } from './array.functions'
 import { createAttributesViewModel } from './attributes.functions'
 import {
@@ -258,7 +258,7 @@ export const getMonsterWeakness = (): MonsterWeakness =>
   weightedRandom(monsterWeakness).value
 
 export const getMonsterSkillListItems = (
-  skills: MonsterSkills,
+  skills: MonsterSkillsValues,
 ): MonsterSkillListItem[] => {
   return [
     skills.Melee > 0 ? [{ name: `Skills.Melee`, value: skills.Melee }] : [],
@@ -309,7 +309,9 @@ const createMonsterAttacks = (
     return acc
   }, [] as MonsterAttackViewModel[])
 
-const createMonsterSkills = (skillValueChoice: string): MonsterSkills => ({
+const createMonsterSkills = (
+  skillValueChoice: string,
+): MonsterSkillsValues => ({
   Melee: chooseFromChoiceString(skillValueChoice),
   Move: chooseFromChoiceString(skillValueChoice),
   Scouting: chooseFromChoiceString(skillValueChoice),

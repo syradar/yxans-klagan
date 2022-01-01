@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 import 'twin.macro'
 import { css } from 'twin.macro'
+import { Pancake } from './stack'
 
 interface ListProps {
   children: ReactNode
@@ -9,12 +10,12 @@ interface ListProps {
 export const List = ({ children }: ListProps) => {
   return (
     <div
-      tw="max-h-96 lg:max-h-[initial] xl:max-h-[initial] 2xl:max-h-[initial] flex flex-col gap-4"
+      tw="max-h-96 lg:max-h-[initial] xl:max-h-[initial] 2xl:max-h-[initial]"
       css={css`
         overflow: overlay;
       `}
     >
-      {children}
+      <Pancake>{children}</Pancake>
     </div>
   )
 }

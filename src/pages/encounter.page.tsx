@@ -4,6 +4,7 @@ import 'twin.macro'
 import { Button } from '../components/Button'
 import { Encounter } from '../components/encounter'
 import { PageHeader } from '../components/page-header'
+import { Train } from '../components/stack'
 import { rollD66 } from '../functions/dice.functions'
 import {
   getEncounterById,
@@ -71,18 +72,20 @@ export const EncounterPage = () => {
   return (
     <div tw="flex flex-col gap-y-8 w-full items-center">
       <PageHeader>{t('Title')}</PageHeader>
-      <div tw="w-full bg-gray-200 p-2 grid grid-cols-2 md:grid-cols-3 lg:(flex) gap-2">
-        {getTerrainKeys().map((terrain) => (
-          <Button
-            key={terrain}
-            isSmall
-            onClick={() => {
-              handleClick(terrain)
-            }}
-          >
-            {t(`Terrain.${terrain}`, { ns: 'common' })}
-          </Button>
-        ))}
+      <div tw="w-full bg-gray-200 p-2">
+        <Train spacing="small">
+          {getTerrainKeys().map((terrain) => (
+            <Button
+              key={terrain}
+              isSmall
+              onClick={() => {
+                handleClick(terrain)
+              }}
+            >
+              {t(`Terrain.${terrain}`, { ns: 'common' })}
+            </Button>
+          ))}
+        </Train>
       </div>
 
       <div tw="w-full grid md:grid-flow-col auto-cols-auto gap-16">

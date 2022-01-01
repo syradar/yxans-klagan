@@ -20,7 +20,7 @@ export const MonthCollapseButton = ({
   return (
     <button
       aria-label={t(collapsed ? `ShowMonth` : `HideMonth`)}
-      tw="flex items-center gap-2"
+      tw="flex items-center gap-2 w-full text-left"
       className="group"
       onClick={onMonthCollapseClick}
       type="button"
@@ -41,7 +41,7 @@ export const MonthCollapseButton = ({
           ]}
         ></div>
       </div>
-      <div tw="group-hover:text-red-500">{children}</div>
+      <div tw="group-hover:text-red-500 w-full">{children}</div>
     </button>
   )
 }
