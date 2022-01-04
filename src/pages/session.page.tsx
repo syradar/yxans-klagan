@@ -25,6 +25,7 @@ export const SessionPage = () => {
             <button
               tw="flex gap-2 items-center mb-4 hover:text-red-500"
               onClick={() => getLegend()}
+              type="button"
             >
               <h2 tw="text-4xl text-center flex" className="yx-heading">
                 {t('Legend')}

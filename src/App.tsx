@@ -9,9 +9,11 @@ import {
 } from 'react-router-dom'
 import tw from 'twin.macro'
 import './App.css'
+import { Group } from './components/group'
 import { LanguageSwitcher } from './components/language-switcher'
 import { PageHeader } from './components/page-header'
 import { Parchment } from './components/parchment'
+import { Pancake, Stack } from './components/stack'
 import { YxansKlaganLogo } from './logo'
 import { CalendarPage } from './pages/calendar.page'
 import { DiceRollerPage } from './pages/dice-roller.page'
@@ -21,6 +23,7 @@ import { MapPage } from './pages/map.page'
 import { MonstersPage } from './pages/monsters.page'
 import { NameGeneratorPage } from './pages/name-generator.page'
 import { SessionPage } from './pages/session.page'
+import { TypicalKinPage } from './pages/typical-kin.page'
 
 const styles = {
   // Move long class sets out of jsx to keep it scannable
@@ -34,44 +37,62 @@ const styles = {
 const App = () => {
   const routes = useRoutes([
     {
-      path: '/',
+      path: '',
       element: <HomePage />,
     },
     {
-      path: '/dice',
+      path: 'dice',
       element: <DiceRollerPage />,
     },
     {
-      path: '/names',
-      element: <NameGeneratorPage />,
+      path: 'kin',
+      children: [
+        {
+          path: 'names',
+          element: <NameGeneratorPage />,
+        },
+        {
+          path: 'typical',
+          element: <TypicalKinPage />,
+        },
+        {
+          path: '*',
+          element: <NameGeneratorPage />,
+        },
+      ],
     },
     {
-      path: '/gear',
+      path: 'gear',
       element: <GearPage />,
     },
     {
-      path: '/calendar',
+      path: 'calendar',
       element: <CalendarPage />,
     },
     {
-      path: '/session',
+      path: 'session',
       element: <SessionPage />,
     },
     {
-      path: '/map',
+      path: 'map',
       element: <MapPage />,
     },
     {
-      path: '/encounter',
+      path: 'encounter',
       element: <EncounterPage />,
     },
     {
-      path: '/monsters',
+      path: 'monsters',
       element: <MonstersPage />,
     },
   ])
 
   const { t } = useTranslation('core')
+
+  const { pathname } = useLocation()
+  const { pathname: toPathname } = useResolvedPath('kin')
+
+  const isLinkActive = pathname.includes(toPathname)
 
   return (
     <div className="App" css={styles.container()}>
@@ -82,17 +103,33 @@ const App = () => {
               <YxansKlaganLogo />
             </Link>
           </div>
-          <div tw="h-full flex flex-col justify-between pb-4">
-            <nav tw="text-lg w-full flex flex-col gap-y-1">
+          <div tw="h-full pb-4 flex flex-col justify-between">
+            <PancakeNav dir="vertical" wrap={false} spacing="small">
               <MenuLink to="/session">{t('Menu-Session')}</MenuLink>
               <MenuLink to="/encounter">{t('Menu-Encounters')}</MenuLink>
               <MenuLink to="/monsters">{t('Menu-Monsters')}</MenuLink>
               <MenuLink to="/map">{t('Menu-Map')}</MenuLink>
               <MenuLink to="/calendar">{t('Menu-Calendar')}</MenuLink>
               <MenuLink to="/gear">{t('Menu-Gear')}</MenuLink>
-              <MenuLink to="/names">{t('Menu-Names')}</MenuLink>
-              {/* <MenuLink to="/dice">{t('Menu-Dice')}</MenuLink> */}
-            </nav>
+              <div tw="pl-4">
+                <Group
+                  spaceBeforeItems={false}
+                  indent={false}
+                  label={<div tw="font-medium">{t('Menu-Kin')}</div>}
+                  open={isLinkActive}
+                >
+                  <div tw="mt-2">
+                    <Pancake spacing="small">
+                      <MenuLink to="/kin/names">{t('Menu-Kin-Names')}</MenuLink>
+                      <MenuLink to="/kin/typical">
+                        {t('Menu-Kin-Typical')}
+                      </MenuLink>
+                    </Pancake>
+                  </div>
+                </Group>
+              </div>
+            </PancakeNav>
+            {/* <MenuLink to="/dice">{t('Menu-Dice')}</MenuLink> */}
             <LanguageSwitcher></LanguageSwitcher>
           </div>
           <a
@@ -110,6 +147,8 @@ const App = () => {
 }
 
 export default App
+
+const PancakeNav = tw(Stack)`text-lg w-full`
 
 const HomePage = () => (
   <div tw="flex flex-col gap-y-8 max-w-prose">

@@ -12,8 +12,8 @@ describe('createAttributeViewModel', () => {
   const cases: [number | undefined, AttributeViewModel | undefined][] = [
     [undefined, undefined],
     [0, undefined],
-    [1, { label: 'Strength', values: [false] }],
-    [2, { label: 'Strength', values: [false, false] }],
+    [1, { label: 'Strength', value: 1, values: [false] }],
+    [2, { label: 'Strength', value: 2, values: [false, false] }],
     [NaN, undefined],
     [Infinity, undefined],
   ]
@@ -47,10 +47,14 @@ describe('createAttributesViewModel', () => {
         empathy: 4,
       },
       {
-        strength: { label: 'Strength', values: [false] },
-        agility: { label: 'Agility', values: [false, false] },
-        wits: { label: 'Wits', values: [false, false, false] },
-        empathy: { label: 'Empathy', values: [false, false, false, false] },
+        strength: { label: 'Strength', value: 1, values: [false] },
+        agility: { label: 'Agility', value: 2, values: [false, false] },
+        wits: { label: 'Wits', value: 3, values: [false, false, false] },
+        empathy: {
+          label: 'Empathy',
+          value: 4,
+          values: [false, false, false, false],
+        },
       },
     ],
   ]

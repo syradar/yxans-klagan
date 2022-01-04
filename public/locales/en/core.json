@@ -6,7 +6,9 @@
   "Menu-Map": "Map",
   "Menu-Calendar": "Calendar",
   "Menu-Gear": "Utrustning",
-  "Menu-Names": "Names",
+  "Menu-Kin": "Kin",
+  "Menu-Kin-Typical": "Typical person",
+  "Menu-Kin-Names": "Human Names",
   "Menu-Dice": "Tärningar",
   "Menu-Monsters": "Monsters",
   "GiveFeedback": "Give feedback"

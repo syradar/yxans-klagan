@@ -71,7 +71,7 @@ export const Parchment = React.forwardRef<SVGSVGElement, ParchmentProps>(
         />
         <foreignObject width="100%" height="100%">
           <div
-            tw="p-4 "
+            tw="p-4"
             css={{
               padding: `2rem calc(1rem + ${(100 - dim) * 1}%)`,
             }}

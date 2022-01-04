@@ -25,6 +25,7 @@ export const createAttributeViewModel = (
 
   return {
     label,
+    value: num,
     values: numberToBooleans(num),
   }
 }

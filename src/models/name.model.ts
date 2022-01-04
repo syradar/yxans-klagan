@@ -23,27 +23,61 @@ export interface NameList {
   nickName?: readonly string[]
 }
 
-export enum KinType {
-  Human = 'Human',
-  Elf = 'Elf',
-}
+export type KinType =
+  | 'Human'
+  | 'Elf'
+  | 'Dwarf'
+  | 'Ogre'
+  | 'Orc'
+  | 'Wolfkin'
+  | 'Saurian'
+  | 'Whiner'
+  | 'HalflingAndGoblin'
 
-export enum HumanKin {
-  Alderlander = 'Alderlander',
-  Ailander = 'Ailander',
-  Aslene = 'Aslene',
-}
+export type HumanKin =
+  | 'Alderlander'
+  | 'Ailander'
+  | 'Aslene'
+  | 'Frailer'
+  | 'SilentGuard'
+  | 'MaidenDruid'
 
-export enum ElfKin {
-  Elf = 'Elf',
-}
+export type ElfKin =
+  | 'StillElf'
+  | 'UnrulyElf'
+  | 'GoldenBough'
+  | 'Melder'
+  | 'RedRunner'
 
-export type Kins = {
-  [KinType.Human]: HumanKin
-  [KinType.Elf]: ElfKin
-}
+export type DwarfKin = 'Belderranian' | 'Meromannian' | 'Canide' | 'Crombe'
 
-export type HumanNames = { [H in Kins['Human']]: NameList }
+export type OgreKin = 'Ogre'
+
+export type OrcKin = 'Urhur' | 'Roka' | 'Isir' | 'Viraga' | 'Drifter'
+
+export type WolfKin = 'Wolfkin'
+
+export type SaurianKin = 'Saurian'
+
+export type WhinerKin = 'Whiner'
+
+export type HalflingAndGoblinKin = 'Halfling' | 'Goblin'
+
+export type TypicalKins =
+  | HumanKin
+  | ElfKin
+  | DwarfKin
+  | OgreKin
+  | OrcKin
+  | WolfKin
+  | SaurianKin
+  | WhinerKin
+  | HalflingAndGoblinKin
+
+export type Kins = HumanKin | ElfKin
+export type HumanNames = {
+  [H in Extract<HumanKin, 'Alderlander' | 'Ailander' | 'Aslene'>]: NameList
+}
 
 export interface VillageNameModel {
   prefix: readonly string[]

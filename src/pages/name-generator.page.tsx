@@ -1,4 +1,3 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import 'twin.macro'
 import { KinNameList } from '../components/kin-name-list'
@@ -9,7 +8,6 @@ import {
   getRandomAlderlanderName,
   getRandomAsleneName,
 } from '../functions/name.functions'
-import { HumanKin } from '../models/name.model'
 
 export const NameGeneratorPage = () => {
   const { t } = useTranslation('names')
@@ -23,7 +21,7 @@ export const NameGeneratorPage = () => {
           <Parchment>
             <KinNameList
               tw="p-0"
-              title={HumanKin.Ailander}
+              title="Ailander"
               nameFunc={getRandomAilanderName}
             ></KinNameList>
           </Parchment>
@@ -33,7 +31,7 @@ export const NameGeneratorPage = () => {
           <Parchment>
             <KinNameList
               tw="p-0"
-              title={HumanKin.Alderlander}
+              title="Alderlander"
               nameFunc={getRandomAlderlanderName}
             ></KinNameList>
           </Parchment>
@@ -43,7 +41,7 @@ export const NameGeneratorPage = () => {
           <Parchment>
             <KinNameList
               tw="p-0"
-              title={HumanKin.Aslene}
+              title="Aslene"
               nameFunc={getRandomAsleneName}
             ></KinNameList>
           </Parchment>

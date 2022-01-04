@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
+import 'twin.macro'
 import { useTranslation } from 'react-i18next'
-import tw from 'twin.macro'
-
 import {
   getFahrenheitTempString,
   getMoonEmoji,
@@ -11,6 +10,7 @@ import {
 } from '../functions/weather.functions'
 import { Day } from '../models/calendar.model'
 import { DayCounter } from './day-counter'
+import { Pancake, Train } from './stack'
 
 interface CalendarDayProps {
   day: Day
@@ -34,37 +34,37 @@ export const CalendarDay: FC<CalendarDayProps> = ({
   }
 
   return (
-    <div tw="p-2 border flex flex-col gap-2">
-      <div tw="flex justify-between">
-        <div tw="flex flex-col w-5">
+    <div tw="p-2 border">
+      <Pancake spacing="small">
+        <Pancake spacing="none" wrap={false}>
           <div tw="lg:(hidden)">{t(day.name)}</div>
-          <div tw="flex gap-1" css={[day.number === 1 ? tw`font-bold` : tw``]}>
-            {day.number}
-            <div>{getMoonEmoji(day.moon)}</div>
+          <Train spacing="small">
+            <div>{day.number}</div>
+            {day.moon && <div>{getMoonEmoji(day.moon)}</div>}
             <div>{getWeatherIcon(day)}</div>
-          </div>
+          </Train>
+        </Pancake>
+        <div tw="w-full">
+          <DayCounter
+            quarters={day.quarters}
+            spendQuarter={() => quarterClicked(day)}
+          ></DayCounter>
         </div>
-      </div>
-      <div tw="w-full">
-        <DayCounter
-          quarters={day.quarters}
-          spendQuarter={() => quarterClicked(day)}
-        ></DayCounter>
-      </div>
-      {showWeather && (
-        <div tw="">
-          <div>
-            {t('Weather-High')}: {formatTemperature(day.temp)}
-          </div>
-          <div>
-            {t('Weather-Low')}: {formatTemperature(day.lowTemp)}
-          </div>
-          <div>{t(day.downpour)}</div>
-          <div>{t(day.stormType)}</div>
-          <div>{t(day.stormType)}</div>
-          <div>{t(day.eventType?.name ?? '')}</div>
-        </div>
-      )}
+        {showWeather && (
+          <Train spacing="none">
+            <div>
+              {t('Weather-High')}: {formatTemperature(day.temp)}
+            </div>
+            <div>
+              {t('Weather-Low')}: {formatTemperature(day.lowTemp)}
+            </div>
+            <div>{t(day.downpour)}</div>
+            <div>{t(day.stormType)}</div>
+            <div>{t(day.stormType)}</div>
+            <div>{t(day.eventType?.name ?? '')}</div>
+          </Train>
+        )}
+      </Pancake>
     </div>
   )
 }

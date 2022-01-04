@@ -2,6 +2,8 @@ import { TFunction } from 'react-i18next'
 import { WeightedChoice } from '../functions/dice.functions'
 import { Definition } from '../types/definition.type'
 import { Attributes, AttributesViewModel } from './attributes.model'
+import { MonsterSkillsValues } from './skills.model'
+import { MonsterAttackRange } from './weapon.model'
 
 export interface Monster {
   name: string
@@ -118,8 +120,6 @@ export type MonsterHome =
   | 'Ravine'
   | 'Den'
 
-type Skills = 'Melee' | 'Stealth' | 'Move' | 'Scouting'
-export type MonsterSkills = { [S in Skills]: number }
 export type MonsterSkillListItem = { name: string; value: number }
 
 export type MonsterTrait = {
@@ -159,8 +159,6 @@ export type MonsterAttackType =
   | 'DiveAttack'
 
 export type MonsterDamageType = 'Slashing' | 'Crushing' | 'TailAttack'
-
-export type MonsterAttackRange = 'ArmsLength' | 'Near' | 'Short'
 
 export type MonsterAttack = {
   type: MonsterAttackType
@@ -204,7 +202,7 @@ export interface RandomMonster extends Monster {
   description: MonsterDescription
   armor: ArmorViewModel
   home: MonsterHome
-  skills: MonsterSkills
+  skills: MonsterSkillsValues
   traits: MonsterTrait[]
   weakness: MonsterWeakness
   motivation: MonsterMotivation

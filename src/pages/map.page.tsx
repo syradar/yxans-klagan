@@ -9,6 +9,7 @@ import { PageHeader } from '../components/page-header'
 import { Parchment } from '../components/parchment'
 import { PasteData } from '../components/paste-data'
 import { Polygon } from '../components/polygon'
+import { Train } from '../components/stack'
 import { downloadFile } from '../functions/file.functions'
 import { isNullish, isString } from '../functions/utils.functions'
 import { Hex, HexStorage, initialHexas, isHexKey } from '../models/map.model'
@@ -328,23 +329,25 @@ export const MapPage = () => {
             {t(pasteError)}
           </div>
         )}
-        <div tw="bg-gray-200 p-2 flex justify-end gap-2">
-          <Button isSmall onClick={() => setFogOfWar(!fogOfWar)}>
-            {t('FogOfWar', { context: fogOfWar ? 'On' : 'Off' })}
-          </Button>
-          <Button
-            isSmall
-            variant={!hasExploredHexas ? 'disabled' : undefined}
-            disabled={!hasExploredHexas}
-            onClick={() => handleFileDownload()}
-          >
-            {t('DownloadMapData')}
-          </Button>
-          <PasteData
-            onFocusTextArea={() => setPasteError(undefined)}
-            label={t('PasteMapData')}
-            onData={handlePasteMapData}
-          ></PasteData>
+        <div tw="bg-gray-200 p-2">
+          <Train>
+            <Button isSmall onClick={() => setFogOfWar(!fogOfWar)}>
+              {t('FogOfWar', { context: fogOfWar ? 'On' : 'Off' })}
+            </Button>
+            <Button
+              isSmall
+              variant={!hasExploredHexas ? 'disabled' : undefined}
+              disabled={!hasExploredHexas}
+              onClick={() => handleFileDownload()}
+            >
+              {t('DownloadMapData')}
+            </Button>
+            <PasteData
+              onFocusTextArea={() => setPasteError(undefined)}
+              label={t('PasteMapData')}
+              onData={handlePasteMapData}
+            ></PasteData>
+          </Train>
         </div>
       </div>
     </div>

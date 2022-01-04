@@ -9,6 +9,7 @@ import { CalendarDayNames } from './calendar-day-names'
 import { CalendarFillerDays } from './calendar-filler-day'
 import { MonthCollapseButton } from './month-collapse-button'
 import { Parchment } from './parchment'
+import { Train } from './stack'
 
 interface CalendarMonthProps {
   month: Month
@@ -60,16 +61,18 @@ export const CalendarMonth = ({
   return (
     <div tw="mb-4">
       <Parchment deps={[showWeather, month, month.collapsed]}>
-        <h2
-          tw="text-4xl text-center flex gap-2 items-center"
-          className="yx-heading"
-        >
-          <MonthCollapseButton
-            collapsed={month.collapsed}
-            onMonthCollapseClick={toggleCollapse}
-          ></MonthCollapseButton>
-          {t(month.name)}
-        </h2>
+        <Train>
+          <h2
+            tw="text-4xl text-center flex gap-2 items-center"
+            className="yx-heading"
+          >
+            <MonthCollapseButton
+              collapsed={month.collapsed}
+              onMonthCollapseClick={toggleCollapse}
+            ></MonthCollapseButton>
+            {t(month.name)}
+          </h2>
+        </Train>
 
         {!month.collapsed && (
           <div tw="mt-4 grid grid-cols-3 lg:(grid-cols-7)">

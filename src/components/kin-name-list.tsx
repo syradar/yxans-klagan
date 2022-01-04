@@ -39,7 +39,7 @@ export const KinNameList = ({ title, nameFunc }: KinNameListProps) => {
         onClick={() => getNames()}
       >
         <h2 tw="text-2xl lg:(text-4xl) text-center flex" className="yx-heading">
-          {t(`Kin.${title}`)}
+          {t(`Kin.Human.${title}`)}
         </h2>
         <ReloadIcon container={tw`w-6 h-6`} svg={tw``}></ReloadIcon>
       </button>
