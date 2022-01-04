@@ -19215,7 +19215,7 @@ var TypicalKinDisplay = (typicalKinViewModel) => {
     })
   }, t4(`Range.${w2.range}`, {
     ns: "common"
-  }))), jsx(Train, {
+  }))), w2.features.length > 0 && jsx(Train, {
     spacing: "small"
   }, w2.features.map((f2) => jsx(Tag, {
     key: f2
@@ -19252,7 +19252,7 @@ var TypicalKinDisplay = (typicalKinViewModel) => {
     label: t4(`Weapon.Bonus`, {
       ns: "common"
     })
-  }, s.bonus)), jsx(Train, null, s.features.map((s2) => jsx(Tag, {
+  }, s.bonus)), s.features.length > 0 && jsx(Train, null, s.features.map((s2) => jsx(Tag, {
     key: s2
   }, t4(`ArmorFeature.${s2}`, {
     ns: "common"
@@ -19295,7 +19295,7 @@ var TypicalKinDisplay = (typicalKinViewModel) => {
     })
   }, t4(`Armor.Body`, {
     ns: "common"
-  }))), jsx(Train, {
+  }))), a2.features.length > 0 && jsx(Train, {
     spacing: "small"
   }, a2.features.map((feature) => jsx(Tag, {
     key: feature
@@ -19340,7 +19340,7 @@ var TypicalKinDisplay = (typicalKinViewModel) => {
     })
   }, t4(`Helmet.Body`, {
     ns: "common"
-  }))), jsx(Train, {
+  }))), h2.features.length > 0 && jsx(Train, {
     spacing: "small"
   }, h2.features.map((feature) => jsx(Tag, {
     key: feature
