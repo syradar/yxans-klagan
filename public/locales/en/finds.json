@@ -64,8 +64,8 @@
     "CopperRing": "Copper Ring",
     "CrownWithGemstones": "Crown with Gemstones",
     "DragonscaleBoots": "Dragonscale Boots",
-    "DrinkingHornwithGoldDetails": "Drinking Horn with Gold Details",
-    "DrinkingHornwithSilverDetails": "Drinking Horn with Silver Details",
+    "DrinkingHornWithGoldDetails": "Drinking Horn with Gold Details",
+    "DrinkingHornWithSilverDetails": "Drinking Horn with Silver Details",
     "ElegantBoots": "Elegant Boots",
     "ElegantHelmet": "Elegant Helmet",
     "ElegantLargeShield": "Elegant Large Shield",
@@ -158,6 +158,6 @@
     "UniqueBook": "Unique Book",
     "VelvetGloves": "Velvet Gloves",
     "Waterskin": "Waterskin",
-    "WellTailoredCloakwithSilverBuckle": "Well Tailored Cloak with Silver Buckle"
+    "WellTailoredCloakWithSilverBuckle": "Well Tailored Cloak with Silver Buckle"
   }
 }
