@@ -7,7 +7,7 @@ import { PageHeader } from '../components/page-header'
 import { Parchment } from '../components/parchment'
 import { Grid, Pancake, Train } from '../components/stack'
 import { Stat } from '../components/stat'
-import { carriedFinds, FindTable, lairFinds } from '../data/find.data'
+import { finds } from '../data/find.data'
 import { createFindViewModel, getRandomFind } from '../functions/find.functions'
 import {
   Find,
@@ -22,32 +22,25 @@ export const FindsPage = () => {
   const { t, i18n } = useTranslation(['finds'])
   const [transition, setTransition] = useState(false)
 
-  const data: { [L in FindLocation]: { [T in FindType]: FindTable<T> } } = {
-    Carried: carriedFinds,
-    Lair: lairFinds,
-  }
-
   const createFind = (
     location: FindLocation,
     type: FindType,
-  ): Find<FindType, FindChance> & Unique => {
-    return { ...getRandomFind(data[location][type]), id: getId() }
+  ): Find<FindType, FindChance, FindLocation> & Unique => {
+    return { ...getRandomFind(finds[location][type]), id: getId() }
   }
 
-  const [findData, setFindData] = useState<Find<FindType, FindChance> & Unique>(
-    createFind('Carried', 'Simple'),
-  )
+  const [findData, setFindData] = useState<
+    Find<FindType, FindChance, FindLocation> & Unique
+  >(createFind('Carried', 'Simple'))
 
   const updateFindData = (location: FindLocation, type: FindType) => {
-    setFindData(createFind(location, type))
+    setFindData(() => createFind(location, type))
   }
 
-  const [find, setFind] = useState<FindViewModel>(
-    createFindViewModel(findData, 'Carried'),
-  )
+  const [find, setFind] = useState<FindViewModel>(createFindViewModel(findData))
 
   useEffect(() => {
-    setFind(createFindViewModel(findData, find.location))
+    setFind(() => createFindViewModel(findData))
 
     setTransition(true)
 
@@ -141,7 +134,9 @@ export const FindsPage = () => {
                   <Grid cols="3">
                     <Stat label={t('Weight')}>{find.weight}</Stat>
                     <Stat label={t('Type')}>{t(`Find.Type.${find.type}`)}</Stat>
-                    <Stat label={t('Location')}>{t(find.location)}</Stat>
+                    <Stat label={t('Location')}>
+                      {t(`Find.Location.${find.location}`)}
+                    </Stat>
                   </Grid>
                 </Pancake>
               </Pancake>

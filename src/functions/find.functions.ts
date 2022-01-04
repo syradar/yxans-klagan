@@ -34,9 +34,9 @@ export const rollFindValue = (
   })
 }
 
-export const getRandomFind = <F extends FindType>(
-  findTable: FindTable<F>,
-): Find<F, FindChance> => {
+export const getRandomFind = <F extends FindType, L extends FindLocation>(
+  findTable: FindTable<F, L>,
+): Find<F, FindChance, L> => {
   const roll = rollD66()
   const adjustedRoll = (roll < 31 ? 31 : roll) as FindChance
 
@@ -58,12 +58,10 @@ const weightToViewModelDict: { [W in Weight]: WeightViewModel } = {
 }
 
 export const createFindViewModel = (
-  f: Find<FindType, FindChance>,
-  location: FindLocation,
+  f: Find<FindType, FindChance, FindLocation>,
 ): FindViewModel => {
   return {
     ...f,
-    location,
     weight: weightToViewModelDict[f.weight],
     value: rollFindValue(f.value),
   }
