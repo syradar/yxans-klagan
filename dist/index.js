@@ -15428,9 +15428,8 @@ var FindsPage = () => {
       flexDirection: "column",
       gap: "4rem"
     }
-  }, jsx(Train, {
-    distribute: true,
-    wrap: false
+  }, jsx(Grid, {
+    cols: "2"
   }, jsx(Pancake, null, jsx("h2", {
     css: {
       textAlign: "center",
@@ -15441,6 +15440,9 @@ var FindsPage = () => {
   }, t4("Find.Location.Carried")), jsx(Button, {
     variant: "secondary",
     css: {
+      paddingLeft: "0px",
+      paddingRight: "0px",
+      maxWidth: "100%",
       backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
       "--tw-gradient-to": "#d97706",
       "--tw-gradient-from": "#92400e",
@@ -15468,6 +15470,9 @@ var FindsPage = () => {
   }, t4("Find.Type.Simple")), jsx(Button, {
     variant: "secondary",
     css: {
+      paddingLeft: "0px",
+      paddingRight: "0px",
+      maxWidth: "100%",
       backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
       "--tw-gradient-to": "#f3f4f6",
       "--tw-gradient-from": "#d1d5db",
@@ -15495,6 +15500,9 @@ var FindsPage = () => {
   }, t4("Find.Type.Valuable")), jsx(Button, {
     variant: "secondary",
     css: {
+      paddingLeft: "0px",
+      paddingRight: "0px",
+      maxWidth: "100%",
       backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
       "--tw-gradient-to": "#fef3c7",
       "--tw-gradient-from": "#fbbf24",
@@ -15528,6 +15536,9 @@ var FindsPage = () => {
     className: "yx-heading"
   }, t4("Find.Location.Lair")), jsx(Button, {
     css: {
+      paddingLeft: "0px",
+      paddingRight: "0px",
+      maxWidth: "100%",
       backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
       "--tw-gradient-to": "#d97706",
       "--tw-gradient-from": "#92400e",
@@ -15555,6 +15566,9 @@ var FindsPage = () => {
     onClick: () => updateFindData("Lair", "Simple")
   }, t4("Find.Type.Simple")), jsx(Button, {
     css: {
+      paddingLeft: "0px",
+      paddingRight: "0px",
+      maxWidth: "100%",
       backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
       "--tw-gradient-from": "#d1d5db",
       "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(209, 213, 219, 0))",
@@ -15581,6 +15595,9 @@ var FindsPage = () => {
     onClick: () => updateFindData("Lair", "Valuable")
   }, t4("Find.Type.Valuable")), jsx(Button, {
     css: {
+      paddingLeft: "0px",
+      paddingRight: "0px",
+      maxWidth: "100%",
       backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
       "--tw-gradient-to": "#fef3c7",
       "--tw-gradient-from": "#fbbf24",
