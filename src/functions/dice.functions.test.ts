@@ -2,6 +2,7 @@ import {
   choose,
   countSuccesses,
   parseChoiceString,
+  parseD6String,
   weightedRandom,
   weightedRandomConsume,
 } from './dice.functions'
@@ -87,6 +88,20 @@ describe('dice functions', () => {
       ['1^2|2^0|3^1|4', [1, 1, 3, 4]],
     ])('%j => %s', (input, expected) => {
       const result = parseChoiceString(input)
+      expect(result).toEqual(expected)
+    })
+  })
+
+  describe('parseD6String', () => {
+    it.each([
+      ['D6', 1],
+      ['2D6', 2],
+      ['4D6', 4],
+      ['10D6', 10],
+      ['123D6', 123],
+    ])('%j => %s', (input, expected) => {
+      const result = parseD6String(input)
+
       expect(result).toEqual(expected)
     })
   })

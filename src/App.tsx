@@ -18,6 +18,7 @@ import { YxansKlaganLogo } from './logo'
 import { CalendarPage } from './pages/calendar.page'
 import { DiceRollerPage } from './pages/dice-roller.page'
 import { EncounterPage } from './pages/encounter.page'
+import { FindsPage } from './pages/finds.page'
 import { GearPage } from './pages/gear.page'
 import { MapPage } from './pages/map.page'
 import { MonstersPage } from './pages/monsters.page'
@@ -63,7 +64,16 @@ const App = () => {
     },
     {
       path: 'gear',
-      element: <GearPage />,
+      children: [
+        {
+          path: 'tables',
+          element: <GearPage />,
+        },
+        {
+          path: 'finds',
+          element: <FindsPage />,
+        },
+      ],
     },
     {
       path: 'calendar',
@@ -90,9 +100,12 @@ const App = () => {
   const { t } = useTranslation('core')
 
   const { pathname } = useLocation()
-  const { pathname: toPathname } = useResolvedPath('kin')
 
-  const isLinkActive = pathname.includes(toPathname)
+  const toPathContains = (toPath: 'gear' | 'kin') => (path: string) =>
+    path.includes(useResolvedPath(toPath).pathname)
+
+  const isGearPageActive = toPathContains('gear')
+  const isKinPageActive = toPathContains('kin')
 
   return (
     <div className="App" css={styles.container()}>
@@ -110,13 +123,31 @@ const App = () => {
               <MenuLink to="/monsters">{t('Menu-Monsters')}</MenuLink>
               <MenuLink to="/map">{t('Menu-Map')}</MenuLink>
               <MenuLink to="/calendar">{t('Menu-Calendar')}</MenuLink>
-              <MenuLink to="/gear">{t('Menu-Gear')}</MenuLink>
+              <div tw="pl-4">
+                <Group
+                  spaceBeforeItems={false}
+                  indent={false}
+                  label={<div tw="font-medium">{t('Menu-Gear')}</div>}
+                  open={isGearPageActive(pathname)}
+                >
+                  <div tw="mt-2">
+                    <Pancake spacing="small">
+                      <MenuLink to="/gear/tables">
+                        {t('Menu-Gear-Tables')}
+                      </MenuLink>
+                      <MenuLink to="/gear/finds">
+                        {t('Menu-Gear-Finds')}
+                      </MenuLink>
+                    </Pancake>
+                  </div>
+                </Group>
+              </div>
               <div tw="pl-4">
                 <Group
                   spaceBeforeItems={false}
                   indent={false}
                   label={<div tw="font-medium">{t('Menu-Kin')}</div>}
-                  open={isLinkActive}
+                  open={isKinPageActive(pathname)}
                 >
                   <div tw="mt-2">
                     <Pancake spacing="small">
