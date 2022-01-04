@@ -34,6 +34,8 @@ i18nReact
       'names',
       'encounters',
       'session',
+      'typical',
+      'finds',
     ],
     keySeparator: '.',
     backend: {

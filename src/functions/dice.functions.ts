@@ -32,6 +32,16 @@ export const rollD66 = (): D66 => {
   return (tens + ones) as D66
 }
 
+export const parseD6String = (str: string): number => {
+  const parts = str.split('D')
+
+  if (parts[0] === '') {
+    return 1
+  }
+
+  return parseInt(parts[0], 10)
+}
+
 export const parseChoiceString = (str: string): number[] =>
   str
     .split('|')
