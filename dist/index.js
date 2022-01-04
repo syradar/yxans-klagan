@@ -11453,6 +11453,13 @@ var rollD66 = () => {
   const ones = rollD6();
   return tens + ones;
 };
+var parseD6String = (str) => {
+  const parts = str.split("D");
+  if (parts[0] === "") {
+    return 1;
+  }
+  return parseInt(parts[0], 10);
+};
 var parseChoiceString = (str) => str.split("|").map((c3) => c3.split("^").map((a2) => parseInt(a2, 10) ?? 1)).map((cs) => range2(cs.length === 2 ? cs[1] : 1).map((_24) => cs[0])).flat();
 var choose = (arr3) => arr3[getRandomInt(0, arr3.length - 1)];
 var chooseFromChoiceString = compose(choose, parseChoiceString);
@@ -13940,6 +13947,1561 @@ var EncounterPage = () => {
       fontWeight: "500"
     }
   }, el.id, ": ", el.title), jsx("div", null, "(s. ", el.page, ")"))))));
+};
+
+// build/dist/components/stat.js
+var Stat = ({
+  children,
+  label,
+  large = false
+}) => jsx("div", {
+  css: {
+    textAlign: "center"
+  }
+}, jsx("div", {
+  css: [{
+    fontWeight: "500",
+    lineHeight: "1"
+  }, large && {
+    fontSize: "1.5rem",
+    lineHeight: "2rem"
+  }, !large && {
+    fontSize: "1.125rem",
+    lineHeight: "1.75rem"
+  }]
+}, children), jsx("div", {
+  css: {
+    fontSize: "0.875rem",
+    lineHeight: "1.25rem"
+  }
+}, label));
+
+// build/dist/data/find.data.js
+var carriedFinds = {
+  Simple: {
+    31: {
+      chance: 31,
+      title: "CopperCoins",
+      type: "Simple",
+      value: "2D6 copper",
+      weight: 0
+    },
+    32: {
+      chance: 32,
+      title: "BoneStatuette",
+      type: "Simple",
+      value: "2D6 copper",
+      weight: 0.5
+    },
+    33: {
+      chance: 33,
+      title: "PieceOfAmber",
+      type: "Simple",
+      value: "2D6 copper",
+      weight: 0.5
+    },
+    34: {
+      chance: 34,
+      title: "BronzeBeltBuckle",
+      type: "Simple",
+      value: "2D6 copper",
+      weight: 0.5
+    },
+    35: {
+      chance: 35,
+      title: "BoneDice",
+      type: "Simple",
+      value: "2D6 copper",
+      weight: 0.5
+    },
+    36: {
+      chance: 36,
+      title: "BoneWhistle",
+      type: "Simple",
+      value: "2D6 copper",
+      weight: 0.5
+    },
+    41: {
+      chance: 41,
+      title: "BoneStatuette",
+      type: "Simple",
+      value: "3D6 copper",
+      weight: 0.5
+    },
+    42: {
+      chance: 42,
+      title: "BronzeBracelet",
+      type: "Simple",
+      value: "3D6 copper",
+      weight: 0.5
+    },
+    43: {
+      chance: 43,
+      title: "BronzeNecklace",
+      type: "Simple",
+      value: "3D6 copper",
+      weight: 0.5
+    },
+    44: {
+      chance: 44,
+      title: "BronzeMedallion",
+      type: "Simple",
+      value: "3D6 copper",
+      weight: 0.5
+    },
+    45: {
+      chance: 45,
+      title: "GoodBoots",
+      type: "Simple",
+      value: "3D6 copper",
+      weight: 0.5
+    },
+    46: {
+      chance: 46,
+      title: "GoodGloves",
+      type: "Simple",
+      value: "3D6 copper",
+      weight: 0.5
+    },
+    51: {
+      type: "Simple",
+      chance: 51,
+      title: "BronzeDrinkingHorn",
+      value: "4D6 copper",
+      weight: 1
+    },
+    52: {
+      type: "Simple",
+      chance: 52,
+      title: "Lantern",
+      value: "4D6 copper",
+      weight: 0.5
+    },
+    53: {
+      type: "Simple",
+      chance: 53,
+      title: "BronzeDagger",
+      value: "4D6 copper",
+      weight: 0.5
+    },
+    54: {
+      type: "Simple",
+      chance: 54,
+      title: "BronzeShield",
+      value: "4D6 copper",
+      weight: 1
+    },
+    55: {
+      type: "Simple",
+      chance: 55,
+      title: "BronzeEarring",
+      value: "4D6 copper",
+      weight: 0.25
+    },
+    56: {
+      type: "Simple",
+      chance: 56,
+      title: "OneHandedBronzeWeapon",
+      value: "1D6 silver",
+      weight: 1
+    },
+    61: {
+      type: "Simple",
+      chance: 61,
+      title: "Book",
+      value: "6D6 copper",
+      weight: 1
+    },
+    62: {
+      type: "Simple",
+      chance: 62,
+      title: "SimpleGemstone",
+      value: "6D6 copper",
+      weight: 0.25
+    },
+    63: {
+      type: "Simple",
+      chance: 63,
+      title: "BronzeStatuette",
+      value: "6D6 copper",
+      weight: 0.5
+    },
+    64: {
+      type: "Simple",
+      chance: 64,
+      title: "BronzeHelmet",
+      value: "1D6 silver",
+      weight: 1
+    },
+    65: {
+      type: "Simple",
+      chance: 65,
+      title: "CopperHeadband",
+      value: "1D6 silver",
+      weight: 1
+    },
+    66: {
+      type: "Simple",
+      chance: 66,
+      title: "CopperCrown",
+      value: "2D6 silver",
+      weight: 1
+    }
+  },
+  Valuable: {
+    31: {
+      type: "Valuable",
+      chance: 31,
+      title: "SilverCoins",
+      value: "3D6 silver",
+      weight: 0
+    },
+    32: {
+      type: "Valuable",
+      chance: 32,
+      title: "SilverBox",
+      value: "2D6 silver",
+      weight: 0.5
+    },
+    33: {
+      type: "Valuable",
+      chance: 33,
+      title: "Pearl",
+      value: "2D6 silver",
+      weight: 0.25
+    },
+    34: {
+      type: "Valuable",
+      chance: 34,
+      title: "SilverBowl",
+      value: "2D6 silver",
+      weight: 0.5
+    },
+    35: {
+      type: "Valuable",
+      chance: 35,
+      title: "Painting",
+      value: "2D6 silver",
+      weight: 0.5
+    },
+    36: {
+      type: "Valuable",
+      chance: 36,
+      title: "SilverMug",
+      value: "2D6 silver",
+      weight: 0.5
+    },
+    41: {
+      type: "Valuable",
+      chance: 41,
+      title: "SilverBracelet",
+      value: "3D6 silver",
+      weight: 0.5
+    },
+    42: {
+      type: "Valuable",
+      chance: 42,
+      title: "SilverRing",
+      value: "3D6 silver",
+      weight: 0.25
+    },
+    43: {
+      type: "Valuable",
+      chance: 43,
+      title: "SilverNecklace",
+      value: "3D6 silver",
+      weight: 0.25
+    },
+    44: {
+      type: "Valuable",
+      chance: 44,
+      title: "WellTailoredCloakWithSilverBuckle",
+      value: "3D6 silver",
+      weight: 1
+    },
+    45: {
+      type: "Valuable",
+      chance: 45,
+      title: "ElegantBoots",
+      value: "3D6 silver",
+      weight: 1
+    },
+    46: {
+      type: "Valuable",
+      chance: 46,
+      title: "CalfSkinGloves",
+      value: "3D6 silver",
+      weight: 0.5
+    },
+    51: {
+      type: "Valuable",
+      chance: 51,
+      title: "DrinkingHornWithSilverDetails",
+      value: "4D6 silver",
+      weight: 1
+    },
+    52: {
+      type: "Valuable",
+      chance: 52,
+      title: "Embroidery",
+      value: "4D6 silver",
+      weight: 1
+    },
+    53: {
+      type: "Valuable",
+      chance: 53,
+      title: "ElegantHelmet",
+      value: "4D6 silver",
+      weight: 0.5
+    },
+    54: {
+      type: "Valuable",
+      chance: 54,
+      title: "ElegantLargeShield",
+      value: "4D6 silver",
+      weight: 1
+    },
+    55: {
+      type: "Valuable",
+      chance: 55,
+      title: "SilverEarring",
+      value: "4D6 silver",
+      weight: 0.25
+    },
+    56: {
+      type: "Valuable",
+      chance: 56,
+      title: "ElegantOneHandedWeapon",
+      value: "4D6 silver",
+      weight: 1
+    },
+    61: {
+      type: "Valuable",
+      chance: 61,
+      title: "RareBook",
+      value: "5D6 silver",
+      weight: 1
+    },
+    62: {
+      type: "Valuable",
+      chance: 62,
+      title: "Gemstone",
+      value: "6D6 silver",
+      weight: 0.25
+    },
+    63: {
+      type: "Valuable",
+      chance: 63,
+      title: "SilverStatuette",
+      value: "7D6 silver",
+      weight: 1
+    },
+    64: {
+      type: "Valuable",
+      chance: 64,
+      title: "SilverHelmet",
+      value: "8D6 silver",
+      weight: 1
+    },
+    65: {
+      type: "Valuable",
+      chance: 65,
+      title: "SilverHeadband",
+      value: "9D6 silver",
+      weight: 0.5
+    },
+    66: {
+      type: "Valuable",
+      chance: 66,
+      title: "SilverCrown",
+      value: "1D6 gold",
+      weight: 1
+    }
+  },
+  Precious: {
+    31: {
+      type: "Precious",
+      chance: 31,
+      title: "GoldCoins",
+      value: "1D6 gold",
+      weight: 0
+    },
+    32: {
+      type: "Precious",
+      chance: 32,
+      title: "GoldStatuette",
+      value: "5D6 silver",
+      weight: 0.5
+    },
+    33: {
+      type: "Precious",
+      chance: 33,
+      title: "Pearls",
+      value: "5D6 silver",
+      weight: 0.25
+    },
+    34: {
+      type: "Precious",
+      chance: 34,
+      title: "GoldenBowl",
+      value: "5D6 silver",
+      weight: 0.5
+    },
+    35: {
+      type: "Precious",
+      chance: 35,
+      title: "GoldAmulet",
+      value: "5D6 silver",
+      weight: 0.25
+    },
+    36: {
+      type: "Precious",
+      chance: 36,
+      title: "GoldMug",
+      value: "5D6 silver",
+      weight: 0.5
+    },
+    41: {
+      type: "Precious",
+      chance: 41,
+      title: "GoldBracelet",
+      value: "5D6 silver",
+      weight: 0.25
+    },
+    42: {
+      type: "Precious",
+      chance: 42,
+      title: "GoldRing",
+      value: "6D6 silver",
+      weight: 0.25
+    },
+    43: {
+      type: "Precious",
+      chance: 43,
+      title: "GoldNecklace",
+      value: "6D6 silver",
+      weight: 0.25
+    },
+    44: {
+      type: "Precious",
+      chance: 44,
+      title: "FurCloakWithExpensiveEmbroideryAndGoldenBuckle",
+      value: "6D6 silver",
+      weight: 1
+    },
+    45: {
+      type: "Precious",
+      chance: 45,
+      title: "DragonscaleBoots",
+      value: "6D6 silver",
+      weight: 0.5
+    },
+    46: {
+      type: "Precious",
+      chance: 46,
+      title: "VelvetGloves",
+      value: "6D6 silver",
+      weight: 0.5
+    },
+    51: {
+      type: "Precious",
+      chance: 51,
+      title: "DrinkingHornWithGoldDetails",
+      value: "1D6 gold",
+      weight: 0.5
+    },
+    52: {
+      type: "Precious",
+      chance: 52,
+      title: "GoldenEmbroidery",
+      value: "1D6 gold",
+      weight: 1
+    },
+    53: {
+      type: "Precious",
+      chance: 53,
+      title: "GoldenHelmet",
+      value: "2D6 gold",
+      weight: 0.5
+    },
+    54: {
+      type: "Precious",
+      chance: 54,
+      title: "GoldenLargeShield",
+      value: "2D6 gold",
+      weight: 1
+    },
+    55: {
+      type: "Precious",
+      chance: 55,
+      title: "GoldenArmor",
+      value: "4D6 gold",
+      weight: 2
+    },
+    56: {
+      type: "Precious",
+      chance: 56,
+      title: "GoldenWeapon",
+      value: "2D6 gold",
+      weight: 1
+    },
+    61: {
+      type: "Precious",
+      chance: 61,
+      title: "UniqueBook",
+      value: "2D6 gold",
+      weight: 1
+    },
+    62: {
+      type: "Precious",
+      chance: 62,
+      title: "RareGemstone",
+      value: "2D6 gold",
+      weight: 0.25
+    },
+    63: {
+      type: "Precious",
+      chance: 63,
+      title: "RingWithGemstone",
+      value: "2D6 gold",
+      weight: 0.25
+    },
+    64: {
+      type: "Precious",
+      chance: 64,
+      title: "Scepter",
+      value: "3D6 gold",
+      weight: 0.5
+    },
+    65: {
+      type: "Precious",
+      chance: 65,
+      title: "GoldenCrown",
+      value: "4D6 gold",
+      weight: 0.5
+    },
+    66: {
+      type: "Precious",
+      chance: 66,
+      title: "Artifact",
+      value: "None",
+      weight: 0
+    }
+  }
+};
+var lairFinds = {
+  Simple: {
+    31: {
+      type: "Simple",
+      chance: 31,
+      title: "CopperCoins",
+      value: "4D6 copper",
+      weight: 0
+    },
+    32: {
+      type: "Simple",
+      chance: 32,
+      title: "CopperBowl",
+      value: "3D6 copper",
+      weight: 0.5
+    },
+    33: {
+      type: "Simple",
+      chance: 33,
+      title: "CopperPlate",
+      value: "3D6 copper",
+      weight: 1
+    },
+    34: {
+      type: "Simple",
+      chance: 34,
+      title: "CopperMug",
+      value: "3D6 copper",
+      weight: 0.5
+    },
+    35: {
+      type: "Simple",
+      chance: 35,
+      title: "Knapsack",
+      value: "3D6 copper",
+      weight: 0.5
+    },
+    36: {
+      type: "Simple",
+      chance: 36,
+      title: "Waterskin",
+      value: "3D6 copper",
+      weight: 0.5
+    },
+    41: {
+      type: "Simple",
+      chance: 41,
+      title: "BeltBuckle",
+      value: "4D6 copper",
+      weight: 0.5
+    },
+    42: {
+      type: "Simple",
+      chance: 42,
+      title: "Hammer",
+      value: "4D6 copper",
+      weight: 1
+    },
+    43: {
+      type: "Simple",
+      chance: 43,
+      title: "Saw",
+      value: "4D6 copper",
+      weight: 1
+    },
+    44: {
+      type: "Simple",
+      chance: 44,
+      title: "ShortSword",
+      value: "1D6 silver",
+      weight: 1
+    },
+    45: {
+      type: "Simple",
+      chance: 45,
+      title: "SmallShield",
+      value: "4D6 copper",
+      weight: 0.5
+    },
+    46: {
+      type: "Simple",
+      chance: 46,
+      title: "Axe",
+      value: "4D6 copper",
+      weight: 1
+    },
+    51: {
+      type: "Simple",
+      chance: 51,
+      title: "ShortSpear",
+      value: "5D6 copper",
+      weight: 1
+    },
+    52: {
+      type: "Simple",
+      chance: 52,
+      title: "BronzePot",
+      value: "5D6 copper",
+      weight: 2
+    },
+    53: {
+      type: "Simple",
+      chance: 53,
+      title: "BronzeLantern",
+      value: "5D6 copper",
+      weight: 0.5
+    },
+    54: {
+      type: "Simple",
+      chance: 54,
+      title: "GamingBoard",
+      value: "5D6 copper",
+      weight: 1
+    },
+    55: {
+      type: "Simple",
+      chance: 55,
+      title: "Chest",
+      value: "5D6 copper",
+      weight: 2
+    },
+    56: {
+      type: "Simple",
+      chance: 56,
+      title: "Lute",
+      value: "5D6 copper",
+      weight: 1
+    },
+    61: {
+      type: "Simple",
+      chance: 61,
+      title: "BronzeArmor",
+      value: "1D6 gold",
+      weight: 2
+    },
+    62: {
+      type: "Simple",
+      chance: 62,
+      title: "BronzeMirror",
+      value: "2D6 silver",
+      weight: 3
+    },
+    63: {
+      type: "Simple",
+      chance: 63,
+      title: "PalanquinWithCopperDetails",
+      value: "3D6 silver",
+      weight: 4
+    },
+    64: {
+      type: "Simple",
+      chance: 64,
+      title: "BronzeSarcophagus",
+      value: "4D6 silver",
+      weight: 4
+    },
+    65: {
+      type: "Simple",
+      chance: 65,
+      title: "BronzeAltar",
+      value: "5D6 silver",
+      weight: 5
+    },
+    66: {
+      type: "Simple",
+      chance: 66,
+      title: "BronzeStatue",
+      value: "6D6 silver",
+      weight: 6
+    }
+  },
+  Valuable: {
+    31: {
+      type: "Valuable",
+      chance: 31,
+      title: "SilverCoins",
+      value: "4D6 silver",
+      weight: 0
+    },
+    34: {
+      type: "Valuable",
+      chance: 34,
+      title: "Painting",
+      value: "3D6 silver",
+      weight: 2
+    },
+    32: {
+      type: "Valuable",
+      chance: 32,
+      title: "SilverMedallion",
+      value: "3D6 silver",
+      weight: 0.5
+    },
+    33: {
+      type: "Valuable",
+      chance: 33,
+      title: "SmallSilverChest",
+      value: "3D6 silver",
+      weight: 0.5
+    },
+    35: {
+      type: "Valuable",
+      chance: 35,
+      title: "GlassBowl",
+      value: "3D6 silver",
+      weight: 0.5
+    },
+    36: {
+      type: "Valuable",
+      chance: 36,
+      title: "BeautifulVase",
+      value: "3D6 silver",
+      weight: 0.5
+    },
+    41: {
+      type: "Valuable",
+      chance: 41,
+      title: "SilverBrooch",
+      value: "4D6 silver",
+      weight: 0.25
+    },
+    42: {
+      type: "Valuable",
+      chance: 42,
+      title: "SilverComb",
+      value: "4D6 silver",
+      weight: 0.5
+    },
+    43: {
+      type: "Valuable",
+      chance: 43,
+      title: "SilverBox",
+      value: "4D6 silver",
+      weight: 0.5
+    },
+    44: {
+      type: "Valuable",
+      chance: 44,
+      title: "SilverAmulet",
+      value: "4D6 silver",
+      weight: 0.5
+    },
+    45: {
+      type: "Valuable",
+      chance: 45,
+      title: "SilverGoblet",
+      value: "4D6 silver",
+      weight: 0.5
+    },
+    46: {
+      type: "Valuable",
+      chance: 46,
+      title: "Mask",
+      value: "4D6 silver",
+      weight: 0.5
+    },
+    51: {
+      type: "Valuable",
+      chance: 51,
+      title: "BottleOfExpensiveWine",
+      value: "5D6 silver",
+      weight: 1
+    },
+    52: {
+      type: "Valuable",
+      chance: 52,
+      title: "FineHat",
+      value: "5D6 silver",
+      weight: 0.5
+    },
+    53: {
+      type: "Valuable",
+      chance: 53,
+      title: "Tapestry",
+      value: "5D6 silver",
+      weight: 2
+    },
+    54: {
+      type: "Valuable",
+      chance: 54,
+      title: "Cabinet",
+      value: "5D6 silver",
+      weight: 4
+    },
+    55: {
+      type: "Valuable",
+      chance: 55,
+      title: "Carpet",
+      value: "5D6 silver",
+      weight: 2
+    },
+    56: {
+      type: "Valuable",
+      chance: 56,
+      title: "Armchair",
+      value: "5D6 silver",
+      weight: 3
+    },
+    61: {
+      type: "Valuable",
+      chance: 61,
+      title: "Candelabrum",
+      value: "6D6 silver",
+      weight: 2
+    },
+    62: {
+      type: "Valuable",
+      chance: 62,
+      title: "SilverMirror",
+      value: "6D6 silver",
+      weight: 4
+    },
+    63: {
+      type: "Valuable",
+      chance: 63,
+      title: "PalanquinWithSilverDetails",
+      value: "7D6 silver",
+      weight: 5
+    },
+    64: {
+      type: "Valuable",
+      chance: 64,
+      title: "SilverSarcophagus",
+      value: "8D6 silver",
+      weight: 6
+    },
+    65: {
+      type: "Valuable",
+      chance: 65,
+      title: "SilverAltar",
+      value: "9D6 silver",
+      weight: 6
+    },
+    66: {
+      type: "Valuable",
+      chance: 66,
+      title: "SilverStatue",
+      value: "1D6 gold",
+      weight: 6
+    }
+  },
+  Precious: {
+    31: {
+      type: "Precious",
+      chance: 31,
+      title: "PileOfCoins",
+      value: "1D6 gold;2D6 silver;4D6 copper",
+      weight: 0
+    },
+    32: {
+      type: "Precious",
+      chance: 32,
+      title: "GoldenNecklace",
+      value: "2D6 gold",
+      weight: 0.5
+    },
+    33: {
+      type: "Precious",
+      chance: 33,
+      title: "BeautifulTapestry",
+      value: "2D6 gold",
+      weight: 3
+    },
+    34: {
+      type: "Precious",
+      chance: 34,
+      title: "EmbroidedCarpet",
+      value: "2D6 gold",
+      weight: 4
+    },
+    35: {
+      type: "Precious",
+      chance: 35,
+      title: "GoldGoblet",
+      value: "2D6 gold",
+      weight: 0.5
+    },
+    36: {
+      type: "Precious",
+      chance: 36,
+      title: "PaintingWithGoldenFrame",
+      value: "2D6 gold",
+      weight: 3
+    },
+    41: {
+      type: "Precious",
+      chance: 41,
+      title: "GoldenTray",
+      value: "3D6 gold",
+      weight: 2
+    },
+    42: {
+      type: "Precious",
+      chance: 42,
+      title: "GoldenStatueOfAChild",
+      value: "3D6 gold",
+      weight: 4
+    },
+    43: {
+      type: "Precious",
+      chance: 43,
+      title: "GoldenDiadem",
+      value: "3D6 gold",
+      weight: 0.5
+    },
+    44: {
+      type: "Precious",
+      chance: 44,
+      title: "CeilingCandelabrum",
+      value: "3D6 gold",
+      weight: 3
+    },
+    45: {
+      type: "Precious",
+      chance: 45,
+      title: "GoldenArmchair",
+      value: "3D6 gold",
+      weight: 3
+    },
+    46: {
+      type: "Precious",
+      chance: 46,
+      title: "GoldenCradle",
+      value: "3D6 gold",
+      weight: 3
+    },
+    51: {
+      type: "Precious",
+      chance: 51,
+      title: "NecklaceWithGemstones",
+      value: "4D6 gold",
+      weight: 0.5
+    },
+    52: {
+      type: "Precious",
+      chance: 52,
+      title: "ScepterWithGemstones",
+      value: "4D6 gold",
+      weight: 0.5
+    },
+    53: {
+      type: "Precious",
+      chance: 53,
+      title: "CrownWithGemstones",
+      value: "4D6 gold",
+      weight: 0.5
+    },
+    54: {
+      type: "Precious",
+      chance: 54,
+      title: "BeautifulDesk",
+      value: "4D6 gold",
+      weight: 4
+    },
+    55: {
+      type: "Precious",
+      chance: 55,
+      title: "Pulpit",
+      value: "4D6 gold",
+      weight: 4
+    },
+    56: {
+      type: "Precious",
+      chance: 56,
+      title: "GoldenTable",
+      value: "4D6 gold",
+      weight: 5
+    },
+    61: {
+      type: "Precious",
+      chance: 61,
+      title: "LargeRareGemstone",
+      value: "2D6 gold",
+      weight: 0.5
+    },
+    62: {
+      type: "Precious",
+      chance: 62,
+      title: "GoldenMirror",
+      value: "5D6 gold",
+      weight: 5
+    },
+    63: {
+      type: "Precious",
+      chance: 63,
+      title: "GoldenPalanquin",
+      value: "5D6 gold",
+      weight: 6
+    },
+    64: {
+      type: "Precious",
+      chance: 64,
+      title: "GoldenSarcophagus",
+      value: "6D6 gold",
+      weight: 7
+    },
+    65: {
+      type: "Precious",
+      chance: 65,
+      title: "GoldenStatue",
+      value: "7D6 gold",
+      weight: 8
+    },
+    66: {
+      type: "Precious",
+      chance: 66,
+      title: "Artifact",
+      value: "None",
+      weight: 0
+    }
+  }
+};
+
+// build/dist/models/name.model.js
+var NameType;
+(function(NameType2) {
+  NameType2["FirstName"] = "FirstName";
+  NameType2["FamilyName"] = "FamilyName";
+  NameType2["HomeName"] = "HomeName";
+  NameType2["NickName"] = "NickName";
+})(NameType || (NameType = {}));
+
+// build/dist/data/name.data.js
+var humanNames = {
+  Alderlander: {
+    Male: {
+      probabilites: [{
+        type: NameType.FirstName,
+        weight: 49
+      }, {
+        type: NameType.FamilyName,
+        weight: 5
+      }, {
+        type: NameType.HomeName,
+        weight: 5
+      }],
+      rawNames: ["Adalbern", "Alaric", "Alboin", "Baldarich", "Baldomar", "Clovis", "Eburwin", "Egino", "Erminigild", "Eward", "Faramund", "Fridumar", "Fulco", "Gerulf", "Gislin", "Haimo", "Hardmod", "Hariwald", "Horsa", "Hrodger", "Hrolf", "Ivo", "Joscelin", "Karl", "Kuno", "Landebert", "Lanzo", "Leudagar", "Lothar", "Manno", "Meginfrid", "Meino", "Odo", "Odoacer", "Ortwin", "Otmar", "Otto", "Raban", "Radulf", "Ranganhar", "Rochus", "Rudesind", "Sigdag", "Siward", "Tancred", "Trancmar", "Waldhar", "Waldo", "Wandal", "Warin"]
+    },
+    Female: {
+      probabilites: [{
+        type: NameType.FirstName,
+        weight: 49
+      }, {
+        type: NameType.FamilyName,
+        weight: 5
+      }, {
+        type: NameType.HomeName,
+        weight: 5
+      }],
+      rawNames: ["Adela", "Adelais", "Adelina", "Aenor", "Alda", "Aldegund", "Amalia", "Amelina", "Auda", "Aveza", "Avila", "Berengaria", "Bertha", "Brunhild", "Brunhilde", "Clothildis", "Cunigund", "Ermendrud", "Ermingard", "Erminhilt", "Erminlinda", "Frida", "Geretrudis", "Gerhild", "Gerlind", "Gisila", "Godeliva", "Gunda", "Hadewig", "Hailwic", "Herleva", "Ida", "Ima", "Irma", "Ishild", "Leutgard", "Luitgard", "Lutgardis", "Mahthildis", "Oda", "Odila", "Raganhildis", "Roslindis", "Rosmunda", "Rothad", "Roza", "Saxa", "Sigilind", "Waldeburg", "Waldedrudis"]
+    },
+    family: ["Adogit", "Aelvaeones", "Batini", "Bergio", "Braemi", "Bui", "Chali", "Danduti", "Dani", "Eunixi", "Evagres", "Favonae ", "Fosi", "Grannii", "Hallin", "Hasdingi", "Helissi", "Heruli", "Hilleviones", "Ingriones", "Lemovii", "Levoni", "Manimi", "Mattiaci", "Naharvali", "Nemetes", "Njars", "Otingis", "Pharodini", "Quadi", "Racatae", "Racatriae", "Salii", "Scirii", "Segni", "Sigulones", "Suevi", "Taetel", "Teutons", "Thervingi", "Theustes", "Tubanti", "Ubi", "Vagoth", "Vangiones", "Varini", "Vinoiloth ", "Viruni", "Vispi ", "Zumi"]
+  },
+  Aslene: {
+    Male: {
+      probabilites: [{
+        type: NameType.FirstName,
+        weight: 49
+      }, {
+        type: NameType.NickName,
+        weight: 5
+      }],
+      rawNames: ["Agis", "Agler", "Alceus", "Altair", "Anker ", "Ares", "Arsene", "Atemas", "Avel", "Balasi", "Baruch", "Cassander", "Cimon", "Cletus", "Cyrus", "Damen", "Dinos", "Dion", "Dorian", "Dunixi", "Eneas", "Etor", "Feodor", "Gilos", "Gorka", "Guilios", "Hali", "Hesiod", "Hippias", "Kai", "Kuiril", "Kyros", "Leander", "Meletios", "Mentor", "Milos", "Nestor", "Orestes", "Peder", "Poul", "Preben", "Solon", "Spyridon", "Thanos", "Titos", "Todor", "Vasileous", "Vasilis", "Zeno", "Zorba"]
+    },
+    Female: {
+      probabilites: [{
+        type: NameType.FirstName,
+        weight: 49
+      }, {
+        type: NameType.NickName,
+        weight: 5
+      }],
+      rawNames: ["Adara", "Alena", "Arete", "Asta", "Callia", "Cassia", "Charis", "Cyma", "Damia", "Delbin", "Doria", "Eleni", "Elna", "Evadne", "Evania", "Evanthe", "Filia", "Helia", "Hesper", "Io", "Iona", "Ionia", "Isaura", "Ismini", "Kaia", "Kama", "Kepa", "Kolete", "Lana", "Lelia", "Lenore", "Melania", "Melita", "Metea", "Mona", "Nora", "Nyssa", "Odele", "Pallas", "Panthea", "Pelegia", "Perrine", "Philippa", "Rhea", "Rita", "Sappho", "Sonia", "Tessa", "Vania", "Zenobia"]
+    },
+    nickName: ["NickNames.Adventurous", "NickNames.Angry", "NickNames.Bald", "NickNames.Bloody", "NickNames.Bold", "NickNames.Accurate", "NickNames.Sloppy", "NickNames.Careful", "NickNames.Able", "NickNames.Confused", "NickNames.Cruel", "NickNames.Direct", "NickNames.Dashing", "NickNames.Thick", "NickNames.Wary", "NickNames.Good", "NickNames.Hairy", "NickNames.Stylish", "NickNames.Blessed", "NickNames.Jumping", "NickNames.Hopeful", "NickNames.Cheerful", "NickNames.Happy", "NickNames.Mighty", "NickNames.Gentle", "NickNames.Misled", "NickNames.Somber", "NickNames.Old", "NickNames.KeenEyed", "NickNames.Proud", "NickNames.Trustworthy", "NickNames.Sad", "NickNames.Short", "NickNames.Sleepy", "NickNames.Slow", "NickNames.Powerful", "NickNames.Strong", "NickNames.Honest", "NickNames.Fast", "NickNames.Talkative", "NickNames.Long", "NickNames.Terrible", "NickNames.Thin", "NickNames.Ugly", "NickNames.Vain", "NickNames.Weak", "NickNames.Wise", "NickNames.Young"]
+  },
+  Ailander: {
+    Male: {
+      probabilites: [{
+        type: NameType.FirstName,
+        weight: 49
+      }, {
+        type: NameType.FamilyName,
+        weight: 10
+      }, {
+        type: NameType.HomeName,
+        weight: 10
+      }],
+      rawNames: ["Alvgar", "Ahlred", "Atheric", "Baldred", "Beocca", "Beorn", "Bosa", "Brid", "Cadwallon", "Ceol", "Cuthred", "Cuthwulf", "Cynric", "Daela", "Dunn", "Dunstan", "Eadgar", "Eadhun", "Ealread", "Earnwulf", "Eohric", "Frithstan", "Guthere", "Guthlaf", "Gyric", "Haefoc", "Hrothgar", "Ithamar", "Leofgar", "Liofa", "Morchaer", "Odda", "Ordgar", "Osgar", "Osred", "Praen", "Raedwald", "Sidrac", "Sigulf", "Sithric", "Teothic", "Tobias", "Uhtred", "Ulf", "Waldere", "Wulfgar", "Wulfmaer", "Wulfric", "Wulfwig", "Wynstan"]
+    },
+    Female: {
+      probabilites: [{
+        type: NameType.FirstName,
+        weight: 49
+      }, {
+        type: NameType.FamilyName,
+        weight: 10
+      }, {
+        type: NameType.HomeName,
+        weight: 10
+      }],
+      rawNames: ["Aebbe", "Aedwen", "Alvhild", "Alvlaed", "Alvswith", "Alvswith", "Alvwyn", "Aethelith", "Aethelwyn", "Ailred", "Bebbe ", "Bucge", "Ceolburh", "Cuthburh", "Cuthswith", "Cyneberg", "Eadburg", "Eadgifu", "Ealhild", "Eanflaed", "Eangyth", "Eanith", "Eawyn", "Edwyn", "Frithwyn", "Gytha", "Heiu", "Helelufu", "Hild", "Hilda", "Inga", "Leofrun", "Maethild", "Mathilda", "Osgyth", "Oshild", "Osswith", "Ricola", "Saegyth", "Saehild", "Saeith", "Saewyn", "Saewyn", "Siflaed", "Waerburh", "Withith", "Wulfwaru", "Wulfwyn", "Wynflaed", "Ymma"]
+    },
+    family: ["Adlard", "Almer", "Alston", "Alvar", "Balston", "Brunger", "Brunwin", "Burch", "Burward", "Cobbald", "Dewdney", "Eddols", "Elphee", "Elvey", "Erwin", "Frewer", "Frewin", "Goldbard", "Goldhawk", "Hulbert", "Isgar", "Kenway", "Kerrich", "Kerrich", "Lambrick", "Leavins", "Leavold", "Lewin", "Litwin", "Litwin", "Medwin", "Orrick", "Osmer", "Othen", "Quenell", "Seavers", "Siggers", "Sirett", "Stannard", "Wackrill", "Walwin", "Wennell", "Whatman", "Winbolt", "Winbow", "Woolgar", "Wyard", "Wyberg", "Wymer", "Yonwin"]
+  }
+};
+var villageNamesSv = {
+  prefix: ["Bärnsten", "Ängel", "Själ", "Bäck", "Vik", "Kittel", "Pil", "Höst", "Kal", "Fjärd", "Strand", "Björn", "Klock", "Svart", "Dyster", "Blind", "Ben", "Block", "Bro", "Gryt", "Skör", "Brons", "Borg", "Grott", "Kyl", "Ler", "Klar", "Klipp", "Moln", "Kall", "Häll", "Kråk", "Kristall", "Fördömda", "Mörk", "Gryning", "Död", "Djup", "Rådjurs", "Demon", "Dagg", "Dunkel", "Öde", "Smuts", "Hund", "Drak", "Torr", "Skymnings", "Damm", "Örn", "Jord", "Öst", "Brun", "Kant", "Äldre", "Gammel", "Glöd", "Eviga", "Rättvisa", "Fall", "Falsk", "Fager", "Bortre", "Fe", "Fruktans", "Flamm", "Platt", "Frej", "Frost", "Spöke", "Glimm", "Dunkel", "Guld", "Gräs", "Grå", "Grön", "Dyster", "Smuts", "Hassel", "Hjärt", "Hög", "Dov", "Honungs", "Hund", "Is", "Järn", "Kil", "Riddar", "Sjö", "Sista", "Ljus", "Kalk", "Liten", "Förlorade", "Galen", "Magiker", "Lönn", "Mitt", "Makt", "Kvarn", "Dimm", "Mån", "Moss", "Ler", "Stum", "Myt", "Aldrig", "Ny", "Natt", "Norr", "Ek", "Hav", "Gammal", "Ox", "Pärl", "Tall", "Damm", "Ren", "Snabb", "Vredes", "Korp", "Röd", "Rimfrost", "Flod", "Sten", "Skälm", "Ros", "Rost", "Salt", "Sand", "Bränn", "Skydd", "Skugg", "Skimmer", "Slöj", "Tyst", "Silkes", "Silver", "Slät", "Slask", "Lömsk", "Små", "Lill", "Slät", "Orm", "Snö", "Söder", "Vår", "Hjort", "Stjärn", "Imm", "Stål", "Brant", "Stilla", "Sten", "Storm", "Sommar", "Sol", "Kärr", "Svan", "Snabb", "Törne", "Timmer", "Handel", "Väst", "Val", "Dugg", "Vit", "Vild", "Vilda", "Vind", "Vinter", "Varg"],
+  suffix: ["tunnland", "band", "kärr", "vik", "klocka", "född", "städ", "born", "brott", "bryt", "bäck", "fäste", "bränna", "grav", "röse", "kalla", "kyla", "klippa", "kust", "krön", "korsning", "dal", "gryt", "driva", "klar", "falla", "falls", "fälla", "fält", "ved", "skog", "fort", "front", "frost", "garde", "port", "dalgång", "brott", "grav", "lund", "vakt", "klyfta", "bukt", "hall", "helga", "tuna", "hand", "hamn", "tillflykt", "roder", "kulle", "fäste", "holde", "sänka", "horn", "värd", "torn", "landa", "ljus", "gap", "äng", "ren", "myr", "vall", "hed", "Mer", "pik", "mun", "passage", "topp", "platts", "damm", "hamn", "post", "ände", "vila", "sten", "springa", "ärr", "skugga", "klippa", "skal", "skydda", "strand", "fylke", "sida", "stava", "spira", "by", "häx", "helga", "stjärna", "storm", "strå", "toppen", "flod", "sta", "dal", "dala", "valv", "ådra", "utsikt", "bya", "mur", "tumla", "Skydd", "Utsikt", "vatten", "brunn", "brygga", "veke", "vind", "trä", "gård"]
+};
+var villageNamesEn = {
+  prefix: ["Amber", "Angel", "Soul", "Stream", "Bay", "Cauldron", "Arrow", "Autumn", "Bald", "Bay", "Beach", "Bear", "Clock", "Black", "Gloomy", "Blind", "Bone", "Block", "Bridge", "Pot", "Fragile", "Bronze", "Fort", "Cave", "Leg", "Smiles", "Clear", "Killing", "Cloud", "Cold", "Slab", "Crow", "Crystal", "Damned", "Dark", "Dawn", "Death", "Depth", "Deer", "Demon", "Dew", "Dim", "Fate", "Dirt", "Dog", "Drake", "Dry", "Twilight", "Dust", "Eagle", "Soil", "East", "Brown", "Edge", "Elder", "Old", "Glow", "Eternal", "Justice", "Case", "Fake", "Fair", "Far", "Fairy", "Fear", "Flame", "Flat", "Free", "Frost", "Ghost", "Glimmer", "Murky", "Gold", "Grass", "Gray", "Green", "Gloomy", "Dirt", "Hazel", "Heart", "High", "Dull", "Honey", "Dog", "Ice", "Iron", "Wedge", "Knights", "Lake", "Last", "Light", "Lime", "Small", "Lost", "Crazy", "Magician", "Maple", "Middle", "Power", "Grinder", "Fog", "Moon", "Moss", "Smiles", "Speechless", "Myth", "Never", "New", "Night", "North", "Oak", "Sea", "Old", "Ox", "Pearl", "Pine", "Dust", "Clean", "Fast", "Peace", "Raven", "Red", "Frost", "River", "Stone", "Rogue", "Rose", "Rust", "Salt", "Sand", "Burn", "Protection", "Shadow", "Shimmer", "Veil", "Silent", "Silk", "Silver", "Smooth", "Slush", "Sneaky", "Small", "Little", "Smooth", "Snake", "Snow", "South", "Spring", "Deer", "Star", "Mist", "Steel", "Steep", "Still", "Stone", "Storm", "Summer", "Solar", "Marsh", "Swan", "Fast", "Thorn", "Timber", "Trade", "West", "Choice", "Dugg", "White", "Wild", "Wild", "Wind", "Winter", "Wolf"],
+  suffix: ["acres", "band", "marsh", "bay", "clock", "born", "cleaning", "born", "crime", "break", "stream", "attachment", "burn", "grave", "cairn", "call", "cold", "cut", "coastal", "crown", "crossing", "valley", "gryt", "drive", "clear", "fall", "falls", "trap", "field", "firewood", "forest", "fast", "front", "frost", "garde", "port", "valley", "crime", "grave", "grove", "guard", "gap", "bay", "hall", "sanctify", "tuna", "hand", "port", "refuge", "rudder", "hill", "attachment", "hold", "lower", "horn", "host", "tower", "land", "light", "gap", "meadow", "clean", "mire", "mound", "heath", "more", "pike", "mouth", "passage", "top", "flats", "dust", "port", "mail", "end", "rest", "stone", "run", "scar", "shadow", "cut", "shell", "protect", "beach", "county", "page", "spell", "scepter", "village", "witch", "sanctify", "star", "storm", "straw", "top", "river", "stand", "valley", "dale", "vault", "lode", "view", "village", "wall", "tumble", "protection", "view", "water", "well", "bridge", "wick", "wind", "wood", "courtyard"]
+};
+
+// build/dist/functions/name.functions.js
+var getRandomName = (g3, lang, nameList, chooseFunc = choose) => {
+  const {
+    type,
+    firstName
+  } = getNameTypeAndFirstName(g3, nameList);
+  switch (type) {
+    case NameType.FamilyName: {
+      if (!nameList.family || nameList.family.length === 0) {
+        return [firstName];
+      }
+      return [firstName, chooseFunc(nameList.family)];
+    }
+    case NameType.NickName: {
+      if (!nameList.nickName || nameList.nickName.length === 0) {
+        return [firstName];
+      }
+      return [firstName, "THE", chooseFunc(nameList.nickName)];
+    }
+    case NameType.HomeName:
+      return [firstName, "OF", formatVillageName(getVillagePrefixAndSuffix(lang, chooseFunc), lang)];
+    case NameType.FirstName:
+    default:
+      return [firstName];
+  }
+};
+var getRandomAilanderName = (g3, lang, nameList = humanNames.Ailander, chooseFunc = choose) => {
+  return getRandomName(g3, lang, nameList, chooseFunc);
+};
+var getRandomAlderlanderName = (g3, lang, nameList = humanNames.Ailander, chooseFunc = choose) => {
+  return getRandomName(g3, lang, nameList, chooseFunc);
+};
+var getRandomAsleneName = (g3, lang, nameList = humanNames.Aslene, chooseFunc = choose) => {
+  return getRandomName(g3, lang, nameList, chooseFunc);
+};
+var getNameTypeAndFirstName = (g3, nl) => {
+  return {
+    type: weightedRandom(nl[g3].probabilites).type,
+    firstName: choose(nl[g3].rawNames)
+  };
+};
+var getVillageNameList = (lang) => {
+  switch (lang) {
+    case "sv":
+      return villageNamesSv;
+    case "en":
+      return villageNamesEn;
+    default: {
+      const exhaustiveCheck = lang;
+      throw new Error(exhaustiveCheck);
+    }
+  }
+};
+var capitalize = (s) => `${s.charAt(0).toUpperCase()}${s.slice(1)}`;
+var getVillagePrefixAndSuffix = (lang, choiceFunc = choose) => {
+  const {
+    prefix,
+    suffix
+  } = getVillageNameList(lang);
+  return [choiceFunc(prefix), choiceFunc(suffix)];
+};
+var formatVillageName = (prefixAndSuffix, lang) => {
+  const separator = lang === "en" ? " " : "";
+  return prefixAndSuffix.map((fix) => lang === "en" ? capitalize(fix) : fix).join(separator);
+};
+
+// build/dist/functions/find.functions.js
+var rollFindValue = (fv) => {
+  if (fv === "None")
+    return [];
+  const piles = fv.split(";");
+  return piles.map((pile) => {
+    const [dice, coin] = pile.split(" ");
+    const numberOfD6ToRoll = parseD6String(dice);
+    const coinValue = range2(numberOfD6ToRoll).map((_24) => rollD6()).reduce((a2, b2) => a2 + b2, 0);
+    const coinLabel = `Coin.${capitalize(coin)}`;
+    return {
+      coins: coinValue,
+      label: coinLabel
+    };
+  });
+};
+var getRandomFind = (findTable) => {
+  const roll = rollD66();
+  const adjustedRoll = roll < 31 ? 31 : roll;
+  return findTable[adjustedRoll];
+};
+var weightToViewModelDict = {
+  0: "None",
+  0.25: "Tiny",
+  0.5: "Light",
+  1: "Normal",
+  2: "Heavy",
+  3: "3",
+  4: "4",
+  5: "5",
+  6: "6",
+  7: "7",
+  8: "8"
+};
+var createFindViewModel = (f2, location) => {
+  return {
+    ...f2,
+    location,
+    weight: weightToViewModelDict[f2.weight],
+    value: rollFindValue(f2.value)
+  };
+};
+
+// build/dist/pkg/nanoid.js
+var nanoid = (size = 21) => {
+  let id3 = "";
+  let bytes = crypto.getRandomValues(new Uint8Array(size));
+  while (size--) {
+    let byte = bytes[size] & 63;
+    if (byte < 36) {
+      id3 += byte.toString(36);
+    } else if (byte < 62) {
+      id3 += (byte - 26).toString(36).toUpperCase();
+    } else if (byte < 63) {
+      id3 += "_";
+    } else {
+      id3 += "-";
+    }
+  }
+  return id3;
+};
+
+// build/dist/models/utils.model.js
+var getId = () => nanoid();
+
+// build/dist/pages/finds.page.js
+var FindsPage = () => {
+  const {
+    t: t4,
+    i18n
+  } = useTranslation(["finds"]);
+  const [transition, setTransition] = useState(false);
+  const data = {
+    Carried: carriedFinds,
+    Lair: lairFinds
+  };
+  const createFind = (location, type) => {
+    return {
+      ...getRandomFind(data[location][type]),
+      id: getId()
+    };
+  };
+  const [findData, setFindData] = useState(createFind("Carried", "Simple"));
+  const updateFindData = (location, type) => {
+    setFindData(createFind(location, type));
+  };
+  const [find, setFind] = useState(createFindViewModel(findData, "Carried"));
+  useEffect(() => {
+    setFind(createFindViewModel(findData, find.location));
+    setTransition(true);
+    setTimeout(() => {
+      setTransition(false);
+    }, 100);
+  }, [findData]);
+  return jsx("div", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      rowGap: "2rem",
+      width: "100%",
+      paddingBottom: "4rem"
+    }
+  }, jsx(PageHeader, null, t4("Title")), jsx("div", {
+    css: {
+      "@media (min-width: 768px)": {
+        maxWidth: "768px",
+        width: "100%",
+        marginLeft: "auto",
+        marginRight: "auto"
+      }
+    }
+  }, jsx("div", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "4rem"
+    }
+  }, jsx(Train, {
+    distribute: true,
+    wrap: false
+  }, jsx(Pancake, null, jsx("h2", {
+    css: {
+      textAlign: "center",
+      fontSize: "1.875rem",
+      lineHeight: "2.25rem"
+    },
+    className: "yx-heading"
+  }, t4("Find.Location.Carried")), jsx(Button, {
+    variant: "secondary",
+    css: {
+      backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
+      "--tw-gradient-to": "#d97706",
+      "--tw-gradient-from": "#92400e",
+      "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(146, 64, 14, 0))",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(146, 64, 14, var(--tw-border-opacity))",
+      "--tw-text-opacity": "1",
+      color: "rgba(255, 251, 235, var(--tw-text-opacity))",
+      ":hover": {
+        "--tw-gradient-to": "#f59e0b",
+        "--tw-gradient-from": "#b45309",
+        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(180, 83, 9, 0))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(180, 83, 9, var(--tw-border-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(255, 251, 235, var(--tw-text-opacity))"
+      },
+      ":focus-visible": {
+        outline: "2px dotted black",
+        outlineOffset: "2px",
+        outlineStyle: "solid"
+      }
+    },
+    onClick: () => updateFindData("Carried", "Simple")
+  }, t4("Find.Type.Simple")), jsx(Button, {
+    variant: "secondary",
+    css: {
+      backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
+      "--tw-gradient-to": "#f3f4f6",
+      "--tw-gradient-from": "#d1d5db",
+      "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(209, 213, 219, 0))",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
+      "--tw-text-opacity": "1",
+      color: "rgba(31, 41, 55, var(--tw-text-opacity))",
+      ":hover": {
+        "--tw-gradient-to": "#f9fafb",
+        "--tw-gradient-from": "#e5e7eb",
+        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(229, 231, 235, 0))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(229, 231, 235, var(--tw-border-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(31, 41, 55, var(--tw-text-opacity))"
+      },
+      ":focus-visible": {
+        outline: "2px dotted black",
+        outlineOffset: "2px",
+        outlineStyle: "solid"
+      }
+    },
+    onClick: () => updateFindData("Carried", "Valuable")
+  }, t4("Find.Type.Valuable")), jsx(Button, {
+    variant: "secondary",
+    css: {
+      backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
+      "--tw-gradient-to": "#fef3c7",
+      "--tw-gradient-from": "#fbbf24",
+      "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(251, 191, 36, 0))",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(251, 191, 36, var(--tw-border-opacity))",
+      "--tw-text-opacity": "1",
+      color: "rgba(120, 53, 15, var(--tw-text-opacity))",
+      ":hover": {
+        "--tw-gradient-to": "#fffbeb",
+        "--tw-gradient-from": "#fcd34d",
+        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(252, 211, 77, 0))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(252, 211, 77, var(--tw-border-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(120, 53, 15, var(--tw-text-opacity))"
+      },
+      ":focus-visible": {
+        outline: "2px dotted black",
+        outlineOffset: "2px",
+        outlineStyle: "solid"
+      }
+    },
+    onClick: () => updateFindData("Carried", "Precious")
+  }, t4("Find.Type.Precious"))), jsx(Pancake, null, jsx("h2", {
+    css: {
+      textAlign: "center",
+      fontSize: "1.875rem",
+      lineHeight: "2.25rem"
+    },
+    className: "yx-heading"
+  }, t4("Find.Location.Lair")), jsx(Button, {
+    css: {
+      backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
+      "--tw-gradient-to": "#d97706",
+      "--tw-gradient-from": "#92400e",
+      "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(146, 64, 14, 0))",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(146, 64, 14, var(--tw-border-opacity))",
+      "--tw-text-opacity": "1",
+      color: "rgba(255, 251, 235, var(--tw-text-opacity))",
+      ":hover": {
+        "--tw-gradient-to": "#f59e0b",
+        "--tw-gradient-from": "#b45309",
+        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(180, 83, 9, 0))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(180, 83, 9, var(--tw-border-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(255, 251, 235, var(--tw-text-opacity))"
+      },
+      ":focus-visible": {
+        outline: "2px dotted black",
+        outlineOffset: "2px",
+        outlineStyle: "solid"
+      }
+    },
+    variant: "secondary",
+    onClick: () => updateFindData("Lair", "Simple")
+  }, t4("Find.Type.Simple")), jsx(Button, {
+    css: {
+      backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
+      "--tw-gradient-from": "#d1d5db",
+      "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(209, 213, 219, 0))",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
+      "--tw-text-opacity": "1",
+      color: "rgba(31, 41, 55, var(--tw-text-opacity))",
+      ":hover": {
+        "--tw-gradient-to": "#f9fafb",
+        "--tw-gradient-from": "#e5e7eb",
+        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(229, 231, 235, 0))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(229, 231, 235, var(--tw-border-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(31, 41, 55, var(--tw-text-opacity))"
+      },
+      ":focus-visible": {
+        outline: "2px dotted black",
+        outlineOffset: "2px",
+        outlineStyle: "solid"
+      }
+    },
+    variant: "secondary",
+    onClick: () => updateFindData("Lair", "Valuable")
+  }, t4("Find.Type.Valuable")), jsx(Button, {
+    css: {
+      backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
+      "--tw-gradient-to": "#fef3c7",
+      "--tw-gradient-from": "#fbbf24",
+      "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(251, 191, 36, 0))",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(251, 191, 36, var(--tw-border-opacity))",
+      "--tw-text-opacity": "1",
+      color: "rgba(120, 53, 15, var(--tw-text-opacity))",
+      ":hover": {
+        "--tw-gradient-to": "#fffbeb",
+        "--tw-gradient-from": "#fcd34d",
+        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(252, 211, 77, 0))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(252, 211, 77, var(--tw-border-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(120, 53, 15, var(--tw-text-opacity))"
+      },
+      ":focus-visible": {
+        outline: "2px dotted black",
+        outlineOffset: "2px",
+        outlineStyle: "solid"
+      }
+    },
+    variant: "secondary",
+    onClick: () => updateFindData("Lair", "Precious")
+  }, t4("Find.Type.Precious")))), jsx("div", {
+    css: [{
+      transitionProperty: "transform",
+      transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+      transitionDuration: "150ms",
+      "--tw-translate-y": "0px",
+      transform: "var(--tw-transform)"
+    }, transition && {
+      "--tw-translate-y": "0.25rem",
+      transform: "var(--tw-transform)"
+    }]
+  }, jsx(Parchment, {
+    deps: [find, i18n.language]
+  }, jsx(Pancake, null, jsx("h2", {
+    css: {
+      textAlign: "center",
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      marginBottom: "1rem",
+      "@media (min-width: 1024px)": {
+        fontSize: "2.25rem",
+        lineHeight: "2.5rem"
+      }
+    },
+    className: "yx-heading"
+  }, t4(`Find.${find.title}`)), jsx(Pancake, null, jsx(Stat, {
+    large: true,
+    label: t4("Value")
+  }, find.value.map((v2) => `${v2.coins} ${t4(v2.label)}`).join(", ")), jsx(Grid, {
+    cols: "3"
+  }, jsx(Stat, {
+    label: t4("Weight")
+  }, find.weight), jsx(Stat, {
+    label: t4("Type")
+  }, t4(`Find.Type.${find.type}`)), jsx(Stat, {
+    label: t4("Location")
+  }, t4(find.location))))))))));
 };
 
 // build/dist/pages/gear.page.js
@@ -18039,174 +19601,6 @@ var KinNameList = ({
   }))));
 };
 
-// build/dist/models/name.model.js
-var NameType;
-(function(NameType2) {
-  NameType2["FirstName"] = "FirstName";
-  NameType2["FamilyName"] = "FamilyName";
-  NameType2["HomeName"] = "HomeName";
-  NameType2["NickName"] = "NickName";
-})(NameType || (NameType = {}));
-
-// build/dist/data/name.data.js
-var humanNames = {
-  Alderlander: {
-    Male: {
-      probabilites: [{
-        type: NameType.FirstName,
-        weight: 49
-      }, {
-        type: NameType.FamilyName,
-        weight: 5
-      }, {
-        type: NameType.HomeName,
-        weight: 5
-      }],
-      rawNames: ["Adalbern", "Alaric", "Alboin", "Baldarich", "Baldomar", "Clovis", "Eburwin", "Egino", "Erminigild", "Eward", "Faramund", "Fridumar", "Fulco", "Gerulf", "Gislin", "Haimo", "Hardmod", "Hariwald", "Horsa", "Hrodger", "Hrolf", "Ivo", "Joscelin", "Karl", "Kuno", "Landebert", "Lanzo", "Leudagar", "Lothar", "Manno", "Meginfrid", "Meino", "Odo", "Odoacer", "Ortwin", "Otmar", "Otto", "Raban", "Radulf", "Ranganhar", "Rochus", "Rudesind", "Sigdag", "Siward", "Tancred", "Trancmar", "Waldhar", "Waldo", "Wandal", "Warin"]
-    },
-    Female: {
-      probabilites: [{
-        type: NameType.FirstName,
-        weight: 49
-      }, {
-        type: NameType.FamilyName,
-        weight: 5
-      }, {
-        type: NameType.HomeName,
-        weight: 5
-      }],
-      rawNames: ["Adela", "Adelais", "Adelina", "Aenor", "Alda", "Aldegund", "Amalia", "Amelina", "Auda", "Aveza", "Avila", "Berengaria", "Bertha", "Brunhild", "Brunhilde", "Clothildis", "Cunigund", "Ermendrud", "Ermingard", "Erminhilt", "Erminlinda", "Frida", "Geretrudis", "Gerhild", "Gerlind", "Gisila", "Godeliva", "Gunda", "Hadewig", "Hailwic", "Herleva", "Ida", "Ima", "Irma", "Ishild", "Leutgard", "Luitgard", "Lutgardis", "Mahthildis", "Oda", "Odila", "Raganhildis", "Roslindis", "Rosmunda", "Rothad", "Roza", "Saxa", "Sigilind", "Waldeburg", "Waldedrudis"]
-    },
-    family: ["Adogit", "Aelvaeones", "Batini", "Bergio", "Braemi", "Bui", "Chali", "Danduti", "Dani", "Eunixi", "Evagres", "Favonae ", "Fosi", "Grannii", "Hallin", "Hasdingi", "Helissi", "Heruli", "Hilleviones", "Ingriones", "Lemovii", "Levoni", "Manimi", "Mattiaci", "Naharvali", "Nemetes", "Njars", "Otingis", "Pharodini", "Quadi", "Racatae", "Racatriae", "Salii", "Scirii", "Segni", "Sigulones", "Suevi", "Taetel", "Teutons", "Thervingi", "Theustes", "Tubanti", "Ubi", "Vagoth", "Vangiones", "Varini", "Vinoiloth ", "Viruni", "Vispi ", "Zumi"]
-  },
-  Aslene: {
-    Male: {
-      probabilites: [{
-        type: NameType.FirstName,
-        weight: 49
-      }, {
-        type: NameType.NickName,
-        weight: 5
-      }],
-      rawNames: ["Agis", "Agler", "Alceus", "Altair", "Anker ", "Ares", "Arsene", "Atemas", "Avel", "Balasi", "Baruch", "Cassander", "Cimon", "Cletus", "Cyrus", "Damen", "Dinos", "Dion", "Dorian", "Dunixi", "Eneas", "Etor", "Feodor", "Gilos", "Gorka", "Guilios", "Hali", "Hesiod", "Hippias", "Kai", "Kuiril", "Kyros", "Leander", "Meletios", "Mentor", "Milos", "Nestor", "Orestes", "Peder", "Poul", "Preben", "Solon", "Spyridon", "Thanos", "Titos", "Todor", "Vasileous", "Vasilis", "Zeno", "Zorba"]
-    },
-    Female: {
-      probabilites: [{
-        type: NameType.FirstName,
-        weight: 49
-      }, {
-        type: NameType.NickName,
-        weight: 5
-      }],
-      rawNames: ["Adara", "Alena", "Arete", "Asta", "Callia", "Cassia", "Charis", "Cyma", "Damia", "Delbin", "Doria", "Eleni", "Elna", "Evadne", "Evania", "Evanthe", "Filia", "Helia", "Hesper", "Io", "Iona", "Ionia", "Isaura", "Ismini", "Kaia", "Kama", "Kepa", "Kolete", "Lana", "Lelia", "Lenore", "Melania", "Melita", "Metea", "Mona", "Nora", "Nyssa", "Odele", "Pallas", "Panthea", "Pelegia", "Perrine", "Philippa", "Rhea", "Rita", "Sappho", "Sonia", "Tessa", "Vania", "Zenobia"]
-    },
-    nickName: ["NickNames.Adventurous", "NickNames.Angry", "NickNames.Bald", "NickNames.Bloody", "NickNames.Bold", "NickNames.Accurate", "NickNames.Sloppy", "NickNames.Careful", "NickNames.Able", "NickNames.Confused", "NickNames.Cruel", "NickNames.Direct", "NickNames.Dashing", "NickNames.Thick", "NickNames.Wary", "NickNames.Good", "NickNames.Hairy", "NickNames.Stylish", "NickNames.Blessed", "NickNames.Jumping", "NickNames.Hopeful", "NickNames.Cheerful", "NickNames.Happy", "NickNames.Mighty", "NickNames.Gentle", "NickNames.Misled", "NickNames.Somber", "NickNames.Old", "NickNames.KeenEyed", "NickNames.Proud", "NickNames.Trustworthy", "NickNames.Sad", "NickNames.Short", "NickNames.Sleepy", "NickNames.Slow", "NickNames.Powerful", "NickNames.Strong", "NickNames.Honest", "NickNames.Fast", "NickNames.Talkative", "NickNames.Long", "NickNames.Terrible", "NickNames.Thin", "NickNames.Ugly", "NickNames.Vain", "NickNames.Weak", "NickNames.Wise", "NickNames.Young"]
-  },
-  Ailander: {
-    Male: {
-      probabilites: [{
-        type: NameType.FirstName,
-        weight: 49
-      }, {
-        type: NameType.FamilyName,
-        weight: 10
-      }, {
-        type: NameType.HomeName,
-        weight: 10
-      }],
-      rawNames: ["Alvgar", "Ahlred", "Atheric", "Baldred", "Beocca", "Beorn", "Bosa", "Brid", "Cadwallon", "Ceol", "Cuthred", "Cuthwulf", "Cynric", "Daela", "Dunn", "Dunstan", "Eadgar", "Eadhun", "Ealread", "Earnwulf", "Eohric", "Frithstan", "Guthere", "Guthlaf", "Gyric", "Haefoc", "Hrothgar", "Ithamar", "Leofgar", "Liofa", "Morchaer", "Odda", "Ordgar", "Osgar", "Osred", "Praen", "Raedwald", "Sidrac", "Sigulf", "Sithric", "Teothic", "Tobias", "Uhtred", "Ulf", "Waldere", "Wulfgar", "Wulfmaer", "Wulfric", "Wulfwig", "Wynstan"]
-    },
-    Female: {
-      probabilites: [{
-        type: NameType.FirstName,
-        weight: 49
-      }, {
-        type: NameType.FamilyName,
-        weight: 10
-      }, {
-        type: NameType.HomeName,
-        weight: 10
-      }],
-      rawNames: ["Aebbe", "Aedwen", "Alvhild", "Alvlaed", "Alvswith", "Alvswith", "Alvwyn", "Aethelith", "Aethelwyn", "Ailred", "Bebbe ", "Bucge", "Ceolburh", "Cuthburh", "Cuthswith", "Cyneberg", "Eadburg", "Eadgifu", "Ealhild", "Eanflaed", "Eangyth", "Eanith", "Eawyn", "Edwyn", "Frithwyn", "Gytha", "Heiu", "Helelufu", "Hild", "Hilda", "Inga", "Leofrun", "Maethild", "Mathilda", "Osgyth", "Oshild", "Osswith", "Ricola", "Saegyth", "Saehild", "Saeith", "Saewyn", "Saewyn", "Siflaed", "Waerburh", "Withith", "Wulfwaru", "Wulfwyn", "Wynflaed", "Ymma"]
-    },
-    family: ["Adlard", "Almer", "Alston", "Alvar", "Balston", "Brunger", "Brunwin", "Burch", "Burward", "Cobbald", "Dewdney", "Eddols", "Elphee", "Elvey", "Erwin", "Frewer", "Frewin", "Goldbard", "Goldhawk", "Hulbert", "Isgar", "Kenway", "Kerrich", "Kerrich", "Lambrick", "Leavins", "Leavold", "Lewin", "Litwin", "Litwin", "Medwin", "Orrick", "Osmer", "Othen", "Quenell", "Seavers", "Siggers", "Sirett", "Stannard", "Wackrill", "Walwin", "Wennell", "Whatman", "Winbolt", "Winbow", "Woolgar", "Wyard", "Wyberg", "Wymer", "Yonwin"]
-  }
-};
-var villageNamesSv = {
-  prefix: ["Bärnsten", "Ängel", "Själ", "Bäck", "Vik", "Kittel", "Pil", "Höst", "Kal", "Fjärd", "Strand", "Björn", "Klock", "Svart", "Dyster", "Blind", "Ben", "Block", "Bro", "Gryt", "Skör", "Brons", "Borg", "Grott", "Kyl", "Ler", "Klar", "Klipp", "Moln", "Kall", "Häll", "Kråk", "Kristall", "Fördömda", "Mörk", "Gryning", "Död", "Djup", "Rådjurs", "Demon", "Dagg", "Dunkel", "Öde", "Smuts", "Hund", "Drak", "Torr", "Skymnings", "Damm", "Örn", "Jord", "Öst", "Brun", "Kant", "Äldre", "Gammel", "Glöd", "Eviga", "Rättvisa", "Fall", "Falsk", "Fager", "Bortre", "Fe", "Fruktans", "Flamm", "Platt", "Frej", "Frost", "Spöke", "Glimm", "Dunkel", "Guld", "Gräs", "Grå", "Grön", "Dyster", "Smuts", "Hassel", "Hjärt", "Hög", "Dov", "Honungs", "Hund", "Is", "Järn", "Kil", "Riddar", "Sjö", "Sista", "Ljus", "Kalk", "Liten", "Förlorade", "Galen", "Magiker", "Lönn", "Mitt", "Makt", "Kvarn", "Dimm", "Mån", "Moss", "Ler", "Stum", "Myt", "Aldrig", "Ny", "Natt", "Norr", "Ek", "Hav", "Gammal", "Ox", "Pärl", "Tall", "Damm", "Ren", "Snabb", "Vredes", "Korp", "Röd", "Rimfrost", "Flod", "Sten", "Skälm", "Ros", "Rost", "Salt", "Sand", "Bränn", "Skydd", "Skugg", "Skimmer", "Slöj", "Tyst", "Silkes", "Silver", "Slät", "Slask", "Lömsk", "Små", "Lill", "Slät", "Orm", "Snö", "Söder", "Vår", "Hjort", "Stjärn", "Imm", "Stål", "Brant", "Stilla", "Sten", "Storm", "Sommar", "Sol", "Kärr", "Svan", "Snabb", "Törne", "Timmer", "Handel", "Väst", "Val", "Dugg", "Vit", "Vild", "Vilda", "Vind", "Vinter", "Varg"],
-  suffix: ["tunnland", "band", "kärr", "vik", "klocka", "född", "städ", "born", "brott", "bryt", "bäck", "fäste", "bränna", "grav", "röse", "kalla", "kyla", "klippa", "kust", "krön", "korsning", "dal", "gryt", "driva", "klar", "falla", "falls", "fälla", "fält", "ved", "skog", "fort", "front", "frost", "garde", "port", "dalgång", "brott", "grav", "lund", "vakt", "klyfta", "bukt", "hall", "helga", "tuna", "hand", "hamn", "tillflykt", "roder", "kulle", "fäste", "holde", "sänka", "horn", "värd", "torn", "landa", "ljus", "gap", "äng", "ren", "myr", "vall", "hed", "Mer", "pik", "mun", "passage", "topp", "platts", "damm", "hamn", "post", "ände", "vila", "sten", "springa", "ärr", "skugga", "klippa", "skal", "skydda", "strand", "fylke", "sida", "stava", "spira", "by", "häx", "helga", "stjärna", "storm", "strå", "toppen", "flod", "sta", "dal", "dala", "valv", "ådra", "utsikt", "bya", "mur", "tumla", "Skydd", "Utsikt", "vatten", "brunn", "brygga", "veke", "vind", "trä", "gård"]
-};
-var villageNamesEn = {
-  prefix: ["Amber", "Angel", "Soul", "Stream", "Bay", "Cauldron", "Arrow", "Autumn", "Bald", "Bay", "Beach", "Bear", "Clock", "Black", "Gloomy", "Blind", "Bone", "Block", "Bridge", "Pot", "Fragile", "Bronze", "Fort", "Cave", "Leg", "Smiles", "Clear", "Killing", "Cloud", "Cold", "Slab", "Crow", "Crystal", "Damned", "Dark", "Dawn", "Death", "Depth", "Deer", "Demon", "Dew", "Dim", "Fate", "Dirt", "Dog", "Drake", "Dry", "Twilight", "Dust", "Eagle", "Soil", "East", "Brown", "Edge", "Elder", "Old", "Glow", "Eternal", "Justice", "Case", "Fake", "Fair", "Far", "Fairy", "Fear", "Flame", "Flat", "Free", "Frost", "Ghost", "Glimmer", "Murky", "Gold", "Grass", "Gray", "Green", "Gloomy", "Dirt", "Hazel", "Heart", "High", "Dull", "Honey", "Dog", "Ice", "Iron", "Wedge", "Knights", "Lake", "Last", "Light", "Lime", "Small", "Lost", "Crazy", "Magician", "Maple", "Middle", "Power", "Grinder", "Fog", "Moon", "Moss", "Smiles", "Speechless", "Myth", "Never", "New", "Night", "North", "Oak", "Sea", "Old", "Ox", "Pearl", "Pine", "Dust", "Clean", "Fast", "Peace", "Raven", "Red", "Frost", "River", "Stone", "Rogue", "Rose", "Rust", "Salt", "Sand", "Burn", "Protection", "Shadow", "Shimmer", "Veil", "Silent", "Silk", "Silver", "Smooth", "Slush", "Sneaky", "Small", "Little", "Smooth", "Snake", "Snow", "South", "Spring", "Deer", "Star", "Mist", "Steel", "Steep", "Still", "Stone", "Storm", "Summer", "Solar", "Marsh", "Swan", "Fast", "Thorn", "Timber", "Trade", "West", "Choice", "Dugg", "White", "Wild", "Wild", "Wind", "Winter", "Wolf"],
-  suffix: ["acres", "band", "marsh", "bay", "clock", "born", "cleaning", "born", "crime", "break", "stream", "attachment", "burn", "grave", "cairn", "call", "cold", "cut", "coastal", "crown", "crossing", "valley", "gryt", "drive", "clear", "fall", "falls", "trap", "field", "firewood", "forest", "fast", "front", "frost", "garde", "port", "valley", "crime", "grave", "grove", "guard", "gap", "bay", "hall", "sanctify", "tuna", "hand", "port", "refuge", "rudder", "hill", "attachment", "hold", "lower", "horn", "host", "tower", "land", "light", "gap", "meadow", "clean", "mire", "mound", "heath", "more", "pike", "mouth", "passage", "top", "flats", "dust", "port", "mail", "end", "rest", "stone", "run", "scar", "shadow", "cut", "shell", "protect", "beach", "county", "page", "spell", "scepter", "village", "witch", "sanctify", "star", "storm", "straw", "top", "river", "stand", "valley", "dale", "vault", "lode", "view", "village", "wall", "tumble", "protection", "view", "water", "well", "bridge", "wick", "wind", "wood", "courtyard"]
-};
-
-// build/dist/functions/name.functions.js
-var getRandomName = (g3, lang, nameList, chooseFunc = choose) => {
-  const {
-    type,
-    firstName
-  } = getNameTypeAndFirstName(g3, nameList);
-  switch (type) {
-    case NameType.FamilyName: {
-      if (!nameList.family || nameList.family.length === 0) {
-        return [firstName];
-      }
-      return [firstName, chooseFunc(nameList.family)];
-    }
-    case NameType.NickName: {
-      if (!nameList.nickName || nameList.nickName.length === 0) {
-        return [firstName];
-      }
-      return [firstName, "THE", chooseFunc(nameList.nickName)];
-    }
-    case NameType.HomeName:
-      return [firstName, "OF", formatVillageName(getVillagePrefixAndSuffix(lang, chooseFunc), lang)];
-    case NameType.FirstName:
-    default:
-      return [firstName];
-  }
-};
-var getRandomAilanderName = (g3, lang, nameList = humanNames.Ailander, chooseFunc = choose) => {
-  return getRandomName(g3, lang, nameList, chooseFunc);
-};
-var getRandomAlderlanderName = (g3, lang, nameList = humanNames.Ailander, chooseFunc = choose) => {
-  return getRandomName(g3, lang, nameList, chooseFunc);
-};
-var getRandomAsleneName = (g3, lang, nameList = humanNames.Aslene, chooseFunc = choose) => {
-  return getRandomName(g3, lang, nameList, chooseFunc);
-};
-var getNameTypeAndFirstName = (g3, nl) => {
-  return {
-    type: weightedRandom(nl[g3].probabilites).type,
-    firstName: choose(nl[g3].rawNames)
-  };
-};
-var getVillageNameList = (lang) => {
-  switch (lang) {
-    case "sv":
-      return villageNamesSv;
-    case "en":
-      return villageNamesEn;
-    default: {
-      const exhaustiveCheck = lang;
-      throw new Error(exhaustiveCheck);
-    }
-  }
-};
-var capitalize = (s) => `${s.charAt(0).toUpperCase()}${s.slice(1)}`;
-var getVillagePrefixAndSuffix = (lang, choiceFunc = choose) => {
-  const {
-    prefix,
-    suffix
-  } = getVillageNameList(lang);
-  return [choiceFunc(prefix), choiceFunc(suffix)];
-};
-var formatVillageName = (prefixAndSuffix, lang) => {
-  const separator = lang === "en" ? " " : "";
-  return prefixAndSuffix.map((fix) => lang === "en" ? capitalize(fix) : fix).join(separator);
-};
-
 // build/dist/pages/name-generator.page.js
 var NameGeneratorPage = () => {
   const {
@@ -19046,27 +20440,6 @@ var Tag = styled_default.div(() => [
     fontWeight: "500"
   }
 ]);
-
-// build/dist/components/stat.js
-var Stat = ({
-  children,
-  label
-}) => jsx("div", {
-  css: {
-    textAlign: "center"
-  }
-}, jsx("div", {
-  css: {
-    fontWeight: "500",
-    fontSize: "1.125rem",
-    lineHeight: "1"
-  }
-}, children), jsx("div", {
-  css: {
-    fontSize: "0.875rem",
-    lineHeight: "1.25rem"
-  }
-}, label));
 
 // build/dist/components/typical-kin-display.js
 var TypicalKinDisplay = (typicalKinViewModel) => {
@@ -20370,28 +21743,6 @@ var halflingAndGoblinTypicalKins = {
   }
 };
 
-// build/dist/pkg/nanoid.js
-var nanoid = (size = 21) => {
-  let id3 = "";
-  let bytes = crypto.getRandomValues(new Uint8Array(size));
-  while (size--) {
-    let byte = bytes[size] & 63;
-    if (byte < 36) {
-      id3 += byte.toString(36);
-    } else if (byte < 62) {
-      id3 += (byte - 26).toString(36).toUpperCase();
-    } else if (byte < 63) {
-      id3 += "_";
-    } else {
-      id3 += "-";
-    }
-  }
-  return id3;
-};
-
-// build/dist/models/utils.model.js
-var getId = () => nanoid();
-
 // build/dist/functions/armor.functions.js
 var createArmorViewModel = (w2) => ({
   ...w2,
@@ -20713,7 +22064,13 @@ var App = () => {
     }]
   }, {
     path: "gear",
-    element: jsx(GearPage, null)
+    children: [{
+      path: "tables",
+      element: jsx(GearPage, null)
+    }, {
+      path: "finds",
+      element: jsx(FindsPage, null)
+    }]
   }, {
     path: "calendar",
     element: jsx(CalendarPage, null)
@@ -20736,10 +22093,9 @@ var App = () => {
   const {
     pathname
   } = useLocation();
-  const {
-    pathname: toPathname
-  } = useResolvedPath("kin");
-  const isLinkActive = pathname.includes(toPathname);
+  const toPathContains = (toPath) => (path2) => path2.includes(useResolvedPath(toPath).pathname);
+  const isGearPageActive = toPathContains("gear");
+  const isKinPageActive = toPathContains("kin");
   return jsx("div", {
     className: "App",
     css: styles.container()
@@ -20797,9 +22153,30 @@ var App = () => {
     to: "/map"
   }, t4("Menu-Map")), jsx(MenuLink, {
     to: "/calendar"
-  }, t4("Menu-Calendar")), jsx(MenuLink, {
-    to: "/gear"
-  }, t4("Menu-Gear")), jsx("div", {
+  }, t4("Menu-Calendar")), jsx("div", {
+    css: {
+      paddingLeft: "1rem"
+    }
+  }, jsx(Group, {
+    spaceBeforeItems: false,
+    indent: false,
+    label: jsx("div", {
+      css: {
+        fontWeight: "500"
+      }
+    }, t4("Menu-Gear")),
+    open: isGearPageActive(pathname)
+  }, jsx("div", {
+    css: {
+      marginTop: "0.5rem"
+    }
+  }, jsx(Pancake, {
+    spacing: "small"
+  }, jsx(MenuLink, {
+    to: "/gear/tables"
+  }, t4("Menu-Gear-Tables")), jsx(MenuLink, {
+    to: "/gear/finds"
+  }, t4("Menu-Gear-Finds")))))), jsx("div", {
     css: {
       paddingLeft: "1rem"
     }
@@ -20811,7 +22188,7 @@ var App = () => {
         fontWeight: "500"
       }
     }, t4("Menu-Kin")),
-    open: isLinkActive
+    open: isKinPageActive(pathname)
   }, jsx("div", {
     css: {
       marginTop: "0.5rem"
@@ -25083,7 +26460,7 @@ i18nReact.use(i18next_http_backend_default).use(i18next_browser_languagedetector
   fallbackLng: "en",
   debug: false,
   supportedLngs: ["en", "sv"],
-  ns: ["core", "common", "calendar", "map", "monsters", "names", "encounters", "session"],
+  ns: ["core", "common", "calendar", "map", "monsters", "names", "encounters", "session", "typical", "finds"],
   keySeparator: ".",
   backend: {
     loadPath
