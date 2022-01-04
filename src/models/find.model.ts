@@ -32,12 +32,17 @@ export type WeightViewModel =
   | '7'
   | '8'
 
-export type Find<T extends FindType, C extends FindChance> = {
+export type Find<
+  T extends FindType,
+  C extends FindChance,
+  L extends FindLocation,
+> = {
   type: T
   chance: C
   title: FindLabels
   weight: Weight
   value: FindValue
+  location: L
 }
 
 export type FindViewModel = {
