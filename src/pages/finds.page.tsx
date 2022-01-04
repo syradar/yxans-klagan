@@ -127,9 +127,11 @@ export const FindsPage = () => {
 
                 <Pancake>
                   <Stat large label={t('Value')}>
-                    {find.value
-                      .map((v) => `${v.coins} ${t(v.label)}`)
-                      .join(', ')}
+                    {find.value.length > 0
+                      ? find.value
+                          .map((v) => `${v.coins} ${t(v.label)}`)
+                          .join(', ')
+                      : '–'}
                   </Stat>
                   <Grid cols="3">
                     <Stat label={t('Weight')}>{find.weight}</Stat>
