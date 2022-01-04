@@ -151,13 +151,15 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                       {t(`Range.${w.range}`, { ns: 'common' })}
                     </Stat>
                   </Train>
-                  <Train spacing="small">
-                    {w.features.map((f) => (
-                      <Tag key={f}>
-                        {t(`Weapon.Feature.${f}`, { ns: 'common' })}
-                      </Tag>
-                    ))}
-                  </Train>
+                  {w.features.length > 0 && (
+                    <Train spacing="small">
+                      {w.features.map((f) => (
+                        <Tag key={f}>
+                          {t(`Weapon.Feature.${f}`, { ns: 'common' })}
+                        </Tag>
+                      ))}
+                    </Train>
+                  )}
                 </Pancake>
               </Group>
             ))}
@@ -190,13 +192,15 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                       {s.bonus}
                     </Stat>
                   </Train>
-                  <Train>
-                    {s.features.map((s) => (
-                      <Tag key={s}>
-                        {t(`ArmorFeature.${s}`, { ns: 'common' })}
-                      </Tag>
-                    ))}
-                  </Train>
+                  {s.features.length > 0 && (
+                    <Train>
+                      {s.features.map((s) => (
+                        <Tag key={s}>
+                          {t(`ArmorFeature.${s}`, { ns: 'common' })}
+                        </Tag>
+                      ))}
+                    </Train>
+                  )}
                 </Pancake>
               </Group>
             ))}
@@ -230,13 +234,15 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                       {t(`Armor.Body`, { ns: 'common' })}
                     </Stat>
                   </Train>
-                  <Train spacing="small">
-                    {a.features.map((feature) => (
-                      <Tag key={feature}>
-                        {t(`ArmorFeature.${feature}`, { ns: 'common' })}
-                      </Tag>
-                    ))}
-                  </Train>
+                  {a.features.length > 0 && (
+                    <Train spacing="small">
+                      {a.features.map((feature) => (
+                        <Tag key={feature}>
+                          {t(`ArmorFeature.${feature}`, { ns: 'common' })}
+                        </Tag>
+                      ))}
+                    </Train>
+                  )}
                 </Pancake>
               </Group>
             ))}
@@ -270,13 +276,15 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                       {t(`Helmet.Body`, { ns: 'common' })}
                     </Stat>
                   </Train>
-                  <Train spacing="small">
-                    {h.features.map((feature) => (
-                      <Tag key={feature}>
-                        {t(`ArmorFeature.${feature}`, { ns: 'common' })}
-                      </Tag>
-                    ))}
-                  </Train>
+                  {h.features.length > 0 && (
+                    <Train spacing="small">
+                      {h.features.map((feature) => (
+                        <Tag key={feature}>
+                          {t(`ArmorFeature.${feature}`, { ns: 'common' })}
+                        </Tag>
+                      ))}
+                    </Train>
+                  )}
                 </Pancake>
               </Group>
             ))}
