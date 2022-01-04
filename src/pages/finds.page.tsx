@@ -5,7 +5,7 @@ import tw from 'twin.macro'
 import { Button } from '../components/Button'
 import { PageHeader } from '../components/page-header'
 import { Parchment } from '../components/parchment'
-import { Grid, Pancake, Train } from '../components/stack'
+import { Grid, Pancake } from '../components/stack'
 import { Stat } from '../components/stat'
 import { finds } from '../data/find.data'
 import { createFindViewModel, getRandomFind } from '../functions/find.functions'
@@ -54,14 +54,14 @@ export const FindsPage = () => {
       <PageHeader>{t('Title')}</PageHeader>
       <div tw="md:(max-w-screen-md w-full mx-auto)">
         <div tw="flex flex-col gap-16">
-          <Train distribute wrap={false}>
+          <Grid cols="2">
             <Pancake>
               <h2 tw="text-center  text-3xl" className="yx-heading">
                 {t('Find.Location.Carried')}
               </h2>
               <Button
                 variant="secondary"
-                tw="bg-gradient-to-bl to-yellow-600 from-yellow-800 border-yellow-800 text-yellow-50
+                tw="px-0 max-w-full bg-gradient-to-bl to-yellow-600 from-yellow-800 border-yellow-800 text-yellow-50
                 hover:(to-yellow-500 from-yellow-700 border-yellow-700 text-yellow-50) focus-visible:(outline-black outline-style[solid])"
                 onClick={() => updateFindData('Carried', 'Simple')}
               >
@@ -69,7 +69,7 @@ export const FindsPage = () => {
               </Button>
               <Button
                 variant="secondary"
-                tw="bg-gradient-to-bl to-gray-100 from-gray-300 border-gray-300 text-gray-800
+                tw="px-0 max-w-full bg-gradient-to-bl to-gray-100 from-gray-300 border-gray-300 text-gray-800
                 hover:(to-gray-50 from-gray-200 border-gray-200 text-gray-800) focus-visible:(outline-black outline-style[solid])"
                 onClick={() => updateFindData('Carried', 'Valuable')}
               >
@@ -77,41 +77,40 @@ export const FindsPage = () => {
               </Button>
               <Button
                 variant="secondary"
-                tw="bg-gradient-to-bl to-yellow-100 from-yellow-400 border-yellow-400 text-yellow-900
+                tw="px-0 max-w-full bg-gradient-to-bl to-yellow-100 from-yellow-400 border-yellow-400 text-yellow-900
                 hover:(to-yellow-50 from-yellow-300 border-yellow-300 text-yellow-900) focus-visible:(outline-black outline-style[solid])"
                 onClick={() => updateFindData('Carried', 'Precious')}
               >
                 {t('Find.Type.Precious')}
               </Button>
             </Pancake>
-
             <Pancake>
               <h2 tw="text-center  text-3xl" className="yx-heading">
                 {t('Find.Location.Lair')}
               </h2>
               <Button
-                tw="bg-gradient-to-bl to-yellow-600 from-yellow-800 border-yellow-800 text-yellow-50 hover:(to-yellow-500 from-yellow-700 border-yellow-700 text-yellow-50) focus-visible:(outline-black outline-style[solid])"
+                tw="px-0 max-w-full bg-gradient-to-bl to-yellow-600 from-yellow-800 border-yellow-800 text-yellow-50 hover:(to-yellow-500 from-yellow-700 border-yellow-700 text-yellow-50) focus-visible:(outline-black outline-style[solid])"
                 variant="secondary"
                 onClick={() => updateFindData('Lair', 'Simple')}
               >
                 {t('Find.Type.Simple')}
               </Button>
               <Button
-                tw="bg-gradient-to-bl from-gray-300 border-gray-300 text-gray-800 hover:(to-gray-50 from-gray-200 border-gray-200 text-gray-800) focus-visible:(outline-black outline-style[solid])"
+                tw="px-0 max-w-full bg-gradient-to-bl from-gray-300 border-gray-300 text-gray-800 hover:(to-gray-50 from-gray-200 border-gray-200 text-gray-800) focus-visible:(outline-black outline-style[solid])"
                 variant="secondary"
                 onClick={() => updateFindData('Lair', 'Valuable')}
               >
                 {t('Find.Type.Valuable')}
               </Button>
               <Button
-                tw="bg-gradient-to-bl to-yellow-100 from-yellow-400 border-yellow-400 text-yellow-900 hover:(to-yellow-50 from-yellow-300 border-yellow-300 text-yellow-900) focus-visible:(outline-black outline-style[solid])"
+                tw="px-0 max-w-full bg-gradient-to-bl to-yellow-100 from-yellow-400 border-yellow-400 text-yellow-900 hover:(to-yellow-50 from-yellow-300 border-yellow-300 text-yellow-900) focus-visible:(outline-black outline-style[solid])"
                 variant="secondary"
                 onClick={() => updateFindData('Lair', 'Precious')}
               >
                 {t('Find.Type.Precious')}
               </Button>
             </Pancake>
-          </Train>
+          </Grid>
           <div
             tw="transition-transform translate-y-0"
             css={[transition && tw`translate-y-1`]}
