@@ -15634,7 +15634,7 @@ var FindsPage = () => {
   }, t4(`Find.${find.title}`)), jsx(Pancake, null, jsx(Stat, {
     large: true,
     label: t4("Value")
-  }, find.value.map((v2) => `${v2.coins} ${t4(v2.label)}`).join(", ")), jsx(Grid, {
+  }, find.value.length > 0 ? find.value.map((v2) => `${v2.coins} ${t4(v2.label)}`).join(", ") : "–"), jsx(Grid, {
     cols: "3"
   }, jsx(Stat, {
     label: t4("Weight")
