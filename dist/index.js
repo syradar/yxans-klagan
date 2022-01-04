@@ -9087,6 +9087,280 @@ var GlobalStyles = () => jsx(react.Fragment, null, jsx(_GlobalStyles, null), jsx
   styles: customStyles
 }));
 
+// build/dist/pkg/common/extends-7477639a.js
+function _extends() {
+  _extends = Object.assign || function(target) {
+    for (var i2 = 1; i2 < arguments.length; i2++) {
+      var source = arguments[i2];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends.apply(this, arguments);
+}
+
+// build/dist/pkg/@emotion/styled.js
+var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|enterKeyHint|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|incremental|fallback|inert|itemProp|itemScope|itemType|itemID|itemRef|on|option|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/;
+var isPropValid = /* @__PURE__ */ memoize(function(prop2) {
+  return reactPropsRegex.test(prop2) || prop2.charCodeAt(0) === 111 && prop2.charCodeAt(1) === 110 && prop2.charCodeAt(2) < 91;
+});
+var testOmitPropsOnStringTag = isPropValid;
+var testOmitPropsOnComponent = function testOmitPropsOnComponent2(key) {
+  return key !== "theme";
+};
+var getDefaultShouldForwardProp = function getDefaultShouldForwardProp2(tag) {
+  return typeof tag === "string" && tag.charCodeAt(0) > 96 ? testOmitPropsOnStringTag : testOmitPropsOnComponent;
+};
+var composeShouldForwardProps = function composeShouldForwardProps2(tag, options, isReal) {
+  var shouldForwardProp;
+  if (options) {
+    var optionsShouldForwardProp = options.shouldForwardProp;
+    shouldForwardProp = tag.__emotion_forwardProp && optionsShouldForwardProp ? function(propName) {
+      return tag.__emotion_forwardProp(propName) && optionsShouldForwardProp(propName);
+    } : optionsShouldForwardProp;
+  }
+  if (typeof shouldForwardProp !== "function" && isReal) {
+    shouldForwardProp = tag.__emotion_forwardProp;
+  }
+  return shouldForwardProp;
+};
+var Noop3 = function Noop4() {
+  return null;
+};
+var createStyled = function createStyled2(tag, options) {
+  var isReal = tag.__emotion_real === tag;
+  var baseTag = isReal && tag.__emotion_base || tag;
+  var identifierName;
+  var targetClassName;
+  if (options !== void 0) {
+    identifierName = options.label;
+    targetClassName = options.target;
+  }
+  var shouldForwardProp = composeShouldForwardProps(tag, options, isReal);
+  var defaultShouldForwardProp = shouldForwardProp || getDefaultShouldForwardProp(baseTag);
+  var shouldUseAs = !defaultShouldForwardProp("as");
+  return function() {
+    var args = arguments;
+    var styles2 = isReal && tag.__emotion_styles !== void 0 ? tag.__emotion_styles.slice(0) : [];
+    if (identifierName !== void 0) {
+      styles2.push("label:" + identifierName + ";");
+    }
+    if (args[0] == null || args[0].raw === void 0) {
+      styles2.push.apply(styles2, args);
+    } else {
+      styles2.push(args[0][0]);
+      var len = args.length;
+      var i2 = 1;
+      for (; i2 < len; i2++) {
+        styles2.push(args[i2], args[0][i2]);
+      }
+    }
+    var Styled = withEmotionCache(function(props, cache, ref) {
+      var finalTag = shouldUseAs && props.as || baseTag;
+      var className = "";
+      var classInterpolations = [];
+      var mergedProps = props;
+      if (props.theme == null) {
+        mergedProps = {};
+        for (var key in props) {
+          mergedProps[key] = props[key];
+        }
+        mergedProps.theme = react.useContext(ThemeContext);
+      }
+      if (typeof props.className === "string") {
+        className = getRegisteredStyles(cache.registered, classInterpolations, props.className);
+      } else if (props.className != null) {
+        className = props.className + " ";
+      }
+      var serialized = serializeStyles(styles2.concat(classInterpolations), cache.registered, mergedProps);
+      var rules = insertStyles(cache, serialized, typeof finalTag === "string");
+      className += cache.key + "-" + serialized.name;
+      if (targetClassName !== void 0) {
+        className += " " + targetClassName;
+      }
+      var finalShouldForwardProp = shouldUseAs && shouldForwardProp === void 0 ? getDefaultShouldForwardProp(finalTag) : defaultShouldForwardProp;
+      var newProps = {};
+      for (var _key in props) {
+        if (shouldUseAs && _key === "as")
+          continue;
+        if (finalShouldForwardProp(_key)) {
+          newProps[_key] = props[_key];
+        }
+      }
+      newProps.className = className;
+      newProps.ref = ref;
+      var ele = /* @__PURE__ */ react.createElement(finalTag, newProps);
+      var possiblyStyleElement = /* @__PURE__ */ react.createElement(Noop3, null);
+      return /* @__PURE__ */ react.createElement(react.Fragment, null, possiblyStyleElement, ele);
+    });
+    Styled.displayName = identifierName !== void 0 ? identifierName : "Styled(" + (typeof baseTag === "string" ? baseTag : baseTag.displayName || baseTag.name || "Component") + ")";
+    Styled.defaultProps = tag.defaultProps;
+    Styled.__emotion_real = Styled;
+    Styled.__emotion_base = baseTag;
+    Styled.__emotion_styles = styles2;
+    Styled.__emotion_forwardProp = shouldForwardProp;
+    Object.defineProperty(Styled, "toString", {
+      value: function value() {
+        if (targetClassName === void 0 && false) {
+          return "NO_COMPONENT_SELECTOR";
+        }
+        return "." + targetClassName;
+      }
+    });
+    Styled.withComponent = function(nextTag, nextOptions) {
+      return createStyled2(nextTag, _extends({}, options, nextOptions, {
+        shouldForwardProp: composeShouldForwardProps(Styled, nextOptions, true)
+      })).apply(void 0, styles2);
+    };
+    return Styled;
+  };
+};
+var tags = [
+  "a",
+  "abbr",
+  "address",
+  "area",
+  "article",
+  "aside",
+  "audio",
+  "b",
+  "base",
+  "bdi",
+  "bdo",
+  "big",
+  "blockquote",
+  "body",
+  "br",
+  "button",
+  "canvas",
+  "caption",
+  "cite",
+  "code",
+  "col",
+  "colgroup",
+  "data",
+  "datalist",
+  "dd",
+  "del",
+  "details",
+  "dfn",
+  "dialog",
+  "div",
+  "dl",
+  "dt",
+  "em",
+  "embed",
+  "fieldset",
+  "figcaption",
+  "figure",
+  "footer",
+  "form",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "head",
+  "header",
+  "hgroup",
+  "hr",
+  "html",
+  "i",
+  "iframe",
+  "img",
+  "input",
+  "ins",
+  "kbd",
+  "keygen",
+  "label",
+  "legend",
+  "li",
+  "link",
+  "main",
+  "map",
+  "mark",
+  "marquee",
+  "menu",
+  "menuitem",
+  "meta",
+  "meter",
+  "nav",
+  "noscript",
+  "object",
+  "ol",
+  "optgroup",
+  "option",
+  "output",
+  "p",
+  "param",
+  "picture",
+  "pre",
+  "progress",
+  "q",
+  "rp",
+  "rt",
+  "ruby",
+  "s",
+  "samp",
+  "script",
+  "section",
+  "select",
+  "small",
+  "source",
+  "span",
+  "strong",
+  "style",
+  "sub",
+  "summary",
+  "sup",
+  "table",
+  "tbody",
+  "td",
+  "textarea",
+  "tfoot",
+  "th",
+  "thead",
+  "time",
+  "title",
+  "tr",
+  "track",
+  "u",
+  "ul",
+  "var",
+  "video",
+  "wbr",
+  "circle",
+  "clipPath",
+  "defs",
+  "ellipse",
+  "foreignObject",
+  "g",
+  "image",
+  "line",
+  "linearGradient",
+  "mask",
+  "path",
+  "pattern",
+  "polygon",
+  "polyline",
+  "radialGradient",
+  "rect",
+  "stop",
+  "svg",
+  "text",
+  "tspan"
+];
+var newStyled = createStyled.bind();
+tags.forEach(function(tagName) {
+  newStyled[tagName] = newStyled(tagName);
+});
+var styled_default = newStyled;
+
 // build/dist/pkg/react-i18next.js
 var defineProperty = createCommonjsModule(function(module) {
   function _defineProperty4(obj, key, value) {
@@ -9492,22 +9766,6 @@ function I18nextProvider(_ref) {
   return /* @__PURE__ */ react.createElement(I18nContext.Provider, {
     value
   }, children);
-}
-
-// build/dist/pkg/common/extends-7477639a.js
-function _extends() {
-  _extends = Object.assign || function(target) {
-    for (var i2 = 1; i2 < arguments.length; i2++) {
-      var source = arguments[i2];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends.apply(this, arguments);
 }
 
 // build/dist/pkg/react-router-dom.js
@@ -10271,263 +10529,143 @@ function useLinkClickHandler(to, _temp) {
   }, [location, navigate, path2, replaceProp, state, target, to]);
 }
 
-// build/dist/pkg/@emotion/styled.js
-var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|enterKeyHint|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|incremental|fallback|inert|itemProp|itemScope|itemType|itemID|itemRef|on|option|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/;
-var isPropValid = /* @__PURE__ */ memoize(function(prop2) {
-  return reactPropsRegex.test(prop2) || prop2.charCodeAt(0) === 111 && prop2.charCodeAt(1) === 110 && prop2.charCodeAt(2) < 91;
-});
-var testOmitPropsOnStringTag = isPropValid;
-var testOmitPropsOnComponent = function testOmitPropsOnComponent2(key) {
-  return key !== "theme";
-};
-var getDefaultShouldForwardProp = function getDefaultShouldForwardProp2(tag) {
-  return typeof tag === "string" && tag.charCodeAt(0) > 96 ? testOmitPropsOnStringTag : testOmitPropsOnComponent;
-};
-var composeShouldForwardProps = function composeShouldForwardProps2(tag, options, isReal) {
-  var shouldForwardProp;
-  if (options) {
-    var optionsShouldForwardProp = options.shouldForwardProp;
-    shouldForwardProp = tag.__emotion_forwardProp && optionsShouldForwardProp ? function(propName) {
-      return tag.__emotion_forwardProp(propName) && optionsShouldForwardProp(propName);
-    } : optionsShouldForwardProp;
-  }
-  if (typeof shouldForwardProp !== "function" && isReal) {
-    shouldForwardProp = tag.__emotion_forwardProp;
-  }
-  return shouldForwardProp;
-};
-var Noop3 = function Noop4() {
-  return null;
-};
-var createStyled = function createStyled2(tag, options) {
-  var isReal = tag.__emotion_real === tag;
-  var baseTag = isReal && tag.__emotion_base || tag;
-  var identifierName;
-  var targetClassName;
-  if (options !== void 0) {
-    identifierName = options.label;
-    targetClassName = options.target;
-  }
-  var shouldForwardProp = composeShouldForwardProps(tag, options, isReal);
-  var defaultShouldForwardProp = shouldForwardProp || getDefaultShouldForwardProp(baseTag);
-  var shouldUseAs = !defaultShouldForwardProp("as");
-  return function() {
-    var args = arguments;
-    var styles2 = isReal && tag.__emotion_styles !== void 0 ? tag.__emotion_styles.slice(0) : [];
-    if (identifierName !== void 0) {
-      styles2.push("label:" + identifierName + ";");
+// build/dist/components/month-collapse-button.js
+var MonthCollapseButton = ({
+  collapsed,
+  onMonthCollapseClick,
+  children,
+  small = false
+}) => {
+  const {
+    t: t4
+  } = useTranslation("calendar");
+  return jsx("button", {
+    "aria-label": t4(collapsed ? `ShowMonth` : `HideMonth`),
+    css: {
+      display: "flex",
+      alignItems: "center",
+      gap: "0.5rem",
+      width: "100%",
+      textAlign: "left"
+    },
+    className: "group",
+    onClick: onMonthCollapseClick,
+    type: "button"
+  }, jsx("div", {
+    css: [{
+      borderWidth: "2px",
+      "--tw-border-opacity": "1",
+      borderColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
+      aspectRatio: "1",
+      position: "relative",
+      ".group:hover &": {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(239, 68, 68, var(--tw-bg-opacity))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(239, 68, 68, var(--tw-border-opacity))"
+      }
+    }, small ? {
+      width: "1rem",
+      height: "1rem"
+    } : {
+      width: "2rem",
+      height: "2rem"
+    }]
+  }, jsx("div", {
+    css: [{
+      position: "absolute",
+      width: "50%",
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
+      top: "50%",
+      left: "50%",
+      "--tw-translate-x": "-50%",
+      transform: "var(--tw-transform)",
+      "--tw-translate-y": "-50%",
+      transitionProperty: "transform",
+      transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+      transitionDuration: "150ms"
+    }, small ? {
+      height: "0.125rem",
+      width: "66.666667%"
+    } : {
+      height: "0.25rem"
+    }]
+  }), jsx("div", {
+    css: [{
+      position: "absolute",
+      height: "0.25rem",
+      width: "50%",
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
+      top: "50%",
+      left: "50%",
+      "--tw-translate-x": "-50%",
+      transform: "var(--tw-transform)",
+      "--tw-translate-y": "-50%",
+      transitionProperty: "transform",
+      transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+      transitionDuration: "150ms"
+    }, collapsed ? {
+      "--tw-rotate": "-90deg",
+      transform: "var(--tw-transform)"
+    } : {
+      "--tw-rotate": "0deg",
+      transform: "var(--tw-transform)"
+    }, small ? {
+      height: "0.125rem",
+      width: "66.666667%"
+    } : {
+      height: "0.25rem"
+    }]
+  })), jsx("div", {
+    css: {
+      ".group:hover &": {
+        "--tw-text-opacity": "1",
+        color: "rgba(239, 68, 68, var(--tw-text-opacity))"
+      },
+      width: "100%"
     }
-    if (args[0] == null || args[0].raw === void 0) {
-      styles2.push.apply(styles2, args);
-    } else {
-      styles2.push(args[0][0]);
-      var len = args.length;
-      var i2 = 1;
-      for (; i2 < len; i2++) {
-        styles2.push(args[i2], args[0][i2]);
-      }
+  }, children));
+};
+
+// build/dist/components/group.js
+var Group = ({
+  children,
+  label,
+  onCollapse,
+  open = false,
+  useDefaultLabel = true,
+  spaceBeforeItems = true,
+  indent = true
+}) => {
+  const [groupOpen, setGroupOpen] = useState(open);
+  const collapseHandler = () => {
+    setGroupOpen(!groupOpen);
+    if (onCollapse) {
+      onCollapse();
     }
-    var Styled = withEmotionCache(function(props, cache, ref) {
-      var finalTag = shouldUseAs && props.as || baseTag;
-      var className = "";
-      var classInterpolations = [];
-      var mergedProps = props;
-      if (props.theme == null) {
-        mergedProps = {};
-        for (var key in props) {
-          mergedProps[key] = props[key];
-        }
-        mergedProps.theme = react.useContext(ThemeContext);
-      }
-      if (typeof props.className === "string") {
-        className = getRegisteredStyles(cache.registered, classInterpolations, props.className);
-      } else if (props.className != null) {
-        className = props.className + " ";
-      }
-      var serialized = serializeStyles(styles2.concat(classInterpolations), cache.registered, mergedProps);
-      var rules = insertStyles(cache, serialized, typeof finalTag === "string");
-      className += cache.key + "-" + serialized.name;
-      if (targetClassName !== void 0) {
-        className += " " + targetClassName;
-      }
-      var finalShouldForwardProp = shouldUseAs && shouldForwardProp === void 0 ? getDefaultShouldForwardProp(finalTag) : defaultShouldForwardProp;
-      var newProps = {};
-      for (var _key in props) {
-        if (shouldUseAs && _key === "as")
-          continue;
-        if (finalShouldForwardProp(_key)) {
-          newProps[_key] = props[_key];
-        }
-      }
-      newProps.className = className;
-      newProps.ref = ref;
-      var ele = /* @__PURE__ */ react.createElement(finalTag, newProps);
-      var possiblyStyleElement = /* @__PURE__ */ react.createElement(Noop3, null);
-      return /* @__PURE__ */ react.createElement(react.Fragment, null, possiblyStyleElement, ele);
-    });
-    Styled.displayName = identifierName !== void 0 ? identifierName : "Styled(" + (typeof baseTag === "string" ? baseTag : baseTag.displayName || baseTag.name || "Component") + ")";
-    Styled.defaultProps = tag.defaultProps;
-    Styled.__emotion_real = Styled;
-    Styled.__emotion_base = baseTag;
-    Styled.__emotion_styles = styles2;
-    Styled.__emotion_forwardProp = shouldForwardProp;
-    Object.defineProperty(Styled, "toString", {
-      value: function value() {
-        if (targetClassName === void 0 && false) {
-          return "NO_COMPONENT_SELECTOR";
-        }
-        return "." + targetClassName;
-      }
-    });
-    Styled.withComponent = function(nextTag, nextOptions) {
-      return createStyled2(nextTag, _extends({}, options, nextOptions, {
-        shouldForwardProp: composeShouldForwardProps(Styled, nextOptions, true)
-      })).apply(void 0, styles2);
-    };
-    return Styled;
   };
+  return jsx("section", {
+    css: {
+      width: "100%"
+    }
+  }, jsx(MonthCollapseButton, {
+    small: true,
+    collapsed: !groupOpen,
+    onMonthCollapseClick: collapseHandler
+  }, useDefaultLabel ? jsx("h3", {
+    css: {
+      fontWeight: "700"
+    }
+  }, label) : jsx(react.Fragment, null, label)), groupOpen && jsx("div", {
+    css: [spaceBeforeItems && {
+      marginTop: "1rem"
+    }, indent && {
+      paddingLeft: "1.5rem"
+    }]
+  }, children));
 };
-var tags = [
-  "a",
-  "abbr",
-  "address",
-  "area",
-  "article",
-  "aside",
-  "audio",
-  "b",
-  "base",
-  "bdi",
-  "bdo",
-  "big",
-  "blockquote",
-  "body",
-  "br",
-  "button",
-  "canvas",
-  "caption",
-  "cite",
-  "code",
-  "col",
-  "colgroup",
-  "data",
-  "datalist",
-  "dd",
-  "del",
-  "details",
-  "dfn",
-  "dialog",
-  "div",
-  "dl",
-  "dt",
-  "em",
-  "embed",
-  "fieldset",
-  "figcaption",
-  "figure",
-  "footer",
-  "form",
-  "h1",
-  "h2",
-  "h3",
-  "h4",
-  "h5",
-  "h6",
-  "head",
-  "header",
-  "hgroup",
-  "hr",
-  "html",
-  "i",
-  "iframe",
-  "img",
-  "input",
-  "ins",
-  "kbd",
-  "keygen",
-  "label",
-  "legend",
-  "li",
-  "link",
-  "main",
-  "map",
-  "mark",
-  "marquee",
-  "menu",
-  "menuitem",
-  "meta",
-  "meter",
-  "nav",
-  "noscript",
-  "object",
-  "ol",
-  "optgroup",
-  "option",
-  "output",
-  "p",
-  "param",
-  "picture",
-  "pre",
-  "progress",
-  "q",
-  "rp",
-  "rt",
-  "ruby",
-  "s",
-  "samp",
-  "script",
-  "section",
-  "select",
-  "small",
-  "source",
-  "span",
-  "strong",
-  "style",
-  "sub",
-  "summary",
-  "sup",
-  "table",
-  "tbody",
-  "td",
-  "textarea",
-  "tfoot",
-  "th",
-  "thead",
-  "time",
-  "title",
-  "tr",
-  "track",
-  "u",
-  "ul",
-  "var",
-  "video",
-  "wbr",
-  "circle",
-  "clipPath",
-  "defs",
-  "ellipse",
-  "foreignObject",
-  "g",
-  "image",
-  "line",
-  "linearGradient",
-  "mask",
-  "path",
-  "pattern",
-  "polygon",
-  "polyline",
-  "radialGradient",
-  "rect",
-  "stop",
-  "svg",
-  "text",
-  "tspan"
-];
-var newStyled = createStyled.bind();
-tags.forEach(function(tagName) {
-  newStyled[tagName] = newStyled(tagName);
-});
-var styled_default = newStyled;
 
 // build/dist/components/language-button.js
 var LanguageButton = styled_default.button(({
@@ -10577,6 +10715,91 @@ var LanguageButton = styled_default.button(({
   } : {}
 ]);
 
+// build/dist/components/stack.js
+var spacings = {
+  none: {
+    gap: "0px"
+  },
+  small: {
+    gap: "0.5rem"
+  },
+  normal: {
+    gap: "1rem"
+  }
+};
+var getSpacing = (space) => spacings[space];
+var Stack = ({
+  children,
+  dir = "horizontal",
+  wrap = true,
+  distribute = false,
+  spacing = "normal"
+}) => {
+  return jsx("div", {
+    css: [{
+      display: "flex"
+    }, {
+      display: "flex",
+      width: "100%"
+    }, wrap && {
+      flexWrap: "wrap"
+    }, dir === "horizontal" ? {
+      flexDirection: "row"
+    } : {
+      flexDirection: "column"
+    }, distribute && {
+      justifyContent: "space-between"
+    }, spacing === "normal" && {
+      gap: "1rem"
+    }, spacing === "small" && {
+      gap: "0.5rem"
+    }, spacing === "none" && {
+      gap: "0px"
+    }]
+  }, children);
+};
+var Pancake2 = styled_default(Stack)({
+  flexDirection: "column"
+});
+var Pancake = ({
+  children,
+  wrap,
+  distribute,
+  spacing
+}) => jsx(Stack, {
+  dir: "vertical",
+  wrap,
+  distribute,
+  spacing
+}, children);
+var Train = ({
+  children,
+  wrap,
+  distribute,
+  spacing
+}) => jsx(Stack, {
+  dir: "horizontal",
+  wrap,
+  distribute,
+  spacing
+}, children);
+var Grid = styled_default.div(({
+  cols = "1",
+  spacing = "normal"
+}) => [{
+  display: "grid"
+}, cols === "1" && {
+  gridTemplateColumns: "repeat(1, minmax(0, 1fr))"
+}, cols === "2" && {
+  gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+}, cols === "3" && {
+  gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+}, cols === "4" && {
+  gridTemplateColumns: "repeat(4, minmax(0, 1fr))"
+}, cols === "5" && {
+  gridTemplateColumns: "repeat(5, minmax(0, 1fr))"
+}, getSpacing(spacing)]);
+
 // build/dist/components/language-switcher.js
 var LanguageSwitcher = () => {
   const {
@@ -10588,12 +10811,11 @@ var LanguageSwitcher = () => {
   };
   return jsx("div", {
     css: {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-between",
-      paddingLeft: "1rem",
-      paddingRight: "1rem"
+      paddingLeft: "0.5rem",
+      paddingRight: "0.5rem"
     }
+  }, jsx(Pancake, {
+    spacing: "none"
   }, jsx(LanguageButton, {
     selected: i18n.language === "sv",
     onClick: () => changeLanguage2("sv"),
@@ -10602,7 +10824,7 @@ var LanguageSwitcher = () => {
     selected: i18n.language === "en",
     onClick: () => changeLanguage2("en"),
     disabled: i18n.language === "en"
-  }, t4("Language-English")));
+  }, t4("Language-English"))));
 };
 
 // build/dist/components/page-header.js
@@ -12067,17 +12289,16 @@ var DayCounter = ({
   spendQuarter: spendQuarter2
 }) => {
   return jsx("button", {
+    className: "group",
     css: {
-      width: "100%",
-      display: "grid",
-      gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-      gap: "0px",
-      ":hover": {
-        "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(239, 68, 68, var(--tw-bg-opacity))"
-      }
+      width: "100%"
     },
-    onClick: () => spendQuarter2()
+    onClick: () => spendQuarter2(),
+    "aria-label": "Spend",
+    type: "button"
+  }, jsx(Grid, {
+    spacing: "none",
+    cols: "4"
   }, jsx(Quarter, {
     spent: quarters[0],
     index: 0
@@ -12090,7 +12311,7 @@ var DayCounter = ({
   }), jsx(Quarter, {
     spent: quarters[3],
     index: 3
-  }));
+  })));
 };
 var Quarter = styled_default.div(({
   spent,
@@ -12099,7 +12320,11 @@ var Quarter = styled_default.div(({
   height: "1rem",
   borderWidth: "1px",
   "--tw-border-opacity": "1",
-  borderColor: "rgba(107, 114, 128, var(--tw-border-opacity))"
+  borderColor: "rgba(107, 114, 128, var(--tw-border-opacity))",
+  ".group:hover &": {
+    "--tw-border-opacity": "1",
+    borderColor: "rgba(239, 68, 68, var(--tw-border-opacity))"
+  }
 }, index === 0 && {
   borderRightWidth: "0px"
 }, index === 1 && {
@@ -12127,45 +12352,31 @@ var CalendarDay = ({
   return jsx("div", {
     css: {
       padding: "0.5rem",
-      borderWidth: "1px",
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.5rem"
+      borderWidth: "1px"
     }
-  }, jsx("div", {
-    css: {
-      display: "flex",
-      justifyContent: "space-between"
-    }
-  }, jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      width: "1.25rem"
-    }
+  }, jsx(Pancake, {
+    spacing: "small"
+  }, jsx(Pancake, {
+    spacing: "none",
+    wrap: false
   }, jsx("div", {
     css: {
       "@media (min-width: 1024px)": {
         display: "none"
       }
     }
-  }, t4(day.name)), jsx("div", {
-    css: [{
-      display: "flex",
-      gap: "0.25rem"
-    }, day.number === 1 ? {
-      fontWeight: "700"
-    } : {}]
-  }, day.number, jsx("div", null, getMoonEmoji(day.moon)), jsx("div", null, getWeatherIcon(day))))), jsx("div", {
+  }, t4(day.name)), jsx(Train, {
+    spacing: "small"
+  }, jsx("div", null, day.number), day.moon && jsx("div", null, getMoonEmoji(day.moon)), jsx("div", null, getWeatherIcon(day)))), jsx("div", {
     css: {
       width: "100%"
     }
   }, jsx(DayCounter, {
     quarters: day.quarters,
     spendQuarter: () => quarterClicked(day)
-  })), showWeather && jsx("div", {
-    css: {}
-  }, jsx("div", null, t4("Weather-High"), ": ", formatTemperature(day.temp)), jsx("div", null, t4("Weather-Low"), ": ", formatTemperature(day.lowTemp)), jsx("div", null, t4(day.downpour)), jsx("div", null, t4(day.stormType)), jsx("div", null, t4(day.stormType)), jsx("div", null, t4(day.eventType?.name ?? ""))));
+  })), showWeather && jsx(Train, {
+    spacing: "none"
+  }, jsx("div", null, t4("Weather-High"), ": ", formatTemperature(day.temp)), jsx("div", null, t4("Weather-Low"), ": ", formatTemperature(day.lowTemp)), jsx("div", null, t4(day.downpour)), jsx("div", null, t4(day.stormType)), jsx("div", null, t4(day.stormType)), jsx("div", null, t4(day.eventType?.name ?? "")))));
 };
 
 // build/dist/components/calendar-day-names.js
@@ -12398,103 +12609,6 @@ var CalendarFillerDays = ({
   })));
 };
 
-// build/dist/components/month-collapse-button.js
-var MonthCollapseButton = ({
-  collapsed,
-  onMonthCollapseClick,
-  children,
-  small = false
-}) => {
-  const {
-    t: t4
-  } = useTranslation("calendar");
-  return jsx("button", {
-    "aria-label": t4(collapsed ? `ShowMonth` : `HideMonth`),
-    css: {
-      display: "flex",
-      alignItems: "center",
-      gap: "0.5rem"
-    },
-    className: "group",
-    onClick: onMonthCollapseClick,
-    type: "button"
-  }, jsx("div", {
-    css: [{
-      borderWidth: "2px",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
-      aspectRatio: "1",
-      position: "relative",
-      ".group:hover &": {
-        "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(239, 68, 68, var(--tw-bg-opacity))",
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(239, 68, 68, var(--tw-border-opacity))"
-      }
-    }, small ? {
-      width: "1rem",
-      height: "1rem"
-    } : {
-      width: "2rem",
-      height: "2rem"
-    }]
-  }, jsx("div", {
-    css: [{
-      position: "absolute",
-      width: "50%",
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
-      top: "50%",
-      left: "50%",
-      "--tw-translate-x": "-50%",
-      transform: "var(--tw-transform)",
-      "--tw-translate-y": "-50%",
-      transitionProperty: "transform",
-      transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-      transitionDuration: "150ms"
-    }, small ? {
-      height: "0.125rem",
-      width: "66.666667%"
-    } : {
-      height: "0.25rem"
-    }]
-  }), jsx("div", {
-    css: [{
-      position: "absolute",
-      height: "0.25rem",
-      width: "50%",
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
-      top: "50%",
-      left: "50%",
-      "--tw-translate-x": "-50%",
-      transform: "var(--tw-transform)",
-      "--tw-translate-y": "-50%",
-      transitionProperty: "transform",
-      transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-      transitionDuration: "150ms"
-    }, collapsed ? {
-      "--tw-rotate": "-90deg",
-      transform: "var(--tw-transform)"
-    } : {
-      "--tw-rotate": "0deg",
-      transform: "var(--tw-transform)"
-    }, small ? {
-      height: "0.125rem",
-      width: "66.666667%"
-    } : {
-      height: "0.25rem"
-    }]
-  })), jsx("div", {
-    css: {
-      ".group:hover &": {
-        "--tw-text-opacity": "1",
-        color: "rgba(239, 68, 68, var(--tw-text-opacity))"
-      }
-    }
-  }, children));
-};
-
 // build/dist/components/calendar-month.js
 var spendQuarter = (quarters) => {
   const spent = (quarters.filter((q3) => q3).length + 1) % 5;
@@ -12535,7 +12649,7 @@ var CalendarMonth = ({
     }
   }, jsx(Parchment, {
     deps: [showWeather, month2, month2.collapsed]
-  }, jsx("h2", {
+  }, jsx(Train, null, jsx("h2", {
     css: {
       fontSize: "2.25rem",
       lineHeight: "2.5rem",
@@ -12548,7 +12662,7 @@ var CalendarMonth = ({
   }, jsx(MonthCollapseButton, {
     collapsed: month2.collapsed,
     onMonthCollapseClick: toggleCollapse
-  }), t4(month2.name)), !month2.collapsed && jsx("div", {
+  }), t4(month2.name))), !month2.collapsed && jsx("div", {
     css: {
       marginTop: "1rem",
       display: "grid",
@@ -13776,17 +13890,10 @@ var EncounterPage = () => {
       width: "100%",
       "--tw-bg-opacity": "1",
       backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
-      padding: "0.5rem",
-      display: "grid",
-      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-      gap: "0.5rem",
-      "@media (min-width: 768px)": {
-        gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
-      },
-      "@media (min-width: 1024px)": {
-        display: "flex"
-      }
+      padding: "0.5rem"
     }
+  }, jsx(Train, {
+    spacing: "small"
   }, getTerrainKeys().map((terrain2) => jsx(Button, {
     key: terrain2,
     isSmall: true,
@@ -13795,7 +13902,7 @@ var EncounterPage = () => {
     }
   }, t4(`Terrain.${terrain2}`, {
     ns: "common"
-  })))), jsx("div", {
+  }))))), jsx("div", {
     css: {
       width: "100%",
       display: "grid",
@@ -15758,12 +15865,9 @@ var MapPage = () => {
     css: {
       "--tw-bg-opacity": "1",
       backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
-      padding: "0.5rem",
-      display: "flex",
-      justifyContent: "flex-end",
-      gap: "0.5rem"
+      padding: "0.5rem"
     }
-  }, jsx(Button, {
+  }, jsx(Train, null, jsx(Button, {
     isSmall: true,
     onClick: () => setFogOfWar(!fogOfWar)
   }, t4("FogOfWar", {
@@ -15777,7 +15881,7 @@ var MapPage = () => {
     onFocusTextArea: () => setPasteError(void 0),
     label: t4("PasteMapData"),
     onData: handlePasteMapData
-  }))));
+  })))));
 };
 
 // build/dist/components/list.js
@@ -15787,9 +15891,6 @@ var List = ({
   return jsx("div", {
     css: [{
       maxHeight: "24rem",
-      display: "flex",
-      flexDirection: "column",
-      gap: "1rem",
       "@media (min-width: 1024px)": {
         maxHeight: "initial"
       },
@@ -15802,30 +15903,7 @@ var List = ({
     }, css`
         overflow: overlay;
       `]
-  }, children);
-};
-
-// build/dist/components/list-group.js
-var ListGroup = ({
-  children,
-  label,
-  open
-}) => {
-  const [groupOpen, setGroupOpen] = useState(open);
-  return jsx("section", null, jsx(MonthCollapseButton, {
-    small: true,
-    collapsed: !groupOpen,
-    onMonthCollapseClick: () => setGroupOpen(!groupOpen)
-  }, jsx("h3", {
-    css: {
-      fontWeight: "700"
-    }
-  }, label)), groupOpen && jsx("div", {
-    css: {
-      marginTop: "1rem",
-      paddingLeft: "1.5rem"
-    }
-  }, children));
+  }, jsx(Pancake, null, children));
 };
 
 // build/dist/components/list-item.js
@@ -16001,28 +16079,32 @@ var MonsterDisplay = ({
       lineHeight: "1.75rem",
       fontWeight: "700"
     }
-  }, t4(`Attribute`)), jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.5rem"
-    }
+  }, t4(`Attribute`)), jsx(Pancake, {
+    spacing: "small"
   }, m3.attributes.strength && jsx(MonsterAttribute, {
     key: `${m3.name}-strength`,
     values: [...m3.attributes.strength.values],
-    label: t4(`Attributes.${m3.attributes.strength.label}`)
+    label: t4(`Attributes.${m3.attributes.strength.label}`, {
+      ns: "common"
+    })
   }), m3.attributes.agility && jsx(MonsterAttribute, {
     key: `${m3.name}-agility`,
     values: [...m3.attributes.agility.values],
-    label: t4(`Attributes.${m3.attributes.agility.label}`)
+    label: t4(`Attributes.${m3.attributes.agility.label}`, {
+      ns: "common"
+    })
   }), m3.attributes.wits && jsx(MonsterAttribute, {
     key: `${m3.name}-wits`,
     values: [...m3.attributes.wits.values],
-    label: t4(`Attributes.${m3.attributes.wits.label}`)
+    label: t4(`Attributes.${m3.attributes.wits.label}`, {
+      ns: "common"
+    })
   }), m3.attributes.empathy && jsx(MonsterAttribute, {
     key: `${m3.name}-empathy`,
     values: [...m3.attributes.empathy.values],
-    label: t4(`Attributes.${m3.attributes.empathy.label}`)
+    label: t4(`Attributes.${m3.attributes.empathy.label}`, {
+      ns: "common"
+    })
   })));
 };
 
@@ -16152,12 +16234,8 @@ var RandomMonsterDisplay = ({
         return {};
     }
   };
-  return jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.5rem"
-    }
+  return jsx(Pancake, {
+    wrap: false
   }, jsx("h2", {
     css: {
       fontSize: "2.25rem",
@@ -16225,7 +16303,9 @@ var RandomMonsterDisplay = ({
   }, jsx(MonsterAttribute, {
     key: `${rm.size}-strength`,
     values: [...rm.attributes.strength.values],
-    label: t4(`Attributes.${rm.attributes.strength.label}`)
+    label: t4(`Attributes.${rm.attributes.strength.label}`, {
+      ns: "common"
+    })
   })), rm.attributes.agility && jsx("div", {
     css: {
       marginBottom: "0.5rem"
@@ -16233,7 +16313,9 @@ var RandomMonsterDisplay = ({
   }, jsx(MonsterAttribute, {
     key: `${rm.size}-agility`,
     values: [...rm.attributes.agility.values],
-    label: t4(`Attributes.${rm.attributes.agility.label}`)
+    label: t4(`Attributes.${rm.attributes.agility.label}`, {
+      ns: "common"
+    })
   }))), jsx("section", {
     css: {
       display: "flex",
@@ -16525,8 +16607,7 @@ var RandomMonsterDisplay = ({
         paddingTop: "0.25rem",
         paddingBottom: "0.25rem",
         paddingLeft: "0.5rem",
-        paddingRight: "0.5rem",
-        wordBreak: "break-all"
+        paddingRight: "0.5rem"
       }
     }
   }, t4(a2.description)))))))));
@@ -16763,6 +16844,7 @@ var createAttributeViewModel = (label, num) => {
     return void 0;
   return {
     label,
+    value: num,
     values: numberToBooleans(num)
   };
 };
@@ -17777,7 +17859,7 @@ var MonstersPage = () => {
         gridTemplateColumns: "1fr 3fr"
       }
     }
-  }, jsx("div", null, jsx(List, null, jsx(ListGroup, {
+  }, jsx("div", null, jsx(List, null, jsx(Group, {
     css: {
       marginBottom: "2rem"
     },
@@ -17795,7 +17877,7 @@ var MonstersPage = () => {
     }
   }, jsx(ListItemButton, {
     onClick: () => generateRandomMonster()
-  }, t4("RandomMonster"))))), jsx(ListGroup, {
+  }, t4("RandomMonster"))))), jsx(Group, {
     label: t4(`BookMonsters`),
     open: true
   }, jsx("ul", null, monsters.map((m3) => jsx("li", {
@@ -17924,7 +18006,7 @@ var KinNameList = ({
       }
     },
     className: "yx-heading"
-  }, t4(`Kin.${title}`)), jsx(ReloadIcon, {
+  }, t4(`Kin.Human.${title}`)), jsx(ReloadIcon, {
     container: {
       width: "1.5rem",
       height: "1.5rem"
@@ -17965,21 +18047,6 @@ var NameType;
   NameType2["HomeName"] = "HomeName";
   NameType2["NickName"] = "NickName";
 })(NameType || (NameType = {}));
-var KinType;
-(function(KinType2) {
-  KinType2["Human"] = "Human";
-  KinType2["Elf"] = "Elf";
-})(KinType || (KinType = {}));
-var HumanKin;
-(function(HumanKin2) {
-  HumanKin2["Alderlander"] = "Alderlander";
-  HumanKin2["Ailander"] = "Ailander";
-  HumanKin2["Aslene"] = "Aslene";
-})(HumanKin || (HumanKin = {}));
-var ElfKin;
-(function(ElfKin2) {
-  ElfKin2["Elf"] = "Elf";
-})(ElfKin || (ElfKin = {}));
 
 // build/dist/data/name.data.js
 var humanNames = {
@@ -18169,7 +18236,7 @@ var NameGeneratorPage = () => {
     css: {
       padding: "0px"
     },
-    title: HumanKin.Ailander,
+    title: "Ailander",
     nameFunc: getRandomAilanderName
   }))), jsx("div", {
     css: {
@@ -18179,7 +18246,7 @@ var NameGeneratorPage = () => {
     css: {
       padding: "0px"
     },
-    title: HumanKin.Alderlander,
+    title: "Alderlander",
     nameFunc: getRandomAlderlanderName
   }))), jsx("div", {
     css: {
@@ -18189,7 +18256,7 @@ var NameGeneratorPage = () => {
     css: {
       padding: "0px"
     },
-    title: HumanKin.Aslene,
+    title: "Aslene",
     nameFunc: getRandomAsleneName
   })))));
 };
@@ -18905,7 +18972,8 @@ var SessionPage = () => {
         color: "rgba(239, 68, 68, var(--tw-text-opacity))"
       }
     },
-    onClick: () => getLegend()
+    onClick: () => getLegend(),
+    type: "button"
   }, jsx("h2", {
     css: {
       fontSize: "2.25rem",
@@ -18925,6 +18993,1691 @@ var SessionPage = () => {
   }, legend)))));
 };
 
+// build/dist/components/card.js
+var Card = styled_default.div(({
+  thin = false
+}) => [{
+  "--tw-bg-opacity": "1",
+  backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
+  borderRadius: "0.25rem"
+}, thin ? {
+  paddingLeft: "1rem",
+  paddingRight: "1rem",
+  paddingTop: "0.5rem",
+  paddingBottom: "0.5rem"
+} : {
+  padding: "1rem"
+}]);
+
+// build/dist/components/field.js
+var Field = ({
+  children,
+  label
+}) => {
+  return jsx(Train, {
+    spacing: "small",
+    wrap: false
+  }, jsx("div", {
+    css: {
+      fontWeight: "500"
+    }
+  }, label, ": "), jsx("div", null, children));
+};
+
+// build/dist/components/tag.js
+var Tag = styled_default.div(() => [
+  {
+    paddingLeft: "0.25rem",
+    paddingRight: "0.25rem",
+    paddingTop: "0.125rem",
+    paddingBottom: "0.125rem"
+  },
+  {
+    borderWidth: "1px",
+    "--tw-border-opacity": "1",
+    borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
+    borderRadius: "0.375rem"
+  },
+  {
+    "--tw-text-opacity": "1",
+    color: "rgba(75, 85, 99, var(--tw-text-opacity))",
+    fontSize: "0.875rem",
+    lineHeight: "1.25rem",
+    fontWeight: "500"
+  }
+]);
+
+// build/dist/components/stat.js
+var Stat = ({
+  children,
+  label
+}) => jsx("div", {
+  css: {
+    textAlign: "center"
+  }
+}, jsx("div", {
+  css: {
+    fontWeight: "500",
+    fontSize: "1.125rem",
+    lineHeight: "1"
+  }
+}, children), jsx("div", {
+  css: {
+    fontSize: "0.875rem",
+    lineHeight: "1.25rem"
+  }
+}, label));
+
+// build/dist/components/typical-kin-display.js
+var TypicalKinDisplay = (typicalKinViewModel) => {
+  const {
+    t: t4,
+    i18n
+  } = useTranslation(["typical", "common"]);
+  const [tkvm, setTkvm] = useState(typicalKinViewModel.tkvm);
+  const formatSkills = (asvm) => asvm.map(([skill, value]) => `${t4(`Skills.${skill}`, {
+    ns: "common"
+  })} ${value}`).join(", ");
+  const formatTalents = (talents) => talents.length > 0 ? talents.map((talent) => t4(`Talents.${talent}`, {
+    ns: "common"
+  })).join(", ") : "–";
+  const toggleKin = () => {
+    setTkvm({
+      ...tkvm,
+      collapse: !tkvm.collapse
+    });
+  };
+  const formatBonus = (bonus) => `${Math.sign(bonus) === 1 ? "+" : ""}${bonus}`;
+  const toggleGear = (gear, id3) => {
+    setTkvm((state) => ({
+      ...state,
+      [gear]: state[gear].map((w2) => {
+        if (id3 === w2.id) {
+          return {
+            ...w2,
+            collapse: !w2.collapse
+          };
+        }
+        return w2;
+      })
+    }));
+  };
+  return jsx(Parchment, {
+    deps: [tkvm, i18n.language]
+  }, jsx(Group, {
+    label: jsx("h3", {
+      css: {
+        fontSize: "1.25rem",
+        lineHeight: "1.75rem"
+      },
+      className: "yx-heading"
+    }, t4(`Kin.${tkvm.kinType}.${tkvm.kin}`, {
+      ns: "common"
+    })),
+    useDefaultLabel: false,
+    indent: false,
+    open: false,
+    spaceBeforeItems: true,
+    onCollapse: () => toggleKin()
+  }, jsx(Pancake, {
+    spacing: "small"
+  }, jsx(Card, {
+    thin: true
+  }, jsx(Train, {
+    distribute: true
+  }, jsx(Stat, {
+    label: t4("Attributes.Strength", {
+      ns: "common"
+    })
+  }, tkvm.attributes.strength?.value), jsx(Stat, {
+    label: t4("Attributes.Agility", {
+      ns: "common"
+    })
+  }, tkvm.attributes.agility?.value), jsx(Stat, {
+    label: t4("Attributes.Wits", {
+      ns: "common"
+    })
+  }, tkvm.attributes.wits?.value), jsx(Stat, {
+    label: t4("Attributes.Empathy", {
+      ns: "common"
+    })
+  }, tkvm.attributes.empathy?.value))), tkvm.description && jsx(Field, {
+    label: t4("Description.Description", {
+      ns: "common"
+    })
+  }, t4(`Description.${tkvm.description}`, {
+    ns: "common"
+  })), jsx(Field, {
+    label: t4("Skills.Skills", {
+      ns: "common"
+    })
+  }, formatSkills(tkvm.skills)), jsx(Field, {
+    label: t4("Talents.Talents", {
+      ns: "common"
+    })
+  }, formatTalents(tkvm.talents)), tkvm.gear.length > 0 && jsx(Field, {
+    label: t4("Gear.Gear", {
+      ns: "common"
+    })
+  }, tkvm.gear.map((g3) => t4(`Gear.${g3}`, {
+    ns: "common"
+  })).join(", ")), jsx(Pancake, {
+    spacing: "small"
+  }, tkvm.weapons.map((w2) => jsx(Group, {
+    key: w2.id,
+    useDefaultLabel: false,
+    label: jsx("div", {
+      css: {
+        width: "100%"
+      }
+    }, jsx(Grid, {
+      cols: "3"
+    }, jsx("h3", {
+      css: {
+        fontWeight: "700"
+      }
+    }, t4(`Weapon.${w2.category}.${w2.name}`, {
+      ns: "common"
+    })), w2.collapse && w2.bonus && jsx("h3", {
+      css: {
+        fontWeight: "500",
+        textAlign: "center"
+      }
+    }, formatBonus(w2.bonus)), w2.collapse && jsx("h3", {
+      css: {
+        fontWeight: "500",
+        textAlign: "right"
+      }
+    }, w2.damage, " ", t4("Weapon.Damage", {
+      ns: "common"
+    }).toLowerCase()))),
+    open: !w2.collapse,
+    onCollapse: () => toggleGear("weapons", w2.id)
+  }, jsx(Pancake, {
+    spacing: "small"
+  }, jsx(Train, {
+    distribute: true
+  }, jsx(Stat, {
+    label: t4(`Weapon.Grip`, {
+      ns: "common"
+    })
+  }, w2.grip), jsx(Stat, {
+    label: t4(`Weapon.Bonus`, {
+      ns: "common"
+    })
+  }, w2.bonus ?? "–"), jsx(Stat, {
+    label: t4(`Weapon.Damage`, {
+      ns: "common"
+    })
+  }, w2.damage), jsx(Stat, {
+    label: t4(`Range.Range`, {
+      ns: "common"
+    })
+  }, t4(`Range.${w2.range}`, {
+    ns: "common"
+  }))), jsx(Train, {
+    spacing: "small"
+  }, w2.features.map((f2) => jsx(Tag, {
+    key: f2
+  }, t4(`Weapon.Feature.${f2}`, {
+    ns: "common"
+  })))))))), jsx(Pancake, {
+    spacing: "small"
+  }, tkvm.shields.map((s) => jsx(Group, {
+    key: s.id,
+    useDefaultLabel: false,
+    label: jsx("div", {
+      css: {
+        width: "100%"
+      }
+    }, jsx(Grid, {
+      cols: "2"
+    }, jsx("h3", {
+      css: {
+        fontWeight: "700"
+      }
+    }, t4(`Shield.${s.type}`, {
+      ns: "common"
+    })), s.collapse && jsx("h3", {
+      css: {
+        fontWeight: "500",
+        textAlign: "right"
+      }
+    }, formatBonus(s.bonus)))),
+    open: !s.collapse,
+    onCollapse: () => toggleGear("shields", s.id)
+  }, jsx(Pancake, {
+    spacing: "small"
+  }, jsx(Train, null, jsx(Stat, {
+    label: t4(`Weapon.Bonus`, {
+      ns: "common"
+    })
+  }, s.bonus)), jsx(Train, null, s.features.map((s2) => jsx(Tag, {
+    key: s2
+  }, t4(`ArmorFeature.${s2}`, {
+    ns: "common"
+  })))))))), jsx(Pancake, {
+    spacing: "small"
+  }, tkvm.armors.map((a2) => jsx(Group, {
+    key: a2.id,
+    useDefaultLabel: false,
+    label: jsx("div", {
+      css: {
+        width: "100%"
+      }
+    }, jsx(Grid, {
+      cols: "2"
+    }, jsx("h3", {
+      css: {
+        fontWeight: "700"
+      }
+    }, t4(`Armor.${a2.type}`, {
+      ns: "common"
+    })), a2.collapse && jsx("h3", {
+      css: {
+        fontWeight: "500",
+        textAlign: "right"
+      }
+    }, a2.rating))),
+    open: !a2.collapse,
+    onCollapse: () => toggleGear("armors", a2.id)
+  }, jsx(Pancake, {
+    spacing: "small"
+  }, jsx(Train, {
+    distribute: true
+  }, jsx(Stat, {
+    label: t4(`Armor.Rating`, {
+      ns: "common"
+    })
+  }, a2.rating), jsx(Stat, {
+    label: t4(`Armor.BodyPart`, {
+      ns: "common"
+    })
+  }, t4(`Armor.Body`, {
+    ns: "common"
+  }))), jsx(Train, {
+    spacing: "small"
+  }, a2.features.map((feature) => jsx(Tag, {
+    key: feature
+  }, t4(`ArmorFeature.${feature}`, {
+    ns: "common"
+  })))))))), jsx(Pancake, {
+    spacing: "small"
+  }, tkvm.helmets.map((h2) => jsx(Group, {
+    key: h2.id,
+    useDefaultLabel: false,
+    label: jsx("div", {
+      css: {
+        width: "100%"
+      }
+    }, jsx(Grid, {
+      cols: "2"
+    }, jsx("h3", {
+      css: {
+        fontWeight: "700"
+      }
+    }, t4(`Helmet.${h2.type}`, {
+      ns: "common"
+    })), h2.collapse && jsx("h3", {
+      css: {
+        fontWeight: "500",
+        textAlign: "right"
+      }
+    }, h2.rating))),
+    open: !h2.collapse,
+    onCollapse: () => toggleGear("helmets", h2.id)
+  }, jsx(Pancake, {
+    spacing: "small"
+  }, jsx(Train, {
+    distribute: true
+  }, jsx(Stat, {
+    label: t4(`Armor.Rating`, {
+      ns: "common"
+    })
+  }, h2.rating), jsx(Stat, {
+    label: t4(`Helmet.BodyPart`, {
+      ns: "common"
+    })
+  }, t4(`Helmet.Body`, {
+    ns: "common"
+  }))), jsx(Train, {
+    spacing: "small"
+  }, h2.features.map((feature) => jsx(Tag, {
+    key: feature
+  }, t4(`ArmorFeature.${feature}`, {
+    ns: "common"
+  })))))))))));
+};
+
+// build/dist/functions/skills.functions.js
+var defaultSkillsValues = () => ({
+  Might: 0,
+  Endurance: 0,
+  Melee: 0,
+  Crafting: 0,
+  Stealth: 0,
+  SleightOfHand: 0,
+  Move: 0,
+  Markmanship: 0,
+  Scouting: 0,
+  Lore: 0,
+  Survival: 0,
+  Insight: 0,
+  Manipulation: 0,
+  Performance: 0,
+  Healing: 0,
+  AnimalHandling: 0
+});
+var createAllSkillsValuesViewModel = (skills) => Object.entries(skills).filter(([_24, value]) => value > 0);
+
+// build/dist/data/armor.data.js
+var armors = {
+  Leather: {
+    type: "Leather",
+    rating: 2,
+    bodyPart: "Body",
+    features: ["Light"]
+  },
+  StuddedLeather: {
+    type: "StuddedLeather",
+    rating: 3,
+    bodyPart: "Body",
+    features: []
+  },
+  Chainmail: {
+    type: "Chainmail",
+    rating: 6,
+    bodyPart: "Body",
+    features: ["Heavy", "PenetrationProtection"]
+  },
+  Plate: {
+    type: "Plate",
+    rating: 8,
+    bodyPart: "Body",
+    features: ["Heavy", "HardToMove"]
+  }
+};
+var helmets = {
+  StuddedLeather: {
+    type: "StuddedLeather",
+    rating: 1,
+    bodyPart: "Head",
+    features: ["Light"]
+  },
+  OpenHelmet: {
+    type: "OpenHelmet",
+    rating: 2,
+    bodyPart: "Head",
+    features: ["Light"]
+  },
+  ClosedHelmet: {
+    type: "ClosedHelmet",
+    rating: 3,
+    bodyPart: "Head",
+    features: []
+  },
+  GreatHelm: {
+    type: "GreatHelm",
+    rating: 4,
+    bodyPart: "Head",
+    features: ["Heavy", "HardToSee"]
+  }
+};
+
+// build/dist/data/shield.data.js
+var shields = {
+  Small: {
+    type: "Small",
+    bonus: 1,
+    features: ["Light"]
+  },
+  Large: {
+    type: "Large",
+    bonus: 2,
+    features: []
+  }
+};
+
+// build/dist/data/weapon.data.js
+var meleeWeapons = {
+  Knife: {
+    name: "Knife",
+    category: "Melee",
+    grip: "1H",
+    bonus: 1,
+    damage: 1,
+    range: "ArmsLength",
+    features: ["Light", "Pointed"]
+  },
+  Dagger: {
+    name: "Dagger",
+    category: "Melee",
+    grip: "1H",
+    bonus: 1,
+    damage: 1,
+    range: "ArmsLength",
+    features: ["Light", "Edged", "Pointed"]
+  },
+  Falchion: {
+    name: "Falchion",
+    category: "Melee",
+    grip: "1H",
+    bonus: 1,
+    damage: 2,
+    range: "ArmsLength",
+    features: ["Edged", "Pointed"]
+  },
+  ShortSword: {
+    name: "ShortSword",
+    category: "Melee",
+    grip: "1H",
+    bonus: 2,
+    damage: 1,
+    range: "ArmsLength",
+    features: ["Edged", "Parrying", "Pointed"]
+  },
+  BroadSword: {
+    name: "BroadSword",
+    category: "Melee",
+    grip: "1H",
+    bonus: 2,
+    damage: 2,
+    range: "ArmsLength",
+    features: ["Edged", "Parrying", "Pointed"]
+  },
+  LongSword: {
+    name: "LongSword",
+    category: "Melee",
+    grip: "1H",
+    bonus: 2,
+    damage: 2,
+    range: "ArmsLength",
+    features: ["Heavy", "Edged", "Pointed", "Parrying"]
+  },
+  TwoHandedSword: {
+    name: "TwoHandedSword",
+    category: "Melee",
+    grip: "2H",
+    bonus: 2,
+    damage: 3,
+    range: "ArmsLength",
+    features: ["Heavy", "Edged", "Pointed", "Parrying"]
+  },
+  Scimitar: {
+    name: "Scimitar",
+    category: "Melee",
+    grip: "1H",
+    bonus: 1,
+    damage: 2,
+    range: "ArmsLength",
+    features: ["Edged", "Pointed", "Hook", "Parrying"]
+  },
+  Handaxe: {
+    name: "Handaxe",
+    category: "Melee",
+    grip: "1H",
+    bonus: 2,
+    damage: 2,
+    range: "ArmsLength",
+    features: ["Edged", "Hook"]
+  },
+  Battleaxe: {
+    name: "Battleaxe",
+    category: "Melee",
+    grip: "1H",
+    bonus: 2,
+    damage: 2,
+    range: "ArmsLength",
+    features: ["Heavy", "Edged", "Hook"]
+  },
+  TwoHandedAxe: {
+    name: "TwoHandedAxe",
+    category: "Melee",
+    grip: "2H",
+    bonus: 2,
+    damage: 3,
+    range: "ArmsLength",
+    features: ["Heavy", "Edged", "Hook"]
+  },
+  Mace: {
+    name: "Mace",
+    category: "Melee",
+    grip: "1H",
+    bonus: 2,
+    damage: 1,
+    range: "ArmsLength",
+    features: ["Blunt"]
+  },
+  Morningstar: {
+    name: "Morningstar",
+    category: "Melee",
+    grip: "1H",
+    bonus: 2,
+    damage: 2,
+    range: "ArmsLength",
+    features: ["Blunt"]
+  },
+  Warhammer: {
+    name: "Warhammer",
+    category: "Melee",
+    grip: "1H",
+    bonus: 2,
+    damage: 2,
+    range: "ArmsLength",
+    features: ["Blunt", "Hook"]
+  },
+  Flail: {
+    name: "Flail",
+    category: "Melee",
+    grip: "1H",
+    bonus: 1,
+    damage: 2,
+    range: "Near",
+    features: ["Blunt"]
+  },
+  Club: {
+    name: "Club",
+    category: "Melee",
+    grip: "1H",
+    bonus: 1,
+    damage: 1,
+    range: "ArmsLength",
+    features: ["Blunt"]
+  },
+  LargeClub: {
+    name: "LargeClub",
+    category: "Melee",
+    grip: "2H",
+    bonus: 1,
+    damage: 2,
+    range: "ArmsLength",
+    features: ["Heavy", "Blunt"]
+  },
+  HeavyWarhammer: {
+    name: "HeavyWarhammer",
+    category: "Melee",
+    grip: "2H",
+    bonus: 2,
+    damage: 3,
+    range: "ArmsLength",
+    features: ["Heavy", "Blunt", "Hook"]
+  },
+  Staff: {
+    name: "Staff",
+    category: "Melee",
+    grip: "2H",
+    bonus: 1,
+    damage: 1,
+    range: "Near",
+    features: ["Blunt", "Hook", "Parrying"]
+  },
+  ShortSpear: {
+    name: "ShortSpear",
+    category: "Melee",
+    grip: "1H",
+    bonus: 1,
+    damage: 1,
+    range: "Near",
+    features: ["Pointed"]
+  },
+  LongSpear: {
+    name: "LongSpear",
+    category: "Melee",
+    grip: "2H",
+    bonus: 2,
+    damage: 1,
+    range: "Near",
+    features: ["Pointed"]
+  },
+  Pike: {
+    name: "Pike",
+    category: "Melee",
+    grip: "2H",
+    bonus: 2,
+    damage: 2,
+    range: "Near",
+    features: ["Heavy", "Pointed"]
+  },
+  Halberd: {
+    name: "Halberd",
+    category: "Melee",
+    grip: "2H",
+    bonus: 2,
+    damage: 2,
+    range: "Near",
+    features: ["Heavy", "Pointed", "Edged", "Hook"]
+  },
+  Trident: {
+    name: "Trident",
+    category: "Melee",
+    grip: "2H",
+    bonus: 1,
+    damage: 2,
+    range: "Near",
+    features: ["Pointed", "Hook"]
+  }
+};
+var rangedWeapons = {
+  ThrowingKnife: {
+    name: "ThrowingKnife",
+    category: "Ranged",
+    grip: "1H",
+    bonus: 1,
+    damage: 1,
+    range: "Near",
+    features: ["Light"]
+  },
+  ThrowingAxe: {
+    name: "ThrowingAxe",
+    category: "Ranged",
+    grip: "1H",
+    bonus: 1,
+    damage: 2,
+    range: "Near",
+    features: []
+  },
+  ThrowingSpear: {
+    name: "ThrowingSpear",
+    category: "Ranged",
+    grip: "1H",
+    bonus: 2,
+    damage: 1,
+    range: "Short",
+    features: []
+  },
+  Sling: {
+    name: "Sling",
+    category: "Ranged",
+    grip: "1H",
+    bonus: 1,
+    damage: 1,
+    range: "Short",
+    features: ["Light"]
+  },
+  ShortBow: {
+    name: "ShortBow",
+    category: "Ranged",
+    grip: "2H",
+    bonus: 2,
+    damage: 1,
+    range: "Short",
+    features: ["Light"]
+  },
+  LongBow: {
+    name: "LongBow",
+    category: "Ranged",
+    grip: "2H",
+    bonus: 2,
+    damage: 1,
+    range: "Long",
+    features: ["Light"]
+  },
+  LightCrossbow: {
+    name: "LightCrossbow",
+    category: "Ranged",
+    grip: "2H",
+    bonus: 2,
+    damage: 2,
+    range: "Long",
+    features: ["LoadingIsLongAction"]
+  },
+  HeavyCrossbow: {
+    name: "HeavyCrossbow",
+    category: "Ranged",
+    grip: "2H",
+    bonus: 1,
+    damage: 3,
+    range: "Long",
+    features: ["Heavy", "LoadingIsLongAction"]
+  }
+};
+
+// build/dist/data/typical-kin.data.js
+var humanTypicalKins = {
+  Ailander: {
+    kin: "Ailander",
+    kinType: "Human",
+    attributes: {
+      strength: 3,
+      agility: 3,
+      wits: 3,
+      empathy: 3
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Melee: 2,
+      Move: 2,
+      Markmanship: 2,
+      Healing: 1
+    },
+    talents: [],
+    gear: ["D6Silver"],
+    weapons: [meleeWeapons.ShortSword, rangedWeapons.ShortBow],
+    armors: [],
+    shields: [],
+    helmets: []
+  },
+  Frailer: {
+    kin: "Frailer",
+    kinType: "Human",
+    attributes: {
+      strength: 2,
+      agility: 3,
+      wits: 4,
+      empathy: 4
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Lore: 2,
+      Insight: 2,
+      Manipulation: 2
+    },
+    talents: [],
+    gear: ["InkAndQuill"],
+    weapons: [meleeWeapons.Dagger],
+    armors: [],
+    shields: [],
+    helmets: []
+  },
+  SilentGuard: {
+    kin: "SilentGuard",
+    kinType: "Human",
+    attributes: {
+      strength: 4,
+      agility: 3,
+      wits: 3,
+      empathy: 2
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Might: 2,
+      Melee: 3,
+      Markmanship: 2,
+      Insight: 4
+    },
+    talents: [],
+    gear: [],
+    weapons: [meleeWeapons.ShortSpear, rangedWeapons.HeavyCrossbow],
+    armors: [armors.Chainmail],
+    shields: [shields.Large],
+    helmets: [helmets.GreatHelm]
+  },
+  Alderlander: {
+    kin: "Alderlander",
+    kinType: "Human",
+    attributes: {
+      strength: 3,
+      agility: 3,
+      wits: 3,
+      empathy: 3
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Melee: 2,
+      Move: 1,
+      Insight: 2
+    },
+    talents: [],
+    gear: [],
+    weapons: [meleeWeapons.BroadSword],
+    armors: [armors.Leather],
+    shields: [],
+    helmets: []
+  },
+  Aslene: {
+    kin: "Aslene",
+    kinType: "Human",
+    attributes: {
+      strength: 3,
+      agility: 4,
+      wits: 3,
+      empathy: 2
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Melee: 2,
+      Markmanship: 2,
+      Move: 2,
+      AnimalHandling: 2
+    },
+    talents: ["HorseMaster"],
+    gear: ["RidingHorse"],
+    weapons: [meleeWeapons.ShortSpear, rangedWeapons.ShortBow],
+    armors: [armors.Leather],
+    shields: [],
+    helmets: []
+  },
+  MaidenDruid: {
+    kin: "MaidenDruid",
+    kinType: "Human",
+    attributes: {
+      strength: 2,
+      agility: 3,
+      wits: 4,
+      empathy: 3
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Melee: 2,
+      Markmanship: 2,
+      Lore: 2,
+      Manipulation: 2,
+      Move: 1
+    },
+    talents: ["ShiftingShapes2"],
+    gear: [],
+    weapons: [meleeWeapons.Dagger, rangedWeapons.ShortBow],
+    armors: [armors.Leather],
+    shields: [],
+    helmets: []
+  }
+};
+var elfTypicalKins = {
+  StillElf: {
+    kin: "StillElf",
+    kinType: "Elf",
+    attributes: {
+      strength: 3,
+      agility: 3,
+      wits: 5,
+      empathy: 2
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Melee: 2,
+      Crafting: 4,
+      Lore: 5,
+      Insight: 4
+    },
+    talents: ["ShiftingShapes3"],
+    gear: [],
+    weapons: [meleeWeapons.Staff],
+    armors: [],
+    shields: [],
+    helmets: []
+  },
+  UnrulyElf: {
+    kin: "UnrulyElf",
+    kinType: "Elf",
+    attributes: {
+      strength: 3,
+      agility: 4,
+      wits: 3,
+      empathy: 2
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Melee: 2,
+      Endurance: 2,
+      Stealth: 3,
+      Markmanship: 2,
+      Scouting: 2,
+      Survival: 2
+    },
+    talents: ["PathOfTheArrow2"],
+    gear: [],
+    weapons: [meleeWeapons.ShortSpear, meleeWeapons.Knife, rangedWeapons.LongBow],
+    armors: [],
+    shields: [],
+    helmets: []
+  },
+  GoldenBough: {
+    kin: "GoldenBough",
+    kinType: "Elf",
+    attributes: {
+      strength: 3,
+      agility: 3,
+      wits: 4,
+      empathy: 3
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Melee: 2,
+      Scouting: 2,
+      Lore: 3,
+      Markmanship: 2,
+      Survival: 3,
+      AnimalHandling: 3
+    },
+    talents: ["PathOfHealing2"],
+    gear: [],
+    weapons: [meleeWeapons.Falchion, rangedWeapons.ThrowingSpear],
+    armors: [armors.Leather],
+    shields: [],
+    helmets: []
+  },
+  Melder: {
+    kin: "Melder",
+    kinType: "Elf",
+    attributes: {
+      strength: 3,
+      agility: 4,
+      wits: 4,
+      empathy: 3
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Melee: 2,
+      Crafting: 4,
+      Stealth: 5,
+      Lore: 4,
+      Survival: 3
+    },
+    talents: ["PathOfSight2"],
+    gear: [],
+    weapons: [meleeWeapons.Knife],
+    armors: [],
+    shields: [],
+    helmets: []
+  },
+  RedRunner: {
+    kin: "RedRunner",
+    kinType: "Elf",
+    attributes: {
+      strength: 4,
+      agility: 5,
+      wits: 3,
+      empathy: 3
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Endurance: 3,
+      Melee: 4,
+      Stealth: 2,
+      Move: 3,
+      Markmanship: 4,
+      Insight: 3,
+      Survival: 2
+    },
+    talents: ["PathOfEnemy2"],
+    gear: [],
+    weapons: [meleeWeapons.BroadSword, meleeWeapons.Dagger, rangedWeapons.LongBow],
+    armors: [armors.Leather],
+    shields: [],
+    helmets: []
+  }
+};
+var dwarfTypicalKins = {
+  Belderranian: {
+    kin: "Belderranian",
+    kinType: "Dwarf",
+    attributes: {
+      strength: 4,
+      agility: 2,
+      wits: 3,
+      empathy: 3
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Might: 3,
+      Melee: 3,
+      Crafting: 2
+    },
+    talents: [],
+    gear: [],
+    weapons: [meleeWeapons.Battleaxe],
+    armors: [armors.Chainmail],
+    shields: [shields.Large],
+    helmets: [helmets.ClosedHelmet]
+  },
+  Meromannian: {
+    kin: "Meromannian",
+    kinType: "Dwarf",
+    attributes: {
+      strength: 4,
+      agility: 3,
+      wits: 3,
+      empathy: 2
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Might: 2,
+      Melee: 2,
+      Insight: 2,
+      Markmanship: 2
+    },
+    talents: [],
+    gear: [],
+    weapons: [meleeWeapons.Warhammer, rangedWeapons.LightCrossbow],
+    armors: [armors.Leather],
+    shields: [],
+    helmets: []
+  },
+  Canide: {
+    kin: "Canide",
+    kinType: "Dwarf",
+    attributes: {
+      strength: 5,
+      agility: 3,
+      wits: 2,
+      empathy: 2
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Might: 4,
+      Endurance: 2,
+      Melee: 3,
+      Scouting: 2,
+      Survival: 2
+    },
+    talents: [],
+    gear: [],
+    weapons: [meleeWeapons.TwoHandedAxe],
+    armors: [armors.Plate],
+    shields: [],
+    helmets: [helmets.ClosedHelmet]
+  },
+  Crombe: {
+    kin: "Crombe",
+    kinType: "Dwarf",
+    attributes: {
+      strength: 3,
+      agility: 3,
+      wits: 4,
+      empathy: 3
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Melee: 2,
+      Crafting: 3,
+      Lore: 2,
+      Performance: 3,
+      Healing: 2
+    },
+    talents: [],
+    gear: [],
+    weapons: [meleeWeapons.Mace],
+    armors: [armors.Leather],
+    shields: [],
+    helmets: []
+  }
+};
+var ogreTypicalKins = {
+  Ogre: {
+    kin: "Ogre",
+    kinType: "Ogre",
+    description: "Ogre",
+    attributes: {
+      strength: 6,
+      agility: 2,
+      wits: 1,
+      empathy: 2
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Might: 4,
+      Endurance: 2,
+      Melee: 2
+    },
+    talents: [],
+    gear: [],
+    weapons: [meleeWeapons.LargeClub],
+    armors: [],
+    shields: [],
+    helmets: []
+  }
+};
+var orcTypicalKins = {
+  Urhur: {
+    kin: "Urhur",
+    kinType: "Orc",
+    attributes: {
+      strength: 4,
+      agility: 3,
+      wits: 3,
+      empathy: 2
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Might: 2,
+      Melee: 2,
+      Lore: 1
+    },
+    talents: [],
+    gear: [],
+    weapons: [meleeWeapons.Scimitar],
+    armors: [armors.StuddedLeather],
+    shields: [shields.Large],
+    helmets: []
+  },
+  Roka: {
+    kin: "Roka",
+    kinType: "Orc",
+    attributes: {
+      strength: 5,
+      agility: 2,
+      wits: 2,
+      empathy: 2
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Might: 2,
+      Melee: 2,
+      Scouting: 1,
+      Survival: 1
+    },
+    talents: [],
+    gear: [],
+    weapons: [meleeWeapons.Flail],
+    armors: [armors.StuddedLeather],
+    shields: [],
+    helmets: []
+  },
+  Isir: {
+    kin: "Isir",
+    kinType: "Orc",
+    description: "Isir",
+    attributes: {
+      strength: 4,
+      agility: 3,
+      wits: 3,
+      empathy: 2
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Might: 2,
+      Melee: 3,
+      Markmanship: 2,
+      Survival: 2
+    },
+    talents: [],
+    gear: [],
+    weapons: [meleeWeapons.TwoHandedSword],
+    armors: [armors.StuddedLeather],
+    shields: [],
+    helmets: [helmets.ClosedHelmet]
+  },
+  Viraga: {
+    kin: "Viraga",
+    kinType: "Orc",
+    attributes: {
+      strength: 3,
+      agility: 4,
+      wits: 4,
+      empathy: 3
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Melee: 2,
+      Stealth: 2,
+      Move: 2,
+      Markmanship: 2,
+      Lore: 2,
+      Insight: 3,
+      Manipulation: 2
+    },
+    talents: ["PathOfKiller2"],
+    gear: [],
+    weapons: [meleeWeapons.ShortSword, rangedWeapons.ThrowingKnife, rangedWeapons.ThrowingKnife, rangedWeapons.ThrowingKnife, rangedWeapons.ThrowingKnife],
+    armors: [armors.Leather],
+    shields: [],
+    helmets: []
+  },
+  Drifter: {
+    kin: "Drifter",
+    kinType: "Orc",
+    attributes: {
+      strength: 4,
+      agility: 3,
+      wits: 2,
+      empathy: 2
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Might: 1,
+      Melee: 2,
+      Insight: 2
+    },
+    talents: [],
+    gear: [],
+    weapons: [meleeWeapons.Scimitar],
+    armors: [armors.StuddedLeather],
+    shields: [],
+    helmets: [helmets.StuddedLeather]
+  }
+};
+var wolfkinTypicalKins = {
+  Wolfkin: {
+    kin: "Wolfkin",
+    kinType: "Wolfkin",
+    attributes: {
+      strength: 4,
+      agility: 4,
+      wits: 2,
+      empathy: 2
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Might: 1,
+      Endurance: 3,
+      Melee: 3,
+      Scouting: 3,
+      Survival: 2
+    },
+    talents: ["PathOfForest2"],
+    gear: [],
+    weapons: [meleeWeapons.ShortSpear, meleeWeapons.Knife],
+    armors: [armors.Leather],
+    shields: [],
+    helmets: []
+  }
+};
+var saurianTypicalKins = {
+  Saurian: {
+    kin: "Saurian",
+    kinType: "Saurian",
+    attributes: {
+      strength: 4,
+      agility: 3,
+      wits: 2,
+      empathy: 2
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Endurance: 1,
+      Melee: 2,
+      Scouting: 2,
+      Survival: 3
+    },
+    talents: [],
+    gear: [],
+    weapons: [],
+    armors: [{
+      bodyPart: "Body",
+      type: "Natural",
+      rating: 3,
+      features: []
+    }],
+    shields: [],
+    helmets: []
+  }
+};
+var whinerTypicalKins = {
+  Whiner: {
+    kin: "Whiner",
+    kinType: "Whiner",
+    attributes: {
+      strength: 1,
+      agility: 3,
+      wits: 2,
+      empathy: 2
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Melee: 2,
+      Stealth: 3,
+      Move: 3
+    },
+    talents: [],
+    gear: [],
+    weapons: [meleeWeapons.ShortSpear],
+    armors: [],
+    shields: [],
+    helmets: []
+  }
+};
+var halflingAndGoblinTypicalKins = {
+  Halfling: {
+    kin: "Halfling",
+    kinType: "HalflingAndGoblin",
+    attributes: {
+      strength: 2,
+      agility: 4,
+      wits: 3,
+      empathy: 4
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Melee: 1,
+      Crafting: 2,
+      Stealth: 2,
+      SleightOfHand: 1,
+      Insight: 2,
+      Manipulation: 2
+    },
+    talents: [],
+    gear: [],
+    weapons: [meleeWeapons.ShortSword, rangedWeapons.Sling],
+    armors: [armors.Leather],
+    shields: [],
+    helmets: []
+  },
+  Goblin: {
+    kin: "Goblin",
+    kinType: "HalflingAndGoblin",
+    description: "Goblin",
+    attributes: {
+      strength: 2,
+      agility: 4,
+      wits: 4,
+      empathy: 2
+    },
+    skills: {
+      ...defaultSkillsValues(),
+      Melee: 1,
+      Move: 1,
+      Stealth: 2,
+      Markmanship: 1,
+      Insight: 2,
+      Manipulation: 2
+    },
+    talents: [],
+    gear: ["D6Copper"],
+    weapons: [meleeWeapons.ShortSword, meleeWeapons.ShortSpear, rangedWeapons.Sling],
+    armors: [armors.Leather],
+    shields: [],
+    helmets: []
+  }
+};
+
+// build/dist/pkg/nanoid.js
+var nanoid = (size = 21) => {
+  let id3 = "";
+  let bytes = crypto.getRandomValues(new Uint8Array(size));
+  while (size--) {
+    let byte = bytes[size] & 63;
+    if (byte < 36) {
+      id3 += byte.toString(36);
+    } else if (byte < 62) {
+      id3 += (byte - 26).toString(36).toUpperCase();
+    } else if (byte < 63) {
+      id3 += "_";
+    } else {
+      id3 += "-";
+    }
+  }
+  return id3;
+};
+
+// build/dist/models/utils.model.js
+var getId = () => nanoid();
+
+// build/dist/functions/armor.functions.js
+var createArmorViewModel = (w2) => ({
+  ...w2,
+  collapse: true,
+  id: getId()
+});
+var createHelmetViewModel = (w2) => ({
+  ...w2,
+  collapse: true,
+  id: getId()
+});
+
+// build/dist/functions/shield.functions.js
+var createShieldViewModel = (w2) => ({
+  ...w2,
+  collapse: true,
+  id: getId()
+});
+
+// build/dist/functions/weapon.functions.js
+var createWeaponViewModel = (w2) => ({
+  ...w2,
+  collapse: true,
+  id: getId()
+});
+
+// build/dist/functions/typical-kin.functions.js
+var createTypicalKinViewModel = (tk2) => {
+  return {
+    ...tk2,
+    collapse: true,
+    attributes: createAttributesViewModel(tk2.attributes),
+    skills: createAllSkillsValuesViewModel(tk2.skills),
+    weapons: tk2.weapons.map(createWeaponViewModel),
+    shields: tk2.shields.map(createShieldViewModel),
+    armors: tk2.armors.map(createArmorViewModel),
+    helmets: tk2.helmets.map(createHelmetViewModel)
+  };
+};
+
+// build/dist/pages/typical-kin.page.js
+var TypicalKinPage = () => {
+  const {
+    t: t4
+  } = useTranslation(["typical", "common"]);
+  const humanKinViewModels = Object.values(humanTypicalKins).map(createTypicalKinViewModel);
+  const elfKinViewModels = Object.values(elfTypicalKins).map(createTypicalKinViewModel);
+  const dwarfKinViewModels = Object.values(dwarfTypicalKins).map(createTypicalKinViewModel);
+  const orcKinViewModels = Object.values(orcTypicalKins).map(createTypicalKinViewModel);
+  const ogreKinViewModels = Object.values(ogreTypicalKins).map(createTypicalKinViewModel);
+  const wolfkinKinViewModels = Object.values(wolfkinTypicalKins).map(createTypicalKinViewModel);
+  const saurianKinViewModels = Object.values(saurianTypicalKins).map(createTypicalKinViewModel);
+  const whinerKinViewModels = Object.values(whinerTypicalKins).map(createTypicalKinViewModel);
+  const halflingAndGoblinKinViewModels = Object.values(halflingAndGoblinTypicalKins).map(createTypicalKinViewModel);
+  return jsx("div", {
+    css: {
+      display: "flex",
+      flexDirection: "column",
+      rowGap: "2rem",
+      width: "100%",
+      paddingBottom: "4rem"
+    }
+  }, jsx(PageHeader, null, t4("Title")), jsx("h2", {
+    css: {
+      textAlign: "center",
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      "@media (min-width: 1024px)": {
+        fontSize: "2.25rem",
+        lineHeight: "2.5rem"
+      }
+    },
+    className: "yx-heading"
+  }, t4("Kin.Human.Humans", {
+    ns: "common"
+  })), jsx("div", {
+    css: {
+      display: "grid",
+      gap: "1rem",
+      "@media (min-width: 768px)": {
+        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+      },
+      "@media (min-width: 1536px)": {
+        gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+      }
+    }
+  }, humanKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+    key: tkvm.kin,
+    tkvm
+  }))), jsx("h2", {
+    css: {
+      textAlign: "center",
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      "@media (min-width: 1024px)": {
+        fontSize: "2.25rem",
+        lineHeight: "2.5rem"
+      }
+    },
+    className: "yx-heading"
+  }, t4("Kin.Elf.Elves", {
+    ns: "common"
+  })), jsx("div", {
+    css: {
+      display: "grid",
+      gap: "1rem",
+      "@media (min-width: 768px)": {
+        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+      },
+      "@media (min-width: 1536px)": {
+        gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+      }
+    }
+  }, elfKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+    key: tkvm.kin,
+    tkvm
+  }))), jsx("h2", {
+    css: {
+      textAlign: "center",
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      "@media (min-width: 1024px)": {
+        fontSize: "2.25rem",
+        lineHeight: "2.5rem"
+      }
+    },
+    className: "yx-heading"
+  }, t4("Kin.Dwarf.Dwarves", {
+    ns: "common"
+  })), jsx("div", {
+    css: {
+      display: "grid",
+      gap: "1rem",
+      "@media (min-width: 768px)": {
+        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+      },
+      "@media (min-width: 1536px)": {
+        gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+      }
+    }
+  }, dwarfKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+    key: tkvm.kin,
+    tkvm
+  }))), jsx("h2", {
+    css: {
+      textAlign: "center",
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      "@media (min-width: 1024px)": {
+        fontSize: "2.25rem",
+        lineHeight: "2.5rem"
+      }
+    },
+    className: "yx-heading"
+  }, t4("Kin.Orc.Orcs", {
+    ns: "common"
+  })), jsx("div", {
+    css: {
+      display: "grid",
+      gap: "1rem",
+      "@media (min-width: 768px)": {
+        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+      },
+      "@media (min-width: 1536px)": {
+        gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+      }
+    }
+  }, orcKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+    key: tkvm.kin,
+    tkvm
+  }))), jsx("div", {
+    css: {
+      display: "grid",
+      gap: "1rem",
+      "@media (min-width: 768px)": {
+        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+      },
+      "@media (min-width: 1536px)": {
+        gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+      }
+    }
+  }, jsx(Pancake, null, jsx("h2", {
+    css: {
+      textAlign: "center",
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      "@media (min-width: 1024px)": {
+        fontSize: "2.25rem",
+        lineHeight: "2.5rem"
+      }
+    },
+    className: "yx-heading"
+  }, t4("Kin.Ogre.Ogres", {
+    ns: "common"
+  })), ogreKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+    key: tkvm.kin,
+    tkvm
+  }))), jsx(Pancake, null, jsx("h2", {
+    css: {
+      textAlign: "center",
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      "@media (min-width: 1024px)": {
+        fontSize: "2.25rem",
+        lineHeight: "2.5rem"
+      }
+    },
+    className: "yx-heading"
+  }, t4("Kin.Wolfkin.Wolfkins", {
+    ns: "common"
+  })), wolfkinKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+    key: tkvm.kin,
+    tkvm
+  })))), jsx("div", {
+    css: {
+      display: "grid",
+      gap: "1rem",
+      "@media (min-width: 768px)": {
+        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+      },
+      "@media (min-width: 1536px)": {
+        gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+      }
+    }
+  }, jsx(Pancake, null, jsx("h2", {
+    css: {
+      textAlign: "center",
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      "@media (min-width: 1024px)": {
+        fontSize: "2.25rem",
+        lineHeight: "2.5rem"
+      }
+    },
+    className: "yx-heading"
+  }, t4("Kin.Saurian.Saurians", {
+    ns: "common"
+  })), saurianKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+    key: tkvm.kin,
+    tkvm
+  }))), jsx(Pancake, null, jsx("h2", {
+    css: {
+      textAlign: "center",
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      "@media (min-width: 1024px)": {
+        fontSize: "2.25rem",
+        lineHeight: "2.5rem"
+      }
+    },
+    className: "yx-heading"
+  }, t4("Kin.Whiner.Whiners", {
+    ns: "common"
+  })), whinerKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+    key: tkvm.kin,
+    tkvm
+  })))), jsx("h2", {
+    css: {
+      textAlign: "center",
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      "@media (min-width: 1024px)": {
+        fontSize: "2.25rem",
+        lineHeight: "2.5rem"
+      }
+    },
+    className: "yx-heading"
+  }, t4("Kin.HalflingAndGoblin.HalflingAndGoblins", {
+    ns: "common"
+  })), jsx("div", {
+    css: {
+      display: "grid",
+      gap: "1rem",
+      "@media (min-width: 768px)": {
+        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+      },
+      "@media (min-width: 1536px)": {
+        gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+      }
+    }
+  }, halflingAndGoblinKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+    key: tkvm.kin,
+    tkvm
+  }))));
+};
+
 // build/dist/App.js
 var styles = {
   container: () => [
@@ -18941,36 +20694,52 @@ var styles = {
 };
 var App = () => {
   const routes = useRoutes([{
-    path: "/",
+    path: "",
     element: jsx(HomePage, null)
   }, {
-    path: "/dice",
+    path: "dice",
     element: jsx(DiceRollerPage, null)
   }, {
-    path: "/names",
-    element: jsx(NameGeneratorPage, null)
+    path: "kin",
+    children: [{
+      path: "names",
+      element: jsx(NameGeneratorPage, null)
+    }, {
+      path: "typical",
+      element: jsx(TypicalKinPage, null)
+    }, {
+      path: "*",
+      element: jsx(NameGeneratorPage, null)
+    }]
   }, {
-    path: "/gear",
+    path: "gear",
     element: jsx(GearPage, null)
   }, {
-    path: "/calendar",
+    path: "calendar",
     element: jsx(CalendarPage, null)
   }, {
-    path: "/session",
+    path: "session",
     element: jsx(SessionPage, null)
   }, {
-    path: "/map",
+    path: "map",
     element: jsx(MapPage, null)
   }, {
-    path: "/encounter",
+    path: "encounter",
     element: jsx(EncounterPage, null)
   }, {
-    path: "/monsters",
+    path: "monsters",
     element: jsx(MonstersPage, null)
   }]);
   const {
     t: t4
   } = useTranslation("core");
+  const {
+    pathname
+  } = useLocation();
+  const {
+    pathname: toPathname
+  } = useResolvedPath("kin");
+  const isLinkActive = pathname.includes(toPathname);
   return jsx("div", {
     className: "App",
     css: styles.container()
@@ -19009,20 +20778,15 @@ var App = () => {
   }, jsx(YxansKlaganLogo, null))), jsx("div", {
     css: {
       height: "100%",
+      paddingBottom: "1rem",
       display: "flex",
       flexDirection: "column",
-      justifyContent: "space-between",
-      paddingBottom: "1rem"
+      justifyContent: "space-between"
     }
-  }, jsx("nav", {
-    css: {
-      fontSize: "1.125rem",
-      lineHeight: "1.75rem",
-      width: "100%",
-      display: "flex",
-      flexDirection: "column",
-      rowGap: "0.25rem"
-    }
+  }, jsx(PancakeNav, {
+    dir: "vertical",
+    wrap: false,
+    spacing: "small"
   }, jsx(MenuLink, {
     to: "/session"
   }, t4("Menu-Session")), jsx(MenuLink, {
@@ -19035,9 +20799,30 @@ var App = () => {
     to: "/calendar"
   }, t4("Menu-Calendar")), jsx(MenuLink, {
     to: "/gear"
-  }, t4("Menu-Gear")), jsx(MenuLink, {
-    to: "/names"
-  }, t4("Menu-Names"))), jsx(LanguageSwitcher, null)), jsx("a", {
+  }, t4("Menu-Gear")), jsx("div", {
+    css: {
+      paddingLeft: "1rem"
+    }
+  }, jsx(Group, {
+    spaceBeforeItems: false,
+    indent: false,
+    label: jsx("div", {
+      css: {
+        fontWeight: "500"
+      }
+    }, t4("Menu-Kin")),
+    open: isLinkActive
+  }, jsx("div", {
+    css: {
+      marginTop: "0.5rem"
+    }
+  }, jsx(Pancake, {
+    spacing: "small"
+  }, jsx(MenuLink, {
+    to: "/kin/names"
+  }, t4("Menu-Kin-Names")), jsx(MenuLink, {
+    to: "/kin/typical"
+  }, t4("Menu-Kin-Typical"))))))), jsx(LanguageSwitcher, null)), jsx("a", {
     css: {
       display: "inline",
       textAlign: "center",
@@ -19062,6 +20847,11 @@ var App = () => {
   }, routes)));
 };
 var App_default = App;
+var PancakeNav = styled_default(Stack)({
+  fontSize: "1.125rem",
+  lineHeight: "1.75rem",
+  width: "100%"
+});
 var HomePage = () => jsx("div", {
   css: {
     display: "flex",

@@ -1,12 +1,5 @@
 {
   "Title": "Monsters",
-  "Attribute": "Attributes",
-  "Attributes": {
-    "Strength": "Strength",
-    "Agility": "Agility",
-    "Wits": "Wits",
-    "Empathy": "Empathy"
-  },
   "BookMonsters": "Monsters from the book",
   "TheMonsterHas": "The monster has",
   "TheMonsterHave": "The monster have",
