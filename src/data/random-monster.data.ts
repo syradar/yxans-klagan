@@ -529,7 +529,8 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'ArmsLength',
     attack: (rm) => rm.attributes.agility,
     description: 'Attack.Bash.Description',
-    valid: (rm) => rm.attributes.strength >= 5,
+    valid: (rm) =>
+      rm.attributes.strength >= 5 && rm.attackRequirements.hasLimbs,
   },
   Bite: {
     type: 'Bite',
@@ -599,7 +600,8 @@ export const monsterAttacks: MonsterAttacks = {
     attack: (rm) => 3 + rm.attributes.agility,
     damage: (_) => chooseFromChoiceString('1^2|2^3|3'),
     description: 'Attack.Slash.Description',
-    valid: (rm) => rm.attackRequirements.claws,
+    valid: (rm) =>
+      rm.attackRequirements.claws || rm.attackRequirements.hasLimbs,
   },
   TailsSlash: {
     type: 'TailsSlash',

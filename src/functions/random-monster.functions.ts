@@ -289,6 +289,11 @@ const createAttackRequirements = (
     tentacles: limbs.Tentacles > 0,
     undead: traits.some((t) => t.name === 'Trait.Undead.Name'),
     wings: limbs.Wings > 0,
+    hasLimbs:
+      limbs.Arms > 0 ||
+      limbs.Legs > 0 ||
+      limbs.Tentacles > 0 ||
+      limbs.Wings > 0,
   }
 }
 

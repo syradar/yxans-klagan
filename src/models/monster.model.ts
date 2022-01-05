@@ -218,6 +218,7 @@ export interface RandomMonster extends Monster {
     claws: boolean
     horn: boolean
     wings: boolean
+    hasLimbs: boolean
   }
 }
 
@@ -255,5 +256,6 @@ export interface RandomMonsterViewModel
     claws: boolean
     horn: boolean
     wings: boolean
+    hasLimbs: boolean
   }
 }
