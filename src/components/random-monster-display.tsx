@@ -143,6 +143,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
           <table tw="w-full">
             <thead tw="hidden md:table-header-group">
               <tr tw="uppercase border-b-[1px] border-gray-500">
+                <th tw="font-bold p-1 text-left">#</th>
                 <th tw="font-bold p-1 text-left">{t(`Attack.Type`)}</th>
                 <th tw="font-bold p-1 text-center">{t(`Attack.Attack`)}</th>
                 <th tw="font-bold p-1 text-center">{t(`Attack.Damage`)}</th>
@@ -153,7 +154,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
               </tr>
             </thead>
             <tbody tw="grid sm:grid-cols-2  md:table-row-group">
-              {rm.attacks.map((a) => (
+              {rm.attacks.map((a, index) => (
                 <tr
                   key={a.type}
                   tw="flex flex-col p-2 md:(table-row p-0) odd-of-type:bg-gray-200 md:odd-of-type:bg-gray-200 md:odd-of-type:border-r-0 sm:(odd-of-type:bg-transparent odd-of-type:border-r-[1px]) border-b-[1px] last-of-type:border-0 border-gray-500"
@@ -178,7 +179,11 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
                     }
                   `}
                 >
+                  <td tw="hidden text-lg font-medium md:(table-cell py-1 px-2 text-base font-normal) ">
+                    {index + 1}
+                  </td>
                   <td tw="block text-lg font-medium md:(table-cell py-1 px-2 text-base font-normal) ">
+                    <span tw="md:hidden">{index + 1}: </span>
                     {t(`Attack.${a.type}.Type`)}
                   </td>
                   <td tw="block md:(table-cell py-1 px-2) md:text-center">
