@@ -561,7 +561,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'ArmsLength',
     attack: (rm) => 5 + rm.attributes.agility,
     description: 'Attack.Headbutt.Description',
-    valid: (_) => true,
+    valid: (rm) => !rm.attackRequirements.horn,
   },
   Horn: {
     type: 'Horn',
