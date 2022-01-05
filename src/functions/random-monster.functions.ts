@@ -284,7 +284,9 @@ const createAttackRequirements = (
     tail: tailKey !== 'None',
     claws: limbs.Arms > 0,
     fangs: heads.every((choice) => choice !== 'Missing'),
-    horn: heads.some((choice) => choice !== 'HornWithCount'),
+    horn: heads.some(
+      (choice) => choice === 'HornWithCount' || choice === 'ElkHorns',
+    ),
     legs: limbs.Legs > 0,
     tentacles: limbs.Tentacles > 0,
     undead: traits.some((t) => t.name === 'Trait.Undead.Name'),
