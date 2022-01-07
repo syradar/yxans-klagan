@@ -17,7 +17,7 @@ export const Parchment = React.forwardRef<SVGSVGElement, ParchmentProps>(
       if (contentRef !== null) {
         setSvgHeight(contentRef.current?.clientHeight ?? 0)
       } else {
-        console.log('null content ref')
+        console.error('null content ref')
       }
     }, [currentWidth, contentRef?.current, ...(deps ? deps : [])])
 
