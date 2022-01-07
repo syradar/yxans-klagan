@@ -66,11 +66,6 @@ export const weightedRandomConsume = <T extends WeightedChoice>(
   const totalWeight = sum(pluck('weight', probabilities))
   const randomInt = getRandomInt(0, totalWeight)
 
-  if (probabilities.length === 1) {
-    console.log('consume - totalWeight', totalWeight)
-    console.log('consume - randomInt', randomInt)
-  }
-
   const chosen = probabilities.reduce(
     (acc, cur, index) => {
       if (acc.done > -1) {

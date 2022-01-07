@@ -334,8 +334,6 @@ const createMonsterAttacks = (
     }))
 
     validAttacks.push(...genericAttacks)
-    console.log('Generics added')
-    console.log('Valid Attacks: ', validAttacks)
   }
 
   return range(6).reduce(
@@ -349,13 +347,7 @@ const createMonsterAttacks = (
       validAttacksLeft: WeightedRandomMonsterChoice<MonsterAttack>[]
       attackViewModels: MonsterAttackViewModel[]
     } => {
-      const validAttacksTrace = [...acc.validAttacksLeft]
       const [chosen, rest] = weightedRandomConsume(acc.validAttacksLeft)
-
-      if (isNullish(chosen.value)) {
-        console.log(chosen.value)
-        console.log(validAttacksTrace)
-      }
 
       return {
         attackViewModels: [
