@@ -156,7 +156,6 @@ export type MonsterAttackType =
   | 'TentacleFrenzy'
   | 'TentaclePenetrationArmsLength'
   | 'TentaclePenetrationNear'
-  | 'TentacleLash'
   | 'Bash'
   | 'Sweep'
   | 'BreathFire'
