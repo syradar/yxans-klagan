@@ -231,7 +231,17 @@
     "Type": "Typ",
     "Attack": "Attack",
     "Attacks": "Attacker",
-    "Damage": "Skada",
+    "Roll": "Slumpa",
+    "Damage": {
+      "Damage": "Skada",
+      "Blunt": "Krossskada",
+      "Slash": "Huggskada",
+      "Stab": "Stickskada",
+      "NonTypical": "Icke-typisk skada",
+      "Fear": "Skräck",
+      "Disease": "Smittvärde",
+      "Poison": "Giftstyrka"
+    },
     "Range": "Räckvidd",
     "Description": "Effekt",
     "Bash": {
@@ -280,7 +290,7 @@
     },
     "TentacleLash": {
       "Type": "Snärtattck",
-      "Description": "Piskar med sina tentaklers mot en äventyrare inom Nära avstånd. Om attacken träffar slås offret omkull."
+      "Description": "Piskar med sina tentakler mot en äventyrare inom Nära avstånd. Om attacken träffar slås offret omkull."
     },
     "Devour": {
       "Type": "Sluka",
@@ -293,6 +303,182 @@
     "DiveAttack": {
       "Type": "Dykattack",
       "Description": "Sveper genom luften och river en olycklig äventyrare inom Nära avstånd med all sin kraft. Om attacken träffar slås offret till marken."
+    },
+    "EyeGourge": {
+      "Type": "Stick ut öga",
+      "Description": "Besten fokuserar på en olyckligt lottad äventyrare och försöker slita ut dess ögon med sina vassa klor. Om offret tar skada får de direkt också den kritiska skadan “Sargat öga“ (resultat 42-43 på tabllen för kritisk skador stickvapen)."
+    },
+    "ClawFlurry": {
+      "Type": "Virvelklor",
+      "Description": "Varelsen ryggar upp inför en äventyrare och river henne med tre attacker. Attackerna kan PARERAS, men en åt gången."
+    },
+    "LockedJaws": {
+      "Type": "Käklås",
+      "Description": "Varelsen biter en av äventyrarna och låser sin käke i ett brutalt grepp. Om attacken träffar hamnar offret i ett GREPP och tar 1 poäng skada per runda så länge hon är greppad."
+    },
+    "ThroatBite": {
+      "Type": "Halsbett",
+      "Description": "Varelsen ser en svag punkt och biter en äventyrare i halsen för att döda. Attacken kan PARERAS. Offret tar också halva skadan (avrundat uppåt) på KARISMA, på grund av det fruktansvärda händelsen och blir NEDKYLD."
+    },
+    "TentacleFrenzy": {
+      "Type": "Tentakelfrenese",
+      "Description": "Besten fäktar med alla sina tentakler och slår alla äventyrare inom Nära räckvid. Utför en attack mot varje äventyrare."
+    },
+    "TentaclePenetrationArmsLength": {
+      "Type": "Forcerande tentakel",
+      "Description": "Varelsen försöker tvinga en tentakel in i kroppen (som munnen, ögonen eller öronen) på en äventyrare inom Armlängds avstånd. Attacken skadar både STYRKA och KARISMA på grund av den hemska upplevelsen."
+    },
+    "TentaclePenetrationNear": {
+      "Type": "Forcerande tentakel",
+      "Description": "Varelsen försöker tvinga en tentakel in i kroppen (som munnen, ögonen eller öronen) på en äventyrare inom Nära avstånd. Attacken skadar både STYRKA och KARISMA på grund av den hemska upplevelsen."
+    },
+    "SprayFire": {
+      "Type": "Eldstorm",
+      "Description": "Varelse släpper ut en storm av eld som riktar en attack mot alla äventyrare inom Kort avstånd. Den här attacken kan bara användas en gång per strid."
+    },
+    "SprayAcid": {
+      "Type": "Syrastorm",
+      "Description": "Varelse släpper ut en storm av syra som riktar en attack mot alla äventyrare inom Kort avstånd. Den här attacken kan bara användas en gång per strid."
+    },
+    "ColdStrike": {
+      "Type": "Dödskyla",
+      "Description": "Den odöda varelsen tar tag i ett offer och låter sin iskalla dödskyla strömma in i kroppen. Om offret träffas blir det också NEDKYLD."
+    },
+    "DeathScream": {
+      "Type": "Dödsskri",
+      "Description": "Ansiktet på den odöda varelsen förvandlas till en hemsk grimas och avger ett skri som förvandlar äventyrares själar inom Nära räckvidd till is. Rulla en skräckattack. Alla offer som drabbas av attacken blir också NEDKYLD. "
+    },
+    "BackwardsKick": {
+      "Type": "Backwards Kick",
+      "Description": "Odjuret vänder sig snabbt och sparkar bakut med en formidabel kraft. Om attacken träffar, kastas äventyraren till Nära avstånd och blir liggande."
+    },
+    "Whirlwind": {
+      "Type": "Virvelvind",
+      "Description": "Besten använder sina kraftfull vingar för att skapa en virvelvind som knuffar alla äventyrare inom Nära räckvidd till marken. Alla som träffas av attacken slås till marken och blir liggande. Det går inte att DUCKA attacken."
+    },
+    "Peck": {
+      "Type": "Näbbhacka",
+      "Description": "Varelsen hackar med sin näbb en äventyrare inom Armlängs avstånd."
+    },
+    "Squash": {
+      "Type": "Mosa",
+      "Description": "Den stora besten reser upp och blockerar solen med sin stora massa. Sen låter den sin kroppa falla mot äventyrarna. Låt alla slå ett RÖRLIGHET för att hoppa undan (räknas inte som en handlig). Alla inom Nära avstånd slängs till marken. Den som misslyckades medd sitt rörligetsslag träffas också av attacken som står beskriven här."
+    },
+    "BeakThrow": {
+      "Type": "Näbbkast",
+      "Description": "Besten använder sin näbb för att få ett bra grepp på en äventyrare och kastar upp henne i lyften med en kvick snärt med näbben. Slå för attacken, om den träffar landar offret liggandes inom Nära avstånd."
+    },
+    "AdventureToss": {
+      "Type": "Kast med liten äventyrare",
+      "Description": "Besten lyfter en äventyrare högt upp i luften och kastar henne som en trasdocka. Slå för attacken, om den träffar landar offret liggandes inom Kort avstånd."
+    },
+    "DeathRattle": {
+      "Type": "Dödsrassel",
+      "Description": "Besten hoppar till en äventyrare, biter henne och sen skakar henne och till sist kastar henne åt sidan. Slå attacken, om den träffar kastas offret till inom Nära avstånd och blir liggandes."
+    },
+    "InfectedScratch": {
+      "Type": "Infektera Rivsår",
+      "Description": "Den sjuka varelsen river en äventyrare med sina klor. Om attacken träffar, drabbas offret även av sjukdomen."
+    },
+    "DiseasedBite": {
+      "Type": "Smittande bett",
+      "Description": "Den sjuka varelsen biten en äventyrare med sina huggtänder. Om attacken träffar, drabbas offret även av sjukdomen."
+    },
+    "InfectedTailSwipe": {
+      "Type": "Infekterat svansriv",
+      "Description": "Den sjuka varelsen river en äventyrare med sin spikförsedda svans. Om attacken träffar, drabbas offret även av sjukdomen."
+    },
+    "InfectedTentacleSwipe": {
+      "Type": "Infekterat tentakelriv",
+      "Description": "Den sjuka varelsen river en äventyrare med sina tentakler. Om attacken träffar, drabbas offret även av sjukdomen."
+    },
+    "DiseasedTouch": {
+      "Type": "Sjuklig beröring",
+      "Description": "Den sjuka varelsen rör vid en äventyrare och sprider sin sjukdom. Om attacken träffar, drabbas offret även av sjukdomen."
+    },
+    "Distraction": {
+      "Type": "Distraktion",
+      "Description": "Besten för en plötslig distraherande rörelse som får alla äventyrare att stanna till sina attacker. Alla äventyrare inom Nära räckvid måste lyckas med ett GENOMSKÅDA eller få -1 på deras nästa handling."
+    },
+    "Punch": {
+      "Type": "Slag",
+      "Description": "Varelsen knyter sin näven och svingar mot en äventyrare inom Armslängs räckvidd. Attacken kan PARERAS."
+    },
+    "FlyingFists": {
+      "Type": "Fäktande nävar",
+      "Description_count": "Varelsen fäktar med sina armar och slår {{count}} äventyrare inom Armlängds avstånd. Varje attack kan PARERAS."
+    },
+    "FistsOfFury": {
+      "Type": "Ursinniga nävar",
+      "Description_count": "Varelsen använder alla sina armar för att slå en äventyrare {{count}} gånger. Varje attack kan PARERAS men måste PARERAS separat."
+    },
+    "PoisonSpit": {
+      "Type": "Giftspott",
+      "Description": "Varelsen spottar en boll giftigt slem mot en äventyrare inom Nära avstånd. Gör en attack, den gör ingen skada men om den träffar, drabbas offret direkt av giftet."
+    },
+    "VenemousBite": {
+      "Type": "Giftbett",
+      "Description": "Varelsen biter en äventyrare med sina giftiga huggtänder."
+    },
+    "PoisonScratch": {
+      "Type": "Giftigt klös",
+      "Description": "Varelsen klöser en äventyrare med sina giftiga klor."
+    },
+    "PoisonTailAttack": {
+      "Type": "Giftsvans",
+      "Description": "Varelsen attackerar en äventyrare med sin giftiga svans."
+    },
+    "PoisonTentacleAttack": {
+      "Type": "Gifttentakel",
+      "Description": "Varelsen attackerar en äventyrare med sin giftiga svans."
+    },
+    "PoisonHornAttack": {
+      "Type": "Gifthorn",
+      "Description": "Varelsen stångar en äventyrare med sina giftiga horn."
+    },
+    "NightmareVisions": {
+      "Type": "Mardröm",
+      "Description": "Den telepatiska bester riktar in sig på en äventyrare inom Nära räckvidd och fyller hennes huvud med mardrömmar. Detta är en Skräckattack."
+    },
+    "MindBurst": {
+      "Type": "Sinnessmäll",
+      "Description": "Den telepatiska besten sänder ut en kraftfull våg av negativa känslor mot alla äventyrare inom Armlängds avstånd. Detta är en Skräckattack."
+    },
+    "Taunt": {
+      "Type": "Håna",
+      "Description": "Varelsen hånar och hotar äventyrarna med fruktansvärda beskrivningar av vad besten ska göra mot dem. Alla äventyrare inom Nära avstånd utsätts för en Skräckattack."
+    },
+    "Plea": {
+      "Type": "Vädjan",
+      "Description": "Varelsen vädjar äventyrarna att inte skada denne, lekandes med deras känslor. Alla äventyrare inom Nära räckvid påverkas och måste slå KARISMA för att kunna fortsätta anfalla (som Nådastöt). Annars förlorar de sin nästa handling (Talangen Kallblodig kan användas som försvar mot attackens effekter)."
+    },
+    "Burrow": {
+      "Type": "Grävande Attack",
+      "Description": "Varelsen gräver fort ned sig, rör sig mot en äventyrare och dyker upp ur jorden attackerandes. Marken är nu svår att stå på (-1 på alla handlingar)."
+    },
+    "TheGroundShatters": {
+      "Type": "Marken skälver",
+      "Description": "Besten dyker ner under marken och använder sin massa för att skälva marken run äventyrarna. Alla äventyrare inom Nära avstånd faller 2T6 meter och landar liggandes."
+    },
+    "Rush": {
+      "Type": "Anstorma",
+      "Description": "Varelsen springer mot en äventyrare inom Nära räckvidd, försöker knuffa eller fälla henne. Om attacken träffar faller offret till marken och blir liggandes."
+    },
+    "WrapAttack": {
+      "Type": "Dödskram",
+      "Description": "Varelsen slingrar sig mot en äventyrare och försöker omfamna en lem. Om attacken lyckas, har besten henne i ett GREPP och hon tar 1 poäng skada per runda tills någon får bort besten."
+    },
+    "FallFromTheSky": {
+      "Type": "Skyfall",
+      "Description": "Besten grabbar tag i en äventyrare inom Nära räckvid och lyfter upp henne i skyn. Om attacken lyckas, lyfts både besten och offret uppåt till Kort avstånd från marken. Nästa runda släpper besten offret som faller 2T6+10 meter och tar fallskada (se sida 109 i Spelarboken)."
+    },
+    "RainOfRocks": {
+      "Type": "Stenregn",
+      "Description": "Varelsen kastar stenar och annat skräp från lyften. Alla äventyrare inom Nära räckvid utsätts för en attack."
+    },
+    "Generic": {
+      "Type": "Attack",
+      "Description": "Besten attackerar en äventyrare inom Armslängds avstånd."
     }
   }
 }

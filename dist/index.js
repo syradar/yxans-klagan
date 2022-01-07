@@ -10877,7 +10877,7 @@ var Parchment = /* @__PURE__ */ react.forwardRef(({
     if (contentRef !== null) {
       setSvgHeight(contentRef.current?.clientHeight ?? 0);
     } else {
-      console.log("null content ref");
+      console.error("null content ref");
     }
   }, [currentWidth, contentRef?.current, ...deps ? deps : []]);
   const dim = 98;
@@ -11446,6 +11446,7 @@ function getRandomInt(min2 = 1, max = 6) {
 }
 var rollD2 = () => getRandomInt(1, 2);
 var rollD3 = () => getRandomInt(1, 3);
+var rollD4 = () => getRandomInt(1, 4);
 var rollD6 = () => getRandomInt(1, 6);
 var rollD8 = () => getRandomInt(1, 8);
 var rollD66 = () => {
@@ -12556,7 +12557,6 @@ var loadCalendar = () => {
     return parseCalendar(calV3, true);
   }
   if (calV2) {
-    console.log(calV2);
     return parseCalendar(calV2, true);
   }
   if (calV1) {
@@ -12812,7 +12812,7 @@ function useLocalStorage(key, initialValue) {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
     } catch (error2) {
-      console.log(error2);
+      console.error(error2);
       return initialValue;
     }
   });
@@ -12822,7 +12822,7 @@ function useLocalStorage(key, initialValue) {
       setStoredValue(valueToStore);
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error2) {
-      console.log(error2);
+      console.error(error2);
     }
   };
   return [storedValue, setValue];
@@ -13950,10 +13950,24 @@ var EncounterPage = () => {
 };
 
 // build/dist/components/stat.js
+var statValueStyle = {
+  small: {
+    fontSize: "1rem",
+    lineHeight: "1.5rem"
+  },
+  medium: {
+    fontSize: "1.125rem",
+    lineHeight: "1.75rem"
+  },
+  large: {
+    fontSize: "1.5rem",
+    lineHeight: "2rem"
+  }
+};
 var Stat = ({
   children,
   label,
-  large = false
+  size = "medium"
 }) => jsx("div", {
   css: {
     textAlign: "center"
@@ -13962,13 +13976,7 @@ var Stat = ({
   css: [{
     fontWeight: "500",
     lineHeight: "1"
-  }, large && {
-    fontSize: "1.5rem",
-    lineHeight: "2rem"
-  }, !large && {
-    fontSize: "1.125rem",
-    lineHeight: "1.75rem"
-  }]
+  }, statValueStyle[size]]
 }, children), jsx("div", {
   css: {
     fontSize: "0.875rem",
@@ -15649,7 +15657,7 @@ var FindsPage = () => {
     },
     className: "yx-heading"
   }, t4(`Find.${find.title}`)), jsx(Pancake, null, jsx(Stat, {
-    large: true,
+    size: "large",
     label: t4("Value")
   }, find.value.length > 0 ? find.value.map((v2) => `${v2.coins} ${t4(v2.label)}`).join(", ") : "–"), jsx(Grid, {
     cols: "3"
@@ -17879,6 +17887,98 @@ var DefinitionList = ({
   }
 }, d3.description))));
 
+// build/dist/components/card.js
+var Card = styled_default.div(({
+  thin = false,
+  subtle = false
+}) => [{
+  borderRadius: "0.25rem"
+}, subtle ? {
+  borderWidth: "1px",
+  "--tw-border-opacity": "1",
+  borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+} : {
+  "--tw-bg-opacity": "1",
+  backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
+}, thin ? {
+  paddingLeft: "1rem",
+  paddingRight: "1rem",
+  paddingTop: "0.5rem",
+  paddingBottom: "0.5rem"
+} : {
+  padding: "1rem"
+}]);
+
+// build/dist/components/monster-attack.js
+var MonsterAttack = ({
+  monsterViewModel: m3,
+  counter,
+  selected = false
+}) => {
+  const {
+    t: t4
+  } = useTranslation(["monsters", "common"]);
+  return jsx(Card, {
+    thin: true,
+    subtle: true,
+    css: [{
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.25rem",
+      padding: "0.5rem",
+      transitionProperty: "background-color, border-color, color, fill, stroke",
+      transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+      transitionDuration: "150ms"
+    }, selected ? {
+      "--tw-bg-opacity": "1",
+      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
+    } : {}]
+  }, jsx("div", {
+    css: {
+      fontSize: "1.125rem",
+      lineHeight: "1.75rem",
+      fontWeight: "500"
+    }
+  }, counter, ": ", t4(`Attack.${m3.type}.Type`)), jsx("div", null, !m3.descriptionExtras ? t4(m3.description) : t4(m3.description, {
+    ...m3.descriptionExtras
+  })), jsx(Train, {
+    distribute: true
+  }, jsx(Stat, {
+    label: t4(`Attack.Attack`),
+    size: "small"
+  }, m3.attack ? m3.attack : "–"), !m3.damage ? jsx(Stat, {
+    label: t4("Attack.Damage.Damage")
+  }, "–") : jsx(react.Fragment, null, m3.damage.Blunt && jsx(Stat, {
+    label: t4("Attack.Damage.Blunt"),
+    size: "small"
+  }, m3.damage.Blunt), m3.damage.Slash && jsx(Stat, {
+    label: t4("Attack.Damage.Slash"),
+    size: "small"
+  }, m3.damage.Slash), m3.damage.Stab && jsx(Stat, {
+    label: "Attack.Damage.Stab",
+    size: "small"
+  }, m3.damage.Stab), m3.damage.Fear && jsx(Stat, {
+    label: t4("Attack.Damage.Damage"),
+    size: "small"
+  }, t4("Attack.Damage.Fear")), m3.damage.Disease && jsx(Stat, {
+    label: t4("Attack.Damage.Disease"),
+    size: "small"
+  }, m3.damage.Disease), m3.damage.NonTypical && jsx(Stat, {
+    label: t4("Attack.Damage.NonTypical"),
+    size: "small"
+  }, m3.damage.NonTypical), m3.damage.Poison && jsx(Stat, {
+    label: t4("Attack.Damage.Poison"),
+    size: "small"
+  }, t4(`Poisons.${m3.damage.Poison.type}`), " (", m3.damage.Poison.potency, ")"), m3.damage.Weapon && jsx(Stat, {
+    label: t4("Attack.Damage.Damage"),
+    size: "small"
+  }, m3.damage.Weapon)), jsx(Stat, {
+    label: t4(`Attack.Range`)
+  }, t4(m3.range, {
+    ns: "common"
+  }))));
+};
+
 // build/dist/components/skill-list.js
 var SkillList = ({
   skills
@@ -17942,6 +18042,13 @@ var RandomMonsterDisplay = ({
   const {
     t: t4
   } = useTranslation(["monsters", "common"]);
+  const [selectedAttack, setSeletecAttack] = useState(void 0);
+  const rollAttack = () => {
+    setSeletecAttack(void 0);
+    setTimeout(() => {
+      setSeletecAttack(rollD6());
+    }, 100);
+  };
   const getSizeContext = (type) => {
     switch (type) {
       case "Grazing":
@@ -17987,7 +18094,7 @@ var RandomMonsterDisplay = ({
       display: "flex",
       gap: "2rem",
       flexDirection: "column",
-      marginBottom: "0.5rem",
+      marginBottom: "1rem",
       "@media (min-width: 768px)": {
         flexDirection: "row"
       },
@@ -18126,212 +18233,82 @@ var RandomMonsterDisplay = ({
       name: t4(m3.name),
       description: t4(m3.description)
     }))
-  })))), jsx("div", null, jsx("h3", {
+  })))), jsx("div", null, jsx(Pancake, null, jsx("div", {
+    css: {
+      display: "flex",
+      gap: "0.5rem",
+      alignItems: "baseline"
+    }
+  }, jsx("h3", {
     css: {
       fontSize: "1.25rem",
       lineHeight: "1.75rem",
       fontWeight: "500"
     }
-  }, t4(`Attack.Attacks`)), jsx("table", {
-    css: {
-      width: "100%"
-    }
-  }, jsx("thead", {
-    css: {
-      display: "none",
-      "@media (min-width: 768px)": {
-        display: "table-header-group"
-      }
-    }
-  }, jsx("tr", {
-    css: {
-      textTransform: "uppercase",
-      borderBottomWidth: "1px",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(107, 114, 128, var(--tw-border-opacity))"
-    }
-  }, jsx("th", {
-    css: {
-      fontWeight: "700",
-      padding: "0.25rem",
-      textAlign: "left"
-    }
-  }, t4(`Attack.Type`)), jsx("th", {
-    css: {
-      fontWeight: "700",
-      padding: "0.25rem",
-      textAlign: "center"
-    }
-  }, t4(`Attack.Attack`)), jsx("th", {
-    css: {
-      fontWeight: "700",
-      padding: "0.25rem",
-      textAlign: "center"
-    }
-  }, t4(`Attack.Damage`)), jsx("th", {
-    css: {
-      fontWeight: "700",
-      padding: "0.25rem",
-      textAlign: "center"
-    }
-  }, t4(`Attack.Range`)), jsx("th", {
-    css: {
-      fontWeight: "700",
-      padding: "0.25rem",
-      textAlign: "left",
-      wordBreak: "break-all"
-    }
-  }, t4(`Attack.Description`)))), jsx("tbody", {
+  }, t4(`Attack.Attacks`)), jsx(RollButton, {
+    onClick: () => rollAttack()
+  }, t4("Attack.Roll"))), jsx("div", {
     css: {
       display: "grid",
-      "@media (min-width: 640px)": {
+      gap: "0.5rem",
+      "@media (min-width: 768px)": {
         gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
-      },
-      "@media (min-width: 768px)": {
-        display: "table-row-group"
       }
     }
-  }, rm.attacks.map((a2) => jsx("tr", {
-    key: a2.type,
-    css: [{
-      display: "flex",
-      flexDirection: "column",
-      padding: "0.5rem",
-      ":nth-of-type(odd)": {
-        "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
-      },
-      borderBottomWidth: "1px",
-      ":last-of-type": {
-        borderWidth: "0px"
-      },
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(107, 114, 128, var(--tw-border-opacity))",
-      "@media (min-width: 640px)": {
-        ":nth-of-type(odd)": {
-          backgroundColor: "rgba(0, 0, 0, 0)",
-          borderRightWidth: "1px"
-        }
-      },
-      "@media (min-width: 768px)": {
-        display: "table-row",
-        padding: "0px",
-        ":nth-of-type(odd)": {
-          "--tw-bg-opacity": "1",
-          backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
-          borderRightWidth: "0px"
-        }
-      }
-    }, css`
-                    @media (min-width: 640px) and (max-width: 767px) {
-                      :nth-of-type(4n + 3) {
-                        background-color: rgba(
-                          229,
-                          231,
-                          235,
-                          var(--tw-bg-opacity)
-                        );
-                      }
-                      :nth-of-type(4n + 4) {
-                        background-color: rgba(
-                          229,
-                          231,
-                          235,
-                          var(--tw-bg-opacity)
-                        );
-                      }
-                    }
-                  `]
-  }, jsx("td", {
-    css: {
-      display: "block",
-      fontSize: "1.125rem",
-      lineHeight: "1.75rem",
-      fontWeight: "500",
-      "@media (min-width: 768px)": {
-        display: "table-cell",
-        paddingTop: "0.25rem",
-        paddingBottom: "0.25rem",
-        paddingLeft: "0.5rem",
-        paddingRight: "0.5rem",
-        fontSize: "1rem",
-        lineHeight: "1.5rem",
-        fontWeight: "400"
-      }
-    }
-  }, t4(`Attack.${a2.type}.Type`)), jsx("td", {
-    css: {
-      display: "block",
-      "@media (min-width: 768px)": {
-        display: "table-cell",
-        paddingTop: "0.25rem",
-        paddingBottom: "0.25rem",
-        paddingLeft: "0.5rem",
-        paddingRight: "0.5rem",
-        textAlign: "center"
-      }
-    }
-  }, jsx("span", {
-    css: {
-      fontWeight: "500",
-      "@media (min-width: 768px)": {
-        display: "none"
-      }
-    }
-  }, t4(`Attack.Attack`), ":", " "), a2.attack), jsx("td", {
-    css: {
-      display: "block",
-      "@media (min-width: 768px)": {
-        display: "table-cell",
-        paddingTop: "0.25rem",
-        paddingBottom: "0.25rem",
-        paddingLeft: "0.5rem",
-        paddingRight: "0.5rem",
-        textAlign: "center"
-      }
-    }
-  }, jsx("span", {
-    css: {
-      fontWeight: "500",
-      "@media (min-width: 768px)": {
-        display: "none"
-      }
-    }
-  }, t4(`Attack.Damage`), ":", " "), a2.damage), jsx("td", {
-    css: {
-      display: "block",
-      whiteSpace: "nowrap",
-      "@media (min-width: 768px)": {
-        display: "table-cell",
-        paddingTop: "0.25rem",
-        paddingBottom: "0.25rem",
-        paddingLeft: "0.5rem",
-        paddingRight: "0.5rem",
-        textAlign: "center"
-      }
-    }
-  }, jsx("span", {
-    css: {
-      fontWeight: "500",
-      "@media (min-width: 768px)": {
-        display: "none"
-      }
-    }
-  }, t4(`Attack.Range`), ":", " "), t4(a2.range, {
-    ns: "common"
-  })), jsx("td", {
-    css: {
-      display: "block",
-      "@media (min-width: 768px)": {
-        display: "table-cell",
-        paddingTop: "0.25rem",
-        paddingBottom: "0.25rem",
-        paddingLeft: "0.5rem",
-        paddingRight: "0.5rem"
-      }
-    }
-  }, t4(a2.description)))))))));
+  }, rm.attacks.map((a2, index) => jsx(MonsterAttack, {
+    key: a2.type !== "Generic" ? a2.type : `${a2.type}-${getId()}`,
+    selected: index + 1 === selectedAttack,
+    monsterViewModel: a2,
+    counter: index + 1
+  })))))));
 };
+var RollButton = styled_default.button(() => [
+  {
+    transform: "var(--tw-transform)",
+    paddingLeft: "0.25rem",
+    paddingRight: "0.25rem",
+    paddingTop: "0.125rem",
+    paddingBottom: "0.125rem",
+    lineHeight: "1",
+    fontWeight: "700",
+    textTransform: "uppercase",
+    userSelect: "none",
+    letterSpacing: "0.025em",
+    ":focus": {
+      outline: "2px solid transparent",
+      outlineOffset: "2px"
+    },
+    transitionDuration: "75ms"
+  },
+  {
+    borderWidth: "2px",
+    "--tw-border-opacity": "1",
+    borderColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
+    borderRadius: "0px"
+  },
+  {
+    "@media (pointer: fine)": {
+      ":hover": {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(239, 68, 68, var(--tw-bg-opacity))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(239, 68, 68, var(--tw-border-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(0, 0, 0, var(--tw-text-opacity))"
+      }
+    }
+  },
+  {
+    "--tw-bg-opacity": "1",
+    backgroundColor: "rgba(255, 255, 255, var(--tw-bg-opacity))",
+    "--tw-text-opacity": "1",
+    color: "rgba(0, 0, 0, var(--tw-text-opacity))"
+  },
+  {
+    fontSize: "0.875rem",
+    lineHeight: "1.25rem"
+  }
+]);
 
 // build/dist/data/monster.data.js
 var defaultAttributes = {
@@ -18614,43 +18591,50 @@ var sizes = [{
   weight: 4,
   value: {
     size: "Puny",
-    strength: (_24 = rollD6) => 1
+    strength: (_24 = rollD6) => 1,
+    damage: 1
   }
 }, {
   weight: 3,
   value: {
     size: "Small",
-    strength: (_24 = rollD6) => 2
+    strength: (_24 = rollD6) => 2,
+    damage: 1
   }
 }, {
   weight: 8,
   value: {
     size: "Average",
-    strength: (_24 = rollD6) => 3
+    strength: (_24 = rollD6) => 3,
+    damage: 1
   }
 }, {
   weight: 7,
   value: {
     size: "Large",
-    strength: (_24 = rollD6) => 4
+    strength: (_24 = rollD6) => 4,
+    damage: 1
   }
 }, {
   weight: 7,
   value: {
     size: "Big",
-    strength: (_24 = rollD6) => 8
+    strength: (_24 = rollD6) => 8,
+    damage: 2
   }
 }, {
   weight: 3,
   value: {
     size: "Huge",
-    strength: (diceFn = rollD6) => 14 + diceFn()
+    strength: (diceFn = rollD6) => 14 + diceFn(),
+    damage: 2
   }
 }, {
   weight: 4,
   value: {
     size: "Gigantic",
-    strength: (diceFn = rollD6) => 30 + diceFn() + diceFn()
+    strength: (diceFn = rollD6) => 30 + diceFn() + diceFn(),
+    damage: 3
   }
 }];
 var types = [{
@@ -19111,7 +19095,10 @@ var monsterTraits = [{
     description: (t4) => t4("Trait.FireGlands.Description"),
     apply: (rm) => ({
       ...rm,
-      fireGlands: true
+      attackRequirements: {
+        ...rm.attackRequirements,
+        fireGlands: true
+      }
     })
   }
 }, {
@@ -19123,7 +19110,13 @@ var monsterTraits = [{
       const skillValues = t4("Trait.Intelligent.SkillValues");
       return `${t4(speech)}. ${skillValues}`;
     },
-    apply: id2
+    apply: (rm) => ({
+      ...rm,
+      damageModifiers: {
+        ...rm.damageModifiers,
+        Telepathic: rollD3()
+      }
+    })
   }
 }, {
   weight: 1,
@@ -19211,124 +19204,746 @@ var monsterMotivation = [{
   weight: 2,
   value: "GuardingTreasure"
 }];
+var getRandomPoison = () => choose(["Lethal", "Paralyzing", "Sleeping", "Hallucinogenic"]);
 var monsterAttacks = {
   Bash: {
     type: "Bash",
-    damage: (_24) => 1,
+    chance: 1,
+    damage: (_24) => ({
+      Blunt: 1
+    }),
     range: "ArmsLength",
     attack: (rm) => rm.attributes.agility,
     description: "Attack.Bash.Description",
-    valid: (rm) => rm.attributes.strength >= 5
+    valid: (rm) => rm.attributes.strength >= 5 && rm.attackRequirements.hasLimbs,
+    singleUse: false
+  },
+  Generic: {
+    type: "Generic",
+    chance: 1,
+    damage: (_24) => {
+      const damage = chooseFromChoiceString("1^2|2^3|3");
+      return rollD2() === 1 ? {
+        Slash: damage
+      } : {
+        Blunt: damage
+      };
+    },
+    range: "ArmsLength",
+    attack: (rm) => 4 + rm.attributes.agility,
+    description: "Attack.Generic.Description",
+    valid: (_24) => true,
+    singleUse: false
   },
   Bite: {
     type: "Bite",
-    damage: (_24) => chooseFromChoiceString("1^2|2^3|3"),
+    chance: 1,
+    damage: (_24) => ({
+      Slash: chooseFromChoiceString("1^2|2^3|3")
+    }),
     range: "ArmsLength",
     attack: (rm) => 4 + rm.attributes.agility,
     description: "Attack.Bite.Description",
-    valid: (rm) => rm.attackRequirements.fangs
+    valid: (rm) => rm.attackRequirements.fangs,
+    singleUse: false
+  },
+  LockedJaws: {
+    type: "LockedJaws",
+    chance: 5e-3,
+    range: "ArmsLength",
+    attack: (rm) => 7 + rm.attributes.agility,
+    damage: (_24) => {
+      const damage = chooseFromChoiceString("1^2|2^3|3");
+      return rollD2() === 1 ? {
+        Slash: damage
+      } : {
+        Blunt: damage
+      };
+    },
+    description: "Attack.LockedJaws.Description",
+    valid: (rm) => rm.attackRequirements.fangs,
+    singleUse: false
+  },
+  ThroatBite: {
+    type: "ThroatBite",
+    chance: 1,
+    damage: (_24) => ({
+      Slash: chooseFromChoiceString("1^2|2^3|3")
+    }),
+    range: "ArmsLength",
+    attack: (rm) => 7 + rm.attributes.agility,
+    description: "Attack.ThroatBite.Description",
+    valid: (rm) => rm.attackRequirements.fangs && rm.attributes.agility > 3,
+    singleUse: false
   },
   BreathFire: {
     type: "BreathFire",
-    damage: (_24) => 1,
+    chance: 1,
+    damage: (_24) => ({
+      NonTypical: 1
+    }),
     range: "Short",
     attack: (_24) => 6 + rollD6(),
     description: "Attack.BreathFire.Description",
-    valid: (rm) => rm.attackRequirements.fireGlands
+    valid: (rm) => rm.attackRequirements.fireGlands,
+    singleUse: false
+  },
+  SprayFire: {
+    type: "SprayFire",
+    chance: 0.01,
+    damage: (_24) => ({
+      NonTypical: 1
+    }),
+    range: "Short",
+    attack: (_24) => 6 + rollD6(),
+    description: "Attack.SprayFire.Description",
+    valid: (rm) => rm.attackRequirements.fireGlands,
+    singleUse: true
   },
   DeadlyGaze: {
     type: "DeadlyGaze",
-    attack: (_24) => 4 + rollD6(),
+    chance: 1,
     range: "Near",
+    attack: (_24) => 4 + rollD6(),
+    damage: (_24) => ({
+      Fear: true
+    }),
     description: "Attack.DeadlyGaze.Description",
-    valid: (rm) => rm.attackRequirements.undead
+    valid: (rm) => rm.attackRequirements.undead,
+    singleUse: false
+  },
+  ColdStrike: {
+    type: "ColdStrike",
+    chance: 1,
+    range: "Near",
+    attack: (_24) => 6 + rollD6(),
+    damage: (_24) => ({
+      NonTypical: 1
+    }),
+    description: "Attack.ColdStrike.Description",
+    valid: (rm) => rm.attackRequirements.undead,
+    singleUse: false
+  },
+  DeathScream: {
+    type: "DeathScream",
+    chance: 5e-3,
+    range: "Near",
+    attack: (_24) => 4 + rollD6(),
+    damage: (_24) => ({
+      Fear: true
+    }),
+    description: "Attack.DeathScream.Description",
+    valid: (rm) => rm.attackRequirements.undead,
+    singleUse: false
   },
   Headbutt: {
     type: "Headbutt",
-    damage: (_24) => chooseFromChoiceString("1^2|2"),
+    chance: 1,
+    damage: (_24) => ({
+      Blunt: chooseFromChoiceString("1^2|2")
+    }),
     range: "ArmsLength",
     attack: (rm) => 5 + rm.attributes.agility,
     description: "Attack.Headbutt.Description",
-    valid: (_24) => true
+    valid: (rm) => !rm.attackRequirements.horn,
+    singleUse: false
   },
   Horn: {
     type: "Horn",
-    damage: (_24) => chooseFromChoiceString("2^2|3"),
+    chance: 1,
     range: "ArmsLength",
+    damage: (_24) => ({
+      Stab: chooseFromChoiceString("2^2|3")
+    }),
     attack: (rm) => 5 + rm.attributes.agility,
     description: "Attack.Horn.Description",
-    valid: (rm) => rm.attackRequirements.horn
+    valid: (rm) => rm.attackRequirements.horn,
+    singleUse: false
   },
   Roar: {
     type: "Roar",
+    chance: 1,
     range: "ArmsLength",
     attack: (_24) => 3 + rollD3(),
+    damage: (_24) => ({
+      Fear: true
+    }),
     description: "Attack.Roar.Description",
-    valid: (rm) => rm.attributes.strength >= 6
+    valid: (rm) => rm.attributes.strength >= 6,
+    singleUse: false
   },
   Kick: {
     type: "Kick",
+    chance: 1,
     range: "ArmsLength",
     attack: (rm) => 3 + rm.attributes.agility,
-    damage: (_24) => 1,
+    damage: (_24) => ({
+      Blunt: 1
+    }),
     description: "Attack.Kick.Description",
-    valid: (rm) => rm.attackRequirements.legs
+    valid: (rm) => rm.attackRequirements.legs,
+    singleUse: false
+  },
+  BackwardsKick: {
+    type: "BackwardsKick",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: (_24) => ({
+      Blunt: 1
+    }),
+    description: "Attack.BackwardsKick.Description",
+    valid: (rm) => rm.attackRequirements.legs && rm.limbs.Legs >= 4,
+    singleUse: false
   },
   Sweep: {
     type: "Sweep",
+    chance: 1,
     range: "Near",
     attack: (rm) => 3 + rm.attributes.agility,
-    damage: (_24) => chooseFromChoiceString("1^2|2^3|3"),
+    damage: (_24) => ({
+      Slash: chooseFromChoiceString("1^2|2^3|3")
+    }),
     description: "Attack.Sweep.Description",
-    valid: (rm) => rm.attributes.agility >= 3
+    valid: (rm) => rm.attributes.agility >= 3,
+    singleUse: false
   },
   Slash: {
     type: "Slash",
+    chance: 1,
     range: "ArmsLength",
     attack: (rm) => 3 + rm.attributes.agility,
-    damage: (_24) => chooseFromChoiceString("1^2|2^3|3"),
+    damage: (_24) => ({
+      Slash: chooseFromChoiceString("1^2|2^3|3")
+    }),
     description: "Attack.Slash.Description",
-    valid: (rm) => rm.attackRequirements.claws
+    valid: (rm) => rm.attackRequirements.claws || rm.attackRequirements.hasLimbs,
+    singleUse: false
+  },
+  EyeGourge: {
+    type: "EyeGourge",
+    chance: 0.05,
+    range: "ArmsLength",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: (_24) => ({
+      Slash: 1
+    }),
+    description: "Attack.EyeGourge.Description",
+    valid: (rm) => rm.attackRequirements.claws || rm.attackRequirements.hasLimbs,
+    singleUse: false
+  },
+  ClawFlurry: {
+    type: "ClawFlurry",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => rm.attributes.agility,
+    damage: (_24) => ({
+      Slash: chooseFromChoiceString("1^2|2^3|3")
+    }),
+    description: "Attack.ClawFlurry.Description",
+    valid: (rm) => (rm.attackRequirements.claws || rm.attackRequirements.hasLimbs) && rm.attributes.agility > 4,
+    singleUse: false
   },
   TailsSlash: {
     type: "TailsSlash",
+    chance: 1,
     range: "Near",
     attack: (rm) => 3 + rm.attributes.agility,
-    damage: (_24) => 1,
+    damage: (rm) => ({
+      Blunt: 1 + rm.damageModifiers.TailAttack
+    }),
     description: "Attack.TailsSlash.Description",
-    valid: (rm) => rm.attackRequirements.tail
+    valid: (rm) => rm.attackRequirements.tail,
+    singleUse: false
   },
   TentacleLash: {
     type: "TentacleLash",
+    chance: 1,
     range: "Near",
     attack: (rm) => 3 + rm.attributes.agility,
-    damage: (_24) => chooseFromChoiceString("1^2|2"),
+    damage: (_24) => ({
+      Blunt: chooseFromChoiceString("1^2|2")
+    }),
     description: "Attack.TentacleLash.Description",
-    valid: (rm) => rm.attackRequirements.tentacles
+    valid: (rm) => rm.attackRequirements.tentacles,
+    singleUse: false
+  },
+  TentacleFrenzy: {
+    type: "TentacleFrenzy",
+    chance: 1,
+    range: "Near",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: (_24) => ({
+      Blunt: chooseFromChoiceString("1^2|2")
+    }),
+    description: "Attack.TentacleFrenzy.Description",
+    valid: (rm) => rm.attackRequirements.tentacles,
+    singleUse: false
+  },
+  TentaclePenetrationArmsLength: {
+    type: "TentaclePenetrationArmsLength",
+    chance: 0.05,
+    range: "ArmsLength",
+    attack: (rm) => 1 + rm.attributes.agility,
+    damage: (_24) => ({
+      Slash: chooseFromChoiceString("1|2")
+    }),
+    description: "Attack.TentaclePenetrationArmsLength.Description",
+    valid: (rm) => !rm.attackRequirements.tentacles && rm.description.heads.some((h2) => h2.key === "TentaclesWithCount"),
+    singleUse: false
+  },
+  TentaclePenetrationNear: {
+    type: "TentaclePenetrationNear",
+    chance: 0.05,
+    range: "Near",
+    attack: (rm) => 1 + rm.attributes.agility,
+    damage: (_24) => ({
+      Slash: chooseFromChoiceString("1|2")
+    }),
+    description: "Attack.TentaclePenetrationNear.Description",
+    valid: (rm) => rm.attackRequirements.tentacles,
+    singleUse: false
   },
   Devour: {
     type: "Devour",
+    chance: 1,
     range: "ArmsLength",
     attack: (_24) => 4 + rollD6(),
-    damage: (_24) => chooseFromChoiceString("1^2|2"),
+    damage: (_24) => ({
+      Slash: chooseFromChoiceString("1^2|2")
+    }),
     description: "Attack.Devour.Description",
-    valid: (rm) => rm.attributes.strength >= 14
+    valid: (rm) => rm.attributes.strength >= 14,
+    singleUse: false
   },
   SpitAcid: {
     type: "SpitAcid",
+    chance: 1,
     range: "Near",
     attack: (_24) => 4 + rollD6(),
-    damage: (_24) => 1,
+    damage: (_24) => ({
+      NonTypical: 1
+    }),
     description: "Attack.SpitAcid.Description",
-    valid: (rm) => rm.attackRequirements.acidGlands
+    valid: (rm) => rm.attackRequirements.acidGlands,
+    singleUse: false
+  },
+  SprayAcid: {
+    type: "SprayAcid",
+    chance: 0.01,
+    range: "Short",
+    attack: (_24) => 4 + rollD6(),
+    damage: (_24) => ({
+      NonTypical: 1
+    }),
+    description: "Attack.SprayAcid.Description",
+    valid: (rm) => rm.attackRequirements.acidGlands,
+    singleUse: true
   },
   DiveAttack: {
     type: "DiveAttack",
+    chance: 1,
     range: "Near",
     attack: (rm) => 4 + rm.attributes.agility,
-    damage: (rm) => Math.floor(rm.attributes.agility),
+    damage: (rm) => ({
+      Slash: Math.round(rm.attributes.agility)
+    }),
     description: "Attack.DiveAttack.Description",
-    valid: (rm) => rm.attackRequirements.wings
+    valid: (rm) => rm.attackRequirements.wings,
+    singleUse: false
+  },
+  Whirlwind: {
+    type: "Whirlwind",
+    chance: 1,
+    range: "Near",
+    attack: (_24) => 6,
+    damage: (_24) => ({
+      Weapon: 1
+    }),
+    description: "Attack.Whirlwind.Description",
+    valid: (rm) => rm.attackRequirements.wings && rm.attributes.strength > 4,
+    singleUse: false
+  },
+  Peck: {
+    type: "Peck",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => rm.attributes.agility,
+    damage: (_24) => ({
+      Blunt: 1
+    }),
+    description: "Attack.Peck.Description",
+    valid: (rm) => rm.attackRequirements.hasBeak,
+    singleUse: false
+  },
+  BeakThrow: {
+    type: "BeakThrow",
+    chance: 1,
+    damage: (_24) => ({
+      Weapon: 1
+    }),
+    range: "ArmsLength",
+    attack: (rm) => 8 + rm.attributes.agility,
+    description: "Attack.BeakThrow.Description",
+    valid: (rm) => rm.attackRequirements.hasBeak && rm.attributes.strength > 11,
+    singleUse: false
+  },
+  Rush: {
+    type: "Rush",
+    chance: 1,
+    range: "Near",
+    attack: (rm) => rollD6() + rm.attributes.agility,
+    damage: (_24) => ({
+      Blunt: 1
+    }),
+    description: "Attack.Rush.Description",
+    valid: (rm) => rm.movement.type === "Running",
+    singleUse: false
+  },
+  Burrow: {
+    type: "Burrow",
+    chance: 1,
+    range: "Near",
+    attack: (rm) => rm.movement.distance + rm.attributes.agility,
+    damage: (_24) => ({
+      Weapon: 1
+    }),
+    description: "Attack.Burrow.Description",
+    valid: (rm) => rm.movement.type === "Digging",
+    singleUse: false
+  },
+  TheGroundShatters: {
+    type: "TheGroundShatters",
+    chance: 1,
+    range: "Near",
+    attack: (rm) => rm.movement.distance + rm.attributes.agility,
+    description: "Attack.TheGroundShatters.Description",
+    valid: (rm) => rm.movement.type === "Digging" && rm.attributes.strength > 13,
+    singleUse: false
+  },
+  Taunt: {
+    type: "Taunt",
+    chance: 1,
+    range: "Near",
+    attack: (rm) => rollD6() + rm.damageModifiers.Size,
+    damage: (_24) => ({
+      Fear: true
+    }),
+    description: "Attack.Taunt.Description",
+    valid: (rm) => rm.attackRequirements.canSpeak,
+    singleUse: false
+  },
+  Plea: {
+    type: "Plea",
+    chance: 1e-3,
+    range: "Near",
+    description: "Attack.Plea.Description",
+    valid: (rm) => rm.attackRequirements.canSpeak,
+    singleUse: false
+  },
+  NightmareVisions: {
+    type: "NightmareVisions",
+    chance: 0.25,
+    range: "Near",
+    attack: (_24) => rollD4() + rollD4() + rollD3(),
+    damage: (_24) => ({
+      Fear: true
+    }),
+    description: "Attack.NightmareVisions.Description",
+    valid: (rm) => rm.traits.some((t4) => t4.description(id2).includes("Trait.Intelligent.Telepathy")),
+    singleUse: false
+  },
+  MindBurst: {
+    type: "MindBurst",
+    chance: 1,
+    range: "Near",
+    attack: (_24) => rollD3() * 2,
+    damage: (_24) => ({
+      Fear: true
+    }),
+    description: "Attack.MindBurst.Description",
+    valid: (rm) => rm.traits.some((t4) => t4.description(id2).includes("Trait.Intelligent.Telepathy")) && rm.damageModifiers.Telepathic > 1,
+    singleUse: false
+  },
+  WrapAttack: {
+    type: "WrapAttack",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => rollD6() + rm.attributes.agility,
+    damage: (rm) => ({
+      Blunt: rm.movement.distance
+    }),
+    description: "Attack.WrapAttack.Description",
+    valid: (rm) => rm.movement.type === "Slithering" || !rm.attackRequirements.hasLimbs,
+    singleUse: false
+  },
+  PoisonSpit: {
+    type: "PoisonSpit",
+    chance: 0.05,
+    range: "Near",
+    attack: (_24) => rollD6() + 4,
+    damage: () => ({
+      Slash: 1,
+      Poison: {
+        potency: rollD6() + 2,
+        type: getRandomPoison()
+      }
+    }),
+    description: "Attack.PoisonSpit.Description",
+    valid: (rm) => rm.attackRequirements.isPoisonous,
+    singleUse: false
+  },
+  VenemousBite: {
+    type: "VenemousBite",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: () => ({
+      Slash: 1,
+      Poison: {
+        potency: rollD6() + 2,
+        type: getRandomPoison()
+      }
+    }),
+    description: "Attack.VenemousBite.Description",
+    valid: (rm) => rm.attackRequirements.isPoisonous && rm.attackRequirements.fangs,
+    singleUse: false
+  },
+  PoisonScratch: {
+    type: "PoisonScratch",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: () => ({
+      Slash: 1,
+      Poison: {
+        potency: rollD6() + 2,
+        type: getRandomPoison()
+      }
+    }),
+    description: "Attack.PoisonScratch.Description",
+    valid: (rm) => rm.attackRequirements.isPoisonous && rm.attackRequirements.claws,
+    singleUse: false
+  },
+  PoisonTailAttack: {
+    type: "PoisonTailAttack",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: () => ({
+      Slash: 1,
+      Poison: {
+        potency: rollD6() + 2,
+        type: getRandomPoison()
+      }
+    }),
+    description: "Attack.PoisonTailAttack.Description",
+    valid: (rm) => rm.attackRequirements.isPoisonous && rm.attackRequirements.spikedTail,
+    singleUse: false
+  },
+  PoisonTentacleAttack: {
+    type: "PoisonTentacleAttack",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: () => ({
+      Slash: 1,
+      Poison: {
+        potency: rollD6() + 2,
+        type: getRandomPoison()
+      }
+    }),
+    description: "Attack.PoisonTentacleAttack.Description",
+    valid: (rm) => rm.attackRequirements.isPoisonous && rm.attackRequirements.tentacles,
+    singleUse: false
+  },
+  PoisonHornAttack: {
+    type: "PoisonHornAttack",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: () => ({
+      Slash: 1,
+      Poison: {
+        potency: rollD6() + 2,
+        type: getRandomPoison()
+      }
+    }),
+    description: "Attack.PoisonHornAttack.Description",
+    valid: (rm) => rm.attackRequirements.isPoisonous && rm.attackRequirements.horn,
+    singleUse: false
+  },
+  Punch: {
+    type: "Punch",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => rollD4() + rollD4() + rm.skills.Melee,
+    damage: () => ({
+      Blunt: 1
+    }),
+    description: "Attack.Punch.Description",
+    valid: (rm) => rm.limbs.Arms > 0,
+    singleUse: false
+  },
+  FlyingFists: {
+    type: "FlyingFists",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => rollD4() + rollD4() + rm.skills.Melee,
+    damage: () => ({
+      Blunt: 1
+    }),
+    description: "Attack.FlyingFists.Description_count",
+    descriptionExtras: (rm) => ({
+      count: Math.ceil(rm.limbs.Arms / 2)
+    }),
+    valid: (rm) => rm.limbs.Arms > 2,
+    singleUse: false
+  },
+  FistsOfFury: {
+    type: "FistsOfFury",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => rollD4() + rollD4() + rm.skills.Melee,
+    damage: () => ({
+      Blunt: 1
+    }),
+    description: "Attack.FistsOfFury.Description_count",
+    descriptionExtras: (rm) => ({
+      count: Math.ceil(rm.limbs.Arms / 2)
+    }),
+    valid: (rm) => rm.limbs.Arms > 2,
+    singleUse: false
+  },
+  Distraction: {
+    type: "Distraction",
+    chance: 1,
+    range: "Near",
+    description: "Attack.Distraction.Description",
+    valid: (rm) => rm.attributes.agility > 3,
+    singleUse: false
+  },
+  InfectedScratch: {
+    type: "InfectedScratch",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: () => ({
+      Slash: chooseFromChoiceString("1^2|2^3|3"),
+      Disease: chooseFromChoiceString("4|5|6")
+    }),
+    description: "Attack.InfectedScratch.Description",
+    valid: (rm) => rm.attackRequirements.isSick && rm.attackRequirements.claws,
+    singleUse: false
+  },
+  DiseasedBite: {
+    type: "DiseasedBite",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: () => ({
+      Slash: chooseFromChoiceString("1^2|2^3|3"),
+      Disease: chooseFromChoiceString("4|5|6")
+    }),
+    description: "Attack.DiseasedBite.Description",
+    valid: (rm) => rm.attackRequirements.isSick && rm.attackRequirements.fangs,
+    singleUse: false
+  },
+  InfectedTailSwipe: {
+    type: "InfectedTailSwipe",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: () => ({
+      Slash: chooseFromChoiceString("1^2|2^3|3"),
+      Disease: chooseFromChoiceString("4|5|6")
+    }),
+    description: "Attack.InfectedTailSwipe.Description",
+    valid: (rm) => rm.attackRequirements.isSick && rm.attackRequirements.spikedTail,
+    singleUse: false
+  },
+  InfectedTentacleSwipe: {
+    type: "InfectedTentacleSwipe",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: () => ({
+      Slash: chooseFromChoiceString("1^2|2^3|3"),
+      Disease: chooseFromChoiceString("4|5|6")
+    }),
+    description: "Attack.InfectedTentacleSwipe.Description",
+    valid: (rm) => rm.attackRequirements.isSick && rm.attackRequirements.tentacles,
+    singleUse: false
+  },
+  DiseasedTouch: {
+    type: "DiseasedTouch",
+    chance: 5e-3,
+    range: "ArmsLength",
+    attack: (rm) => 1 + rm.attributes.agility,
+    damage: () => ({
+      Blunt: chooseFromChoiceString("1^2|2^3|3"),
+      Disease: chooseFromChoiceString("4|5|6")
+    }),
+    description: "Attack.DiseasedTouch.Description",
+    valid: (rm) => rm.attackRequirements.isSick && rm.attackRequirements.tentacles,
+    singleUse: false
+  },
+  AdventureToss: {
+    type: "AdventureToss",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => 8 + rm.attributes.agility,
+    damage: () => ({
+      Blunt: 1
+    }),
+    description: "Attack.AdventureToss.Description",
+    valid: (rm) => rm.limbs.Arms > 0 && rm.attributes.strength > 11,
+    singleUse: false
+  },
+  DeathRattle: {
+    type: "DeathRattle",
+    chance: 1,
+    range: "ArmsLength",
+    attack: (rm) => 3 + rm.attributes.agility,
+    damage: () => ({
+      Slash: 1
+    }),
+    description: "Attack.DeathRattle.Description",
+    valid: (rm) => rm.attackRequirements.fangs && rm.attributes.strength > 7,
+    singleUse: false
+  },
+  Squash: {
+    type: "Squash",
+    chance: 1,
+    range: "Near",
+    attack: (_24) => rollD6() + 6,
+    damage: () => ({
+      Blunt: 1
+    }),
+    description: "Attack.Squash.Description",
+    valid: (rm) => rm.attributes.strength > 13,
+    singleUse: false
+  },
+  FallFromTheSky: {
+    type: "FallFromTheSky",
+    chance: 1,
+    range: "Near",
+    attack: (_24) => 8,
+    description: "Attack.FallFromTheSky.Description",
+    valid: (rm) => rm.attributes.strength > 4 && rm.attackRequirements.wings,
+    singleUse: false
+  },
+  RainOfRocks: {
+    type: "RainOfRocks",
+    chance: 1,
+    range: "Near",
+    attack: (_24) => 6,
+    damage: () => ({
+      Blunt: 1
+    }),
+    description: "Attack.RainOfRocks.Description",
+    valid: (rm) => rm.attackRequirements.wings,
+    singleUse: false
   }
 };
 
@@ -19336,7 +19951,8 @@ var monsterAttacks = {
 var createRandomMonster = () => {
   const {
     size,
-    strength
+    strength,
+    damage: sizeDamage
   } = weightedRandom(sizes).value;
   const {
     type,
@@ -19364,7 +19980,7 @@ var createRandomMonster = () => {
       tail,
       limbs
     },
-    damageModifiers: createDamageModifiers(tail.damage),
+    damageModifiers: createDamageModifiers(tail.damage, sizeDamage),
     armor: rollForArmor(armorChoices),
     home: getMonsterHome(),
     skills: createMonsterSkills(monsterSkillValues),
@@ -19374,25 +19990,31 @@ var createRandomMonster = () => {
     attackRequirements: createAttackRequirements(traits, tail.key, headOptions.map((ho) => ho.key), limbs)
   };
 };
-var createRandomMonsterViewModelFromRandomMonster = (t4) => (rm) => ({
-  ...rm,
-  description: createDescription(rm.description, t4),
-  movement: getMovement(weightedRandom, rm.attributes.agility),
-  attributes: createAttributesViewModel(rm.attributes),
-  traits: rm.traits.map(({
-    name,
-    description
-  }) => ({
-    name,
-    description: description(t4)
-  })),
-  skills: getMonsterSkillListItems(rm.skills),
-  motivation: {
-    name: `Motivation.${rm.motivation}.Name`,
-    description: `Motivation.${rm.motivation}.Description`
-  },
-  attacks: createMonsterAttacks(monsterAttacks, rm)
-});
+var createRandomMonsterViewModelFromRandomMonster = (t4) => (rm) => {
+  const movement = getMovement(weightedRandom, rm.attributes.agility);
+  return {
+    ...rm,
+    description: createDescription(rm.description, t4),
+    movement,
+    attributes: createAttributesViewModel(rm.attributes),
+    traits: rm.traits.map(({
+      name,
+      description
+    }) => ({
+      name,
+      description: description(t4)
+    })),
+    skills: getMonsterSkillListItems(rm.skills),
+    motivation: {
+      name: `Motivation.${rm.motivation}.Name`,
+      description: `Motivation.${rm.motivation}.Description`
+    },
+    attacks: createMonsterAttacks(monsterAttacks, {
+      ...rm,
+      movement
+    })
+  };
+};
 var applyMonsterTraits = (rm) => rm.traits.reduce((acc, cur) => cur.apply(acc), rm);
 var createRandomMonsterViewModel = (t4) => compose(createRandomMonsterViewModelFromRandomMonster(t4), applyMonsterTraits, createRandomMonster)();
 var rollForMonsterLimbs = (choices) => {
@@ -19489,26 +20111,50 @@ var createAttackRequirements = (traits, tailKey, heads, limbs) => {
     acidGlands: traits.some((t4) => t4.name === "Trait.AcidGlands.Name"),
     fireGlands: traits.some((t4) => t4.name === "Trait.FireGlands.Name"),
     tail: tailKey !== "None",
+    spikedTail: tailKey === "SpikedTail",
     claws: limbs.Arms > 0,
     fangs: heads.every((choice) => choice !== "Missing"),
-    horn: heads.some((choice) => choice !== "HornWithCount"),
+    horn: heads.some((choice) => choice === "HornWithCount" || choice === "ElkHorns"),
     legs: limbs.Legs > 0,
     tentacles: limbs.Tentacles > 0,
     undead: traits.some((t4) => t4.name === "Trait.Undead.Name"),
-    wings: limbs.Wings > 0
+    wings: limbs.Wings > 0,
+    hasLimbs: limbs.Arms > 0 || limbs.Legs > 0 || limbs.Tentacles > 0 || limbs.Wings > 0,
+    hasBeak: heads.some((h2) => h2 === "Beak"),
+    canSpeak: traits.some((t4) => t4.name === "Trait.Intelligent.Name" || t4.name === "Trait.CanSpeak.Name"),
+    isPoisonous: traits.some((t4) => t4.name === "Trait.Poisonous.Name"),
+    isSick: traits.some((t4) => t4.name === "Trait.Hurt.Name")
   };
 };
-var createMonsterAttacks = (allMonsterAttacks, rm) => Object.values(allMonsterAttacks).reduce((acc, cur) => {
-  if (cur.valid(rm)) {
-    acc.push({
-      ...cur,
-      range: `Range.${cur.range}`,
-      damage: cur.damage && cur.damage(rm),
-      attack: cur.attack && cur.attack(rm)
-    });
+var createMonsterAttacks = (allMonsterAttacks, rm) => {
+  const validAttacks = Object.values(allMonsterAttacks).filter((a2) => a2.type !== "Generic" && a2.valid(rm)).map((a2) => ({
+    weight: a2.chance * 1e3,
+    value: a2
+  }));
+  if (validAttacks.length < 6) {
+    const genericAttacks = range2(6 - validAttacks.length).map((_24) => ({
+      weight: allMonsterAttacks.Generic.chance * 1e3,
+      value: allMonsterAttacks.Generic
+    }));
+    validAttacks.push(...genericAttacks);
   }
-  return acc;
-}, []);
+  return range2(6).reduce((acc, _24) => {
+    const [chosen, rest] = weightedRandomConsume(acc.validAttacksLeft);
+    return {
+      attackViewModels: [...acc.attackViewModels, {
+        ...chosen.value,
+        range: chosen.value.range && `Range.${chosen.value.range}`,
+        damage: chosen.value.damage && chosen.value.damage(rm),
+        attack: chosen.value.attack && chosen.value.attack(rm),
+        descriptionExtras: chosen.value.descriptionExtras && chosen.value.descriptionExtras(rm)
+      }],
+      validAttacksLeft: rest
+    };
+  }, {
+    validAttacksLeft: [...validAttacks],
+    attackViewModels: []
+  }).attackViewModels;
+};
 var createMonsterSkills = (skillValueChoice) => ({
   Melee: chooseFromChoiceString(skillValueChoice),
   Move: chooseFromChoiceString(skillValueChoice),
@@ -19537,10 +20183,12 @@ var createDescription = ({
     limbs: getLimbsDescription(t4, limbs, tailDescription)
   };
 };
-var createDamageModifiers = (tailDamage) => ({
-  Crushing: 0,
-  Slashing: 0,
-  TailAttack: tailDamage
+var createDamageModifiers = (tailDamage, sizeDamage) => ({
+  Blunt: 0,
+  Slash: 0,
+  TailAttack: tailDamage,
+  Size: sizeDamage,
+  Telepathic: 0
 });
 
 // build/dist/pages/monsters.page.js
@@ -20544,22 +21192,6 @@ var SessionPage = () => {
     className: "yx-prose"
   }, legend)))));
 };
-
-// build/dist/components/card.js
-var Card = styled_default.div(({
-  thin = false
-}) => [{
-  "--tw-bg-opacity": "1",
-  backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
-  borderRadius: "0.25rem"
-}, thin ? {
-  paddingLeft: "1rem",
-  paddingRight: "1rem",
-  paddingTop: "0.5rem",
-  paddingBottom: "0.5rem"
-} : {
-  padding: "1rem"
-}]);
 
 // build/dist/components/field.js
 var Field = ({
