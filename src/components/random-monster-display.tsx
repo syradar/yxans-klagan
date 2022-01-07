@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import 'twin.macro'
-import { css } from 'twin.macro'
+import tw, { styled } from 'twin.macro'
+import { rollD6 } from '../functions/dice.functions'
 import { MonsterType, RandomMonsterViewModel } from '../models/monster.model'
+import { getId } from '../models/utils.model'
 import { DefinitionList } from './definition-list'
+import { MonsterAttack } from './monster-attack'
 import { MonsterAttribute } from './monster-attributes'
 import { SkillList } from './skill-list'
 import { Pancake } from './stack'
@@ -14,6 +17,16 @@ export interface RandomMonsterDisplayProps {
 
 export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
   const { t } = useTranslation(['monsters', 'common'])
+  const [selectedAttack, setSeletecAttack] = useState<number | undefined>(
+    undefined,
+  )
+
+  const rollAttack = () => {
+    setSeletecAttack(undefined)
+    setTimeout(() => {
+      setSeletecAttack(rollD6())
+    }, 100)
+  }
 
   const getSizeContext = (type: MonsterType) => {
     switch (type) {
@@ -43,7 +56,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
       </div>
 
       <section tw="grid grid-cols-1 4xl:(gap-8 grid-cols-2)">
-        <div tw="flex gap-8 flex-col mb-2 md:flex-row 4xl:(flex)">
+        <div tw="flex gap-8 flex-col mb-4 md:flex-row 4xl:(flex)">
           <div tw="flex-1">
             <h3 tw="text-xl font-medium">{t(`Attribute`)}</h3>
             <div tw="sm:(flex gap-8) md:block mb-2">
@@ -139,80 +152,36 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
           </div>
         </div>
         <div>
-          <h3 tw="text-xl font-medium">{t(`Attack.Attacks`)}</h3>
-          <table tw="w-full">
-            <thead tw="hidden md:table-header-group">
-              <tr tw="uppercase border-b-[1px] border-gray-500">
-                <th tw="font-bold p-1 text-left">#</th>
-                <th tw="font-bold p-1 text-left">{t(`Attack.Type`)}</th>
-                <th tw="font-bold p-1 text-center">{t(`Attack.Attack`)}</th>
-                <th tw="font-bold p-1 text-center">{t(`Attack.Damage`)}</th>
-                <th tw="font-bold p-1 text-center">{t(`Attack.Range`)}</th>
-                <th tw="font-bold p-1 text-left word-break[break-all]">
-                  {t(`Attack.Description`)}
-                </th>
-              </tr>
-            </thead>
-            <tbody tw="grid sm:grid-cols-2  md:table-row-group">
+          <Pancake>
+            <div tw="flex gap-2 items-baseline">
+              <h3 tw="text-xl font-medium">{t(`Attack.Attacks`)}</h3>
+              <RollButton onClick={() => rollAttack()}>
+                {t('Attack.Roll')}
+              </RollButton>
+            </div>
+            <div tw="grid gap-2 md:(grid-cols-2)">
               {rm.attacks.map((a, index) => (
-                <tr
-                  key={a.type}
-                  tw="flex flex-col p-2 md:(table-row p-0) odd-of-type:bg-gray-200 md:odd-of-type:bg-gray-200 md:odd-of-type:border-r-0 sm:(odd-of-type:bg-transparent odd-of-type:border-r-[1px]) border-b-[1px] last-of-type:border-0 border-gray-500"
-                  css={css`
-                    @media (min-width: 640px) and (max-width: 767px) {
-                      :nth-of-type(4n + 3) {
-                        background-color: rgba(
-                          229,
-                          231,
-                          235,
-                          var(--tw-bg-opacity)
-                        );
-                      }
-                      :nth-of-type(4n + 4) {
-                        background-color: rgba(
-                          229,
-                          231,
-                          235,
-                          var(--tw-bg-opacity)
-                        );
-                      }
-                    }
-                  `}
-                >
-                  <td tw="hidden text-lg font-medium md:(table-cell py-1 px-2 text-base font-normal) ">
-                    {index + 1}
-                  </td>
-                  <td tw="block text-lg font-medium md:(table-cell py-1 px-2 text-base font-normal) ">
-                    <span tw="md:hidden">{index + 1}: </span>
-                    {t(`Attack.${a.type}.Type`)}
-                  </td>
-                  <td tw="block md:(table-cell py-1 px-2) md:text-center">
-                    <span tw="font-medium md:hidden">
-                      {t(`Attack.Attack`)}:{' '}
-                    </span>
-                    {a.attack}
-                  </td>
-                  <td tw="block md:(table-cell py-1 px-2) md:text-center">
-                    <span tw="font-medium md:hidden">
-                      {t(`Attack.Damage`)}:{' '}
-                    </span>
-                    {a.damage}
-                  </td>
-                  <td tw="block md:(table-cell py-1 px-2) md:text-center whitespace-nowrap">
-                    <span tw="font-medium md:hidden">
-                      {t(`Attack.Range`)}:{' '}
-                    </span>
-                    {t(a.range, { ns: 'common' })}
-                  </td>
-                  <td tw="block md:(table-cell py-1 px-2) ">
-                    {t(a.description)}
-                  </td>
-                </tr>
+                <MonsterAttack
+                  key={a.type !== 'Generic' ? a.type : `${a.type}-${getId()}`}
+                  selected={index + 1 === selectedAttack ?? 0}
+                  monsterViewModel={a}
+                  counter={index + 1}
+                ></MonsterAttack>
               ))}
-            </tbody>
-          </table>
+            </div>
+          </Pancake>
         </div>
       </section>
     </Pancake>
   )
 }
+
+export const RollButton = styled.button(() => [
+  // The common button styles
+  tw`px-1 py-0.5 leading-none font-bold uppercase select-none tracking-wide focus:outline-none transform duration-75`,
+  tw`border-2 border-black rounded-none`,
+  // Use the variant grouping feature to add variants to multiple classes
+  tw`pointer-fine:hover:(bg-red-500 border-red-500 text-black) `,
+  tw`bg-white text-black`,
+  tw`text-sm`,
+])

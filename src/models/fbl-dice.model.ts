@@ -5,6 +5,8 @@ export type D2 = 1 | 2
 
 export type D3 = 1 | 2 | 3
 
+export type D4 = 1 | 2 | 3 | 4
+
 export type D6 = 1 | 2 | 3 | 4 | 5 | 6
 
 export type D8 = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8

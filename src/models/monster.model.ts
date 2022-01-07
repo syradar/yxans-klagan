@@ -143,42 +143,137 @@ export type MonsterMotivation =
 
 export type MonsterAttackType =
   | 'Slash'
+  | 'EyeGourge'
+  | 'ClawFlurry'
   | 'Bite'
+  | 'LockedJaws'
+  | 'ThroatBite'
   | 'Horn'
   | 'Headbutt'
   | 'Roar'
   | 'TailsSlash'
   | 'TentacleLash'
+  | 'TentacleFrenzy'
+  | 'TentaclePenetrationArmsLength'
+  | 'TentaclePenetrationNear'
+  | 'TentacleLash'
   | 'Bash'
   | 'Sweep'
   | 'BreathFire'
+  | 'SprayFire'
   | 'SpitAcid'
+  | 'SprayAcid'
   | 'DeadlyGaze'
+  | 'ColdStrike'
+  | 'DeathScream'
   | 'Kick'
+  | 'BackwardsKick'
   | 'Devour'
   | 'DiveAttack'
+  | 'Whirlwind'
+  | 'Peck'
+  | 'Squash'
+  | 'BeakThrow'
+  | 'AdventureToss'
+  | 'DeathRattle'
+  | 'InfectedScratch'
+  | 'DiseasedBite'
+  | 'InfectedTailSwipe'
+  | 'InfectedTentacleSwipe'
+  | 'DiseasedTouch'
+  | 'Distraction'
+  | 'Punch'
+  | 'FlyingFists'
+  | 'FistsOfFury'
+  | 'PoisonSpit'
+  | 'VenemousBite'
+  | 'PoisonScratch'
+  | 'PoisonTailAttack'
+  | 'PoisonTentacleAttack'
+  | 'PoisonHornAttack'
+  | 'NightmareVisions'
+  | 'MindBurst'
+  | 'Taunt'
+  | 'Plea'
+  | 'Burrow'
+  | 'TheGroundShatters'
+  | 'Rush'
+  | 'WrapAttack'
+  | 'FallFromTheSky'
+  | 'RainOfRocks'
+  | 'Generic'
 
-export type MonsterDamageType = 'Slashing' | 'Crushing' | 'TailAttack'
+export type MonsterDamageType =
+  | 'Slash'
+  | 'Blunt'
+  | 'Stab'
+  | 'Poison'
+  | 'Fear'
+  | 'NonTypical'
+  | 'Weapon'
+  | 'Disease'
+
+export type MonsterDamageModifierType =
+  | Extract<MonsterDamageType, 'Slash' | 'Blunt'>
+  | 'TailAttack'
+  | 'Size'
+  | 'Telepathic'
+
+export type PoisonType = 'Lethal' | 'Paralyzing' | 'Sleeping' | 'Hallucinogenic'
+
+export type PoisonDamage = {
+  type: PoisonType
+  potency: number
+}
+
+export type MonsterDamage = {
+  [M in Exclude<MonsterDamageType, 'Poison' | 'TailAttack' | 'Fear'>]?: number
+} & { Poison?: PoisonDamage; Fear?: boolean }
 
 export type MonsterAttack = {
   type: MonsterAttackType
-  attack?: (rm: RandomMonster) => number
-  damage?: (rm: RandomMonster) => number | string
+  attack?: (rm: IntermediateRandomMonster) => number
+  damage?: (rm: IntermediateRandomMonster) => MonsterDamage
   range: MonsterAttackRange
   description: string
-  valid: (rm: RandomMonster) => boolean
+  descriptionExtras?: (rm: IntermediateRandomMonster) => { count: number }
+  valid: (rm: IntermediateRandomMonster) => boolean
+  singleUse: boolean
+  chance: number
 }
 
 export type MonsterAttackViewModel = {
   type: MonsterAttackType
   attack?: number
-  damage?: number | string
+  damage?: MonsterDamage
   range: `Range.${MonsterAttackRange}`
   description: string
+  descriptionExtras?: { count: number }
 }
 
 export type MonsterAttacks = { [T in MonsterAttackType]: MonsterAttack }
-type MonsterDamageModifiers = { [M in MonsterDamageType]: number }
+export type MonsterDamageModifiers = {
+  [M in MonsterDamageModifierType]: number
+}
+
+export type MonsterAttackRequirements = {
+  tail: boolean
+  spikedTail: boolean
+  tentacles: boolean
+  undead: boolean
+  acidGlands: boolean
+  fireGlands: boolean
+  fangs: boolean
+  legs: boolean
+  claws: boolean
+  horn: boolean
+  wings: boolean
+  hasLimbs: boolean
+  hasBeak: boolean
+  canSpeak: boolean
+  isPoisonous: boolean
+  isSick: boolean
+}
 
 export type MonsterDescription = {
   heads: HeadChoiceWithCount[]
@@ -207,19 +302,23 @@ export interface RandomMonster extends Monster {
   weakness: MonsterWeakness
   motivation: MonsterMotivation
   damageModifiers: MonsterDamageModifiers
-  attackRequirements: {
-    tail: boolean
-    tentacles: boolean
-    undead: boolean
-    acidGlands: boolean
-    fireGlands: boolean
-    fangs: boolean
-    legs: boolean
-    claws: boolean
-    horn: boolean
-    wings: boolean
-    hasLimbs: boolean
-  }
+  attackRequirements: MonsterAttackRequirements
+}
+
+export interface IntermediateRandomMonster extends Monster {
+  size: MonsterSize
+  type: MonsterType
+  limbs: MonsterLimbs
+  description: MonsterDescription
+  armor: ArmorViewModel
+  home: MonsterHome
+  skills: MonsterSkillsValues
+  traits: MonsterTrait[]
+  weakness: MonsterWeakness
+  motivation: MonsterMotivation
+  damageModifiers: MonsterDamageModifiers
+  attackRequirements: MonsterAttackRequirements
+  movement: MonsterMovement
 }
 
 export type MonsterMovement = {
@@ -245,17 +344,5 @@ export interface RandomMonsterViewModel
   }
   damageModifiers: MonsterDamageModifiers
   attacks: MonsterAttackViewModel[]
-  attackRequirements: {
-    tail: boolean
-    tentacles: boolean
-    undead: boolean
-    acidGlands: boolean
-    fireGlands: boolean
-    fangs: boolean
-    legs: boolean
-    claws: boolean
-    horn: boolean
-    wings: boolean
-    hasLimbs: boolean
-  }
+  attackRequirements: MonsterAttackRequirements
 }
