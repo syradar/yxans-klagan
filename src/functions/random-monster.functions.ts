@@ -20,10 +20,14 @@ import { D3 } from '../models/fbl-dice.model'
 import {
   HeadChoices,
   HeadChoiceWithCount,
+  IntermediateRandomMonster,
   LimbChoicesWithAmount,
   MonsterArmor,
+  MonsterAttack,
+  MonsterAttackRequirements,
   MonsterAttacks,
   MonsterAttackViewModel,
+  MonsterDamageModifiers,
   MonsterDescription,
   MonsterDescriptionViewModel,
   MonsterHome,
@@ -48,10 +52,10 @@ import {
   weightedRandom,
   weightedRandomConsume,
 } from './dice.functions'
-import { maybe, numberToBooleans } from './utils.functions'
+import { isNullish, maybe, numberToBooleans } from './utils.functions'
 
 export const createRandomMonster = (): RandomMonster => {
-  const { size, strength } = weightedRandom(sizes).value
+  const { size, strength, damage: sizeDamage } = weightedRandom(sizes).value
   const { type, agility } = weightedRandom(types).value
   const headOptions = getHeads(headChoices)
   const tail = weightedRandom(tailChoices).value
@@ -75,7 +79,7 @@ export const createRandomMonster = (): RandomMonster => {
       tail,
       limbs,
     },
-    damageModifiers: createDamageModifiers(tail.damage),
+    damageModifiers: createDamageModifiers(tail.damage, sizeDamage),
     armor: rollForArmor(armorChoices),
     home: getMonsterHome(),
     skills: createMonsterSkills(monsterSkillValues),
@@ -93,22 +97,26 @@ export const createRandomMonster = (): RandomMonster => {
 
 export const createRandomMonsterViewModelFromRandomMonster =
   (t: TFunction<('monsters' | 'common')[]>) =>
-  (rm: RandomMonster): RandomMonsterViewModel => ({
-    ...rm,
-    description: createDescription(rm.description, t),
-    movement: getMovement(weightedRandom, rm.attributes.agility),
-    attributes: createAttributesViewModel(rm.attributes),
-    traits: rm.traits.map(({ name, description }) => ({
-      name,
-      description: description(t),
-    })),
-    skills: getMonsterSkillListItems(rm.skills),
-    motivation: {
-      name: `Motivation.${rm.motivation}.Name`,
-      description: `Motivation.${rm.motivation}.Description`,
-    },
-    attacks: createMonsterAttacks(monsterAttacks, rm),
-  })
+  (rm: RandomMonster): RandomMonsterViewModel => {
+    const movement = getMovement(weightedRandom, rm.attributes.agility)
+
+    return {
+      ...rm,
+      description: createDescription(rm.description, t),
+      movement,
+      attributes: createAttributesViewModel(rm.attributes),
+      traits: rm.traits.map(({ name, description }) => ({
+        name,
+        description: description(t),
+      })),
+      skills: getMonsterSkillListItems(rm.skills),
+      motivation: {
+        name: `Motivation.${rm.motivation}.Name`,
+        description: `Motivation.${rm.motivation}.Description`,
+      },
+      attacks: createMonsterAttacks(monsterAttacks, { ...rm, movement }),
+    }
+  }
 
 const applyMonsterTraits = (rm: RandomMonster): RandomMonster =>
   rm.traits.reduce((acc, cur) => cur.apply(acc), rm)
@@ -277,37 +285,105 @@ const createAttackRequirements = (
   tailKey: TailChoices,
   heads: HeadChoices[],
   limbs: MonsterLimbs,
-) => {
+): MonsterAttackRequirements => {
   return {
     acidGlands: traits.some((t) => t.name === 'Trait.AcidGlands.Name'),
     fireGlands: traits.some((t) => t.name === 'Trait.FireGlands.Name'),
     tail: tailKey !== 'None',
+    spikedTail: tailKey === 'SpikedTail',
     claws: limbs.Arms > 0,
     fangs: heads.every((choice) => choice !== 'Missing'),
-    horn: heads.some((choice) => choice !== 'HornWithCount'),
+    horn: heads.some(
+      (choice) => choice === 'HornWithCount' || choice === 'ElkHorns',
+    ),
     legs: limbs.Legs > 0,
     tentacles: limbs.Tentacles > 0,
     undead: traits.some((t) => t.name === 'Trait.Undead.Name'),
     wings: limbs.Wings > 0,
+    hasLimbs:
+      limbs.Arms > 0 ||
+      limbs.Legs > 0 ||
+      limbs.Tentacles > 0 ||
+      limbs.Wings > 0,
+    hasBeak: heads.some((h) => h === 'Beak'),
+    canSpeak: traits.some(
+      (t) =>
+        t.name === 'Trait.Intelligent.Name' || t.name === 'Trait.CanSpeak.Name',
+    ),
+    isPoisonous: traits.some((t) => t.name === 'Trait.Poisonous.Name'),
+    isSick: traits.some((t) => t.name === 'Trait.Hurt.Name'),
   }
 }
 
 const createMonsterAttacks = (
   allMonsterAttacks: MonsterAttacks,
-  rm: RandomMonster,
-): MonsterAttackViewModel[] =>
-  Object.values(allMonsterAttacks).reduce((acc, cur) => {
-    if (cur.valid(rm)) {
-      acc.push({
-        ...cur,
-        range: `Range.${cur.range}`,
-        damage: cur.damage && cur.damage(rm),
-        attack: cur.attack && cur.attack(rm),
-      })
-    }
+  rm: IntermediateRandomMonster,
+): MonsterAttackViewModel[] => {
+  const validAttacks: WeightedRandomMonsterChoice<MonsterAttack>[] =
+    Object.values(allMonsterAttacks)
+      .filter((a) => a.type !== 'Generic' && a.valid(rm))
+      .map((a) => ({
+        weight: a.chance * 1000,
+        value: a,
+      }))
 
-    return acc
-  }, [] as MonsterAttackViewModel[])
+  if (validAttacks.length < 6) {
+    const genericAttacks = range(6 - validAttacks.length).map((_) => ({
+      weight: allMonsterAttacks.Generic.chance * 1000,
+      value: allMonsterAttacks.Generic,
+    }))
+
+    validAttacks.push(...genericAttacks)
+  }
+
+  return range(6).reduce(
+    (
+      acc: {
+        validAttacksLeft: WeightedRandomMonsterChoice<MonsterAttack>[]
+        attackViewModels: MonsterAttackViewModel[]
+      },
+      _: number,
+    ): {
+      validAttacksLeft: WeightedRandomMonsterChoice<MonsterAttack>[]
+      attackViewModels: MonsterAttackViewModel[]
+    } => {
+      const [chosen, rest] = weightedRandomConsume(acc.validAttacksLeft)
+
+      return {
+        attackViewModels: [
+          ...acc.attackViewModels,
+          {
+            ...chosen.value,
+            range: chosen.value.range && `Range.${chosen.value.range}`,
+            damage: chosen.value.damage && chosen.value.damage(rm),
+            attack: chosen.value.attack && chosen.value.attack(rm),
+            descriptionExtras:
+              chosen.value.descriptionExtras &&
+              chosen.value.descriptionExtras(rm),
+          },
+        ],
+        validAttacksLeft: rest,
+      }
+    },
+    {
+      validAttacksLeft: [...validAttacks],
+      attackViewModels: [] as MonsterAttackViewModel[],
+    },
+  ).attackViewModels
+
+  // .reduce((acc, cur) => {
+  //   if (cur.valid(rm)) {
+  //     acc.push({
+  //       ...cur,
+  //       range: `Range.${cur.range}`,
+  //       damage: cur.damage && cur.damage(rm),
+  //       attack: cur.attack && cur.attack(rm),
+  //     })
+  //   }
+
+  //   return acc
+  // }, [] as MonsterAttackViewModel[])
+}
 
 const createMonsterSkills = (
   skillValueChoice: string,
@@ -348,8 +424,13 @@ const createDescription = (
   }
 }
 
-const createDamageModifiers = (tailDamage: number) => ({
-  Crushing: 0,
-  Slashing: 0,
+const createDamageModifiers = (
+  tailDamage: number,
+  sizeDamage: number,
+): MonsterDamageModifiers => ({
+  Blunt: 0,
+  Slash: 0,
   TailAttack: tailDamage,
+  Size: sizeDamage,
+  Telepathic: 0,
 })

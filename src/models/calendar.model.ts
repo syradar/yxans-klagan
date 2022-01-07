@@ -253,8 +253,6 @@ export const loadCalendar = (): CalendarV4 => {
   }
 
   if (calV2) {
-    console.log(calV2)
-
     return parseCalendar(calV2, true)
   }
 

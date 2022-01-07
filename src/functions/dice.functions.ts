@@ -1,5 +1,5 @@
 import { compose, pluck, sum } from 'rambda'
-import { D2, D3, D6, D66, D8 } from '../models/fbl-dice.model'
+import { D2, D3, D4, D6, D66, D8 } from '../models/fbl-dice.model'
 import { range } from './array.functions'
 
 /**
@@ -20,6 +20,8 @@ export function getRandomInt(min = 1, max = 6) {
 export const rollD2 = (): D2 => getRandomInt(1, 2) as D2
 
 export const rollD3 = (): D3 => getRandomInt(1, 3) as D3
+
+export const rollD4 = (): D4 => getRandomInt(1, 4) as D4
 
 export const rollD6 = (): D6 => getRandomInt(1, 6) as D6
 

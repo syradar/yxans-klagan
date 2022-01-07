@@ -125,7 +125,7 @@ export const FindsPage = () => {
                 </h2>
 
                 <Pancake>
-                  <Stat large label={t('Value')}>
+                  <Stat size="large" label={t('Value')}>
                     {find.value.length > 0
                       ? find.value
                           .map((v) => `${v.coins} ${t(v.label)}`)

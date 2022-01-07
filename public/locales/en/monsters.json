@@ -238,7 +238,17 @@
     "Type": "Type",
     "Attack": "Attack",
     "Attacks": "Attacks",
-    "Damage": "Damage",
+    "Roll": "Roll",
+    "Damage": {
+      "Damage": "Damage",
+      "Blunt": "Blunt damage",
+      "Slash": "Slash damage",
+      "Stab": "Stab damage",
+      "NonTypical": "Non Typical damage",
+      "Fear": "Fear",
+      "Disease": "Virulence",
+      "Poison": "Poison"
+    },
     "Range": "Range",
     "Description": "Description",
     "Bash": {
@@ -300,6 +310,182 @@
     "DiveAttack": {
       "Type": "Dive attack",
       "Description": "Sweeps through the air and slashes an adventurer within Near rangel. If hit becomes prone."
+    },
+    "EyeGourge": {
+      "Type": "Eye Gouge",
+      "Description": "The beast focuses on an unfortunate adventurer and attempts to tear thier eyes out with their sharp claws. If the victim takes damage, they immediately also suffer the critical injury “severed eye” (result 41–42 on the table for critical injuries from stab wounds)."
+    },
+    "ClawFlurry": {
+      "Type": "Claw Flurry",
+      "Description": "The creature rears up before an adventurer and tears at her rapidly with three attacks. The attacks can be PARRIED, but only one at a time."
+    },
+    "LockedJaws": {
+      "Type": "Locked Jaws",
+      "Description": "The creature bites one of the adventurers and locks its jaws in a brutal grip. If hit, the adventurer is GRAPPLED and takes 1 point of damage per turn until the creature is removed."
+    },
+    "ThroatBite": {
+      "Type": "Throat Bite",
+      "Description": "The creature sees a weak spot and attacks the adventurer by biting them in the throat, trying to kill them. The attack may be PARRIED. The adventurer suffers half of the amount of damage (round up) to EMPATHY as well, due to the horrific encounter and become COLD."
+    },
+    "TentacleFrenzy": {
+      "Type": "Tentacle Frenzy",
+      "Description": "The beast flails its tentacles in a frenzy, striking all adventurers within Near distance. Perform an attack against each adventurer."
+    },
+    "TentaclePenetrationArmsLength": {
+      "Type": "Tentacle Penetration",
+      "Description": "The creature tries to force a tentacle into a body cavity (such as the mouth, the eyes or the ears) of an adventurer within Arm's length range. The attack damages both STRENGTH and EMPATHY due to the horrifying experience."
+    },
+    "TentaclePenetrationNear": {
+      "Type": "Tentacle Penetration",
+      "Description": "The creature tries to force a tentacle into a body cavity (such as the mouth, the eyes or the ears) of an adventurer within Near range. The attack damages both STRENGTH and EMPATHY due to the horrifying experience."
+    },
+    "SprayFire": {
+      "Type": "Spray Fire",
+      "Description": "The creature lets out an annihilating storm of fire. All adventurers within Short range are targeted by an attack. This attack can only be used once per combat."
+    },
+    "SprayAcid": {
+      "Type": "Spray Acid",
+      "Description": "The creature lets out an annihilating spray of acid. All adventurers within Short range are targeted by an attack. This attack can only be used once per combat."
+    },
+    "ColdStrike": {
+      "Type": "Cold Strike",
+      "Description": "The undead creature grabs a victim and lets its icy chill of death stream into its body. If the victim is hit, it will also become COLD."
+    },
+    "DeathScream": {
+      "Type": "Death Scream",
+      "Description": "The face of the undead creature twists into a horrible grimace and emits a scream that turns the souls of adventurers within Near range to ice. Roll a fear attack. Any victims hit by the attack are also turned COLD."
+    },
+    "BackwardsKick": {
+      "Type": "Backwards Kick",
+      "Description": "The beast turns swifly and kicks out with its hind legs with formidable power. If the attack connects, the adventurer is thrown to Near distance and becomes prone. "
+    },
+    "Whirlwind": {
+      "Type": "Whirlwind",
+      "Description": "The beast uses its powerful wings to create a whirlwind knocking all adventurers within Near range to the ground. Anyone hit by the attack is also knocked to the ground. It's not possible to DODGE the attack."
+    },
+    "Peck": {
+      "Type": "Peck",
+      "Description": "The creature pecks one adventurer at Arm's Length with its beak."
+    },
+    "Squash": {
+      "Type": "Squash",
+      "Description": "The giant beast rises into the sky and blocks the sun with its huge mass. Then it lets its body fall onto the adventurers to crush them. Have everyone roll for MOVE to get out of the way (does not count as an action). Everyone within Near range is thrown to the ground. Anyone who fails their MOVE roll is also hit by an attack with the stats described."
+    },
+    "BeakThrow": {
+      "Type": "BeakThrow",
+      "Description": "The beast uses its beak to get a good grip on an adventurer and throws them into the air with a quick flip of the beak. Roll for an attack, if hit, the victim lands prone at Near range from the creature."
+    },
+    "AdventureToss": {
+      "Type": "Adventure Toss",
+      "Description": "The beast lifts an adventurer high into the air and throws her as if she were a rag doll. Roll for an attack, if hit, the adventurer lands prone at Short distance from the creature."
+    },
+    "DeathRattle": {
+      "Type": "Death Rattle",
+      "Description": "The beast jumps at an adventurer, biting it, and then shakes the unfortunate victim, finally throwing the victim aside like a rag doll. Roll for the attack, if the attack hits, the victim is thrown to a Near distance and lands prone."
+    },
+    "InfectedScratch": {
+      "Type": "Infected Scratch",
+      "Description": "The diseased creature tears at an adventurer with its claws. Roll an attack, if the attack hits, the victim is also affected by the disease."
+    },
+    "DiseasedBite": {
+      "Type": "Diseased Bite",
+      "Description": "The diseased creature bites at an adventurer with its fangs. Roll an attack, if the attack hits, the victim is also affected by the disease."
+    },
+    "InfectedTailSwipe": {
+      "Type": "Infected Tail Swipe",
+      "Description": "The diseased creatures spiked tail swings at an adventurer. Roll an attack, if the attack hits, the victim is also affected by the disease."
+    },
+    "InfectedTentacleSwipe": {
+      "Type": "Infected Tentacle Swipe",
+      "Description": "The diseased creatures tentacles swings at an adventurer. Roll an attack, if the attack hits, the victim is also affected by the disease"
+    },
+    "DiseasedTouch": {
+      "Type": "Diseased Touch",
+      "Description": "The diseased creature touches an adventurer, passing on its infection. Roll an attack, if the attack hits, the victim is also affected by the disease."
+    },
+    "Distraction": {
+      "Type": "Distraction",
+      "Description": "The creature makes sudden distracting movements, causing each adventure to pause in their attack. Each adventurer within Near range must make an INSIGHT roll or suffer a -1 to their next action."
+    },
+    "Punch": {
+      "Type": "Punch",
+      "Description": "The creature balls one of its hands into a fist and swings it at one adventurer at Arm's Length trying to land a solid hit. The attack can be PARRIED."
+    },
+    "FlyingFists": {
+      "Type": "Flying Fists",
+      "Description_count": "The creature flails its arms, striking out at multiple adventurers at Arm's Length. (This attack targets {{count}} adventurers). Each attack can be PARRIED."
+    },
+    "FistsOfFury": {
+      "Type": "Fists of Fury",
+      "Description_count": "The creature uses all of its arms to strike a single adventurer {{count}} times. Each attack can be PARRIED but each attack must be PARRIED separately."
+    },
+    "PoisonSpit": {
+      "Type": "Poison Spit",
+      "Description": "The creature spits a glob of poisonous phlegm at an adventurer within Near range. Make an attack, this attack does no direct damage but if the attack hits, the adventurer is immediately affected by the poison."
+    },
+    "VenemousBite": {
+      "Type": "Venemous Bite",
+      "Description": "The creature bites an adventurer with its poisoned fangs."
+    },
+    "PoisonScratch": {
+      "Type": "Poison Scratch",
+      "Description": "The creature scratches an adventurer with its poisoned claws."
+    },
+    "PoisonTailAttack": {
+      "Type": "Poison Tail Attack",
+      "Description": "The creature attacks an adventurer with its poisoned spiked tail."
+    },
+    "PoisonTentacleAttack": {
+      "Type": "Poison Tentacle Attack",
+      "Description": "The creature attacks an adventurer with its poisonous tentacles."
+    },
+    "PoisonHornAttack": {
+      "Type": "Poison Horn Attack",
+      "Description": "The creature attacks an adventurer with its poisoned head adornment."
+    },
+    "NightmareVisions": {
+      "Type": "Nightmare Visions",
+      "Description": "The telepathic creature targets one adventurer within Near range with nightmare visions within their mind. This is a Fear attack."
+    },
+    "MindBurst": {
+      "Type": "Mind Burst",
+      "Description": "This telepathic creature uses a powerful burst of negative emotion to overcome all adventurers within Arm's Length range. This is a Fear attack."
+    },
+    "Taunt": {
+      "Type": "Taunt",
+      "Description": "The creature taunts and threatens the adventurers with terrible descriptions of what they will do to them. All adventurers within Near range suffer a fear attack."
+    },
+    "Plea": {
+      "Type": "Plea",
+      "Description": "The creature pleas with you not to do them harm, pulling at your emotions. All adventurers within Near range are affected. Each adventurer must make an EMPATHY roll to continue to attack (as if performing a Coup de grace action) or lose thier next action (adventurers can use the Cold Blooded Talent to defend against the effects of this attack)."
+    },
+    "Burrow": {
+      "Type": "Burrow",
+      "Description": "The creature quickly burrows into the ground and comes up close to an adventurer, attacking as it does so. The ground is now difficult to stand on, incurring a -1 penaty to all actions."
+    },
+    "TheGroundShatters": {
+      "Type": "The Ground Shatters",
+      "Description": "The beast dives into the ground and uses its mass to shatter the ground around the adventurers. Everyone within Near range falls 2D6 meters and lands prone."
+    },
+    "Rush": {
+      "Type": "Rush",
+      "Description": "The creature runs at an adventurer within Near range, attempting to knock them to the ground or trip them up. The victim is knocked prone if hit."
+    },
+    "WrapAttack": {
+      "Type": "Wrap Attack",
+      "Description": "The creature slithers around an adventurer attempting to wrap itself around a limb. If the attack is successful the adventurer is GRAPPLED and suffers 1 point of damage per round until the creature is dislodged."
+    },
+    "FallFromTheSky": {
+      "Type": "Fall from the Sky",
+      "Description": "The beast grabs an adventurer within Near range and lifts her up into the sky. Roll for the attack, if the attack hits,the creature and its victim both ascend to Short range from the ground. The next round, the victim is dropped and suffers the effects of a fall from 2D6+10 meters (see page 113 in the Player's Handbook)."
+    },
+    "RainOfRocks": {
+      "Type": "Rain of Rocks",
+      "Description": "The creature throws rocks and other scrap items from above. All adventurers within Near range suffer an attack."
+    },
+    "Generic": {
+      "Type": "Attack",
+      "Description": "The beast attacks one adventurer."
     }
   }
 }
