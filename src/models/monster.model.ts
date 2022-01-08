@@ -1,4 +1,3 @@
-import { TFunction } from 'react-i18next'
 import { WeightedChoice } from '../functions/dice.functions'
 import { Definition } from '../types/definition.type'
 import { Attributes, AttributesViewModel } from './attributes.model'
@@ -124,11 +123,14 @@ export type MonsterSkillListItem = { name: string; value: number }
 
 export type MonsterTrait = {
   name: string
-  description: (t: TFunction<('monsters' | 'common')[]>) => string
+  description: () => MonsterDescriptionItemViewModel
   apply: (rm: RandomMonster) => RandomMonster
 }
 
-export type MonsterTraitViewModel = Definition
+export type MonsterTraitViewModel = {
+  name: string
+  description: MonsterDescriptionItemViewModel
+}
 export type MonsterWeakness = Definition
 export type MonsterMotivation =
   | 'Territory'
@@ -283,10 +285,12 @@ export type MonsterDescription = {
   limbs: MonsterLimbs
 }
 
+export type MonsterDescriptionItemViewModel = { key: string; count?: number }
+
 export type MonsterDescriptionViewModel = {
-  head: string
+  head: MonsterDescriptionItemViewModel[]
   tail?: string
-  limbs: string
+  limbs: MonsterDescriptionItemViewModel[]
 }
 
 export interface RandomMonster extends Monster {

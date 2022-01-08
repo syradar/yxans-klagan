@@ -294,7 +294,7 @@ export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
     weight: 1,
     value: {
       name: 'Trait.Undead.Name',
-      description: (t) => t('Trait.Undead.Description'),
+      description: () => ({ key: 'Trait.Undead.Description' }),
       apply: (rm) => ({
         ...rm,
         attributes: {
@@ -310,7 +310,7 @@ export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
     weight: 3,
     value: {
       name: 'Trait.Hurt.Name',
-      description: (t) => t('Trait.Hurt.Description'),
+      description: () => ({ key: 'Trait.Hurt.Description' }),
       apply: (rm) => ({
         ...rm,
         attributes: {
@@ -326,11 +326,10 @@ export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
     weight: 3,
     value: {
       name: 'Trait.Colorful.Name',
-      description: (t) => {
-        const silver = rollD6() + rollD6() + rollD6()
-
-        return t('Trait.Colorful.Description', { count: silver })
-      },
+      description: () => ({
+        key: 'Trait.Colorful.Description',
+        count: rollD6() + rollD6() + rollD6(),
+      }),
       apply: id,
     },
   },
@@ -338,18 +337,14 @@ export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
     weight: 4,
     value: {
       name: 'Trait.Poisonous.Name',
-      description: (t) => {
-        const poisons = {
-          1: 'Poisons.Lethal',
-          2: 'Poisons.Paralyzing',
-          3: 'Poisons.Sleeping',
-        }
-        const roll = rollD3()
-
-        const strength = rollD6() + 2
-
-        return `${t(poisons[roll])} (${strength})`
-      },
+      description: () => ({
+        key: {
+          1: 'Poisons.Lethal_count',
+          2: 'Poisons.Paralyzing_count',
+          3: 'Poisons.Sleeping_count',
+        }[rollD3()],
+        count: rollD6() + 2,
+      }),
       apply: id,
     },
   },
@@ -357,7 +352,7 @@ export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
     weight: 3,
     value: {
       name: 'Trait.Regeneration.Name',
-      description: (t) => t('Trait.Regeneration.Description'),
+      description: () => ({ key: 'Trait.Regeneration.Description' }),
       apply: id,
     },
   },
@@ -365,7 +360,7 @@ export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
     weight: 2,
     value: {
       name: 'Trait.ResistanceMagic.Name',
-      description: (t) => t('Trait.ResistanceMagic.Description'),
+      description: () => ({ key: 'Trait.ResistanceMagic.Description' }),
       apply: id,
     },
   },
@@ -373,7 +368,7 @@ export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
     weight: 3,
     value: {
       name: 'Trait.Camouflage.Name',
-      description: (t) => t('Trait.Camouflage.Description'),
+      description: () => ({ key: 'Trait.Camouflage.Description' }),
       apply: id,
     },
   },
@@ -381,7 +376,7 @@ export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
     weight: 2,
     value: {
       name: 'Trait.Fast.Name',
-      description: (t) => t('Trait.Fast.Description'),
+      description: () => ({ key: 'Trait.Fast.Description' }),
       apply: id,
     },
   },
@@ -389,7 +384,7 @@ export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
     weight: 4,
     value: {
       name: 'Trait.SensitiveHearing.Name',
-      description: (t) => t('Trait.SensitiveHearing.Description'),
+      description: () => ({ key: 'Trait.SensitiveHearing.Description' }),
       apply: (rm) => ({
         ...rm,
         skills: {
@@ -403,7 +398,7 @@ export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
     weight: 2,
     value: {
       name: 'Trait.SensitiveSmell.Name',
-      description: (t) => t('Trait.SensitiveSmell.Description'),
+      description: () => ({ key: 'Trait.SensitiveSmell.Description' }),
       apply: (rm) => ({
         ...rm,
         skills: {
@@ -417,7 +412,7 @@ export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
     weight: 3,
     value: {
       name: 'Trait.DarkVision.Name',
-      description: (t) => t('Trait.DarkVision.Description'),
+      description: () => ({ key: 'Trait.DarkVision.Description' }),
       apply: id,
     },
   },
@@ -425,7 +420,7 @@ export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
     weight: 1,
     value: {
       name: 'Trait.AcidGlands.Name',
-      description: (t) => t('Trait.AcidGlands.Description'),
+      description: () => ({ key: 'Trait.AcidGlands.Description' }),
       apply: (rm) => ({
         ...rm,
         acidGlands: true,
@@ -436,7 +431,7 @@ export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
     weight: 1,
     value: {
       name: 'Trait.FireGlands.Name',
-      description: (t) => t('Trait.FireGlands.Description'),
+      description: () => ({ key: 'Trait.FireGlands.Description' }),
       apply: (rm) => ({
         ...rm,
         attackRequirements: { ...rm.attackRequirements, fireGlands: true },
@@ -447,16 +442,13 @@ export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
     weight: 1,
     value: {
       name: 'Trait.Intelligent.Name',
-      description: (t) => {
-        const speech =
+      description: () => ({
+        key:
           rollD2() === 1
             ? 'Trait.CanSpeak.Description'
-            : 'Trait.Intelligent.Telepathy'
-
-        const skillValues = t('Trait.Intelligent.SkillValues')
-
-        return `${t(speech)}. ${skillValues}`
-      },
+            : 'Trait.Intelligent.Telepathy',
+        count: 0, //'Trait.Intelligent.SkillValues'
+      }),
       apply: (rm) => ({
         ...rm,
         damageModifiers: {
@@ -470,7 +462,7 @@ export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
     weight: 1,
     value: {
       name: 'Trait.CanSpeak.Name',
-      description: (t) => t('Trait.CanSpeak.Description'),
+      description: () => ({ key: 'Trait.CanSpeak.Description' }),
       apply: id,
     },
   },
@@ -478,7 +470,7 @@ export const monsterTraits: WeightedRandomMonsterChoice<MonsterTrait>[] = [
     weight: 1,
     value: {
       name: 'Trait.PossessedByDemon.Name',
-      description: (t) => t('Trait.PossessedByDemon.Description'),
+      description: () => ({ key: 'Trait.PossessedByDemon.Description' }),
       apply: id,
     },
   },
@@ -935,7 +927,7 @@ export const monsterAttacks: MonsterAttacks = {
     description: 'Attack.NightmareVisions.Description',
     valid: (rm) =>
       rm.traits.some((t) =>
-        t.description(id).includes('Trait.Intelligent.Telepathy'),
+        t.description().key.includes('Trait.Intelligent.Telepathy'),
       ),
     singleUse: false,
   },
@@ -948,7 +940,7 @@ export const monsterAttacks: MonsterAttacks = {
     description: 'Attack.MindBurst.Description',
     valid: (rm) =>
       rm.traits.some((t) =>
-        t.description(id).includes('Trait.Intelligent.Telepathy'),
+        t.description().key.includes('Trait.Intelligent.Telepathy'),
       ) && rm.damageModifiers.Telepathic > 1,
     singleUse: false,
   },

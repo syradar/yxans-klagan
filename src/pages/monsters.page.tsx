@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import 'twin.macro'
-import { List } from '../components/list'
 import { Group } from '../components/group'
+import { List } from '../components/list'
 import { ListItemButton } from '../components/list-item'
 import { MonsterDisplay } from '../components/monster-display'
 import { PageHeader } from '../components/page-header'
@@ -26,7 +26,7 @@ export const MonstersPage = () => {
   const [showRandomMonster, setShowRandomMonster] = useState(true)
 
   const [randomMonster, setRandomMonster] = useState(
-    createRandomMonsterViewModel(t),
+    createRandomMonsterViewModel(),
   )
 
   const selectMonster = (m: MonsterViewModel) => {
@@ -35,7 +35,7 @@ export const MonstersPage = () => {
   }
 
   const generateRandomMonster = () => {
-    setRandomMonster(createRandomMonsterViewModel(t))
+    setRandomMonster(createRandomMonsterViewModel())
     setShowRandomMonster(true)
   }
 
