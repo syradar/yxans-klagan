@@ -18061,6 +18061,29 @@ var RandomMonsterDisplay = ({
         return {};
     }
   };
+  const describeMonsterHeads = (heads) => {
+    const translatedHeads = heads.map((h2) => h2.count ? t4(h2.key, {
+      count: h2.count
+    }) : t4(h2.key));
+    if (translatedHeads.length === 1) {
+      return `${t4("TheMonsterHas")} ${translatedHeads.join("")}.`;
+    }
+    const [lastHead, ...restOfHeads] = translatedHeads;
+    return `${t4("TheMonsterHas")} ${restOfHeads.join(", ")} & ${lastHead}.`;
+  };
+  const describeMonsterLimbs = (limbs) => {
+    const translatedLimbs = limbs.map((l2) => l2.count ? t4(`${l2.key}_count`, {
+      count: l2.count
+    }) : t4(l2.key));
+    if (translatedLimbs.length === 1) {
+      return `${t4("TheMonsterHas")} ${translatedLimbs.join("")}.`;
+    }
+    const [lastLimb, ...restOfLimbs] = [...translatedLimbs].reverse();
+    return `${t4("TheMonsterHas")} ${restOfLimbs.join(", ")} & ${lastLimb}.`;
+  };
+  const describeHome = (monsterHome) => `${t4("LivesIn", {
+    home: t4(`Homes.${monsterHome}`)
+  })}.`;
   return jsx(Pancake, {
     wrap: false
   }, jsx("h2", {
@@ -18078,9 +18101,7 @@ var RandomMonsterDisplay = ({
       maxWidth: "65ch",
       marginBottom: "1rem"
     }
-  }, jsx("p", null, t4("TheMonsterHas"), " ", rm.description.head, ". ", rm.description.limbs, ".", " ", t4("LivesIn", {
-    home: t4(`Homes.${rm.home}`)
-  }), ".")), jsx("section", {
+  }, jsx("p", null, [describeMonsterHeads(rm.description.head), describeMonsterLimbs(rm.description.limbs), describeHome(rm.home)].join(" "))), jsx("section", {
     css: {
       display: "grid",
       gridTemplateColumns: "repeat(1, minmax(0, 1fr))",
@@ -18209,7 +18230,9 @@ var RandomMonsterDisplay = ({
   }, t4(`Trait.Traits`)), jsx(DefinitionList, {
     definitions: rm.traits.map((trait) => ({
       name: t4(trait.name),
-      description: trait.description
+      description: t4(trait.description.key, {
+        count: trait.description.count
+      })
     }))
   })), jsx("section", null, jsx("h3", {
     css: {
@@ -18967,7 +18990,9 @@ var monsterTraits = [{
   weight: 1,
   value: {
     name: "Trait.Undead.Name",
-    description: (t4) => t4("Trait.Undead.Description"),
+    description: () => ({
+      key: "Trait.Undead.Description"
+    }),
     apply: (rm) => ({
       ...rm,
       attributes: {
@@ -18980,7 +19005,9 @@ var monsterTraits = [{
   weight: 3,
   value: {
     name: "Trait.Hurt.Name",
-    description: (t4) => t4("Trait.Hurt.Description"),
+    description: () => ({
+      key: "Trait.Hurt.Description"
+    }),
     apply: (rm) => ({
       ...rm,
       attributes: {
@@ -18993,63 +19020,69 @@ var monsterTraits = [{
   weight: 3,
   value: {
     name: "Trait.Colorful.Name",
-    description: (t4) => {
-      const silver = rollD6() + rollD6() + rollD6();
-      return t4("Trait.Colorful.Description", {
-        count: silver
-      });
-    },
+    description: () => ({
+      key: "Trait.Colorful.Description",
+      count: rollD6() + rollD6() + rollD6()
+    }),
     apply: id2
   }
 }, {
   weight: 4,
   value: {
     name: "Trait.Poisonous.Name",
-    description: (t4) => {
-      const poisons = {
-        1: "Poisons.Lethal",
-        2: "Poisons.Paralyzing",
-        3: "Poisons.Sleeping"
-      };
-      const roll = rollD3();
-      const strength = rollD6() + 2;
-      return `${t4(poisons[roll])} (${strength})`;
-    },
+    description: () => ({
+      key: {
+        1: "Poisons.Lethal_count",
+        2: "Poisons.Paralyzing_count",
+        3: "Poisons.Sleeping_count"
+      }[rollD3()],
+      count: rollD6() + 2
+    }),
     apply: id2
   }
 }, {
   weight: 3,
   value: {
     name: "Trait.Regeneration.Name",
-    description: (t4) => t4("Trait.Regeneration.Description"),
+    description: () => ({
+      key: "Trait.Regeneration.Description"
+    }),
     apply: id2
   }
 }, {
   weight: 2,
   value: {
     name: "Trait.ResistanceMagic.Name",
-    description: (t4) => t4("Trait.ResistanceMagic.Description"),
+    description: () => ({
+      key: "Trait.ResistanceMagic.Description"
+    }),
     apply: id2
   }
 }, {
   weight: 3,
   value: {
     name: "Trait.Camouflage.Name",
-    description: (t4) => t4("Trait.Camouflage.Description"),
+    description: () => ({
+      key: "Trait.Camouflage.Description"
+    }),
     apply: id2
   }
 }, {
   weight: 2,
   value: {
     name: "Trait.Fast.Name",
-    description: (t4) => t4("Trait.Fast.Description"),
+    description: () => ({
+      key: "Trait.Fast.Description"
+    }),
     apply: id2
   }
 }, {
   weight: 4,
   value: {
     name: "Trait.SensitiveHearing.Name",
-    description: (t4) => t4("Trait.SensitiveHearing.Description"),
+    description: () => ({
+      key: "Trait.SensitiveHearing.Description"
+    }),
     apply: (rm) => ({
       ...rm,
       skills: {
@@ -19062,7 +19095,9 @@ var monsterTraits = [{
   weight: 2,
   value: {
     name: "Trait.SensitiveSmell.Name",
-    description: (t4) => t4("Trait.SensitiveSmell.Description"),
+    description: () => ({
+      key: "Trait.SensitiveSmell.Description"
+    }),
     apply: (rm) => ({
       ...rm,
       skills: {
@@ -19075,14 +19110,18 @@ var monsterTraits = [{
   weight: 3,
   value: {
     name: "Trait.DarkVision.Name",
-    description: (t4) => t4("Trait.DarkVision.Description"),
+    description: () => ({
+      key: "Trait.DarkVision.Description"
+    }),
     apply: id2
   }
 }, {
   weight: 1,
   value: {
     name: "Trait.AcidGlands.Name",
-    description: (t4) => t4("Trait.AcidGlands.Description"),
+    description: () => ({
+      key: "Trait.AcidGlands.Description"
+    }),
     apply: (rm) => ({
       ...rm,
       acidGlands: true
@@ -19092,7 +19131,9 @@ var monsterTraits = [{
   weight: 1,
   value: {
     name: "Trait.FireGlands.Name",
-    description: (t4) => t4("Trait.FireGlands.Description"),
+    description: () => ({
+      key: "Trait.FireGlands.Description"
+    }),
     apply: (rm) => ({
       ...rm,
       attackRequirements: {
@@ -19105,11 +19146,10 @@ var monsterTraits = [{
   weight: 1,
   value: {
     name: "Trait.Intelligent.Name",
-    description: (t4) => {
-      const speech = rollD2() === 1 ? "Trait.CanSpeak.Description" : "Trait.Intelligent.Telepathy";
-      const skillValues = t4("Trait.Intelligent.SkillValues");
-      return `${t4(speech)}. ${skillValues}`;
-    },
+    description: () => ({
+      key: rollD2() === 1 ? "Trait.CanSpeak.Description" : "Trait.Intelligent.Telepathy",
+      count: 0
+    }),
     apply: (rm) => ({
       ...rm,
       damageModifiers: {
@@ -19122,14 +19162,18 @@ var monsterTraits = [{
   weight: 1,
   value: {
     name: "Trait.CanSpeak.Name",
-    description: (t4) => t4("Trait.CanSpeak.Description"),
+    description: () => ({
+      key: "Trait.CanSpeak.Description"
+    }),
     apply: id2
   }
 }, {
   weight: 1,
   value: {
     name: "Trait.PossessedByDemon.Name",
-    description: (t4) => t4("Trait.PossessedByDemon.Description"),
+    description: () => ({
+      key: "Trait.PossessedByDemon.Description"
+    }),
     apply: id2
   }
 }];
@@ -19650,7 +19694,7 @@ var monsterAttacks = {
       Fear: true
     }),
     description: "Attack.NightmareVisions.Description",
-    valid: (rm) => rm.traits.some((t4) => t4.description(id2).includes("Trait.Intelligent.Telepathy")),
+    valid: (rm) => rm.traits.some((t4) => t4.description().key.includes("Trait.Intelligent.Telepathy")),
     singleUse: false
   },
   MindBurst: {
@@ -19662,7 +19706,7 @@ var monsterAttacks = {
       Fear: true
     }),
     description: "Attack.MindBurst.Description",
-    valid: (rm) => rm.traits.some((t4) => t4.description(id2).includes("Trait.Intelligent.Telepathy")) && rm.damageModifiers.Telepathic > 1,
+    valid: (rm) => rm.traits.some((t4) => t4.description().key.includes("Trait.Intelligent.Telepathy")) && rm.damageModifiers.Telepathic > 1,
     singleUse: false
   },
   WrapAttack: {
@@ -19990,11 +20034,11 @@ var createRandomMonster = () => {
     attackRequirements: createAttackRequirements(traits, tail.key, headOptions.map((ho) => ho.key), limbs)
   };
 };
-var createRandomMonsterViewModelFromRandomMonster = (t4) => (rm) => {
+var createRandomMonsterViewModelFromRandomMonster = (rm) => {
   const movement = getMovement(weightedRandom, rm.attributes.agility);
   return {
     ...rm,
-    description: createDescription(rm.description, t4),
+    description: createDescription(rm.description),
     movement,
     attributes: createAttributesViewModel(rm.attributes),
     traits: rm.traits.map(({
@@ -20002,7 +20046,7 @@ var createRandomMonsterViewModelFromRandomMonster = (t4) => (rm) => {
       description
     }) => ({
       name,
-      description: description(t4)
+      description: description()
     })),
     skills: getMonsterSkillListItems(rm.skills),
     motivation: {
@@ -20016,7 +20060,7 @@ var createRandomMonsterViewModelFromRandomMonster = (t4) => (rm) => {
   };
 };
 var applyMonsterTraits = (rm) => rm.traits.reduce((acc, cur) => cur.apply(acc), rm);
-var createRandomMonsterViewModel = (t4) => compose(createRandomMonsterViewModelFromRandomMonster(t4), applyMonsterTraits, createRandomMonster)();
+var createRandomMonsterViewModel = compose(createRandomMonsterViewModelFromRandomMonster, applyMonsterTraits, createRandomMonster);
 var rollForMonsterLimbs = (choices) => {
   const allLimbs = [];
   let rolls = 0;
@@ -20039,12 +20083,18 @@ var rollForMonsterLimbs = (choices) => {
     ...defaultMonsterLimbs
   });
 };
-var getLimbsDescription = (t4, limbs, tail) => {
+var getLimbsDescription = (limbs, tail) => {
   const actualLimbs = Object.entries(limbs).reduce((acc, [limbName, amountOfLimb]) => amountOfLimb > 0 ? [...acc, [`Limbs.${limbName}`, amountOfLimb]] : acc, []);
-  const limbsDescriptions = actualLimbs.length === 0 ? [t4("Limbs.None")] : actualLimbs.map(([key, value]) => `${value} ${t4(key)}`);
-  const tailDescription = [tail ? [tail] : []].flat();
-  const [lastLimb, ...restOfLimbs] = [tailDescription, limbsDescriptions].flat();
-  return restOfLimbs.length > 0 ? `${t4("TheMonsterHas")} ${restOfLimbs.join(", ")} & ${lastLimb}` : `${t4("TheMonsterHas")} ${lastLimb}`;
+  const limbsDescriptions = actualLimbs.length === 0 ? [{
+    key: "Limbs.None"
+  }] : actualLimbs.map(([key, value]) => ({
+    key,
+    count: value
+  }));
+  const tailDescription = [tail ? [{
+    key: tail
+  }] : []].flat();
+  return [limbsDescriptions, tailDescription].flat();
 };
 var getHeads = (choices) => {
   let totalRolls = 0;
@@ -20169,18 +20219,18 @@ var createDescription = ({
   heads,
   limbs,
   tail
-}, t4) => {
-  const [lastHead, ...restOfHeads] = heads.map(({
-    key,
-    count
-  }) => t4(`Head.${key}`, {
-    count
-  }));
-  const tailDescription = tail.key !== "None" ? t4(`Tail.${tail.key}`) : void 0;
+}) => {
+  const tailDescription = tail.key !== "None" ? `Tail.${tail.key}` : void 0;
   return {
-    head: restOfHeads.length > 0 ? `${restOfHeads.join(", ")} & ${lastHead}` : lastHead,
+    head: heads.map(({
+      key,
+      count
+    }) => ({
+      key: `Head.${key}`,
+      count
+    })),
     tail: tailDescription,
-    limbs: getLimbsDescription(t4, limbs, tailDescription)
+    limbs: getLimbsDescription(limbs, tailDescription)
   };
 };
 var createDamageModifiers = (tailDamage, sizeDamage) => ({
@@ -20200,13 +20250,13 @@ var MonstersPage = () => {
   const monsters = bookMonsters.map(createMonstersViewModel).sort(monsterComparer(t4));
   const [monster, setMonster] = useState(monsters[0]);
   const [showRandomMonster, setShowRandomMonster] = useState(true);
-  const [randomMonster, setRandomMonster] = useState(createRandomMonsterViewModel(t4));
+  const [randomMonster, setRandomMonster] = useState(createRandomMonsterViewModel());
   const selectMonster = (m3) => {
     setMonster(m3);
     setShowRandomMonster(false);
   };
   const generateRandomMonster = () => {
-    setRandomMonster(createRandomMonsterViewModel(t4));
+    setRandomMonster(createRandomMonsterViewModel());
     setShowRandomMonster(true);
   };
   useEffect(() => {

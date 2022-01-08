@@ -1,6 +1,7 @@
 {
   "Title": "Monsters",
   "BookMonsters": "Monsters from the book",
+  "TheMonster": "The monster",
   "TheMonsterHas": "The monster has",
   "TheMonsterHave": "The monster have",
   "GenerateMonster": "Generate Monster",
@@ -45,6 +46,13 @@
     "Tail": "a tail",
     "SpikedTail": "a spiked tail"
   },
+  "Limbs": {
+    "Arms_count": "{{count}} arms",
+    "Legs_count": "{{count}} legs",
+    "Tentacles_count": "{{count}} tentacles",
+    "Wings_count": "{{count}} wings",
+    "None": "no limbs"
+  },
   "ArmorLabel": "Armor",
   "Armor": {
     "Skin": "Skin",
@@ -65,13 +73,6 @@
     "Cave": "cave",
     "Ravine": "ravine",
     "Den": "den"
-  },
-  "Limbs": {
-    "Arms": "arms",
-    "Legs": "legs",
-    "Tentacles": "tentacles",
-    "Wings": "wings",
-    "None": "no limbs"
   },
   "Skill": "Skills",
   "Skills": {
@@ -95,7 +96,10 @@
   "Poisons": {
     "Lethal": "Lethal",
     "Paralyzing": "Paralyzing",
-    "Sleeping": "Sleeping"
+    "Sleeping": "Sleeping",
+    "Lethal_count": "Lethal ({{count}})",
+    "Paralyzing_count": "Paralyzing ({{count}})",
+    "Sleeping_count": "Sleeping ({{count}})"
   },
   "Trait": {
     "Traits": "Traits",

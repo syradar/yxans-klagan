@@ -1,7 +1,8 @@
 {
   "Title": "Monster",
   "BookMonsters": "Monster från boken",
-  "TheMonsterHas": "Monstret",
+  "TheMonster": "Monstret",
+  "TheMonsterHas": "Monstret har",
   "TheMonsterHave": "Monstret har",
   "GenerateMonster": "Skapa monster",
   "RandomMonster": "Slumpa fram monster",
@@ -29,21 +30,28 @@
   },
   "Head": {
     "Missing": "saknar huvud",
-    "Beak": "har en näbb",
-    "HornWithCount": "har {{count}} horn på huvudet",
-    "ElkHorns": "har älghorm",
-    "TentaclesWithCount": "har {{count}} tentakler på huvudet",
-    "InsectoidEyes": "har insektsliknande ögon",
-    "SideEyesWithCount": "har {{count}} ögon på var sida på sitt huvud",
-    "ManyEyes": "har massvis med ögon",
-    "BigMane": "har en stor man",
-    "LongTongue": "har en lång tunga",
-    "BigEars": "har stora öron",
+    "Beak": "en näbb",
+    "HornWithCount": "{{count}} horn på huvudet",
+    "ElkHorns": "älghorm",
+    "TentaclesWithCount": "{{count}} tentakler på huvudet",
+    "InsectoidEyes": "insektsliknande ögon",
+    "SideEyesWithCount": "{{count}} ögon på var sida på sitt huvud",
+    "ManyEyes": "massvis med ögon",
+    "BigMane": "en stor man",
+    "LongTongue": "en lång tunga",
+    "BigEars": "stora öron",
     "Fin": "en fena på toppen av huvudet"
   },
   "Tail": {
     "Tail": "har en svans",
     "SpikedTail": "har en spikförsedd svans"
+  },
+  "Limbs": {
+    "Arms_count": "{{count}} armar",
+    "Legs_count": "{{count}} ben",
+    "Tentacles_count": "{{count}} tentakler",
+    "Wings_count": "{{count}} vingar",
+    "None": "inga lemmar"
   },
   "ArmorLabel": "Skydd",
   "Armor": {
@@ -88,7 +96,10 @@
   "Poisons": {
     "Lethal": "Dödlig",
     "Paralyzing": "Paralyserande",
-    "Sleeping": "Sövande"
+    "Sleeping": "Sövande",
+    "Lethal_count": "Dödlig ({{count}})",
+    "Paralyzing_count": "Paralyserande ({{count}})",
+    "Sleeping_count": "Sövande ({{count}})"
   },
   "Trait": {
     "Traits": "Egenskaper",
