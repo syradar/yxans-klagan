@@ -3,7 +3,11 @@ import { useTranslation } from 'react-i18next'
 import 'twin.macro'
 import tw, { styled } from 'twin.macro'
 import { rollD6 } from '../functions/dice.functions'
-import { MonsterType, RandomMonsterViewModel } from '../models/monster.model'
+import {
+  MonsterDescriptionItemViewModel,
+  MonsterType,
+  RandomMonsterViewModel,
+} from '../models/monster.model'
 import { getId } from '../models/utils.model'
 import { DefinitionList } from './definition-list'
 import { MonsterAttack } from './monster-attack'
@@ -40,6 +44,40 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
         return {}
     }
   }
+  const describeMonsterHeads = (
+    heads: MonsterDescriptionItemViewModel[],
+  ): string => {
+    const translatedHeads = heads.map((h) =>
+      h.count ? t(h.key, { count: h.count }) : t(h.key),
+    )
+
+    if (translatedHeads.length === 1) {
+      return `${t('TheMonsterHas')} ${translatedHeads.join('')}.`
+    }
+
+    const [lastHead, ...restOfHeads] = translatedHeads
+
+    return `${t('TheMonsterHas')} ${restOfHeads.join(', ')} & ${lastHead}.`
+  }
+
+  const describeMonsterLimbs = (
+    limbs: MonsterDescriptionItemViewModel[],
+  ): string => {
+    const translatedLimbs = limbs.map((l) =>
+      l.count ? t(`${l.key}_count`, { count: l.count }) : t(l.key),
+    )
+
+    if (translatedLimbs.length === 1) {
+      return `${t('TheMonsterHas')} ${translatedLimbs.join('')}.`
+    }
+
+    const [lastLimb, ...restOfLimbs] = [...translatedLimbs].reverse()
+
+    return `${t('TheMonsterHas')} ${restOfLimbs.join(', ')} & ${lastLimb}.`
+  }
+
+  const describeHome = (monsterHome: string): string =>
+    `${t('LivesIn', { home: t(`Homes.${monsterHome}`) })}.`
 
   return (
     <Pancake wrap={false}>
@@ -50,8 +88,11 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
 
       <div className="yx-prose" tw="max-w-prose mb-4">
         <p>
-          {t('TheMonsterHas')} {rm.description.head}. {rm.description.limbs}.{' '}
-          {t('LivesIn', { home: t(`Homes.${rm.home}`) })}.
+          {[
+            describeMonsterHeads(rm.description.head),
+            describeMonsterLimbs(rm.description.limbs),
+            describeHome(rm.home),
+          ].join(' ')}
         </p>
       </div>
 
@@ -127,7 +168,9 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
               <DefinitionList
                 definitions={rm.traits.map((trait) => ({
                   name: t(trait.name),
-                  description: trait.description,
+                  description: t(trait.description.key, {
+                    count: trait.description.count,
+                  }),
                 }))}
               ></DefinitionList>
             </section>
