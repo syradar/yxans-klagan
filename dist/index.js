@@ -1,5 +1,13 @@
 var __defProp = Object.defineProperty;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, {enumerable: true, configurable: true, writable: true, value}) : obj[key] = value;
+var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
+var __commonJS = (callback, module) => () => {
+  if (!module) {
+    module = {exports: {}};
+    callback(module.exports, module);
+  }
+  return module.exports;
+};
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, {get: all[name], enumerable: true});
@@ -8,6 +16,1868 @@ var __publicField = (obj, key, value) => {
   __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
   return value;
 };
+
+// build/dist/pages/calendar.page.js
+var require_calendar_page = __commonJS((exports) => {
+  __markAsModule(exports);
+  __export(exports, {
+    CalendarPage: () => CalendarPage2,
+    default: () => calendar_page_default
+  });
+  var DEFAULT_SHOW_WEATHER = true;
+  var CALENDAR_SHOW_WEATHER_KEY = "calendar_show_weather";
+  var CALENDAR_SCROLL_POSITION = "calendar_scroll";
+  var CalendarPage2 = () => {
+    const {
+      t: t4
+    } = useTranslation("calendar");
+    const showWeatherFromStorage = localStorage.getItem(CALENDAR_SHOW_WEATHER_KEY) ?? void 0;
+    const calendarFromStorageOrDefault = loadCalendar();
+    const showWeatherFromStorageOrDefault = notNullish(showWeatherFromStorage) ? JSON.parse(showWeatherFromStorage) : DEFAULT_SHOW_WEATHER;
+    const [calendarState, setCalendarState] = useState(calendarFromStorageOrDefault);
+    const [calendar, setCalendar] = useLocalStorage(CALENDAR_KEY_V4, calendarFromStorageOrDefault);
+    useEffect(() => {
+      setCalendar(calendarState);
+      setAllCollapsed(calendarState.months.every((m3) => m3.collapsed));
+    }, [calendarState]);
+    const [showWeather, setShowWeather] = useLocalStorage(CALENDAR_SHOW_WEATHER_KEY, showWeatherFromStorageOrDefault);
+    const [allCollapsed, setAllCollapsed] = useState(void 0);
+    const [showCalenderOptions, setShowCalenderOptions] = useState(false);
+    const [showYearOption, setShowYearOption] = useState(false);
+    useEffect(() => {
+      if (!showCalenderOptions) {
+        setShowYearOption(false);
+      }
+    }, [showCalenderOptions]);
+    const handleMonthUpdate = (month2) => {
+      setCalendarState({
+        ...calendarState,
+        months: calendarState.months.map((m3) => {
+          if (m3.name !== month2.name) {
+            return m3;
+          }
+          return month2;
+        })
+      });
+    };
+    const handleTemperatureChange = (unit) => {
+      setCalendarState({
+        ...calendar,
+        temperatureUnit: unit
+      });
+    };
+    const collapseAll = (cal, collapse) => {
+      return {
+        ...cal,
+        months: cal.months.map((month2) => {
+          return {
+            ...month2,
+            collapsed: collapse
+          };
+        })
+      };
+    };
+    const handleToggleCollapseAll = () => {
+      setCalendarState(collapseAll(calendarState, !allCollapsed));
+    };
+    const handleUpdatingStartingDay = (dayName) => {
+      setCalendarState(updateStartingDay(calendarState, dayName));
+    };
+    const handleUpdatingYear = (newYear) => {
+      const lastDay = last(last(calendarState.months).days).name;
+      const nextYearsStartDay = getDayName(getDayNumber(lastDay));
+      setCalendarState(getCal(newYear, nextYearsStartDay));
+    };
+    useWindowScrollPosition(CALENDAR_SCROLL_POSITION, notNullish(calendar));
+    return jsx("div", {
+      css: {
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "2rem",
+        width: "100%"
+      }
+    }, jsx(PageHeader, null, t4("Title")), jsx("div", {
+      css: {
+        textAlign: "center",
+        fontSize: "1.25rem",
+        lineHeight: "1.75rem",
+        marginBottom: "0.5rem",
+        textTransform: "none"
+      },
+      className: "yx-prose"
+    }, t4("Year"), " ", calendarState.year, " ", t4("AS")), jsx("div", {
+      css: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "0px"
+      }
+    }, jsx("div", {
+      css: {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
+        padding: "0.5rem",
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "flex-end",
+        gap: "0.5rem"
+      }
+    }, jsx(Button, {
+      isSmall: true,
+      variant: "secondary",
+      onClick: () => handleToggleCollapseAll()
+    }, t4(allCollapsed ? `ShowAll` : `HideAll`)), jsx(Button, {
+      isSmall: true,
+      variant: "secondary",
+      onClick: () => handleTemperatureChange(calendar.temperatureUnit === TemperatureUnit.Metric ? TemperatureUnit.Imperial : TemperatureUnit.Metric)
+    }, t4("Use"), " ", calendar.temperatureUnit === TemperatureUnit.Metric ? t4("F") : t4("C")), jsx(Button, {
+      variant: "secondary",
+      isSmall: true,
+      onClick: () => setShowWeather(!showWeather)
+    }, showWeather ? t4("Weather-Hide") : t4("Weather-Show")), jsx(Button, {
+      css: [showCalenderOptions ? {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(255, 255, 255, var(--tw-text-opacity))"
+      } : {}],
+      variant: "secondary",
+      isSmall: true,
+      onClick: () => setShowCalenderOptions(!showCalenderOptions)
+    }, "...")), showCalenderOptions && jsx("div", {
+      css: {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
+        paddingTop: "2rem",
+        paddingBottom: "2rem",
+        paddingLeft: "1rem",
+        paddingRight: "1rem",
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.5rem"
+      }
+    }, jsx("h3", {
+      css: {
+        fontWeight: "700",
+        textTransform: "uppercase",
+        letterSpacing: "0.025em"
+      }
+    }, t4("Options-StartingYear")), jsx("div", {
+      css: {
+        padding: "1rem",
+        borderWidth: "2px",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(220, 38, 38, var(--tw-border-opacity))",
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(254, 226, 226, var(--tw-bg-opacity))",
+        fontWeight: "700",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem"
+      }
+    }, jsx("p", {
+      css: {
+        marginBottom: "0.5rem",
+        "--tw-text-opacity": "1",
+        color: "rgba(220, 38, 38, var(--tw-text-opacity))"
+      }
+    }, t4("Options-StartingYearWarning")), jsx("div", null, jsx(Button, {
+      css: {
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(220, 38, 38, var(--tw-border-opacity))",
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(254, 202, 202, var(--tw-bg-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(185, 28, 28, var(--tw-text-opacity))",
+        ":hover": {
+          "--tw-text-opacity": "1",
+          color: "rgba(255, 255, 255, var(--tw-text-opacity))",
+          "--tw-bg-opacity": "1",
+          backgroundColor: "rgba(220, 38, 38, var(--tw-bg-opacity))",
+          "--tw-border-opacity": "1",
+          borderColor: "rgba(220, 38, 38, var(--tw-border-opacity))"
+        }
+      },
+      isSmall: true,
+      onClick: () => setShowYearOption(true),
+      disabled: showYearOption,
+      variant: showYearOption ? "disabled" : void 0
+    }, t4("Options-StartingYearNag"))), showYearOption && jsx(Stepper, {
+      max: 1e4,
+      min: -2e3,
+      value: calendarState.year,
+      id: "yearChanger",
+      onChange: (val) => {
+        handleUpdatingYear(val);
+      }
+    })), jsx("h3", {
+      css: {
+        marginTop: "1rem",
+        fontWeight: "700",
+        textTransform: "uppercase",
+        letterSpacing: "0.025em"
+      }
+    }, t4("Options-StartingDay")), jsx("div", {
+      css: {
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "0.5rem"
+      }
+    }, jsx(Button, {
+      onClick: () => handleUpdatingStartingDay("SunDay"),
+      isSmall: true
+    }, t4("SunDay")), jsx(Button, {
+      onClick: () => handleUpdatingStartingDay("MoonDay"),
+      isSmall: true
+    }, t4("MoonDay")), jsx(Button, {
+      onClick: () => handleUpdatingStartingDay("BloodDay"),
+      isSmall: true
+    }, t4("BloodDay")), jsx(Button, {
+      onClick: () => handleUpdatingStartingDay("EarthDay"),
+      isSmall: true
+    }, t4("EarthDay")), jsx(Button, {
+      onClick: () => handleUpdatingStartingDay("GrowthDay"),
+      isSmall: true
+    }, t4("GrowthDay")), jsx(Button, {
+      onClick: () => handleUpdatingStartingDay("HarvestDay"),
+      isSmall: true
+    }, t4("HarvestDay")), jsx(Button, {
+      onClick: () => handleUpdatingStartingDay("StillDay"),
+      isSmall: true
+    }, t4("StillDay"))))), jsx("div", null, calendarState.months.map((month2) => {
+      return jsx(CalendarMonth, {
+        key: month2.name,
+        month: month2,
+        showWeather,
+        onMonthUpdate: handleMonthUpdate,
+        temperatureUnit: calendarState.temperatureUnit
+      });
+    })));
+  };
+  var calendar_page_default = CalendarPage2;
+});
+
+// build/dist/pages/dice-roller.page.js
+var require_dice_roller_page = __commonJS((exports) => {
+  __markAsModule(exports);
+  __export(exports, {
+    DiceRollerPage: () => DiceRollerPage2,
+    default: () => dice_roller_page_default
+  });
+  var DiceRollerPage2 = () => {
+    const [diceResults, setDiceResult] = useState({
+      attribute: [],
+      skill: [],
+      gear: [],
+      artifact: []
+    });
+    const [successes, setSuccesses] = useState(0);
+    const rollDice = () => {
+      const attributeResults = range2(attributeDiceAmount).map((_24) => getRandomInt());
+      const skillResults = range2(skillDiceAmount).map((_24) => getRandomInt());
+      const results = {
+        attribute: attributeResults,
+        skill: skillResults,
+        gear: [],
+        artifact: []
+      };
+      setDiceResult(results);
+      setSuccesses([...results.attribute, ...results.skill].reduce((acc, cur) => acc + countSuccesses(cur), 0));
+    };
+    const [attributeDiceAmount, setAttributeDiceAmount] = useState(1);
+    const attributeDiceAmountChanged = (value) => {
+      setAttributeDiceAmount(value);
+    };
+    const [skillDiceAmount, setSkillDiceAmount] = useState(0);
+    const skillDiceAmountChanged = (value) => {
+      setSkillDiceAmount(value);
+    };
+    return jsx("div", {
+      css: {
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "2rem",
+        width: "100%"
+      }
+    }, jsx(PageHeader, null, "Tärningar"), jsx(Parchment, null, jsx("div", {
+      css: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem"
+      }
+    }, jsx("div", {
+      css: {
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "0.5rem",
+        marginBottom: "1rem"
+      }
+    }, jsx(Stepper, {
+      id: "attributes",
+      label: "Attribut",
+      min: 1,
+      max: 6,
+      value: attributeDiceAmount,
+      onChange: attributeDiceAmountChanged
+    }), jsx(Stepper, {
+      id: "attributes",
+      label: "Färdighet",
+      min: 0,
+      max: 5,
+      value: skillDiceAmount,
+      onChange: skillDiceAmountChanged
+    }), jsx(Stepper, {
+      id: "attributes",
+      label: "Gear",
+      min: 0,
+      max: 5,
+      value: skillDiceAmount,
+      onChange: skillDiceAmountChanged
+    }), jsx(Stepper, {
+      id: "attributes",
+      label: "Artefakt",
+      min: 0,
+      max: 5,
+      value: skillDiceAmount,
+      onChange: skillDiceAmountChanged
+    })), jsx("div", null, jsx(Button, {
+      onClick: () => rollDice()
+    }, "Slå tärning"), jsx(Button, {
+      variant: "secondary"
+    }, "Pressa slag"), jsx(Button, {
+      isSmall: true
+    }, "stäng")), jsx("div", null, jsx("div", null, "Lyckade: ", successes), diceResults.attribute.length > 0 && jsx(react.Fragment, null, jsx("div", null, "Attribut"), diceResults.attribute.map((val, index) => jsx("div", {
+      key: index
+    }, jsx(DiceDisplay, {
+      value: val
+    })))), diceResults.skill.length > 0 && jsx(react.Fragment, null, jsx("div", null, "Färdighet"), diceResults.skill.map((val, index) => jsx("div", {
+      key: index
+    }, jsx(DiceDisplay, {
+      value: val
+    }))))))));
+  };
+  var dice_roller_page_default = DiceRollerPage2;
+});
+
+// build/dist/pages/encounter.page.js
+var require_encounter_page = __commonJS((exports) => {
+  __markAsModule(exports);
+  __export(exports, {
+    EncounterPage: () => EncounterPage2,
+    default: () => encounter_page_default
+  });
+  var EncounterPage2 = () => {
+    const {
+      t: t4,
+      i18n
+    } = useTranslation(["encounters", "common"]);
+    const [encounter, setEncounter] = useState(void 0);
+    const [oldTerrain, setOldTerrain] = useState(void 0);
+    const [encounterLog, setEncounterLog] = useState([]);
+    const generateNewEncounter = (terrain2) => {
+      const roll = rollD66();
+      const randomEncounter = getRandomEncounter(roll, terrain2, i18n.language);
+      setEncounter(randomEncounter);
+      if (terrain2 === void 0 && oldTerrain === void 0 || terrain2 === oldTerrain) {
+        setEncounterLog([{
+          ...randomEncounter,
+          timeStamp: new Date().getTime()
+        }, ...encounterLog]);
+      } else {
+        setEncounterLog([{
+          ...randomEncounter,
+          timeStamp: new Date().getTime()
+        }]);
+      }
+      setOldTerrain(terrain2);
+    };
+    const handleClick = (terrain2) => {
+      generateNewEncounter(terrain2);
+    };
+    useEffect(() => {
+      if (oldTerrain && encounter) {
+        setEncounter(getEncounterById(encounter.id, i18n.language));
+        setEncounterLog(encounterLog.map((el) => {
+          return {
+            ...el,
+            ...getEncounterById(el.id, i18n.language)
+          };
+        }));
+      }
+    }, [i18n.language]);
+    return jsx("div", {
+      css: {
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "2rem",
+        width: "100%",
+        alignItems: "center"
+      }
+    }, jsx(PageHeader, null, t4("Title")), jsx("div", {
+      css: {
+        width: "100%",
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
+        padding: "0.5rem"
+      }
+    }, jsx(Train, {
+      spacing: "small"
+    }, getTerrainKeys().map((terrain2) => jsx(Button, {
+      key: terrain2,
+      isSmall: true,
+      onClick: () => {
+        handleClick(terrain2);
+      }
+    }, t4(`Terrain.${terrain2}`, {
+      ns: "common"
+    }))))), jsx("div", {
+      css: {
+        width: "100%",
+        display: "grid",
+        gridAutoColumns: "auto",
+        gap: "4rem",
+        "@media (min-width: 768px)": {
+          gridAutoFlow: "column"
+        }
+      }
+    }, encounter && jsx("div", {
+      css: {
+        maxWidth: "65ch",
+        "@media (min-width: 1024px)": {
+          width: "65ch"
+        }
+      }
+    }, jsx(Encounter, {
+      encounter: {
+        ...encounter
+      }
+    })), !encounter && jsx("div", null), !encounterLog && jsx("div", null), encounterLog && jsx("ul", {
+      css: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.25rem"
+      }
+    }, encounterLog.map((el) => jsx("li", {
+      css: {
+        display: "flex",
+        gap: "0.25rem"
+      },
+      key: el.timeStamp
+    }, jsx("div", {
+      css: {
+        fontWeight: "500"
+      }
+    }, el.id, ": ", el.title), jsx("div", null, "(s. ", el.page, ")"))))));
+  };
+  var encounter_page_default = EncounterPage2;
+});
+
+// build/dist/pages/finds.page.js
+var require_finds_page = __commonJS((exports) => {
+  __markAsModule(exports);
+  __export(exports, {
+    FindsPage: () => FindsPage2,
+    default: () => finds_page_default
+  });
+  var FindsPage2 = () => {
+    const {
+      t: t4,
+      i18n
+    } = useTranslation(["finds"]);
+    const [transition, setTransition] = useState(false);
+    const createFind = (location, type) => {
+      return {
+        ...getRandomFind(finds[location][type]),
+        id: getId()
+      };
+    };
+    const [findData, setFindData] = useState(createFind("Carried", "Simple"));
+    const updateFindData = (location, type) => {
+      setFindData(() => createFind(location, type));
+    };
+    const [find, setFind] = useState(createFindViewModel(findData));
+    useEffect(() => {
+      setFind(() => createFindViewModel(findData));
+      setTransition(true);
+      setTimeout(() => {
+        setTransition(false);
+      }, 100);
+    }, [findData]);
+    return jsx("div", {
+      css: {
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "2rem",
+        width: "100%",
+        paddingBottom: "4rem"
+      }
+    }, jsx(PageHeader, null, t4("Title")), jsx("div", {
+      css: {
+        "@media (min-width: 768px)": {
+          maxWidth: "768px",
+          width: "100%",
+          marginLeft: "auto",
+          marginRight: "auto"
+        }
+      }
+    }, jsx("div", {
+      css: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "4rem"
+      }
+    }, jsx(Grid, {
+      cols: "2"
+    }, jsx(Pancake, null, jsx("h2", {
+      css: {
+        textAlign: "center",
+        fontSize: "1.875rem",
+        lineHeight: "2.25rem"
+      },
+      className: "yx-heading"
+    }, t4("Find.Location.Carried")), jsx(Button, {
+      variant: "secondary",
+      css: {
+        paddingLeft: "0px",
+        paddingRight: "0px",
+        maxWidth: "100%",
+        backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
+        "--tw-gradient-to": "#d97706",
+        "--tw-gradient-from": "#92400e",
+        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(146, 64, 14, 0))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(146, 64, 14, var(--tw-border-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(255, 251, 235, var(--tw-text-opacity))",
+        ":hover": {
+          "--tw-gradient-to": "#f59e0b",
+          "--tw-gradient-from": "#b45309",
+          "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(180, 83, 9, 0))",
+          "--tw-border-opacity": "1",
+          borderColor: "rgba(180, 83, 9, var(--tw-border-opacity))",
+          "--tw-text-opacity": "1",
+          color: "rgba(255, 251, 235, var(--tw-text-opacity))"
+        },
+        ":focus-visible": {
+          outline: "2px dotted black",
+          outlineOffset: "2px",
+          outlineStyle: "solid"
+        }
+      },
+      onClick: () => updateFindData("Carried", "Simple")
+    }, t4("Find.Type.Simple")), jsx(Button, {
+      variant: "secondary",
+      css: {
+        paddingLeft: "0px",
+        paddingRight: "0px",
+        maxWidth: "100%",
+        backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
+        "--tw-gradient-to": "#f3f4f6",
+        "--tw-gradient-from": "#d1d5db",
+        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(209, 213, 219, 0))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(31, 41, 55, var(--tw-text-opacity))",
+        ":hover": {
+          "--tw-gradient-to": "#f9fafb",
+          "--tw-gradient-from": "#e5e7eb",
+          "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(229, 231, 235, 0))",
+          "--tw-border-opacity": "1",
+          borderColor: "rgba(229, 231, 235, var(--tw-border-opacity))",
+          "--tw-text-opacity": "1",
+          color: "rgba(31, 41, 55, var(--tw-text-opacity))"
+        },
+        ":focus-visible": {
+          outline: "2px dotted black",
+          outlineOffset: "2px",
+          outlineStyle: "solid"
+        }
+      },
+      onClick: () => updateFindData("Carried", "Valuable")
+    }, t4("Find.Type.Valuable")), jsx(Button, {
+      variant: "secondary",
+      css: {
+        paddingLeft: "0px",
+        paddingRight: "0px",
+        maxWidth: "100%",
+        backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
+        "--tw-gradient-to": "#fef3c7",
+        "--tw-gradient-from": "#fbbf24",
+        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(251, 191, 36, 0))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(251, 191, 36, var(--tw-border-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(120, 53, 15, var(--tw-text-opacity))",
+        ":hover": {
+          "--tw-gradient-to": "#fffbeb",
+          "--tw-gradient-from": "#fcd34d",
+          "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(252, 211, 77, 0))",
+          "--tw-border-opacity": "1",
+          borderColor: "rgba(252, 211, 77, var(--tw-border-opacity))",
+          "--tw-text-opacity": "1",
+          color: "rgba(120, 53, 15, var(--tw-text-opacity))"
+        },
+        ":focus-visible": {
+          outline: "2px dotted black",
+          outlineOffset: "2px",
+          outlineStyle: "solid"
+        }
+      },
+      onClick: () => updateFindData("Carried", "Precious")
+    }, t4("Find.Type.Precious"))), jsx(Pancake, null, jsx("h2", {
+      css: {
+        textAlign: "center",
+        fontSize: "1.875rem",
+        lineHeight: "2.25rem"
+      },
+      className: "yx-heading"
+    }, t4("Find.Location.Lair")), jsx(Button, {
+      css: {
+        paddingLeft: "0px",
+        paddingRight: "0px",
+        maxWidth: "100%",
+        backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
+        "--tw-gradient-to": "#d97706",
+        "--tw-gradient-from": "#92400e",
+        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(146, 64, 14, 0))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(146, 64, 14, var(--tw-border-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(255, 251, 235, var(--tw-text-opacity))",
+        ":hover": {
+          "--tw-gradient-to": "#f59e0b",
+          "--tw-gradient-from": "#b45309",
+          "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(180, 83, 9, 0))",
+          "--tw-border-opacity": "1",
+          borderColor: "rgba(180, 83, 9, var(--tw-border-opacity))",
+          "--tw-text-opacity": "1",
+          color: "rgba(255, 251, 235, var(--tw-text-opacity))"
+        },
+        ":focus-visible": {
+          outline: "2px dotted black",
+          outlineOffset: "2px",
+          outlineStyle: "solid"
+        }
+      },
+      variant: "secondary",
+      onClick: () => updateFindData("Lair", "Simple")
+    }, t4("Find.Type.Simple")), jsx(Button, {
+      css: {
+        paddingLeft: "0px",
+        paddingRight: "0px",
+        maxWidth: "100%",
+        backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
+        "--tw-gradient-from": "#d1d5db",
+        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(209, 213, 219, 0))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(31, 41, 55, var(--tw-text-opacity))",
+        ":hover": {
+          "--tw-gradient-to": "#f9fafb",
+          "--tw-gradient-from": "#e5e7eb",
+          "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(229, 231, 235, 0))",
+          "--tw-border-opacity": "1",
+          borderColor: "rgba(229, 231, 235, var(--tw-border-opacity))",
+          "--tw-text-opacity": "1",
+          color: "rgba(31, 41, 55, var(--tw-text-opacity))"
+        },
+        ":focus-visible": {
+          outline: "2px dotted black",
+          outlineOffset: "2px",
+          outlineStyle: "solid"
+        }
+      },
+      variant: "secondary",
+      onClick: () => updateFindData("Lair", "Valuable")
+    }, t4("Find.Type.Valuable")), jsx(Button, {
+      css: {
+        paddingLeft: "0px",
+        paddingRight: "0px",
+        maxWidth: "100%",
+        backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
+        "--tw-gradient-to": "#fef3c7",
+        "--tw-gradient-from": "#fbbf24",
+        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(251, 191, 36, 0))",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(251, 191, 36, var(--tw-border-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(120, 53, 15, var(--tw-text-opacity))",
+        ":hover": {
+          "--tw-gradient-to": "#fffbeb",
+          "--tw-gradient-from": "#fcd34d",
+          "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(252, 211, 77, 0))",
+          "--tw-border-opacity": "1",
+          borderColor: "rgba(252, 211, 77, var(--tw-border-opacity))",
+          "--tw-text-opacity": "1",
+          color: "rgba(120, 53, 15, var(--tw-text-opacity))"
+        },
+        ":focus-visible": {
+          outline: "2px dotted black",
+          outlineOffset: "2px",
+          outlineStyle: "solid"
+        }
+      },
+      variant: "secondary",
+      onClick: () => updateFindData("Lair", "Precious")
+    }, t4("Find.Type.Precious")))), jsx("div", {
+      css: [{
+        transitionProperty: "transform",
+        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+        transitionDuration: "150ms",
+        "--tw-translate-y": "0px",
+        transform: "var(--tw-transform)"
+      }, transition && {
+        "--tw-translate-y": "0.25rem",
+        transform: "var(--tw-transform)"
+      }]
+    }, jsx(Parchment, {
+      deps: [find, i18n.language]
+    }, jsx(Pancake, null, jsx("h2", {
+      css: {
+        textAlign: "center",
+        fontSize: "1.5rem",
+        lineHeight: "2rem",
+        marginBottom: "1rem",
+        "@media (min-width: 1024px)": {
+          fontSize: "2.25rem",
+          lineHeight: "2.5rem"
+        }
+      },
+      className: "yx-heading"
+    }, t4(`Find.${find.title}`)), jsx(Pancake, null, jsx(Stat, {
+      size: "large",
+      label: t4("Value")
+    }, find.value.length > 0 ? find.value.map((v2) => `${v2.coins} ${t4(v2.label)}`).join(", ") : "–"), jsx(Grid, {
+      cols: "3"
+    }, jsx(Stat, {
+      label: t4("Weight")
+    }, find.weight), jsx(Stat, {
+      label: t4("Type")
+    }, t4(`Find.Type.${find.type}`)), jsx(Stat, {
+      label: t4("Location")
+    }, t4(`Find.Location.${find.location}`))))))))));
+  };
+  var finds_page_default = FindsPage2;
+});
+
+// build/dist/pages/gear.page.js
+var require_gear_page = __commonJS((exports) => {
+  __markAsModule(exports);
+  __export(exports, {
+    GearPage: () => GearPage2,
+    default: () => gear_page_default
+  });
+  var GearPage2 = () => {
+    return jsx("div", {
+      css: {
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "2rem",
+        width: "100%"
+      }
+    }, jsx(PageHeader, null, "Utrustning"), jsx("div", null, jsx(Parchment, null, jsx("h2", {
+      css: {
+        fontSize: "2.25rem",
+        lineHeight: "2.5rem",
+        textAlign: "center",
+        display: "flex",
+        marginBottom: "1rem"
+      },
+      className: "yx-heading"
+    }, "Vanliga tjänster"), jsx("table", {
+      css: {
+        width: "100%"
+      }
+    }, jsx("thead", {
+      css: {
+        display: "none",
+        "@media (min-width: 1024px)": {
+          display: "table-header-group"
+        }
+      }
+    }, jsx("tr", null, jsx("td", {
+      css: {
+        fontWeight: "700",
+        textTransform: "uppercase",
+        paddingLeft: "0.5rem",
+        paddingRight: "0.5rem",
+        paddingTop: "0.25rem",
+        paddingBottom: "0.25rem",
+        borderBottomWidth: "2px",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+      }
+    }, "Tjänst"), jsx("td", {
+      css: {
+        fontWeight: "700",
+        textTransform: "uppercase",
+        paddingLeft: "0.5rem",
+        paddingRight: "0.5rem",
+        paddingTop: "0.25rem",
+        paddingBottom: "0.25rem",
+        borderBottomWidth: "2px",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+      }
+    }, "Pris"), jsx("td", {
+      css: {
+        fontWeight: "700",
+        textTransform: "uppercase",
+        paddingLeft: "0.5rem",
+        paddingRight: "0.5rem",
+        paddingTop: "0.25rem",
+        paddingBottom: "0.25rem",
+        borderBottomWidth: "2px",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+      }
+    }, "Tillgång"), jsx("td", {
+      css: {
+        fontWeight: "700",
+        textTransform: "uppercase",
+        paddingLeft: "0.5rem",
+        paddingRight: "0.5rem",
+        paddingTop: "0.25rem",
+        paddingBottom: "0.25rem",
+        borderBottomWidth: "2px",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+      }
+    }, "Kommentar"))), jsx("tbody", null, regularServices.map((rs, i2) => jsx("tr", {
+      key: rs.service,
+      css: {
+        display: "grid",
+        gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+        "@media (min-width: 1024px)": {
+          display: "table-row"
+        }
+      }
+    }, jsx("td", {
+      css: [{
+        paddingLeft: "0.5rem",
+        paddingRight: "0.5rem",
+        paddingTop: "0.25rem",
+        paddingBottom: "0.25rem",
+        "@media (min-width: 1024px)": {
+          borderBottomWidth: "1px",
+          "--tw-border-opacity": "1",
+          borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+        }
+      }, i2 % 2 === 0 && {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
+      }]
+    }, jsx("div", {
+      css: {
+        fontSize: "0.875rem",
+        lineHeight: "1.25rem",
+        "@media (min-width: 1024px)": {
+          display: "none"
+        }
+      }
+    }, "Tjänst"), rs.service), jsx("td", {
+      css: [{
+        paddingLeft: "0.5rem",
+        paddingRight: "0.5rem",
+        paddingTop: "0.25rem",
+        paddingBottom: "0.25rem",
+        "@media (min-width: 1024px)": {
+          borderBottomWidth: "1px",
+          "--tw-border-opacity": "1",
+          borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+        }
+      }, i2 % 2 === 0 && {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
+      }]
+    }, jsx("div", {
+      css: {
+        fontSize: "0.875rem",
+        lineHeight: "1.25rem",
+        "@media (min-width: 1024px)": {
+          display: "none"
+        }
+      }
+    }, "Pris"), priceFormat(rs.price)), jsx("td", {
+      css: [{
+        paddingLeft: "0.5rem",
+        paddingRight: "0.5rem",
+        paddingTop: "0.25rem",
+        paddingBottom: "0.25rem",
+        "@media (min-width: 1024px)": {
+          borderBottomWidth: "1px",
+          "--tw-border-opacity": "1",
+          borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+        }
+      }, i2 % 2 === 0 && {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
+      }]
+    }, jsx("div", {
+      css: {
+        fontSize: "0.875rem",
+        lineHeight: "1.25rem",
+        "@media (min-width: 1024px)": {
+          display: "none"
+        }
+      }
+    }, "Tillgång"), availabilityFormat(rs.availability)), jsx("td", {
+      css: [{
+        paddingLeft: "0.5rem",
+        paddingRight: "0.5rem",
+        paddingTop: "0.25rem",
+        paddingBottom: "0.25rem",
+        "@media (min-width: 1024px)": {
+          borderBottomWidth: "1px",
+          "--tw-border-opacity": "1",
+          borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
+        }
+      }, i2 % 2 === 0 && {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
+      }]
+    }, jsx("div", {
+      css: {
+        fontSize: "0.875rem",
+        lineHeight: "1.25rem",
+        "@media (min-width: 1024px)": {
+          display: "none"
+        }
+      }
+    }, "Kommentar"), rs.comment ?? ""))))))));
+  };
+  var availabilityFormat = (a2) => {
+    switch (a2) {
+      case `sällsynt`: {
+        const count = getRandomInt() === 6 ? 1 : 0;
+        return `Sällsynt (${count} ex)`;
+      }
+      case `ovanlig`: {
+        const count = getRandomInt() >= 4 ? getRandomInt() : 0;
+        return `Ovanlig (${count} ex)`;
+      }
+      case `vanlig`:
+      default:
+        return `Vanlig`;
+    }
+  };
+  var priceFormat = (sc2) => {
+    const coins = formatCoinPurse(copperToCoinPurse(sc2.copper));
+    const per = perFormat(sc2.per);
+    return `${coins} ${per}`;
+  };
+  var formatCoinPurse = (cp) => {
+    const gold = cp.gold > 0 ? `${cp.gold} guld` : ``;
+    const silver = cp.silver > 0 ? `${cp.silver} silver` : ``;
+    const copper = cp.copper > 0 ? `${cp.copper} koppar` : ``;
+    return [gold, silver, copper].join(" ");
+  };
+  var copperToCoinPurse = (copper) => ({
+    gold: Math.floor(copper / 100),
+    silver: Math.floor(copper % 100 / 10),
+    copper: copper % 100 % 10
+  });
+  var perFormat = (per) => {
+    switch (per) {
+      case "day":
+        return " per dag";
+      case "hex":
+        return " per hexagon";
+      default:
+        return "";
+    }
+  };
+  var regularServices = [{
+    service: "Bad på värdshus",
+    availability: "vanlig",
+    price: {
+      copper: 3
+    }
+  }, {
+    service: "Klippning",
+    availability: "vanlig",
+    price: {
+      copper: 5
+    }
+  }, {
+    service: "Läkarvård",
+    availability: "ovanlig",
+    price: {
+      copper: 5
+    }
+  }, {
+    service: "Livvakt",
+    availability: "ovanlig",
+    price: {
+      copper: 10,
+      per: "day"
+    }
+  }, {
+    service: "Tvätt av kläder",
+    availability: "vanlig",
+    price: {
+      copper: 5
+    }
+  }, {
+    service: "Budbärare",
+    availability: "vanlig",
+    price: {
+      copper: 10,
+      per: "hex"
+    }
+  }, {
+    service: "Vägtull",
+    availability: "vanlig",
+    price: {
+      copper: 2
+    }
+  }, {
+    service: "Övernattning värdshus, sovsal",
+    availability: "vanlig",
+    price: {
+      copper: 2
+    }
+  }, {
+    service: "Övernattning värdshus, eget rum",
+    availability: "vanlig",
+    price: {
+      copper: 5
+    }
+  }, {
+    service: "Ståtligt härbärge",
+    availability: "ovanlig",
+    price: {
+      copper: 20
+    }
+  }, {
+    service: "Skål stuvning",
+    availability: "vanlig",
+    price: {
+      copper: 3
+    },
+    comment: "Täcker dagsbehovet av Mat."
+  }, {
+    service: "Måltid på värdshus",
+    availability: "vanlig",
+    price: {
+      copper: 10
+    },
+    comment: "Täcker dagsbehovet av Mat och Vatten."
+  }, {
+    service: "Festmåltid",
+    availability: "ovanlig",
+    price: {
+      copper: 100
+    },
+    comment: "Täcker dagsbehovet av Mat och Vatten."
+  }, {
+    service: "Stop mjöd",
+    availability: "vanlig",
+    price: {
+      copper: 2
+    },
+    comment: "Täcker dagsbehovet av Vatten."
+  }, {
+    service: "Kalk vin",
+    availability: "ovanlig",
+    price: {
+      copper: 4
+    },
+    comment: "Täcker dagsbehovet av Vatten."
+  }, {
+    service: "Lärare",
+    availability: "ovanlig",
+    price: {
+      copper: 10,
+      per: "day"
+    },
+    comment: "Kan vara dyrare"
+  }];
+  var gear_page_default = GearPage2;
+});
+
+// build/dist/pages/map.page.js
+var require_map_page = __commonJS((exports) => {
+  __markAsModule(exports);
+  __export(exports, {
+    MapPage: () => MapPage2,
+    default: () => map_page_default
+  });
+  var MAP_STORAGE_KEY = "map";
+  var FOG_OF_WAR_STORAGE_KEY = "fogOfWar";
+  var MapPage2 = () => {
+    const {
+      t: t4
+    } = useTranslation("map");
+    const hexasFromStorage = localStorage.getItem(MAP_STORAGE_KEY) ?? void 0;
+    const constructHexas = (hexasFromStorage2) => {
+      if (!hexasFromStorage2) {
+        return initialHexas;
+      }
+      const hexStorages = JSON.parse(hexasFromStorage2);
+      return initialHexas.map((hex) => {
+        return {
+          ...hex,
+          ...hexStorages.find((h2) => h2.hexKey === hex.hexKey) ?? {}
+        };
+      });
+    };
+    const [pasteError, setPasteError] = useState(void 0);
+    const fogOfWarFromStorage = (localStorage.getItem(FOG_OF_WAR_STORAGE_KEY) === "true" ? true : false) ?? false;
+    const [fogOfWar, setFogOfWar] = useState(fogOfWarFromStorage);
+    const atLeastOneExploredHex = (hexas2) => hexas2.filter((h2) => h2.explored).length > 0;
+    const [hexas, setHexas] = useState(constructHexas(hexasFromStorage));
+    const [hasExploredHexas, setHasExploredHexas] = useState(atLeastOneExploredHex(hexas));
+    const [selectedHex, setSelectedHex] = useState(void 0);
+    const [mapPopover, setMapPopover] = useState(void 0);
+    const parchmentRef = useRef(null);
+    const getRect = (hexTarget, parchmentElem) => ({
+      rect: hexTarget.getBoundingClientRect(),
+      parchmentRect: parchmentElem.getBoundingClientRect()
+    });
+    const initialTooltip = {
+      text: "",
+      x: 0,
+      y: 0,
+      hexX: 0,
+      hexY: 0,
+      width: 0,
+      height: 0
+    };
+    const [tooltip, setTooltip] = useState(initialTooltip);
+    const handleTooltip = (e3, hex) => {
+      if (parchmentRef.current) {
+        const {
+          rect,
+          parchmentRect
+        } = getRect(e3.currentTarget, parchmentRef.current);
+        setTooltip({
+          x: rect.left - parchmentRect.left,
+          y: rect.top - parchmentRect.top,
+          hexX: rect.left,
+          hexY: rect.top,
+          text: hex.hexKey,
+          width: rect.width,
+          height: rect.height
+        });
+      }
+    };
+    const handleSelectedHex = (selected) => {
+      if (!selected) {
+        setTooltip(initialTooltip);
+      }
+      selectedHex?.elem?.classList.remove("hex-selected");
+      selected?.elem.classList.add("hex-selected");
+      setSelectedHex(selected);
+    };
+    const handleMouseOver = (e3, hex) => {
+      if (!selectedHex) {
+        handleTooltip(e3, hex);
+      }
+    };
+    const handleExploration = (hex) => {
+      setHexas(hexas.map((h2) => {
+        if (h2.hexKey === hex.hexKey) {
+          h2.explored = hex.explored ?? false;
+        }
+        return h2;
+      }));
+    };
+    const handleHexClick = (e3, hex) => {
+      if (parchmentRef.current) {
+        handleSelectedHex({
+          elem: e3.currentTarget,
+          hex
+        });
+        handleTooltip(e3, hex);
+        const {
+          rect,
+          parchmentRect
+        } = getRect(e3.currentTarget, parchmentRef.current);
+        setMapPopover({
+          hex,
+          x: rect.left,
+          y: rect.top,
+          mapMinX: parchmentRect.x,
+          mapMaxX: parchmentRect.width,
+          mapMinY: parchmentRect.y,
+          mapMaxY: parchmentRect.height
+        });
+      }
+    };
+    const handleFileDownload = () => {
+      const hexStorages = hexas.filter((h2) => h2.explored).map(({
+        hexKey,
+        explored
+      }) => ({
+        hexKey,
+        explored
+      }));
+      downloadFile({
+        hexes: hexStorages,
+        fogOfWar
+      }, "map");
+    };
+    const handlePasteMapData = (s) => {
+      setPasteError(void 0);
+      let data;
+      try {
+        data = validateData(s);
+      } catch (error2) {
+        if (error2 instanceof Error) {
+          setPasteError(getPasteErrorLabel(error2));
+        }
+        return;
+      }
+      setHexas(initialHexas.map((hex) => {
+        return {
+          ...hex,
+          ...data.hexes.find((h2) => h2.hexKey === hex.hexKey) ?? {}
+        };
+      }));
+      setFogOfWar(data.fogOfWar);
+    };
+    const parseJson = (s) => {
+      try {
+        return JSON.parse(s);
+      } catch (e3) {
+        return void 0;
+      }
+    };
+    const getPasteErrorLabel = (e3) => {
+      switch (e3.message) {
+        case "InvalidJson":
+          return "InvalidJson";
+        case "NotObject":
+          return "NotObject";
+        case "NoHexesProp":
+          return "NoHexesProp";
+        case "HexesNotArray":
+          return "HexesNotArray";
+        case "InvalidHexData":
+          return "InvalidHexData";
+        default:
+          return "GeneralPasteError";
+      }
+    };
+    const validateData = (s) => {
+      const parsedMapData = parseJson(s);
+      if (isNullish(parsedMapData)) {
+        throw new Error("InvalidJson");
+      }
+      if (typeof parsedMapData !== "object") {
+        throw new Error("NotObject");
+      }
+      const hasHexesProp = has("hexes", parsedMapData);
+      if (!hasHexesProp) {
+        throw new Error("NoHexesProp");
+      }
+      const isHexesArray = Array.isArray(parsedMapData.hexes);
+      if (!isHexesArray) {
+        throw new Error("HexesNotArray");
+      }
+      const isValidHexData = parsedMapData.hexes.every((h2) => {
+        const hasKey = has("hexKey", h2);
+        const hasExplored = has("explored", h2);
+        if (!hasKey || !hasExplored) {
+          return false;
+        }
+        const validKey = isString(h2.hexKey) && isHexKey(h2.hexKey);
+        if (!validKey) {
+          return false;
+        }
+        if (typeof h2.explored !== "boolean") {
+          return false;
+        }
+        return true;
+      });
+      if (!isValidHexData) {
+        throw new Error("InvalidHexData");
+      }
+      return {
+        hexes: parsedMapData.hexes,
+        fogOfWar: parsedMapData.fogOfWar
+      };
+    };
+    useEffect(() => {
+      const hexStorages = hexas.map(({
+        hexKey,
+        explored
+      }) => ({
+        hexKey,
+        explored
+      }));
+      localStorage.setItem(MAP_STORAGE_KEY, JSON.stringify(hexStorages));
+      setHasExploredHexas(atLeastOneExploredHex(hexas));
+    }, [hexas]);
+    useEffect(() => {
+      localStorage.setItem(FOG_OF_WAR_STORAGE_KEY, JSON.stringify(fogOfWar));
+    }, [fogOfWar]);
+    return jsx("div", {
+      css: {
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "2rem",
+        width: "100%"
+      }
+    }, jsx(PageHeader, null, t4("Title")), jsx("div", null, jsx(Parchment, {
+      deps: [tooltip],
+      ref: parchmentRef
+    }, jsx("div", {
+      css: {
+        position: "absolute",
+        zIndex: "10",
+        fontSize: "0.9vw",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        lineHeight: "1",
+        "--tw-text-opacity": "1",
+        color: "rgba(255, 255, 255, var(--tw-text-opacity))",
+        userSelect: "none",
+        fontWeight: "700",
+        textShadow: "0px 0px 1px black",
+        pointerEvents: "none"
+      },
+      style: {
+        top: tooltip.y,
+        left: tooltip.x,
+        width: tooltip.width,
+        height: tooltip.height
+      }
+    }, tooltip.text), jsx(MapPopover, {
+      options: mapPopover,
+      onExploreChanged: (hex) => handleExploration(hex),
+      onHide: () => handleSelectedHex(void 0)
+    }), jsx(Map2, {
+      fogOfWar
+    }, hexas.map((hex, index) => jsx(Polygon, {
+      key: index,
+      hex,
+      onMouseOver: (e3) => handleMouseOver(e3, hex),
+      onClick: (e3) => handleHexClick(e3, hex)
+    }))))), jsx("div", null, pasteError && jsx("div", {
+      css: {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(239, 68, 68, var(--tw-bg-opacity))",
+        "--tw-text-opacity": "1",
+        color: "rgba(255, 255, 255, var(--tw-text-opacity))",
+        fontWeight: "700",
+        padding: "0.5rem",
+        display: "flex",
+        justifyContent: "flex-end"
+      }
+    }, t4(pasteError)), jsx("div", {
+      css: {
+        "--tw-bg-opacity": "1",
+        backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
+        padding: "0.5rem"
+      }
+    }, jsx(Train, null, jsx(Button, {
+      isSmall: true,
+      onClick: () => setFogOfWar(!fogOfWar)
+    }, t4("FogOfWar", {
+      context: fogOfWar ? "On" : "Off"
+    })), jsx(Button, {
+      isSmall: true,
+      variant: !hasExploredHexas ? "disabled" : void 0,
+      disabled: !hasExploredHexas,
+      onClick: () => handleFileDownload()
+    }, t4("DownloadMapData")), jsx(PasteData, {
+      onFocusTextArea: () => setPasteError(void 0),
+      label: t4("PasteMapData"),
+      onData: handlePasteMapData
+    })))));
+  };
+  var map_page_default = MapPage2;
+});
+
+// build/dist/pages/monsters.page.js
+var require_monsters_page = __commonJS((exports) => {
+  __markAsModule(exports);
+  __export(exports, {
+    MonstersPage: () => MonstersPage2,
+    default: () => monsters_page_default
+  });
+  var MonstersPage2 = () => {
+    const {
+      t: t4,
+      i18n
+    } = useTranslation(["monsters", "common"]);
+    const monsters = bookMonsters.map(createMonstersViewModel).sort(monsterComparer(t4));
+    const [monster, setMonster] = useState(monsters[0]);
+    const [showRandomMonster, setShowRandomMonster] = useState(true);
+    const [randomMonster, setRandomMonster] = useState(createRandomMonsterViewModel());
+    const selectMonster = (m3) => {
+      setMonster(m3);
+      setShowRandomMonster(false);
+    };
+    const generateRandomMonster = () => {
+      setRandomMonster(createRandomMonsterViewModel());
+      setShowRandomMonster(true);
+    };
+    useEffect(() => {
+      monsters.sort(monsterComparer(t4));
+    }, [i18n.language]);
+    return jsx("div", {
+      css: {
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "2rem",
+        width: "100%"
+      }
+    }, jsx(PageHeader, null, t4("Title")), jsx("div", {
+      css: {
+        display: "grid",
+        gap: "4rem",
+        "@media (min-width: 1024px)": {
+          gridTemplateColumns: "1fr 3fr"
+        }
+      }
+    }, jsx("div", null, jsx(List, null, jsx(Group, {
+      css: {
+        marginBottom: "2rem"
+      },
+      label: t4(`GenerateMonster`),
+      open: true
+    }, jsx("ul", null, jsx("li", {
+      css: {
+        borderWidth: "1px",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
+        borderBottomWidth: "0px",
+        ":last-child": {
+          borderBottomWidth: "1px"
+        }
+      }
+    }, jsx(ListItemButton, {
+      onClick: () => generateRandomMonster()
+    }, t4("RandomMonster"))))), jsx(Group, {
+      label: t4(`BookMonsters`),
+      open: true
+    }, jsx("ul", null, monsters.map((m3) => jsx("li", {
+      key: m3.name,
+      css: {
+        borderWidth: "1px",
+        "--tw-border-opacity": "1",
+        borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
+        borderBottomWidth: "0px",
+        ":last-child": {
+          borderBottomWidth: "1px"
+        }
+      }
+    }, jsx(ListItemButton, {
+      onClick: () => selectMonster(m3)
+    }, t4(`Monster.${m3.name}`, {
+      ns: "common"
+    })))))))), jsx(Parchment, {
+      css: {
+        "@media (min-width: 1024px)": {
+          width: "75%"
+        }
+      },
+      deps: [monster, randomMonster, i18n.language]
+    }, showRandomMonster ? jsx(RandomMonsterDisplay, {
+      rm: randomMonster
+    }) : jsx(MonsterDisplay, {
+      m: monster
+    }))));
+  };
+  var monsters_page_default = MonstersPage2;
+});
+
+// build/dist/pages/session.page.js
+var require_session_page = __commonJS((exports) => {
+  __markAsModule(exports);
+  __export(exports, {
+    SessionPage: () => SessionPage2,
+    default: () => session_page_default
+  });
+  var SessionPage2 = () => {
+    const {
+      t: t4,
+      i18n
+    } = useTranslation(["session", "common"]);
+    const [legend, setLegend] = useState(generateLegend(t4));
+    const getLegend = () => setLegend(generateLegend(t4));
+    useEffect(() => {
+      getLegend();
+    }, [i18n.language]);
+    return jsx("div", {
+      css: {
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "2rem",
+        width: "100%",
+        alignItems: "center"
+      }
+    }, jsx(PageHeader, null, t4("Title")), jsx("div", {
+      css: {}
+    }, jsx("div", {
+      css: {
+        maxWidth: "65ch",
+        display: "flex",
+        flexDirection: "column",
+        gap: "2rem",
+        "@media (min-width: 1024px)": {
+          width: "65ch"
+        }
+      }
+    }, jsx(Parchment, {
+      deps: [legend]
+    }, jsx("button", {
+      css: {
+        display: "flex",
+        gap: "0.5rem",
+        alignItems: "center",
+        marginBottom: "1rem",
+        ":hover": {
+          "--tw-text-opacity": "1",
+          color: "rgba(239, 68, 68, var(--tw-text-opacity))"
+        }
+      },
+      onClick: () => getLegend(),
+      type: "button"
+    }, jsx("h2", {
+      css: {
+        fontSize: "2.25rem",
+        lineHeight: "2.5rem",
+        textAlign: "center",
+        display: "flex"
+      },
+      className: "yx-heading"
+    }, t4("Legend")), jsx(ReloadIcon, {
+      container: {
+        width: "1.5rem",
+        height: "1.5rem"
+      },
+      svg: {}
+    })), jsx("div", {
+      className: "yx-prose"
+    }, legend)))));
+  };
+  var session_page_default = SessionPage2;
+});
+
+// build/dist/pages/typical-kin.page.js
+var require_typical_kin_page = __commonJS((exports) => {
+  __markAsModule(exports);
+  __export(exports, {
+    TypicalKinPage: () => TypicalKinPage2,
+    default: () => typical_kin_page_default
+  });
+  var TypicalKinPage2 = () => {
+    const {
+      t: t4
+    } = useTranslation(["typical", "common"]);
+    const humanKinViewModels = Object.values(humanTypicalKins).map(createTypicalKinViewModel);
+    const elfKinViewModels = Object.values(elfTypicalKins).map(createTypicalKinViewModel);
+    const dwarfKinViewModels = Object.values(dwarfTypicalKins).map(createTypicalKinViewModel);
+    const orcKinViewModels = Object.values(orcTypicalKins).map(createTypicalKinViewModel);
+    const ogreKinViewModels = Object.values(ogreTypicalKins).map(createTypicalKinViewModel);
+    const wolfkinKinViewModels = Object.values(wolfkinTypicalKins).map(createTypicalKinViewModel);
+    const saurianKinViewModels = Object.values(saurianTypicalKins).map(createTypicalKinViewModel);
+    const whinerKinViewModels = Object.values(whinerTypicalKins).map(createTypicalKinViewModel);
+    const halflingAndGoblinKinViewModels = Object.values(halflingAndGoblinTypicalKins).map(createTypicalKinViewModel);
+    return jsx("div", {
+      css: {
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "2rem",
+        width: "100%",
+        paddingBottom: "4rem"
+      }
+    }, jsx(PageHeader, null, t4("Title")), jsx("h2", {
+      css: {
+        textAlign: "center",
+        fontSize: "1.5rem",
+        lineHeight: "2rem",
+        "@media (min-width: 1024px)": {
+          fontSize: "2.25rem",
+          lineHeight: "2.5rem"
+        }
+      },
+      className: "yx-heading"
+    }, t4("Kin.Human.Humans", {
+      ns: "common"
+    })), jsx("div", {
+      css: {
+        display: "grid",
+        gap: "1rem",
+        "@media (min-width: 768px)": {
+          gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+        },
+        "@media (min-width: 1536px)": {
+          gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+        }
+      }
+    }, humanKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+      key: tkvm.kin,
+      tkvm
+    }))), jsx("h2", {
+      css: {
+        textAlign: "center",
+        fontSize: "1.5rem",
+        lineHeight: "2rem",
+        "@media (min-width: 1024px)": {
+          fontSize: "2.25rem",
+          lineHeight: "2.5rem"
+        }
+      },
+      className: "yx-heading"
+    }, t4("Kin.Elf.Elves", {
+      ns: "common"
+    })), jsx("div", {
+      css: {
+        display: "grid",
+        gap: "1rem",
+        "@media (min-width: 768px)": {
+          gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+        },
+        "@media (min-width: 1536px)": {
+          gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+        }
+      }
+    }, elfKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+      key: tkvm.kin,
+      tkvm
+    }))), jsx("h2", {
+      css: {
+        textAlign: "center",
+        fontSize: "1.5rem",
+        lineHeight: "2rem",
+        "@media (min-width: 1024px)": {
+          fontSize: "2.25rem",
+          lineHeight: "2.5rem"
+        }
+      },
+      className: "yx-heading"
+    }, t4("Kin.Dwarf.Dwarves", {
+      ns: "common"
+    })), jsx("div", {
+      css: {
+        display: "grid",
+        gap: "1rem",
+        "@media (min-width: 768px)": {
+          gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+        },
+        "@media (min-width: 1536px)": {
+          gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+        }
+      }
+    }, dwarfKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+      key: tkvm.kin,
+      tkvm
+    }))), jsx("h2", {
+      css: {
+        textAlign: "center",
+        fontSize: "1.5rem",
+        lineHeight: "2rem",
+        "@media (min-width: 1024px)": {
+          fontSize: "2.25rem",
+          lineHeight: "2.5rem"
+        }
+      },
+      className: "yx-heading"
+    }, t4("Kin.Orc.Orcs", {
+      ns: "common"
+    })), jsx("div", {
+      css: {
+        display: "grid",
+        gap: "1rem",
+        "@media (min-width: 768px)": {
+          gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+        },
+        "@media (min-width: 1536px)": {
+          gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+        }
+      }
+    }, orcKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+      key: tkvm.kin,
+      tkvm
+    }))), jsx("div", {
+      css: {
+        display: "grid",
+        gap: "1rem",
+        "@media (min-width: 768px)": {
+          gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+        },
+        "@media (min-width: 1536px)": {
+          gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+        }
+      }
+    }, jsx(Pancake, null, jsx("h2", {
+      css: {
+        textAlign: "center",
+        fontSize: "1.5rem",
+        lineHeight: "2rem",
+        "@media (min-width: 1024px)": {
+          fontSize: "2.25rem",
+          lineHeight: "2.5rem"
+        }
+      },
+      className: "yx-heading"
+    }, t4("Kin.Ogre.Ogres", {
+      ns: "common"
+    })), ogreKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+      key: tkvm.kin,
+      tkvm
+    }))), jsx(Pancake, null, jsx("h2", {
+      css: {
+        textAlign: "center",
+        fontSize: "1.5rem",
+        lineHeight: "2rem",
+        "@media (min-width: 1024px)": {
+          fontSize: "2.25rem",
+          lineHeight: "2.5rem"
+        }
+      },
+      className: "yx-heading"
+    }, t4("Kin.Wolfkin.Wolfkins", {
+      ns: "common"
+    })), wolfkinKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+      key: tkvm.kin,
+      tkvm
+    })))), jsx("div", {
+      css: {
+        display: "grid",
+        gap: "1rem",
+        "@media (min-width: 768px)": {
+          gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+        },
+        "@media (min-width: 1536px)": {
+          gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+        }
+      }
+    }, jsx(Pancake, null, jsx("h2", {
+      css: {
+        textAlign: "center",
+        fontSize: "1.5rem",
+        lineHeight: "2rem",
+        "@media (min-width: 1024px)": {
+          fontSize: "2.25rem",
+          lineHeight: "2.5rem"
+        }
+      },
+      className: "yx-heading"
+    }, t4("Kin.Saurian.Saurians", {
+      ns: "common"
+    })), saurianKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+      key: tkvm.kin,
+      tkvm
+    }))), jsx(Pancake, null, jsx("h2", {
+      css: {
+        textAlign: "center",
+        fontSize: "1.5rem",
+        lineHeight: "2rem",
+        "@media (min-width: 1024px)": {
+          fontSize: "2.25rem",
+          lineHeight: "2.5rem"
+        }
+      },
+      className: "yx-heading"
+    }, t4("Kin.Whiner.Whiners", {
+      ns: "common"
+    })), whinerKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+      key: tkvm.kin,
+      tkvm
+    })))), jsx("h2", {
+      css: {
+        textAlign: "center",
+        fontSize: "1.5rem",
+        lineHeight: "2rem",
+        "@media (min-width: 1024px)": {
+          fontSize: "2.25rem",
+          lineHeight: "2.5rem"
+        }
+      },
+      className: "yx-heading"
+    }, t4("Kin.HalflingAndGoblin.HalflingAndGoblins", {
+      ns: "common"
+    })), jsx("div", {
+      css: {
+        display: "grid",
+        gap: "1rem",
+        "@media (min-width: 768px)": {
+          gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+        },
+        "@media (min-width: 1536px)": {
+          gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+        }
+      }
+    }, halflingAndGoblinKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
+      key: tkvm.kin,
+      tkvm
+    }))));
+  };
+  var typical_kin_page_default = TypicalKinPage2;
+});
+
+// build/dist/pages/name-generator.page.js
+var require_name_generator_page = __commonJS((exports) => {
+  __markAsModule(exports);
+  __export(exports, {
+    NameGeneratorPage: () => NameGeneratorPage2,
+    default: () => name_generator_page_default
+  });
+  var NameGeneratorPage2 = () => {
+    const {
+      t: t4
+    } = useTranslation("names");
+    return jsx("div", {
+      css: {
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "2rem",
+        width: "100%"
+      }
+    }, jsx(PageHeader, null, t4("Title")), jsx("div", {
+      css: {
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "1rem",
+        "@media (min-width: 1280px)": {
+          minWidth: "600px"
+        }
+      }
+    }, jsx("div", {
+      css: {
+        flexBasis: "500px"
+      }
+    }, jsx(Parchment, null, jsx(KinNameList, {
+      css: {
+        padding: "0px"
+      },
+      title: "Ailander",
+      nameFunc: getRandomAilanderName
+    }))), jsx("div", {
+      css: {
+        flexBasis: "500px"
+      }
+    }, jsx(Parchment, null, jsx(KinNameList, {
+      css: {
+        padding: "0px"
+      },
+      title: "Alderlander",
+      nameFunc: getRandomAlderlanderName
+    }))), jsx("div", {
+      css: {
+        flexBasis: "500px"
+      }
+    }, jsx(Parchment, null, jsx(KinNameList, {
+      css: {
+        padding: "0px"
+      },
+      title: "Aslene",
+      nameFunc: getRandomAsleneName
+    })))));
+  };
+  var name_generator_page_default = NameGeneratorPage2;
+});
 
 // build/dist/env.js
 var env_exports = {};
@@ -12853,238 +14723,8 @@ var useWindowScrollPosition = (localStorageKey, setCondition) => {
   }, [setCondition, scrollYStorage]);
 };
 
-// build/dist/pages/calendar.page.js
-var DEFAULT_SHOW_WEATHER = true;
-var CALENDAR_SHOW_WEATHER_KEY = "calendar_show_weather";
-var CALENDAR_SCROLL_POSITION = "calendar_scroll";
-var CalendarPage = () => {
-  const {
-    t: t4
-  } = useTranslation("calendar");
-  const showWeatherFromStorage = localStorage.getItem(CALENDAR_SHOW_WEATHER_KEY) ?? void 0;
-  const calendarFromStorageOrDefault = loadCalendar();
-  const showWeatherFromStorageOrDefault = notNullish(showWeatherFromStorage) ? JSON.parse(showWeatherFromStorage) : DEFAULT_SHOW_WEATHER;
-  const [calendarState, setCalendarState] = useState(calendarFromStorageOrDefault);
-  const [calendar, setCalendar] = useLocalStorage(CALENDAR_KEY_V4, calendarFromStorageOrDefault);
-  useEffect(() => {
-    setCalendar(calendarState);
-    setAllCollapsed(calendarState.months.every((m3) => m3.collapsed));
-  }, [calendarState]);
-  const [showWeather, setShowWeather] = useLocalStorage(CALENDAR_SHOW_WEATHER_KEY, showWeatherFromStorageOrDefault);
-  const [allCollapsed, setAllCollapsed] = useState(void 0);
-  const [showCalenderOptions, setShowCalenderOptions] = useState(false);
-  const [showYearOption, setShowYearOption] = useState(false);
-  useEffect(() => {
-    if (!showCalenderOptions) {
-      setShowYearOption(false);
-    }
-  }, [showCalenderOptions]);
-  const handleMonthUpdate = (month2) => {
-    setCalendarState({
-      ...calendarState,
-      months: calendarState.months.map((m3) => {
-        if (m3.name !== month2.name) {
-          return m3;
-        }
-        return month2;
-      })
-    });
-  };
-  const handleTemperatureChange = (unit) => {
-    setCalendarState({
-      ...calendar,
-      temperatureUnit: unit
-    });
-  };
-  const collapseAll = (cal, collapse) => {
-    return {
-      ...cal,
-      months: cal.months.map((month2) => {
-        return {
-          ...month2,
-          collapsed: collapse
-        };
-      })
-    };
-  };
-  const handleToggleCollapseAll = () => {
-    setCalendarState(collapseAll(calendarState, !allCollapsed));
-  };
-  const handleUpdatingStartingDay = (dayName) => {
-    setCalendarState(updateStartingDay(calendarState, dayName));
-  };
-  const handleUpdatingYear = (newYear) => {
-    const lastDay = last(last(calendarState.months).days).name;
-    const nextYearsStartDay = getDayName(getDayNumber(lastDay));
-    setCalendarState(getCal(newYear, nextYearsStartDay));
-  };
-  useWindowScrollPosition(CALENDAR_SCROLL_POSITION, notNullish(calendar));
-  return jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      rowGap: "2rem",
-      width: "100%"
-    }
-  }, jsx(PageHeader, null, t4("Title")), jsx("div", {
-    css: {
-      textAlign: "center",
-      fontSize: "1.25rem",
-      lineHeight: "1.75rem",
-      marginBottom: "0.5rem",
-      textTransform: "none"
-    },
-    className: "yx-prose"
-  }, t4("Year"), " ", calendarState.year, " ", t4("AS")), jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "0px"
-    }
-  }, jsx("div", {
-    css: {
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
-      padding: "0.5rem",
-      display: "flex",
-      flexWrap: "wrap",
-      justifyContent: "flex-end",
-      gap: "0.5rem"
-    }
-  }, jsx(Button, {
-    isSmall: true,
-    variant: "secondary",
-    onClick: () => handleToggleCollapseAll()
-  }, t4(allCollapsed ? `ShowAll` : `HideAll`)), jsx(Button, {
-    isSmall: true,
-    variant: "secondary",
-    onClick: () => handleTemperatureChange(calendar.temperatureUnit === TemperatureUnit.Metric ? TemperatureUnit.Imperial : TemperatureUnit.Metric)
-  }, t4("Use"), " ", calendar.temperatureUnit === TemperatureUnit.Metric ? t4("F") : t4("C")), jsx(Button, {
-    variant: "secondary",
-    isSmall: true,
-    onClick: () => setShowWeather(!showWeather)
-  }, showWeather ? t4("Weather-Hide") : t4("Weather-Show")), jsx(Button, {
-    css: [showCalenderOptions ? {
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(0, 0, 0, var(--tw-bg-opacity))",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(0, 0, 0, var(--tw-border-opacity))",
-      "--tw-text-opacity": "1",
-      color: "rgba(255, 255, 255, var(--tw-text-opacity))"
-    } : {}],
-    variant: "secondary",
-    isSmall: true,
-    onClick: () => setShowCalenderOptions(!showCalenderOptions)
-  }, "...")), showCalenderOptions && jsx("div", {
-    css: {
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
-      paddingTop: "2rem",
-      paddingBottom: "2rem",
-      paddingLeft: "1rem",
-      paddingRight: "1rem",
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.5rem"
-    }
-  }, jsx("h3", {
-    css: {
-      fontWeight: "700",
-      textTransform: "uppercase",
-      letterSpacing: "0.025em"
-    }
-  }, t4("Options-StartingYear")), jsx("div", {
-    css: {
-      padding: "1rem",
-      borderWidth: "2px",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(220, 38, 38, var(--tw-border-opacity))",
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(254, 226, 226, var(--tw-bg-opacity))",
-      fontWeight: "700",
-      display: "flex",
-      flexDirection: "column",
-      gap: "1rem"
-    }
-  }, jsx("p", {
-    css: {
-      marginBottom: "0.5rem",
-      "--tw-text-opacity": "1",
-      color: "rgba(220, 38, 38, var(--tw-text-opacity))"
-    }
-  }, t4("Options-StartingYearWarning")), jsx("div", null, jsx(Button, {
-    css: {
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(220, 38, 38, var(--tw-border-opacity))",
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(254, 202, 202, var(--tw-bg-opacity))",
-      "--tw-text-opacity": "1",
-      color: "rgba(185, 28, 28, var(--tw-text-opacity))",
-      ":hover": {
-        "--tw-text-opacity": "1",
-        color: "rgba(255, 255, 255, var(--tw-text-opacity))",
-        "--tw-bg-opacity": "1",
-        backgroundColor: "rgba(220, 38, 38, var(--tw-bg-opacity))",
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(220, 38, 38, var(--tw-border-opacity))"
-      }
-    },
-    isSmall: true,
-    onClick: () => setShowYearOption(true),
-    disabled: showYearOption,
-    variant: showYearOption ? "disabled" : void 0
-  }, t4("Options-StartingYearNag"))), showYearOption && jsx(Stepper, {
-    max: 1e4,
-    min: -2e3,
-    value: calendarState.year,
-    id: "yearChanger",
-    onChange: (val) => {
-      handleUpdatingYear(val);
-    }
-  })), jsx("h3", {
-    css: {
-      marginTop: "1rem",
-      fontWeight: "700",
-      textTransform: "uppercase",
-      letterSpacing: "0.025em"
-    }
-  }, t4("Options-StartingDay")), jsx("div", {
-    css: {
-      display: "flex",
-      flexWrap: "wrap",
-      gap: "0.5rem"
-    }
-  }, jsx(Button, {
-    onClick: () => handleUpdatingStartingDay("SunDay"),
-    isSmall: true
-  }, t4("SunDay")), jsx(Button, {
-    onClick: () => handleUpdatingStartingDay("MoonDay"),
-    isSmall: true
-  }, t4("MoonDay")), jsx(Button, {
-    onClick: () => handleUpdatingStartingDay("BloodDay"),
-    isSmall: true
-  }, t4("BloodDay")), jsx(Button, {
-    onClick: () => handleUpdatingStartingDay("EarthDay"),
-    isSmall: true
-  }, t4("EarthDay")), jsx(Button, {
-    onClick: () => handleUpdatingStartingDay("GrowthDay"),
-    isSmall: true
-  }, t4("GrowthDay")), jsx(Button, {
-    onClick: () => handleUpdatingStartingDay("HarvestDay"),
-    isSmall: true
-  }, t4("HarvestDay")), jsx(Button, {
-    onClick: () => handleUpdatingStartingDay("StillDay"),
-    isSmall: true
-  }, t4("StillDay"))))), jsx("div", null, calendarState.months.map((month2) => {
-    return jsx(CalendarMonth, {
-      key: month2.name,
-      month: month2,
-      showWeather,
-      onMonthUpdate: handleMonthUpdate,
-      temperatureUnit: calendarState.temperatureUnit
-    });
-  })));
-};
+// build/dist/App.js
+var CalendarPage = /* @__PURE__ */ react.lazy(() => Promise.resolve().then(() => require_calendar_page()));
 
 // build/dist/components/dice-display.js
 var DiceDisplay = ({
@@ -13093,99 +14733,8 @@ var DiceDisplay = ({
   return jsx(react.Fragment, null, value);
 };
 
-// build/dist/pages/dice-roller.page.js
-var DiceRollerPage = () => {
-  const [diceResults, setDiceResult] = useState({
-    attribute: [],
-    skill: [],
-    gear: [],
-    artifact: []
-  });
-  const [successes, setSuccesses] = useState(0);
-  const rollDice = () => {
-    const attributeResults = range2(attributeDiceAmount).map((_24) => getRandomInt());
-    const skillResults = range2(skillDiceAmount).map((_24) => getRandomInt());
-    const results = {
-      attribute: attributeResults,
-      skill: skillResults,
-      gear: [],
-      artifact: []
-    };
-    setDiceResult(results);
-    setSuccesses([...results.attribute, ...results.skill].reduce((acc, cur) => acc + countSuccesses(cur), 0));
-  };
-  const [attributeDiceAmount, setAttributeDiceAmount] = useState(1);
-  const attributeDiceAmountChanged = (value) => {
-    setAttributeDiceAmount(value);
-  };
-  const [skillDiceAmount, setSkillDiceAmount] = useState(0);
-  const skillDiceAmountChanged = (value) => {
-    setSkillDiceAmount(value);
-  };
-  return jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      rowGap: "2rem",
-      width: "100%"
-    }
-  }, jsx(PageHeader, null, "Tärningar"), jsx(Parchment, null, jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "1rem"
-    }
-  }, jsx("div", {
-    css: {
-      display: "flex",
-      flexWrap: "wrap",
-      gap: "0.5rem",
-      marginBottom: "1rem"
-    }
-  }, jsx(Stepper, {
-    id: "attributes",
-    label: "Attribut",
-    min: 1,
-    max: 6,
-    value: attributeDiceAmount,
-    onChange: attributeDiceAmountChanged
-  }), jsx(Stepper, {
-    id: "attributes",
-    label: "Färdighet",
-    min: 0,
-    max: 5,
-    value: skillDiceAmount,
-    onChange: skillDiceAmountChanged
-  }), jsx(Stepper, {
-    id: "attributes",
-    label: "Gear",
-    min: 0,
-    max: 5,
-    value: skillDiceAmount,
-    onChange: skillDiceAmountChanged
-  }), jsx(Stepper, {
-    id: "attributes",
-    label: "Artefakt",
-    min: 0,
-    max: 5,
-    value: skillDiceAmount,
-    onChange: skillDiceAmountChanged
-  })), jsx("div", null, jsx(Button, {
-    onClick: () => rollDice()
-  }, "Slå tärning"), jsx(Button, {
-    variant: "secondary"
-  }, "Pressa slag"), jsx(Button, {
-    isSmall: true
-  }, "stäng")), jsx("div", null, jsx("div", null, "Lyckade: ", successes), diceResults.attribute.length > 0 && jsx(react.Fragment, null, jsx("div", null, "Attribut"), diceResults.attribute.map((val, index) => jsx("div", {
-    key: index
-  }, jsx(DiceDisplay, {
-    value: val
-  })))), diceResults.skill.length > 0 && jsx(react.Fragment, null, jsx("div", null, "Färdighet"), diceResults.skill.map((val, index) => jsx("div", {
-    key: index
-  }, jsx(DiceDisplay, {
-    value: val
-  }))))))));
-};
+// build/dist/App.js
+var DiceRollerPage = /* @__PURE__ */ react.lazy(() => Promise.resolve().then(() => require_dice_roller_page()));
 
 // build/dist/components/encounter.js
 var Encounter = ({
@@ -13844,110 +15393,8 @@ var getRandomEncounter = (roll, terrain2, lang) => {
   return createEncounterViewModel(randomEncounterId, lang);
 };
 
-// build/dist/pages/encounter.page.js
-var EncounterPage = () => {
-  const {
-    t: t4,
-    i18n
-  } = useTranslation(["encounters", "common"]);
-  const [encounter, setEncounter] = useState(void 0);
-  const [oldTerrain, setOldTerrain] = useState(void 0);
-  const [encounterLog, setEncounterLog] = useState([]);
-  const generateNewEncounter = (terrain2) => {
-    const roll = rollD66();
-    const randomEncounter = getRandomEncounter(roll, terrain2, i18n.language);
-    setEncounter(randomEncounter);
-    if (terrain2 === void 0 && oldTerrain === void 0 || terrain2 === oldTerrain) {
-      setEncounterLog([{
-        ...randomEncounter,
-        timeStamp: new Date().getTime()
-      }, ...encounterLog]);
-    } else {
-      setEncounterLog([{
-        ...randomEncounter,
-        timeStamp: new Date().getTime()
-      }]);
-    }
-    setOldTerrain(terrain2);
-  };
-  const handleClick = (terrain2) => {
-    generateNewEncounter(terrain2);
-  };
-  useEffect(() => {
-    if (oldTerrain && encounter) {
-      setEncounter(getEncounterById(encounter.id, i18n.language));
-      setEncounterLog(encounterLog.map((el) => {
-        return {
-          ...el,
-          ...getEncounterById(el.id, i18n.language)
-        };
-      }));
-    }
-  }, [i18n.language]);
-  return jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      rowGap: "2rem",
-      width: "100%",
-      alignItems: "center"
-    }
-  }, jsx(PageHeader, null, t4("Title")), jsx("div", {
-    css: {
-      width: "100%",
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
-      padding: "0.5rem"
-    }
-  }, jsx(Train, {
-    spacing: "small"
-  }, getTerrainKeys().map((terrain2) => jsx(Button, {
-    key: terrain2,
-    isSmall: true,
-    onClick: () => {
-      handleClick(terrain2);
-    }
-  }, t4(`Terrain.${terrain2}`, {
-    ns: "common"
-  }))))), jsx("div", {
-    css: {
-      width: "100%",
-      display: "grid",
-      gridAutoColumns: "auto",
-      gap: "4rem",
-      "@media (min-width: 768px)": {
-        gridAutoFlow: "column"
-      }
-    }
-  }, encounter && jsx("div", {
-    css: {
-      maxWidth: "65ch",
-      "@media (min-width: 1024px)": {
-        width: "65ch"
-      }
-    }
-  }, jsx(Encounter, {
-    encounter: {
-      ...encounter
-    }
-  })), !encounter && jsx("div", null), !encounterLog && jsx("div", null), encounterLog && jsx("ul", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.25rem"
-    }
-  }, encounterLog.map((el) => jsx("li", {
-    css: {
-      display: "flex",
-      gap: "0.25rem"
-    },
-    key: el.timeStamp
-  }, jsx("div", {
-    css: {
-      fontWeight: "500"
-    }
-  }, el.id, ": ", el.title), jsx("div", null, "(s. ", el.page, ")"))))));
-};
+// build/dist/App.js
+var EncounterPage = /* @__PURE__ */ react.lazy(() => Promise.resolve().then(() => require_encounter_page()));
 
 // build/dist/components/stat.js
 var statValueStyle = {
@@ -15388,615 +16835,9 @@ var nanoid = (size = 21) => {
 // build/dist/models/utils.model.js
 var getId = () => nanoid();
 
-// build/dist/pages/finds.page.js
-var FindsPage = () => {
-  const {
-    t: t4,
-    i18n
-  } = useTranslation(["finds"]);
-  const [transition, setTransition] = useState(false);
-  const createFind = (location, type) => {
-    return {
-      ...getRandomFind(finds[location][type]),
-      id: getId()
-    };
-  };
-  const [findData, setFindData] = useState(createFind("Carried", "Simple"));
-  const updateFindData = (location, type) => {
-    setFindData(() => createFind(location, type));
-  };
-  const [find, setFind] = useState(createFindViewModel(findData));
-  useEffect(() => {
-    setFind(() => createFindViewModel(findData));
-    setTransition(true);
-    setTimeout(() => {
-      setTransition(false);
-    }, 100);
-  }, [findData]);
-  return jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      rowGap: "2rem",
-      width: "100%",
-      paddingBottom: "4rem"
-    }
-  }, jsx(PageHeader, null, t4("Title")), jsx("div", {
-    css: {
-      "@media (min-width: 768px)": {
-        maxWidth: "768px",
-        width: "100%",
-        marginLeft: "auto",
-        marginRight: "auto"
-      }
-    }
-  }, jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "4rem"
-    }
-  }, jsx(Grid, {
-    cols: "2"
-  }, jsx(Pancake, null, jsx("h2", {
-    css: {
-      textAlign: "center",
-      fontSize: "1.875rem",
-      lineHeight: "2.25rem"
-    },
-    className: "yx-heading"
-  }, t4("Find.Location.Carried")), jsx(Button, {
-    variant: "secondary",
-    css: {
-      paddingLeft: "0px",
-      paddingRight: "0px",
-      maxWidth: "100%",
-      backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
-      "--tw-gradient-to": "#d97706",
-      "--tw-gradient-from": "#92400e",
-      "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(146, 64, 14, 0))",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(146, 64, 14, var(--tw-border-opacity))",
-      "--tw-text-opacity": "1",
-      color: "rgba(255, 251, 235, var(--tw-text-opacity))",
-      ":hover": {
-        "--tw-gradient-to": "#f59e0b",
-        "--tw-gradient-from": "#b45309",
-        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(180, 83, 9, 0))",
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(180, 83, 9, var(--tw-border-opacity))",
-        "--tw-text-opacity": "1",
-        color: "rgba(255, 251, 235, var(--tw-text-opacity))"
-      },
-      ":focus-visible": {
-        outline: "2px dotted black",
-        outlineOffset: "2px",
-        outlineStyle: "solid"
-      }
-    },
-    onClick: () => updateFindData("Carried", "Simple")
-  }, t4("Find.Type.Simple")), jsx(Button, {
-    variant: "secondary",
-    css: {
-      paddingLeft: "0px",
-      paddingRight: "0px",
-      maxWidth: "100%",
-      backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
-      "--tw-gradient-to": "#f3f4f6",
-      "--tw-gradient-from": "#d1d5db",
-      "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(209, 213, 219, 0))",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
-      "--tw-text-opacity": "1",
-      color: "rgba(31, 41, 55, var(--tw-text-opacity))",
-      ":hover": {
-        "--tw-gradient-to": "#f9fafb",
-        "--tw-gradient-from": "#e5e7eb",
-        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(229, 231, 235, 0))",
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(229, 231, 235, var(--tw-border-opacity))",
-        "--tw-text-opacity": "1",
-        color: "rgba(31, 41, 55, var(--tw-text-opacity))"
-      },
-      ":focus-visible": {
-        outline: "2px dotted black",
-        outlineOffset: "2px",
-        outlineStyle: "solid"
-      }
-    },
-    onClick: () => updateFindData("Carried", "Valuable")
-  }, t4("Find.Type.Valuable")), jsx(Button, {
-    variant: "secondary",
-    css: {
-      paddingLeft: "0px",
-      paddingRight: "0px",
-      maxWidth: "100%",
-      backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
-      "--tw-gradient-to": "#fef3c7",
-      "--tw-gradient-from": "#fbbf24",
-      "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(251, 191, 36, 0))",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(251, 191, 36, var(--tw-border-opacity))",
-      "--tw-text-opacity": "1",
-      color: "rgba(120, 53, 15, var(--tw-text-opacity))",
-      ":hover": {
-        "--tw-gradient-to": "#fffbeb",
-        "--tw-gradient-from": "#fcd34d",
-        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(252, 211, 77, 0))",
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(252, 211, 77, var(--tw-border-opacity))",
-        "--tw-text-opacity": "1",
-        color: "rgba(120, 53, 15, var(--tw-text-opacity))"
-      },
-      ":focus-visible": {
-        outline: "2px dotted black",
-        outlineOffset: "2px",
-        outlineStyle: "solid"
-      }
-    },
-    onClick: () => updateFindData("Carried", "Precious")
-  }, t4("Find.Type.Precious"))), jsx(Pancake, null, jsx("h2", {
-    css: {
-      textAlign: "center",
-      fontSize: "1.875rem",
-      lineHeight: "2.25rem"
-    },
-    className: "yx-heading"
-  }, t4("Find.Location.Lair")), jsx(Button, {
-    css: {
-      paddingLeft: "0px",
-      paddingRight: "0px",
-      maxWidth: "100%",
-      backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
-      "--tw-gradient-to": "#d97706",
-      "--tw-gradient-from": "#92400e",
-      "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(146, 64, 14, 0))",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(146, 64, 14, var(--tw-border-opacity))",
-      "--tw-text-opacity": "1",
-      color: "rgba(255, 251, 235, var(--tw-text-opacity))",
-      ":hover": {
-        "--tw-gradient-to": "#f59e0b",
-        "--tw-gradient-from": "#b45309",
-        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(180, 83, 9, 0))",
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(180, 83, 9, var(--tw-border-opacity))",
-        "--tw-text-opacity": "1",
-        color: "rgba(255, 251, 235, var(--tw-text-opacity))"
-      },
-      ":focus-visible": {
-        outline: "2px dotted black",
-        outlineOffset: "2px",
-        outlineStyle: "solid"
-      }
-    },
-    variant: "secondary",
-    onClick: () => updateFindData("Lair", "Simple")
-  }, t4("Find.Type.Simple")), jsx(Button, {
-    css: {
-      paddingLeft: "0px",
-      paddingRight: "0px",
-      maxWidth: "100%",
-      backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
-      "--tw-gradient-from": "#d1d5db",
-      "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(209, 213, 219, 0))",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
-      "--tw-text-opacity": "1",
-      color: "rgba(31, 41, 55, var(--tw-text-opacity))",
-      ":hover": {
-        "--tw-gradient-to": "#f9fafb",
-        "--tw-gradient-from": "#e5e7eb",
-        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(229, 231, 235, 0))",
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(229, 231, 235, var(--tw-border-opacity))",
-        "--tw-text-opacity": "1",
-        color: "rgba(31, 41, 55, var(--tw-text-opacity))"
-      },
-      ":focus-visible": {
-        outline: "2px dotted black",
-        outlineOffset: "2px",
-        outlineStyle: "solid"
-      }
-    },
-    variant: "secondary",
-    onClick: () => updateFindData("Lair", "Valuable")
-  }, t4("Find.Type.Valuable")), jsx(Button, {
-    css: {
-      paddingLeft: "0px",
-      paddingRight: "0px",
-      maxWidth: "100%",
-      backgroundImage: "linear-gradient(to bottom left, var(--tw-gradient-stops))",
-      "--tw-gradient-to": "#fef3c7",
-      "--tw-gradient-from": "#fbbf24",
-      "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(251, 191, 36, 0))",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(251, 191, 36, var(--tw-border-opacity))",
-      "--tw-text-opacity": "1",
-      color: "rgba(120, 53, 15, var(--tw-text-opacity))",
-      ":hover": {
-        "--tw-gradient-to": "#fffbeb",
-        "--tw-gradient-from": "#fcd34d",
-        "--tw-gradient-stops": "var(--tw-gradient-from), var(--tw-gradient-to, rgba(252, 211, 77, 0))",
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(252, 211, 77, var(--tw-border-opacity))",
-        "--tw-text-opacity": "1",
-        color: "rgba(120, 53, 15, var(--tw-text-opacity))"
-      },
-      ":focus-visible": {
-        outline: "2px dotted black",
-        outlineOffset: "2px",
-        outlineStyle: "solid"
-      }
-    },
-    variant: "secondary",
-    onClick: () => updateFindData("Lair", "Precious")
-  }, t4("Find.Type.Precious")))), jsx("div", {
-    css: [{
-      transitionProperty: "transform",
-      transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-      transitionDuration: "150ms",
-      "--tw-translate-y": "0px",
-      transform: "var(--tw-transform)"
-    }, transition && {
-      "--tw-translate-y": "0.25rem",
-      transform: "var(--tw-transform)"
-    }]
-  }, jsx(Parchment, {
-    deps: [find, i18n.language]
-  }, jsx(Pancake, null, jsx("h2", {
-    css: {
-      textAlign: "center",
-      fontSize: "1.5rem",
-      lineHeight: "2rem",
-      marginBottom: "1rem",
-      "@media (min-width: 1024px)": {
-        fontSize: "2.25rem",
-        lineHeight: "2.5rem"
-      }
-    },
-    className: "yx-heading"
-  }, t4(`Find.${find.title}`)), jsx(Pancake, null, jsx(Stat, {
-    size: "large",
-    label: t4("Value")
-  }, find.value.length > 0 ? find.value.map((v2) => `${v2.coins} ${t4(v2.label)}`).join(", ") : "–"), jsx(Grid, {
-    cols: "3"
-  }, jsx(Stat, {
-    label: t4("Weight")
-  }, find.weight), jsx(Stat, {
-    label: t4("Type")
-  }, t4(`Find.Type.${find.type}`)), jsx(Stat, {
-    label: t4("Location")
-  }, t4(`Find.Location.${find.location}`))))))))));
-};
-
-// build/dist/pages/gear.page.js
-var GearPage = () => {
-  return jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      rowGap: "2rem",
-      width: "100%"
-    }
-  }, jsx(PageHeader, null, "Utrustning"), jsx("div", null, jsx(Parchment, null, jsx("h2", {
-    css: {
-      fontSize: "2.25rem",
-      lineHeight: "2.5rem",
-      textAlign: "center",
-      display: "flex",
-      marginBottom: "1rem"
-    },
-    className: "yx-heading"
-  }, "Vanliga tjänster"), jsx("table", {
-    css: {
-      width: "100%"
-    }
-  }, jsx("thead", {
-    css: {
-      display: "none",
-      "@media (min-width: 1024px)": {
-        display: "table-header-group"
-      }
-    }
-  }, jsx("tr", null, jsx("td", {
-    css: {
-      fontWeight: "700",
-      textTransform: "uppercase",
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
-      paddingTop: "0.25rem",
-      paddingBottom: "0.25rem",
-      borderBottomWidth: "2px",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
-    }
-  }, "Tjänst"), jsx("td", {
-    css: {
-      fontWeight: "700",
-      textTransform: "uppercase",
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
-      paddingTop: "0.25rem",
-      paddingBottom: "0.25rem",
-      borderBottomWidth: "2px",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
-    }
-  }, "Pris"), jsx("td", {
-    css: {
-      fontWeight: "700",
-      textTransform: "uppercase",
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
-      paddingTop: "0.25rem",
-      paddingBottom: "0.25rem",
-      borderBottomWidth: "2px",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
-    }
-  }, "Tillgång"), jsx("td", {
-    css: {
-      fontWeight: "700",
-      textTransform: "uppercase",
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
-      paddingTop: "0.25rem",
-      paddingBottom: "0.25rem",
-      borderBottomWidth: "2px",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
-    }
-  }, "Kommentar"))), jsx("tbody", null, regularServices.map((rs, i2) => jsx("tr", {
-    key: rs.service,
-    css: {
-      display: "grid",
-      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-      "@media (min-width: 1024px)": {
-        display: "table-row"
-      }
-    }
-  }, jsx("td", {
-    css: [{
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
-      paddingTop: "0.25rem",
-      paddingBottom: "0.25rem",
-      "@media (min-width: 1024px)": {
-        borderBottomWidth: "1px",
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
-      }
-    }, i2 % 2 === 0 && {
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
-    }]
-  }, jsx("div", {
-    css: {
-      fontSize: "0.875rem",
-      lineHeight: "1.25rem",
-      "@media (min-width: 1024px)": {
-        display: "none"
-      }
-    }
-  }, "Tjänst"), rs.service), jsx("td", {
-    css: [{
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
-      paddingTop: "0.25rem",
-      paddingBottom: "0.25rem",
-      "@media (min-width: 1024px)": {
-        borderBottomWidth: "1px",
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
-      }
-    }, i2 % 2 === 0 && {
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
-    }]
-  }, jsx("div", {
-    css: {
-      fontSize: "0.875rem",
-      lineHeight: "1.25rem",
-      "@media (min-width: 1024px)": {
-        display: "none"
-      }
-    }
-  }, "Pris"), priceFormat(rs.price)), jsx("td", {
-    css: [{
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
-      paddingTop: "0.25rem",
-      paddingBottom: "0.25rem",
-      "@media (min-width: 1024px)": {
-        borderBottomWidth: "1px",
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
-      }
-    }, i2 % 2 === 0 && {
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
-    }]
-  }, jsx("div", {
-    css: {
-      fontSize: "0.875rem",
-      lineHeight: "1.25rem",
-      "@media (min-width: 1024px)": {
-        display: "none"
-      }
-    }
-  }, "Tillgång"), availabilityFormat(rs.availability)), jsx("td", {
-    css: [{
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
-      paddingTop: "0.25rem",
-      paddingBottom: "0.25rem",
-      "@media (min-width: 1024px)": {
-        borderBottomWidth: "1px",
-        "--tw-border-opacity": "1",
-        borderColor: "rgba(156, 163, 175, var(--tw-border-opacity))"
-      }
-    }, i2 % 2 === 0 && {
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))"
-    }]
-  }, jsx("div", {
-    css: {
-      fontSize: "0.875rem",
-      lineHeight: "1.25rem",
-      "@media (min-width: 1024px)": {
-        display: "none"
-      }
-    }
-  }, "Kommentar"), rs.comment ?? ""))))))));
-};
-var availabilityFormat = (a2) => {
-  switch (a2) {
-    case `sällsynt`: {
-      const count = getRandomInt() === 6 ? 1 : 0;
-      return `Sällsynt (${count} ex)`;
-    }
-    case `ovanlig`: {
-      const count = getRandomInt() >= 4 ? getRandomInt() : 0;
-      return `Ovanlig (${count} ex)`;
-    }
-    case `vanlig`:
-    default:
-      return `Vanlig`;
-  }
-};
-var priceFormat = (sc2) => {
-  const coins = formatCoinPurse(copperToCoinPurse(sc2.copper));
-  const per = perFormat(sc2.per);
-  return `${coins} ${per}`;
-};
-var formatCoinPurse = (cp) => {
-  const gold = cp.gold > 0 ? `${cp.gold} guld` : ``;
-  const silver = cp.silver > 0 ? `${cp.silver} silver` : ``;
-  const copper = cp.copper > 0 ? `${cp.copper} koppar` : ``;
-  return [gold, silver, copper].join(" ");
-};
-var copperToCoinPurse = (copper) => ({
-  gold: Math.floor(copper / 100),
-  silver: Math.floor(copper % 100 / 10),
-  copper: copper % 100 % 10
-});
-var perFormat = (per) => {
-  switch (per) {
-    case "day":
-      return " per dag";
-    case "hex":
-      return " per hexagon";
-    default:
-      return "";
-  }
-};
-var regularServices = [{
-  service: "Bad på värdshus",
-  availability: "vanlig",
-  price: {
-    copper: 3
-  }
-}, {
-  service: "Klippning",
-  availability: "vanlig",
-  price: {
-    copper: 5
-  }
-}, {
-  service: "Läkarvård",
-  availability: "ovanlig",
-  price: {
-    copper: 5
-  }
-}, {
-  service: "Livvakt",
-  availability: "ovanlig",
-  price: {
-    copper: 10,
-    per: "day"
-  }
-}, {
-  service: "Tvätt av kläder",
-  availability: "vanlig",
-  price: {
-    copper: 5
-  }
-}, {
-  service: "Budbärare",
-  availability: "vanlig",
-  price: {
-    copper: 10,
-    per: "hex"
-  }
-}, {
-  service: "Vägtull",
-  availability: "vanlig",
-  price: {
-    copper: 2
-  }
-}, {
-  service: "Övernattning värdshus, sovsal",
-  availability: "vanlig",
-  price: {
-    copper: 2
-  }
-}, {
-  service: "Övernattning värdshus, eget rum",
-  availability: "vanlig",
-  price: {
-    copper: 5
-  }
-}, {
-  service: "Ståtligt härbärge",
-  availability: "ovanlig",
-  price: {
-    copper: 20
-  }
-}, {
-  service: "Skål stuvning",
-  availability: "vanlig",
-  price: {
-    copper: 3
-  },
-  comment: "Täcker dagsbehovet av Mat."
-}, {
-  service: "Måltid på värdshus",
-  availability: "vanlig",
-  price: {
-    copper: 10
-  },
-  comment: "Täcker dagsbehovet av Mat och Vatten."
-}, {
-  service: "Festmåltid",
-  availability: "ovanlig",
-  price: {
-    copper: 100
-  },
-  comment: "Täcker dagsbehovet av Mat och Vatten."
-}, {
-  service: "Stop mjöd",
-  availability: "vanlig",
-  price: {
-    copper: 2
-  },
-  comment: "Täcker dagsbehovet av Vatten."
-}, {
-  service: "Kalk vin",
-  availability: "ovanlig",
-  price: {
-    copper: 4
-  },
-  comment: "Täcker dagsbehovet av Vatten."
-}, {
-  service: "Lärare",
-  availability: "ovanlig",
-  price: {
-    copper: 10,
-    per: "day"
-  },
-  comment: "Kan vara dyrare"
-}];
+// build/dist/App.js
+var FindsPage = /* @__PURE__ */ react.lazy(() => Promise.resolve().then(() => require_finds_page()));
+var GearPage = /* @__PURE__ */ react.lazy(() => Promise.resolve().then(() => require_gear_page()));
 
 // build/dist/components/map.js
 var Map2 = ({
@@ -17323,294 +18164,8 @@ var createInitialHexas = (data) => {
 };
 var initialHexas = createInitialHexas(hexData);
 
-// build/dist/pages/map.page.js
-var MAP_STORAGE_KEY = "map";
-var FOG_OF_WAR_STORAGE_KEY = "fogOfWar";
-var MapPage = () => {
-  const {
-    t: t4
-  } = useTranslation("map");
-  const hexasFromStorage = localStorage.getItem(MAP_STORAGE_KEY) ?? void 0;
-  const constructHexas = (hexasFromStorage2) => {
-    if (!hexasFromStorage2) {
-      return initialHexas;
-    }
-    const hexStorages = JSON.parse(hexasFromStorage2);
-    return initialHexas.map((hex) => {
-      return {
-        ...hex,
-        ...hexStorages.find((h2) => h2.hexKey === hex.hexKey) ?? {}
-      };
-    });
-  };
-  const [pasteError, setPasteError] = useState(void 0);
-  const fogOfWarFromStorage = (localStorage.getItem(FOG_OF_WAR_STORAGE_KEY) === "true" ? true : false) ?? false;
-  const [fogOfWar, setFogOfWar] = useState(fogOfWarFromStorage);
-  const atLeastOneExploredHex = (hexas2) => hexas2.filter((h2) => h2.explored).length > 0;
-  const [hexas, setHexas] = useState(constructHexas(hexasFromStorage));
-  const [hasExploredHexas, setHasExploredHexas] = useState(atLeastOneExploredHex(hexas));
-  const [selectedHex, setSelectedHex] = useState(void 0);
-  const [mapPopover, setMapPopover] = useState(void 0);
-  const parchmentRef = useRef(null);
-  const getRect = (hexTarget, parchmentElem) => ({
-    rect: hexTarget.getBoundingClientRect(),
-    parchmentRect: parchmentElem.getBoundingClientRect()
-  });
-  const initialTooltip = {
-    text: "",
-    x: 0,
-    y: 0,
-    hexX: 0,
-    hexY: 0,
-    width: 0,
-    height: 0
-  };
-  const [tooltip, setTooltip] = useState(initialTooltip);
-  const handleTooltip = (e3, hex) => {
-    if (parchmentRef.current) {
-      const {
-        rect,
-        parchmentRect
-      } = getRect(e3.currentTarget, parchmentRef.current);
-      setTooltip({
-        x: rect.left - parchmentRect.left,
-        y: rect.top - parchmentRect.top,
-        hexX: rect.left,
-        hexY: rect.top,
-        text: hex.hexKey,
-        width: rect.width,
-        height: rect.height
-      });
-    }
-  };
-  const handleSelectedHex = (selected) => {
-    if (!selected) {
-      setTooltip(initialTooltip);
-    }
-    selectedHex?.elem?.classList.remove("hex-selected");
-    selected?.elem.classList.add("hex-selected");
-    setSelectedHex(selected);
-  };
-  const handleMouseOver = (e3, hex) => {
-    if (!selectedHex) {
-      handleTooltip(e3, hex);
-    }
-  };
-  const handleExploration = (hex) => {
-    setHexas(hexas.map((h2) => {
-      if (h2.hexKey === hex.hexKey) {
-        h2.explored = hex.explored ?? false;
-      }
-      return h2;
-    }));
-  };
-  const handleHexClick = (e3, hex) => {
-    if (parchmentRef.current) {
-      handleSelectedHex({
-        elem: e3.currentTarget,
-        hex
-      });
-      handleTooltip(e3, hex);
-      const {
-        rect,
-        parchmentRect
-      } = getRect(e3.currentTarget, parchmentRef.current);
-      setMapPopover({
-        hex,
-        x: rect.left,
-        y: rect.top,
-        mapMinX: parchmentRect.x,
-        mapMaxX: parchmentRect.width,
-        mapMinY: parchmentRect.y,
-        mapMaxY: parchmentRect.height
-      });
-    }
-  };
-  const handleFileDownload = () => {
-    const hexStorages = hexas.filter((h2) => h2.explored).map(({
-      hexKey,
-      explored
-    }) => ({
-      hexKey,
-      explored
-    }));
-    downloadFile({
-      hexes: hexStorages,
-      fogOfWar
-    }, "map");
-  };
-  const handlePasteMapData = (s) => {
-    setPasteError(void 0);
-    let data;
-    try {
-      data = validateData(s);
-    } catch (error2) {
-      if (error2 instanceof Error) {
-        setPasteError(getPasteErrorLabel(error2));
-      }
-      return;
-    }
-    setHexas(initialHexas.map((hex) => {
-      return {
-        ...hex,
-        ...data.hexes.find((h2) => h2.hexKey === hex.hexKey) ?? {}
-      };
-    }));
-    setFogOfWar(data.fogOfWar);
-  };
-  const parseJson = (s) => {
-    try {
-      return JSON.parse(s);
-    } catch (e3) {
-      return void 0;
-    }
-  };
-  const getPasteErrorLabel = (e3) => {
-    switch (e3.message) {
-      case "InvalidJson":
-        return "InvalidJson";
-      case "NotObject":
-        return "NotObject";
-      case "NoHexesProp":
-        return "NoHexesProp";
-      case "HexesNotArray":
-        return "HexesNotArray";
-      case "InvalidHexData":
-        return "InvalidHexData";
-      default:
-        return "GeneralPasteError";
-    }
-  };
-  const validateData = (s) => {
-    const parsedMapData = parseJson(s);
-    if (isNullish(parsedMapData)) {
-      throw new Error("InvalidJson");
-    }
-    if (typeof parsedMapData !== "object") {
-      throw new Error("NotObject");
-    }
-    const hasHexesProp = has("hexes", parsedMapData);
-    if (!hasHexesProp) {
-      throw new Error("NoHexesProp");
-    }
-    const isHexesArray = Array.isArray(parsedMapData.hexes);
-    if (!isHexesArray) {
-      throw new Error("HexesNotArray");
-    }
-    const isValidHexData = parsedMapData.hexes.every((h2) => {
-      const hasKey = has("hexKey", h2);
-      const hasExplored = has("explored", h2);
-      if (!hasKey || !hasExplored) {
-        return false;
-      }
-      const validKey = isString(h2.hexKey) && isHexKey(h2.hexKey);
-      if (!validKey) {
-        return false;
-      }
-      if (typeof h2.explored !== "boolean") {
-        return false;
-      }
-      return true;
-    });
-    if (!isValidHexData) {
-      throw new Error("InvalidHexData");
-    }
-    return {
-      hexes: parsedMapData.hexes,
-      fogOfWar: parsedMapData.fogOfWar
-    };
-  };
-  useEffect(() => {
-    const hexStorages = hexas.map(({
-      hexKey,
-      explored
-    }) => ({
-      hexKey,
-      explored
-    }));
-    localStorage.setItem(MAP_STORAGE_KEY, JSON.stringify(hexStorages));
-    setHasExploredHexas(atLeastOneExploredHex(hexas));
-  }, [hexas]);
-  useEffect(() => {
-    localStorage.setItem(FOG_OF_WAR_STORAGE_KEY, JSON.stringify(fogOfWar));
-  }, [fogOfWar]);
-  return jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      rowGap: "2rem",
-      width: "100%"
-    }
-  }, jsx(PageHeader, null, t4("Title")), jsx("div", null, jsx(Parchment, {
-    deps: [tooltip],
-    ref: parchmentRef
-  }, jsx("div", {
-    css: {
-      position: "absolute",
-      zIndex: "10",
-      fontSize: "0.9vw",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      textAlign: "center",
-      lineHeight: "1",
-      "--tw-text-opacity": "1",
-      color: "rgba(255, 255, 255, var(--tw-text-opacity))",
-      userSelect: "none",
-      fontWeight: "700",
-      textShadow: "0px 0px 1px black",
-      pointerEvents: "none"
-    },
-    style: {
-      top: tooltip.y,
-      left: tooltip.x,
-      width: tooltip.width,
-      height: tooltip.height
-    }
-  }, tooltip.text), jsx(MapPopover, {
-    options: mapPopover,
-    onExploreChanged: (hex) => handleExploration(hex),
-    onHide: () => handleSelectedHex(void 0)
-  }), jsx(Map2, {
-    fogOfWar
-  }, hexas.map((hex, index) => jsx(Polygon, {
-    key: index,
-    hex,
-    onMouseOver: (e3) => handleMouseOver(e3, hex),
-    onClick: (e3) => handleHexClick(e3, hex)
-  }))))), jsx("div", null, pasteError && jsx("div", {
-    css: {
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(239, 68, 68, var(--tw-bg-opacity))",
-      "--tw-text-opacity": "1",
-      color: "rgba(255, 255, 255, var(--tw-text-opacity))",
-      fontWeight: "700",
-      padding: "0.5rem",
-      display: "flex",
-      justifyContent: "flex-end"
-    }
-  }, t4(pasteError)), jsx("div", {
-    css: {
-      "--tw-bg-opacity": "1",
-      backgroundColor: "rgba(229, 231, 235, var(--tw-bg-opacity))",
-      padding: "0.5rem"
-    }
-  }, jsx(Train, null, jsx(Button, {
-    isSmall: true,
-    onClick: () => setFogOfWar(!fogOfWar)
-  }, t4("FogOfWar", {
-    context: fogOfWar ? "On" : "Off"
-  })), jsx(Button, {
-    isSmall: true,
-    variant: !hasExploredHexas ? "disabled" : void 0,
-    disabled: !hasExploredHexas,
-    onClick: () => handleFileDownload()
-  }, t4("DownloadMapData")), jsx(PasteData, {
-    onFocusTextArea: () => setPasteError(void 0),
-    label: t4("PasteMapData"),
-    onData: handlePasteMapData
-  })))));
-};
+// build/dist/App.js
+var MapPage = /* @__PURE__ */ react.lazy(() => Promise.resolve().then(() => require_map_page()));
 
 // build/dist/components/list.js
 var List = ({
@@ -20241,98 +20796,8 @@ var createDamageModifiers = (tailDamage, sizeDamage) => ({
   Telepathic: 0
 });
 
-// build/dist/pages/monsters.page.js
-var MonstersPage = () => {
-  const {
-    t: t4,
-    i18n
-  } = useTranslation(["monsters", "common"]);
-  const monsters = bookMonsters.map(createMonstersViewModel).sort(monsterComparer(t4));
-  const [monster, setMonster] = useState(monsters[0]);
-  const [showRandomMonster, setShowRandomMonster] = useState(true);
-  const [randomMonster, setRandomMonster] = useState(createRandomMonsterViewModel());
-  const selectMonster = (m3) => {
-    setMonster(m3);
-    setShowRandomMonster(false);
-  };
-  const generateRandomMonster = () => {
-    setRandomMonster(createRandomMonsterViewModel());
-    setShowRandomMonster(true);
-  };
-  useEffect(() => {
-    monsters.sort(monsterComparer(t4));
-  }, [i18n.language]);
-  return jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      rowGap: "2rem",
-      width: "100%"
-    }
-  }, jsx(PageHeader, null, t4("Title")), jsx("div", {
-    css: {
-      display: "grid",
-      gap: "4rem",
-      "@media (min-width: 1024px)": {
-        gridTemplateColumns: "1fr 3fr"
-      }
-    }
-  }, jsx("div", null, jsx(List, null, jsx(Group, {
-    css: {
-      marginBottom: "2rem"
-    },
-    label: t4(`GenerateMonster`),
-    open: true
-  }, jsx("ul", null, jsx("li", {
-    css: {
-      borderWidth: "1px",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
-      borderBottomWidth: "0px",
-      ":last-child": {
-        borderBottomWidth: "1px"
-      }
-    }
-  }, jsx(ListItemButton, {
-    onClick: () => generateRandomMonster()
-  }, t4("RandomMonster"))))), jsx(Group, {
-    label: t4(`BookMonsters`),
-    open: true
-  }, jsx("ul", null, monsters.map((m3) => jsx("li", {
-    key: m3.name,
-    css: {
-      borderWidth: "1px",
-      "--tw-border-opacity": "1",
-      borderColor: "rgba(209, 213, 219, var(--tw-border-opacity))",
-      borderBottomWidth: "0px",
-      ":last-child": {
-        borderBottomWidth: "1px"
-      }
-    }
-  }, jsx(ListItemButton, {
-    onClick: () => selectMonster(m3)
-  }, t4(`Monster.${m3.name}`, {
-    ns: "common"
-  })))))))), jsx(Parchment, {
-    css: {
-      "@media (min-width: 1024px)": {
-        width: "75%"
-      }
-    },
-    deps: [monster, randomMonster, i18n.language]
-  }, showRandomMonster ? jsx(RandomMonsterDisplay, {
-    rm: randomMonster
-  }) : jsx(MonsterDisplay, {
-    m: monster
-  }))));
-};
-
-// build/dist/models/gender.model.js
-var Gender;
-(function(Gender2) {
-  Gender2["Female"] = "Female";
-  Gender2["Male"] = "Male";
-})(Gender || (Gender = {}));
+// build/dist/App.js
+var MonstersPage = /* @__PURE__ */ react.lazy(() => Promise.resolve().then(() => require_monsters_page()));
 
 // build/dist/components/icons/reload-icon.js
 var ReloadIcon = ({
@@ -20365,151 +20830,6 @@ var ReloadIcon = ({
 }), jsx("path", {
   d: "M40.219 44.834a25 25 0 0 0 8.93-13.364l-9.66-2.588a15 15 0 1 1-4.426-15.006L42.139 6.8a25 25 0 1 0-1.92 38.034z"
 })));
-
-// build/dist/components/name-list.js
-var NameList = ({
-  names
-}) => {
-  const {
-    t: t4
-  } = useTranslation(["names"]);
-  return jsx(react.Fragment, null, names.length > 0 && jsx("ul", {
-    "data-testid": "namelist"
-  }, names.map((name, i2) => jsx("li", {
-    key: i2
-  }, name.map((n3) => t4(n3, {
-    ns: "names"
-  })).join(" ")))));
-};
-
-// build/dist/components/kin-name-list.js
-var KinNameList = ({
-  title,
-  nameFunc
-}) => {
-  const {
-    t: t4,
-    i18n
-  } = useTranslation(["common", "names"]);
-  const randomNames = (count = 10) => ({
-    female: range2(count).map((_24) => nameFunc(Gender.Female, i18n.language)),
-    male: range2(count).map((_24) => nameFunc(Gender.Male, i18n.language))
-  });
-  const [names, setNames] = useState(randomNames());
-  const getNames = () => setNames(randomNames());
-  useEffect(() => {
-    setNames(randomNames());
-  }, [i18n.language]);
-  return jsx("div", null, jsx("button", {
-    css: {
-      display: "flex",
-      gap: "0.5rem",
-      alignItems: "center",
-      marginBottom: "1rem",
-      ":hover": {
-        "--tw-text-opacity": "1",
-        color: "rgba(239, 68, 68, var(--tw-text-opacity))"
-      }
-    },
-    onClick: () => getNames()
-  }, jsx("h2", {
-    css: {
-      fontSize: "1.5rem",
-      lineHeight: "2rem",
-      textAlign: "center",
-      display: "flex",
-      "@media (min-width: 1024px)": {
-        fontSize: "2.25rem",
-        lineHeight: "2.5rem"
-      }
-    },
-    className: "yx-heading"
-  }, t4(`Kin.Human.${title}`)), jsx(ReloadIcon, {
-    container: {
-      width: "1.5rem",
-      height: "1.5rem"
-    },
-    svg: {}
-  })), jsx("div", {
-    css: {
-      display: "grid",
-      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-      gap: "4rem"
-    }
-  }, jsx("div", null, jsx("h3", {
-    css: {
-      fontWeight: "600",
-      fontSize: "1.5rem",
-      lineHeight: "2rem",
-      textTransform: "uppercase"
-    }
-  }, t4("Gender.Women")), jsx(NameList, {
-    names: names.female
-  })), jsx("div", null, jsx("h3", {
-    css: {
-      fontWeight: "600",
-      fontSize: "1.5rem",
-      lineHeight: "2rem",
-      textTransform: "uppercase"
-    }
-  }, t4("Gender.Men")), jsx(NameList, {
-    names: names.male
-  }))));
-};
-
-// build/dist/pages/name-generator.page.js
-var NameGeneratorPage = () => {
-  const {
-    t: t4
-  } = useTranslation("names");
-  return jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      rowGap: "2rem",
-      width: "100%"
-    }
-  }, jsx(PageHeader, null, t4("Title")), jsx("div", {
-    css: {
-      display: "flex",
-      flexWrap: "wrap",
-      gap: "1rem",
-      "@media (min-width: 1280px)": {
-        minWidth: "600px"
-      }
-    }
-  }, jsx("div", {
-    css: {
-      flexBasis: "500px"
-    }
-  }, jsx(Parchment, null, jsx(KinNameList, {
-    css: {
-      padding: "0px"
-    },
-    title: "Ailander",
-    nameFunc: getRandomAilanderName
-  }))), jsx("div", {
-    css: {
-      flexBasis: "500px"
-    }
-  }, jsx(Parchment, null, jsx(KinNameList, {
-    css: {
-      padding: "0px"
-    },
-    title: "Alderlander",
-    nameFunc: getRandomAlderlanderName
-  }))), jsx("div", {
-    css: {
-      flexBasis: "500px"
-    }
-  }, jsx(Parchment, null, jsx(KinNameList, {
-    css: {
-      padding: "0px"
-    },
-    title: "Aslene",
-    nameFunc: getRandomAsleneName
-  })))));
-};
 
 // build/dist/functions/legend.functions.js
 var generateLegend = (t4) => {
@@ -21178,70 +21498,8 @@ var MONSTER_LIST = [{
   text: () => "Monster.Dragon"
 }];
 
-// build/dist/pages/session.page.js
-var SessionPage = () => {
-  const {
-    t: t4,
-    i18n
-  } = useTranslation(["session", "common"]);
-  const [legend, setLegend] = useState(generateLegend(t4));
-  const getLegend = () => setLegend(generateLegend(t4));
-  useEffect(() => {
-    getLegend();
-  }, [i18n.language]);
-  return jsx("div", {
-    css: {
-      display: "flex",
-      flexDirection: "column",
-      rowGap: "2rem",
-      width: "100%",
-      alignItems: "center"
-    }
-  }, jsx(PageHeader, null, t4("Title")), jsx("div", {
-    css: {}
-  }, jsx("div", {
-    css: {
-      maxWidth: "65ch",
-      display: "flex",
-      flexDirection: "column",
-      gap: "2rem",
-      "@media (min-width: 1024px)": {
-        width: "65ch"
-      }
-    }
-  }, jsx(Parchment, {
-    deps: [legend]
-  }, jsx("button", {
-    css: {
-      display: "flex",
-      gap: "0.5rem",
-      alignItems: "center",
-      marginBottom: "1rem",
-      ":hover": {
-        "--tw-text-opacity": "1",
-        color: "rgba(239, 68, 68, var(--tw-text-opacity))"
-      }
-    },
-    onClick: () => getLegend(),
-    type: "button"
-  }, jsx("h2", {
-    css: {
-      fontSize: "2.25rem",
-      lineHeight: "2.5rem",
-      textAlign: "center",
-      display: "flex"
-    },
-    className: "yx-heading"
-  }, t4("Legend")), jsx(ReloadIcon, {
-    container: {
-      width: "1.5rem",
-      height: "1.5rem"
-    },
-    svg: {}
-  })), jsx("div", {
-    className: "yx-prose"
-  }, legend)))));
-};
+// build/dist/App.js
+var SessionPage = /* @__PURE__ */ react.lazy(() => Promise.resolve().then(() => require_session_page()));
 
 // build/dist/components/field.js
 var Field = ({
@@ -22623,253 +22881,109 @@ var createTypicalKinViewModel = (tk2) => {
   };
 };
 
-// build/dist/pages/typical-kin.page.js
-var TypicalKinPage = () => {
+// build/dist/App.js
+var TypicalKinPage = /* @__PURE__ */ react.lazy(() => Promise.resolve().then(() => require_typical_kin_page()));
+
+// build/dist/models/gender.model.js
+var Gender;
+(function(Gender2) {
+  Gender2["Female"] = "Female";
+  Gender2["Male"] = "Male";
+})(Gender || (Gender = {}));
+
+// build/dist/components/name-list.js
+var NameList = ({
+  names
+}) => {
   const {
     t: t4
-  } = useTranslation(["typical", "common"]);
-  const humanKinViewModels = Object.values(humanTypicalKins).map(createTypicalKinViewModel);
-  const elfKinViewModels = Object.values(elfTypicalKins).map(createTypicalKinViewModel);
-  const dwarfKinViewModels = Object.values(dwarfTypicalKins).map(createTypicalKinViewModel);
-  const orcKinViewModels = Object.values(orcTypicalKins).map(createTypicalKinViewModel);
-  const ogreKinViewModels = Object.values(ogreTypicalKins).map(createTypicalKinViewModel);
-  const wolfkinKinViewModels = Object.values(wolfkinTypicalKins).map(createTypicalKinViewModel);
-  const saurianKinViewModels = Object.values(saurianTypicalKins).map(createTypicalKinViewModel);
-  const whinerKinViewModels = Object.values(whinerTypicalKins).map(createTypicalKinViewModel);
-  const halflingAndGoblinKinViewModels = Object.values(halflingAndGoblinTypicalKins).map(createTypicalKinViewModel);
-  return jsx("div", {
+  } = useTranslation(["names"]);
+  return jsx(react.Fragment, null, names.length > 0 && jsx("ul", {
+    "data-testid": "namelist"
+  }, names.map((name, i2) => jsx("li", {
+    key: i2
+  }, name.map((n3) => t4(n3, {
+    ns: "names"
+  })).join(" ")))));
+};
+
+// build/dist/components/kin-name-list.js
+var KinNameList = ({
+  title,
+  nameFunc
+}) => {
+  const {
+    t: t4,
+    i18n
+  } = useTranslation(["common", "names"]);
+  const randomNames = (count = 10) => ({
+    female: range2(count).map((_24) => nameFunc(Gender.Female, i18n.language)),
+    male: range2(count).map((_24) => nameFunc(Gender.Male, i18n.language))
+  });
+  const [names, setNames] = useState(randomNames());
+  const getNames = () => setNames(randomNames());
+  useEffect(() => {
+    setNames(randomNames());
+  }, [i18n.language]);
+  return jsx("div", null, jsx("button", {
     css: {
       display: "flex",
-      flexDirection: "column",
-      rowGap: "2rem",
-      width: "100%",
-      paddingBottom: "4rem"
-    }
-  }, jsx(PageHeader, null, t4("Title")), jsx("h2", {
+      gap: "0.5rem",
+      alignItems: "center",
+      marginBottom: "1rem",
+      ":hover": {
+        "--tw-text-opacity": "1",
+        color: "rgba(239, 68, 68, var(--tw-text-opacity))"
+      }
+    },
+    onClick: () => getNames()
+  }, jsx("h2", {
     css: {
-      textAlign: "center",
       fontSize: "1.5rem",
       lineHeight: "2rem",
+      textAlign: "center",
+      display: "flex",
       "@media (min-width: 1024px)": {
         fontSize: "2.25rem",
         lineHeight: "2.5rem"
       }
     },
     className: "yx-heading"
-  }, t4("Kin.Human.Humans", {
-    ns: "common"
+  }, t4(`Kin.Human.${title}`)), jsx(ReloadIcon, {
+    container: {
+      width: "1.5rem",
+      height: "1.5rem"
+    },
+    svg: {}
   })), jsx("div", {
     css: {
       display: "grid",
-      gap: "1rem",
-      "@media (min-width: 768px)": {
-        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
-      },
-      "@media (min-width: 1536px)": {
-        gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
-      }
+      gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+      gap: "4rem"
     }
-  }, humanKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
-    key: tkvm.kin,
-    tkvm
-  }))), jsx("h2", {
+  }, jsx("div", null, jsx("h3", {
     css: {
-      textAlign: "center",
+      fontWeight: "600",
       fontSize: "1.5rem",
       lineHeight: "2rem",
-      "@media (min-width: 1024px)": {
-        fontSize: "2.25rem",
-        lineHeight: "2.5rem"
-      }
-    },
-    className: "yx-heading"
-  }, t4("Kin.Elf.Elves", {
-    ns: "common"
-  })), jsx("div", {
-    css: {
-      display: "grid",
-      gap: "1rem",
-      "@media (min-width: 768px)": {
-        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
-      },
-      "@media (min-width: 1536px)": {
-        gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
-      }
+      textTransform: "uppercase"
     }
-  }, elfKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
-    key: tkvm.kin,
-    tkvm
-  }))), jsx("h2", {
+  }, t4("Gender.Women")), jsx(NameList, {
+    names: names.female
+  })), jsx("div", null, jsx("h3", {
     css: {
-      textAlign: "center",
+      fontWeight: "600",
       fontSize: "1.5rem",
       lineHeight: "2rem",
-      "@media (min-width: 1024px)": {
-        fontSize: "2.25rem",
-        lineHeight: "2.5rem"
-      }
-    },
-    className: "yx-heading"
-  }, t4("Kin.Dwarf.Dwarves", {
-    ns: "common"
-  })), jsx("div", {
-    css: {
-      display: "grid",
-      gap: "1rem",
-      "@media (min-width: 768px)": {
-        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
-      },
-      "@media (min-width: 1536px)": {
-        gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
-      }
+      textTransform: "uppercase"
     }
-  }, dwarfKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
-    key: tkvm.kin,
-    tkvm
-  }))), jsx("h2", {
-    css: {
-      textAlign: "center",
-      fontSize: "1.5rem",
-      lineHeight: "2rem",
-      "@media (min-width: 1024px)": {
-        fontSize: "2.25rem",
-        lineHeight: "2.5rem"
-      }
-    },
-    className: "yx-heading"
-  }, t4("Kin.Orc.Orcs", {
-    ns: "common"
-  })), jsx("div", {
-    css: {
-      display: "grid",
-      gap: "1rem",
-      "@media (min-width: 768px)": {
-        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
-      },
-      "@media (min-width: 1536px)": {
-        gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
-      }
-    }
-  }, orcKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
-    key: tkvm.kin,
-    tkvm
-  }))), jsx("div", {
-    css: {
-      display: "grid",
-      gap: "1rem",
-      "@media (min-width: 768px)": {
-        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
-      },
-      "@media (min-width: 1536px)": {
-        gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
-      }
-    }
-  }, jsx(Pancake, null, jsx("h2", {
-    css: {
-      textAlign: "center",
-      fontSize: "1.5rem",
-      lineHeight: "2rem",
-      "@media (min-width: 1024px)": {
-        fontSize: "2.25rem",
-        lineHeight: "2.5rem"
-      }
-    },
-    className: "yx-heading"
-  }, t4("Kin.Ogre.Ogres", {
-    ns: "common"
-  })), ogreKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
-    key: tkvm.kin,
-    tkvm
-  }))), jsx(Pancake, null, jsx("h2", {
-    css: {
-      textAlign: "center",
-      fontSize: "1.5rem",
-      lineHeight: "2rem",
-      "@media (min-width: 1024px)": {
-        fontSize: "2.25rem",
-        lineHeight: "2.5rem"
-      }
-    },
-    className: "yx-heading"
-  }, t4("Kin.Wolfkin.Wolfkins", {
-    ns: "common"
-  })), wolfkinKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
-    key: tkvm.kin,
-    tkvm
-  })))), jsx("div", {
-    css: {
-      display: "grid",
-      gap: "1rem",
-      "@media (min-width: 768px)": {
-        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
-      },
-      "@media (min-width: 1536px)": {
-        gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
-      }
-    }
-  }, jsx(Pancake, null, jsx("h2", {
-    css: {
-      textAlign: "center",
-      fontSize: "1.5rem",
-      lineHeight: "2rem",
-      "@media (min-width: 1024px)": {
-        fontSize: "2.25rem",
-        lineHeight: "2.5rem"
-      }
-    },
-    className: "yx-heading"
-  }, t4("Kin.Saurian.Saurians", {
-    ns: "common"
-  })), saurianKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
-    key: tkvm.kin,
-    tkvm
-  }))), jsx(Pancake, null, jsx("h2", {
-    css: {
-      textAlign: "center",
-      fontSize: "1.5rem",
-      lineHeight: "2rem",
-      "@media (min-width: 1024px)": {
-        fontSize: "2.25rem",
-        lineHeight: "2.5rem"
-      }
-    },
-    className: "yx-heading"
-  }, t4("Kin.Whiner.Whiners", {
-    ns: "common"
-  })), whinerKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
-    key: tkvm.kin,
-    tkvm
-  })))), jsx("h2", {
-    css: {
-      textAlign: "center",
-      fontSize: "1.5rem",
-      lineHeight: "2rem",
-      "@media (min-width: 1024px)": {
-        fontSize: "2.25rem",
-        lineHeight: "2.5rem"
-      }
-    },
-    className: "yx-heading"
-  }, t4("Kin.HalflingAndGoblin.HalflingAndGoblins", {
-    ns: "common"
-  })), jsx("div", {
-    css: {
-      display: "grid",
-      gap: "1rem",
-      "@media (min-width: 768px)": {
-        gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
-      },
-      "@media (min-width: 1536px)": {
-        gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
-      }
-    }
-  }, halflingAndGoblinKinViewModels.map((tkvm) => jsx(TypicalKinDisplay, {
-    key: tkvm.kin,
-    tkvm
+  }, t4("Gender.Men")), jsx(NameList, {
+    names: names.male
   }))));
 };
 
 // build/dist/App.js
+var NameGeneratorPage = /* @__PURE__ */ react.lazy(() => Promise.resolve().then(() => require_name_generator_page()));
 var styles = {
   container: () => [
     {
