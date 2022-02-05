@@ -24,7 +24,11 @@ module.exports = {
   ],
   optimize: {
     /* Example: Bundle your final build: */
-    bundle: true,
+    bundle: false,
+    preload: true,
+    splitting: true,
+    treeshake: true,
+    minify: true,
   },
   devOptions: {
     /* ... */
