@@ -148,3 +148,5 @@ export const FindsPage = () => {
     </div>
   )
 }
+
+export default FindsPage

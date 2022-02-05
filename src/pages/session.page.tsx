@@ -39,3 +39,5 @@ export const SessionPage = () => {
     </div>
   )
 }
+
+export default SessionPage

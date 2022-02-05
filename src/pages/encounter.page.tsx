@@ -112,3 +112,5 @@ export const EncounterPage = () => {
     </div>
   )
 }
+
+export default EncounterPage

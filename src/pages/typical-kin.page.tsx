@@ -135,3 +135,5 @@ export const TypicalKinPage = () => {
     </div>
   )
 }
+
+export default TypicalKinPage

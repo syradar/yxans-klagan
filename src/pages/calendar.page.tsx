@@ -265,3 +265,5 @@ export const CalendarPage = () => {
     </div>
   )
 }
+
+export default CalendarPage

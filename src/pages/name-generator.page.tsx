@@ -50,3 +50,5 @@ export const NameGeneratorPage = () => {
     </div>
   )
 }
+
+export default NameGeneratorPage

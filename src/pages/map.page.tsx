@@ -353,3 +353,5 @@ export const MapPage = () => {
     </div>
   )
 }
+
+export default MapPage
