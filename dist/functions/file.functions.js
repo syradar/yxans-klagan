@@ -1,1 +1,0 @@
-export const downloadFile=(t,o)=>{const n=new Blob([JSON.stringify(t,void 0,2)]),i=URL.createObjectURL(n),e=document.createElement("a");e.setAttribute("style","display: none; position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;"),e.href=i,e.download=`${o}.json`,e.click()};

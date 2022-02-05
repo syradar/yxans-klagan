@@ -1,1 +1,0 @@
-import"../pkg/react.js";import{jsx as s}from"../pkg/@emotion/react.js";export const Polygon=({hex:o,onMouseOver:e,onClick:r})=>s("polygon",{className:`cls-2 hex ${o.explored?"hex-explored":""}`,x:"0",y:"0",width:"100%",height:"100%",points:o.points,onClick:r,onMouseOver:e});

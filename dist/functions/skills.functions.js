@@ -1,1 +1,0 @@
-export const defaultSkillsValues=()=>({Might:0,Endurance:0,Melee:0,Crafting:0,Stealth:0,SleightOfHand:0,Move:0,Markmanship:0,Scouting:0,Lore:0,Survival:0,Insight:0,Manipulation:0,Performance:0,Healing:0,AnimalHandling:0}),createAllSkillsValuesViewModel=e=>Object.entries(e).filter(([a,l])=>l>0);

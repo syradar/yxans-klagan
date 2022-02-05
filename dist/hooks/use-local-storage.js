@@ -1,1 +1,0 @@
-import{useState as s}from"../pkg/react.js";export function useLocalStorage(e,o){const[c,n]=s(()=>{try{const t=window.localStorage.getItem(e);return t?JSON.parse(t):o}catch(t){return console.error(t),o}});return[c,t=>{try{const r=t instanceof Function?t(c):t;n(r),window.localStorage.setItem(e,JSON.stringify(r))}catch(r){console.error(r)}}]}

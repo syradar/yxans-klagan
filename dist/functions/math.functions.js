@@ -1,1 +1,0 @@
-export const min=r=>o=>{const e="value was Nan";if(isNaN(r))throw new TypeError(`minVal ${e}`);if(isNaN(o))throw new TypeError(`val ${e}`);return o<r?r:o},minZero=min(0),isEven=r=>{if(isNaN(r))throw new TypeError("val was NaN");return r%2==0};

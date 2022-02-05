@@ -1,1 +1,0 @@
-import o from"../pkg/react.js";import{useTranslation as m}from"../pkg/react-i18next.js";import{jsx as t}from"../pkg/@emotion/react.js";export const NameList=({names:e})=>{const{t:s}=m(["names"]);return t(o.Fragment,null,e.length>0&&t("ul",{"data-testid":"namelist"},e.map((a,r)=>t("li",{key:r},a.map(n=>s(n,{ns:"names"})).join(" ")))))};

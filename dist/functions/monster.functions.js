@@ -1,1 +1,0 @@
-import{createAttributesViewModel as s}from"./attributes.functions.js";export const createMonstersViewModel=t=>({...t,attributes:s(t.attributes)}),monsterComparer=t=>(o,n)=>{const e=t(`Monster.${o.name}`,{ns:"common"}),r=t(`Monster.${n.name}`,{ns:"common"});return e<r?-1:e>r?1:0};
