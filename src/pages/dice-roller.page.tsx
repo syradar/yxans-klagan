@@ -130,3 +130,5 @@ export const DiceRollerPage = () => {
     </div>
   )
 }
+
+export default DiceRollerPage

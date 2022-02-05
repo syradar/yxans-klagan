@@ -233,3 +233,5 @@ const regularServices: RegularService[] = [
     comment: 'Kan vara dyrare',
   },
 ]
+
+export default GearPage

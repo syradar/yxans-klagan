@@ -15,16 +15,19 @@ import { PageHeader } from './components/page-header'
 import { Parchment } from './components/parchment'
 import { Pancake, Stack } from './components/stack'
 import { YxansKlaganLogo } from './logo'
-import { CalendarPage } from './pages/calendar.page'
-import { DiceRollerPage } from './pages/dice-roller.page'
-import { EncounterPage } from './pages/encounter.page'
-import { FindsPage } from './pages/finds.page'
-import { GearPage } from './pages/gear.page'
-import { MapPage } from './pages/map.page'
-import { MonstersPage } from './pages/monsters.page'
-import { NameGeneratorPage } from './pages/name-generator.page'
-import { SessionPage } from './pages/session.page'
-import { TypicalKinPage } from './pages/typical-kin.page'
+
+const CalendarPage = React.lazy(() => import('./pages/calendar.page'))
+const DiceRollerPage = React.lazy(() => import('./pages/dice-roller.page'))
+const EncounterPage = React.lazy(() => import('./pages/encounter.page'))
+const FindsPage = React.lazy(() => import('./pages/finds.page'))
+const GearPage = React.lazy(() => import('./pages/gear.page'))
+const MapPage = React.lazy(() => import('./pages/map.page'))
+const MonstersPage = React.lazy(() => import('./pages/monsters.page'))
+const SessionPage = React.lazy(() => import('./pages/session.page'))
+const TypicalKinPage = React.lazy(() => import('./pages/typical-kin.page'))
+const NameGeneratorPage = React.lazy(
+  () => import('./pages/name-generator.page'),
+)
 
 const styles = {
   // Move long class sets out of jsx to keep it scannable

@@ -89,3 +89,5 @@ export const MonstersPage = () => {
     </div>
   )
 }
+
+export default MonstersPage
