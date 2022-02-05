@@ -1,0 +1,1 @@
+import{Train as t}from"./stack.js";import{jsx as s}from"../pkg/@emotion/react.js";export const Field=({children:r,label:o})=>s(t,{spacing:"small",wrap:!1},s("div",{css:{fontWeight:"500"}},o,": "),s("div",null,r));

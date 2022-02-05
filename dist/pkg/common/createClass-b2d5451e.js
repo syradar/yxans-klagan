@@ -1,0 +1,1 @@
+function u(e,a){if(!(e instanceof a))throw new TypeError("Cannot call a class as a function")}function l(e,a){for(var f=0;f<a.length;f++){var n=a[f];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}function i(e,a,f){return a&&l(e.prototype,a),f&&l(e,f),e}export{i as _,u as a};

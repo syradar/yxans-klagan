@@ -1,0 +1,1 @@
+import"../pkg/react.js";import{jsx as t}from"../pkg/@emotion/react.js";export const PageHeader=({children:e})=>t("h1",{css:{textAlign:"center",fontSize:"2.25rem",lineHeight:"2.5rem","@media (min-width: 1024px)":{fontSize:"3.75rem",lineHeight:"1"}},className:"yx-heading"},e);

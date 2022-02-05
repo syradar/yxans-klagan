@@ -1,0 +1,15 @@
+{
+  "imports": {
+    "@emotion/react": "./@emotion/react.js",
+    "@emotion/styled": "./@emotion/styled.js",
+    "i18next": "./i18next.js",
+    "i18next-browser-languagedetector": "./i18next-browser-languagedetector.js",
+    "i18next-http-backend": "./i18next-http-backend.js",
+    "nanoid": "./nanoid.js",
+    "rambda": "./rambda.js",
+    "react": "./react.js",
+    "react-dom": "./react-dom.js",
+    "react-i18next": "./react-i18next.js",
+    "react-router-dom": "./react-router-dom.js"
+  }
+}

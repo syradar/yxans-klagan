@@ -1,9 +1,11 @@
-/* build/dist/App.css */
-.App {
+if(typeof document!="undefined"){const e=`.App {
+  /* background-color: hsl(48, 100%, 97%); */
 }
+
 body {
   overflow: overlay;
 }
+
 .App-header {
   height: 4rem;
   display: flex;
@@ -11,40 +13,50 @@ body {
   color: white;
   grid-area: header;
 }
+
 nav {
   grid-area: side;
+  /* background-color: hsl(0, 0%, 93%); */
 }
+
 nav > div {
   margin-bottom: 2rem;
 }
+
 main {
   grid-area: main;
+  /* background-color: rgb(247, 247, 238); */
   padding: 1rem;
   display: flex;
   justify-content: center;
 }
+
 .content {
   background-color: white;
   width: 65ch;
   box-shadow: 0 0 0 1 black;
   padding: 1rem;
 }
+
 .content button {
   font-weight: bold;
   padding: 4px 8px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
+
 .primary {
   background-color: black;
   color: white;
   border: 1px solid black;
 }
+
 .secondary {
   background-color: white;
   color: black;
   border: 1px solid black;
 }
+
 .App-header h1 {
   font-size: 2rem;
   margin: 0;
@@ -53,28 +65,36 @@ main {
   font-size: 1.25rem;
   margin: 0;
 }
+
 .cls-3 {
   fill: #ffe99d;
 }
+
 .yx-prose {
+  /* IM FELL English */
   font-family: english, sans-serif;
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
+
 .yx-prose-i {
+  /* IM FELL English Italic */
   font-family: english, sans-serif;
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
+
 .yx-heading {
+  /* IM FELL French Canon Regular */
   font-family: french-canon, serif;
   font-weight: 400;
   font-style: normal;
   text-transform: uppercase;
   font-display: swap;
 }
+
 #ravland-map .cls-1,
 #ravland-map .cls-2 {
   stroke: #000;
@@ -83,31 +103,38 @@ main {
   stroke-opacity: 0.25;
   fill: hsla(0deg, 0%, 0%, 50%);
 }
+
 #ravland-map.fog-of-war .cls-1,
 #ravland-map.fog-of-war .cls-2 {
   stroke: #fff;
   stroke-opacity: 0.25;
   fill: hsla(0deg, 0%, 0%, 100%);
 }
+
 #ravland-map .hex:hover {
   fill: hsla(0deg, 0%, 0%, 25%);
   cursor: pointer;
 }
+
 #ravland-map.fog-of-war .hex:hover {
   fill: hsla(0deg, 0%, 0%, 100%);
   cursor: pointer;
 }
+
 #ravland-map .hex.hex-explored:hover {
   fill: transparent;
 }
+
 #ravland-map .hex.hex-explored {
   fill: transparent;
 }
+
 #ravland-map .hex.hex-selected {
   stroke: white;
   stroke-width: 2;
   stroke-miterlimit: 10;
 }
+
 #ravland-map .hex div {
   position: static;
   display: block;
@@ -116,3 +143,4 @@ main {
   width: 100%;
   height: 100%;
 }
+`,n=document.createElement("style"),a=document.createTextNode(e);n.type="text/css",n.appendChild(a),document.head.appendChild(n)}

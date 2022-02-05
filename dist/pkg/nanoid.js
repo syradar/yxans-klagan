@@ -1,0 +1,1 @@
+let n=(l=21)=>{let e="",r=crypto.getRandomValues(new Uint8Array(l));for(;l--;){let t=r[l]&63;t<36?e+=t.toString(36):t<62?e+=(t-26).toString(36).toUpperCase():t<63?e+="_":e+="-"}return e};export{n as nanoid};

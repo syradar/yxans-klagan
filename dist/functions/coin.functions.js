@@ -1,1 +1,1 @@
-export const CoinID = () => 1;
+export const CoinID=()=>1;

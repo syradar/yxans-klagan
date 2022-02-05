@@ -1,14 +1,1 @@
-export const mockTranslations = () => {
-  return jest.mock('react-i18next', () => ({
-    // this mock makes sure any components using the translate hook can use it without a warning being shown
-    useTranslation: () => {
-      return {
-        t: str => str,
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        i18n: {
-          changeLanguage: () => new Promise(() => {})
-        }
-      };
-    }
-  }));
-};
+export const mockTranslations=()=>jest.mock("react-i18next",()=>({useTranslation:()=>({t:n=>n,i18n:{changeLanguage:()=>new Promise(()=>{})}})}));
