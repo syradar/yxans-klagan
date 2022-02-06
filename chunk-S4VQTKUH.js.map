@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../build/dist/components/stat.js"],
+  "sourcesContent": ["import React from '../pkg/react.js';\nimport { jsx as __cssprop } from \"../pkg/@emotion/react.js\";\nconst statValueStyle = {\n  small: {\n    \"fontSize\": \"1rem\",\n    \"lineHeight\": \"1.5rem\"\n  },\n  medium: {\n    \"fontSize\": \"1.125rem\",\n    \"lineHeight\": \"1.75rem\"\n  },\n  large: {\n    \"fontSize\": \"1.5rem\",\n    \"lineHeight\": \"2rem\"\n  }\n};\nexport const Stat = ({\n  children,\n  label,\n  size = 'medium'\n}) => __cssprop(\"div\", {\n  css: {\n    \"textAlign\": \"center\"\n  }\n}, __cssprop(\"div\", {\n  css: [{\n    \"fontWeight\": \"500\",\n    \"lineHeight\": \"1\"\n  }, statValueStyle[size]]\n}, children), __cssprop(\"div\", {\n  css: {\n    \"fontSize\": \"0.875rem\",\n    \"lineHeight\": \"1.25rem\"\n  }\n}, label));"],
+  "mappings": "wCAEA,GAAM,GAAiB,CACrB,MAAO,CACL,SAAY,OACZ,WAAc,UAEhB,OAAQ,CACN,SAAY,WACZ,WAAc,WAEhB,MAAO,CACL,SAAY,SACZ,WAAc,SAGL,EAAO,CAAC,CACnB,WACA,QACA,OAAO,YACH,EAAU,MAAO,CACrB,IAAK,CACH,UAAa,WAEd,EAAU,MAAO,CAClB,IAAK,CAAC,CACJ,WAAc,MACd,WAAc,KACb,EAAe,KACjB,GAAW,EAAU,MAAO,CAC7B,IAAK,CACH,SAAY,WACZ,WAAc,YAEf",
+  "names": []
+}
