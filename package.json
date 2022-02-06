@@ -14,7 +14,7 @@
     "start": "snowpack dev",
     "build": "snowpack build",
     "test": "jest",
-    "test:ci": "jest --coverage",
+    "test:ci": "jest --coverage --runInBand",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
     "deploy": "gh-pages -d build"
   },
