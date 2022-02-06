@@ -14,7 +14,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: "16"
-      - run: yarn install --frozen-lockfile
+      - run: yarn install --immutable-cache
       - name: Cache dependencies
         id: cache-deps
         uses: actions/cache@v2
@@ -33,7 +33,7 @@ jobs:
           cache: "yarn"
       - name: install dependencies
         if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable-cache
       - run: yarn lint
 
   build:
@@ -47,7 +47,7 @@ jobs:
           cache: "yarn"
       - name: install dependencies
         if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable-cache
       - run: yarn build
 
   test:
@@ -63,7 +63,7 @@ jobs:
           cache: "yarn"
       - name: install dependencies
         if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable-cache
       - run: yarn test:ci
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
