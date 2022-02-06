@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, Suspense } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Link,
@@ -174,7 +174,9 @@ const App = () => {
           </a>
         </div>
 
-        <main tw="w-full mt-4 lg:(ml-48)">{routes}</main>
+        <Suspense fallback={<div>Loading...</div>}>
+          <main tw="w-full mt-4 lg:(ml-48)">{routes}</main>
+        </Suspense>
       </div>
     </div>
   )
