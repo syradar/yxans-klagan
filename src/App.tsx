@@ -28,6 +28,7 @@ const TypicalKinPage = React.lazy(() => import('./pages/typical-kin.page'))
 const NameGeneratorPage = React.lazy(
   () => import('./pages/name-generator.page'),
 )
+const NpcPage = React.lazy(() => import('./pages/npc.page'))
 
 const styles = {
   // Move long class sets out of jsx to keep it scannable
@@ -58,6 +59,10 @@ const App = () => {
         {
           path: 'typical',
           element: <TypicalKinPage />,
+        },
+        {
+          path: 'npc',
+          element: <NpcPage />,
         },
         {
           path: '*',
@@ -158,6 +163,7 @@ const App = () => {
                       <MenuLink to="/kin/typical">
                         {t('Menu-Kin-Typical')}
                       </MenuLink>
+                      <MenuLink to="/kin/npc">{t('Menu-Kin-Npc')}</MenuLink>
                     </Pancake>
                   </div>
                 </Group>

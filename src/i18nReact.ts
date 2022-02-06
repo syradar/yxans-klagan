@@ -36,6 +36,7 @@ i18nReact
       'session',
       'typical',
       'finds',
+      'npc',
     ],
     keySeparator: '.',
     backend: {
