@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../build/dist/pkg/nanoid.js", "../build/dist/models/utils.model.js"],
-  "sourcesContent": ["let nanoid = (size = 21) => {\n  let id = '';\n  let bytes = crypto.getRandomValues(new Uint8Array(size));\n\n  while (size--) {\n    let byte = bytes[size] & 63;\n\n    if (byte < 36) {\n      id += byte.toString(36);\n    } else if (byte < 62) {\n      id += (byte - 26).toString(36).toUpperCase();\n    } else if (byte < 63) {\n      id += '_';\n    } else {\n      id += '-';\n    }\n  }\n\n  return id;\n};\n\nexport { nanoid };\n", "import { nanoid } from '../pkg/nanoid.js';\n/** Used by Flavor to mark a type in a readable way. */\n\nexport const getId = () => nanoid();"],
-  "mappings": "AAAA,GAAI,GAAS,CAAC,EAAO,KAAO,CAC1B,GAAI,GAAK,GACL,EAAQ,OAAO,gBAAgB,GAAI,YAAW,IAElD,KAAO,KAAQ,CACb,GAAI,GAAO,EAAM,GAAQ,GAEzB,AAAI,EAAO,GACT,GAAM,EAAK,SAAS,IACf,AAAI,EAAO,GAChB,GAAO,GAAO,IAAI,SAAS,IAAI,cAC1B,AAAI,EAAO,GAChB,GAAM,IAEN,GAAM,IAIV,MAAO,ICfF,GAAM,GAAQ,IAAM",
-  "names": []
-}

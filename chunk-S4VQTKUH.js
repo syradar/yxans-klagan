@@ -1,2 +1,0 @@
-import{m as e}from"./chunk-PWWMBDNM.js";var r={small:{fontSize:"1rem",lineHeight:"1.5rem"},medium:{fontSize:"1.125rem",lineHeight:"1.75rem"},large:{fontSize:"1.5rem",lineHeight:"2rem"}},c=({children:t,label:i,size:m="medium"})=>e("div",{css:{textAlign:"center"}},e("div",{css:[{fontWeight:"500",lineHeight:"1"},r[m]]},t),e("div",{css:{fontSize:"0.875rem",lineHeight:"1.25rem"}},i));export{c as a};
-//# sourceMappingURL=chunk-S4VQTKUH.js.map
