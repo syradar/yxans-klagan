@@ -10,8 +10,7 @@ import {
   Armor,
   ArmorType,
   ArmorViewModel,
-  createArmorViewModel,
-  createHelmetViewModel,
+  createProtectionViewModel,
   Helmet,
   HelmetType,
   HelmetViewModel,
@@ -72,7 +71,7 @@ export const createTypicalKinViewModel = <
     skills: createAllSkillsValuesViewModel(tk.skills),
     weapons: tk.weapons.map(createWeaponViewModel),
     shields: tk.shields.map(createShieldViewModel),
-    armors: tk.armors.map(createArmorViewModel),
-    helmets: tk.helmets.map(createHelmetViewModel),
+    armors: tk.armors.map(createProtectionViewModel),
+    helmets: tk.helmets.map(createProtectionViewModel),
   }
 }
