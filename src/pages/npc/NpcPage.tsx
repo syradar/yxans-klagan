@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import 'twin.macro'
-import { Button } from '../components/Button'
-import { PageHeader } from '../components/page-header'
-import { Parchment } from '../components/parchment'
-import { Pancake, Train } from '../components/stack'
-import { getRandomCharacteristic } from '../functions/characteristics.function'
-import { getRandomOccupation } from '../functions/occupation.function'
-import { NPC } from '../models/npc.model'
+import { Button } from '../../components/Button'
+import { PageHeader } from '../../components/page-header'
+import { Parchment } from '../../components/parchment'
+import { Pancake, Train } from '../../components/Stack'
+import { getRandomCharacteristic } from './characteristics'
+import { NPC } from './npc'
+import { getRandomOccupation } from './occupation'
 
 export const NpcPage = () => {
   const { t, i18n } = useTranslation(['npc', 'common'])

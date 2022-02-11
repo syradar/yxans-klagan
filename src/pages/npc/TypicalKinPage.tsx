@@ -1,9 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import 'twin.macro'
-import { PageHeader } from '../components/page-header'
-import { Pancake } from '../components/stack'
-import { TypicalKinDisplay } from '../components/typical-kin-display'
+import { PageHeader } from '../../components/page-header'
+import { Pancake } from '../../components/Stack'
 import {
   dwarfTypicalKins,
   elfTypicalKins,
@@ -14,8 +13,9 @@ import {
   saurianTypicalKins,
   whinerTypicalKins,
   wolfkinTypicalKins,
-} from '../data/typical-kin.data'
-import { createTypicalKinViewModel } from '../functions/typical-kin.functions'
+} from './data/typical-kin.data'
+import { createTypicalKinViewModel } from './typical-kin'
+import { TypicalKinDisplay } from './TypicalKinDisplay'
 
 export const TypicalKinPage = () => {
   const { t } = useTranslation(['typical', 'common'])

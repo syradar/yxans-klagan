@@ -1,4 +1,4 @@
-import { getOccupations } from './occupation.model'
+import { getOccupations } from './occupation'
 
 describe('getOccupations', () => {
   it('should have 36 occupations', () => {

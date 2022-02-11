@@ -1,4 +1,4 @@
-import { defaultSkillsValues } from '../functions/skills.functions'
+import { defaultSkillsValues } from '../../../functions/skills.functions'
 import {
   DwarfKin,
   ElfKin,
@@ -9,8 +9,8 @@ import {
   SaurianKin,
   WhinerKin,
   WolfKin,
-} from '../models/name.model'
-import { TypicalKin } from '../models/typical-kin.model'
+} from '../name'
+import { TypicalKin } from '../typical-kin'
 import { armors, helmets } from './armor.data'
 import { shields } from './shield.data'
 import { meleeWeapons, rangedWeapons } from './weapon.data'

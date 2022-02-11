@@ -4,7 +4,7 @@ import { Button } from '../components/Button'
 import { DiceDisplay } from '../components/dice-display'
 import { PageHeader } from '../components/page-header'
 import { Parchment } from '../components/parchment'
-import { Stepper } from '../components/stepper'
+import { Stepper } from '../components/Stepper'
 import { range } from '../functions/array.functions'
 import { countSuccesses, getRandomInt } from '../functions/dice.functions'
 

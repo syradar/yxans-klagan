@@ -1,8 +1,8 @@
 import { render, within } from '@testing-library/react'
 import React from 'react'
 import { I18nextProvider } from 'react-i18next'
-import i18n from '../test/i18nForTests'
-import { NameList } from './name-list'
+import i18n from '../../test/i18nForTests'
+import { NameList } from './NameList'
 
 describe('NameList', () => {
   it('should render', async () => {

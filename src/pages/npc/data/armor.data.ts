@@ -1,4 +1,4 @@
-import { Armor, ArmorType, Helmet, HelmetType } from '../models/armor.model'
+import { ArmorType, Armor, HelmetType, Helmet } from '../armor'
 
 export const armors: { [A in Exclude<ArmorType, 'Natural'>]: Armor<A> } = {
   Leather: {

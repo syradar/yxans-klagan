@@ -1,4 +1,4 @@
-import { HumanNames, NameType, VillageNameModel } from '../models/name.model'
+import { HumanNames, NameType, VillageNameModel } from '../name'
 
 export const humanNames: HumanNames = {
   Alderlander: {

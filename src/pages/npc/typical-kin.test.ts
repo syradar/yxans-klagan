@@ -1,9 +1,9 @@
-import { armors, helmets } from '../data/armor.data'
-import { meleeWeapons, rangedWeapons } from '../data/weapon.data'
-import { HumanKin } from '../models/name.model'
-import { TypicalKin } from '../models/typical-kin.model'
-import { defaultSkillsValues } from './skills.functions'
-import { createTypicalKinViewModel } from './typical-kin.functions'
+import { armors, helmets } from './data/armor.data'
+import { meleeWeapons, rangedWeapons } from './data/weapon.data'
+import { defaultSkillsValues } from '../../functions/skills.functions'
+import { HumanKin } from './name'
+import { createTypicalKinViewModel } from './typical-kin'
+import { TypicalKin } from './typical-kin'
 
 describe('createTypicalKinViewModel', () => {
   const tk: TypicalKin<HumanKin, 'Human'> = {

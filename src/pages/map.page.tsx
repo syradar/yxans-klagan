@@ -9,7 +9,7 @@ import { PageHeader } from '../components/page-header'
 import { Parchment } from '../components/parchment'
 import { PasteData } from '../components/paste-data'
 import { Polygon } from '../components/polygon'
-import { Train } from '../components/stack'
+import { Train } from '../components/Stack'
 import { downloadFile } from '../functions/file.functions'
 import { isNullish, isString } from '../functions/utils.functions'
 import { Hex, HexStorage, initialHexas, isHexKey } from '../models/map.model'
@@ -296,11 +296,11 @@ export const MapPage = () => {
         <Parchment deps={[tooltip]} ref={parchmentRef}>
           <div
             tw="absolute z-10 text-[0.9vw] flex items-center justify-center text-center leading-none text-white select-none font-bold text-shadow[0px 0px 1px black] pointer-events-none"
-            style={{
-              top: tooltip.y,
-              left: tooltip.x,
-              width: tooltip.width,
-              height: tooltip.height,
+            css={{
+              top: numToPx(tooltip.y),
+              left: numToPx(tooltip.x),
+              width: numToPx(tooltip.width),
+              height: numToPx(tooltip.height),
             }}
           >
             {tooltip.text}
@@ -353,5 +353,7 @@ export const MapPage = () => {
     </div>
   )
 }
+
+const numToPx = (num: number): string => `${num}px`
 
 export default MapPage

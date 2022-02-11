@@ -1,9 +1,7 @@
-import { villageNamesEn, villageNamesSv } from '../data/name.data'
-import { Gender } from '../models/gender.model'
-import { ValidLanguage } from '../models/language.model'
-import { NameList, NameType } from '../models/name.model'
+import { villageNamesEn, villageNamesSv } from './data/name.data'
+import { ValidLanguage } from '../../models/language.model'
+import { NameList, NameType } from './name'
 import {
-  capitalize,
   formatVillageName,
   getNameTypeAndFirstName,
   getRandomAilanderName,
@@ -11,7 +9,8 @@ import {
   getRandomAsleneName,
   getVillageNameList,
   getVillagePrefixAndSuffix,
-} from './name.functions'
+} from './name'
+import { capitalize } from '../../functions/utils.functions'
 
 describe('name functions', () => {
   const testChooseFunc = <T>(arr: readonly T[]): T => arr[0]
@@ -120,7 +119,7 @@ describe('name functions', () => {
         type: NameType.FirstName,
         firstName: femaleName,
       }
-      const result = getNameTypeAndFirstName(Gender.Female, nl)
+      const result = getNameTypeAndFirstName('Female', nl)
 
       expect(result).toEqual(expected)
     })
@@ -145,7 +144,7 @@ describe('name functions', () => {
     }
 
     const getName = (nl: NameList) =>
-      getRandomAilanderName(Gender.Female, 'en', nl, testChooseFunc)
+      getRandomAilanderName('Female', 'en', nl, testChooseFunc)
 
     it('should return family names', () => {
       const familyNl = {
@@ -214,7 +213,7 @@ describe('name functions', () => {
     }
 
     const getName = (nl: NameList) =>
-      getRandomAlderlanderName(Gender.Female, 'en', nl, testChooseFunc)
+      getRandomAlderlanderName('Female', 'en', nl, testChooseFunc)
 
     it('should return family names', () => {
       const familyNl: NameList = {
@@ -315,7 +314,7 @@ describe('name functions', () => {
     }
 
     const getName = (nl: NameList) =>
-      getRandomAsleneName(Gender.Female, 'en', nl, testChooseFunc)
+      getRandomAsleneName('Female', 'en', nl, testChooseFunc)
 
     it('should return nick names', () => {
       const familyNl = {

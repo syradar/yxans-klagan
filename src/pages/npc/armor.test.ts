@@ -1,6 +1,6 @@
-import { armors, helmets } from '../data/armor.data'
-import { createArmorViewModel, createHelmetViewModel } from './armor.functions'
-import { isString } from './utils.functions'
+import { isString } from '../../functions/utils.functions'
+import { createArmorViewModel, createHelmetViewModel } from './armor'
+import { armors, helmets } from './data/armor.data'
 
 describe('createArmorViewModel', () => {
   it('should add collapse property', () => {

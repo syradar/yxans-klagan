@@ -13,7 +13,7 @@ import { Group } from './components/group'
 import { LanguageSwitcher } from './components/language-switcher'
 import { PageHeader } from './components/page-header'
 import { Parchment } from './components/parchment'
-import { Pancake, Stack } from './components/stack'
+import { Pancake, Stack } from './components/Stack'
 import { YxansKlaganLogo } from './logo'
 
 const CalendarPage = React.lazy(() => import('./pages/calendar.page'))
@@ -24,11 +24,11 @@ const GearPage = React.lazy(() => import('./pages/gear.page'))
 const MapPage = React.lazy(() => import('./pages/map.page'))
 const MonstersPage = React.lazy(() => import('./pages/monsters.page'))
 const SessionPage = React.lazy(() => import('./pages/session.page'))
-const TypicalKinPage = React.lazy(() => import('./pages/typical-kin.page'))
+const TypicalKinPage = React.lazy(() => import('./pages/npc/TypicalKinPage'))
 const NameGeneratorPage = React.lazy(
-  () => import('./pages/name-generator.page'),
+  () => import('./pages/npc/NameGeneratorPage'),
 )
-const NpcPage = React.lazy(() => import('./pages/npc.page'))
+const NpcPage = React.lazy(() => import('./pages/npc/NpcPage'))
 
 const styles = {
   // Move long class sets out of jsx to keep it scannable

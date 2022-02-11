@@ -1,6 +1,6 @@
-import { meleeWeapons } from '../data/weapon.data'
-import { isString } from './utils.functions'
-import { createWeaponViewModel } from './weapon.functions'
+import { isString } from '../../functions/utils.functions'
+import { meleeWeapons } from './data/weapon.data'
+import { createWeaponViewModel } from './weapon'
 
 describe('createWeaponViewModel', () => {
   it('should add collapse property', () => {

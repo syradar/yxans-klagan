@@ -1,4 +1,4 @@
-import { Shield, ShieldType } from '../models/shield.model'
+import { Shield, ShieldType } from '../shield'
 
 export const shields: { [S in ShieldType]: Shield<S> } = {
   Small: {

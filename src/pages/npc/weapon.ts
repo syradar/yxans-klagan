@@ -1,13 +1,17 @@
-import { CollapseAble, Unique } from './utils.model'
+import { WeaponRange } from '../../models/attack-range'
+import { getId } from '../../models/utils.model'
 
-export type WeaponRange = 'ArmsLength' | 'Near' | 'Short' | 'Long'
+export const createWeaponViewModel = (
+  w: Weapon<WeaponType, WeaponCategory>,
+): WeaponViewModel => ({
+  ...w,
+  collapse: true,
+  id: getId(),
+})
+
+import { CollapseAble, Unique } from '../../models/utils.model'
 
 export type WeaponCategory = 'Melee' | 'Ranged'
-
-export type MonsterAttackRange = Extract<
-  WeaponRange,
-  'ArmsLength' | 'Near' | 'Short'
->
 
 export type WeaponFeature =
   | 'Light'

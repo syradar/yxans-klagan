@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import tw from 'twin.macro'
-import { range } from '../functions/array.functions'
-import { Gender } from '../models/gender.model'
-import { ValidLanguage } from '../models/language.model'
-import { HumanKin } from '../models/name.model'
-import { ReloadIcon } from './icons/reload-icon'
-import { NameList } from './name-list'
+import { range } from '../../functions/array.functions'
+import { Gender } from '../../models/gender.model'
+import { ValidLanguage } from '../../models/language.model'
+import { HumanKin } from './name'
+import { ReloadIcon } from '../../components/icons/reload-icon'
+import { NameList } from './NameList'
 
 interface KinNameListProps {
   title: HumanKin
@@ -18,10 +18,10 @@ export const KinNameList = ({ title, nameFunc }: KinNameListProps) => {
 
   const randomNames = (count = 10) => ({
     female: range(count).map((_) =>
-      nameFunc(Gender.Female, i18n.language as ValidLanguage),
+      nameFunc('Female', i18n.language as ValidLanguage),
     ),
     male: range(count).map((_) =>
-      nameFunc(Gender.Male, i18n.language as ValidLanguage),
+      nameFunc('Male', i18n.language as ValidLanguage),
     ),
   })
 

@@ -1,6 +1,6 @@
-import { shields } from '../data/shield.data'
-import { createShieldViewModel } from './shield.functions'
-import { isString } from './utils.functions'
+import { shields } from './data/shield.data'
+import { createShieldViewModel } from './shield'
+import { isString } from '../../functions/utils.functions'
 
 describe('createShieldViewModel', () => {
   it('should add collapse property', () => {
