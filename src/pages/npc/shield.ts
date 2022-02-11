@@ -1,6 +1,4 @@
-import { getId } from '../../models/utils.model'
-
-import { CollapseAble, Unique } from '../../models/utils.model'
+import { CollapseAble, getId, Unique } from '../../models/utils.model'
 import { WeaponFeature } from './weapon'
 
 export type ShieldType = 'Small' | 'Large'
