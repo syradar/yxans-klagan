@@ -1,5 +1,5 @@
 import { WeaponRange } from '../../models/attack-range'
-import { getId } from '../../models/utils.model'
+import { CollapseAble, getId, Unique } from '../../models/utils.model'
 
 export const createWeaponViewModel = (
   w: Weapon<WeaponType, WeaponCategory>,
@@ -8,8 +8,6 @@ export const createWeaponViewModel = (
   collapse: true,
   id: getId(),
 })
-
-import { CollapseAble, Unique } from '../../models/utils.model'
 
 export type WeaponCategory = 'Melee' | 'Ranged'
 
