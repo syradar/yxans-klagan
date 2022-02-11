@@ -1,6 +1,3 @@
-import { compose } from 'rambda'
-import { choose } from '../../functions/dice.functions'
-
 const occupation = [
   'Soldier',
   'FortuneSeeker',
@@ -43,5 +40,3 @@ const occupation = [
 export type Occupation = typeof occupation[number]
 
 export const getOccupations = (): Occupation[] => [...occupation]
-
-export const getRandomOccupation = compose(choose, getOccupations)

@@ -1,6 +1,3 @@
-import { compose } from 'rambda'
-import { choose } from '../../functions/dice.functions'
-
 const chacteristics = [
   'IceBlueEyes',
   'FluffyHair',
@@ -43,5 +40,3 @@ const chacteristics = [
 export type Chacteristics = typeof chacteristics[number]
 
 export const getChacteristics = (): Chacteristics[] => [...chacteristics]
-
-export const getRandomCharacteristic = compose(choose, getChacteristics)
