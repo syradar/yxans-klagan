@@ -124,7 +124,10 @@ const App = () => {
               <YxansKlaganLogo />
             </Link>
           </div>
-          <div tw="h-full pb-4 flex flex-col justify-between">
+          <div
+            tw="h-full pb-4 flex flex-col justify-between"
+            css={{ overflow: 'overlay' }}
+          >
             <PancakeNav dir="vertical" wrap={false} spacing="small">
               <MenuLink to="/session">{t('Menu-Session')}</MenuLink>
               <MenuLink to="/encounter">{t('Menu-Encounters')}</MenuLink>
