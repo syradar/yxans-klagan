@@ -7,6 +7,7 @@ import { Parchment } from '../../components/parchment'
 import { Pancake, Train } from '../../components/Stack'
 import {
   getRandomCharacteristic,
+  getRandomKinType,
   getRandomOccupation,
   getRandomQuirk,
   NPC,
@@ -16,6 +17,8 @@ export const NpcPage = () => {
   const { t, i18n } = useTranslation(['npc', 'common'])
 
   const createNPC = (): NPC => ({
+    kin: getRandomKinType(),
+    name: 'Testnamn',
     occupation: getRandomOccupation(),
     characteristic: getRandomCharacteristic(),
     quirk: getRandomQuirk(),
@@ -38,15 +41,14 @@ export const NpcPage = () => {
             </Button>
           </Train>
 
-          <div tw="text-lg lg:(text-2xl)" className="yx-prose">
-            {t(`Occupation.${npc.occupation}`)}
-          </div>
-          <div tw="text-lg lg:(text-2xl)" className="yx-prose">
+          {/* <div tw="text-lg lg:(text-2xl)" className="yx-prose">
+            {t(`Kin.${npc.kin}.${npc.kin}`, { ns: 'common' })}
+          </div> */}
+          <div className="yx-prose">{t(`Occupation.${npc.occupation}`)}</div>
+          <div className="yx-prose">
             {t(`Characteristic.${npc.characteristic}`)}
           </div>
-          <div tw="text-lg lg:(text-2xl)" className="yx-prose">
-            {t(`Quirk.${npc.quirk}`)}
-          </div>
+          <div className="yx-prose">{t(`Quirk.${npc.quirk}`)}</div>
         </Pancake>
       </Parchment>
     </div>

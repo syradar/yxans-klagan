@@ -5,12 +5,7 @@ import { ValidLanguage } from '../../models/language.model'
 
 import { humanNames, villageNamesSv, villageNamesEn } from './data/name.data'
 
-export enum NameType {
-  FirstName = 'FirstName',
-  FamilyName = 'FamilyName',
-  HomeName = 'HomeName',
-  NickName = 'NickName',
-}
+export type NameType = 'FirstName' | 'FamilyName' | 'HomeName' | 'NickName'
 
 interface WeightedName {
   weight: number
@@ -30,16 +25,19 @@ export interface NameList {
   nickName?: readonly string[]
 }
 
-export type KinType =
-  | 'Human'
-  | 'Elf'
-  | 'Dwarf'
-  | 'Ogre'
-  | 'Orc'
-  | 'Wolfkin'
-  | 'Saurian'
-  | 'Whiner'
-  | 'HalflingAndGoblin'
+export const kinTypes = [
+  'Human',
+  'Elf',
+  'Dwarf',
+  'Ogre',
+  'Orc',
+  'Wolfkin',
+  'Saurian',
+  'Whiner',
+  'HalflingAndGoblin',
+] as const
+export type KinType = typeof kinTypes[number]
+export const getKinTypes = () => [...kinTypes]
 
 export type HumanKin =
   | 'Alderlander'
@@ -100,27 +98,27 @@ const getRandomName = (
   const { type, firstName } = getNameTypeAndFirstName(g, nameList)
 
   switch (type) {
-    case NameType.FamilyName: {
+    case 'FamilyName': {
       if (!nameList.family || nameList.family.length === 0) {
         return [firstName]
       }
 
       return [firstName, chooseFunc(nameList.family)]
     }
-    case NameType.NickName: {
+    case 'NickName': {
       if (!nameList.nickName || nameList.nickName.length === 0) {
         return [firstName]
       }
 
       return [firstName, 'THE', chooseFunc(nameList.nickName)]
     }
-    case NameType.HomeName:
+    case 'HomeName':
       return [
         firstName,
         'OF',
         formatVillageName(getVillagePrefixAndSuffix(lang, chooseFunc), lang),
       ]
-    case NameType.FirstName:
+    case 'FirstName':
     default:
       return [firstName]
   }

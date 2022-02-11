@@ -50,7 +50,7 @@ const App = () => {
       element: <DiceRollerPage />,
     },
     {
-      path: 'kin',
+      path: 'npcs',
       children: [
         {
           path: 'names',
@@ -109,11 +109,11 @@ const App = () => {
 
   const { pathname } = useLocation()
 
-  const toPathContains = (toPath: 'gear' | 'kin') => (path: string) =>
+  const toPathContains = (toPath: 'gear' | 'npcs') => (path: string) =>
     path.includes(useResolvedPath(toPath).pathname)
 
   const isGearPageActive = toPathContains('gear')
-  const isKinPageActive = toPathContains('kin')
+  const isKinPageActive = toPathContains('npcs')
 
   return (
     <div className="App" css={styles.container()}>
@@ -157,16 +157,18 @@ const App = () => {
                 <Group
                   spaceBeforeItems={false}
                   indent={false}
-                  label={<div tw="font-medium">{t('Menu-Kin')}</div>}
+                  label={<div tw="font-medium">{t('Menu-NPCs')}</div>}
                   open={isKinPageActive(pathname)}
                 >
                   <div tw="mt-2">
                     <Pancake spacing="small">
-                      <MenuLink to="/kin/names">{t('Menu-Kin-Names')}</MenuLink>
-                      <MenuLink to="/kin/typical">
-                        {t('Menu-Kin-Typical')}
+                      <MenuLink to="/npcs/names">
+                        {t('Menu-NPCs-Names')}
                       </MenuLink>
-                      <MenuLink to="/kin/npc">{t('Menu-Kin-Npc')}</MenuLink>
+                      <MenuLink to="/npcs/typical">
+                        {t('Menu-NPCs-Typical')}
+                      </MenuLink>
+                      <MenuLink to="/npcs/npc">{t('Menu-NPCs-Npc')}</MenuLink>
                     </Pancake>
                   </div>
                 </Group>
