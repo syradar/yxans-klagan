@@ -38,4 +38,4 @@ const quirks = [
 ] as const
 
 export type Quirk = typeof quirks[number]
-export const getQuirk = () => [...quirks]
+export const getQuirks = () => [...quirks]

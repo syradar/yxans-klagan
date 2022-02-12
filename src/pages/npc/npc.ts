@@ -3,7 +3,7 @@ import { choose } from '../../functions/dice.functions'
 import { Chacteristics, getChacteristics } from './characteristics'
 import { getKinTypes, KinType } from './name'
 import { getOccupations, Occupation } from './occupation'
-import { getQuirk, Quirk } from './quirk'
+import { getQuirks, Quirk } from './quirk'
 
 export type NPC = {
   kin: KinType
@@ -16,4 +16,4 @@ export type NPC = {
 export const getRandomKinType = compose(choose, getKinTypes)
 export const getRandomOccupation = compose(choose, getOccupations)
 export const getRandomCharacteristic = compose(choose, getChacteristics)
-export const getRandomQuirk = compose(choose, getQuirk)
+export const getRandomQuirk = compose(choose, getQuirks)
