@@ -1,2 +1,0 @@
-import{b as m}from"./chunk-AEOPHOB5.js";import{a as p}from"./chunk-HRBCT5MA.js";function a(e){return e.reduce((r,n)=>r+n,0)}function c(e,r){if(arguments.length===1)return t=>c(e,t);let n=[];return p(t=>{t[e]!==void 0&&n.push(t[e])},r),n}var f=e=>{let r=a(c("weight",e)),n=m(0,r),t=e.reduce((o,u,i)=>{if(o.done>-1)return o;let s=o.left-u.weight;return s<=0?{left:0,done:i,data:u}:{...o,left:s}},{left:n,done:-1,data:{weight:0}}),l=e.filter((o,u)=>u!==t.done);return[t.data,l]},d=e=>f(e)[0];export{f as a,d as b};
-//# sourceMappingURL=chunk-IADDRDP4.js.map

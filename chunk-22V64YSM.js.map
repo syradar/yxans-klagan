@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../build/dist/functions/utils.functions.js"],
+  "sourcesContent": ["import { compose, map, range } from '../pkg/rambda.js';\nexport const id = x => x;\nexport const isNullish = val => val == null;\nexport const notNullish = val => !isNullish(val);\nexport const inRange = numberRange => (val, inclusive = false) => {\n  if (isNullish(numberRange)) {\n    return false;\n  }\n\n  if (inclusive) {\n    return val >= numberRange[0] && val <= numberRange[1];\n  }\n\n  return val > numberRange[0] && val < numberRange[1];\n};\nexport const isString = x => typeof x === 'string';\nexport const isObject = x => typeof x === 'object';\nexport const isArray = x => Array.isArray(x);\nexport const numberToBooleans = compose(map(_ => false), range(0));\nexport const maybe = val => {\n  const innerValue = val ?? undefined;\n  return {\n    map: fn => {\n      if (isNullish(innerValue)) {\n        return maybe();\n      }\n\n      return maybe(fn(innerValue));\n    },\n    value: () => innerValue,\n    withDefault: defaultValue => {\n      if (isNullish(innerValue)) {\n        return defaultValue;\n      }\n\n      return innerValue;\n    }\n  };\n};\nexport const validNumber = num => {\n  if (isNullish(num)) return false;\n  return !isNaN(num) && isFinite(num);\n};\nexport const capitalize = s => `${s.charAt(0).toUpperCase()}${s.slice(1)}`;"],
+  "mappings": "AAEO,GAAM,GAAY,GAAO,GAAO",
+  "names": []
+}

@@ -3,6 +3,7 @@
   "GMBook": "GM",
   "Kin": {
     "Human": {
+      "Human": "Human",
       "Humans": "Humans",
       "Alderlander": "Alderlander",
       "Ailander": "Ailander",
@@ -12,6 +13,7 @@
       "MaidenDruid": "Maiden Druid"
     },
     "Elf": {
+      "Elf": "Elf",
       "Elves": "Elves",
       "StillElf": "Still elf",
       "UnrulyElf": "Unruly elf",
@@ -20,6 +22,7 @@
       "RedRunner": "Red Runner"
     },
     "Dwarf": {
+      "Dwarf": "Dwarf",
       "Dwarves": "Dwarves",
       "Belderranian": "Belderranian",
       "Meromannian": "Meromannian",
@@ -27,10 +30,11 @@
       "Crombe": "Crombe"
     },
     "Ogre": {
-      "Ogres": "Ogres",
-      "Ogre": "Ogre"
+      "Ogre": "Ogre",
+      "Ogres": "Ogres"
     },
     "Orc": {
+      "Orc": "Orc",
       "Orcs": "Orcs",
       "Urhur": "Urhur",
       "Roka": "Roka",
@@ -39,21 +43,21 @@
       "Drifter": "Drifter"
     },
     "Wolfkin": {
-      "Wolfkins": "Wolfkins",
-      "Wolfkin": "Wolfkin"
+      "Wolfkin": "Wolfkin",
+      "Wolfkins": "Wolfkins"
     },
     "Saurian": {
-      "Saurians": "Saurians",
-      "Saurian": "Saurian"
+      "Saurian": "Saurian",
+      "Saurians": "Saurians"
     },
     "Whiner": {
-      "Whiners": "Whiners",
-      "Whiner": "Whiner"
+      "Whiner": "Whiner",
+      "Whiners": "Whiners"
     },
     "HalflingAndGoblin": {
-      "HalflingAndGoblins": "Halflings & Goblins",
       "Halfling": "Halfling",
-      "Goblin": "Goblin"
+      "Goblin": "Goblin",
+      "HalflingAndGoblins": "Halflings & Goblins"
     }
   },
   "Gender": {

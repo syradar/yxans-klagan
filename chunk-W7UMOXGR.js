@@ -1,2 +1,2 @@
 import{m as n}from"./chunk-PWWMBDNM.js";var s={small:{fontSize:"1rem",lineHeight:"1.5rem"},medium:{fontSize:"1.125rem",lineHeight:"1.75rem"},large:{fontSize:"1.5rem",lineHeight:"2rem"}},p=({children:t,label:e,size:r="medium"})=>n("div",{css:{textAlign:"center"}},n("div",{css:[{fontWeight:"500",lineHeight:"1"},s[r]]},t),n("div",{css:{fontSize:"0.875rem",lineHeight:"1.25rem"}},e));var o=(t=21)=>{let e="",r=crypto.getRandomValues(new Uint8Array(t));for(;t--;){let i=r[t]&63;i<36?e+=i.toString(36):i<62?e+=(i-26).toString(36).toUpperCase():i<63?e+="_":e+="-"}return e};var S=()=>o();export{S as a,p as b};
-//# sourceMappingURL=chunk-FUD33BJM.js.map
+//# sourceMappingURL=chunk-W7UMOXGR.js.map
