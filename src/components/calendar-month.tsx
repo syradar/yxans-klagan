@@ -9,7 +9,7 @@ import { CalendarDayNames } from './calendar-day-names'
 import { CalendarFillerDays } from './calendar-filler-day'
 import { MonthCollapseButton } from './month-collapse-button'
 import { Parchment } from './parchment'
-import { Train } from './stack'
+import { Train } from './Stack'
 
 interface CalendarMonthProps {
   month: Month

@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next'
 import 'twin.macro'
-import { KinNameList } from '../components/kin-name-list'
-import { PageHeader } from '../components/page-header'
-import { Parchment } from '../components/parchment'
+import { KinNameList } from './KinNameList'
+import { PageHeader } from '../../components/page-header'
+import { Parchment } from '../../components/parchment'
 import {
   getRandomAilanderName,
   getRandomAlderlanderName,
   getRandomAsleneName,
-} from '../functions/name.functions'
+} from './name'
 
 export const NameGeneratorPage = () => {
   const { t } = useTranslation('names')

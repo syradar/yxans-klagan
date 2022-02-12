@@ -13,7 +13,7 @@ import { Group } from './components/group'
 import { LanguageSwitcher } from './components/language-switcher'
 import { PageHeader } from './components/page-header'
 import { Parchment } from './components/parchment'
-import { Pancake, Stack } from './components/stack'
+import { Pancake, Stack } from './components/Stack'
 import { YxansKlaganLogo } from './logo'
 
 const CalendarPage = React.lazy(() => import('./pages/calendar.page'))
@@ -24,11 +24,11 @@ const GearPage = React.lazy(() => import('./pages/gear.page'))
 const MapPage = React.lazy(() => import('./pages/map.page'))
 const MonstersPage = React.lazy(() => import('./pages/monsters.page'))
 const SessionPage = React.lazy(() => import('./pages/session.page'))
-const TypicalKinPage = React.lazy(() => import('./pages/typical-kin.page'))
+const TypicalKinPage = React.lazy(() => import('./pages/npc/TypicalKinPage'))
 const NameGeneratorPage = React.lazy(
-  () => import('./pages/name-generator.page'),
+  () => import('./pages/npc/NameGeneratorPage'),
 )
-const NpcPage = React.lazy(() => import('./pages/npc.page'))
+const NpcPage = React.lazy(() => import('./pages/npc/NpcPage'))
 
 const styles = {
   // Move long class sets out of jsx to keep it scannable
@@ -50,7 +50,7 @@ const App = () => {
       element: <DiceRollerPage />,
     },
     {
-      path: 'kin',
+      path: 'npcs',
       children: [
         {
           path: 'names',
@@ -109,11 +109,11 @@ const App = () => {
 
   const { pathname } = useLocation()
 
-  const toPathContains = (toPath: 'gear' | 'kin') => (path: string) =>
+  const toPathContains = (toPath: 'gear' | 'npcs') => (path: string) =>
     path.includes(useResolvedPath(toPath).pathname)
 
   const isGearPageActive = toPathContains('gear')
-  const isKinPageActive = toPathContains('kin')
+  const isKinPageActive = toPathContains('npcs')
 
   return (
     <div className="App" css={styles.container()}>
@@ -124,7 +124,10 @@ const App = () => {
               <YxansKlaganLogo />
             </Link>
           </div>
-          <div tw="h-full pb-4 flex flex-col justify-between">
+          <div
+            tw="h-full pb-4 flex flex-col justify-between"
+            css={{ overflow: 'overlay' }}
+          >
             <PancakeNav dir="vertical" wrap={false} spacing="small">
               <MenuLink to="/session">{t('Menu-Session')}</MenuLink>
               <MenuLink to="/encounter">{t('Menu-Encounters')}</MenuLink>
@@ -154,16 +157,18 @@ const App = () => {
                 <Group
                   spaceBeforeItems={false}
                   indent={false}
-                  label={<div tw="font-medium">{t('Menu-Kin')}</div>}
+                  label={<div tw="font-medium">{t('Menu-NPCs')}</div>}
                   open={isKinPageActive(pathname)}
                 >
                   <div tw="mt-2">
                     <Pancake spacing="small">
-                      <MenuLink to="/kin/names">{t('Menu-Kin-Names')}</MenuLink>
-                      <MenuLink to="/kin/typical">
-                        {t('Menu-Kin-Typical')}
+                      <MenuLink to="/npcs/names">
+                        {t('Menu-NPCs-Names')}
                       </MenuLink>
-                      <MenuLink to="/kin/npc">{t('Menu-Kin-Npc')}</MenuLink>
+                      <MenuLink to="/npcs/typical">
+                        {t('Menu-NPCs-Typical')}
+                      </MenuLink>
+                      <MenuLink to="/npcs/npc">{t('Menu-NPCs-Npc')}</MenuLink>
                     </Pancake>
                   </div>
                 </Group>

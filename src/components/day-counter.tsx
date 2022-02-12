@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import tw, { styled } from 'twin.macro'
-import { Grid } from './stack'
+import { Grid } from './Stack'
 
 interface DayCounterProps {
   quarters: [boolean, boolean, boolean, boolean]

@@ -13,7 +13,7 @@ import { DefinitionList } from './definition-list'
 import { MonsterAttack } from './monster-attack'
 import { MonsterAttribute } from './monster-attributes'
 import { SkillList } from './skill-list'
-import { Pancake } from './stack'
+import { Pancake } from './Stack'
 
 export interface RandomMonsterDisplayProps {
   rm: RandomMonsterViewModel

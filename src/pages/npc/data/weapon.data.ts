@@ -1,8 +1,4 @@
-import {
-  MeleeWeaponType,
-  RangedWeaponType,
-  Weapon,
-} from '../models/weapon.model'
+import { MeleeWeaponType, RangedWeaponType, Weapon } from '../weapon'
 
 export const meleeWeapons: { [W in MeleeWeaponType]: Weapon<W, 'Melee'> } = {
   Knife: {

@@ -1,8 +1,9 @@
 import { WeightedChoice } from '../functions/dice.functions'
+
 import { Definition } from '../types/definition.type'
+import { MonsterAttackRange } from './attack-range'
 import { Attributes, AttributesViewModel } from './attributes.model'
 import { MonsterSkillsValues } from './skills.model'
-import { MonsterAttackRange } from './weapon.model'
 
 export interface Monster {
   name: string

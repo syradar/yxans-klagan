@@ -1,5 +1,5 @@
 import 'twin.macro'
-import { Train } from './stack'
+import { Train } from './Stack'
 
 export interface FieldProps {
   children: React.ReactNode

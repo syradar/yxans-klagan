@@ -1,5 +1,5 @@
-import { CollapseAble, Unique } from './utils.model'
-import { WeaponFeature } from './weapon.model'
+import { CollapseAble, getId, Unique } from '../../models/utils.model'
+import { WeaponFeature } from './weapon'
 
 export type ShieldType = 'Small' | 'Large'
 
@@ -11,3 +11,11 @@ export type Shield<S extends ShieldType> = {
   features: ShieldFeature[]
 }
 export type ShieldViewModel = Shield<ShieldType> & CollapseAble & Unique
+
+export const createShieldViewModel = (
+  w: Shield<ShieldType>,
+): ShieldViewModel => ({
+  ...w,
+  collapse: true,
+  id: getId(),
+})

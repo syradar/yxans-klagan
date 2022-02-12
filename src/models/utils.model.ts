@@ -14,13 +14,13 @@ interface Branding<BrandT> {
 /** Create a "branded" version of a type. TypeScript won't allow implicit conversion to this type */
 export type Brand<T, BrandT> = T & Branding<BrandT>
 
-export type CollapseAble = {
-  collapse: boolean
-}
-
 export type ID = Brand<string, 'ID'>
 export type Unique = {
   id: ID
 }
 
 export const getId = (): ID => nanoid() as ID
+
+export type CollapseAble = {
+  collapse: boolean
+}

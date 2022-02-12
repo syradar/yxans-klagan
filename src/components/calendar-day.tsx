@@ -10,7 +10,7 @@ import {
 } from '../functions/weather.functions'
 import { Day } from '../models/calendar.model'
 import { DayCounter } from './day-counter'
-import { Pancake, Train } from './stack'
+import { Pancake, Train } from './Stack'
 
 interface CalendarDayProps {
   day: Day

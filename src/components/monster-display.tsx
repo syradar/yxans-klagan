@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import 'twin.macro'
 import { MonsterViewModel } from '../models/monster.model'
 import { MonsterAttribute } from './monster-attributes'
-import { Pancake } from './stack'
+import { Pancake } from './Stack'
 
 export interface MonsterDisplayProps {
   m: MonsterViewModel

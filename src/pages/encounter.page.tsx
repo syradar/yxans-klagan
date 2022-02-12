@@ -4,7 +4,7 @@ import 'twin.macro'
 import { Button } from '../components/Button'
 import { Encounter } from '../components/encounter'
 import { PageHeader } from '../components/page-header'
-import { Train } from '../components/stack'
+import { Train } from '../components/Stack'
 import { rollD66 } from '../functions/dice.functions'
 import {
   getEncounterById,

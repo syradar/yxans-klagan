@@ -4,7 +4,7 @@ import 'twin.macro'
 
 import { ValidLanguage } from '../models/language.model'
 import { LanguageButton } from './language-button'
-import { Pancake } from './stack'
+import { Pancake } from './Stack'
 
 export const LanguageSwitcher = () => {
   const { t, i18n } = useTranslation('core')

@@ -9,9 +9,10 @@ import {
   Weight,
   WeightViewModel,
 } from '../models/find.model'
+
 import { range } from './array.functions'
 import { parseD6String, rollD6, rollD66 } from './dice.functions'
-import { capitalize } from './name.functions'
+import { capitalize } from './utils.functions'
 
 export const rollFindValue = (
   fv: FindValue,

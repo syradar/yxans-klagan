@@ -1,4 +1,4 @@
-import { CollapseAble, Unique } from './utils.model'
+import { CollapseAble, getId, Unique } from '../../models/utils.model'
 
 export type ArmorType =
   | 'Leather'
@@ -37,3 +37,26 @@ export interface Helmet<H extends HelmetType> extends ProtectionBase<H> {
 
 export type ArmorViewModel = Armor<ArmorType> & CollapseAble & Unique
 export type HelmetViewModel = Helmet<HelmetType> & CollapseAble & Unique
+
+type ProtectionViewModelReturn<W> = W extends Armor<ArmorType>
+  ? ArmorViewModel
+  : W extends Helmet<HelmetType>
+  ? HelmetViewModel
+  : never
+
+export const createProtectionViewModel = <
+  W extends Armor<ArmorType> | Helmet<HelmetType>,
+>({
+  bodyPart,
+  features,
+  rating,
+  type,
+}: W) =>
+  ({
+    bodyPart,
+    features,
+    rating,
+    type,
+    collapse: true,
+    id: getId(),
+  } as ProtectionViewModelReturn<W>)

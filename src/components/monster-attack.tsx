@@ -4,8 +4,8 @@ import 'twin.macro'
 import tw from 'twin.macro'
 import { MonsterAttackViewModel } from '../models/monster.model'
 import { Card } from './card'
-import { Train } from './stack'
-import { Stat } from './stat'
+import { Train } from './Stack'
+import { Stat } from './Stat'
 
 export interface MonsterAttackProps {
   monsterViewModel: MonsterAttackViewModel

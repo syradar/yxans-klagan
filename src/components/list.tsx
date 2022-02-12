@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import 'twin.macro'
 import { css } from 'twin.macro'
-import { Pancake } from './stack'
+import { Pancake } from './Stack'
 
 interface ListProps {
   children: ReactNode
