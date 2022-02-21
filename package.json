@@ -19,7 +19,7 @@
     "deploy": "gh-pages -d build"
   },
   "dependencies": {
-    "@emotion/react": "^11.7.0",
+    "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.6.0",
     "history": "^5.1.0",
     "nanoid": "^3.2.0",
