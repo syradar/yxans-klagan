@@ -108,8 +108,14 @@ export const CalendarPage = () => {
   }
 
   const handleUpdatingYear = (newYear: number) => {
-    const lastDay = last(last(calendarState.months).days).name
-    const nextYearsStartDay = getDayName(getDayNumber(lastDay))
+    const lastMonth = last(calendarState.months)
+    if (!lastMonth) return
+
+    const lastDay = last(lastMonth.days)
+    if (!lastDay) return
+
+    const lastDayName = lastDay.name
+    const nextYearsStartDay = getDayName(getDayNumber(lastDayName))
 
     setCalendarState(getCal(newYear, nextYearsStartDay))
   }
