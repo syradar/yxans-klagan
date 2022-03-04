@@ -1,9 +1,9 @@
 import { choose, weightedRandom } from '../../functions/dice.functions'
-import { capitalize } from '../../functions/utils.functions'
+import { getFormattedVillageName } from '../../functions/village-name.functions'
 import { Gender } from '../../models/gender.model'
 import { ValidLanguage } from '../../models/language.model'
 
-import { humanNames, villageNamesSv, villageNamesEn } from './data/name.data'
+import { humanNames } from './data/name.data'
 
 export type NameType = 'FirstName' | 'FamilyName' | 'HomeName' | 'NickName'
 
@@ -93,11 +93,6 @@ export type HumanNames = {
   [H in Extract<HumanKin, 'Alderlander' | 'Ailander' | 'Aslene'>]: NameList
 }
 
-export interface VillageNameModel {
-  prefix: readonly string[]
-  suffix: readonly string[]
-}
-
 const getRandomName = (
   g: Gender,
   lang: ValidLanguage,
@@ -122,11 +117,7 @@ const getRandomName = (
       return [firstName, 'THE', chooseFunc(nameList.nickName)]
     }
     case 'HomeName':
-      return [
-        firstName,
-        'OF',
-        formatVillageName(getVillagePrefixAndSuffix(lang, chooseFunc), lang),
-      ]
+      return [firstName, 'OF', getFormattedVillageName(lang, chooseFunc)]
     case 'FirstName':
     default:
       return [firstName]
@@ -165,37 +156,4 @@ export const getNameTypeAndFirstName = (g: Gender, nl: NameList) => {
     type: weightedRandom(nl[g].probabilites).type,
     firstName: choose(nl[g].rawNames),
   }
-}
-
-export const getVillageNameList = (lang: ValidLanguage): VillageNameModel => {
-  switch (lang) {
-    case 'sv':
-      return villageNamesSv
-    case 'en':
-      return villageNamesEn
-    default: {
-      const exhaustiveCheck: never = lang
-      throw new Error(exhaustiveCheck)
-    }
-  }
-}
-
-export const getVillagePrefixAndSuffix = (
-  lang: ValidLanguage,
-  choiceFunc = choose,
-): [string, string] => {
-  const { prefix, suffix } = getVillageNameList(lang)
-
-  return [choiceFunc(prefix), choiceFunc(suffix)]
-}
-
-export const formatVillageName = (
-  prefixAndSuffix: [string, string],
-  lang: ValidLanguage,
-) => {
-  const separator = lang === 'en' ? ' ' : ''
-
-  return prefixAndSuffix
-    .map((fix) => (lang === 'en' ? capitalize(fix) : fix))
-    .join(separator)
 }
