@@ -1,4 +1,4 @@
-import { HexData } from '../models/map.model'
+import { HexData } from '../pages/places/map.model'
 
 export const hexData: HexData = {
   A8: '91.01 225.47 59.23 225.47 43.34 253 59.23 280.52 91.01 280.52 106.9 253 91.01 225.47',

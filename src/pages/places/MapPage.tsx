@@ -2,17 +2,17 @@ import { has } from 'rambda'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import 'twin.macro'
-import { Button } from '../components/Button'
-import { Map } from '../components/map'
-import { MapPopover, MapPopoverOptions } from '../components/map-popover'
-import { PageHeader } from '../components/page-header'
-import { Parchment } from '../components/parchment'
-import { PasteData } from '../components/paste-data'
-import { Polygon } from '../components/polygon'
-import { Train } from '../components/Stack'
-import { downloadFile } from '../functions/file.functions'
-import { isNullish, isString } from '../functions/utils.functions'
-import { Hex, HexStorage, initialHexas, isHexKey } from '../models/map.model'
+import { Button } from '../../components/Button'
+import { MapPopoverOptions, MapPopover } from './map-popover'
+import { PageHeader } from '../../components/page-header'
+import { Parchment } from '../../components/parchment'
+import { PasteData } from '../../components/paste-data'
+import { Polygon } from './polygon'
+import { Train } from '../../components/Stack'
+import { downloadFile } from '../../functions/file.functions'
+import { isNullish, isString } from '../../functions/utils.functions'
+import { Hex, initialHexas, HexStorage, isHexKey } from './map.model'
+import { MapRavland } from './map'
 
 const MAP_STORAGE_KEY = 'map'
 const FOG_OF_WAR_STORAGE_KEY = 'fogOfWar'
@@ -310,7 +310,7 @@ export const MapPage = () => {
             onExploreChanged={(hex) => handleExploration(hex)}
             onHide={() => handleSelectedHex(undefined)}
           ></MapPopover>
-          <Map fogOfWar={fogOfWar}>
+          <MapRavland fogOfWar={fogOfWar}>
             {hexas.map((hex, index) => (
               <Polygon
                 key={index}
@@ -319,7 +319,7 @@ export const MapPage = () => {
                 onClick={(e) => handleHexClick(e, hex)}
               />
             ))}
-          </Map>
+          </MapRavland>
         </Parchment>
       </div>
 

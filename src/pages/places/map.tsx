@@ -6,7 +6,7 @@ interface MapProps {
   children: ReactNode
 }
 
-export const Map = ({ fogOfWar, children }: MapProps) => (
+export const MapRavland = ({ fogOfWar, children }: MapProps) => (
   <svg
     id="ravland-map"
     className={fogOfWar ? 'fog-of-war' : ''}

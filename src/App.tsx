@@ -16,14 +16,23 @@ import { Parchment } from './components/parchment'
 import { Pancake, Stack } from './components/Stack'
 import { YxansKlaganLogo } from './logo'
 
-const CalendarPage = React.lazy(() => import('./pages/calendar.page'))
+// * Dice Roller
 const DiceRollerPage = React.lazy(() => import('./pages/dice-roller.page'))
+// * Calendar
+const CalendarPage = React.lazy(() => import('./pages/calendar.page'))
+// * Encounters
 const EncounterPage = React.lazy(() => import('./pages/encounter.page'))
+// * Gear
 const FindsPage = React.lazy(() => import('./pages/finds.page'))
 const GearPage = React.lazy(() => import('./pages/gear.page'))
-const MapPage = React.lazy(() => import('./pages/map.page'))
+// * Places
+const MapPage = React.lazy(() => import('./pages/places/MapPage'))
+const VillagePage = React.lazy(() => import('./pages/places/VillagePage'))
+// * Monsters
 const MonstersPage = React.lazy(() => import('./pages/monsters.page'))
+// * Session
 const SessionPage = React.lazy(() => import('./pages/session.page'))
+// * NPCs
 const TypicalKinPage = React.lazy(() => import('./pages/npc/TypicalKinPage'))
 const NameGeneratorPage = React.lazy(
   () => import('./pages/npc/NameGeneratorPage'),
@@ -92,8 +101,17 @@ const App = () => {
       element: <SessionPage />,
     },
     {
-      path: 'map',
-      element: <MapPage />,
+      path: 'places',
+      children: [
+        {
+          path: 'map',
+          element: <MapPage />,
+        },
+        {
+          path: 'village',
+          element: <VillagePage />,
+        },
+      ],
     },
     {
       path: 'encounter',
@@ -109,11 +127,13 @@ const App = () => {
 
   const { pathname } = useLocation()
 
-  const toPathContains = (toPath: 'gear' | 'npcs') => (path: string) =>
-    path.includes(useResolvedPath(toPath).pathname)
+  const toPathContains =
+    (toPath: 'gear' | 'npcs' | 'places') => (path: string) =>
+      path.includes(useResolvedPath(toPath).pathname)
 
   const isGearPageActive = toPathContains('gear')
   const isKinPageActive = toPathContains('npcs')
+  const isPlacesPageActive = toPathContains('places')
 
   return (
     <div className="App" css={styles.container()}>
@@ -132,7 +152,25 @@ const App = () => {
               <MenuLink to="/session">{t('Menu-Session')}</MenuLink>
               <MenuLink to="/encounter">{t('Menu-Encounters')}</MenuLink>
               <MenuLink to="/monsters">{t('Menu-Monsters')}</MenuLink>
-              <MenuLink to="/map">{t('Menu-Map')}</MenuLink>
+              <div tw="pl-4">
+                <Group
+                  spaceBeforeItems={false}
+                  indent={false}
+                  label={<div tw="font-medium">{t('Menu-Places')}</div>}
+                  open={isPlacesPageActive(pathname)}
+                >
+                  <div tw="mt-2">
+                    <Pancake spacing="small">
+                      <MenuLink to="/places/map">
+                        {t('Menu-Places-Map')}
+                      </MenuLink>
+                      {/* <MenuLink to="/places/village">
+                        {t('Menu-Places-Village')}
+                      </MenuLink> */}
+                    </Pancake>
+                  </div>
+                </Group>
+              </div>
               <MenuLink to="/calendar">{t('Menu-Calendar')}</MenuLink>
               <div tw="pl-4">
                 <Group

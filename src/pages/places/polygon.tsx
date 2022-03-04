@@ -1,6 +1,6 @@
 import React from 'react'
 import 'twin.macro'
-import { Hex } from '../models/map.model'
+import { Hex } from './map.model'
 
 interface PolygonProps {
   hex: Hex
