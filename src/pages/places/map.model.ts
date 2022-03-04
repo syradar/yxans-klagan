@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-import { hexData } from '../data/hex.data'
+import { hexData } from '../../data/hex.data'
 
 const oddLetters = [
   'A',

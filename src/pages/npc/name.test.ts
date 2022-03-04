@@ -1,77 +1,15 @@
 import { capitalize } from '../../functions/utils.functions'
-import { ValidLanguage } from '../../models/language.model'
-import { villageNamesEn, villageNamesSv } from './data/name.data'
 import {
-  formatVillageName,
   getNameTypeAndFirstName,
   getRandomAilanderName,
   getRandomAlderlanderName,
   getRandomAsleneName,
-  getVillageNameList,
-  getVillagePrefixAndSuffix,
   NameList,
 } from './name'
 import { describe, it, expect } from 'vitest'
 
 describe('name functions', () => {
   const testChooseFunc = <T>(arr: readonly T[]): T => arr[0]
-
-  describe('getVillageNameList', () => {
-    it('should return Swedish list for sv', () => {
-      const lang = 'sv'
-      const expected = villageNamesSv
-
-      const result = getVillageNameList(lang)
-
-      expect(result).toEqual(expected)
-    })
-
-    it('should return English list for en', () => {
-      const lang = 'en'
-      const expected = villageNamesEn
-
-      const result = getVillageNameList(lang)
-
-      expect(result).toEqual(expected)
-    })
-
-    it.each([null, undefined, 0.3, {}, []])(
-      'should throw never error',
-      (input) => {
-        expect(() => getVillageNameList(input as ValidLanguage)).toThrowError()
-      },
-    )
-  })
-
-  describe('capitalize', () => {
-    it('should return English names for en', () => {
-      const lang = 'en'
-
-      const expected: [string, string] = ['Amber', 'acres']
-
-      const result = getVillagePrefixAndSuffix(lang, testChooseFunc)
-
-      expect(result).toEqual(expected)
-    })
-
-    it('should return Swedish names for sv', () => {
-      const lang = 'sv'
-
-      const expected: [string, string] = ['Bärnsten', 'tunnland']
-
-      const result = getVillagePrefixAndSuffix(lang, testChooseFunc)
-
-      expect(result).toEqual(expected)
-    })
-
-    it('should return throw error for invalid input', () => {
-      const lang = undefined
-
-      expect(() =>
-        getVillagePrefixAndSuffix(lang as unknown as ValidLanguage),
-      ).toThrowError()
-    })
-  })
 
   describe('capitalize', () => {
     it.each([
@@ -81,22 +19,6 @@ describe('name functions', () => {
       [' ', ' '],
     ])('should return %s when given %s', (expected, input) => {
       const result = capitalize(input)
-
-      expect(result).toEqual(expected)
-    })
-  })
-
-  describe('formatVillageName', () => {
-    it('should not put space between prefix and suffix', () => {
-      const expected = 'Svartmåla'
-      const result = formatVillageName(['Svart', 'måla'], 'sv')
-
-      expect(result).toEqual(expected)
-    })
-
-    it('should put space between prefix and suffix, and title case', () => {
-      const expected = 'Svart Måla'
-      const result = formatVillageName(['Svart', 'måla'], 'en')
 
       expect(result).toEqual(expected)
     })
