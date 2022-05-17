@@ -29,7 +29,7 @@
     "react-router-dom": "^6.2.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^15.0.0",
+    "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^15.0.0",
     "@emotion/babel-plugin-jsx-pragmatic": "^0.1.5",
     "@emotion/core": "^11.0.0",
