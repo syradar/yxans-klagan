@@ -10,65 +10,14 @@ jobs:
   setup-node:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: "16"
-      - run: yarn install --immutable-cache
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
-  lint:
-    runs-on: ubuntu-latest
-    needs: setup-node
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "16"
-          cache: "yarn"
-      - name: install dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: yarn install --immutable-cache
+          cache: "npm"
+      - run: npm ci
       - run: yarn lint
-
-  build:
-    runs-on: ubuntu-latest
-    needs: setup-node
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "16"
-          cache: "yarn"
-      - name: install dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: yarn install --immutable-cache
       - run: yarn build
-
-  test:
-    runs-on: ubuntu-latest
-    needs: setup-node
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "16"
-          cache: "yarn"
-      - name: install dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: yarn install --immutable-cache
       - run: yarn test:ci
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
