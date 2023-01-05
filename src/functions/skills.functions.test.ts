@@ -3,6 +3,7 @@ import {
   createAllSkillsValuesViewModel,
   defaultSkillsValues,
 } from './skills.functions'
+import { describe, it, expect } from 'vitest'
 
 describe('defaultSkillsValues', () => {
   it('should return 16 skills', () => {

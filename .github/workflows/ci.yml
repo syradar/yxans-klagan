@@ -16,9 +16,9 @@ jobs:
           node-version: "16"
           cache: "npm"
       - run: npm ci
-      - run: yarn lint
-      - run: yarn build
-      - run: yarn test:ci
+      - run: npm run lint
+      - run: npm run build
+      - run: npm run test:ci
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

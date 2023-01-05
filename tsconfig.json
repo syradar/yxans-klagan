@@ -15,7 +15,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "isolatedModules": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowJs": false,
     "importHelpers": true,
     "removeComments": true

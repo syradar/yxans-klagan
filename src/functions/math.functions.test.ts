@@ -1,4 +1,5 @@
 import { isEven, min } from './math.functions'
+import { describe, it, expect } from 'vitest'
 
 describe('math functions', () => {
   describe('min', () => {

@@ -6,6 +6,7 @@ import {
   weightedRandom,
   weightedRandomConsume,
 } from './dice.functions'
+import { describe, it, expect } from 'vitest'
 
 describe('dice functions', () => {
   describe('countSuccesses', () => {

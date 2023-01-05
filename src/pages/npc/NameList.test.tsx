@@ -2,6 +2,7 @@ import { render, within } from '@testing-library/react'
 import { I18nextProvider } from 'react-i18next'
 import i18n from '../../test/i18nForTests'
 import { NameList } from './NameList'
+import { describe, it, expect } from 'vitest'
 
 describe('NameList', () => {
   it('should render', async () => {

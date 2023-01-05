@@ -5,6 +5,7 @@ import {
   getRandomEncounter,
   getTerrainsByEncounterId,
 } from './encounter.functions'
+import { describe, it, expect } from 'vitest'
 
 describe('Encounter Functions', () => {
   describe('getTerrainsByEncounterId', () => {

@@ -156,7 +156,7 @@ main {
   margin: 0;
 }
 
-.hide-default-spinner-appearance ::webkit-outer-spin-button: {
+.hide-default-spinner-appearance ::webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }

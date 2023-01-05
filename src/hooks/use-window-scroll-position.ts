@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
 import { useLocalStorage } from './use-local-storage'
 
 export const useWindowScrollPosition = (
@@ -12,11 +12,11 @@ export const useWindowScrollPosition = (
 
   const currentScroll = useRef(0)
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     if (setCondition && window.scrollY !== 0) {
       currentScroll.current = window.scrollY
     }
-  }
+  }, [setCondition])
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
@@ -25,7 +25,7 @@ export const useWindowScrollPosition = (
       setScrollYStorage(currentScroll.current)
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [handleScroll, setScrollYStorage])
 
   useLayoutEffect(() => {
     if (setCondition) {

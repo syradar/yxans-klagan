@@ -1,4 +1,5 @@
 import { getQuirks } from './quirk'
+import { describe, it, expect } from 'vitest'
 
 describe('getQuirk', () => {
   it('should have 36 occupations', () => {

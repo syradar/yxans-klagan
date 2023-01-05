@@ -4,6 +4,7 @@ import { getChacteristics } from './characteristics'
 import { getKinTypes } from './name'
 import { getOccupations } from './occupation'
 import { getQuirks } from './quirk'
+import { describe, it, expect } from 'vitest'
 
 export const getRandomKinType = compose(choose, getKinTypes)
 export const getRandomOccupation = compose(choose, getOccupations)

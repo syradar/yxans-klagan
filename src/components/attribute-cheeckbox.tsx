@@ -14,9 +14,9 @@ export const AttributeCheckbox = () => {
         type="button"
       >
         <div
-          className={`timing-fast pointer-events-none absolute top-1/2
-        left-1/2 h-1/5 w-[175%] -translate-x-1/2 -translate-y-1/2
-        rotate-[110deg] rounded-full bg-gray-800 opacity-100 transition-all
+          className={`pointer-events-none absolute top-1/2 left-1/2
+        h-1/5 w-[175%] -translate-x-1/2 -translate-y-1/2 rotate-[110deg]
+        rounded-full bg-gray-800 opacity-100 transition-all ease-timing-fast
         ${!checked ? 'translate-x-[-25%] translate-y-[-1000%] opacity-0' : ''}
         `}
           aria-hidden="true"

@@ -1,7 +1,7 @@
 import { isString } from '../../functions/utils.functions'
 import { createProtectionViewModel } from './armor'
-
 import { armors, helmets } from './data/armor.data'
+import { describe, it, expect } from 'vitest'
 
 describe('createProtectionViewModel', () => {
   it('should add collapse property', () => {

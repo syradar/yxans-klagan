@@ -11,6 +11,7 @@ import {
   getVillagePrefixAndSuffix,
   NameList,
 } from './name'
+import { describe, it, expect } from 'vitest'
 
 describe('name functions', () => {
   const testChooseFunc = <T>(arr: readonly T[]): T => arr[0]

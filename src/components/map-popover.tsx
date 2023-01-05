@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Hex } from '../models/map.model'
 import { Button } from './Button'
@@ -33,50 +33,56 @@ export const MapPopover = ({
     y: initialPosition,
   })
 
+  const getX = useCallback(
+    (xOptions?: MapPopoverOptions) => {
+      if (!xOptions || !ref.current) {
+        return initialPosition
+      }
+
+      const { x, mapMaxX, mapMinX } = xOptions
+
+      const rect = ref.current.getBoundingClientRect()
+      const popoverX = x - rect.width / 2
+
+      if (popoverX - mapMinX < 0) {
+        return 0
+      }
+
+      if (popoverX > mapMaxX) {
+        return mapMaxX - rect.width
+      }
+
+      return popoverX - mapMinX
+    },
+    [initialPosition],
+  )
+
+  const getY = useCallback(
+    (yOptions?: MapPopoverOptions) => {
+      if (!yOptions || !ref.current) {
+        return initialPosition
+      }
+
+      const { y, mapMinY } = yOptions
+
+      const rect = ref.current.getBoundingClientRect()
+      const popoverY = y - rect.height - mapMinY - 2
+
+      if (popoverY < 0) {
+        return mapMinY
+      }
+
+      return popoverY
+    },
+    [initialPosition],
+  )
+
   useEffect(() => {
     if (options) {
       setPosition({ x: getX(options), y: getY(options) })
       setShow(true)
     }
-  }, [options, ref])
-
-  const getX = (xOptions?: MapPopoverOptions) => {
-    if (!xOptions || !ref.current) {
-      return initialPosition
-    }
-
-    const { x, mapMaxX, mapMinX } = xOptions
-
-    const rect = ref.current.getBoundingClientRect()
-    const popoverX = x - rect.width / 2
-
-    if (popoverX - mapMinX < 0) {
-      return 0
-    }
-
-    if (popoverX > mapMaxX) {
-      return mapMaxX - rect.width
-    }
-
-    return popoverX - mapMinX
-  }
-
-  const getY = (yOptions?: MapPopoverOptions) => {
-    if (!yOptions || !ref.current) {
-      return initialPosition
-    }
-
-    const { y, mapMinY } = yOptions
-
-    const rect = ref.current.getBoundingClientRect()
-    const popoverY = y - rect.height - mapMinY - 2
-
-    if (popoverY < 0) {
-      return mapMinY
-    }
-
-    return popoverY
-  }
+  }, [getX, getY, options, ref])
 
   return (
     <div
