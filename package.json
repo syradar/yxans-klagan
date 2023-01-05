@@ -7,7 +7,7 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": "16.15.1"
+    "node": "16"
   },
   "version": "1.2.0",
   "scripts": {
