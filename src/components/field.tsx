@@ -1,4 +1,3 @@
-import 'twin.macro'
 import { Train } from './Stack'
 
 export interface FieldProps {
@@ -9,7 +8,7 @@ export interface FieldProps {
 export const Field = ({ children, label }: FieldProps) => {
   return (
     <Train spacing="small" wrap={false}>
-      <div tw="font-medium">{label}: </div>
+      <div className="font-medium">{label}: </div>
       <div>{children}</div>
     </Train>
   )

@@ -1,14 +1,11 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
-import tw from 'twin.macro'
 
-interface MonthCollapseButtonProps {
+type MonthCollapseButtonProps = {
   collapsed: boolean
   onMonthCollapseClick: () => void
   small?: boolean
   children?: React.ReactNode
 }
-
 export const MonthCollapseButton = ({
   collapsed,
   onMonthCollapseClick,
@@ -19,29 +16,32 @@ export const MonthCollapseButton = ({
 
   return (
     <button
-      aria-label={t(collapsed ? `ShowMonth` : `HideMonth`)}
-      tw="flex items-center gap-2 w-full text-left"
-      className="group"
+      aria-label={t(collapsed ? `ShowMonth` : `HideMonth`) ?? ''}
+      className="group flex w-full items-center gap-2 text-left"
       onClick={onMonthCollapseClick}
       type="button"
     >
       <div
-        tw="border-2 border-black aspect-ratio[1] relative group-hover:(bg-red-500 border-red-500)"
-        css={[small ? tw`w-4 h-4` : tw`w-8 h-8`]}
+        className={`
+          relative aspect-square border-2 border-black group-hover:border-red-500 group-hover:bg-red-500
+          ${small ? 'h-4 w-4' : 'h-8 w-8'}
+        `}
       >
         <div
-          tw="absolute w-1/2 bg-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform"
-          css={[small ? tw`h-0.5 w-2/3` : tw`h-1`]}
+          className={`
+          absolute top-1/2 left-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2 bg-black transition-transform
+          ${small ? 'h-0.5 w-2/3' : 'h-1'}
+          `}
         ></div>
         <div
-          tw="absolute h-1 w-1/2 bg-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform"
-          css={[
-            collapsed ? tw`-rotate-90` : tw`rotate-0`,
-            small ? tw`h-0.5 w-2/3` : tw`h-1`,
-          ]}
+          className={`
+          absolute top-1/2 left-1/2 h-1 w-1/2 -translate-x-1/2 -translate-y-1/2 bg-black transition-transform
+          ${small ? 'h-0.5 w-2/3' : 'h-1'}
+          ${collapsed ? '-rotate-90' : 'rotate-0'}
+          `}
         ></div>
       </div>
-      <div tw="group-hover:text-red-500 w-full">{children}</div>
+      <div className="w-full group-hover:text-red-500">{children}</div>
     </button>
   )
 }

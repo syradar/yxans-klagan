@@ -1,4 +1,4 @@
-import { compose, pluck, sum } from 'rambda'
+import { compose, pluck, sum } from 'ramda'
 import {
   MonsterHome,
   MonsterMotivation,

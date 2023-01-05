@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+    <file path="/Users/syradar/repos/yxans-klagan/src/pages/npc/npc.test.ts">
+        <testCase name="getRandomKinType should return kintype" duration="2"/>
+        <testCase name="getRandomOccupation should return kintype" duration="0"/>
+        <testCase name="getRandomCharacteristic should return kintype" duration="0"/>
+        <testCase name="getRandomQuirk should return kintype" duration="0"/>
+    </file>
+</testExecutions>

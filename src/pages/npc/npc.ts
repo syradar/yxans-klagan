@@ -1,4 +1,4 @@
-import { compose } from 'rambda'
+import { compose } from 'ramda'
 import { choose } from '../../functions/dice.functions'
 import { Chacteristics, getChacteristics } from './characteristics'
 import { getKinTypes, KinType } from './name'

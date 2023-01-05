@@ -1,8 +1,6 @@
-import React from 'react'
-import 'twin.macro'
 import { Hex } from '../models/map.model'
 
-interface PolygonProps {
+type PolygonProps = {
   hex: Hex
   onMouseOver: (e: React.MouseEvent<SVGPolygonElement, MouseEvent>) => void
   onClick: (e: React.MouseEvent<SVGPolygonElement, MouseEvent>) => void

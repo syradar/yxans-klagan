@@ -10,7 +10,13 @@ module.exports = {
   // Jest transformations -- this adds support for TypeScript
   // using ts-jestw
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        babelConfig: false,
+        useESM: true,
+      },
+    ],
   },
 
   // Runs special logic, such as cleaning up components
@@ -31,12 +37,6 @@ module.exports = {
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
-  },
-  globals: {
-    'ts-jest': {
-      babelConfig: false,
-      useESM: true,
-    },
   },
   transformIgnorePatterns: [
     'node_modules/(?!(@testing-librart/react' +

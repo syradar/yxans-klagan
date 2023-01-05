@@ -1,8 +1,6 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 
-interface NameListProps {
+type NameListProps = {
   names: string[][]
 }
 

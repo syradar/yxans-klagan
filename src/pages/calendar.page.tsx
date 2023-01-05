@@ -1,7 +1,6 @@
-import { last } from 'rambda'
-import React, { useEffect, useState } from 'react'
+import { last } from 'ramda'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import tw from 'twin.macro'
 import { Button } from '../components/Button'
 import { CalendarMonth } from '../components/calendar-month'
 import { PageHeader } from '../components/page-header'
@@ -50,7 +49,7 @@ export const CalendarPage = () => {
   useEffect(() => {
     setCalendar(calendarState)
     setAllCollapsed(calendarState.months.every((m) => m.collapsed))
-  }, [calendarState])
+  }, [calendarState, setCalendar])
 
   const [showWeather, setShowWeather] = useLocalStorage<boolean>(
     CALENDAR_SHOW_WEATHER_KEY,
@@ -123,13 +122,13 @@ export const CalendarPage = () => {
   useWindowScrollPosition(CALENDAR_SCROLL_POSITION, notNullish(calendar))
 
   return (
-    <div tw="flex flex-col gap-y-8 w-full">
+    <div className="flex w-full flex-col gap-y-8">
       <PageHeader>{t('Title')}</PageHeader>
-      <div tw="text-center text-xl mb-2 normal-case" className="yx-prose">
+      <div className="yx-prose mb-2 text-center text-xl normal-case">
         {t('Year')} {calendarState.year} {t('AS')}
       </div>
-      <div tw="flex flex-col gap-0">
-        <div tw="bg-gray-200 p-2 flex flex-wrap justify-end gap-2">
+      <div className="flex flex-col gap-0">
+        <div className="flex flex-wrap justify-end gap-2 bg-gray-200 p-2">
           <Button
             isSmall
             variant="secondary"
@@ -162,9 +161,9 @@ export const CalendarPage = () => {
             {showWeather ? t('Weather-Hide') : t('Weather-Show')}
           </Button>
           <Button
-            css={[
-              showCalenderOptions ? tw`bg-black border-black text-white` : tw``,
-            ]}
+            extraCss={
+              showCalenderOptions ? 'bg-black border-black text-white' : ''
+            }
             variant="secondary"
             isSmall
             onClick={() => setShowCalenderOptions(!showCalenderOptions)}
@@ -173,16 +172,18 @@ export const CalendarPage = () => {
           </Button>
         </div>
         {showCalenderOptions && (
-          <div tw="bg-gray-200 py-8 px-4 flex flex-col gap-2">
-            <h3 tw="font-bold uppercase tracking-wide">
+          <div className="flex flex-col gap-2 bg-gray-200 py-8 px-4">
+            <h3 className="font-bold uppercase tracking-wide">
               {t('Options-StartingYear')}
             </h3>
-            <div tw="p-4 border-2 border-red-600 bg-red-100 font-bold flex flex-col gap-4">
-              <p tw="mb-2 text-red-600">{t('Options-StartingYearWarning')}</p>
+            <div className="flex flex-col gap-4 border-2 border-red-600 bg-red-100 p-4 font-bold">
+              <p className="mb-2 text-red-600">
+                {t('Options-StartingYearWarning')}
+              </p>
 
               <div>
                 <Button
-                  tw="border-red-600 bg-red-200 text-red-700 hover:(text-white bg-red-600 border-red-600)"
+                  extraCss="border-red-600 bg-red-600 text-red-700 hover:border-red-600 hover:text-white"
                   isSmall
                   onClick={() => setShowYearOption(true)}
                   disabled={showYearOption}
@@ -204,10 +205,10 @@ export const CalendarPage = () => {
               )}
             </div>
 
-            <h3 tw="mt-4 font-bold uppercase tracking-wide">
+            <h3 className="mt-4 font-bold uppercase tracking-wide">
               {t('Options-StartingDay')}
             </h3>
-            <div tw="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2">
               <Button
                 onClick={() => handleUpdatingStartingDay('SunDay')}
                 isSmall

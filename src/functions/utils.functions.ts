@@ -1,4 +1,4 @@
-import { compose, map, range } from 'rambda'
+import { compose, map, range } from 'ramda'
 
 export const id = <T>(x: T): T => x
 

@@ -1,5 +1,4 @@
-import React, { FC } from 'react'
-import tw, { styled } from 'twin.macro'
+import { FC } from 'react'
 import { Grid } from './Stack'
 
 interface DayCounterProps {
@@ -13,8 +12,7 @@ export const DayCounter: FC<DayCounterProps> = ({
 }: DayCounterProps) => {
   return (
     <button
-      className="group"
-      tw="w-full "
+      className="group w-full"
       onClick={() => spendQuarter()}
       aria-label="Spend"
       type="button"
@@ -29,16 +27,19 @@ export const DayCounter: FC<DayCounterProps> = ({
   )
 }
 
-interface QuarterProps {
+type QuarterProps = {
   spent: boolean
   index: number
 }
-
-const Quarter = styled.div(({ spent, index }: QuarterProps) => [
-  tw`h-4 border border-gray-500 group-hover:border-red-500`,
-  index === 0 && tw`border-r-0`,
-  index === 1 && tw`border-r-0`,
-  index === 2 && tw`border-r-0`,
-  index === 3 && tw``,
-  spent && tw`bg-gray-300`,
-])
+const Quarter = ({ spent, index }: QuarterProps) => (
+  <div
+    className={`
+  h-4 border border-gray-500 group-hover:border-red-500
+  ${index === 0 ? 'border-r-0' : ''}
+  ${index === 1 ? 'border-r-0' : ''}
+  ${index === 2 ? 'border-r-0' : ''}
+  ${index === 3 ? '' : ''}
+  ${spent ? 'bg-gray-300' : ''}
+  `}
+  ></div>
+)

@@ -1,13 +1,10 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
-import tw from 'twin.macro'
 import { MonsterAttackViewModel } from '../models/monster.model'
 import { Card } from './card'
 import { Train } from './Stack'
 import { Stat } from './Stat'
 
-export interface MonsterAttackProps {
+export type MonsterAttackProps = {
   monsterViewModel: MonsterAttackViewModel
   counter: number
   selected?: boolean
@@ -24,10 +21,12 @@ export const MonsterAttack = ({
     <Card
       thin
       subtle
-      tw="flex flex-col gap-1 p-2 transition-colors"
-      css={[selected ? tw`bg-gray-200` : tw``]}
+      extraCss={`
+        flex flex-col gap-1 p-2 transition-colors
+        ${selected ? 'bg-gray-200' : ''}
+      `}
     >
-      <div tw="text-lg font-medium">
+      <div className="text-lg font-medium">
         {counter}: {t(`Attack.${m.type}.Type`)}
       </div>
 

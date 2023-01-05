@@ -1,6 +1,4 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import { PageHeader } from '../../components/page-header'
 import { Pancake } from '../../components/Stack'
 import {
@@ -52,44 +50,44 @@ export const TypicalKinPage = () => {
   ).map(createTypicalKinViewModel)
 
   return (
-    <div tw="flex flex-col gap-y-8 w-full pb-16">
+    <div className="flex w-full flex-col gap-y-8 pb-16">
       <PageHeader>{t('Title')}</PageHeader>
-      <h2 tw="text-center text-2xl lg:(text-4xl)" className="yx-heading">
+      <h2 className="yx-heading text-center text-2xl lg:text-4xl">
         {t('Kin.Human.Humans', { ns: 'common' })}
       </h2>
-      <div tw="grid gap-4 md:grid-cols-2  2xl:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2  2xl:grid-cols-3">
         {humanKinViewModels.map((tkvm) => (
           <TypicalKinDisplay key={tkvm.kin} tkvm={tkvm}></TypicalKinDisplay>
         ))}
       </div>
-      <h2 tw="text-center text-2xl lg:(text-4xl)" className="yx-heading">
+      <h2 className="yx-heading text-center text-2xl lg:text-4xl">
         {t('Kin.Elf.Elves', { ns: 'common' })}
       </h2>
-      <div tw="grid gap-4 md:grid-cols-2  2xl:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2  2xl:grid-cols-3">
         {elfKinViewModels.map((tkvm) => (
           <TypicalKinDisplay key={tkvm.kin} tkvm={tkvm}></TypicalKinDisplay>
         ))}
       </div>
-      <h2 tw="text-center text-2xl lg:(text-4xl)" className="yx-heading">
+      <h2 className="yx-heading text-center text-2xl lg:text-4xl">
         {t('Kin.Dwarf.Dwarves', { ns: 'common' })}
       </h2>
-      <div tw="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         {dwarfKinViewModels.map((tkvm) => (
           <TypicalKinDisplay key={tkvm.kin} tkvm={tkvm}></TypicalKinDisplay>
         ))}
       </div>
-      <h2 tw="text-center text-2xl lg:(text-4xl)" className="yx-heading">
+      <h2 className="yx-heading text-center text-2xl lg:text-4xl">
         {t('Kin.Orc.Orcs', { ns: 'common' })}
       </h2>
-      <div tw="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         {orcKinViewModels.map((tkvm) => (
           <TypicalKinDisplay key={tkvm.kin} tkvm={tkvm}></TypicalKinDisplay>
         ))}
       </div>
 
-      <div tw="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         <Pancake>
-          <h2 tw="text-center text-2xl lg:(text-4xl)" className="yx-heading">
+          <h2 className="yx-heading text-center text-2xl lg:text-4xl">
             {t('Kin.Ogre.Ogres', { ns: 'common' })}
           </h2>
           {ogreKinViewModels.map((tkvm) => (
@@ -97,7 +95,7 @@ export const TypicalKinPage = () => {
           ))}
         </Pancake>
         <Pancake>
-          <h2 tw="text-center text-2xl lg:(text-4xl)" className="yx-heading">
+          <h2 className="yx-heading text-center text-2xl lg:text-4xl">
             {t('Kin.Wolfkin.Wolfkins', { ns: 'common' })}
           </h2>
 
@@ -106,9 +104,9 @@ export const TypicalKinPage = () => {
           ))}
         </Pancake>
       </div>
-      <div tw="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         <Pancake>
-          <h2 tw="text-center text-2xl lg:(text-4xl)" className="yx-heading">
+          <h2 className="yx-heading text-center text-2xl lg:text-4xl">
             {t('Kin.Saurian.Saurians', { ns: 'common' })}
           </h2>
           {saurianKinViewModels.map((tkvm) => (
@@ -116,7 +114,7 @@ export const TypicalKinPage = () => {
           ))}
         </Pancake>
         <Pancake>
-          <h2 tw="text-center text-2xl lg:(text-4xl)" className="yx-heading">
+          <h2 className="yx-heading text-center text-2xl lg:text-4xl">
             {t('Kin.Whiner.Whiners', { ns: 'common' })}
           </h2>
           {whinerKinViewModels.map((tkvm) => (
@@ -124,10 +122,10 @@ export const TypicalKinPage = () => {
           ))}
         </Pancake>
       </div>
-      <h2 tw="text-center text-2xl lg:(text-4xl)" className="yx-heading">
+      <h2 className="yx-heading text-center text-2xl lg:text-4xl">
         {t('Kin.HalflingAndGoblin.HalflingAndGoblins', { ns: 'common' })}
       </h2>
-      <div tw="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         {halflingAndGoblinKinViewModels.map((tkvm) => (
           <TypicalKinDisplay key={tkvm.kin} tkvm={tkvm}></TypicalKinDisplay>
         ))}

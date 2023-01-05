@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import { Button } from '../../components/Button'
 import { PageHeader } from '../../components/page-header'
 import { Parchment } from '../../components/parchment'
@@ -14,7 +13,7 @@ import {
 } from './npc'
 
 export const NpcPage = () => {
-  const { t, i18n } = useTranslation(['npc', 'common'])
+  const { t } = useTranslation(['npc', 'common'])
 
   const createNPC = (): NPC => ({
     kin: getRandomKinType(),
@@ -31,9 +30,9 @@ export const NpcPage = () => {
   }
 
   return (
-    <div tw="flex flex-col gap-y-8 w-full pb-16">
+    <div className="flex w-full flex-col gap-y-8 pb-16">
       <PageHeader>{t('Title')}</PageHeader>
-      <Parchment deps={[i18n.language, npc]}>
+      <Parchment>
         <Pancake>
           <Train>
             <Button isSmall onClick={() => generateOccupation()}>
@@ -41,7 +40,7 @@ export const NpcPage = () => {
             </Button>
           </Train>
 
-          {/* <div tw="text-lg lg:(text-2xl)" className="yx-prose">
+          {/* <div className="text-lg lg:(text-2xl)" className="yx-prose">
             {t(`Kin.${npc.kin}.${npc.kin}`, { ns: 'common' })}
           </div> */}
           <div className="yx-prose">{t(`Occupation.${npc.occupation}`)}</div>

@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
-import tw, { styled } from 'twin.macro'
 import { rollD6 } from '../functions/dice.functions'
 import {
   MonsterDescriptionItemViewModel,
@@ -15,7 +13,7 @@ import { MonsterAttribute } from './monster-attributes'
 import { SkillList } from './skill-list'
 import { Pancake } from './Stack'
 
-export interface RandomMonsterDisplayProps {
+export type RandomMonsterDisplayProps = {
   rm: RandomMonsterViewModel
 }
 
@@ -81,12 +79,12 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
 
   return (
     <Pancake wrap={false}>
-      <h2 tw="text-4xl mb-2" className="yx-heading">
+      <h2 className="yx-heading mb-2 text-4xl">
         {t(`Size.${rm.size}`, { ...getSizeContext(rm.type) })}{' '}
         {t(`Type.${rm.type}`)}
       </h2>
 
-      <div className="yx-prose" tw="max-w-prose mb-4">
+      <div className="yx-prose mb-4 max-w-prose">
         <p>
           {[
             describeMonsterHeads(rm.description.head),
@@ -96,13 +94,13 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
         </p>
       </div>
 
-      <section tw="grid grid-cols-1 4xl:(gap-8 grid-cols-2)">
-        <div tw="flex gap-8 flex-col mb-4 md:flex-row 4xl:(flex)">
-          <div tw="flex-1">
-            <h3 tw="text-xl font-medium">{t(`Attribute`)}</h3>
-            <div tw="sm:(flex gap-8) md:block mb-2">
+      <section className="grid grid-cols-1 4xl:grid-cols-2 4xl:gap-8">
+        <div className="mb-4 flex flex-col gap-8 md:flex-row 4xl:flex">
+          <div className="flex-1">
+            <h3 className="text-xl font-medium">{t(`Attribute`)}</h3>
+            <div className="mb-2 sm:flex sm:gap-8 md:block">
               {rm.attributes.strength && (
-                <div tw="mb-2">
+                <div className="mb-2">
                   <MonsterAttribute
                     key={`${rm.size}-strength`}
                     values={[...rm.attributes.strength.values]}
@@ -113,7 +111,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
                 </div>
               )}
               {rm.attributes.agility && (
-                <div tw="mb-2">
+                <div className="mb-2">
                   <MonsterAttribute
                     key={`${rm.size}-agility`}
                     values={[...rm.attributes.agility.values]}
@@ -124,12 +122,12 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
                 </div>
               )}
             </div>
-            <section tw="flex flex-wrap gap-x-8 gap-y-4 4xl:flex-col">
+            <section className="flex flex-wrap gap-x-8 gap-y-4 4xl:flex-col">
               {rm.armor && (
                 <div>
-                  <h3 tw="text-xl font-medium">{t('ArmorLabel')}</h3>
+                  <h3 className="text-xl font-medium">{t('ArmorLabel')}</h3>
                   <div>
-                    <span tw="font-medium">
+                    <span className="font-medium">
                       {t(`Armor.${rm.armor.label}`)}:{' '}
                     </span>
                     {rm.armor.values.length}
@@ -138,7 +136,9 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
               )}
 
               <div>
-                <h3 tw="text-xl font-medium">{t(`Movement.Movement`)}</h3>
+                <h3 className="text-xl font-medium">
+                  {t(`Movement.Movement`)}
+                </h3>
                 <div>
                   {t(`Movement.${rm.movement.type}`)} {rm.movement.distance}{' '}
                   {t(`Movement.Zones`, {
@@ -147,8 +147,8 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
                 </div>
               </div>
 
-              <div tw="md:w-full">
-                <h3 tw="text-xl font-medium">{t(`Skill`)}</h3>
+              <div className="md:w-full">
+                <h3 className="text-xl font-medium">{t(`Skill`)}</h3>
                 {rm.skills.length === 0 ? (
                   <div>{t('Skills.None')}</div>
                 ) : (
@@ -162,9 +162,9 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
             </section>
           </div>
 
-          <div tw="flex-1 grid grid-cols-2 gap-4 lg:(grid-cols-none auto-rows-min   gap-4)">
+          <div className="grid flex-1 auto-rows-min grid-cols-2 gap-4 lg:grid-cols-none   lg:gap-4">
             <section>
-              <h3 tw="text-xl font-medium">{t(`Trait.Traits`)}</h3>
+              <h3 className="text-xl font-medium">{t(`Trait.Traits`)}</h3>
               <DefinitionList
                 definitions={rm.traits.map((trait) => ({
                   name: t(trait.name),
@@ -175,7 +175,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
               ></DefinitionList>
             </section>
             <section>
-              <h3 tw="text-xl font-medium">{t(`Weakness.Weakness`)}</h3>
+              <h3 className="text-xl font-medium">{t(`Weakness.Weakness`)}</h3>
               <DefinitionList
                 definitions={[rm.weakness].map((w) => ({
                   name: t(w.name),
@@ -184,7 +184,9 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
               ></DefinitionList>
             </section>
             <section>
-              <h3 tw="text-xl font-medium">{t(`Motivation.Motivation`)}</h3>
+              <h3 className="text-xl font-medium">
+                {t(`Motivation.Motivation`)}
+              </h3>
               <DefinitionList
                 definitions={[rm.motivation].map((m) => ({
                   name: t(m.name),
@@ -196,13 +198,13 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
         </div>
         <div>
           <Pancake>
-            <div tw="flex gap-2 items-baseline">
-              <h3 tw="text-xl font-medium">{t(`Attack.Attacks`)}</h3>
+            <div className="flex items-baseline gap-2">
+              <h3 className="text-xl font-medium">{t(`Attack.Attacks`)}</h3>
               <RollButton onClick={() => rollAttack()}>
                 {t('Attack.Roll')}
               </RollButton>
             </div>
-            <div tw="grid gap-2 md:(grid-cols-2)">
+            <div className="grid gap-2 md:grid-cols-2">
               {rm.attacks.map((a, index) => (
                 <MonsterAttack
                   key={a.type !== 'Generic' ? a.type : `${a.type}-${getId()}`}
@@ -219,12 +221,16 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
   )
 }
 
-export const RollButton = styled.button(() => [
-  // The common button styles
-  tw`px-1 py-0.5 leading-none font-bold uppercase select-none tracking-wide focus:outline-none transform duration-75`,
-  tw`border-2 border-black rounded-none`,
-  // Use the variant grouping feature to add variants to multiple classes
-  tw`pointer-fine:hover:(bg-red-500 border-red-500 text-black) `,
-  tw`bg-white text-black`,
-  tw`text-sm`,
-])
+type RollButtonProps = {
+  onClick: () => void
+  children: React.ReactNode
+}
+export const RollButton = ({ onClick, children }: RollButtonProps) => (
+  <button
+    onClick={onClick}
+    className="pointer-fine:hover:bg-red-500 pointer-fine:hover:border-red-500 pointer-fine:hover:text-black select-none rounded-none border-2 border-black bg-white px-1 py-0.5 text-sm font-bold uppercase leading-none tracking-wide text-black duration-75 focus:outline-none"
+    type="button"
+  >
+    {children}
+  </button>
+)

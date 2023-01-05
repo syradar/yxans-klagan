@@ -1,4 +1,4 @@
-import React, { FC, Suspense } from 'react'
+import { FC, lazy, Suspense } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Link,
@@ -7,7 +7,6 @@ import {
   useResolvedPath,
   useRoutes,
 } from 'react-router-dom'
-import tw from 'twin.macro'
 import './App.css'
 import { Group } from './components/group'
 import { LanguageSwitcher } from './components/language-switcher'
@@ -16,28 +15,17 @@ import { Parchment } from './components/parchment'
 import { Pancake, Stack } from './components/Stack'
 import { YxansKlaganLogo } from './logo'
 
-const CalendarPage = React.lazy(() => import('./pages/calendar.page'))
-const DiceRollerPage = React.lazy(() => import('./pages/dice-roller.page'))
-const EncounterPage = React.lazy(() => import('./pages/encounter.page'))
-const FindsPage = React.lazy(() => import('./pages/finds.page'))
-const GearPage = React.lazy(() => import('./pages/gear.page'))
-const MapPage = React.lazy(() => import('./pages/map.page'))
-const MonstersPage = React.lazy(() => import('./pages/monsters.page'))
-const SessionPage = React.lazy(() => import('./pages/session.page'))
-const TypicalKinPage = React.lazy(() => import('./pages/npc/TypicalKinPage'))
-const NameGeneratorPage = React.lazy(
-  () => import('./pages/npc/NameGeneratorPage'),
-)
-const NpcPage = React.lazy(() => import('./pages/npc/NpcPage'))
-
-const styles = {
-  // Move long class sets out of jsx to keep it scannable
-  // container: ({ hasBackground }: { hasBackground: boolean }) => [
-  container: () => [
-    tw`bg-gray-50 flex-col min-h-screen h-full w-screen max-w-full`,
-    // hasBackground && tw`wbg-gradient-to-b from-electric to-ribbon`,
-  ],
-}
+const CalendarPage = lazy(() => import('./pages/calendar.page'))
+const DiceRollerPage = lazy(() => import('./pages/dice-roller.page'))
+const EncounterPage = lazy(() => import('./pages/encounter.page'))
+const FindsPage = lazy(() => import('./pages/finds.page'))
+const GearPage = lazy(() => import('./pages/gear.page'))
+const MapPage = lazy(() => import('./pages/map.page'))
+const MonstersPage = lazy(() => import('./pages/monsters.page'))
+const SessionPage = lazy(() => import('./pages/session.page'))
+const TypicalKinPage = lazy(() => import('./pages/npc/TypicalKinPage'))
+const NameGeneratorPage = lazy(() => import('./pages/npc/NameGeneratorPage'))
+const NpcPage = lazy(() => import('./pages/npc/NpcPage'))
 
 const App = () => {
   const routes = useRoutes([
@@ -110,75 +98,77 @@ const App = () => {
   const { pathname } = useLocation()
 
   const toPathContains = (toPath: 'gear' | 'npcs') => (path: string) =>
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     path.includes(useResolvedPath(toPath).pathname)
 
   const isGearPageActive = toPathContains('gear')
   const isKinPageActive = toPathContains('npcs')
 
   return (
-    <div className="App" css={styles.container()}>
-      <div tw="flex flex-col h-full lg:(flex-row)">
-        <div tw="flex flex-col bg-gray-200 lg:(h-full fixed w-48 )">
-          <div tw="p-2 mb-4">
-            <Link to="/" tw="block w-full">
+    <div
+      className={`App h-full min-h-screen w-screen max-w-full flex-col bg-gray-50`}
+    >
+      <div className="flex h-full flex-col lg:flex-row">
+        <div className="fixed flex w-48 flex-col bg-gray-200 lg:h-full">
+          <div className="mb-4 p-2">
+            <Link to="/" className="block w-full">
               <YxansKlaganLogo />
             </Link>
           </div>
-          <div
-            tw="h-full pb-4 flex flex-col justify-between"
-            css={{ overflow: 'overlay' }}
-          >
-            <PancakeNav dir="vertical" wrap={false} spacing="small">
-              <MenuLink to="/session">{t('Menu-Session')}</MenuLink>
-              <MenuLink to="/encounter">{t('Menu-Encounters')}</MenuLink>
-              <MenuLink to="/monsters">{t('Menu-Monsters')}</MenuLink>
-              <MenuLink to="/map">{t('Menu-Map')}</MenuLink>
-              <MenuLink to="/calendar">{t('Menu-Calendar')}</MenuLink>
-              <div tw="pl-4">
-                <Group
-                  spaceBeforeItems={false}
-                  indent={false}
-                  label={<div tw="font-medium">{t('Menu-Gear')}</div>}
-                  open={isGearPageActive(pathname)}
-                >
-                  <div tw="mt-2">
-                    <Pancake spacing="small">
-                      <MenuLink to="/gear/tables">
-                        {t('Menu-Gear-Tables')}
-                      </MenuLink>
-                      <MenuLink to="/gear/finds">
-                        {t('Menu-Gear-Finds')}
-                      </MenuLink>
-                    </Pancake>
-                  </div>
-                </Group>
-              </div>
-              <div tw="pl-4">
-                <Group
-                  spaceBeforeItems={false}
-                  indent={false}
-                  label={<div tw="font-medium">{t('Menu-NPCs')}</div>}
-                  open={isKinPageActive(pathname)}
-                >
-                  <div tw="mt-2">
-                    <Pancake spacing="small">
-                      <MenuLink to="/npcs/names">
-                        {t('Menu-NPCs-Names')}
-                      </MenuLink>
-                      <MenuLink to="/npcs/typical">
-                        {t('Menu-NPCs-Typical')}
-                      </MenuLink>
-                      <MenuLink to="/npcs/npc">{t('Menu-NPCs-Npc')}</MenuLink>
-                    </Pancake>
-                  </div>
-                </Group>
-              </div>
-            </PancakeNav>
+          <div className="flex h-full flex-col justify-between overflow-auto pb-4">
+            <div className="w-full text-lg">
+              <Stack dir="vertical" wrap={false} spacing="small">
+                <MenuLink to="/session">{t('Menu-Session')}</MenuLink>
+                <MenuLink to="/encounter">{t('Menu-Encounters')}</MenuLink>
+                <MenuLink to="/monsters">{t('Menu-Monsters')}</MenuLink>
+                <MenuLink to="/map">{t('Menu-Map')}</MenuLink>
+                <MenuLink to="/calendar">{t('Menu-Calendar')}</MenuLink>
+                <div className="pl-4">
+                  <Group
+                    spaceBeforeItems={false}
+                    indent={false}
+                    label={<div className="font-medium">{t('Menu-Gear')}</div>}
+                    open={isGearPageActive(pathname)}
+                  >
+                    <div className="mt-2">
+                      <Pancake spacing="small">
+                        <MenuLink to="/gear/tables">
+                          {t('Menu-Gear-Tables')}
+                        </MenuLink>
+                        <MenuLink to="/gear/finds">
+                          {t('Menu-Gear-Finds')}
+                        </MenuLink>
+                      </Pancake>
+                    </div>
+                  </Group>
+                </div>
+                <div className="pl-4">
+                  <Group
+                    spaceBeforeItems={false}
+                    indent={false}
+                    label={<div className="font-medium">{t('Menu-NPCs')}</div>}
+                    open={isKinPageActive(pathname)}
+                  >
+                    <div className="mt-2">
+                      <Pancake spacing="small">
+                        <MenuLink to="/npcs/names">
+                          {t('Menu-NPCs-Names')}
+                        </MenuLink>
+                        <MenuLink to="/npcs/typical">
+                          {t('Menu-NPCs-Typical')}
+                        </MenuLink>
+                        <MenuLink to="/npcs/npc">{t('Menu-NPCs-Npc')}</MenuLink>
+                      </Pancake>
+                    </div>
+                  </Group>
+                </div>
+              </Stack>
+            </div>
             {/* <MenuLink to="/dice">{t('Menu-Dice')}</MenuLink> */}
             <LanguageSwitcher></LanguageSwitcher>
           </div>
           <a
-            tw="inline text-center mb-4 font-medium tracking-wide text-red-700 hover:underline"
+            className="mb-4 inline text-center font-medium tracking-wide text-red-700 hover:underline"
             href="https://github.com/syradar/yxans-klagan/issues/new/choose"
           >
             {t('GiveFeedback')}
@@ -186,7 +176,7 @@ const App = () => {
         </div>
 
         <Suspense fallback={<div>Loading...</div>}>
-          <main tw="w-full mt-4 lg:(ml-48)">{routes}</main>
+          <main className="mt-4 w-full lg:ml-48">{routes}</main>
         </Suspense>
       </div>
     </div>
@@ -195,10 +185,8 @@ const App = () => {
 
 export default App
 
-const PancakeNav = tw(Stack)`text-lg w-full`
-
 const HomePage = () => (
-  <div tw="flex flex-col gap-y-8 max-w-prose">
+  <div className="flex max-w-prose flex-col gap-y-8">
     <PageHeader>Svärdets Sång</PageHeader>
     <Parchment>
       <p className="yx-prose">
@@ -213,14 +201,12 @@ const HomePage = () => (
       </p>
     </Parchment>
     <Parchment>
-      <div tw="flex flex-col gap-4">
-        <h2 tw="text-4xl text-center flex" className="yx-heading">
-          Tack
-        </h2>
+      <div className="flex flex-col gap-4">
+        <h2 className="yx-heading flex text-center text-4xl">Tack</h2>
         <p className="yx-prose">
           Tack till{' '}
           <a
-            tw="text-red-700 hover:underline"
+            className="text-red-700 hover:underline"
             href="https://freeleaguepublishing.com/sv/"
           >
             Fria Ligan
@@ -245,11 +231,13 @@ const MenuLink: FC<LinkProps> = ({ to, children }: LinkProps) => {
 
   return (
     <Link
-      tw="px-4 py-1 w-full font-medium hover:bg-red-500"
-      css={[
-        isLinkActive &&
-          tw`bg-black text-white font-semibold hover:bg-black hover:text-red-500`,
-      ]}
+      className={`w-full px-4 py-1 font-medium hover:bg-red-500
+      ${
+        isLinkActive
+          ? 'bg-black font-semibold text-white hover:bg-black hover:text-red-500'
+          : ''
+      }
+      `}
       to={to}
     >
       {children}

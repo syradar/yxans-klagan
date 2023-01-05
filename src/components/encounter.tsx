@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import tw from 'twin.macro'
 
 import { EncounterViewModel } from '../models/encounter.model'
 import { Terrain } from '../models/terrain.model'
@@ -11,7 +10,7 @@ interface EncounterProps {
 }
 
 export const Encounter = ({ encounter }: EncounterProps) => {
-  const { t, i18n } = useTranslation(['encounters', 'common'])
+  const { t } = useTranslation(['encounters', 'common'])
   const [transition, setTransition] = useState(false)
 
   const formatTerrains = (terrains: Terrain[]): string => {
@@ -34,15 +33,16 @@ export const Encounter = ({ encounter }: EncounterProps) => {
 
   return (
     <div
-      tw="transition-transform translate-y-0"
-      css={[transition && tw`translate-y-2`]}
+      className={` transition-transform
+        ${transition ? 'translate-y-2' : 'translate-y-0'}
+      `}
     >
-      <Parchment deps={[encounter.id, i18n.language]}>
-        <div tw="flex gap-2 mb-4 items-center">
-          <div tw="text-4xl text-center font-bold p-2 border-4 w-12 flex items-center justify-center aspect-ratio[1] h-12 rounded-full">
+      <Parchment>
+        <div className="mb-4 flex items-center gap-2">
+          <div className="flex aspect-square h-12 w-12 items-center justify-center rounded-full border-4 p-2 text-center text-4xl font-bold">
             {encounter.id}
           </div>
-          <h2 tw="text-4xl text-center flex" className="yx-heading">
+          <h2 className="yx-heading flex text-center text-4xl">
             {encounter.title}
           </h2>
         </div>

@@ -1,20 +1,11 @@
-import React, { ReactNode } from 'react'
-import 'twin.macro'
-import { css } from 'twin.macro'
 import { Pancake } from './Stack'
 
-interface ListProps {
-  children: ReactNode
+type ListProps = {
+  children: React.ReactNode
 }
-
 export const List = ({ children }: ListProps) => {
   return (
-    <div
-      tw="max-h-96 lg:max-h-[initial] xl:max-h-[initial] 2xl:max-h-[initial]"
-      css={css`
-        overflow: overlay;
-      `}
-    >
+    <div className="max-h-96 overflow-auto lg:max-h-[initial] xl:max-h-[initial] 2xl:max-h-[initial]">
       <Pancake>{children}</Pancake>
     </div>
   )

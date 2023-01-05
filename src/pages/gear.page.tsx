@@ -1,65 +1,54 @@
-import React from 'react'
-import tw from 'twin.macro'
 import { PageHeader } from '../components/page-header'
 import { Parchment } from '../components/parchment'
-import { getRandomInt } from '../functions/dice.functions'
+import { rollD6 } from '../functions/dice.functions'
 
 export const GearPage = () => {
   return (
-    <div tw="flex flex-col gap-y-8 w-full">
+    <div className="flex w-full flex-col gap-y-8">
       <PageHeader>Utrustning</PageHeader>
 
       <div>
         <Parchment>
-          <h2 tw="text-4xl text-center flex mb-4" className="yx-heading">
+          <h2 className="yx-heading mb-4 flex text-center text-4xl">
             Vanliga tjänster
           </h2>
-          <table tw="w-full">
-            <thead tw="hidden lg:(table-header-group)">
+          <table className="w-full">
+            <thead className="hidden lg:table-header-group">
               <tr>
-                <td tw="font-bold uppercase px-2 py-1 border-b-2 border-gray-400">
+                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
                   Tjänst
                 </td>
-                <td tw="font-bold uppercase px-2 py-1 border-b-2 border-gray-400">
+                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
                   Pris
                 </td>
-                <td tw="font-bold uppercase px-2 py-1 border-b-2 border-gray-400">
+                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
                   Tillgång
                 </td>
-                <td tw="font-bold uppercase px-2 py-1 border-b-2 border-gray-400">
+                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
                   Kommentar
                 </td>
               </tr>
             </thead>
             <tbody>
-              {regularServices.map((rs, i) => (
-                <tr key={rs.service} tw="grid grid-cols-2 lg:(table-row)">
-                  <td
-                    tw="px-2 py-1 lg:(border-b border-gray-400)"
-                    css={[i % 2 === 0 && tw`bg-gray-200`]}
-                  >
-                    <div tw="text-sm lg:(hidden)">Tjänst</div>
+              {regularServices.map((rs) => (
+                <tr
+                  key={rs.service}
+                  className="group grid grid-cols-2 lg:table-row"
+                >
+                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                    <div className="text-sm lg:hidden">Tjänst</div>
                     {rs.service}
                   </td>
-                  <td
-                    tw="px-2 py-1 lg:(border-b border-gray-400)"
-                    css={[i % 2 === 0 && tw`bg-gray-200`]}
-                  >
-                    <div tw="text-sm lg:(hidden)">Pris</div>
+                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                    <div className="text-sm lg:hidden">Pris</div>
                     {priceFormat(rs.price)}
                   </td>
-                  <td
-                    tw="px-2 py-1 lg:(border-b border-gray-400)"
-                    css={[i % 2 === 0 && tw`bg-gray-200`]}
-                  >
-                    <div tw="text-sm lg:(hidden)">Tillgång</div>
+                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                    <div className="text-sm lg:hidden">Tillgång</div>
                     {availabilityFormat(rs.availability)}
                   </td>
-                  <td
-                    tw="px-2 py-1 lg:(border-b border-gray-400)"
-                    css={[i % 2 === 0 && tw`bg-gray-200`]}
-                  >
-                    <div tw="text-sm lg:(hidden)">Kommentar</div>
+                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                    <div className="text-sm lg:hidden">Kommentar</div>
                     {rs.comment ?? ''}
                   </td>
                 </tr>
@@ -90,13 +79,13 @@ interface RegularService {
 const availabilityFormat = (a: Availability): string => {
   switch (a) {
     case `sällsynt`: {
-      const count = getRandomInt() === 6 ? 1 : 0
+      const count = rollD6() === 6 ? 1 : 0
 
       return `Sällsynt (${count} ex)`
     }
 
     case `ovanlig`: {
-      const count = getRandomInt() >= 4 ? getRandomInt() : 0
+      const count = rollD6() >= 4 ? rollD6() : 0
 
       return `Ovanlig (${count} ex)`
     }
@@ -109,7 +98,7 @@ const availabilityFormat = (a: Availability): string => {
 
 const priceFormat = (sc: ServiceCost): string => {
   const coins = formatCoinPurse(copperToCoinPurse(sc.copper))
-  const per = perFormat(sc.per)
+  const per = sc.per ? perFormat[sc.per] : ''
 
   return `${coins} ${per}`
 }
@@ -134,15 +123,9 @@ const copperToCoinPurse = (copper: number): CoinPurse => ({
   copper: (copper % 100) % 10,
 })
 
-const perFormat = (per?: Per): string => {
-  switch (per) {
-    case 'day':
-      return ' per dag'
-    case 'hex':
-      return ' per hexagon'
-    default:
-      return ''
-  }
+const perFormat: { readonly [P in Per]: string } = {
+  day: ' per dag',
+  hex: ' per hexagon',
 }
 
 const regularServices: RegularService[] = [

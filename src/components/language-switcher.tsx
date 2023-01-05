@@ -1,6 +1,4 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 
 import { ValidLanguage } from '../models/language.model'
 import { LanguageButton } from './language-button'
@@ -14,7 +12,7 @@ export const LanguageSwitcher = () => {
   }
 
   return (
-    <div tw="px-2">
+    <div className="px-2">
       <Pancake spacing="none">
         <LanguageButton
           selected={i18n.language === 'sv'}

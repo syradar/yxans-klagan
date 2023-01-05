@@ -1,15 +1,19 @@
-import tw, { styled } from 'twin.macro'
-
-export interface CardProps {
+export type CardProps = {
   children: React.ReactNode
   thin?: boolean
   subtle?: boolean
+  extraCss?: string
 }
 
-export const Card = styled.div(
-  ({ thin = false, subtle = false }: CardProps) => [
-    tw`rounded`,
-    subtle ? tw`border border-gray-400` : tw`bg-gray-200`,
-    thin ? tw`px-4 py-2` : tw`p-4`,
-  ],
+export const Card = ({ children, subtle, thin, extraCss }: CardProps) => (
+  <div
+    className={`
+  rounded
+  ${subtle ? 'border border-gray-400' : 'bg-gray-200'}
+  ${thin ? 'px-4 py-2' : 'p-4'}
+  ${extraCss}
+  `}
+  >
+    {children}
+  </div>
 )

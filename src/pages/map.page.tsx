@@ -1,7 +1,6 @@
-import { has } from 'rambda'
-import React, { useEffect, useRef, useState } from 'react'
+import { has } from 'ramda'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import { Button } from '../components/Button'
 import { Map } from '../components/map'
 import { MapPopover, MapPopoverOptions } from '../components/map-popover'
@@ -289,14 +288,15 @@ export const MapPage = () => {
   }, [fogOfWar])
 
   return (
-    <div tw="flex flex-col gap-y-8 w-full">
+    <div className="flex w-full flex-col gap-y-8">
       <PageHeader>{t('Title')}</PageHeader>
 
       <div>
-        <Parchment deps={[tooltip]} ref={parchmentRef}>
+        <Parchment>
           <div
-            tw="absolute z-10 text-[0.9vw] flex items-center justify-center text-center leading-none text-white select-none font-bold text-shadow[0px 0px 1px black] pointer-events-none"
-            css={{
+            className="pointer-events-none absolute z-10 flex select-none items-center justify-center text-center text-[0.9vw] font-bold leading-none text-white"
+            style={{
+              textShadow: '0px 0px 1px black',
               top: numToPx(tooltip.y),
               left: numToPx(tooltip.x),
               width: numToPx(tooltip.width),
@@ -325,11 +325,11 @@ export const MapPage = () => {
 
       <div>
         {pasteError && (
-          <div tw="bg-red-500 text-white font-bold p-2 flex justify-end">
+          <div className="flex justify-end bg-red-500 p-2 font-bold text-white">
             {t(pasteError)}
           </div>
         )}
-        <div tw="bg-gray-200 p-2">
+        <div className="bg-gray-200 p-2">
           <Train>
             <Button isSmall onClick={() => setFogOfWar(!fogOfWar)}>
               {t('FogOfWar', { context: fogOfWar ? 'On' : 'Off' })}

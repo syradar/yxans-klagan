@@ -1,10 +1,7 @@
-import React from 'react'
-import 'twin.macro'
-
 export const YxansKlaganLogo = () => <YxansKlaganSvg />
 
 const YxansKlaganSvg = () => (
-  <div tw="mx-auto w-32 transition-transform hover:scale-105">
+  <div className="mx-auto w-32 transition-transform hover:scale-105">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
