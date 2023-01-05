@@ -1,4 +1,5 @@
 import { getChacteristics } from './characteristics'
+import { describe, it, expect } from 'vitest'
 
 describe('getChacteristics', () => {
   it('should have 36 occupations', () => {

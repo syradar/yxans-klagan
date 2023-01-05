@@ -1,6 +1,7 @@
 import { isString } from '../../functions/utils.functions'
 import { meleeWeapons } from './data/weapon.data'
 import { createWeaponViewModel } from './weapon'
+import { describe, it, expect } from 'vitest'
 
 describe('createWeaponViewModel', () => {
   it('should add collapse property', () => {

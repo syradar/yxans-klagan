@@ -4,6 +4,7 @@ import { defaultSkillsValues } from '../../functions/skills.functions'
 import { HumanKin } from './name'
 import { createTypicalKinViewModel } from './typical-kin'
 import { TypicalKin } from './typical-kin'
+import { describe, it, expect } from 'vitest'
 
 describe('createTypicalKinViewModel', () => {
   const tk: TypicalKin<HumanKin, 'Human'> = {

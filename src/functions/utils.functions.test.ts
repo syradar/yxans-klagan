@@ -1,4 +1,5 @@
 import { Nullish, numberToBooleans, validNumber } from './utils.functions'
+import { describe, it, expect } from 'vitest'
 
 describe('numberToBooleans', () => {
   const cases: [boolean[], unknown][] = [
@@ -15,10 +16,12 @@ describe('numberToBooleans', () => {
     expect(result).toEqual(expected)
   })
 
-  const errorCases: [unknown][] = [[NaN]]
+  const errorCases: [unknown][] = [[NaN], [Infinity], [-Infinity], [undefined]]
 
   it.each(errorCases)('should throw error for %s', (input) => {
-    expect(() => numberToBooleans(input as number)).toThrowError()
+    expect(() => numberToBooleans(input as number)).toThrowError(
+      'Invalid number',
+    )
   })
 })
 

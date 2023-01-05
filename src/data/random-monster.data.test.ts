@@ -19,6 +19,7 @@ import {
   sizes,
   types,
 } from './random-monster.data'
+import { describe, it, expect } from 'vitest'
 
 describe('sizes', () => {
   describe('smaller ones', () => {

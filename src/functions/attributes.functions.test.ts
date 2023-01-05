@@ -7,6 +7,7 @@ import {
   createAttributesViewModel,
   createAttributeViewModel,
 } from './attributes.functions'
+import { describe, it, expect } from 'vitest'
 
 describe('createAttributeViewModel', () => {
   const cases: [number | undefined, AttributeViewModel | undefined][] = [

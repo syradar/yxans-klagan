@@ -1,4 +1,4 @@
-import { compose, map, range } from 'ramda'
+import { range } from 'ramda'
 
 export const id = <T>(x: T): T => x
 
@@ -29,10 +29,17 @@ export const isObject = (x: unknown): x is Record<string, unknown> =>
 
 export const isArray = (x: unknown): x is string => Array.isArray(x)
 
-export const numberToBooleans = compose(
-  map((_) => false),
-  range(0),
-)
+export const numberToBooleans = (to: number | Nullish) => {
+  if (to === null) {
+    return []
+  }
+
+  if (!validNumber(to)) {
+    throw new Error('Invalid number')
+  }
+
+  return range(0, to).map((_) => false)
+}
 
 interface MaybeType<T> {
   map: <U>(fn: (val: T) => U) => MaybeType<U>

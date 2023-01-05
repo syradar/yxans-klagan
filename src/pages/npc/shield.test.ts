@@ -1,6 +1,7 @@
 import { shields } from './data/shield.data'
 import { createShieldViewModel } from './shield'
 import { isString } from '../../functions/utils.functions'
+import { describe, it, expect } from 'vitest'
 
 describe('createShieldViewModel', () => {
   it('should add collapse property', () => {
