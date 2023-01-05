@@ -1,12 +1,9 @@
-import tw, { styled, TwStyle } from 'twin.macro'
-
 type Spacing = 'normal' | 'small' | 'none'
-const spacings: { [S in Spacing]: TwStyle } = {
-  none: tw`gap-0`,
-  small: tw`gap-2`,
-  normal: tw`gap-4`,
-}
-const getSpacing = (space: Spacing) => spacings[space]
+const spacings = {
+  none: `gap-0`,
+  small: `gap-2`,
+  normal: `gap-4`,
+} as const
 
 export interface StackProps {
   children: React.ReactNode
@@ -28,27 +25,17 @@ export const Stack = ({
 }: StackProps) => {
   return (
     <div
-      tw="flex"
-      css={[
-        tw`flex w-full`,
-
-        wrap && tw`flex-wrap`,
-
-        dir === 'horizontal' ? tw`flex-row` : tw`flex-col`,
-
-        distribute && tw`justify-between`,
-
-        spacing === 'normal' && tw`gap-4`,
-        spacing === 'small' && tw`gap-2`,
-        spacing === 'none' && tw`gap-0`,
-      ]}
+      className={`flex w-full
+        ${wrap ? 'flex-wrap' : ''}
+        ${dir === 'horizontal' ? 'flex-row' : 'flex-col'}
+        ${distribute ? 'justify-between' : ''}
+        ${spacings[spacing]}
+      `}
     >
       {children}
     </div>
   )
 }
-
-export const Pancake2 = tw(Stack)`flex-col`
 
 export const Pancake = ({
   children,
@@ -73,14 +60,21 @@ export interface GridProps {
   spacing?: Spacing
 }
 
-export const Grid = styled.div(
-  ({ cols = '1', spacing = 'normal' }: GridProps) => [
-    tw`grid`,
-    cols === '1' && tw`grid-cols-1`,
-    cols === '2' && tw`grid-cols-2`,
-    cols === '3' && tw`grid-cols-3`,
-    cols === '4' && tw`grid-cols-4`,
-    cols === '5' && tw`grid-cols-5`,
-    getSpacing(spacing),
-  ],
+export const Grid = ({
+  children,
+  cols = '1',
+  spacing = 'normal',
+}: GridProps) => (
+  <div
+    className={`grid
+      ${cols === '1' ? 'grid-cols-1' : ''}
+      ${cols === '2' ? 'grid-cols-2' : ''}
+      ${cols === '3' ? 'grid-cols-3' : ''}
+      ${cols === '4' ? 'grid-cols-4' : ''}
+      ${cols === '5' ? 'grid-cols-5' : ''}
+      ${spacings[spacing]}
+`}
+  >
+    {children}
+  </div>
 )

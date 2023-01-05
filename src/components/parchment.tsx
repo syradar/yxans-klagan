@@ -1,35 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react'
-import 'twin.macro'
-import { useCurrentWidth } from '../hooks/use-current-width'
-
-interface ParchmentProps {
+type ParchmentProps = {
   children?: React.ReactNode
-  deps?: unknown[]
 }
 
-export const Parchment = React.forwardRef<SVGSVGElement, ParchmentProps>(
-  ({ children, deps }: ParchmentProps, forwardedRef) => {
-    const [svgHeight, setSvgHeight] = useState(0)
-    const contentRef = useRef<HTMLDivElement>(null)
-    const currentWidth = useCurrentWidth()
-
-    useEffect(() => {
-      if (contentRef !== null) {
-        setSvgHeight(contentRef.current?.clientHeight ?? 0)
-      } else {
-        console.error('null content ref')
-      }
-    }, [currentWidth, contentRef?.current, ...(deps ? deps : [])])
-
-    const dim = 98
-    const width = 2.5
-
-    return (
+export const Parchment = ({ children }: ParchmentProps) => {
+  return (
+    <div>
+      <div className="grid grid-cols-1 grid-rows-1">
+        <div
+          className="z-0 col-start-1 col-end-2 row-start-1 row-end-2 border-2 border-black bg-white shadow"
+          style={{ filter: 'url(#filter)' }}
+        ></div>
+        <div className="z-10 col-start-1 col-end-2 row-start-1 row-end-2 p-6">
+          {children}
+        </div>
+      </div>
       <svg
-        ref={forwardedRef}
-        width="100%"
-        height={svgHeight}
-        tw="filter drop-shadow-parchment"
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
+        height="0"
+        width="0"
       >
         <defs>
           <filter id="filter" height="1.4" width="1.4">
@@ -57,32 +46,17 @@ export const Parchment = React.forwardRef<SVGSVGElement, ParchmentProps>(
 
           <feBlend in="fbSourceGraphic" in2="blurOut" mode="normal" /> */}
           </filter>
+          <filter id="squiggle">
+            <feTurbulence
+              type="fractalNoise"
+              id="turbulence"
+              baseFrequency=".05"
+              numOctaves="4"
+            />
+            <feDisplacementMap id="displacement" in="SourceGraphic" scale="4" />
+          </filter>
         </defs>
-
-        <rect
-          filter="url(#filter)"
-          fill="white"
-          stroke="black"
-          strokeWidth={width}
-          width={`${dim}%`}
-          height={`${svgHeight - width * 2 > 0 ? svgHeight - width * 2 : 0}px`}
-          x={`${(100 - dim) / 2}%`}
-          y={`${width}px`}
-        />
-        <foreignObject width="100%" height="100%">
-          <div
-            tw="p-4"
-            css={{
-              padding: `2rem calc(1rem + ${(100 - dim) * 1}%)`,
-            }}
-            ref={contentRef}
-          >
-            {children}
-          </div>
-        </foreignObject>
       </svg>
-    )
-  },
-)
-
-Parchment.displayName = 'Parchment'
+    </div>
+  )
+}

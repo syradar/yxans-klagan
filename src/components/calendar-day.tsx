@@ -1,5 +1,4 @@
-import React, { FC } from 'react'
-import 'twin.macro'
+import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   getFahrenheitTempString,
@@ -34,17 +33,17 @@ export const CalendarDay: FC<CalendarDayProps> = ({
   }
 
   return (
-    <div tw="p-2 border">
+    <div className="border p-2">
       <Pancake spacing="small">
         <Pancake spacing="none" wrap={false}>
-          <div tw="lg:(hidden)">{t(day.name)}</div>
+          <div className="lg:hidden">{t(day.name)}</div>
           <Train spacing="small">
             <div>{day.number}</div>
             {day.moon && <div>{getMoonEmoji(day.moon)}</div>}
             <div>{getWeatherIcon(day)}</div>
           </Train>
         </Pancake>
-        <div tw="w-full">
+        <div className="w-full">
           <DayCounter
             quarters={day.quarters}
             spendQuarter={() => quarterClicked(day)}

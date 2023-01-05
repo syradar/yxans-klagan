@@ -1,4 +1,4 @@
-import { compose, prop } from 'rambda'
+import { compose, prop } from 'ramda'
 import {
   armorChoices,
   defaultMonsterLimbs,

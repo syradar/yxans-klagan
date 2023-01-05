@@ -1,10 +1,13 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
-import tw, { styled } from 'twin.macro'
 
-const DayName = styled.div(() => [
-  tw`hidden lg:(flex) uppercase px-2 py-1 border-b-2 border-b-black p-2 items-center justify-center font-bold`,
-])
+type DayNameProps = {
+  children: React.ReactNode
+}
+const DayName = ({ children }: DayNameProps) => (
+  <div className="hidden items-center justify-center border-b-2 border-b-black p-2 py-1 font-bold uppercase lg:flex">
+    {children}
+  </div>
+)
 
 export const CalendarDayNames = () => {
   const { t } = useTranslation('calendar')

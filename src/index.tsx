@@ -1,14 +1,17 @@
-import React, { Suspense } from 'react'
-import ReactDOM from 'react-dom'
-import { GlobalStyles } from './styles/GlobalStyles'
 import App from './App'
+import './App.css'
+import 'tailwindcss/tailwind.css'
 import { HashRouter } from 'react-router-dom'
 import { I18nextProvider } from 'react-i18next'
 import i18nReact from './i18nReact'
+import { createRoot } from 'react-dom/client'
+import { StrictMode, Suspense } from 'react'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <GlobalStyles />
+const container = document.getElementById('root') as HTMLDivElement
+const root = createRoot(container)
+
+root.render(
+  <StrictMode>
     <I18nextProvider i18n={i18nReact}>
       <Suspense fallback={'Loading...'}>
         <HashRouter>
@@ -16,8 +19,7 @@ ReactDOM.render(
         </HashRouter>
       </Suspense>
     </I18nextProvider>
-  </React.StrictMode>,
-  document.getElementById('root'),
+  </StrictMode>,
 )
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.

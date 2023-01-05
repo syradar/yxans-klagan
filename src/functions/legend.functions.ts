@@ -1,4 +1,4 @@
-import { TFunction } from 'react-i18next'
+import { TFunction } from 'i18next'
 import { getRandomInt, rollD6, rollD66, rollD8 } from './dice.functions'
 
 export const generateLegend = (

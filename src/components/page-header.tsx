@@ -1,16 +1,6 @@
-import React, { FC } from 'react'
-import 'twin.macro'
-
-interface PageHeaderProps {
+type PageHeaderProps = {
   children?: React.ReactNode
 }
-
-export const PageHeader: FC<PageHeaderProps> = ({
-  children,
-}: PageHeaderProps) => {
-  return (
-    <h1 tw="text-center text-4xl lg:(text-6xl)" className="yx-heading">
-      {children}
-    </h1>
-  )
-}
+export const PageHeader = ({ children }: PageHeaderProps) => (
+  <h1 className="yx-heading text-center text-4xl lg:text-6xl">{children}</h1>
+)

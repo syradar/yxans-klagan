@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
-import 'twin.macro'
-import { Button } from '../components/Button'
+import { useState } from 'react'
 import { DiceDisplay } from '../components/dice-display'
+import { Button } from '../components/Button'
 import { PageHeader } from '../components/page-header'
 import { Parchment } from '../components/parchment'
 import { Stepper } from '../components/Stepper'
 import { range } from '../functions/array.functions'
 import { countSuccesses, getRandomInt } from '../functions/dice.functions'
 
-interface DiceResult {
+type DiceResult = {
   attribute: number[]
   skill: number[]
   gear: number[]
@@ -55,11 +54,11 @@ export const DiceRollerPage = () => {
   }
 
   return (
-    <div tw="flex flex-col gap-y-8 w-full">
+    <div className="flex w-full flex-col gap-y-8">
       <PageHeader>Tärningar</PageHeader>
       <Parchment>
-        <div tw="flex flex-col gap-4">
-          <div tw="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-col gap-4">
+          <div className="mb-4 flex flex-wrap gap-2">
             <Stepper
               id={'attributes'}
               label={'Attribut'}

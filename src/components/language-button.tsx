@@ -1,24 +1,29 @@
-import tw, { styled } from 'twin.macro'
-
-interface LanguageButtonProps {
+type LanguageButtonProps = {
   selected?: boolean
+  children: React.ReactNode
+  disabled?: boolean
+  onClick?: () => void
 }
 
-export const LanguageButton = styled.button(
-  ({ selected }: LanguageButtonProps) => [
-    // The common button styles
-    tw`px-4 py-1 font-medium uppercase select-none tracking-wide focus:outline-none transform duration-75`,
-    tw`border-2 border-transparent rounded-none`,
-    // Use the variant grouping feature to add variants to multiple classes
-    tw`pointer-fine:hover:(border-red-500) `,
-    tw` text-black text-sm`,
+export const LanguageButton = ({
+  selected,
+  children,
+  disabled,
+  onClick,
+}: LanguageButtonProps) => (
+  <button
+    type="button"
+    className={`
+    pointer-fine:hover:border-red-500 select-none rounded-none border-2 border-transparent px-4 py-1 text-sm
+    font-medium uppercase tracking-wide
+    text-black
+     duration-75 focus:outline-none
 
-    // Conditional props can be added
-    selected ? tw`font-bold cursor-not-allowed hover:border-transparent` : tw``,
-
-    // The theme import can supply values from your tailwind.config.js
-    // css`
-    //   color: ${theme`colors.black`};
-    // `,
-  ],
+    ${selected ? 'cursor-not-allowed font-bold hover:border-transparent' : ''}
+`}
+    onClick={onClick}
+    disabled={disabled}
+  >
+    {children}
+  </button>
 )

@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import tw from 'twin.macro'
 import { Hex } from '../models/map.model'
 import { Button } from './Button'
 
@@ -82,24 +81,23 @@ export const MapPopover = ({
   return (
     <div
       ref={ref}
-      css={[
-        tw`absolute z-index[-1] p-2 bg-white border-2 border-black flex flex-col gap-4 opacity-0 transition-[opacity, transform, top, left] -translate-y-12`,
-        show && tw`opacity-100 translate-y-0 z-20`,
-        {
-          top: position.y,
-          left: position.x,
-        },
-      ]}
+      className={`absolute -z-10 flex -translate-y-12 flex-col gap-4 border-2 border-black bg-white p-2 opacity-0 transition-all
+        ${show ? 'z-20 translate-y-0 opacity-100' : ''}
+      `}
+      style={{
+        top: position.y,
+        left: position.x,
+      }}
     >
       {options && (
         <>
-          <div tw="text-2xl">
+          <div className="text-2xl">
             {options.hex.hexKey}:{' '}
             {options.hex.explored
               ? t('Popover-Explored')
               : t('Popover-Unexplored')}
           </div>
-          <div tw="flex gap-2">
+          <div className="flex gap-2">
             <Button
               isSmall
               variant="secondary"

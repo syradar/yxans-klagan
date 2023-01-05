@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import { Group } from '../components/group'
 import { List } from '../components/list'
 import { ListItemButton } from '../components/list-item'
@@ -41,17 +40,17 @@ export const MonstersPage = () => {
 
   useEffect(() => {
     monsters.sort(monsterComparer(t))
-  }, [i18n.language])
+  }, [i18n.language, monsters, t])
 
   return (
-    <div tw="flex flex-col gap-y-8 w-full ">
+    <div className="flex w-full flex-col gap-y-8 ">
       <PageHeader>{t('Title')}</PageHeader>
-      <div tw="grid lg:(grid-template-columns[1fr 3fr]) gap-16">
+      <div className="grid gap-16 lg:grid-cols-fr-1/3">
         <div>
           <List>
-            <Group tw="mb-8" label={t(`GenerateMonster`)} open={true}>
+            <Group marginBottom label={t(`GenerateMonster`)} open={true}>
               <ul>
-                <li tw="border border-gray-300 border-b-0 last:border-b">
+                <li className="border border-b-0 border-gray-300 last:border-b">
                   <ListItemButton onClick={() => generateRandomMonster()}>
                     {t('RandomMonster')}
                   </ListItemButton>
@@ -63,7 +62,7 @@ export const MonstersPage = () => {
                 {monsters.map((m) => (
                   <li
                     key={m.name}
-                    tw="border border-gray-300 border-b-0 last:border-b"
+                    className="border border-b-0 border-gray-300 last:border-b"
                   >
                     <ListItemButton onClick={() => selectMonster(m)}>
                       {t(`Monster.${m.name}`, { ns: 'common' })}
@@ -75,16 +74,15 @@ export const MonstersPage = () => {
           </List>
         </div>
 
-        <Parchment
-          tw="lg:(w-3/4)"
-          deps={[monster, randomMonster, i18n.language]}
-        >
-          {showRandomMonster ? (
-            <RandomMonsterDisplay rm={randomMonster}></RandomMonsterDisplay>
-          ) : (
-            <MonsterDisplay m={monster}></MonsterDisplay>
-          )}
-        </Parchment>
+        <div className="lg:w-3/4">
+          <Parchment>
+            {showRandomMonster ? (
+              <RandomMonsterDisplay rm={randomMonster}></RandomMonsterDisplay>
+            ) : (
+              <MonsterDisplay m={monster}></MonsterDisplay>
+            )}
+          </Parchment>
+        </div>
       </div>
     </div>
   )

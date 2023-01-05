@@ -1,4 +1,4 @@
-import { compose, pluck, sum } from 'rambda'
+import { compose, pluck, sum } from 'ramda'
 import { D2, D3, D4, D6, D66, D8 } from '../models/fbl-dice.model'
 import { range } from './array.functions'
 

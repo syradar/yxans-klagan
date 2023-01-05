@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import { Button } from '../components/Button'
 import { Encounter } from '../components/encounter'
 import { PageHeader } from '../components/page-header'
@@ -67,12 +66,12 @@ export const EncounterPage = () => {
         }),
       )
     }
-  }, [i18n.language])
+  }, [encounter, encounterLog, i18n.language, oldTerrain])
 
   return (
-    <div tw="flex flex-col gap-y-8 w-full items-center">
+    <div className="flex w-full flex-col items-center gap-y-8">
       <PageHeader>{t('Title')}</PageHeader>
-      <div tw="w-full bg-gray-200 p-2">
+      <div className="w-full bg-gray-200 p-2">
         <Train spacing="small">
           {getTerrainKeys().map((terrain) => (
             <Button
@@ -88,19 +87,19 @@ export const EncounterPage = () => {
         </Train>
       </div>
 
-      <div tw="w-full grid md:grid-flow-col auto-cols-auto gap-16">
+      <div className="grid w-full auto-cols-auto gap-16 md:grid-flow-col">
         {encounter && (
-          <div tw="max-w-prose lg:(w-[65ch])">
+          <div className="max-w-prose lg:w-[65ch]">
             <Encounter encounter={{ ...encounter }}></Encounter>
           </div>
         )}
         {!encounter && <div></div>}
         {!encounterLog && <div></div>}
         {encounterLog && (
-          <ul tw="flex flex-col gap-1">
+          <ul className="flex flex-col gap-1">
             {encounterLog.map((el) => (
-              <li tw="flex gap-1" key={el.timeStamp}>
-                <div tw="font-medium">
+              <li className="flex gap-1" key={el.timeStamp}>
+                <div className="font-medium">
                   {el.id}: {el.title}
                 </div>
                 <div>(s. {el.page})</div>

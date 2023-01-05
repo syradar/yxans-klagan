@@ -1,25 +1,23 @@
-import React from 'react'
 import { chunkArray } from '../functions/array.functions'
 import { AttributeCheckbox } from './attribute-cheeckbox'
-import 'twin.macro'
 
-interface MonsterAttributeProps {
+type MonsterAttributeProps = {
   label: string
   values: boolean[]
 }
 
 export const MonsterAttribute = ({ label, values }: MonsterAttributeProps) => {
   return (
-    <div tw="-webkit-backface-visibility[hidden]">
-      <label tw="font-medium mb-1 block" htmlFor="monster-strength">
+    <div className="backface-hidden">
+      <label className="mb-1 block font-medium" htmlFor="monster-strength">
         {label}: {values.length}
       </label>
       <div
         id={`monster-${label}-grid`}
-        tw="grid grid-cols-2 gap-x-4 gap-y-1 max-w-[fit-content]"
+        className="grid max-w-[fit-content] grid-cols-2 gap-x-4 gap-y-1"
       >
         {chunkArray(values).map((chunk, chunkIndex) => (
-          <div tw="flex gap-1" key={`${label}-${chunkIndex}`}>
+          <div className="flex gap-1" key={`${label}-${chunkIndex}`}>
             {chunk.map((_, index) => (
               <AttributeCheckbox
                 key={`${label}-${chunkIndex}-${index}`}

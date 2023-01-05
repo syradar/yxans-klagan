@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import { KinNameList } from './KinNameList'
 import { PageHeader } from '../../components/page-header'
 import { Parchment } from '../../components/parchment'
@@ -13,34 +12,31 @@ export const NameGeneratorPage = () => {
   const { t } = useTranslation('names')
 
   return (
-    <div tw="flex flex-col gap-y-8 w-full">
+    <div className="flex w-full flex-col gap-y-8">
       <PageHeader>{t('Title')}</PageHeader>
 
-      <div tw="flex flex-wrap xl:(min-w-[600px]) gap-4">
-        <div tw=" flex-basis[500px]">
+      <div className="flex flex-wrap gap-4 xl:min-w-[600px]">
+        <div className="basis-[500px]">
           <Parchment>
             <KinNameList
-              tw="p-0"
               title="Ailander"
               nameFunc={getRandomAilanderName}
             ></KinNameList>
           </Parchment>
         </div>
 
-        <div tw=" flex-basis[500px]">
+        <div className="basis-[500px]">
           <Parchment>
             <KinNameList
-              tw="p-0"
               title="Alderlander"
               nameFunc={getRandomAlderlanderName}
             ></KinNameList>
           </Parchment>
         </div>
 
-        <div tw=" flex-basis[500px]">
+        <div className=" basis-[500px]">
           <Parchment>
             <KinNameList
-              tw="p-0"
               title="Aslene"
               nameFunc={getRandomAsleneName}
             ></KinNameList>

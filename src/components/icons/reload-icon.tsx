@@ -1,19 +1,17 @@
-import React, { FC } from 'react'
-import tw, { TwStyle } from 'twin.macro'
-
-interface IconProps {
-  svg?: TwStyle
-  container?: TwStyle
+type IconProps = {
+  svg?: string
+  container?: string
 }
-
-export const ReloadIcon: FC<IconProps> = ({
-  svg: color = tw`text-black`,
-  container: classes = tw`h-4 w-4`,
+export const ReloadIcon = ({
+  svg: color = `text-black`,
+  container: classes = `h-4 w-4`,
 }: IconProps) => (
-  <div css={[classes]}>
+  <div className={classes}>
     <svg
-      tw="w-full h-full"
-      css={[tw`fill-current`, color]}
+      className={`
+        h-full w-full fill-current
+        ${color}
+      `}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 52 50"

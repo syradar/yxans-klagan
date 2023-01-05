@@ -1,9 +1,6 @@
-import React from 'react'
-import tw, { TwStyle } from 'twin.macro'
-
 export interface StepperProps {
   id: string
-  twProps?: TwStyle
+  twProps?: string
   label?: string
   max: number
   min: number
@@ -11,10 +8,7 @@ export interface StepperProps {
   value: number
 }
 
-const stepButtonStyles = () => [
-  tw`h-10 font-bold py-0 px-1 text-center uppercase tracking-wide focus:outline-none`,
-  tw`border-2 border-black rounded-none`,
-]
+const stepButtonStyles = `h-10 font-bold py-0 px-1 text-center uppercase tracking-wide focus:outline-none border-2 border-black rounded-none`
 
 export const Stepper = ({
   value,
@@ -42,16 +36,17 @@ export const Stepper = ({
   }
 
   return (
-    <div css={twProps}>
+    <div className={twProps}>
       {label && (
-        <label tw="block" htmlFor={id}>
+        <label className="block" htmlFor={id}>
           {label}
         </label>
       )}
-      <div tw="w-auto inline-flex">
+      <div className="inline-flex w-auto">
         <button
-          tw="w-10 hover:(bg-red-500 border-red-500) bg-black text-white"
-          css={stepButtonStyles()}
+          className={`w-10 bg-black text-white hover:border-red-500 hover:bg-red-500
+          ${stepButtonStyles}
+          `}
           type="button"
           onClick={decrement}
           aria-controls={id}
@@ -59,20 +54,11 @@ export const Stepper = ({
           –
         </button>
         <input
-          css={[
-            ...stepButtonStyles(),
-            tw`border-l-0 border-r-0 bg-white`,
-            {
-              '::-webkit-inner-spin-button': {
-                ' -webkit-appearance': 'none',
-                margin: '0',
-              },
-              '::-webkit-outer-spin-button': {
-                ' -webkit-appearance': 'none',
-                margin: '0',
-              },
-            },
-          ]}
+          // eslint-disable-next-line tailwindcss/no-custom-classname
+          className={`w-10 border-x-0 bg-white text-center
+          ${stepButtonStyles}
+          hide-default-spinner-appearance
+          `}
           type="number"
           step="1"
           id={id}
@@ -83,8 +69,9 @@ export const Stepper = ({
           disabled
         />
         <button
-          tw="w-10 hover:(bg-red-500 border-red-500) bg-black text-white"
-          css={stepButtonStyles()}
+          className={`w-10 bg-black text-white hover:border-red-500 hover:bg-red-500
+          ${stepButtonStyles}
+          `}
           type="button"
           onClick={increment}
           aria-controls={id}

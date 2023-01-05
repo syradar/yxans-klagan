@@ -1,5 +1,3 @@
-import 'twin.macro'
-
 export const downloadFile = <T extends Record<string, unknown>>(
   data: T,
   fileName: string,

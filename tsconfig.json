@@ -2,6 +2,7 @@
   "compilerOptions": {
     "module": "ESNext",
     "target": "ESNext",
+    "lib": ["ESNext", "DOM.Iterable", "DOM"],
     "moduleResolution": "node",
     "jsx": "react-jsx",
     "baseUrl": "./",
@@ -11,15 +12,14 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "isolatedModules": true,
-    "esModuleInterop": true,
-    "jsxImportSource": "@emotion/react",
-    "allowJs": true,
+    "esModuleInterop": false,
+    "allowJs": false,
     "importHelpers": true,
     "removeComments": true
   },
-  "include": ["src", "types"]
+  "include": ["src", "types"],
+  "exclude": ["node_modules", "dist"]
 }

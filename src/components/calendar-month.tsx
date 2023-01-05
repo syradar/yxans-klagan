@@ -1,6 +1,4 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import { range } from '../functions/array.functions'
 import { TemperatureUnit } from '../functions/weather.functions'
 import { Day, Month } from '../models/calendar.model'
@@ -59,13 +57,10 @@ export const CalendarMonth = ({
   }
 
   return (
-    <div tw="mb-4">
-      <Parchment deps={[showWeather, month, month.collapsed]}>
+    <div className="mb-4">
+      <Parchment>
         <Train>
-          <h2
-            tw="text-4xl text-center flex gap-2 items-center"
-            className="yx-heading"
-          >
+          <h2 className="yx-heading flex items-center gap-2 text-center text-4xl">
             <MonthCollapseButton
               collapsed={month.collapsed}
               onMonthCollapseClick={toggleCollapse}
@@ -75,7 +70,7 @@ export const CalendarMonth = ({
         </Train>
 
         {!month.collapsed && (
-          <div tw="mt-4 grid grid-cols-3 lg:(grid-cols-7)">
+          <div className="mt-4 grid grid-cols-3 lg:grid-cols-7">
             <CalendarDayNames />
             <CalendarFillerDays day={month.days[0]} />
             {month.days.map((d) => (

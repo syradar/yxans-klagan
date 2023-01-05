@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import { Card } from '../../components/card'
 import { Field } from '../../components/field'
 import { Group } from '../../components/group'
@@ -17,7 +16,7 @@ export interface TypicalKinProps {
 }
 
 export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
-  const { t, i18n } = useTranslation(['typical', 'common'])
+  const { t } = useTranslation(['typical', 'common'])
 
   const [tkvm, setTkvm] = useState(typicalKinViewModel.tkvm)
 
@@ -60,10 +59,10 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
   }
 
   return (
-    <Parchment deps={[tkvm, i18n.language]}>
+    <Parchment>
       <Group
         label={
-          <h3 tw="text-xl" className="yx-heading">
+          <h3 className="yx-heading text-xl">
             {t(`Kin.${tkvm.kinType}.${tkvm.kin}`, { ns: 'common' })}
           </h3>
         }
@@ -114,18 +113,18 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                 key={w.id}
                 useDefaultLabel={false}
                 label={
-                  <div tw="w-full">
+                  <div className="w-full">
                     <Grid cols="3">
-                      <h3 tw="font-bold">
+                      <h3 className="font-bold">
                         {t(`Weapon.${w.category}.${w.name}`, { ns: 'common' })}
                       </h3>
                       {w.collapse && w.bonus && (
-                        <h3 tw="font-medium text-center">
+                        <h3 className="text-center font-medium">
                           {formatBonus(w.bonus)}
                         </h3>
                       )}
                       {w.collapse && (
-                        <h3 tw="font-medium text-right">
+                        <h3 className="text-right font-medium">
                           {w.damage}{' '}
                           {t('Weapon.Damage', { ns: 'common' }).toLowerCase()}
                         </h3>
@@ -170,13 +169,13 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                 key={s.id}
                 useDefaultLabel={false}
                 label={
-                  <div tw="w-full">
+                  <div className="w-full">
                     <Grid cols="2">
-                      <h3 tw="font-bold">
+                      <h3 className="font-bold">
                         {t(`Shield.${s.type}`, { ns: 'common' })}
                       </h3>
                       {s.collapse && (
-                        <h3 tw="font-medium text-right">
+                        <h3 className="text-right font-medium">
                           {formatBonus(s.bonus)}
                         </h3>
                       )}
@@ -211,13 +210,13 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                 key={a.id}
                 useDefaultLabel={false}
                 label={
-                  <div tw="w-full">
+                  <div className="w-full">
                     <Grid cols="2">
-                      <h3 tw="font-bold">
+                      <h3 className="font-bold">
                         {t(`Armor.${a.type}`, { ns: 'common' })}
                       </h3>
                       {a.collapse && (
-                        <h3 tw="font-medium text-right">{a.rating}</h3>
+                        <h3 className="text-right font-medium">{a.rating}</h3>
                       )}
                     </Grid>
                   </div>
@@ -253,13 +252,13 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                 key={h.id}
                 useDefaultLabel={false}
                 label={
-                  <div tw="w-full">
+                  <div className="w-full">
                     <Grid cols="2">
-                      <h3 tw="font-bold">
+                      <h3 className="font-bold">
                         {t(`Helmet.${h.type}`, { ns: 'common' })}
                       </h3>
                       {h.collapse && (
-                        <h3 tw="font-medium text-right">{h.rating}</h3>
+                        <h3 className="text-right font-medium">{h.rating}</h3>
                       )}
                     </Grid>
                   </div>

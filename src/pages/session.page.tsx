@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import tw from 'twin.macro'
 import { ReloadIcon } from '../components/icons/reload-icon'
 import { PageHeader } from '../components/page-header'
 import { Parchment } from '../components/parchment'
@@ -9,28 +8,28 @@ import { generateLegend } from '../functions/legend.functions'
 export const SessionPage = () => {
   const { t, i18n } = useTranslation(['session', 'common'])
   const [legend, setLegend] = useState(generateLegend(t))
-  const getLegend = () => setLegend(generateLegend(t))
+  const getLegend = useCallback(() => setLegend(generateLegend(t)), [t])
 
   useEffect(() => {
     getLegend()
-  }, [i18n.language])
+  }, [getLegend, i18n.language])
 
   return (
-    <div tw="flex flex-col gap-y-8 w-full items-center">
+    <div className="flex w-full flex-col items-center gap-y-8">
       <PageHeader>{t('Title')}</PageHeader>
 
-      <div tw="">
-        <div tw="max-w-prose lg:(w-[65ch]) flex flex-col gap-8">
-          <Parchment deps={[legend]}>
+      <div className="">
+        <div className="flex max-w-prose flex-col gap-8 lg:w-[65ch]">
+          <Parchment>
             <button
-              tw="flex gap-2 items-center mb-4 hover:text-red-500"
+              className="mb-4 flex items-center gap-2 hover:text-red-500"
               onClick={() => getLegend()}
               type="button"
             >
-              <h2 tw="text-4xl text-center flex" className="yx-heading">
+              <h2 className="yx-heading flex text-center text-4xl">
                 {t('Legend')}
               </h2>
-              <ReloadIcon container={tw`w-6 h-6`} svg={tw``}></ReloadIcon>
+              <ReloadIcon container={`w-6 h-6`} svg={``}></ReloadIcon>
             </button>
             <div className="yx-prose">{legend}</div>
           </Parchment>

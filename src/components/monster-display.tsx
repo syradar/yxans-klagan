@@ -1,11 +1,9 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import { MonsterViewModel } from '../models/monster.model'
 import { MonsterAttribute } from './monster-attributes'
 import { Pancake } from './Stack'
 
-export interface MonsterDisplayProps {
+export type MonsterDisplayProps = {
   m: MonsterViewModel
 }
 
@@ -14,8 +12,8 @@ export const MonsterDisplay = ({ m }: MonsterDisplayProps) => {
 
   return (
     <div>
-      <header tw="mb-4">
-        <h2 tw="text-4xl mb-2" className="yx-heading">
+      <header className="mb-4">
+        <h2 className="yx-heading mb-2 text-4xl">
           {t(`Monster.${m.name}`, { ns: ['common'] })}
         </h2>
         {m.pageReference && (
@@ -25,7 +23,7 @@ export const MonsterDisplay = ({ m }: MonsterDisplayProps) => {
           </div>
         )}
       </header>
-      <h3 tw="text-xl font-bold">{t(`Attribute`)}</h3>
+      <h3 className="text-xl font-bold">{t(`Attribute`)}</h3>
 
       <Pancake spacing="small">
         {m.attributes.strength && (

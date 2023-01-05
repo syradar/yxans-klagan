@@ -1,5 +1,3 @@
-import React from 'react'
-import 'twin.macro'
 import { Definition } from '../types/definition.type'
 
 export interface DefinitionListProps {
@@ -7,16 +5,16 @@ export interface DefinitionListProps {
 }
 
 export const DefinitionList = ({ definitions }: DefinitionListProps) => (
-  <ul tw="flex flex-col lg:gap-2">
+  <ul className="flex flex-col lg:gap-2">
     {definitions.map((d) => (
       <li
         key={d.name}
-        tw="list-style[square] list-inside marker:(text-red-500) lg:(list-none)"
+        className="list-inside list-square marker:text-red-500 lg:list-none"
       >
-        <div tw="font-medium inline -ml-3 mr-1 after:(content[':']) lg:(block m-0 after:hidden)">
+        <div className="m-0 -ml-3 mr-1 inline font-medium after:content-[':'] lg:block lg:after:hidden">
           {d.name}
         </div>
-        <div tw="inline lg:block">{d.description}</div>
+        <div className="inline lg:block">{d.description}</div>
       </li>
     ))}
   </ul>
