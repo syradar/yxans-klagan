@@ -10,5 +10,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['<rootDir>/test/setup.ts'],
   },
-  ...(process.env.NODE_ENV === 'production' ? { base: '/yxans-klagan/' } : {}),
+  ...(process.env.NODE_ENV === 'production'
+    ? { base: '/yxans-klagan/' }
+    : { base: '/' }),
 })
