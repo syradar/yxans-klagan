@@ -8,6 +8,7 @@ Open an [issue](https://github.com/syradar/yxans-klagan/issues).
 
 ## Develop
 
-- Run `yarn`
-- Run `yarn start`
-- Navigate to http://localhost:8080/
+- Clone
+- Run `npm install`
+- Run `npm run dev`
+- Navigate to <http://127.0.0.1:5173/>
