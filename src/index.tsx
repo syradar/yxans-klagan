@@ -14,7 +14,11 @@ root.render(
   <StrictMode>
     <I18nextProvider i18n={i18nReact}>
       <Suspense fallback={'Loading...'}>
-        <HashRouter basename="/yxans-klagan">
+        <HashRouter
+          basename={
+            process.env.NODE_ENV === 'production' ? '/yxans-klagan' : ''
+          }
+        >
           <App />
         </HashRouter>
       </Suspense>
