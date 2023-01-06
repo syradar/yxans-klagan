@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../components/Button'
 import { Encounter } from '../components/encounter'
@@ -25,38 +25,49 @@ export const EncounterPage = () => {
     (EncounterViewModel & { timeStamp: number })[]
   >([])
 
-  const generateNewEncounter = (terrain: Terrain) => {
-    const roll = rollD66()
-    const randomEncounter = getRandomEncounter(
-      roll,
-      terrain,
-      i18n.language as ValidLanguage,
-    )
-    setEncounter(randomEncounter)
+  const generateNewEncounter = useCallback(
+    (terrain: Terrain) => {
+      const roll = rollD66()
+      const randomEncounter = getRandomEncounter(
+        roll,
+        terrain,
+        i18n.language as ValidLanguage,
+      )
+      setEncounter(randomEncounter)
 
-    if (
-      (terrain === undefined && oldTerrain === undefined) ||
-      terrain === oldTerrain
-    ) {
-      setEncounterLog([
-        { ...randomEncounter, timeStamp: new Date().getTime() },
-        ...encounterLog,
-      ])
-    } else {
-      setEncounterLog([{ ...randomEncounter, timeStamp: new Date().getTime() }])
-    }
-    setOldTerrain(terrain)
-  }
+      if (
+        (terrain === undefined && oldTerrain === undefined) ||
+        terrain === oldTerrain
+      ) {
+        setEncounterLog([
+          { ...randomEncounter, timeStamp: new Date().getTime() },
+          ...encounterLog,
+        ])
+      } else {
+        setEncounterLog([
+          { ...randomEncounter, timeStamp: new Date().getTime() },
+        ])
+      }
+      setOldTerrain(terrain)
+    },
+    [encounterLog, i18n.language, oldTerrain],
+  )
 
-  const handleClick = (terrain: Terrain) => {
-    generateNewEncounter(terrain)
-  }
+  const handleClick = useCallback(
+    (terrain: Terrain) => {
+      generateNewEncounter(terrain)
+    },
+    [generateNewEncounter],
+  )
 
   useEffect(() => {
     if (oldTerrain && encounter) {
+      console.log('oldTerrain', oldTerrain)
+
       setEncounter(
         getEncounterById(encounter.id, i18n.language as ValidLanguage),
       )
+
       setEncounterLog(
         encounterLog.map((el) => {
           return {
@@ -90,7 +101,7 @@ export const EncounterPage = () => {
       <div className="grid w-full auto-cols-auto gap-16 md:grid-flow-col">
         {encounter && (
           <div className="max-w-prose lg:w-[65ch]">
-            <Encounter encounter={{ ...encounter }}></Encounter>
+            <Encounter encounter={encounter}></Encounter>
           </div>
         )}
         {!encounter && <div></div>}
