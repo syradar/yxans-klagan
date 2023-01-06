@@ -17,7 +17,7 @@
     "test": "vitest",
     "test:ci": "vitest --coverage",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "history": "^5.3.0",
