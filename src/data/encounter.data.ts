@@ -234,7 +234,7 @@ export const allEncounters: EncounterData = {
     '0': { title: 'Inget möte', page: 142 },
     '1': { title: 'Blodsdimma', page: 143 },
     '2': { title: 'Duellen', page: 144 },
-    '3': { title: 'Orhcer', page: 144 },
+    '3': { title: 'Orcher', page: 144 },
     '4': { title: 'Grip', page: 144 },
     '5': { title: 'Harpyor', page: 145 },
     '6': { title: 'Hästen', page: 145 },

@@ -28,6 +28,12 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      width: {
+        '1em': '1em',
+      },
+      height: {
+        '1em': '1em',
+      },
       colors: {
         electric: '#db00ff',
         ribbon: '#0047ff',

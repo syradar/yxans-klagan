@@ -1,7 +1,7 @@
 import { has } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from '../components/Button'
+import { ParchmentButton } from '../components/ParchmentButton'
 import { Map } from '../components/map'
 import { MapPopover, MapPopoverOptions } from '../components/map-popover'
 import { PageHeader } from '../components/page-header'
@@ -291,6 +291,23 @@ export const MapPage = () => {
     <div className="flex w-full flex-col gap-y-8">
       <PageHeader>{t('Title')}</PageHeader>
 
+      <Train>
+        <ParchmentButton onClick={() => setFogOfWar(!fogOfWar)}>
+          {t('FogOfWar', { context: fogOfWar ? 'On' : 'Off' })}
+        </ParchmentButton>
+        <ParchmentButton
+          disabled={!hasExploredHexas}
+          onClick={() => handleFileDownload()}
+        >
+          {t('DownloadMapData')}
+        </ParchmentButton>
+        <PasteData
+          onFocusTextArea={() => setPasteError(undefined)}
+          label={t('PasteMapData')}
+          onData={handlePasteMapData}
+        ></PasteData>
+      </Train>
+
       <div>
         <Parchment>
           <div
@@ -329,26 +346,6 @@ export const MapPage = () => {
             {t(pasteError)}
           </div>
         )}
-        <div className="bg-gray-200 p-2">
-          <Train>
-            <Button isSmall onClick={() => setFogOfWar(!fogOfWar)}>
-              {t('FogOfWar', { context: fogOfWar ? 'On' : 'Off' })}
-            </Button>
-            <Button
-              isSmall
-              variant={!hasExploredHexas ? 'disabled' : undefined}
-              disabled={!hasExploredHexas}
-              onClick={() => handleFileDownload()}
-            >
-              {t('DownloadMapData')}
-            </Button>
-            <PasteData
-              onFocusTextArea={() => setPasteError(undefined)}
-              label={t('PasteMapData')}
-              onData={handlePasteMapData}
-            ></PasteData>
-          </Train>
-        </div>
       </div>
     </div>
   )

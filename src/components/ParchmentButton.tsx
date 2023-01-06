@@ -2,31 +2,53 @@ import { nanoid } from 'nanoid'
 import { useState } from 'react'
 import { getRandomInt } from '../functions/dice.functions'
 
-type ParchmentProps = {
+type ParchmentButtonProps = {
   children?: React.ReactNode
   small?: boolean
+  onClick?: () => void
+  disabled?: boolean
 }
 
-export const Parchment = ({ children, small }: ParchmentProps) => {
+export const ParchmentButton = ({
+  children,
+  small,
+  onClick,
+  disabled = false,
+}: ParchmentButtonProps) => {
   const [options] = useState({
-    baseFrequency: getRandomInt(3, 8) / 100,
-    numOctaves: getRandomInt(2, 5),
-    scale: getRandomInt(3, 10),
+    baseFrequency: getRandomInt(1, 10) / 100,
+    numOctaves: getRandomInt(1, 5),
+    scale: getRandomInt(1, 5),
     id: nanoid(),
   })
 
   return (
-    <div>
+    <button
+      type="button"
+      onClick={onClick}
+      className={`
+        group w-fit
+        ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}
+      `}
+      disabled={disabled}
+    >
       <div className="grid grid-cols-1 grid-rows-1">
         <div
-          className="z-0 col-start-1 col-end-2 row-start-1 row-end-2  border-2 border-amber-900/25 bg-amber-50/25 shadow-md"
-          style={{ filter: `url(#filter-${options.id})` }}
+          className={`
+          z-0 col-start-1 col-end-2 row-start-1 row-end-2 rounded border-2  shadow transition-colors
+          ${
+            disabled
+              ? 'border-gray-300 bg-gray-300'
+              : 'border-green-800 bg-green-600 group-hover:border-green-800 group-hover:bg-green-800'
+          }
+          `}
+          style={{ filter: `url(#button-filter-${options.id})` }}
         ></div>
         <div
           className={`
-        z-10 col-start-1 col-end-2 row-start-1 row-end-2
-        ${small ? 'p-4' : 'p-6'}
-
+        z-10 col-start-1 col-end-2 row-start-1 row-end-2 flex items-center gap-2 font-medium
+        ${small ? 'px-4 py-2' : 'px-4 py-2'}
+        ${disabled ? 'text-gray-600' : 'text-white'}
         `}
         >
           {children}
@@ -39,7 +61,7 @@ export const Parchment = ({ children, small }: ParchmentProps) => {
         width="0"
       >
         <defs>
-          <filter id={`filter-${options.id}`} height="1.4" width="1.4">
+          <filter id={`button-filter-${options.id}`} height="1.4" width="1.4">
             <feTurbulence
               baseFrequency={options.baseFrequency}
               numOctaves={options.numOctaves}
@@ -62,6 +84,6 @@ export const Parchment = ({ children, small }: ParchmentProps) => {
           </filter>
         </defs>
       </svg>
-    </div>
+    </button>
   )
 }

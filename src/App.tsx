@@ -1,20 +1,14 @@
-import { FC, lazy, Suspense } from 'react'
+import { lazy, Suspense } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  Link,
-  LinkProps,
-  useLocation,
-  useResolvedPath,
-  useRoutes,
-} from 'react-router-dom'
+import { Link, useLocation, useResolvedPath, useRoutes } from 'react-router-dom'
 import './App.css'
 import { Group } from './components/group'
 import { LanguageSwitcher } from './components/language-switcher'
-import { PageHeader } from './components/page-header'
-import { Parchment } from './components/parchment'
+import { MenuLink } from './components/MenuLink'
 import { Pancake, Stack } from './components/Stack'
 import { YxansKlaganLogo } from './logo'
 
+const HomePage = lazy(() => import('./pages/Home.page'))
 const CalendarPage = lazy(() => import('./pages/calendar.page'))
 const DiceRollerPage = lazy(() => import('./pages/dice-roller.page'))
 const EncounterPage = lazy(() => import('./pages/encounter.page'))
@@ -27,71 +21,73 @@ const TypicalKinPage = lazy(() => import('./pages/npc/TypicalKinPage'))
 const NameGeneratorPage = lazy(() => import('./pages/npc/NameGeneratorPage'))
 const NpcPage = lazy(() => import('./pages/npc/NpcPage'))
 
+const appRoutes = [
+  {
+    path: '',
+    element: <HomePage />,
+  },
+  {
+    path: 'dice',
+    element: <DiceRollerPage />,
+  },
+  {
+    path: 'npcs',
+    children: [
+      {
+        path: 'names',
+        element: <NameGeneratorPage />,
+      },
+      {
+        path: 'typical',
+        element: <TypicalKinPage />,
+      },
+      {
+        path: 'npc',
+        element: <NpcPage />,
+      },
+      {
+        path: '*',
+        element: <NameGeneratorPage />,
+      },
+    ],
+  },
+  {
+    path: 'gear',
+    children: [
+      {
+        path: 'tables',
+        element: <GearPage />,
+      },
+      {
+        path: 'finds',
+        element: <FindsPage />,
+      },
+    ],
+  },
+  {
+    path: 'calendar',
+    element: <CalendarPage />,
+  },
+  {
+    path: 'session',
+    element: <SessionPage />,
+  },
+  {
+    path: 'map',
+    element: <MapPage />,
+  },
+  {
+    path: 'encounter',
+    element: <EncounterPage />,
+  },
+  {
+    path: 'monsters',
+    element: <MonstersPage />,
+  },
+]
+
 const App = () => {
-  const routes = useRoutes([
-    {
-      path: '',
-      element: <HomePage />,
-    },
-    {
-      path: 'dice',
-      element: <DiceRollerPage />,
-    },
-    {
-      path: 'npcs',
-      children: [
-        {
-          path: 'names',
-          element: <NameGeneratorPage />,
-        },
-        {
-          path: 'typical',
-          element: <TypicalKinPage />,
-        },
-        {
-          path: 'npc',
-          element: <NpcPage />,
-        },
-        {
-          path: '*',
-          element: <NameGeneratorPage />,
-        },
-      ],
-    },
-    {
-      path: 'gear',
-      children: [
-        {
-          path: 'tables',
-          element: <GearPage />,
-        },
-        {
-          path: 'finds',
-          element: <FindsPage />,
-        },
-      ],
-    },
-    {
-      path: 'calendar',
-      element: <CalendarPage />,
-    },
-    {
-      path: 'session',
-      element: <SessionPage />,
-    },
-    {
-      path: 'map',
-      element: <MapPage />,
-    },
-    {
-      path: 'encounter',
-      element: <EncounterPage />,
-    },
-    {
-      path: 'monsters',
-      element: <MonstersPage />,
-    },
-  ])
+  const routes = useRoutes(appRoutes)
 
   const { t } = useTranslation('core')
 
@@ -106,12 +102,12 @@ const App = () => {
 
   return (
     <div
-      className={`App h-full min-h-screen w-screen max-w-full flex-col bg-gray-50`}
+      className={`App h-full min-h-screen w-screen max-w-full flex-col bg-amber-50/25`}
     >
       <div className="flex h-full flex-col lg:flex-row">
-        <div className="fixed flex w-48 flex-col bg-gray-200 lg:h-full">
+        <div className="fixed flex w-48 flex-col bg-amber-900/50 lg:h-full">
           <div className="mb-4 p-2">
-            <Link to="/" className="block w-full">
+            <Link to="/" className="block w-full ">
               <YxansKlaganLogo />
             </Link>
           </div>
@@ -123,41 +119,43 @@ const App = () => {
                 <MenuLink to="/monsters">{t('Menu-Monsters')}</MenuLink>
                 <MenuLink to="/map">{t('Menu-Map')}</MenuLink>
                 <MenuLink to="/calendar">{t('Menu-Calendar')}</MenuLink>
-                <div className="pl-4">
+                <div className="">
                   <Group
+                    menu
                     spaceBeforeItems={false}
-                    indent={false}
                     label={<div className="font-medium">{t('Menu-Gear')}</div>}
                     open={isGearPageActive(pathname)}
                   >
                     <div className="mt-2">
                       <Pancake spacing="small">
-                        <MenuLink to="/gear/tables">
+                        <MenuLink to="/gear/tables" indent={1}>
                           {t('Menu-Gear-Tables')}
                         </MenuLink>
-                        <MenuLink to="/gear/finds">
+                        <MenuLink to="/gear/finds" indent={1}>
                           {t('Menu-Gear-Finds')}
                         </MenuLink>
                       </Pancake>
                     </div>
                   </Group>
                 </div>
-                <div className="pl-4">
+                <div className="">
                   <Group
+                    menu
                     spaceBeforeItems={false}
-                    indent={false}
                     label={<div className="font-medium">{t('Menu-NPCs')}</div>}
                     open={isKinPageActive(pathname)}
                   >
                     <div className="mt-2">
                       <Pancake spacing="small">
-                        <MenuLink to="/npcs/names">
+                        <MenuLink to="/npcs/names" indent={1}>
                           {t('Menu-NPCs-Names')}
                         </MenuLink>
-                        <MenuLink to="/npcs/typical">
+                        <MenuLink to="/npcs/typical" indent={1}>
                           {t('Menu-NPCs-Typical')}
                         </MenuLink>
-                        <MenuLink to="/npcs/npc">{t('Menu-NPCs-Npc')}</MenuLink>
+                        <MenuLink to="/npcs/npc" indent={1}>
+                          {t('Menu-NPCs-Npc')}
+                        </MenuLink>
                       </Pancake>
                     </div>
                   </Group>
@@ -184,63 +182,3 @@ const App = () => {
 }
 
 export default App
-
-const HomePage = () => (
-  <div className="flex max-w-prose flex-col gap-y-8">
-    <PageHeader>Svärdets Sång</PageHeader>
-    <Parchment>
-      <p className="yx-prose">
-        Välkomna till Svärdets sång. I detta bordsrollspel är ni inte hjältar
-        som utför uppdrag på order av andra – i stället är ni äventyrare och
-        skattletare fast beslutna att sätta ert eget märke på denna fördömda
-        värld. Ni kommer att vandra genom det vilda landet, utforska glömda
-        gravar, kämpa mot fruktansvärda monster och – om ni lever länge nog –
-        bygga ert eget fäste och försvara det mot fiender. Under era äventyr kan
-        ni avslöja de mörka krafter som rör sig i skuggorna och till slut kan
-        det bli ni som avgör Det glömda landets öde.
-      </p>
-    </Parchment>
-    <Parchment>
-      <div className="flex flex-col gap-4">
-        <h2 className="yx-heading flex text-center text-4xl">Tack</h2>
-        <p className="yx-prose">
-          Tack till{' '}
-          <a
-            className="text-red-700 hover:underline"
-            href="https://freeleaguepublishing.com/sv/"
-          >
-            Fria Ligan
-          </a>{' '}
-          för ett fantastiskt spel.
-        </p>
-        <p className="yx-prose">
-          Tack till communityt för Svärdets Sång för inspiration och andra
-          generatorer.
-        </p>
-      </div>
-    </Parchment>
-    <div></div>
-  </div>
-)
-
-const MenuLink: FC<LinkProps> = ({ to, children }: LinkProps) => {
-  const { pathname } = useLocation()
-  const { pathname: toPathname } = useResolvedPath(to)
-
-  const isLinkActive = pathname === toPathname
-
-  return (
-    <Link
-      className={`w-full px-4 py-1 font-medium hover:bg-red-500
-      ${
-        isLinkActive
-          ? 'bg-black font-semibold text-white hover:bg-black hover:text-red-500'
-          : ''
-      }
-      `}
-      to={to}
-    >
-      {children}
-    </Link>
-  )
-}

@@ -1,47 +1,56 @@
 import { useTranslation } from 'react-i18next'
+import { PlusIcon, MinusIcon } from '@heroicons/react/24/outline'
 
 type MonthCollapseButtonProps = {
   collapsed: boolean
   onMonthCollapseClick: () => void
   small?: boolean
   children?: React.ReactNode
+  menu?: boolean
 }
 export const MonthCollapseButton = ({
   collapsed,
   onMonthCollapseClick,
   children,
   small = false,
+  menu = false,
 }: MonthCollapseButtonProps) => {
   const { t } = useTranslation('calendar')
 
   return (
     <button
       aria-label={t(collapsed ? `ShowMonth` : `HideMonth`) ?? ''}
-      className="group flex w-full items-center gap-2 text-left"
+      className={`
+        group flex w-full items-center gap-2 text-left
+        ${menu ? 'px-4 py-1 hover:bg-amber-900 hover:text-amber-50' : ''}
+
+        `}
       onClick={onMonthCollapseClick}
       type="button"
     >
+      {collapsed ? (
+        <PlusIcon
+          className={`
+            ${small ? 'h-6 w-6' : 'h-[1em] w-[1em]'}
+            ${menu ? 'group-hover:text-white' : 'group-hover:text-red-500'}
+          `}
+        />
+      ) : (
+        <MinusIcon
+          className={`
+            ${small ? 'h-6 w-6' : 'h-8 w-8'}
+            ${menu ? 'group-hover:text-white' : 'group-hover:text-red-500'}
+        `}
+        />
+      )}
       <div
         className={`
-          relative aspect-square border-2 border-black group-hover:border-red-500 group-hover:bg-red-500
-          ${small ? 'h-4 w-4' : 'h-8 w-8'}
-        `}
+        w-full
+        ${menu ? 'group-hover:text-white' : 'group-hover:text-red-500'}
+      `}
       >
-        <div
-          className={`
-          absolute top-1/2 left-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2 bg-black transition-transform
-          ${small ? 'h-0.5 w-2/3' : 'h-1'}
-          `}
-        ></div>
-        <div
-          className={`
-          absolute top-1/2 left-1/2 h-1 w-1/2 -translate-x-1/2 -translate-y-1/2 bg-black transition-transform
-          ${small ? 'h-0.5 w-2/3' : 'h-1'}
-          ${collapsed ? '-rotate-90' : 'rotate-0'}
-          `}
-        ></div>
+        {children}
       </div>
-      <div className="w-full group-hover:text-red-500">{children}</div>
     </button>
   )
 }

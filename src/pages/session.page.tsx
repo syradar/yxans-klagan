@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ReloadIcon } from '../components/icons/reload-icon'
 import { PageHeader } from '../components/page-header'
 import { Parchment } from '../components/parchment'
+import { ParchmentButton } from '../components/ParchmentButton'
 import { generateLegend } from '../functions/legend.functions'
+import { ArrowPathIcon } from '@heroicons/react/20/solid'
 
 export const SessionPage = () => {
   const { t, i18n } = useTranslation(['session', 'common'])
@@ -15,22 +16,17 @@ export const SessionPage = () => {
   }, [getLegend, i18n.language])
 
   return (
-    <div className="flex w-full flex-col items-center gap-y-8">
+    <div className="flex w-full flex-col gap-y-4">
       <PageHeader>{t('Title')}</PageHeader>
+
+      <ParchmentButton onClick={() => getLegend()}>
+        <ArrowPathIcon className="h-5 w-5" />
+        <div>{t('Legend')}</div>
+      </ParchmentButton>
 
       <div className="">
         <div className="flex max-w-prose flex-col gap-8 lg:w-[65ch]">
           <Parchment>
-            <button
-              className="mb-4 flex items-center gap-2 hover:text-red-500"
-              onClick={() => getLegend()}
-              type="button"
-            >
-              <h2 className="yx-heading flex text-center text-4xl">
-                {t('Legend')}
-              </h2>
-              <ReloadIcon container={`w-6 h-6`} svg={``}></ReloadIcon>
-            </button>
             <div className="yx-prose">{legend}</div>
           </Parchment>
         </div>

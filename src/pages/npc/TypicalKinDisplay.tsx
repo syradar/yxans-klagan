@@ -67,7 +67,6 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
           </h3>
         }
         useDefaultLabel={false}
-        indent={false}
         open={false}
         spaceBeforeItems={true}
         onCollapse={() => toggleKin()}

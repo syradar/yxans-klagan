@@ -17,7 +17,7 @@ describe('Encounter Functions', () => {
       expect(result).toEqual(expected)
     })
 
-    it('should all terrain keys if given %s', () => {
+    it('should all terrain keys if given id 16', () => {
       const id = 16
 
       const expected: Terrain[] = ['Plains', 'Forest', 'Swamp', 'Mire']
@@ -36,10 +36,11 @@ describe('Encounter Functions', () => {
         id,
         title: 'Ballongdvärgen',
         page: 149,
-        terrains: ['Plains', 'Forest', 'Swamp', 'Mire'],
+        possibleTerrains: ['Plains', 'Forest', 'Swamp', 'Mire'],
+        chosenTerrain: 'Plains',
       }
 
-      const result = getEncounterById(id, 'sv')
+      const result = getEncounterById(id, 'sv', 'Plains')
 
       expect(result).toEqual(expected)
     })
