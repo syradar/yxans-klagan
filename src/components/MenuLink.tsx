@@ -3,12 +3,14 @@ import { LinkProps, useLocation, useResolvedPath, Link } from 'react-router-dom'
 
 type MenuLinkProps = LinkProps & {
   indent?: 0 | 1
+  onClick?: () => void
 }
 
 export const MenuLink: FC<MenuLinkProps> = ({
   to,
   children,
   indent = 0,
+  onClick,
 }: MenuLinkProps) => {
   const { pathname } = useLocation()
   const { pathname: toPathname } = useResolvedPath(to)
@@ -17,6 +19,7 @@ export const MenuLink: FC<MenuLinkProps> = ({
 
   return (
     <Link
+      onClick={onClick}
       className={`w-full  font-medium hover:bg-amber-900 hover:text-amber-50
       ${isLinkActive ? 'bg-amber-900/75 text-white hover:bg-amber-900 ' : ''}
       ${indent === 0 ? 'px-4 py-1' : ''}

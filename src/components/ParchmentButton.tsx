@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { useState } from 'react'
+import { forwardRef, useState } from 'react'
 import { getRandomInt } from '../functions/dice.functions'
 
 type ParchmentButtonProps = {
@@ -7,6 +7,8 @@ type ParchmentButtonProps = {
   small?: boolean
   onClick?: () => void
   disabled?: boolean
+  buttonType?: 'secondary' | 'primary' | 'danger'
+  forwardedRef?: React.Ref<HTMLButtonElement>
 }
 
 export const ParchmentButton = ({
@@ -14,6 +16,8 @@ export const ParchmentButton = ({
   small,
   onClick,
   disabled = false,
+  buttonType = 'primary',
+  forwardedRef,
 }: ParchmentButtonProps) => {
   const [options] = useState({
     baseFrequency: getRandomInt(1, 10) / 100,
@@ -24,6 +28,7 @@ export const ParchmentButton = ({
 
   return (
     <button
+      ref={forwardedRef}
       type="button"
       onClick={onClick}
       className={`
@@ -36,10 +41,16 @@ export const ParchmentButton = ({
         <div
           className={`
           z-0 col-start-1 col-end-2 row-start-1 row-end-2 rounded border-2  shadow transition-colors
+          ${disabled ? 'border-gray-300 bg-gray-300' : ''}
           ${
-            disabled
-              ? 'border-gray-300 bg-gray-300'
-              : 'border-green-800 bg-green-600 group-hover:border-green-800 group-hover:bg-green-800'
+            !disabled && buttonType === 'primary'
+              ? 'border-green-800 bg-green-600 group-hover:border-green-800 group-hover:bg-green-800'
+              : ''
+          }
+          ${
+            !disabled && buttonType === 'secondary'
+              ? 'border-amber-800 bg-amber-800 group-hover:border-amber-900 group-hover:bg-amber-900'
+              : ''
           }
           `}
           style={{ filter: `url(#button-filter-${options.id})` }}
@@ -87,3 +98,10 @@ export const ParchmentButton = ({
     </button>
   )
 }
+
+export const ForwardedParchmentButton = forwardRef<
+  HTMLButtonElement,
+  ParchmentButtonProps
+>(function ForwardedParchmentButton(props, ref) {
+  return <ParchmentButton forwardedRef={ref} {...props} />
+})
