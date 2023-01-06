@@ -14,7 +14,7 @@ root.render(
   <StrictMode>
     <I18nextProvider i18n={i18nReact}>
       <Suspense fallback={'Loading...'}>
-        <HashRouter>
+        <HashRouter basename="/yxans-klagan">
           <App />
         </HashRouter>
       </Suspense>
