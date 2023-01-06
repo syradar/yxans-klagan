@@ -8,7 +8,7 @@ import { initReactI18next } from 'react-i18next'
 // for passing in lng and translations on init
 
 const i18nReact = i18n
-const loadPath = 'locales/{{lng}}/{{ns}}.json'
+const loadPath = '/locales/{{lng}}/{{ns}}.json'
 
 i18nReact
   // load translation using http -> see /public/locales (i.e. https://github.com/i18next/react-i18next/tree/master/example/react/public/locales)

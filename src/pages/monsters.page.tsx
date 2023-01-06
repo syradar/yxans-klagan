@@ -74,7 +74,7 @@ export const MonstersPage = () => {
           </List>
         </div>
 
-        <div className="lg:w-3/4">
+        <div className="">
           <Parchment>
             {showRandomMonster ? (
               <RandomMonsterDisplay rm={randomMonster}></RandomMonsterDisplay>
