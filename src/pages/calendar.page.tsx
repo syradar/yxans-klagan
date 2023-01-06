@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '../components/Button'
 import { CalendarMonth } from '../components/calendar-month'
 import { PageHeader } from '../components/page-header'
+import { ParchmentButton } from '../components/ParchmentButton'
 import { Stepper } from '../components/Stepper'
 import { notNullish } from '../functions/utils.functions'
 import { TemperatureUnit } from '../functions/weather.functions'
@@ -20,6 +21,8 @@ import {
   Month,
   updateStartingDay,
 } from '../models/calendar.model'
+import { Cog6ToothIcon } from '@heroicons/react/24/outline'
+import Stack from '../components/Stack'
 
 const DEFAULT_SHOW_WEATHER = true
 
@@ -124,53 +127,41 @@ export const CalendarPage = () => {
   return (
     <div className="flex w-full flex-col gap-y-8">
       <PageHeader>{t('Title')}</PageHeader>
-      <div className="yx-prose mb-2 text-center text-xl normal-case">
+      <div className="yx-prose mb-2 text-xl normal-case">
         {t('Year')} {calendarState.year} {t('AS')}
       </div>
       <div className="flex flex-col gap-0">
-        <div className="flex flex-wrap justify-end gap-2 bg-gray-200 p-2">
-          <Button
-            isSmall
-            variant="secondary"
-            onClick={() => handleToggleCollapseAll()}
-          >
-            {t(allCollapsed ? `ShowAll` : `HideAll`)}
-          </Button>
+        <Stack.Horizontal distribute>
+          <Stack.Horizontal>
+            <ParchmentButton onClick={() => handleToggleCollapseAll()}>
+              {t(allCollapsed ? `ShowAll` : `HideAll`)}
+            </ParchmentButton>
 
-          <Button
-            isSmall
-            variant="secondary"
-            onClick={() =>
-              handleTemperatureChange(
-                calendar.temperatureUnit === TemperatureUnit.Metric
-                  ? TemperatureUnit.Imperial
-                  : TemperatureUnit.Metric,
-              )
-            }
-          >
-            {t('Use')}{' '}
-            {calendar.temperatureUnit === TemperatureUnit.Metric
-              ? t('F')
-              : t('C')}
-          </Button>
-          <Button
-            variant="secondary"
-            isSmall
-            onClick={() => setShowWeather(!showWeather)}
-          >
-            {showWeather ? t('Weather-Hide') : t('Weather-Show')}
-          </Button>
-          <Button
-            extraCss={
-              showCalenderOptions ? 'bg-black border-black text-white' : ''
-            }
-            variant="secondary"
-            isSmall
+            <ParchmentButton
+              onClick={() =>
+                handleTemperatureChange(
+                  calendar.temperatureUnit === TemperatureUnit.Metric
+                    ? TemperatureUnit.Imperial
+                    : TemperatureUnit.Metric,
+                )
+              }
+            >
+              {t('Use')}{' '}
+              {calendar.temperatureUnit === TemperatureUnit.Metric
+                ? t('F')
+                : t('C')}
+            </ParchmentButton>
+            <ParchmentButton onClick={() => setShowWeather(!showWeather)}>
+              {showWeather ? t('Weather-Hide') : t('Weather-Show')}
+            </ParchmentButton>
+          </Stack.Horizontal>
+
+          <ParchmentButton
             onClick={() => setShowCalenderOptions(!showCalenderOptions)}
           >
-            ...
-          </Button>
-        </div>
+            <Cog6ToothIcon className="h-6 w-6" />
+          </ParchmentButton>
+        </Stack.Horizontal>
         {showCalenderOptions && (
           <div className="flex flex-col gap-2 bg-gray-200 py-8 px-4">
             <h3 className="font-bold uppercase tracking-wide">

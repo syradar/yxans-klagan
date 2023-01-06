@@ -1,126 +1,91 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from '../components/Button'
 import { Encounter } from '../components/encounter'
+import { Label } from '../components/Label'
 import { PageHeader } from '../components/page-header'
-import { Train } from '../components/Stack'
-import { rollD66 } from '../functions/dice.functions'
-import {
-  getEncounterById,
-  getRandomEncounter,
-} from '../functions/encounter.functions'
-import { EncounterViewModel } from '../models/encounter.model'
+import { Parchment } from '../components/parchment'
+import { ParchmentButton } from '../components/ParchmentButton'
+import Stack, { Train } from '../components/Stack'
+import { allEncounters } from '../data/encounter.data'
 import { ValidLanguage } from '../models/language.model'
 import { getTerrainKeys, Terrain } from '../models/terrain.model'
+import { EncounterLogEntry, useEncounter } from './encounter/useEncounter'
 
 export const EncounterPage = () => {
   const { t, i18n } = useTranslation(['encounters', 'common'])
-  const [encounter, setEncounter] = useState<EncounterViewModel | undefined>(
-    undefined,
-  )
-
-  const [oldTerrain, setOldTerrain] = useState<Terrain | undefined>(undefined)
-
-  const [encounterLog, setEncounterLog] = useState<
-    (EncounterViewModel & { timeStamp: number })[]
-  >([])
-
-  const generateNewEncounter = useCallback(
-    (terrain: Terrain) => {
-      const roll = rollD66()
-      const randomEncounter = getRandomEncounter(
-        roll,
-        terrain,
-        i18n.language as ValidLanguage,
-      )
-      setEncounter(randomEncounter)
-
-      if (
-        (terrain === undefined && oldTerrain === undefined) ||
-        terrain === oldTerrain
-      ) {
-        setEncounterLog([
-          { ...randomEncounter, timeStamp: new Date().getTime() },
-          ...encounterLog,
-        ])
-      } else {
-        setEncounterLog([
-          { ...randomEncounter, timeStamp: new Date().getTime() },
-        ])
-      }
-      setOldTerrain(terrain)
-    },
-    [encounterLog, i18n.language, oldTerrain],
-  )
+  const { encounter, encounterLog, generateNewEncounter } = useEncounter()
 
   const handleClick = useCallback(
     (terrain: Terrain) => {
-      generateNewEncounter(terrain)
+      generateNewEncounter(terrain, i18n.language as ValidLanguage)
     },
-    [generateNewEncounter],
+    [generateNewEncounter, i18n.language],
   )
 
-  useEffect(() => {
-    if (oldTerrain && encounter) {
-      console.log('oldTerrain', oldTerrain)
-
-      setEncounter(
-        getEncounterById(encounter.id, i18n.language as ValidLanguage),
-      )
-
-      setEncounterLog(
-        encounterLog.map((el) => {
-          return {
-            ...el,
-            ...getEncounterById(el.id, i18n.language as ValidLanguage),
-          }
-        }),
-      )
-    }
-  }, [encounter, encounterLog, i18n.language, oldTerrain])
-
   return (
-    <div className="flex w-full flex-col items-center gap-y-8">
+    <div className="flex w-full flex-col gap-y-8">
       <PageHeader>{t('Title')}</PageHeader>
-      <div className="w-full bg-gray-200 p-2">
+
+      <div>
+        <Label> {t('TerrainType')}</Label>
         <Train spacing="small">
           {getTerrainKeys().map((terrain) => (
-            <Button
+            <ParchmentButton
               key={terrain}
-              isSmall
               onClick={() => {
                 handleClick(terrain)
               }}
             >
               {t(`Terrain.${terrain}`, { ns: 'common' })}
-            </Button>
+            </ParchmentButton>
           ))}
         </Train>
       </div>
 
       <div className="grid w-full auto-cols-auto gap-16 md:grid-flow-col">
-        {encounter && (
+        {encounter ? (
           <div className="max-w-prose lg:w-[65ch]">
             <Encounter encounter={encounter}></Encounter>
           </div>
-        )}
-        {!encounter && <div></div>}
-        {!encounterLog && <div></div>}
-        {encounterLog && (
-          <ul className="flex flex-col gap-1">
-            {encounterLog.map((el) => (
-              <li className="flex gap-1" key={el.timeStamp}>
-                <div className="font-medium">
-                  {el.id}: {el.title}
-                </div>
-                <div>(s. {el.page})</div>
-              </li>
-            ))}
-          </ul>
-        )}
+        ) : null}
+
+        <EncounterLog encounterLog={encounterLog}></EncounterLog>
       </div>
     </div>
   )
 }
 
 export default EncounterPage
+
+const EncounterLog = ({
+  encounterLog,
+}: {
+  encounterLog: EncounterLogEntry[]
+}) => {
+  const { t, i18n } = useTranslation(['encounters', 'common'])
+
+  return (
+    <Stack.Vertical>
+      {encounterLog.map((entry) => (
+        <Parchment key={entry.id} small>
+          <div>
+            <div className="yx-prose text-lg">
+              {t(`Terrain.${entry.terrain}`, { ns: 'common' })}
+            </div>
+            <ul className="flex flex-col gap-1">
+              {entry.encounters.map((el) => (
+                <li className="flex gap-1" key={el.keyId}>
+                  <div className="">
+                    {el.id}:{' '}
+                    {allEncounters[i18n.language as ValidLanguage][el.id].title}
+                  </div>
+                  <div>(s. {el.page})</div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Parchment>
+      ))}
+    </Stack.Vertical>
+  )
+}

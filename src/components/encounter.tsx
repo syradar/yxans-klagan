@@ -1,44 +1,43 @@
-import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { allEncounters } from '../data/encounter.data'
 
 import { EncounterViewModel } from '../models/encounter.model'
-import { Terrain } from '../models/terrain.model'
+import { ValidLanguage } from '../models/language.model'
 import { Parchment } from './parchment'
+import Stack from './Stack'
+import { Tag } from './Tag'
 
 interface EncounterProps {
   encounter: EncounterViewModel
 }
 
 export const Encounter = ({ encounter }: EncounterProps) => {
-  const { t } = useTranslation(['encounters', 'common'])
-
-  const formatTerrains = (terrains: Terrain[]): string => {
-    if (terrains.length >= 9) {
-      return t('Terrain.All', { ns: 'common' })
-    }
-
-    return terrains
-      .map((terrain) => t(`Terrain.${terrain}`, { ns: 'common' }))
-      .join(', ')
-  }
+  const { t, i18n } = useTranslation(['encounters', 'common'])
 
   return (
     <div>
       <Parchment>
-        <div className="mb-4 flex items-center gap-2">
-          <div className="flex aspect-square h-12 w-12 items-center justify-center rounded-full border-4 p-2 text-center text-4xl font-bold">
-            {encounter.id}
+        <Stack.Vertical>
+          <div className="flex items-center gap-2">
+            <div className="flex aspect-square h-12 w-12 items-center justify-center rounded-full border-2 border-gray-800 p-2 text-center text-2xl font-bold">
+              {encounter.id}
+            </div>
+            <h2 className="yx-heading flex text-center text-4xl">
+              {
+                allEncounters[i18n.language as ValidLanguage][encounter.id]
+                  .title
+              }
+            </h2>
           </div>
-          <h2 className="yx-heading flex text-center text-4xl">
-            {encounter.title}
-          </h2>
-        </div>
-        <div>
-          {t('TerrainType')}: {formatTerrains(encounter.terrains)}
-        </div>
-        <div>
-          {t('Page', { ns: 'common' })}: {encounter.page}
-        </div>
+          <div>
+            {t('Page', { ns: 'common' })}. {encounter.page}
+          </div>
+          <Stack.Horizontal spacing="small" wrap>
+            {encounter.possibleTerrains.map((pt) => (
+              <Tag key={pt}>{t(`Terrain.${pt}`, { ns: 'common' })}</Tag>
+            ))}
+          </Stack.Horizontal>
+        </Stack.Vertical>
       </Parchment>
     </div>
   )

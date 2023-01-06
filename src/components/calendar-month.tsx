@@ -64,8 +64,9 @@ export const CalendarMonth = ({
             <MonthCollapseButton
               collapsed={month.collapsed}
               onMonthCollapseClick={toggleCollapse}
-            ></MonthCollapseButton>
-            {t(month.name)}
+            >
+              {t(month.name)}
+            </MonthCollapseButton>
           </h2>
         </Train>
 

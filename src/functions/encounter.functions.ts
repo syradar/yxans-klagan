@@ -25,17 +25,20 @@ export const getTerrainsByEncounterId = (id: number): Terrain[] => {
 const createEncounterViewModel = (
   id: number,
   lang: ValidLanguage,
+  terrain: Terrain,
 ): EncounterViewModel => ({
   id,
   ...allEncounters[lang][id],
-  terrains: getTerrainsByEncounterId(id),
+  possibleTerrains: getTerrainsByEncounterId(id),
+  chosenTerrain: terrain,
 })
 
 export const getEncounterById = (
   id: number,
   lang: ValidLanguage,
+  terrain: Terrain,
 ): EncounterViewModel => {
-  return createEncounterViewModel(id, lang)
+  return createEncounterViewModel(id, lang, terrain)
 }
 
 export const getRandomEncounter = (
@@ -44,7 +47,7 @@ export const getRandomEncounter = (
   lang: ValidLanguage,
 ): EncounterViewModel => {
   if (!isRollsWithEncounters(roll)) {
-    return createEncounterViewModel(0, lang)
+    return createEncounterViewModel(0, lang, terrain)
   }
 
   const randomEncounterId = encounterTable[terrain][roll]
@@ -54,8 +57,8 @@ export const getRandomEncounter = (
   )
 
   if (!encounterExists) {
-    return createEncounterViewModel(0, lang)
+    return createEncounterViewModel(0, lang, terrain)
   }
 
-  return createEncounterViewModel(randomEncounterId, lang)
+  return createEncounterViewModel(randomEncounterId, lang, terrain)
 }

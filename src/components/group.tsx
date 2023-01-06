@@ -8,9 +8,9 @@ type GroupProps = {
   open?: boolean
   useDefaultLabel?: boolean
   spaceBeforeItems?: boolean
-  indent?: boolean
   onCollapse?: () => void
   marginBottom?: boolean
+  menu?: boolean
 }
 
 export const Group = ({
@@ -20,8 +20,8 @@ export const Group = ({
   open = false,
   useDefaultLabel = true,
   spaceBeforeItems = true,
-  indent = true,
   marginBottom = false,
+  menu = false,
 }: GroupProps) => {
   const [groupOpen, setGroupOpen] = useState(open)
 
@@ -33,9 +33,16 @@ export const Group = ({
   }
 
   return (
-    <section className={`w-full ${marginBottom ? 'mb-8' : ''}`}>
+    <section
+      className={`
+      w-full
+      ${marginBottom ? 'mb-8' : ''}
+      ${menu ? '' : ''}
+    `}
+    >
       <MonthCollapseButton
         small
+        menu={menu}
         collapsed={!groupOpen}
         onMonthCollapseClick={collapseHandler}
       >
@@ -49,7 +56,6 @@ export const Group = ({
         <div
           className={`
         ${spaceBeforeItems ? 'mt-4' : ''}
-        ${indent ? 'pl-6' : ''}
         `}
         >
           {children}

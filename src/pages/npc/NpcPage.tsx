@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from '../../components/Button'
 import { PageHeader } from '../../components/page-header'
 import { Parchment } from '../../components/parchment'
-import { Pancake, Train } from '../../components/Stack'
+import { ParchmentButton } from '../../components/ParchmentButton'
+import { Pancake } from '../../components/Stack'
 import {
   getRandomCharacteristic,
   getRandomKinType,
@@ -32,14 +32,11 @@ export const NpcPage = () => {
   return (
     <div className="flex w-full flex-col gap-y-8 pb-16">
       <PageHeader>{t('Title')}</PageHeader>
+      <ParchmentButton onClick={() => generateOccupation()}>
+        {t('NpcButton')}
+      </ParchmentButton>
       <Parchment>
         <Pancake>
-          <Train>
-            <Button isSmall onClick={() => generateOccupation()}>
-              {t('NpcButton')}
-            </Button>
-          </Train>
-
           {/* <div className="text-lg lg:(text-2xl)" className="yx-prose">
             {t(`Kin.${npc.kin}.${npc.kin}`, { ns: 'common' })}
           </div> */}

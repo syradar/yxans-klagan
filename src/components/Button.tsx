@@ -5,20 +5,20 @@ const buttonStyles = (
 ) =>
   [
     // The common button styles
-    `px-8 py-2 font-bold uppercase select-none tracking-wide focus:outline-none transform duration-75`,
-    `border-2 border-black rounded-none`,
+    `px-4 py-2 font-semibold select-none tracking-wide focus:outline-none`,
+    `border-2 border-green-600 rounded shadow transition`,
     // Use the variant grouping feature to add variants to multiple classes
-    `pointer-fine:hover:(bg-red-500 border-red-500 text-black) `,
+    `hover:bg-green-800 hover:border-green-800`,
 
     // Use props to conditionally style your components
-    `bg-black text-white`,
+    `bg-green-600 text-white`,
 
     // Combine regular css with tailwind classes within backticks
     variant === 'secondary' ? `bg-white text-black` : '',
     variant === 'disabled'
-      ? `bg-gray-400 text-gray-300 border-gray-400 cursor-not-allowed hover:(bg-gray-400 text-gray-300 border-gray-400)`
+      ? 'bg-gray-400 text-gray-300 border-gray-400 cursor-not-allowed hover:bg-gray-400 hover:text-gray-300 hover:border-gray-400'
       : '',
-    isSmall ? `text-sm px-4` : `text-lg`,
+    isSmall ? `text-sm px-4` : '',
     extraCss ? extraCss : '',
   ].join(' ')
 

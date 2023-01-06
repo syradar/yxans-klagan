@@ -11,6 +11,7 @@ export interface StackProps {
   wrap?: boolean
   distribute?: boolean
   spacing?: Spacing
+  full?: boolean
 }
 
 export type PancakeProps = Omit<StackProps, 'dir'>
@@ -22,10 +23,12 @@ export const Stack = ({
   wrap = true,
   distribute = false,
   spacing = 'normal',
+  full = false,
 }: StackProps) => {
   return (
     <div
-      className={`flex w-full
+      className={`flex
+        ${full ? 'w-full' : ''}
         ${wrap ? 'flex-wrap' : ''}
         ${dir === 'horizontal' ? 'flex-row' : 'flex-col'}
         ${distribute ? 'justify-between' : ''}
@@ -78,3 +81,7 @@ export const Grid = ({
     {children}
   </div>
 )
+
+Stack.Vertical = Pancake
+Stack.Horizontal = Train
+export default Stack

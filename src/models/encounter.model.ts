@@ -12,7 +12,8 @@ export interface Encounter {
 
 export interface EncounterViewModel extends Encounter {
   id: number
-  terrains: Terrain[]
+  possibleTerrains: Terrain[]
+  chosenTerrain: Terrain
 }
 
 export interface Encounters {
