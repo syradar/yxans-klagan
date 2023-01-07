@@ -53,6 +53,14 @@
       "HalflingAndGoblins": "Halvlingar & Svartalfer",
       "Halfling": "Halvling",
       "Goblin": "Svartalf"
+    },
+    "Believers": {
+      "Believers": "Troende",
+      "RavenSister": "Korpsyster",
+      "BlackWing": "Svartvinge",
+      "RustBrother": "Rostbroder",
+      "IronGuard": "Järngardist",
+      "HemeSister": "Hemesyster"
     }
   },
   "Gender": {
@@ -170,14 +178,29 @@
     "PathOfSight2": "Synens väg 2",
     "PathOfEnemy2": "Fiendens väg 2",
     "PathOfKiller2": "Mördarens väg 2",
-    "PathOfForest2": "Skogens väg 2"
+    "PathOfForest2": "Skogens väg 2",
+    "Executioner2": "Bödel 2",
+    "FastFootwork": "Hal som en ål 1",
+    "Threatening": "Hotfull 1",
+    "ColdBlooded": "Kallblodig 1",
+    "PathOfBlood2": "Blodets väg 2",
+    "PathOfDeath2": "Dödens väg 2",
+    "PathOfTheBlade2": "Svärdets väg 2",
+    "PathOfTheEnemy2": "Fiendens väg 2",
+    "PathOfBlood2OrPathOfDeath2": "$t(Talents.PathOfBlood2) eller $t(Talents.PathOfDeath2)",
+    "PathOfTheBlade2OrPathOfTheEnemy2": "$t(Talents.PathOfTheBlade2) eller $t(Talents.PathOfTheEnemy2)",
+    "PathOfHealing2OrShiftingShapes2OrPathOfSight2": "$t(Talents.PathOfHealing2) eller $t(Talents.ShiftingShapes2) eller $t(Talents.PathOfSight2)"
   },
   "Gear": {
     "Gear": "Utrustning",
     "D6Silver": "T6 silvermynt",
     "D6Copper": "T6 kopparmynt",
     "RidingHorse": "Ridhäst",
-    "InkAndQuill": "Skrivdon"
+    "InkAndQuill": "Skrivdon",
+    "VialOfPoison": "Flaska med gift",
+    "SimpleFind": "ENKELT fynd",
+    "ValuableFind": "VÄRDEFULLT fynd",
+    "CombatTrainedHorse": "Stridstränad häst"
   },
   "Weapon": {
     "Melee": {

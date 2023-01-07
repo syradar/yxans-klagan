@@ -58,6 +58,14 @@
       "Halfling": "Halfling",
       "Goblin": "Goblin",
       "HalflingAndGoblins": "Halflings & Goblins"
+    },
+    "Believers": {
+      "Believers": "Believers",
+      "RavenSister": "Raven Sister",
+      "BlackWing": "Black Wing",
+      "RustBrother": "Rust Brother",
+      "IronGuard": "Iron Guard",
+      "HemeSister": "Heme Sister"
     }
   },
   "Gender": {
@@ -175,14 +183,28 @@
     "PathOfSight2": "Path of Sight 2",
     "PathOfEnemy2": "Path of the Enemy 2",
     "PathOfKiller2": "Path of the Killer 2",
-    "PathOfForest2": "Path of the Forest 2"
+    "PathOfForest2": "Path of the Forest 2",
+    "Executioner2": "Executioner 2",
+    "FastFootwork": "Fast Footwork",
+    "Threatening": "Threatening",
+    "ColdBlooded": "Cold Blooded",
+    "PathOfBlood2": "Path of Blood 2",
+    "PathOfDeath2": "Path of Death 2",
+    "PathOfTheBlade2": "Path of Blade 2",
+    "PathOfBlood2OrPathOfDeath2": "$t(Talents.PathOfBlood2) or $t(Talents.PathOfDeath2)",
+    "PathOfTheBlade2OrPathOfTheEnemy2": "$t(Talents.PathOfTheBlade2) or $t(Talents.PathOfTheEnemy2)",
+    "PathOfHealing2OrShiftingShapes2OrPathOfSight2": "$t(Talents.PathOfHealing2) or $t(Talents.ShiftingShapes2) or $t(Talents.PathOfSight2)"
   },
   "Gear": {
     "Gear": "Gear",
     "D6Silver": "D6 silver coins",
     "D6Copper": "D6 copper coins",
     "RidingHorse": "Riding Horse",
-    "InkAndQuill": "InkAndQuill"
+    "InkAndQuill": "InkAndQuill",
+    "VialOfPoison": "Vial of poison",
+    "SimpleFind": "SIMPLE find",
+    "ValuableFind": "VALUABLE find",
+    "CombatTrainedHorse": "Combat Trained Horse"
   },
   "Weapon": {
     "Melee": {

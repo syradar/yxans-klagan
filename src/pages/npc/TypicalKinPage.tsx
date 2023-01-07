@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { PageHeader } from '../../components/page-header'
 import { Pancake } from '../../components/Stack'
 import {
+  believerTypicalKins,
   dwarfTypicalKins,
   elfTypicalKins,
   halflingAndGoblinTypicalKins,
@@ -48,6 +49,10 @@ export const TypicalKinPage = () => {
   const halflingAndGoblinKinViewModels = Object.values(
     halflingAndGoblinTypicalKins,
   ).map(createTypicalKinViewModel)
+
+  const believerKinViewModels = Object.values(believerTypicalKins).map(
+    createTypicalKinViewModel,
+  )
 
   return (
     <div className="flex w-full flex-col gap-y-8 pb-16">
@@ -130,6 +135,16 @@ export const TypicalKinPage = () => {
           <TypicalKinDisplay key={tkvm.kin} tkvm={tkvm}></TypicalKinDisplay>
         ))}
       </div>
+      <Pancake>
+        <h2 className="yx-heading text-center text-2xl lg:text-4xl">
+          {t('Kin.Believers.Believers', { ns: 'common' })}
+        </h2>
+        <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
+          {believerKinViewModels.map((tkvm) => (
+            <TypicalKinDisplay key={tkvm.kin} tkvm={tkvm}></TypicalKinDisplay>
+          ))}
+        </div>
+      </Pancake>
     </div>
   )
 }
