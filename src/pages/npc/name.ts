@@ -35,6 +35,7 @@ export const kinTypes = [
   'Saurian',
   'Whiner',
   'HalflingAndGoblin',
+  'Believers',
 ] as const
 export type KinType = typeof kinTypes[number]
 export const getKinTypes = () => [...kinTypes]
@@ -46,6 +47,13 @@ export type HumanKin =
   | 'Frailer'
   | 'SilentGuard'
   | 'MaidenDruid'
+
+export type BelieversKin =
+  | 'RavenSister'
+  | 'BlackWing'
+  | 'RustBrother'
+  | 'IronGuard'
+  | 'HemeSister'
 
 export type ElfKin =
   | 'StillElf'
@@ -78,6 +86,7 @@ export type TypicalKins =
   | SaurianKin
   | WhinerKin
   | HalflingAndGoblinKin
+  | BelieversKin
 
 export type Kins = HumanKin | ElfKin
 export type HumanNames = {

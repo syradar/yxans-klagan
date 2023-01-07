@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Card } from '../../components/card'
+import { ParchmentCard } from '../../components/card'
 import { Field } from '../../components/field'
 import { Group } from '../../components/group'
 import { Parchment } from '../../components/parchment'
-import { Grid, Pancake, Train } from '../../components/Stack'
+import Stack, { Grid, Pancake, Train } from '../../components/Stack'
 import { Stat } from '../../components/Stat'
 import { Tag } from '../../components/Tag'
 import { AllSkillsValuesViewModel } from '../../models/skills.model'
@@ -72,8 +72,8 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
         onCollapse={() => toggleKin()}
       >
         <Pancake spacing="small">
-          <Card thin>
-            <Train distribute>
+          <ParchmentCard>
+            <Stack.Horizontal distribute full>
               <Stat label={t('Attributes.Strength', { ns: 'common' })}>
                 {tkvm.attributes.strength?.value}
               </Stat>
@@ -86,8 +86,8 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
               <Stat label={t('Attributes.Empathy', { ns: 'common' })}>
                 {tkvm.attributes.empathy?.value}
               </Stat>
-            </Train>
-          </Card>
+            </Stack.Horizontal>
+          </ParchmentCard>
           {tkvm.description && (
             <Field label={t('Description.Description', { ns: 'common' })}>
               {t(`Description.${tkvm.description}`, { ns: 'common' })}
