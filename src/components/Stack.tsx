@@ -51,8 +51,20 @@ export const Pancake = ({
   </Stack>
 )
 
-export const Train = ({ children, wrap, distribute, spacing }: TrainProps) => (
-  <Stack dir="horizontal" wrap={wrap} distribute={distribute} spacing={spacing}>
+export const Train = ({
+  children,
+  wrap,
+  distribute,
+  spacing,
+  full,
+}: TrainProps) => (
+  <Stack
+    dir="horizontal"
+    wrap={wrap}
+    distribute={distribute}
+    spacing={spacing}
+    full={full}
+  >
     {children}
   </Stack>
 )
