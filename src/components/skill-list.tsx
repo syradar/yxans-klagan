@@ -1,7 +1,5 @@
-import { MonsterSkillListItem } from '../models/monster.model'
-
 export type SkillListProps = {
-  skills: MonsterSkillListItem[]
+  skills: { name: string; value: number }[]
 }
 
 export const SkillList = ({ skills }: SkillListProps) => (

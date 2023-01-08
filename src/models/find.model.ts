@@ -1,3 +1,4 @@
+import { TranslationKey } from '../@types/i18next'
 import { CoinType } from './coin.model'
 import { D66 } from './fbl-dice.model'
 
@@ -50,7 +51,7 @@ export type FindViewModel = {
   location: FindLocation
   title: FindLabels
   weight: WeightViewModel
-  value: { coins: number; label: string }[]
+  value: { coins: number; label: TranslationKey }[]
 }
 
 export type FindLabels =

@@ -1,3 +1,4 @@
+import { TranslationKey } from '../@types/i18next'
 import { FindTable } from '../data/find.data'
 import {
   Find,
@@ -16,7 +17,7 @@ import { capitalize } from './utils.functions'
 
 export const rollFindValue = (
   fv: FindValue,
-): { coins: number; label: string }[] => {
+): { coins: number; label: TranslationKey }[] => {
   if (fv === 'None') return []
 
   const piles = fv.split(';')
@@ -29,7 +30,9 @@ export const rollFindValue = (
       .map((_) => rollD6())
       .reduce((a, b) => a + b, 0)
 
-    const coinLabel = `Coin.${capitalize(coin)}`
+    const coinLabel: TranslationKey = `finds:Coin.${capitalize(
+      coin,
+    )}` as TranslationKey
 
     return { coins: coinValue, label: coinLabel }
   })

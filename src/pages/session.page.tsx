@@ -17,11 +17,11 @@ export const SessionPage = () => {
 
   return (
     <div className="flex w-full flex-col gap-y-4">
-      <PageHeader>{t('Title')}</PageHeader>
+      <PageHeader>{t('session:Title')}</PageHeader>
 
       <ParchmentButton onClick={() => getLegend()}>
         <ArrowPathIcon className="h-5 w-5" />
-        <div>{t('Legend')}</div>
+        <div>{t('session:Legend')}</div>
       </ParchmentButton>
 
       <div className="">

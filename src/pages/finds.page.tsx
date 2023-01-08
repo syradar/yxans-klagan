@@ -17,7 +17,7 @@ import {
 import { getId, Unique } from '../models/utils.model'
 
 export const FindsPage = () => {
-  const { t } = useTranslation(['finds'])
+  const { t } = useTranslation(['finds', 'common'])
   const [transition, setTransition] = useState(false)
 
   const createFind = (
@@ -49,13 +49,13 @@ export const FindsPage = () => {
 
   return (
     <div className="flex w-full flex-col gap-y-8 pb-16">
-      <PageHeader>{t('Title')}</PageHeader>
+      <PageHeader>{t('finds:Title')}</PageHeader>
       <div className="w-full md:mx-auto md:max-w-screen-md">
         <div className="flex flex-col gap-16">
           <Grid cols="2">
             <Pancake>
               <h2 className="yx-heading  text-center text-3xl">
-                {t('Find.Location.Carried')}
+                {t('finds:Find.Location.Carried')}
               </h2>
               <Button
                 variant="secondary"
@@ -63,7 +63,7 @@ export const FindsPage = () => {
                 text-yellow-50 hover:to-yellow-500 hover:text-yellow-50 focus-visible:outline focus-visible:outline-black"
                 onClick={() => updateFindData('Carried', 'Simple')}
               >
-                {t('Find.Type.Simple')}
+                {t('finds:Find.Type.Simple')}
               </Button>
               <Button
                 variant="secondary"
@@ -71,41 +71,41 @@ export const FindsPage = () => {
                 px-0 text-gray-800 hover:to-gray-50 hover:text-gray-800 focus-visible:outline focus-visible:outline-black"
                 onClick={() => updateFindData('Carried', 'Valuable')}
               >
-                {t('Find.Type.Valuable')}
+                {t('finds:Find.Type.Valuable')}
               </Button>
               <Button
                 variant="secondary"
-                extraCss="max-w-full border-yellow-400 bg-gradient-to-bl from-yellow-400 to-yellow-100 px-0 
+                extraCss="max-w-full border-yellow-400 bg-gradient-to-bl from-yellow-400 to-yellow-100 px-0
                 text-yellow-900 hover:to-yellow-50  hover:text-yellow-900 focus-visible:outline focus-visible:outline-black"
                 onClick={() => updateFindData('Carried', 'Precious')}
               >
-                {t('Find.Type.Precious')}
+                {t('finds:Find.Type.Precious')}
               </Button>
             </Pancake>
             <Pancake>
               <h2 className="yx-heading  text-center text-3xl">
-                {t('Find.Location.Lair')}
+                {t('finds:Find.Location.Lair')}
               </h2>
               <Button
                 extraCss="max-w-full border-yellow-800 bg-gradient-to-bl from-yellow-800 to-yellow-600 px-0 text-yellow-50 hover:to-yellow-500 hover:text-yellow-50 focus-visible:outline focus-visible:outline-black"
                 variant="secondary"
                 onClick={() => updateFindData('Lair', 'Simple')}
               >
-                {t('Find.Type.Simple')}
+                {t('finds:Find.Type.Simple')}
               </Button>
               <Button
                 extraCss="max-w-full border-gray-300 bg-gradient-to-bl from-gray-300 px-0 text-gray-800 hover:to-gray-50 hover:text-gray-800  focus-visible:outline focus-visible:outline-black"
                 variant="secondary"
                 onClick={() => updateFindData('Lair', 'Valuable')}
               >
-                {t('Find.Type.Valuable')}
+                {t('finds:Find.Type.Valuable')}
               </Button>
               <Button
                 extraCss="max-w-full border-yellow-400 bg-gradient-to-bl from-yellow-400 to-yellow-100 px-0 text-yellow-900 hover:to-yellow-50  hover:text-yellow-900 focus-visible:outline focus-visible:outline-black"
                 variant="secondary"
                 onClick={() => updateFindData('Lair', 'Precious')}
               >
-                {t('Find.Type.Precious')}
+                {t('finds:Find.Type.Precious')}
               </Button>
             </Pancake>
           </Grid>
@@ -117,22 +117,25 @@ export const FindsPage = () => {
             <Parchment>
               <Pancake>
                 <h2 className="yx-heading mb-4 text-center text-2xl lg:text-4xl">
-                  {t(`Find.${find.title}`)}
+                  {t(`finds:Find.${find.title}`)}
                 </h2>
 
                 <Pancake>
-                  <Stat size="large" label={t('Value')}>
+                  <Stat size="large" label={t('finds:Value')}>
                     {find.value.length > 0
                       ? find.value
-                          .map((v) => `${v.coins} ${t(v.label)}`)
+                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                          .map((v) => `${v.coins} ${t(v.label as any)}`)
                           .join(', ')
                       : '–'}
                   </Stat>
                   <Grid cols="3">
-                    <Stat label={t('Weight')}>{find.weight}</Stat>
-                    <Stat label={t('Type')}>{t(`Find.Type.${find.type}`)}</Stat>
-                    <Stat label={t('Location')}>
-                      {t(`Find.Location.${find.location}`)}
+                    <Stat label={t('finds:Weight')}>{find.weight}</Stat>
+                    <Stat label={t('finds:Type')}>
+                      {t(`finds:Find.Type.${find.type}`)}
+                    </Stat>
+                    <Stat label={t('finds:Location')}>
+                      {t(`finds:Find.Location.${find.location}`)}
                     </Stat>
                   </Grid>
                 </Pancake>

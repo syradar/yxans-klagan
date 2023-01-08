@@ -12,12 +12,13 @@ import { Train } from '../components/Stack'
 import { downloadFile } from '../functions/file.functions'
 import { isNullish, isString } from '../functions/utils.functions'
 import { Hex, HexStorage, initialHexas, isHexKey } from '../models/map.model'
+import { TranslationKey } from '../@types/i18next'
 
 const MAP_STORAGE_KEY = 'map'
 const FOG_OF_WAR_STORAGE_KEY = 'fogOfWar'
 
 export const MapPage = () => {
-  const { t } = useTranslation('map')
+  const { t } = useTranslation(['map', 'common'])
 
   const hexasFromStorage = localStorage.getItem(MAP_STORAGE_KEY) ?? undefined
 
@@ -35,7 +36,9 @@ export const MapPage = () => {
       }
     })
   }
-  const [pasteError, setPasteError] = useState<string | undefined>(undefined)
+  const [pasteError, setPasteError] = useState<TranslationKey | undefined>(
+    undefined,
+  )
 
   const fogOfWarFromStorage =
     (localStorage.getItem(FOG_OF_WAR_STORAGE_KEY) === 'true' ? true : false) ??
@@ -205,20 +208,20 @@ export const MapPage = () => {
     }
   }
 
-  const getPasteErrorLabel = (e: Error): string => {
+  const getPasteErrorLabel = (e: Error): TranslationKey => {
     switch (e.message) {
       case 'InvalidJson':
-        return 'InvalidJson'
+        return 'map:InvalidJson'
       case 'NotObject':
-        return 'NotObject'
+        return 'map:NotObject'
       case 'NoHexesProp':
-        return 'NoHexesProp'
+        return 'map:NoHexesProp'
       case 'HexesNotArray':
-        return 'HexesNotArray'
+        return 'map:HexesNotArray'
       case 'InvalidHexData':
-        return 'InvalidHexData'
+        return 'map:InvalidHexData'
       default:
-        return 'GeneralPasteError'
+        return 'map:GeneralPasteError'
     }
   }
 
@@ -289,21 +292,21 @@ export const MapPage = () => {
 
   return (
     <div className="flex w-full flex-col gap-y-8">
-      <PageHeader>{t('Title')}</PageHeader>
+      <PageHeader>{t('map:Title')}</PageHeader>
 
       <Train>
         <ParchmentButton onClick={() => setFogOfWar(!fogOfWar)}>
-          {t('FogOfWar', { context: fogOfWar ? 'On' : 'Off' })}
+          {t(fogOfWar ? 'map:FogOfWar_On' : 'map:FogOfWar_Off')}
         </ParchmentButton>
         <ParchmentButton
           disabled={!hasExploredHexas}
           onClick={() => handleFileDownload()}
         >
-          {t('DownloadMapData')}
+          {t('map:DownloadMapData')}
         </ParchmentButton>
         <PasteData
           onFocusTextArea={() => setPasteError(undefined)}
-          label={t('PasteMapData')}
+          label={t('map:PasteMapData')}
           onData={handlePasteMapData}
         ></PasteData>
       </Train>
@@ -341,11 +344,14 @@ export const MapPage = () => {
       </div>
 
       <div>
-        {pasteError && (
+        {pasteError ? (
           <div className="flex justify-end bg-red-500 p-2 font-bold text-white">
-            {t(pasteError)}
+            {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              t(pasteError as any)
+            }
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   )

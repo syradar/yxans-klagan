@@ -1,3 +1,4 @@
+import { TranslationKey } from '../../@types/i18next'
 import { createAttributesViewModel } from '../../functions/attributes.functions'
 import { createAllSkillsValuesViewModel } from '../../functions/skills.functions'
 import { Attributes, AttributesViewModel } from '../../models/attributes.model'
@@ -35,27 +36,28 @@ export type TypicalKin<K extends TypicalKins, T extends KinType> = {
   kinType: T
   attributes: Attributes
   skills: AllSkillsValues
-  talents: string[]
-  gear: string[]
+  talents: TranslationKey<'common'>[]
+  gear: TranslationKey<'common'>[]
   weapons: Weapon<WeaponType, WeaponCategory>[]
   shields: Shield<ShieldType>[]
   armors: Armor<ArmorType>[]
   helmets: Helmet<HelmetType>[]
-  description?: string
+  description?: TranslationKey<'common'>
 }
 
 export type TypicalKinViewModel = CollapseAble & {
+  title: TranslationKey<'common'>
   kin: string
   kinType: string
   attributes: AttributesViewModel
   skills: AllSkillsValuesViewModel
-  talents: string[]
-  gear: string[]
+  talents: TranslationKey<'common'>[]
+  gear: TranslationKey<'common'>[]
   weapons: WeaponViewModel[]
   shields: ShieldViewModel[]
   armors: ArmorViewModel[]
   helmets: HelmetViewModel[]
-  description?: string
+  description?: TranslationKey<'common'>
 }
 
 export const createTypicalKinViewModel = <
@@ -66,6 +68,8 @@ export const createTypicalKinViewModel = <
 ): TypicalKinViewModel => {
   return {
     ...tk,
+    title: `common:Kin.${tk.kinType}.${tk.kin}` as TranslationKey<'common'>,
+    description: tk.description,
     collapse: true,
     attributes: createAttributesViewModel(tk.attributes),
     skills: createAllSkillsValuesViewModel(tk.skills),

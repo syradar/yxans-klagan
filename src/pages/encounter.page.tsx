@@ -24,10 +24,10 @@ export const EncounterPage = () => {
 
   return (
     <div className="flex w-full flex-col gap-y-8">
-      <PageHeader>{t('Title')}</PageHeader>
+      <PageHeader>{t('encounters:Title')}</PageHeader>
 
       <div>
-        <Label> {t('TerrainType')}</Label>
+        <Label> {t('encounters:TerrainType')}</Label>
         <Train spacing="small">
           {getTerrainKeys().map((terrain) => (
             <ParchmentButton
@@ -36,7 +36,7 @@ export const EncounterPage = () => {
                 handleClick(terrain)
               }}
             >
-              {t(`Terrain.${terrain}`, { ns: 'common' })}
+              {t(`common:Terrain.${terrain}`)}
             </ParchmentButton>
           ))}
         </Train>
@@ -70,7 +70,7 @@ const EncounterLog = ({
         <Parchment key={entry.id} small>
           <div>
             <div className="yx-prose text-lg">
-              {t(`Terrain.${entry.terrain}`, { ns: 'common' })}
+              {t(`common:Terrain.${entry.terrain}`)}
             </div>
             <ul className="flex flex-col gap-1">
               {entry.encounters.map((el) => (
