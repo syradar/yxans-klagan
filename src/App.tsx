@@ -4,7 +4,7 @@ import {
   ArrowRightOnRectangleIcon,
   Bars3Icon,
 } from '@heroicons/react/24/outline'
-import { createRef, lazy, Suspense } from 'react'
+import { createRef, Suspense } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation, useResolvedPath, useRoutes } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
@@ -15,84 +15,7 @@ import { MenuLink } from './components/MenuLink'
 import { ForwardedParchmentButton } from './components/ParchmentButton'
 import { Pancake, Stack } from './components/Stack'
 import { YxansKlaganLogo } from './logo'
-
-const HomePage = lazy(() => import('./pages/Home.page'))
-const CalendarPage = lazy(() => import('./pages/calendar.page'))
-const DiceRollerPage = lazy(() => import('./pages/dice-roller.page'))
-const EncounterPage = lazy(() => import('./pages/encounter.page'))
-const FindsPage = lazy(() => import('./pages/finds.page'))
-const GearPage = lazy(() => import('./pages/gear.page'))
-const MapPage = lazy(() => import('./pages/map.page'))
-const MonstersPage = lazy(() => import('./pages/monsters.page'))
-const SessionPage = lazy(() => import('./pages/session.page'))
-const TypicalKinPage = lazy(() => import('./pages/npc/TypicalKinPage'))
-const NameGeneratorPage = lazy(() => import('./pages/npc/NameGeneratorPage'))
-const NpcPage = lazy(() => import('./pages/npc/NpcPage'))
-
-const appRoutes = [
-  {
-    path: '',
-    element: <HomePage />,
-  },
-  {
-    path: 'dice',
-    element: <DiceRollerPage />,
-  },
-  {
-    path: 'npcs',
-    children: [
-      {
-        path: 'names',
-        element: <NameGeneratorPage />,
-      },
-      {
-        path: 'typical',
-        element: <TypicalKinPage />,
-      },
-      {
-        path: 'npc',
-        element: <NpcPage />,
-      },
-      {
-        path: '*',
-        element: <NameGeneratorPage />,
-      },
-    ],
-  },
-  {
-    path: 'gear',
-    children: [
-      {
-        path: 'tables',
-        element: <GearPage />,
-      },
-      {
-        path: 'finds',
-        element: <FindsPage />,
-      },
-    ],
-  },
-  {
-    path: 'calendar',
-    element: <CalendarPage />,
-  },
-  {
-    path: 'session',
-    element: <SessionPage />,
-  },
-  {
-    path: 'map',
-    element: <MapPage />,
-  },
-  {
-    path: 'encounter',
-    element: <EncounterPage />,
-  },
-  {
-    path: 'monsters',
-    element: <MonstersPage />,
-  },
-]
+import { appRoutes, Menu, menuRoutes } from './Menu'
 
 const App = () => {
   const routes = useRoutes(appRoutes)
@@ -116,18 +39,9 @@ const App = () => {
 export default App
 
 const AppMenu = () => {
-  const { t } = useTranslation('core')
+  const { t } = useTranslation()
 
   const ref = createRef<HTMLButtonElement>()
-
-  const { pathname } = useLocation()
-
-  const toPathContains = (toPath: 'gear' | 'npcs') => (path: string) =>
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    path.includes(useResolvedPath(toPath).pathname)
-
-  const isGearPageActive = toPathContains('gear')
-  const isKinPageActive = toPathContains('npcs')
 
   const isLg = useMediaQuery('(min-width: 1024px)')
 
@@ -203,102 +117,7 @@ const AppMenu = () => {
                   <div className="flex h-full flex-col justify-between overflow-auto pb-4 lg:flex-auto">
                     <div className="w-full text-lg">
                       <Stack dir="vertical" wrap={false} spacing="small">
-                        <MenuLink
-                          to="/session"
-                          onClick={() => !isLg && close()}
-                        >
-                          {t('Menu-Session')}
-                        </MenuLink>
-                        <MenuLink
-                          to="/encounter"
-                          onClick={() => !isLg && close()}
-                        >
-                          {t('Menu-Encounters')}
-                        </MenuLink>
-                        <MenuLink
-                          to="/monsters"
-                          onClick={() => !isLg && close()}
-                        >
-                          {t('Menu-Monsters')}
-                        </MenuLink>
-                        <MenuLink to="/map" onClick={() => !isLg && close()}>
-                          {t('Menu-Map')}
-                        </MenuLink>
-                        <MenuLink
-                          to="/calendar"
-                          onClick={() => !isLg && close()}
-                        >
-                          {t('Menu-Calendar')}
-                        </MenuLink>
-                        <div className="">
-                          <Group
-                            menu
-                            spaceBeforeItems={false}
-                            label={
-                              <div className="font-medium">
-                                {t('Menu-Gear')}
-                              </div>
-                            }
-                            open={isGearPageActive(pathname)}
-                          >
-                            <div className="mt-2">
-                              <Pancake spacing="small">
-                                <MenuLink
-                                  to="/gear/tables"
-                                  indent={1}
-                                  onClick={() => !isLg && close()}
-                                >
-                                  {t('Menu-Gear-Tables')}
-                                </MenuLink>
-                                <MenuLink
-                                  to="/gear/finds"
-                                  indent={1}
-                                  onClick={() => !isLg && close()}
-                                >
-                                  {t('Menu-Gear-Finds')}
-                                </MenuLink>
-                              </Pancake>
-                            </div>
-                          </Group>
-                        </div>
-                        <div className="">
-                          <Group
-                            menu
-                            spaceBeforeItems={false}
-                            label={
-                              <div className="font-medium">
-                                {t('Menu-NPCs')}
-                              </div>
-                            }
-                            open={isKinPageActive(pathname)}
-                          >
-                            <div className="mt-2">
-                              <Pancake spacing="small">
-                                <MenuLink
-                                  to="/npcs/names"
-                                  indent={1}
-                                  onClick={() => !isLg && close()}
-                                >
-                                  {t('Menu-NPCs-Names')}
-                                </MenuLink>
-                                <MenuLink
-                                  to="/npcs/typical"
-                                  indent={1}
-                                  onClick={() => !isLg && close()}
-                                >
-                                  {t('Menu-NPCs-Typical')}
-                                </MenuLink>
-                                <MenuLink
-                                  to="/npcs/npc"
-                                  indent={1}
-                                  onClick={() => !isLg && close()}
-                                >
-                                  {t('Menu-NPCs-Npc')}
-                                </MenuLink>
-                              </Pancake>
-                            </div>
-                          </Group>
-                        </div>
+                        <Menu close={close} menuRoutes={menuRoutes} />
                       </Stack>
                     </div>
                     {/* <MenuLink to="/dice">{t('Menu-Dice')}</MenuLink> */}

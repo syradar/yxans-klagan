@@ -3,7 +3,6 @@
   "Language-English": "English",
   "Menu-Session": "Session",
   "Menu-Encounters": "Encounters",
-  "Menu-Map": "Map",
   "Menu-Calendar": "Calendar",
   "Menu-Gear": "Gear",
   "Menu-Gear-Tables": "Gear Tables",
@@ -15,5 +14,8 @@
   "Menu-Dice": "Tärningar",
   "Menu-Monsters": "Monsters",
   "GiveFeedback": "Give feedback",
-  "Menu": "Menu"
+  "Menu": "Menu",
+  "Menu-Places": "Places",
+  "Menu-Places-Map": "Map",
+  "Menu-Places-Village": "Village"
 }
