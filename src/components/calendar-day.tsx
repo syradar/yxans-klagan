@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
+import { TranslationKey } from '../@types/i18next'
 import {
   getFahrenheitTempString,
   getMoonEmoji,
@@ -60,7 +61,9 @@ export const CalendarDay: FC<CalendarDayProps> = ({
             <div>{t(day.downpour)}</div>
             <div>{t(day.stormType)}</div>
             <div>{t(day.stormType)}</div>
-            <div>{t(day.eventType?.name ?? '')}</div>
+            <div>
+              {day.eventType && day.eventType.name ? day.eventType.name : ''}
+            </div>
           </Train>
         )}
       </Pancake>

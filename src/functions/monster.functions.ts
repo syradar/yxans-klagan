@@ -10,10 +10,10 @@ export const createMonstersViewModel = (
 })
 
 export const monsterComparer =
-  (t: TFunction<'monsters' | 'common'>) =>
+  (t: TFunction<'common'>) =>
   (a: MonsterViewModel, b: MonsterViewModel): number => {
-    const ma = t(`Monster.${a.name}`, { ns: 'common' })
-    const mb = t(`Monster.${b.name}`, { ns: 'common' })
+    const ma = t(a.name, { ns: 'common', defaultValue: a.name })
+    const mb = t(b.name, { ns: 'common', defaultValue: b.name })
 
     if (ma < mb) {
       return -1

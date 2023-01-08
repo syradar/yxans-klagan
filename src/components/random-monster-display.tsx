@@ -46,42 +46,53 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
     heads: MonsterDescriptionItemViewModel[],
   ): string => {
     const translatedHeads = heads.map((h) =>
-      h.count ? t(h.key, { count: h.count }) : t(h.key),
+      h.count
+        ? t(h.key, { count: h.count, defaultValue: h.key })
+        : t(h.key, { defaultValue: h.key }),
     )
 
     if (translatedHeads.length === 1) {
-      return `${t('TheMonsterHas')} ${translatedHeads.join('')}.`
+      return `${t('monsters:TheMonsterHas')} ${translatedHeads.join('')}.`
     }
 
     const [lastHead, ...restOfHeads] = translatedHeads
 
-    return `${t('TheMonsterHas')} ${restOfHeads.join(', ')} & ${lastHead}.`
+    return `${t('monsters:TheMonsterHas')} ${restOfHeads.join(
+      ', ',
+    )} & ${lastHead}.`
   }
 
   const describeMonsterLimbs = (
     limbs: MonsterDescriptionItemViewModel[],
   ): string => {
     const translatedLimbs = limbs.map((l) =>
-      l.count ? t(`${l.key}_count`, { count: l.count }) : t(l.key),
+      l.count
+        ? t(`${l.key}_count`, { count: l.count, defaultValue: l.key })
+        : t(l.key, { defaultValue: l.key }),
     )
 
     if (translatedLimbs.length === 1) {
-      return `${t('TheMonsterHas')} ${translatedLimbs.join('')}.`
+      return `${t('monsters:TheMonsterHas')} ${translatedLimbs.join('')}.`
     }
 
     const [lastLimb, ...restOfLimbs] = [...translatedLimbs].reverse()
 
-    return `${t('TheMonsterHas')} ${restOfLimbs.join(', ')} & ${lastLimb}.`
+    return `${t('monsters:TheMonsterHas')} ${restOfLimbs.join(
+      ', ',
+    )} & ${lastLimb}.`
   }
 
   const describeHome = (monsterHome: string): string =>
-    `${t('LivesIn', { home: t(`Homes.${monsterHome}`) })}.`
+    `${t('LivesIn', {
+      home: `monsters:Homes.${monsterHome}`,
+      defaultValue: monsterHome,
+    })}.`
 
   return (
     <Pancake wrap={false}>
       <h2 className="yx-heading mb-2 text-4xl">
-        {t(`Size.${rm.size}`, { ...getSizeContext(rm.type) })}{' '}
-        {t(`Type.${rm.type}`)}
+        {t(`monsters:Size.${rm.size}`, { ...getSizeContext(rm.type) })}{' '}
+        {t(`monsters:Type.${rm.type}`)}
       </h2>
 
       <div className="yx-prose mb-4 max-w-prose">
@@ -97,16 +108,16 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
       <section className="grid grid-cols-1 4xl:grid-cols-2 4xl:gap-8">
         <div className="mb-4 flex flex-col gap-8 md:flex-row 4xl:flex">
           <div className="flex-1">
-            <h3 className="text-xl font-medium">{t(`Attribute`)}</h3>
+            <h3 className="text-xl font-medium">{t(`common:Attribute`)}</h3>
             <div className="mb-2 sm:flex sm:gap-8 md:block">
               {rm.attributes.strength && (
                 <div className="mb-2">
                   <MonsterAttribute
                     key={`${rm.size}-strength`}
                     values={[...rm.attributes.strength.values]}
-                    label={t(`Attributes.${rm.attributes.strength.label}`, {
-                      ns: 'common',
-                    })}
+                    label={t(
+                      `common:Attributes.${rm.attributes.strength.label}`,
+                    )}
                   />
                 </div>
               )}
@@ -115,9 +126,9 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
                   <MonsterAttribute
                     key={`${rm.size}-agility`}
                     values={[...rm.attributes.agility.values]}
-                    label={t(`Attributes.${rm.attributes.agility.label}`, {
-                      ns: 'common',
-                    })}
+                    label={t(
+                      `common:Attributes.${rm.attributes.agility.label}`,
+                    )}
                   />
                 </div>
               )}
@@ -125,10 +136,12 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
             <section className="flex flex-wrap gap-x-8 gap-y-4 4xl:flex-col">
               {rm.armor && (
                 <div>
-                  <h3 className="text-xl font-medium">{t('ArmorLabel')}</h3>
+                  <h3 className="text-xl font-medium">
+                    {t('monsters:ArmorLabel')}
+                  </h3>
                   <div>
                     <span className="font-medium">
-                      {t(`Armor.${rm.armor.label}`)}:{' '}
+                      {t(`monsters:Armor.${rm.armor.label}`)}:{' '}
                     </span>
                     {rm.armor.values.length}
                   </div>
@@ -137,25 +150,35 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
 
               <div>
                 <h3 className="text-xl font-medium">
-                  {t(`Movement.Movement`)}
+                  {t(`monsters:Movement.Movement`)}
                 </h3>
                 <div>
-                  {t(`Movement.${rm.movement.type}`)} {rm.movement.distance}{' '}
-                  {t(`Movement.Zones`, {
+                  {t(`monsters:Movement.${rm.movement.type}`)}{' '}
+                  {rm.movement.distance}{' '}
+                  {t(`monsters:Movement.Zones`, {
                     count: rm.movement.distance,
                   })}
                 </div>
               </div>
 
               <div className="md:w-full">
-                <h3 className="text-xl font-medium">{t(`Skill`)}</h3>
+                <h3 className="text-xl font-medium">{t(`monsters:Skill`)}</h3>
                 {rm.skills.length === 0 ? (
-                  <div>{t('Skills.None')}</div>
+                  <div>{t('monsters:Skills.None')}</div>
                 ) : (
                   <SkillList
-                    skills={rm.skills
-                      .map((s) => ({ ...s, name: t(s.name) }))
-                      .sort((a, b) => a.name.localeCompare(b.name))}
+                    skills={
+                      rm.skills
+                        .map((s) => ({
+                          value: s.value,
+                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                          name: t(s.name as any) as string,
+                        }))
+                        .sort((a, b) => a.name.localeCompare(b.name)) as {
+                        name: string
+                        value: number
+                      }[]
+                    }
                   ></SkillList>
                 )}
               </div>
@@ -164,33 +187,43 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
 
           <div className="grid flex-1 auto-rows-min grid-cols-2 gap-4 lg:grid-cols-none   lg:gap-4">
             <section>
-              <h3 className="text-xl font-medium">{t(`Trait.Traits`)}</h3>
+              <h3 className="text-xl font-medium">
+                {t(`monsters:Trait.Traits`)}
+              </h3>
               <DefinitionList
                 definitions={rm.traits.map((trait) => ({
-                  name: t(trait.name),
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  name: t(trait.name as any) as string,
                   description: t(trait.description.key, {
                     count: trait.description.count,
+                    defaultValue: trait.description.key,
                   }),
                 }))}
               ></DefinitionList>
             </section>
             <section>
-              <h3 className="text-xl font-medium">{t(`Weakness.Weakness`)}</h3>
+              <h3 className="text-xl font-medium">
+                {t(`monsters:Weakness.Weakness`)}
+              </h3>
               <DefinitionList
                 definitions={[rm.weakness].map((w) => ({
-                  name: t(w.name),
-                  description: t(w.description),
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  name: t(w.name as any),
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  description: t(w.description as any),
                 }))}
               ></DefinitionList>
             </section>
             <section>
               <h3 className="text-xl font-medium">
-                {t(`Motivation.Motivation`)}
+                {t(`monsters:Motivation.Motivation`)}
               </h3>
               <DefinitionList
                 definitions={[rm.motivation].map((m) => ({
-                  name: t(m.name),
-                  description: t(m.description),
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  name: t(m.name as any),
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  description: t(m.description as any),
                 }))}
               ></DefinitionList>
             </section>
@@ -199,9 +232,11 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
         <div>
           <Pancake>
             <div className="flex items-baseline gap-2">
-              <h3 className="text-xl font-medium">{t(`Attack.Attacks`)}</h3>
+              <h3 className="text-xl font-medium">
+                {t(`monsters:Attack.Attacks`)}
+              </h3>
               <RollButton onClick={() => rollAttack()}>
-                {t('Attack.Roll')}
+                {t('monsters:Attack.Roll')}
               </RollButton>
             </div>
             <div className="grid gap-2 md:grid-cols-2">

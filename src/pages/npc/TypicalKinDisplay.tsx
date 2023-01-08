@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { TranslationKey } from '../../@types/i18next'
 import { ParchmentCard } from '../../components/card'
 import { Field } from '../../components/field'
 import { Group } from '../../components/group'
@@ -22,18 +23,8 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
 
   const formatSkills = (asvm: AllSkillsValuesViewModel): string =>
     asvm
-      .map(
-        ([skill, value]) =>
-          `${t(`Skills.${skill}`, { ns: 'common' })} ${value}`,
-      )
+      .map(([skill, value]) => `${t(`common:Skills.${skill}`)} ${value}`)
       .join(', ')
-
-  const formatTalents = (talents: string[]): string =>
-    talents.length > 0
-      ? talents
-          .map((talent) => t(`Talents.${talent}`, { ns: 'common' }))
-          .join(', ')
-      : '–'
 
   const toggleKin = () => {
     setTkvm({ ...tkvm, collapse: !tkvm.collapse })
@@ -63,7 +54,7 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
       <Group
         label={
           <h3 className="yx-heading text-xl">
-            {t(`Kin.${tkvm.kinType}.${tkvm.kin}`, { ns: 'common' })}
+            <>{t(tkvm.title)}</>
           </h3>
         }
         useDefaultLabel={false}
@@ -74,36 +65,36 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
         <Pancake spacing="small">
           <ParchmentCard>
             <Stack.Horizontal distribute full>
-              <Stat label={t('Attributes.Strength', { ns: 'common' })}>
+              <Stat label={t('common:Attributes.Strength')}>
                 {tkvm.attributes.strength?.value}
               </Stat>
-              <Stat label={t('Attributes.Agility', { ns: 'common' })}>
+              <Stat label={t('common:Attributes.Agility')}>
                 {tkvm.attributes.agility?.value}
               </Stat>
-              <Stat label={t('Attributes.Wits', { ns: 'common' })}>
+              <Stat label={t('common:Attributes.Wits')}>
                 {tkvm.attributes.wits?.value}
               </Stat>
-              <Stat label={t('Attributes.Empathy', { ns: 'common' })}>
+              <Stat label={t('common:Attributes.Empathy')}>
                 {tkvm.attributes.empathy?.value}
               </Stat>
             </Stack.Horizontal>
           </ParchmentCard>
           {tkvm.description && (
-            <Field label={t('Description.Description', { ns: 'common' })}>
-              {t(`Description.${tkvm.description}`, { ns: 'common' })}
+            <Field label={t('common:Description.Description')}>
+              <>{t(tkvm.description)}</>
             </Field>
           )}
-          <Field label={t('Skills.Skills', { ns: 'common' })}>
+          <Field label={t('common:Skills.Skills')}>
             {formatSkills(tkvm.skills)}
           </Field>
-          <Field label={t('Talents.Talents', { ns: 'common' })}>
-            {formatTalents(tkvm.talents)}
+          <Field label={t('common:Talents.Talents')}>
+            {tkvm.talents.length > 0
+              ? tkvm.talents.map((talent) => t(talent)).join(', ')
+              : '–'}
           </Field>
           {tkvm.gear.length > 0 && (
-            <Field label={t('Gear.Gear', { ns: 'common' })}>
-              {tkvm.gear
-                .map((g) => t(`Gear.${g}`, { ns: 'common' }))
-                .join(', ')}
+            <Field label={t('common:Gear.Gear')}>
+              {tkvm.gear.map((g) => t(g)).join(', ')}
             </Field>
           )}
           <Pancake spacing="small">
@@ -115,7 +106,11 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                   <div className="w-full">
                     <Grid cols="3">
                       <h3 className="font-bold">
-                        {t(`Weapon.${w.category}.${w.name}`, { ns: 'common' })}
+                        <>
+                          {t(
+                            `common:Weapon.${w.category}.${w.name}` as TranslationKey<'common'>,
+                          )}
+                        </>
                       </h3>
                       {w.collapse && w.bonus && (
                         <h3 className="text-center font-medium">
@@ -125,7 +120,7 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                       {w.collapse && (
                         <h3 className="text-right font-medium">
                           {w.damage}{' '}
-                          {t('Weapon.Damage', { ns: 'common' }).toLowerCase()}
+                          {t('common:Weapon.Damage').toString().toLowerCase()}
                         </h3>
                       )}
                     </Grid>
@@ -136,25 +131,23 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
               >
                 <Pancake spacing="small">
                   <Train distribute>
-                    <Stat label={t(`Weapon.Grip`, { ns: 'common' })}>
-                      {w.grip}
-                    </Stat>
-                    <Stat label={t(`Weapon.Bonus`, { ns: 'common' })}>
+                    <Stat label={t(`common:Weapon.Grip`)}>{w.grip}</Stat>
+                    <Stat label={t(`common:Weapon.Bonus`)}>
                       {w.bonus ?? '–'}
                     </Stat>
-                    <Stat label={t(`Weapon.Damage`, { ns: 'common' })}>
-                      {w.damage}
-                    </Stat>
-                    <Stat label={t(`Range.Range`, { ns: 'common' })}>
-                      {t(`Range.${w.range}`, { ns: 'common' })}
+                    <Stat label={t(`common:Weapon.Damage`)}>{w.damage}</Stat>
+                    <Stat label={t(`common:Range.Range`)}>
+                      <>
+                        {t(
+                          `common:Range.${w.range}` as TranslationKey<'common'>,
+                        )}
+                      </>
                     </Stat>
                   </Train>
                   {w.features.length > 0 && (
                     <Train spacing="small">
                       {w.features.map((f) => (
-                        <Tag key={f}>
-                          {t(`Weapon.Feature.${f}`, { ns: 'common' })}
-                        </Tag>
+                        <Tag key={f}>{t(`common:Weapon.Feature.${f}`)}</Tag>
                       ))}
                     </Train>
                   )}
@@ -171,7 +164,7 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                   <div className="w-full">
                     <Grid cols="2">
                       <h3 className="font-bold">
-                        {t(`Shield.${s.type}`, { ns: 'common' })}
+                        {t(`common:Shield.${s.type}`)}
                       </h3>
                       {s.collapse && (
                         <h3 className="text-right font-medium">
@@ -186,16 +179,12 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
               >
                 <Pancake spacing="small">
                   <Train>
-                    <Stat label={t(`Weapon.Bonus`, { ns: 'common' })}>
-                      {s.bonus}
-                    </Stat>
+                    <Stat label={t(`common:Weapon.Bonus`)}>{s.bonus}</Stat>
                   </Train>
                   {s.features.length > 0 && (
                     <Train>
                       {s.features.map((s) => (
-                        <Tag key={s}>
-                          {t(`ArmorFeature.${s}`, { ns: 'common' })}
-                        </Tag>
+                        <Tag key={s}>{t(`common:ArmorFeature.${s}`)}</Tag>
                       ))}
                     </Train>
                   )}
@@ -212,7 +201,7 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                   <div className="w-full">
                     <Grid cols="2">
                       <h3 className="font-bold">
-                        {t(`Armor.${a.type}`, { ns: 'common' })}
+                        {t(`common:Armor.${a.type}`)}
                       </h3>
                       {a.collapse && (
                         <h3 className="text-right font-medium">{a.rating}</h3>
@@ -225,18 +214,16 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
               >
                 <Pancake spacing="small">
                   <Train distribute>
-                    <Stat label={t(`Armor.Rating`, { ns: 'common' })}>
-                      {a.rating}
-                    </Stat>
-                    <Stat label={t(`Armor.BodyPart`, { ns: 'common' })}>
-                      {t(`Armor.Body`, { ns: 'common' })}
+                    <Stat label={t(`common:Armor.Rating`)}>{a.rating}</Stat>
+                    <Stat label={t(`common:Armor.BodyPart`)}>
+                      {t(`common:Armor.Body`)}
                     </Stat>
                   </Train>
                   {a.features.length > 0 && (
                     <Train spacing="small">
                       {a.features.map((feature) => (
                         <Tag key={feature}>
-                          {t(`ArmorFeature.${feature}`, { ns: 'common' })}
+                          {t(`common:ArmorFeature.${feature}`)}
                         </Tag>
                       ))}
                     </Train>
@@ -254,7 +241,7 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                   <div className="w-full">
                     <Grid cols="2">
                       <h3 className="font-bold">
-                        {t(`Helmet.${h.type}`, { ns: 'common' })}
+                        {t(`common:Helmet.${h.type}`)}
                       </h3>
                       {h.collapse && (
                         <h3 className="text-right font-medium">{h.rating}</h3>
@@ -267,18 +254,16 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
               >
                 <Pancake spacing="small">
                   <Train distribute>
-                    <Stat label={t(`Armor.Rating`, { ns: 'common' })}>
-                      {h.rating}
-                    </Stat>
-                    <Stat label={t(`Helmet.BodyPart`, { ns: 'common' })}>
-                      {t(`Helmet.Body`, { ns: 'common' })}
+                    <Stat label={t(`common:Armor.Rating`)}>{h.rating}</Stat>
+                    <Stat label={t(`common:Helmet.BodyPart`)}>
+                      {t(`common:Helmet.Body`)}
                     </Stat>
                   </Train>
                   {h.features.length > 0 && (
                     <Train spacing="small">
                       {h.features.map((feature) => (
                         <Tag key={feature}>
-                          {t(`ArmorFeature.${feature}`, { ns: 'common' })}
+                          {t(`common:ArmorFeature.${feature}`)}
                         </Tag>
                       ))}
                     </Train>

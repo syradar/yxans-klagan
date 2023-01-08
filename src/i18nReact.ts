@@ -3,9 +3,60 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import Backend from 'i18next-http-backend'
 import { initReactI18next } from 'react-i18next'
 
-// don't want to use this?
-// have a look at the Quick start guide
-// for passing in lng and translations on init
+// import all namespaces (for the default language, only)
+import nsCoreEn from '../public/locales/en/core.json'
+import nsCommonEn from '../public/locales/en/common.json'
+import nsCalendarEn from '../public/locales/en/calendar.json'
+import nsMapEn from '../public/locales/en/map.json'
+import nsMonstersEn from '../public/locales/en/monsters.json'
+import nsNamesEn from '../public/locales/en/names.json'
+import nsEncountersEn from '../public/locales/en/encounters.json'
+import nsSessionEn from '../public/locales/en/session.json'
+import nsTypicalEn from '../public/locales/en/typical.json'
+import nsFindsEn from '../public/locales/en/finds.json'
+import nsNpcEn from '../public/locales/en/npc.json'
+
+import nsCoreSv from '../public/locales/sv/core.json'
+import nsCommonSv from '../public/locales/sv/common.json'
+import nsCalendarSv from '../public/locales/sv/calendar.json'
+import nsMapSv from '../public/locales/sv/map.json'
+import nsMonstersSv from '../public/locales/sv/monsters.json'
+import nsNamesSv from '../public/locales/sv/names.json'
+import nsEncountersSv from '../public/locales/sv/encounters.json'
+import nsSessionSv from '../public/locales/sv/session.json'
+import nsTypicalSv from '../public/locales/sv/typical.json'
+import nsFindsSv from '../public/locales/sv/finds.json'
+import nsNpcSv from '../public/locales/sv/npc.json'
+
+export const defaultNS = 'core'
+export const resources = {
+  en: {
+    core: nsCoreEn,
+    common: nsCommonEn,
+    calendar: nsCalendarEn,
+    map: nsMapEn,
+    monsters: nsMonstersEn,
+    names: nsNamesEn,
+    encounters: nsEncountersEn,
+    session: nsSessionEn,
+    typical: nsTypicalEn,
+    finds: nsFindsEn,
+    npc: nsNpcEn,
+  },
+  sv: {
+    core: nsCoreSv,
+    common: nsCommonSv,
+    calendar: nsCalendarSv,
+    map: nsMapSv,
+    monsters: nsMonstersSv,
+    names: nsNamesSv,
+    encounters: nsEncountersSv,
+    session: nsSessionSv,
+    typical: nsTypicalSv,
+    finds: nsFindsSv,
+    npc: nsNpcSv,
+  },
+}
 
 const i18nReact = i18n
 const loadPath = '/locales/{{lng}}/{{ns}}.json'
@@ -24,25 +75,13 @@ i18nReact
   .init({
     fallbackLng: 'en',
     debug: false,
+    defaultNS: 'core',
     supportedLngs: ['en', 'sv'],
-    ns: [
-      'core',
-      'common',
-      'calendar',
-      'map',
-      'monsters',
-      'names',
-      'encounters',
-      'session',
-      'typical',
-      'finds',
-      'npc',
-    ],
+    resources,
     keySeparator: '.',
     backend: {
       loadPath,
     },
-
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },

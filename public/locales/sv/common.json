@@ -1,6 +1,7 @@
 {
   "Page": "Sida",
   "GMBook": "SL",
+  "Empty": "",
   "Kin": {
     "Human": {
       "Humans": "Människor",
@@ -117,7 +118,9 @@
     "Ghoul": "Likätare",
     "SeaSerpent": "Sjöorm",
     "StranglingVine": "Stryparranka",
-    "Troll": "Troll"
+    "Troll": "Troll",
+    "Dragon": "Drake",
+    "Demon": "Demon"
   },
   "Direction": {
     "North": "norr",
@@ -187,9 +190,9 @@
     "PathOfDeath2": "Dödens väg 2",
     "PathOfTheBlade2": "Svärdets väg 2",
     "PathOfTheEnemy2": "Fiendens väg 2",
-    "PathOfBlood2OrPathOfDeath2": "$t(Talents.PathOfBlood2) eller $t(Talents.PathOfDeath2)",
-    "PathOfTheBlade2OrPathOfTheEnemy2": "$t(Talents.PathOfTheBlade2) eller $t(Talents.PathOfTheEnemy2)",
-    "PathOfHealing2OrShiftingShapes2OrPathOfSight2": "$t(Talents.PathOfHealing2) eller $t(Talents.ShiftingShapes2) eller $t(Talents.PathOfSight2)"
+    "PathOfBlood2OrPathOfDeath2": "$t(common:Talents.PathOfBlood2) eller $t(common:Talents.PathOfDeath2)",
+    "PathOfTheBlade2OrPathOfTheEnemy2": "$t(common:Talents.PathOfTheBlade2) eller $t(common:Talents.PathOfTheEnemy2)",
+    "PathOfHealing2OrShiftingShapes2OrPathOfSight2": "$t(common:Talents.PathOfHealing2) eller $t(common:Talents.ShiftingShapes2) eller $t(common:Talents.PathOfSight2)"
   },
   "Gear": {
     "Gear": "Utrustning",

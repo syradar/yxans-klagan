@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { TranslationKey } from '../@types/i18next'
 import { Group } from '../components/group'
 import { List } from '../components/list'
 import { ListItemButton } from '../components/list-item'
@@ -44,20 +45,24 @@ export const MonstersPage = () => {
 
   return (
     <div className="flex w-full flex-col gap-y-8 ">
-      <PageHeader>{t('Title')}</PageHeader>
+      <PageHeader>{t('monsters:Title')}</PageHeader>
       <div className="grid gap-16 lg:grid-cols-fr-1/3">
         <div>
           <List>
-            <Group marginBottom label={t(`GenerateMonster`)} open={true}>
+            <Group
+              marginBottom
+              label={t(`monsters:GenerateMonster`)}
+              open={true}
+            >
               <ul>
                 <li className="border border-b-0 border-gray-300 last:border-b">
                   <ListItemButton onClick={() => generateRandomMonster()}>
-                    {t('RandomMonster')}
+                    {t('monsters:RandomMonster')}
                   </ListItemButton>
                 </li>
               </ul>
             </Group>
-            <Group label={t(`BookMonsters`)} open={true}>
+            <Group label={t(`monsters:BookMonsters`)} open={true}>
               <ul>
                 {monsters.map((m) => (
                   <li
@@ -65,7 +70,12 @@ export const MonstersPage = () => {
                     className="border border-b-0 border-gray-300 last:border-b"
                   >
                     <ListItemButton onClick={() => selectMonster(m)}>
-                      {t(`Monster.${m.name}`, { ns: 'common' })}
+                      {
+                        t(m.name, {
+                          ns: 'monsters',
+                          defaultValue: m.name,
+                        }) as string
+                      }
                     </ListItemButton>
                   </li>
                 ))}

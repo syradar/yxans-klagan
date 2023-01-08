@@ -8,7 +8,6 @@ import {
   MovementType,
   WeightedRandomMonsterChoice,
 } from '../models/monster.model'
-import { Definition } from '../types/definition.type'
 import {
   defaultMovementDistanceFunction,
   homes,
@@ -20,6 +19,7 @@ import {
   types,
 } from './random-monster.data'
 import { describe, it, expect } from 'vitest'
+import { Definition } from '../@types/definition.type'
 
 describe('sizes', () => {
   describe('smaller ones', () => {

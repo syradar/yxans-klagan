@@ -1,6 +1,6 @@
-import { Definition } from '../types/definition.type'
+import { Definition } from '../@types/definition.type'
 
-export interface DefinitionListProps {
+export type DefinitionListProps = {
   definitions: Definition[]
 }
 

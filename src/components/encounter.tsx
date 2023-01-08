@@ -30,11 +30,15 @@ export const Encounter = ({ encounter }: EncounterProps) => {
             </h2>
           </div>
           <div>
-            {t('Page', { ns: 'common' })}. {encounter.page}
+            <>
+              {t('Page', { ns: 'common' })}. {encounter.page}
+            </>
           </div>
           <Stack.Horizontal spacing="small" wrap>
             {encounter.possibleTerrains.map((pt) => (
-              <Tag key={pt}>{t(`Terrain.${pt}`, { ns: 'common' })}</Tag>
+              <Tag key={pt}>
+                <>{t(`common:Terrain.${pt}`)}</>
+              </Tag>
             ))}
           </Stack.Horizontal>
         </Stack.Vertical>

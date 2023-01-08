@@ -1,18 +1,18 @@
+import { Definition } from '../@types/definition.type'
+import { TranslationKey } from '../@types/i18next'
 import { WeightedChoice } from '../functions/dice.functions'
-
-import { Definition } from '../types/definition.type'
 import { MonsterAttackRange } from './attack-range'
 import { Attributes, AttributesViewModel } from './attributes.model'
 import { MonsterSkillsValues } from './skills.model'
 
 export interface Monster {
-  name: string
+  name: TranslationKey
   attributes: Attributes
   pageReference?: number
 }
 
 export interface MonsterViewModel {
-  name: string
+  name: TranslationKey
   attributes: AttributesViewModel
   pageReference?: number
 }
@@ -120,16 +120,19 @@ export type MonsterHome =
   | 'Ravine'
   | 'Den'
 
-export type MonsterSkillListItem = { name: string; value: number }
+export type MonsterSkillListItem = {
+  name: TranslationKey
+  value: number
+}
 
 export type MonsterTrait = {
-  name: string
+  name: TranslationKey
   description: () => MonsterDescriptionItemViewModel
   apply: (rm: RandomMonster) => RandomMonster
 }
 
 export type MonsterTraitViewModel = {
-  name: string
+  name: TranslationKey
   description: MonsterDescriptionItemViewModel
 }
 export type MonsterWeakness = Definition
@@ -237,7 +240,7 @@ export type MonsterAttack = {
   attack?: (rm: IntermediateRandomMonster) => number
   damage?: (rm: IntermediateRandomMonster) => MonsterDamage
   range: MonsterAttackRange
-  description: string
+  description: TranslationKey
   descriptionExtras?: (rm: IntermediateRandomMonster) => { count: number }
   valid: (rm: IntermediateRandomMonster) => boolean
   singleUse: boolean
@@ -249,7 +252,7 @@ export type MonsterAttackViewModel = {
   attack?: number
   damage?: MonsterDamage
   range: `Range.${MonsterAttackRange}`
-  description: string
+  description: TranslationKey
   descriptionExtras?: { count: number }
 }
 
@@ -286,7 +289,10 @@ export type MonsterDescription = {
   limbs: MonsterLimbs
 }
 
-export type MonsterDescriptionItemViewModel = { key: string; count?: number }
+export type MonsterDescriptionItemViewModel = {
+  key: TranslationKey
+  count?: number
+}
 
 export type MonsterDescriptionViewModel = {
   head: MonsterDescriptionItemViewModel[]
@@ -343,8 +349,8 @@ export interface RandomMonsterViewModel
   traits: MonsterTraitViewModel[]
   weakness: MonsterWeakness
   motivation: {
-    name: `Motivation.${MonsterMotivation}.Name`
-    description: `Motivation.${MonsterMotivation}.Description`
+    name: `monsters:Motivation.${MonsterMotivation}.Name`
+    description: `monsters:Motivation.${MonsterMotivation}.Description`
   }
   damageModifiers: MonsterDamageModifiers
   attacks: MonsterAttackViewModel[]

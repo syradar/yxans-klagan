@@ -56,9 +56,9 @@ export const TypicalKinPage = () => {
 
   return (
     <div className="flex w-full flex-col gap-y-8 pb-16">
-      <PageHeader>{t('Title')}</PageHeader>
+      <PageHeader>{t('typical:Title')}</PageHeader>
       <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-        {t('Kin.Human.Humans', { ns: 'common' })}
+        {t('common:Kin.Human.Humans')}
       </h2>
       <div className="grid gap-4 md:grid-cols-2  2xl:grid-cols-3">
         {humanKinViewModels.map((tkvm) => (
@@ -66,7 +66,7 @@ export const TypicalKinPage = () => {
         ))}
       </div>
       <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-        {t('Kin.Elf.Elves', { ns: 'common' })}
+        {t('common:Kin.Elf.Elves')}
       </h2>
       <div className="grid gap-4 md:grid-cols-2  2xl:grid-cols-3">
         {elfKinViewModels.map((tkvm) => (
@@ -74,7 +74,7 @@ export const TypicalKinPage = () => {
         ))}
       </div>
       <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-        {t('Kin.Dwarf.Dwarves', { ns: 'common' })}
+        {t('common:Kin.Dwarf.Dwarves')}
       </h2>
       <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         {dwarfKinViewModels.map((tkvm) => (
@@ -82,7 +82,7 @@ export const TypicalKinPage = () => {
         ))}
       </div>
       <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-        {t('Kin.Orc.Orcs', { ns: 'common' })}
+        {t('common:Kin.Orc.Orcs')}
       </h2>
       <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         {orcKinViewModels.map((tkvm) => (
@@ -93,7 +93,7 @@ export const TypicalKinPage = () => {
       <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         <Pancake>
           <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-            {t('Kin.Ogre.Ogres', { ns: 'common' })}
+            {t('common:Kin.Ogre.Ogres')}
           </h2>
           {ogreKinViewModels.map((tkvm) => (
             <TypicalKinDisplay key={tkvm.kin} tkvm={tkvm}></TypicalKinDisplay>
@@ -101,7 +101,7 @@ export const TypicalKinPage = () => {
         </Pancake>
         <Pancake>
           <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-            {t('Kin.Wolfkin.Wolfkins', { ns: 'common' })}
+            {t('common:Kin.Wolfkin.Wolfkins')}
           </h2>
 
           {wolfkinKinViewModels.map((tkvm) => (
@@ -112,7 +112,7 @@ export const TypicalKinPage = () => {
       <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         <Pancake>
           <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-            {t('Kin.Saurian.Saurians', { ns: 'common' })}
+            {t('common:Kin.Saurian.Saurians')}
           </h2>
           {saurianKinViewModels.map((tkvm) => (
             <TypicalKinDisplay key={tkvm.kin} tkvm={tkvm}></TypicalKinDisplay>
@@ -120,7 +120,7 @@ export const TypicalKinPage = () => {
         </Pancake>
         <Pancake>
           <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-            {t('Kin.Whiner.Whiners', { ns: 'common' })}
+            {t('common:Kin.Whiner.Whiners')}
           </h2>
           {whinerKinViewModels.map((tkvm) => (
             <TypicalKinDisplay key={tkvm.kin} tkvm={tkvm}></TypicalKinDisplay>
@@ -128,7 +128,7 @@ export const TypicalKinPage = () => {
         </Pancake>
       </div>
       <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-        {t('Kin.HalflingAndGoblin.HalflingAndGoblins', { ns: 'common' })}
+        {t('common:Kin.HalflingAndGoblin.HalflingAndGoblins')}
       </h2>
       <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         {halflingAndGoblinKinViewModels.map((tkvm) => (
@@ -137,7 +137,7 @@ export const TypicalKinPage = () => {
       </div>
       <Pancake>
         <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-          {t('Kin.Believers.Believers', { ns: 'common' })}
+          {t('common:Kin.Believers.Believers')}
         </h2>
         <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
           {believerKinViewModels.map((tkvm) => (

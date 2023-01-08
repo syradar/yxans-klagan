@@ -31,20 +31,22 @@ export const NpcPage = () => {
 
   return (
     <div className="flex w-full flex-col gap-y-8 pb-16">
-      <PageHeader>{t('Title')}</PageHeader>
+      <PageHeader>{t('npc:Title')}</PageHeader>
       <ParchmentButton onClick={() => generateOccupation()}>
-        {t('NpcButton')}
+        {t('npc:NpcButton')}
       </ParchmentButton>
       <Parchment>
         <Pancake>
           {/* <div className="text-lg lg:(text-2xl)" className="yx-prose">
             {t(`Kin.${npc.kin}.${npc.kin}`, { ns: 'common' })}
           </div> */}
-          <div className="yx-prose">{t(`Occupation.${npc.occupation}`)}</div>
           <div className="yx-prose">
-            {t(`Characteristic.${npc.characteristic}`)}
+            {t(`npc:Occupation.${npc.occupation}`)}
           </div>
-          <div className="yx-prose">{t(`Quirk.${npc.quirk}`)}</div>
+          <div className="yx-prose">
+            {t(`npc:Characteristic.${npc.characteristic}`)}
+          </div>
+          <div className="yx-prose">{t(`npc:Quirk.${npc.quirk}`)}</div>
         </Pancake>
       </Parchment>
     </div>

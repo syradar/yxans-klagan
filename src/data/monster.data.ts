@@ -10,22 +10,22 @@ const defaultAttributes: Attributes = {
 
 export const bookMonsters: Monster[] = [
   {
-    name: 'Giant',
+    name: 'common:Monster.Giant',
     attributes: { ...defaultAttributes, strength: 12, agility: 2 },
     pageReference: 120,
   },
   {
-    name: 'AbyssWorm',
+    name: 'common:Monster.AbyssWorm',
     attributes: { ...defaultAttributes, strength: 14, agility: 2 },
     pageReference: 72,
   },
   {
-    name: 'Bloodling',
+    name: 'common:Monster.Bloodling',
     attributes: { ...defaultAttributes, strength: 8, agility: 4 },
     pageReference: 74,
   },
   {
-    name: 'DragonSmall',
+    name: 'common:Monster.DragonSmall',
     attributes: {
       strength: 32,
       agility: 2,
@@ -35,7 +35,7 @@ export const bookMonsters: Monster[] = [
     pageReference: 82,
   },
   {
-    name: 'DragonLarge',
+    name: 'common:Monster.DragonLarge',
     attributes: {
       strength: 48,
       agility: 4,
@@ -45,7 +45,7 @@ export const bookMonsters: Monster[] = [
     pageReference: 82,
   },
   {
-    name: 'Drakewyrm',
+    name: 'common:Monster.Drakewyrm',
     attributes: {
       strength: 25,
       agility: 3,
@@ -55,7 +55,7 @@ export const bookMonsters: Monster[] = [
     pageReference: 84,
   },
   {
-    name: 'DeathKnight',
+    name: 'common:Monster.DeathKnight',
     attributes: {
       strength: 12,
       agility: 3,
@@ -65,7 +65,7 @@ export const bookMonsters: Monster[] = [
     pageReference: 86,
   },
   {
-    name: 'Ent',
+    name: 'common:Monster.Ent',
     attributes: {
       strength: 16,
       agility: 3,
@@ -75,12 +75,12 @@ export const bookMonsters: Monster[] = [
     pageReference: 88,
   },
   {
-    name: 'Wyvern',
+    name: 'common:Monster.Wyvern',
     attributes: { ...defaultAttributes, strength: 14, agility: 5 },
     pageReference: 90,
   },
   {
-    name: 'Ghost',
+    name: 'common:Monster.Ghost',
     attributes: {
       strength: 8,
       agility: 3,
@@ -90,17 +90,17 @@ export const bookMonsters: Monster[] = [
     pageReference: 92,
   },
   {
-    name: 'Gryphon',
+    name: 'common:Monster.Gryphon',
     attributes: { ...defaultAttributes, strength: 12, agility: 5 },
     pageReference: 94,
   },
   {
-    name: 'GrayBear',
+    name: 'common:Monster.GrayBear',
     attributes: { ...defaultAttributes, strength: 14, agility: 2 },
     pageReference: 96,
   },
   {
-    name: 'Harpies',
+    name: 'common:Monster.Harpies',
     attributes: {
       strength: 8,
       agility: 3,
@@ -110,27 +110,27 @@ export const bookMonsters: Monster[] = [
     pageReference: 98,
   },
   {
-    name: 'Hydra',
+    name: 'common:Monster.Hydra',
     attributes: { ...defaultAttributes, strength: 4, agility: 4 },
     pageReference: 100,
   },
   {
-    name: 'Insectoid',
+    name: 'common:Monster.Insectoid',
     attributes: { ...defaultAttributes, strength: 5, agility: 3 },
     pageReference: 102,
   },
   {
-    name: 'GiantSquid',
+    name: 'common:Monster.GiantSquid',
     attributes: { ...defaultAttributes, strength: 14, agility: 4 },
     pageReference: 106,
   },
   {
-    name: 'Manticore',
+    name: 'common:Monster.Manticore',
     attributes: { ...defaultAttributes, strength: 15, agility: 4 },
     pageReference: 108,
   },
   {
-    name: 'Minotaur',
+    name: 'common:Monster.Minotaur',
     attributes: {
       strength: 10,
       agility: 4,
@@ -140,37 +140,37 @@ export const bookMonsters: Monster[] = [
     pageReference: 110,
   },
   {
-    name: 'NightWarg',
+    name: 'common:Monster.NightWarg',
     attributes: { ...defaultAttributes, strength: 8, agility: 4 },
     pageReference: 112,
   },
   {
-    name: 'RestlessDead',
+    name: 'common:Monster.RestlessDead',
     attributes: { ...defaultAttributes, strength: 3, agility: 2 },
     pageReference: 114,
   },
   {
-    name: 'Skeleton',
+    name: 'common:Monster.Skeleton',
     attributes: { ...defaultAttributes, strength: 3, agility: 2 },
     pageReference: 114,
   },
   {
-    name: 'Ghoul',
+    name: 'common:Monster.Ghoul',
     attributes: { ...defaultAttributes, strength: 4, agility: 2 },
     pageReference: 114,
   },
   {
-    name: 'SeaSerpent',
+    name: 'common:Monster.SeaSerpent',
     attributes: { ...defaultAttributes, strength: 18, agility: 3 },
     pageReference: 116,
   },
   {
-    name: 'StranglingVine',
+    name: 'common:Monster.StranglingVine',
     attributes: { ...defaultAttributes, strength: 8, agility: 3 },
     pageReference: 118,
   },
   {
-    name: 'Troll',
+    name: 'common:Monster.Troll',
     attributes: { ...defaultAttributes, strength: 8, agility: 3 },
     pageReference: 120,
   },

@@ -42,21 +42,21 @@ export const KinNameList = ({ title, nameFunc }: KinNameListProps) => {
         onClick={() => getNames()}
       >
         <h2 className="yx-heading flex text-center text-2xl lg:text-4xl">
-          {t(`Kin.Human.${title}`)}
+          {t(`common:Kin.Human.${title}`)}
         </h2>
         <ReloadIcon container={`w-6 h-6`} svg={``}></ReloadIcon>
       </button>
       <div className="grid grid-cols-2 gap-16">
         <div>
           <h3 className="text-2xl font-semibold uppercase">
-            {t('Gender.Women')}
+            {t('common:Gender.Women')}
           </h3>
           <NameList names={names.female}></NameList>
         </div>
 
         <div>
           <h3 className="text-2xl font-semibold uppercase">
-            {t('Gender.Men')}
+            {t('common:Gender.Men')}
           </h3>
           <NameList names={names.male}></NameList>
         </div>
