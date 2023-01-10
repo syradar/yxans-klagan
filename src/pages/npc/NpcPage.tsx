@@ -37,9 +37,6 @@ export const NpcPage = () => {
       </ParchmentButton>
       <Parchment>
         <Pancake>
-          {/* <div className="text-lg lg:(text-2xl)" className="yx-prose">
-            {t(`Kin.${npc.kin}.${npc.kin}`, { ns: 'common' })}
-          </div> */}
           <div className="yx-prose">
             {t(`npc:Occupation.${npc.occupation}`)}
           </div>
