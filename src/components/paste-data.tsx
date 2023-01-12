@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-
+import { ClipboardIcon } from '@heroicons/react/24/outline'
 export type PasteDataProps = {
   onData: (e: string) => void
   onFocusTextArea: () => void
@@ -38,7 +38,7 @@ export const PasteData = ({
   }
 
   return (
-    <div className="pointer-fine:hover:border-red-500 relative border-2 border-black bg-white focus:outline-none">
+    <div className=" relative rounded border-2 border-amber-800 bg-transparent text-amber-800 hover:border-amber-900 hover:bg-amber-100 focus:outline-none">
       <label htmlFor="paste-data-textarea" className="sr-only">
         Paste data here
       </label>
@@ -53,10 +53,11 @@ export const PasteData = ({
       <span
         ref={spanRef}
         className={`
-        block px-4 py-2 font-bold uppercase tracking-wide
+        flex items-center gap-2 px-4 py-2 text-amber-900
         ${textareaHasFocus ? 'opacity-0' : 'opacity-100'}
         `}
       >
+        <ClipboardIcon className="h-5 w-5" />
         {label}
       </span>
     </div>

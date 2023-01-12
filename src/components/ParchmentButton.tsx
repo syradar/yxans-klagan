@@ -7,7 +7,7 @@ type ParchmentButtonProps = {
   small?: boolean
   onClick?: () => void
   disabled?: boolean
-  buttonType?: 'secondary' | 'primary' | 'danger'
+  buttonType?: 'secondary' | 'primary' | 'danger' | 'ghost'
   forwardedRef?: React.Ref<HTMLButtonElement>
 }
 
@@ -52,6 +52,17 @@ export const ParchmentButton = ({
               ? 'border-amber-800 bg-amber-800 group-hover:border-amber-900 group-hover:bg-amber-900'
               : ''
           }
+          ${
+            !disabled && buttonType === 'ghost'
+              ? 'border-amber-800 bg-transparent text-amber-800 group-hover:border-amber-900 group-hover:bg-amber-100'
+              : ''
+          }
+            ${
+              !disabled && buttonType === 'danger'
+                ? 'border-rose-800 bg-rose-600 group-hover:border-rose-800 group-hover:bg-rose-800'
+                : ''
+            }
+
           `}
           style={{ filter: `url(#button-filter-${options.id})` }}
         ></div>
@@ -59,7 +70,16 @@ export const ParchmentButton = ({
           className={`
         z-10 col-start-1 col-end-2 row-start-1 row-end-2 flex items-center gap-2 font-medium
         ${small ? 'px-4 py-2' : 'px-4 py-2'}
-        ${disabled ? 'text-gray-600' : 'text-white'}
+        ${disabled ? 'text-gray-600' : ''}
+        ${
+          !disabled &&
+          (buttonType === 'primary' ||
+            buttonType === 'secondary' ||
+            buttonType === 'danger')
+            ? 'text-white'
+            : ''
+        }
+        ${!disabled && buttonType === 'ghost' ? 'text-amber-900' : ''}
         `}
         >
           {children}
