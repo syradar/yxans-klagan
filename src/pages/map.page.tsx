@@ -1,24 +1,31 @@
+import {
+  DocumentArrowDownIcon,
+  EyeIcon,
+  EyeSlashIcon,
+} from '@heroicons/react/24/outline'
 import { has } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ParchmentButton } from '../components/ParchmentButton'
+import { TranslationKey } from '../@types/i18next'
 import { Map } from '../components/map'
 import { MapPopover, MapPopoverOptions } from '../components/map-popover'
 import { PageHeader } from '../components/page-header'
 import { Parchment } from '../components/parchment'
+import { ParchmentButton } from '../components/ParchmentButton'
 import { PasteData } from '../components/paste-data'
 import { Polygon } from '../components/polygon'
 import { Train } from '../components/Stack'
 import { downloadFile } from '../functions/file.functions'
 import { isNullish, isString } from '../functions/utils.functions'
 import { Hex, HexStorage, initialHexas, isHexKey } from '../models/map.model'
-import { TranslationKey } from '../@types/i18next'
 
 const MAP_STORAGE_KEY = 'map'
 const FOG_OF_WAR_STORAGE_KEY = 'fogOfWar'
 
 export const MapPage = () => {
   const { t } = useTranslation(['map', 'common'])
+
+  const parchmentRef = useRef<HTMLDivElement>(null)
 
   const hexasFromStorage = localStorage.getItem(MAP_STORAGE_KEY) ?? undefined
 
@@ -60,11 +67,10 @@ export const MapPage = () => {
   const [mapPopover, setMapPopover] = useState<MapPopoverOptions | undefined>(
     undefined,
   )
-  const parchmentRef = useRef<SVGSVGElement>(null)
 
   const getRect = (
     hexTarget: EventTarget & Element,
-    parchmentElem: SVGSVGElement,
+    parchmentElem: HTMLDivElement,
   ) => ({
     rect: hexTarget.getBoundingClientRect(),
     parchmentRect: parchmentElem.getBoundingClientRect(),
@@ -295,13 +301,23 @@ export const MapPage = () => {
       <PageHeader>{t('map:Title')}</PageHeader>
 
       <Train>
-        <ParchmentButton onClick={() => setFogOfWar(!fogOfWar)}>
+        <ParchmentButton
+          buttonType="ghost"
+          onClick={() => setFogOfWar(!fogOfWar)}
+        >
+          {fogOfWar ? (
+            <EyeIcon className="h-5 w-5" />
+          ) : (
+            <EyeSlashIcon className="h-5 w-5" />
+          )}
           {t(fogOfWar ? 'map:FogOfWar_On' : 'map:FogOfWar_Off')}
         </ParchmentButton>
         <ParchmentButton
           disabled={!hasExploredHexas}
+          buttonType="ghost"
           onClick={() => handleFileDownload()}
         >
+          <DocumentArrowDownIcon className="h-5 w-5" />
           {t('map:DownloadMapData')}
         </ParchmentButton>
         <PasteData
@@ -313,33 +329,35 @@ export const MapPage = () => {
 
       <div>
         <Parchment>
-          <div
-            className="pointer-events-none absolute z-10 flex select-none items-center justify-center text-center text-[0.9vw] font-bold leading-none text-white"
-            style={{
-              textShadow: '0px 0px 1px black',
-              top: numToPx(tooltip.y),
-              left: numToPx(tooltip.x),
-              width: numToPx(tooltip.width),
-              height: numToPx(tooltip.height),
-            }}
-          >
-            {tooltip.text}
+          <div ref={parchmentRef} className="relative">
+            <div
+              className="pointer-events-none absolute z-10 flex select-none items-center justify-center text-center text-[0.9vw] font-bold leading-none text-white"
+              style={{
+                textShadow: '0px 0px 1px black',
+                top: numToPx(tooltip.y),
+                left: numToPx(tooltip.x),
+                width: numToPx(tooltip.width),
+                height: numToPx(tooltip.height),
+              }}
+            >
+              {tooltip.text}
+            </div>
+            <MapPopover
+              options={mapPopover}
+              onExploreChanged={(hex) => handleExploration(hex)}
+              onHide={() => handleSelectedHex(undefined)}
+            ></MapPopover>
+            <Map fogOfWar={fogOfWar}>
+              {hexas.map((hex, index) => (
+                <Polygon
+                  key={index}
+                  hex={hex}
+                  onMouseOver={(e) => handleMouseOver(e, hex)}
+                  onClick={(e) => handleHexClick(e, hex)}
+                />
+              ))}
+            </Map>
           </div>
-          <MapPopover
-            options={mapPopover}
-            onExploreChanged={(hex) => handleExploration(hex)}
-            onHide={() => handleSelectedHex(undefined)}
-          ></MapPopover>
-          <Map fogOfWar={fogOfWar}>
-            {hexas.map((hex, index) => (
-              <Polygon
-                key={index}
-                hex={hex}
-                onMouseOver={(e) => handleMouseOver(e, hex)}
-                onClick={(e) => handleHexClick(e, hex)}
-              />
-            ))}
-          </Map>
         </Parchment>
       </div>
 
