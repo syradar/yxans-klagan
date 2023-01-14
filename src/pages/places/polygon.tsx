@@ -1,4 +1,4 @@
-import { Hex } from '../models/map.model'
+import { Hex } from './map.model'
 
 type PolygonProps = {
   hex: Hex

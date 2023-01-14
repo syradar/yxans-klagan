@@ -3,7 +3,6 @@ import {
   EyeIcon,
   EyeSlashIcon,
 } from '@heroicons/react/24/outline'
-import { t } from 'i18next'
 import { has } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -18,7 +17,7 @@ import { TranslationKey } from '../../@types/i18next'
 import { ParchmentButton } from '../../components/ParchmentButton'
 import { MapPopoverOptions, MapPopover } from './map-popover'
 import { Polygon } from './polygon'
-
+import { Map } from './map'
 
 const MAP_STORAGE_KEY = 'map'
 const FOG_OF_WAR_STORAGE_KEY = 'fogOfWar'

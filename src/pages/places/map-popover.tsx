@@ -1,9 +1,9 @@
 import { FireIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Hex } from '../models/map.model'
-import { Parchment } from './parchment'
-import { ParchmentButton } from './ParchmentButton'
+import { Parchment } from '../../components/parchment'
+import { ParchmentButton } from '../../components/ParchmentButton'
+import { Hex } from './map.model'
 export interface MapPopoverOptions {
   hex: Hex
   x: number

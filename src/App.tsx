@@ -222,7 +222,7 @@ const AppMenu = () => {
                           {t('Menu-Monsters')}
                         </MenuLink>
                         <MenuLink to="/map" onClick={() => !isLg && close()}>
-                          {t('Menu-Map')}
+                          {t('Menu-Places-Map')}
                         </MenuLink>
                         <MenuLink
                           to="/calendar"
