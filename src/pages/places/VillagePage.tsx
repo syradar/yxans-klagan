@@ -1,13 +1,11 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
-import 'twin.macro'
 import { Button } from '../../components/Button'
 import { PageHeader } from '../../components/page-header'
 import { Parchment } from '../../components/parchment'
 import { Pancake, Train } from '../../components/Stack'
 
 export const VillagePage = () => {
-  const { t, i18n } = useTranslation(['common'])
+  const { t } = useTranslation(['village'])
 
   // const createNPC = (): NPC => ({
   //   kin: getRandomKinType(),
@@ -24,9 +22,9 @@ export const VillagePage = () => {
   // }
 
   return (
-    <div tw="flex flex-col gap-y-8 w-full pb-16">
-      <PageHeader>{t('Title')}</PageHeader>
-      <Parchment deps={[i18n.language]}>
+    <div className="flex w-full flex-col gap-y-8 pb-16">
+      <PageHeader>{t('village:Title')}</PageHeader>
+      <Parchment>
         <Pancake>
           <Train>
             <Button isSmall>Get village</Button>
