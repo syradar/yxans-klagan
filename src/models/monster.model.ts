@@ -1,6 +1,5 @@
 import { Definition } from '../@types/definition.type'
 import { TranslationKey } from '../@types/i18next'
-import { WeightedChoice } from '../functions/dice.functions'
 import { MonsterAttackRange } from './attack-range'
 import { Attributes, AttributesViewModel } from './attributes.model'
 import { MonsterSkillsValues } from './skills.model'
