@@ -1,4 +1,8 @@
-import { choose, weightedRandom } from '../../functions/dice.functions'
+import {
+  choose,
+  WeightedChoice,
+  weightedRandom,
+} from '../../functions/dice.functions'
 import { getFormattedVillageName } from '../../functions/village-name.functions'
 import { Gender } from '../../models/gender.model'
 import { ValidLanguage } from '../../models/language.model'
@@ -7,10 +11,7 @@ import { humanNames } from './data/name.data'
 
 export type NameType = 'FirstName' | 'FamilyName' | 'HomeName' | 'NickName'
 
-interface WeightedName {
-  weight: number
-  type: NameType
-}
+type WeightedName = WeightedChoice<NameType>
 
 export interface NameList {
   Male: {
@@ -153,7 +154,16 @@ export const getRandomAsleneName = (
 
 export const getNameTypeAndFirstName = (g: Gender, nl: NameList) => {
   return {
-    type: weightedRandom(nl[g].probabilites).type,
+    type: weightedRandom(nl[g].probabilites).value,
     firstName: choose(nl[g].rawNames),
   }
 }
+
+export interface Name {
+  firstName: string
+  familyName: string | null
+  homeName: string | null
+  nickName: string | null
+}
+
+export type LanguageNameMap = { [L in ValidLanguage]: Name } & { id: string }

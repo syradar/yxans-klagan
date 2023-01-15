@@ -30,16 +30,16 @@ describe('name functions', () => {
       const maleName = 'MALE_NAME'
       const nl: NameList = {
         Female: {
-          probabilites: [{ type: 'FirstName', weight: 1 }],
+          probabilites: [{ value: 'FirstName', weight: 1 }],
           rawNames: [femaleName],
         },
         Male: {
-          probabilites: [{ type: 'FirstName', weight: 1 }],
+          probabilites: [{ value: 'FirstName', weight: 1 }],
           rawNames: [maleName],
         },
       }
       const expected = {
-        type: 'FirstName',
+        value: 'FirstName',
         firstName: femaleName,
       }
       const result = getNameTypeAndFirstName('Female', nl)
@@ -56,12 +56,12 @@ describe('name functions', () => {
 
     const nl: NameList = {
       Female: {
-        probabilites: [{ type: 'FirstName', weight: 1 }],
+        probabilites: [{ value: 'FirstName', weight: 1 }],
         rawNames: [femaleName],
       },
       family: [familyName],
       Male: {
-        probabilites: [{ type: 'FirstName', weight: 1 }],
+        probabilites: [{ value: 'FirstName', weight: 1 }],
         rawNames: [maleName],
       },
     }
@@ -73,7 +73,7 @@ describe('name functions', () => {
       const familyNl: NameList = {
         ...nl,
         Female: {
-          probabilites: [{ type: 'FamilyName', weight: 1 }],
+          probabilites: [{ value: 'FamilyName', weight: 1 }],
           rawNames: [femaleName],
         },
       }
@@ -88,7 +88,7 @@ describe('name functions', () => {
       const homeNl: NameList = {
         ...nl,
         Female: {
-          probabilites: [{ type: 'HomeName', weight: 1 }],
+          probabilites: [{ value: 'HomeName', weight: 1 }],
           rawNames: [femaleName],
         },
       }
@@ -104,7 +104,7 @@ describe('name functions', () => {
       const homeNl: NameList = {
         ...nl,
         Female: {
-          probabilites: [{ type: 'FirstName', weight: 1 }],
+          probabilites: [{ value: 'FirstName', weight: 1 }],
           rawNames: [femaleName],
         },
       }
@@ -125,12 +125,12 @@ describe('name functions', () => {
 
     const nl: NameList = {
       Female: {
-        probabilites: [{ type: 'FirstName', weight: 1 }],
+        probabilites: [{ value: 'FirstName', weight: 1 }],
         rawNames: [femaleName],
       },
       family: [familyName],
       Male: {
-        probabilites: [{ type: 'FirstName', weight: 1 }],
+        probabilites: [{ value: 'FirstName', weight: 1 }],
         rawNames: [maleName],
       },
     }
@@ -142,7 +142,7 @@ describe('name functions', () => {
       const familyNl: NameList = {
         ...nl,
         Female: {
-          probabilites: [{ type: 'FamilyName', weight: 1 }],
+          probabilites: [{ value: 'FamilyName', weight: 1 }],
           rawNames: [femaleName],
         },
       }
@@ -157,7 +157,7 @@ describe('name functions', () => {
       const familyNl: NameList = {
         ...nl,
         Female: {
-          probabilites: [{ type: 'FamilyName', weight: 1 }],
+          probabilites: [{ value: 'FamilyName', weight: 1 }],
           rawNames: [femaleName],
         },
         family: [],
@@ -173,7 +173,7 @@ describe('name functions', () => {
       const familyNl: NameList = {
         ...nl,
         Female: {
-          probabilites: [{ type: 'FamilyName', weight: 1 }],
+          probabilites: [{ value: 'FamilyName', weight: 1 }],
           rawNames: [femaleName],
         },
         family: undefined,
@@ -189,7 +189,7 @@ describe('name functions', () => {
       const homeNl: NameList = {
         ...nl,
         Female: {
-          probabilites: [{ type: 'HomeName', weight: 1 }],
+          probabilites: [{ value: 'HomeName', weight: 1 }],
           rawNames: [femaleName],
         },
       }
@@ -205,7 +205,7 @@ describe('name functions', () => {
       const homeNl: NameList = {
         ...nl,
         Female: {
-          probabilites: [{ type: 'FirstName', weight: 1 }],
+          probabilites: [{ value: 'FirstName', weight: 1 }],
           rawNames: [femaleName],
         },
       }
@@ -226,12 +226,12 @@ describe('name functions', () => {
 
     const nl: NameList = {
       Female: {
-        probabilites: [{ type: 'FirstName', weight: 1 }],
+        probabilites: [{ value: 'FirstName', weight: 1 }],
         rawNames: [femaleName],
       },
       nickName: [nickName],
       Male: {
-        probabilites: [{ type: 'FirstName', weight: 1 }],
+        probabilites: [{ value: 'FirstName', weight: 1 }],
         rawNames: [maleName],
       },
     }
@@ -243,7 +243,7 @@ describe('name functions', () => {
       const familyNl: NameList = {
         ...nl,
         Female: {
-          probabilites: [{ type: 'NickName', weight: 1 }],
+          probabilites: [{ value: 'NickName', weight: 1 }],
           rawNames: [femaleName],
         },
       }
@@ -258,7 +258,7 @@ describe('name functions', () => {
       const familyNl: NameList = {
         ...nl,
         Female: {
-          probabilites: [{ type: 'NickName', weight: 1 }],
+          probabilites: [{ value: 'NickName', weight: 1 }],
           rawNames: [femaleName],
         },
         nickName: undefined,
@@ -274,7 +274,7 @@ describe('name functions', () => {
       const familyNl: NameList = {
         ...nl,
         Female: {
-          probabilites: [{ type: 'NickName', weight: 1 }],
+          probabilites: [{ value: 'NickName', weight: 1 }],
           rawNames: [femaleName],
         },
         nickName: [],
@@ -290,7 +290,7 @@ describe('name functions', () => {
       const homeNl: NameList = {
         ...nl,
         Female: {
-          probabilites: [{ type: 'FirstName', weight: 1 }],
+          probabilites: [{ value: 'FirstName', weight: 1 }],
           rawNames: [femaleName],
         },
       }

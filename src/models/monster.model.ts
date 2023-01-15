@@ -17,10 +17,6 @@ export interface MonsterViewModel {
   pageReference?: number
 }
 
-export interface WeightedRandomMonsterChoice<T> extends WeightedChoice {
-  value: T
-}
-
 export type ArmorTypeLabel =
   | 'Skin'
   | 'SoftFur'

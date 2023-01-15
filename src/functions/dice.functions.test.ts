@@ -43,35 +43,35 @@ describe('dice functions', () => {
 
   describe('weightedRandom', () => {
     it.each([
-      [[{ weight: 0, type: 'hej' }], 'hej'],
+      [[{ weight: 0, value: 'hej' }], 'hej'],
       [
         [
-          { weight: -1, type: 'hej' },
-          { weight: 100, type: 'då' },
+          { weight: -1, value: 'hej' },
+          { weight: 100, value: 'då' },
         ],
         'då',
       ],
       // [['test'], 'string'],
     ])('%j => %s', (input, expected) => {
-      const result = weightedRandom(input)
-      expect(result.type).toEqual(expected)
+      const result = weightedRandom<string>(input)
+      expect(result.value).toEqual(expected)
     })
   })
 
   describe('weightedRandomConsume', () => {
     it.each([
-      [[{ weight: 0, type: 'hej' }], [{ weight: 0, type: 'hej' }, []]],
+      [[{ weight: 0, value: 'hej' }], [{ weight: 0, value: 'hej' }, []]],
       [
         [
-          { weight: -1, type: 'hej' },
-          { weight: 100, type: 'då' },
-          { weight: -1, type: 're' },
+          { weight: -1, value: 'hej' },
+          { weight: 100, value: 'då' },
+          { weight: -1, value: 're' },
         ],
         [
-          { weight: 100, type: 'då' },
+          { weight: 100, value: 'då' },
           [
-            { weight: -1, type: 'hej' },
-            { weight: -1, type: 're' },
+            { weight: -1, value: 'hej' },
+            { weight: -1, value: 're' },
           ],
         ],
       ],
