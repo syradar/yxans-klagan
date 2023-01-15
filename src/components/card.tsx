@@ -24,9 +24,10 @@ export const Card = ({ children, subtle, thin, extraCss }: CardProps) => (
 
 type ParchmentCardProps = {
   children?: React.ReactNode
+  subtle?: boolean
 }
 
-export const ParchmentCard = ({ children }: ParchmentCardProps) => {
+export const ParchmentCard = ({ children, subtle }: ParchmentCardProps) => {
   const [options] = useState({
     baseFrequency: getRandomInt(1, 10) / 100,
     numOctaves: getRandomInt(1, 5),
@@ -39,7 +40,8 @@ export const ParchmentCard = ({ children }: ParchmentCardProps) => {
       <div className="grid grid-cols-1 grid-rows-1">
         <div
           className={`
-          z-0 col-start-1 col-end-2 row-start-1 row-end-2 rounded bg-amber-900/25
+          z-0 col-start-1 col-end-2 row-start-1 row-end-2 rounded
+          ${subtle ? ' bg-amber-900/5' : 'bg-amber-900/25'}
           `}
           style={{ filter: `url(#button-filter-${options.id})` }}
         ></div>
