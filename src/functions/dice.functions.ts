@@ -1,4 +1,4 @@
-import { compose, pluck, sum } from 'ramda'
+import { compose } from 'ramda'
 import { D2, D3, D4, D6, D66, D8 } from '../models/fbl-dice.model'
 import { range } from './array.functions'
 
@@ -56,45 +56,41 @@ export const choose = <T>(arr: readonly T[]): T =>
 
 export const chooseFromChoiceString = compose(choose, parseChoiceString)
 
-export interface WeightedChoice {
+export type WeightedChoice<T> = {
   weight: number
+  value: T
 }
 
-export const weightedRandomConsume = <T extends WeightedChoice>(
-  probabilities: T[],
-): [T, T[]] => {
-  const totalWeight = sum(pluck('weight', probabilities))
-  const randomInt = getRandomInt(0, totalWeight)
+export const weightedRandomConsume = <T>(
+  items: WeightedChoice<T>[],
+): { chosen: WeightedChoice<T>; rest: WeightedChoice<T>[] } => {
+  const totalWeight = items.reduce((acc, item) => acc + item.weight, 0)
+  let randomWeight = getRandomInt(0, totalWeight)
 
-  const chosen = probabilities.reduce(
-    (acc, cur, index) => {
-      if (acc.done > -1) {
-        return acc
+  let result = {} as { chosen: WeightedChoice<T>; rest: WeightedChoice<T>[] }
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i]
+    if (!item) {
+      continue
+    }
+
+    randomWeight = randomWeight - item.weight
+
+    if (randomWeight <= 0) {
+      result = {
+        chosen: item,
+        rest: items.filter((_, index) => index !== i),
       }
+      break
+    }
+  }
 
-      const newLeft = acc.left - cur.weight
-
-      if (newLeft <= 0) {
-        return {
-          left: 0,
-          done: index,
-          data: cur,
-        }
-      }
-
-      return {
-        ...acc,
-        left: newLeft,
-      }
-    },
-    { left: randomInt, done: -1, data: { weight: 0 } as T },
-  )
-
-  const rest = probabilities.filter((_val, index) => index !== chosen.done)
-
-  return [chosen.data, rest]
+  return result
 }
 
-export const weightedRandom = <T extends WeightedChoice>(
-  probabilities: T[],
-): T => weightedRandomConsume(probabilities)[0]
+export const weightedRandom = <T>(
+  items: WeightedChoice<T>[],
+): WeightedChoice<T> => weightedRandomConsume(items).chosen
+
+export type WeightedRandomFunc = typeof weightedRandom

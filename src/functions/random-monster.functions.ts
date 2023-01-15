@@ -41,7 +41,6 @@ import {
   RandomMonster,
   RandomMonsterViewModel,
   TailChoices,
-  WeightedRandomMonsterChoice,
 } from '../models/monster.model'
 import { MonsterSkillsValues } from '../models/skills.model'
 import { range } from './array.functions'
@@ -52,6 +51,7 @@ import {
   WeightedChoice,
   weightedRandom,
   weightedRandomConsume,
+  WeightedRandomFunc,
 } from './dice.functions'
 import { maybe, numberToBooleans } from './utils.functions'
 
@@ -129,7 +129,7 @@ export const createRandomMonsterViewModel = compose(
 )
 
 const rollForMonsterLimbs = (
-  choices: WeightedRandomMonsterChoice<LimbChoicesWithAmount>[],
+  choices: WeightedChoice<LimbChoicesWithAmount>[],
 ): MonsterLimbs => {
   const allLimbs: MonsterLimbs[] = []
 
@@ -185,7 +185,7 @@ const getLimbsDescription = (
 }
 
 const getHeads = (
-  choices: WeightedRandomMonsterChoice<HeadChoiceWithCount>[],
+  choices: WeightedChoice<HeadChoiceWithCount>[],
 ): HeadChoiceWithCount[] => {
   let totalRolls = 0
   let rollsLeft = 1
@@ -207,9 +207,7 @@ const getHeads = (
 }
 
 export const getMovement = (
-  randomFunc: <T extends WeightedChoice>(
-    probabilities: T[],
-  ) => T = weightedRandom,
+  randomFunc: WeightedRandomFunc = weightedRandom,
   agility?: number,
 ): MonsterMovement => {
   const { type, distanceFn } = randomFunc(movementTypes).value
@@ -221,15 +219,13 @@ export const getMovement = (
 }
 
 export const getMonsterHome = (
-  randomFunc: <T extends WeightedChoice>(
-    probabilities: T[],
-  ) => T = weightedRandom,
+  randomFunc: WeightedRandomFunc = weightedRandom,
 ): MonsterHome => randomFunc(homes).value
 
 export const getTraitListBasedOnMotivation = (
   motivation: MonsterMotivation,
-  traitsList: WeightedRandomMonsterChoice<MonsterTrait>[],
-): [MonsterTrait[], WeightedRandomMonsterChoice<MonsterTrait>[]] => {
+  traitsList: WeightedChoice<MonsterTrait>[],
+): [MonsterTrait[], WeightedChoice<MonsterTrait>[]] => {
   if (motivation !== 'Injured') {
     return [[], traitsList]
   }
@@ -251,11 +247,11 @@ export const getTraitListBasedOnMotivation = (
 
 export const getMonsterTraits = (
   numberOfTraits: D3,
-  traitsList: WeightedRandomMonsterChoice<MonsterTrait>[],
+  traitsList: WeightedChoice<MonsterTrait>[],
 ): MonsterTrait[] =>
   range(numberOfTraits).reduce(
     (acc, _) => {
-      const [chosen, rest] = weightedRandomConsume(acc.traitsLeft)
+      const { chosen, rest } = weightedRandomConsume(acc.traitsLeft)
 
       return {
         traits: [...acc.traits, chosen.value],
@@ -342,13 +338,14 @@ const createMonsterAttacks = (
   allMonsterAttacks: MonsterAttacks,
   rm: IntermediateRandomMonster,
 ): MonsterAttackViewModel[] => {
-  const validAttacks: WeightedRandomMonsterChoice<MonsterAttack>[] =
-    Object.values(allMonsterAttacks)
-      .filter((a) => a.type !== 'Generic' && a.valid(rm))
-      .map((a) => ({
-        weight: a.chance * 1000,
-        value: a,
-      }))
+  const validAttacks: WeightedChoice<MonsterAttack>[] = Object.values(
+    allMonsterAttacks,
+  )
+    .filter((a) => a.type !== 'Generic' && a.valid(rm))
+    .map((a) => ({
+      weight: a.chance * 1000,
+      value: a,
+    }))
 
   if (validAttacks.length < 6) {
     const genericAttacks = range(6 - validAttacks.length).map((_) => ({
@@ -362,15 +359,15 @@ const createMonsterAttacks = (
   return range(6).reduce(
     (
       acc: {
-        validAttacksLeft: WeightedRandomMonsterChoice<MonsterAttack>[]
+        validAttacksLeft: WeightedChoice<MonsterAttack>[]
         attackViewModels: MonsterAttackViewModel[]
       },
       _: number,
     ): {
-      validAttacksLeft: WeightedRandomMonsterChoice<MonsterAttack>[]
+      validAttacksLeft: WeightedChoice<MonsterAttack>[]
       attackViewModels: MonsterAttackViewModel[]
     } => {
-      const [chosen, rest] = weightedRandomConsume(acc.validAttacksLeft)
+      const { chosen, rest } = weightedRandomConsume(acc.validAttacksLeft)
 
       return {
         attackViewModels: [
@@ -411,7 +408,7 @@ const rollForArmor = compose(
     values: numberToBooleans(ma.armor),
   }),
   prop('value'),
-  (ac: WeightedRandomMonsterChoice<MonsterArmor>[]) => weightedRandom(ac),
+  (ac: WeightedChoice<MonsterArmor>[]) => weightedRandom(ac),
 )
 
 const createDescription = ({

@@ -1,13 +1,13 @@
 import { compose } from 'ramda'
 import { choose } from '../../functions/dice.functions'
 import { Chacteristics, getChacteristics } from './characteristics'
-import { getKinTypes, KinType } from './name'
+import { getKinTypes, KinType, Name } from './name'
 import { getOccupations, Occupation } from './occupation'
 import { getQuirks, Quirk } from './quirk'
 
 export type NPC = {
   kin: KinType
-  name?: string
+  name?: Name | string
   occupation: Occupation
   characteristic: Chacteristics
   quirk: Quirk

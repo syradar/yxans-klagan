@@ -5,17 +5,17 @@ export const humanNames: HumanNames = {
     Male: {
       probabilites: [
         {
-          type: 'FirstName',
+          value: 'FirstName',
           weight: 49,
         },
         {
-          type: 'FamilyName',
+          value: 'FamilyName',
           //'[name.Alderlänning.Male] [name.Alderlänning.Family]^5',
           // '[name.Alderlänning.Male] av [getHome.output]^5',
           weight: 5,
         },
         {
-          type: 'HomeName',
+          value: 'HomeName',
           weight: 5,
         },
       ],
@@ -74,9 +74,9 @@ export const humanNames: HumanNames = {
     },
     Female: {
       probabilites: [
-        { type: 'FirstName', weight: 49 },
-        { type: 'FamilyName', weight: 5 },
-        { type: 'HomeName', weight: 5 },
+        { value: 'FirstName', weight: 49 },
+        { value: 'FamilyName', weight: 5 },
+        { value: 'HomeName', weight: 5 },
       ],
       rawNames: [
         'Adela',
@@ -188,11 +188,11 @@ export const humanNames: HumanNames = {
     Male: {
       probabilites: [
         {
-          type: 'FirstName',
+          value: 'FirstName',
           weight: 49,
         },
         {
-          type: 'NickName',
+          value: 'NickName',
           weight: 5,
         },
       ],
@@ -252,11 +252,11 @@ export const humanNames: HumanNames = {
     Female: {
       probabilites: [
         {
-          type: 'FirstName',
+          value: 'FirstName',
           weight: 49,
         },
         {
-          type: 'NickName',
+          value: 'NickName',
           weight: 5,
         },
       ],
@@ -368,15 +368,15 @@ export const humanNames: HumanNames = {
     Male: {
       probabilites: [
         {
-          type: 'FirstName',
+          value: 'FirstName',
           weight: 49,
         },
         {
-          type: 'FamilyName',
+          value: 'FamilyName',
           weight: 10,
         },
         {
-          type: 'HomeName',
+          value: 'HomeName',
           weight: 10,
         },
       ],
@@ -436,15 +436,15 @@ export const humanNames: HumanNames = {
     Female: {
       probabilites: [
         {
-          type: 'FirstName',
+          value: 'FirstName',
           weight: 49,
         },
         {
-          type: 'FamilyName',
+          value: 'FamilyName',
           weight: 10,
         },
         {
-          type: 'HomeName',
+          value: 'HomeName',
           weight: 10,
         },
       ],

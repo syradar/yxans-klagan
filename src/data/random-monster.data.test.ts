@@ -6,7 +6,6 @@ import {
   MonsterType,
   MovementDistanceFunction,
   MovementType,
-  WeightedRandomMonsterChoice,
 } from '../models/monster.model'
 import {
   defaultMovementDistanceFunction,
@@ -20,6 +19,7 @@ import {
 } from './random-monster.data'
 import { describe, it, expect } from 'vitest'
 import { Definition } from '../@types/definition.type'
+import { WeightedChoice } from '../functions/dice.functions'
 
 describe('sizes', () => {
   describe('smaller ones', () => {
@@ -78,7 +78,7 @@ describe('movementTypes', () => {
     const movementTypeChoices = compose(
       sum,
       (
-        mts: WeightedRandomMonsterChoice<{
+        mts: WeightedChoice<{
           type: MovementType
           distanceFn: MovementDistanceFunction
         }>[],
@@ -96,7 +96,7 @@ describe('monsterHomes', () => {
   it('should have 36 choices', () => {
     const movementTypeChoices = compose(
       sum,
-      (mts: WeightedRandomMonsterChoice<MonsterHome>[]) => pluck('weight', mts),
+      (mts: WeightedChoice<MonsterHome>[]) => pluck('weight', mts),
     )
 
     const expected = 36
@@ -147,9 +147,8 @@ describe('monsterSkillValues', () => {
 
 describe('monsterSkillValues', () => {
   it('should have 36 choices', () => {
-    const weaknessChoices = compose(
-      sum,
-      (mts: WeightedRandomMonsterChoice<Definition>[]) => pluck('weight', mts),
+    const weaknessChoices = compose(sum, (mts: WeightedChoice<Definition>[]) =>
+      pluck('weight', mts),
     )
 
     const expected = 36
@@ -163,8 +162,7 @@ describe('monsterSkillValues', () => {
   it('should have 36 choices', () => {
     const motivationChoices = compose(
       sum,
-      (mts: WeightedRandomMonsterChoice<MonsterMotivation>[]) =>
-        pluck('weight', mts),
+      (mts: WeightedChoice<MonsterMotivation>[]) => pluck('weight', mts),
     )
 
     const expected = 36
