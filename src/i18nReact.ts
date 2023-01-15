@@ -79,7 +79,7 @@ i18nReact
   .init({
     fallbackLng: 'en',
     debug: false,
-    defaultNS: 'core',
+    defaultNS: false,
     supportedLngs: ['en', 'sv'],
     resources,
     keySeparator: '.',
