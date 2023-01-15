@@ -100,9 +100,9 @@ const getRandomName = (
   nameList: NameList,
   chooseFunc = choose,
 ): string[] => {
-  const { type, firstName } = getNameTypeAndFirstName(g, nameList)
+  const { value, firstName } = getNameTypeAndFirstName(g, nameList)
 
-  switch (type) {
+  switch (value) {
     case 'FamilyName': {
       if (!nameList.family || nameList.family.length === 0) {
         return [firstName]
@@ -154,7 +154,7 @@ export const getRandomAsleneName = (
 
 export const getNameTypeAndFirstName = (g: Gender, nl: NameList) => {
   return {
-    type: weightedRandom(nl[g].probabilites).value,
+    value: weightedRandom(nl[g].probabilites).value,
     firstName: choose(nl[g].rawNames),
   }
 }

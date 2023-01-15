@@ -60,20 +60,23 @@ describe('dice functions', () => {
 
   describe('weightedRandomConsume', () => {
     it.each([
-      [[{ weight: 0, value: 'hej' }], [{ weight: 0, value: 'hej' }, []]],
+      [
+        [{ weight: 0, value: 'hej' }],
+        { chosen: { weight: 0, value: 'hej' }, rest: [] },
+      ],
       [
         [
           { weight: -1, value: 'hej' },
           { weight: 100, value: 'då' },
           { weight: -1, value: 're' },
         ],
-        [
-          { weight: 100, value: 'då' },
-          [
+        {
+          chosen: { weight: 100, value: 'då' },
+          rest: [
             { weight: -1, value: 'hej' },
             { weight: -1, value: 're' },
           ],
-        ],
+        },
       ],
     ])('%j => %s', (input, expected) => {
       const result = weightedRandomConsume(input)
