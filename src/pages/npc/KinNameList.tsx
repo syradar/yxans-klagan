@@ -4,8 +4,10 @@ import { range } from '../../functions/array.functions'
 import { Gender } from '../../models/gender.model'
 import { ValidLanguage } from '../../models/language.model'
 import { HumanKin } from './name'
-import { ReloadIcon } from '../../components/icons/reload-icon'
 import { NameList } from './NameList'
+import { Typography } from '../../components/Typography'
+import { ParchmentButton } from '../../components/ParchmentButton'
+import { ArrowPathIcon } from '@heroicons/react/24/outline'
 
 interface KinNameListProps {
   title: HumanKin
@@ -36,16 +38,17 @@ export const KinNameList = ({ title, nameFunc }: KinNameListProps) => {
 
   return (
     <div>
-      <button
-        type="button"
-        className="mb-4 flex items-center gap-2 hover:text-red-500"
-        onClick={() => getNames()}
-      >
-        <h2 className="yx-heading flex text-center text-2xl lg:text-4xl">
+      <div className="mb-4 flex flex-col flex-wrap justify-between gap-2 lg:flex-row lg:items-center">
+        <Typography variant="h2" parchment useMargin={false}>
           {t(`common:Kin.Human.${title}`)}
-        </h2>
-        <ReloadIcon container={`w-6 h-6`} svg={``}></ReloadIcon>
-      </button>
+        </Typography>
+        <ParchmentButton buttonType="primary" onClick={() => getNames()}>
+          <>
+            <ArrowPathIcon className="h-5 w-5" />
+            {t('names:CreateNewNames')}
+          </>
+        </ParchmentButton>
+      </div>
       <div className="grid grid-cols-2 gap-16">
         <div>
           <h3 className="text-2xl font-semibold uppercase">
