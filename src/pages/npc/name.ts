@@ -158,12 +158,3 @@ export const getNameTypeAndFirstName = (g: Gender, nl: NameList) => {
     firstName: choose(nl[g].rawNames),
   }
 }
-
-export interface Name {
-  firstName: string
-  familyName: string | null
-  homeName: string | null
-  nickName: string | null
-}
-
-export type LanguageNameMap = { [L in ValidLanguage]: Name } & { id: string }

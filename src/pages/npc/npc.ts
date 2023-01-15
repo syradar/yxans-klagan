@@ -1,7 +1,8 @@
 import { compose } from 'ramda'
 import { choose } from '../../functions/dice.functions'
 import { Chacteristics, getChacteristics } from './characteristics'
-import { getKinTypes, KinType, Name } from './name'
+import { getKinTypes, KinType } from './name'
+import { Name } from './name2'
 import { getOccupations, Occupation } from './occupation'
 import { getQuirks, Quirk } from './quirk'
 

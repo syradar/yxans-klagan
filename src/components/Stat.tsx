@@ -4,9 +4,15 @@ export interface StatProps {
   children: React.ReactNode
   label: string
   size?: StatValueSize
+  flexGreedy?: boolean
 }
 
-export const Stat = ({ children, label, size = 'medium' }: StatProps) => (
+export const Stat = ({
+  children,
+  label,
+  size = 'medium',
+  flexGreedy = false,
+}: StatProps) => (
   <div className="text-center">
     <div
       className={`
@@ -14,6 +20,7 @@ export const Stat = ({ children, label, size = 'medium' }: StatProps) => (
     ${size === 'small' ? 'text-base' : ''}
     ${size === 'medium' ? 'text-lg' : ''}
     ${size === 'large' ? 'text-2xl' : ''}
+    ${flexGreedy ? 'flex-auto' : ''}
     `}
     >
       {children}
