@@ -16,7 +16,9 @@ export type TranslationKey<
     ? `${NS}:${Key}`
     : never
   : KEYS extends `${GivenNS}:${infer Key}`
-  ? `${GivenNS}:${Key}`
+  ? GivenNS extends 'core'
+    ? `core:${Key}`
+    : `${GivenNS}:${Key}`
   : never
 
 // const title1: TranslationKey = ''
