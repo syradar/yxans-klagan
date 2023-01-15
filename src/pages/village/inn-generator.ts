@@ -5,6 +5,7 @@ import {
   choose,
 } from '../../functions/dice.functions'
 import { ValidLanguage } from '../../models/language.model'
+import { Character } from './character'
 import { VillageInstitution } from './village-generator'
 
 export type Inn = {
