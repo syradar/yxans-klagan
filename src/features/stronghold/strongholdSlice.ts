@@ -24,11 +24,11 @@ const initialState: StrongholdState = {
   hasBuildersTalent: true,
   builtFunctions: [],
   availableFunctions: [fireplaceFunction],
-  tools: ['saw', 'sledgehammer'],
+  tools: ['saw', 'sledgehammer', 'hammer'],
   rawMaterials: {
-    stone: 1000,
-    wood: 1000,
-    iron: 1000,
+    stone: 100000,
+    wood: 100000,
+    iron: 100000,
   },
 }
 
@@ -52,7 +52,9 @@ export const strongholdSlice = createSlice({
 
       state.builtFunctions.push(functionToBuild)
 
-      state.availableFunctions = meetRequirements(state)
+      state.availableFunctions = strongholdFunctions.filter(
+        meetRequirementsPredicate(state),
+      )
 
       return state
     },
@@ -63,13 +65,39 @@ export const { build } = strongholdSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectStronghold = (state: RootState) => state
+export const selectUnavailableStrongholdFunctions = (state: RootState) => {
+  const hasReachedLimit = (strongholdFunction: StrongholdFunction) => {
+    const builtFunction = state.stronghold.builtFunctions.find(
+      (builtFunction) => builtFunction.type === strongholdFunction.type,
+    )
+
+    if (!builtFunction) {
+      return false
+    }
+
+    return builtFunction.limit === undefined
+      ? false
+      : builtFunction.limit <=
+          state.stronghold.builtFunctions.filter(
+            (builtFunction) => builtFunction.type === strongholdFunction.type,
+          ).length
+  }
+
+  return strongholdFunctions
+    .filter(
+      (strongholdFunction) =>
+        !meetRequirementsPredicate(state.stronghold)(strongholdFunction),
+    )
+    .filter((strongholdFunction) => !hasReachedLimit(strongholdFunction))
+}
 
 export default strongholdSlice.reducer
 
-const meetRequirements = (state: StrongholdState): StrongholdFunction[] => {
-  return strongholdFunctions.filter((strongholdFunction) => {
-    return (
-      strongholdFunction.requirements.every((requirement) => {
+const meetRequirementsPredicate =
+  (state: StrongholdState) =>
+  (strongholdFunction: StrongholdFunction): boolean => {
+    const hasAllRequirements = strongholdFunction.requirements.every(
+      (requirement) => {
         if (requirement === 'builderTalent') {
           return state.hasBuildersTalent
         }
@@ -83,21 +111,29 @@ const meetRequirements = (state: StrongholdState): StrongholdFunction[] => {
         }
 
         return false
-      }) &&
-      strongholdFunction.rawMaterials.every((rawMaterial) => {
-        return state.rawMaterials[rawMaterial.type] >= rawMaterial.amount
-      }) &&
-      strongholdFunction.tools.every((tool) => {
-        return state.tools.includes(tool)
-      }) &&
-      strongholdFunction.limit &&
-      state.builtFunctions.reduce((acc, builtFunction) => {
-        if (builtFunction.type === strongholdFunction.type) {
-          return acc + 1
-        }
-
-        return acc
-      }, 0) < strongholdFunction.limit
+      },
     )
-  })
-}
+    const hasAllRawMaterials = strongholdFunction.rawMaterials.every(
+      (rawMaterial) =>
+        state.rawMaterials[rawMaterial.type] >= rawMaterial.amount,
+    )
+    const hasAllTools = strongholdFunction.tools.every((tool) =>
+      state.tools.includes(tool),
+    )
+    const hasNotReachedLimit = strongholdFunction.limit
+      ? state.builtFunctions.reduce((acc, builtFunction) => {
+          if (builtFunction.type === strongholdFunction.type) {
+            return acc + 1
+          }
+
+          return acc
+        }, 0) < strongholdFunction.limit
+      : true
+
+    return (
+      hasAllRequirements &&
+      hasAllRawMaterials &&
+      hasAllTools &&
+      hasNotReachedLimit
+    )
+  }

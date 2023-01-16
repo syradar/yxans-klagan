@@ -1,1 +1,1 @@
-export type Tool = 'sledgehammer' | 'saw'
+export type Tool = 'sledgehammer' | 'saw' | 'hammer'

@@ -7,13 +7,20 @@ import Stack from '../../components/Stack'
 import { Typography } from '../../components/Typography'
 import { useValidLanguage } from '../../hooks/useValidLanguage'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { build, selectStronghold } from './strongholdSlice'
+import {
+  build,
+  selectStronghold,
+  selectUnavailableStrongholdFunctions,
+} from './strongholdSlice'
 
 export const StrongholdPage = () => {
   const { t } = useTranslation(['stronghold'])
   const currentLang = useValidLanguage()
 
-  const { strongHold } = useAppSelector(selectStronghold)
+  const { stronghold } = useAppSelector(selectStronghold)
+  const unavailableStrongholdFunctions = useAppSelector(
+    selectUnavailableStrongholdFunctions,
+  )
 
   const dispatch = useAppDispatch()
 
@@ -29,8 +36,8 @@ export const StrongholdPage = () => {
         </Typography>
 
         <div className="grid grid-cols-4 gap-4">
-          {strongHold.builtFunctions.length > 0 ? (
-            strongHold.builtFunctions.map((f) => (
+          {stronghold.builtFunctions.length > 0 ? (
+            stronghold.builtFunctions.map((f) => (
               <ParchmentCard key={f.type}>
                 <Stack.Vertical>
                   <Typography variant="h3" parchment>
@@ -48,10 +55,10 @@ export const StrongholdPage = () => {
 
       <Parchment>
         <Typography variant="h2" parchment>
-          Available for building
+          Function not built
         </Typography>
         <div className="grid grid-cols-4 gap-4">
-          {strongHold.availableFunctions.map((f) => (
+          {stronghold.availableFunctions.map((f) => (
             <ParchmentCard key={f.type}>
               <Stack.Vertical>
                 <Typography variant="h3" parchment>
@@ -79,9 +86,39 @@ export const StrongholdPage = () => {
               </Stack.Vertical>
             </ParchmentCard>
           ))}
+          {unavailableStrongholdFunctions.length > 0
+            ? unavailableStrongholdFunctions.map((uf) => (
+                <ParchmentCard key={uf.type}>
+                  <Stack.Vertical>
+                    <Typography variant="h3" parchment>
+                      {uf.label}
+                    </Typography>
+                    <div>{uf.description}</div>
+                    <div>
+                      Requirements:{' '}
+                      {uf.requirements.length > 0
+                        ? uf.requirements.join(', ')
+                        : '–'}
+                    </div>
+                    <div>
+                      Tools: {uf.tools.length > 0 ? uf.tools.join(', ') : '–'}
+                    </div>
+                    <div>
+                      Materials:{' '}
+                      {uf.rawMaterials
+                        .map((rm) => `${rm.amount} ${rm.type}`)
+                        .join(', ')}
+                    </div>
+                    <div>Time: {uf.time}</div>
+                    <div>Limit: {uf.limit}</div>
+                    <ParchmentButton disabled>Build</ParchmentButton>
+                  </Stack.Vertical>
+                </ParchmentCard>
+              ))
+            : null}
         </div>
       </Parchment>
-      <pre>{JSON.stringify(strongHold, null, 2)}</pre>
+      <pre>{JSON.stringify(stronghold, null, 2)}</pre>
     </div>
   )
 }

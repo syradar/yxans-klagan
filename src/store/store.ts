@@ -3,7 +3,7 @@ import strongholdSlice from '../features/stronghold/strongholdSlice'
 
 export const store = configureStore({
   reducer: {
-    strongHold: strongholdSlice,
+    stronghold: strongholdSlice,
   },
 })
 
