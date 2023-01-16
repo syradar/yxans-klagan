@@ -7,6 +7,7 @@ import { TranslationKey } from './@types/i18next'
 import { Group } from './components/group'
 import { MenuLink } from './components/MenuLink'
 import { Pancake } from './components/Stack'
+import { isFeatureEnabled } from './featureFlags'
 
 const HomePage = lazy(() => import('./pages/Home.page'))
 const CalendarPage = lazy(() => import('./pages/calendar.page'))
@@ -14,6 +15,9 @@ const EncounterPage = lazy(() => import('./pages/encounter.page'))
 const FindsPage = lazy(() => import('./pages/finds.page'))
 const GearPage = lazy(() => import('./pages/gear.page'))
 const VillagePage = lazy(() => import('./pages/village/village.page'))
+const StrongholdPage = lazy(
+  () => import('./features/stronghold/Stronghold.page'),
+)
 const MapPage = lazy(() => import('./pages/places/MapPage'))
 const MonstersPage = lazy(() => import('./pages/monsters.page'))
 const SessionPage = lazy(() => import('./pages/session.page'))
@@ -76,6 +80,16 @@ export const menuRoutes: MenuRoute[] = [
         label: 'core:Menu-Places-Village',
         element: <VillagePage />,
       },
+      ...(isFeatureEnabled('stronghold')
+        ? [
+            {
+              path: 'stronghold',
+              id: nanoid(),
+              label: 'core:Menu-Places-Stronghold' as TranslationKey<'core'>,
+              element: <StrongholdPage />,
+            },
+          ]
+        : []),
       {
         path: 'map',
         id: nanoid(),
