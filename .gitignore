@@ -11,6 +11,8 @@ dist-ssr
 /coverage
 coverage
 .scannerwork
+/reports
+reports
 
 # next.js
 /.next/
