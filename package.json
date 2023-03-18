@@ -62,7 +62,7 @@
     "i18next-http-backend": "^2.1.1",
     "last-release-git": "^0.0.3",
     "pinst": "^3.0.0",
-    "postcss": "8.4.20",
+    "postcss": "8.4.21",
     "prettier": "^2.8.1",
     "prettier-plugin-tailwindcss": "0.2.1",
     "ramda": "^0.28.0",
