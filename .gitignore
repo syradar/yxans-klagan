@@ -9,6 +9,8 @@ dist-ssr
 
 # testing
 /coverage
+coverage
+.scannerwork
 
 # next.js
 /.next/
