@@ -9,5 +9,7 @@ export default defineConfig({
       provider: 'c8',
       reporter: ['text', 'lcov'],
     },
+    reporters: ['vitest-sonar-reporter'],
+    outputFile: 'reports/sonar-report.xml',
   },
 })
