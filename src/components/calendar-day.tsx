@@ -1,6 +1,4 @@
-import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TranslationKey } from '../@types/i18next'
 import {
   getFahrenheitTempString,
   getMoonEmoji,
@@ -19,7 +17,7 @@ interface CalendarDayProps {
   temperatureUnit: TemperatureUnit
 }
 
-export const CalendarDay: FC<CalendarDayProps> = ({
+export const CalendarDay = ({
   day,
   quarterClicked,
   showWeather = true,

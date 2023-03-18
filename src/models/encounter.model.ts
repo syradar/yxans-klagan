@@ -43,7 +43,7 @@ const rollWithEncounters = [
   41, 42, 43, 44, 45, 46, 51, 52, 53, 54, 55, 56, 61, 62, 63, 64, 65, 66,
 ] as const
 
-export type RollWithEncounters = typeof rollWithEncounters[number]
+export type RollWithEncounters = (typeof rollWithEncounters)[number]
 
 export const isRollsWithEncounters = (
   roll: number,

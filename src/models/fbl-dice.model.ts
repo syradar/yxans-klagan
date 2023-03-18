@@ -1,5 +1,5 @@
 const diceSides = [6, 8, 10, 12] as const
-export type DiceSides = typeof diceSides[number]
+export type DiceSides = (typeof diceSides)[number]
 
 export type D2 = 1 | 2
 

@@ -37,6 +37,6 @@ const occupation = [
   'Academic',
 ] as const
 
-export type Occupation = typeof occupation[number]
+export type Occupation = (typeof occupation)[number]
 
 export const getOccupations = (): Occupation[] => [...occupation]
