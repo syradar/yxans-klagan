@@ -51,7 +51,7 @@ const innOddity = [
   'birthdayParty',
   'drunkAdventurers',
 ] as const
-export type InnOddity = typeof innOddity[number]
+export type InnOddity = (typeof innOddity)[number]
 
 const innSpecialty = [
   'cheapDilutedBeer',
@@ -69,7 +69,7 @@ const innSpecialty = [
   'bearStew',
   'dwarvenStrongAle',
 ] as const
-export type InnSpecialty = typeof innSpecialty[number]
+export type InnSpecialty = (typeof innSpecialty)[number]
 
 const innGuest = [
   'escapedCriminal',
@@ -87,7 +87,7 @@ const innGuest = [
   'frostyElf',
   'scoutingThief',
 ] as const
-export type InnGuest = typeof innGuest[number]
+export type InnGuest = (typeof innGuest)[number]
 
 type InnQuirk = {
   oddity: InnOddity

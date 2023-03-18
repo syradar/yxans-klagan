@@ -37,6 +37,6 @@ const chacteristics = [
   'UnkemptEyeBrows',
 ] as const
 
-export type Chacteristics = typeof chacteristics[number]
+export type Chacteristics = (typeof chacteristics)[number]
 
 export const getChacteristics = (): Chacteristics[] => [...chacteristics]

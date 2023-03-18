@@ -37,5 +37,5 @@ const quirks = [
   'TheoryOfWorld',
 ] as const
 
-export type Quirk = typeof quirks[number]
+export type Quirk = (typeof quirks)[number]
 export const getQuirks = () => [...quirks]

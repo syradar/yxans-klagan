@@ -18,7 +18,7 @@ const month = [
   'AutumnWane',
   'WinterRise',
 ] as const
-export type MonthNames = typeof month[number]
+export type MonthNames = (typeof month)[number]
 
 export type MonthV1AndV2 = {
   name: MonthNames
@@ -42,7 +42,7 @@ const dayNames = [
   'HarvestDay',
   'StillDay',
 ] as const
-export type DayNames = typeof dayNames[number]
+export type DayNames = (typeof dayNames)[number]
 
 export const getMonthName = (monthNumber: number): MonthNames =>
   month[monthNumber % 8]

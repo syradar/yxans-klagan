@@ -129,7 +129,7 @@ const leaderOddities = [
   'secret',
   'drunkard',
 ] as const
-type LeaderOddity = typeof leaderOddities[number]
+type LeaderOddity = (typeof leaderOddities)[number]
 
 const leaderTypes = [
   'council',
@@ -145,7 +145,7 @@ const leaderTypes = [
   'artisan',
   'banditChief',
 ] as const
-type LeaderType = typeof leaderTypes[number]
+type LeaderType = (typeof leaderTypes)[number]
 
 type Leader = Character & {
   oddity: LeaderOddity
@@ -178,7 +178,7 @@ const villageProblems = [
   'slaveTrade',
   'hauntedByGhoulOrGhost',
 ] as const
-type VillageProblem = typeof villageProblems[number]
+type VillageProblem = (typeof villageProblems)[number]
 
 const villageFames = [
   'excellentWine',
@@ -194,7 +194,7 @@ const villageFames = [
   'suspicionOfStrangers',
   'hospitality',
 ] as const
-type VillageFame = typeof villageFames[number]
+type VillageFame = (typeof villageFames)[number]
 
 const villageOddities = [
   'eccentricClothing',
@@ -218,7 +218,7 @@ const villageOddities = [
   'alliedWithMonster',
   'preparingWedding',
 ] as const
-type VillageOddity = typeof villageOddities[number]
+type VillageOddity = (typeof villageOddities)[number]
 
 const villageOdditiesWithWeights: WeightedChoice<VillageOddity>[] = [
   { weight: 3, value: 'eccentricClothing' },
@@ -255,7 +255,7 @@ const villageInstitutions = [
   'tavern',
   'stable',
 ] as const
-type VillageInstitutionType = typeof villageInstitutions[number]
+type VillageInstitutionType = (typeof villageInstitutions)[number]
 
 export type VillageInstitution = {
   id: string

@@ -4,7 +4,7 @@ import { defaultNS, resources } from '../i18nReact'
 declare module 'i18next' {
   interface CustomTypeOptions {
     defaultNS: typeof defaultNS
-    resources: typeof resources['en']
+    resources: (typeof resources)['en']
   }
 }
 export type FuncKey<N extends Namespace = Namespace> = TFuncKey<N>

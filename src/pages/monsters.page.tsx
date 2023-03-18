@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TranslationKey } from '../@types/i18next'
 import { Group } from '../components/group'
 import { List } from '../components/list'
 import { ListItemButton } from '../components/list-item'

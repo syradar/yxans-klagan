@@ -38,7 +38,7 @@ export const kinTypes = [
   'HalflingAndGoblin',
   'Believers',
 ] as const
-export type KinType = typeof kinTypes[number]
+export type KinType = (typeof kinTypes)[number]
 export const getKinTypes = () => [...kinTypes]
 
 export type HumanKin =

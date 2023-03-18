@@ -9,7 +9,7 @@ const terrain = [
   'Mire',
   'RuinCity',
 ] as const
-export type Terrain = typeof terrain[number]
+export type Terrain = (typeof terrain)[number]
 
 export type TerrainNameMap = { [T in Terrain]: string }
 
