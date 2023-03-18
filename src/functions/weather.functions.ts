@@ -139,41 +139,6 @@ export class WeatherDay {
       supernaturalEvents[t].applyEffects(this)
     }
   }
-  Render() {
-    const e = ''
-
-    // this.supernaturalEvent && (e += supernaturalIcon),
-    // this.event && (e += 'warningIcon')
-    // this.temp < 32 && (e += 'coldIcon')
-    // this.windy && (e += 'windyIcon')
-    // this.raining
-    //   ? this.temp > 32
-    //     ? (e += 'rainIcon')
-    //     : (e += 'snowIcon')
-    //   : this.cloudy
-    //     ? (e += 'cloudIcon')
-    //     : this.partCloudy
-    //       ? (e += 'partlyCloudyIcon')
-    //       : (e += 'sunIcon')
-
-    // (e += '\r\n')
-    // this.specialDesc && (e += this.specialDesc)
-    // (e += '\r\n');
-    // (e += '\tHigh: ')
-    // (e += this.GetHighString())
-    // (e += '\r\n')
-    // (e += '\tLow: ')
-    // (e += this.GetLowString())
-    // (e += '\r\n')
-    // (e += '\tWind: ')
-    // (e += this.GetWindString())
-    // (e += '\r\n')
-    // this.precipDesc && (e += this.precipDesc + '\r\n')
-    // this.windDesc && (e += this.windDesc + '\r\n')
-    // (e += this.GetSpecialString())
-    // (e += '\r\n')
-    return e
-  }
 
   GetHighString() {
     return units === TemperatureUnit.Imperial
@@ -197,25 +162,6 @@ export class WeatherDay {
       default:
         return `${this.wind} mph`
     }
-  }
-
-  GetSpecialString() {
-    const e = ''
-
-    return e
-
-    //   this.stormType &&
-    //     this.event
-    //       ? this.eventType.name &&(
-    //         (e += this.eventType.name + '!\r\n')
-    //         (e += this.eventType.description + '\r\n'))
-    //       : (e += this.stormType + '\r\n'),
-    //   this.supernaturalEvent &&
-    //     ((e += '~'),
-    //     (e += this.supernaturalEvent.name + '\r\n'),
-    //     (e += this.supernaturalEvent.description + '\r\n'),
-    //   e
-    // )
   }
 }
 export const isRaining = (d: Downpour): boolean => {
@@ -1632,118 +1578,5 @@ export class GenerateWeather {
     }
 
     this.weatherSystems[weatherSystems.length - 1].GenerateDays()
-  }
-
-  Render() {
-    // let t = 1
-    //   let n = null
-    //   let debug = true
-    // if (debug) {
-    //   'Base Vals \r\n',
-    //     'Days: ' + days + '\r\n',
-    //     'Temp: ' + climate + '\r\n',
-    //     'Wetness: ' + wetness + '\r\n\r\n',
-    //     ' -- Winter --\r\n'
-    //   for (d = 0; d < r.length; d++) {
-    //     t / this.days >= 0.25 &&
-    //       !writtenSpring &&
-    //       ('-- Spring --\r\n', (writtenSpring = !0)),
-    //       t / days >= 0.5 &&
-    //         !writtenSummer &&
-    //         ('-- Summer --\r\n', (writtenSummer = !0)),
-    //       t / days >= 0.75 &&
-    //         !writtenFall &&
-    //         ('-- Fall --\r\n', (writtenFall = !0))
-    //     const s = r[d].days
-    //     'System: ' + d.toString() + ' Days: ' + r[d].duration.toString(),
-    //       r[d].storm && ' Storm',
-    //       r[d].event && ' !Event!',
-    //       r[d].calm && ' Calm',
-    //       '\r\n',
-    //       'Temp: ' +
-    //         r[d].temp.toString() +
-    //         ' Wetness: ' +
-    //         r[d].wetness.toString() +
-    //         ' Wind: ' +
-    //         r[d].wind.toString(),
-    //       '\r\n'
-    //     for (m = 0; m < s.length; m++) {
-    //       const o = s[m]
-    //       'Day ' + m.toString() + ': ' + Math.floor(o.temp).toString() + ' ',
-    //         o.raining && rainingIcon,
-    //         o.temp < 32 && coldIcon,
-    //         t++
-    //     }
-    //     ;('\r\n----------\r\n')
-    //   }
-    // }
-  }
-  GetDayStrings() {
-    // for (var t = !1, a = !1, i = !1, n = 1, s = [], o = 0; o < r.length; o++)
-    //   for (let l = 0; l < r[o].duration; l++) {
-    //     if (n <= this.days) {
-    //       let h = ''
-    //       1 === n && s.push(' -- Winter Begins --\r\n\r\n'),
-    //         n / this.days >= 0.25 &&
-    //           !t &&
-    //           (s.push('-- Spring Begins --\r\n\r\n'), (t = !0)),
-    //         n / this.days >= 0.5 &&
-    //           !a &&
-    //           (s.push('-- Summer Begins --\r\n\r\n'), (a = !0)),
-    //         n / this.days >= 0.75 &&
-    //           !i &&
-    //           (s.push('-- Fall Begins --\r\n\r\n'), (i = !0)),
-    //         (h += 'Day ' + n + ': '),
-    //         (h += r[o].days[l].Render()),
-    //         s.push(h)
-    //     }
-    //     n++
-    //   }
-    // return s
-  }
-
-  GetDayData() {
-    // let t = !1,
-    //   a = !1,
-    //   i = !1,
-    //   n = 1,
-    //   s = []
-    // s.push([
-    //   'Day,',
-    //   'High,',
-    //   'Low,',
-    //   'Wind,',
-    //   'Weather,',
-    //   'Notes,',
-    //   'Special',
-    // ])
-    // for (let o = 0; o < r.length; o++)
-    //   for (let l = 0; l < r[o].duration; l++) {
-    //     if (n <= days) {
-    //       const h = [],
-    //         d = r[o].days[l]
-    //       h.push('Day ' + n.toString() + ','),
-    //         h.push(d.GetHighString() + ','),
-    //         h.push(d.GetLowString() + ','),
-    //         h.push(d.GetWindString() + ','),
-    //         h.push(d.precipDesc + ',')
-    //       let c = ''
-    //       1 === n && (c += ' -- Winter Begins --\r\n\r\n'),
-    //         n / days >= 0.25 &&
-    //           !t &&
-    //           ((c += ' -- Spring Begins --\r\n\r\n'), (t = !0)),
-    //         n / days >= 0.5 &&
-    //           !a &&
-    //           ((c += ' -- Summer Begins --\r\n\r\n'), (a = !0)),
-    //         n / days >= 0.75 &&
-    //           !i &&
-    //           ((c += ' -- Fall Begins --\r\n\r\n'), (i = !0)),
-    //         h.push(c + ',')
-    //       const u = '"' + d.GetSpecialString() + '"'
-    //       h.push(u), s.push(h)
-    //     }
-    //     n++
-    //   }
-    // return s
   }
 }

@@ -175,7 +175,7 @@ const getLimbsDescription = (
     actualLimbs.length === 0
       ? [{ key: 'monsters:Limbs.None' }]
       : actualLimbs.map(([key, value]) => ({
-          key: key as TranslationKey,
+          key,
           count: value,
         }))
 
