@@ -175,7 +175,7 @@ export const getCal = (startYear = 1165, startDay?: DayNames): CalendarV4 => {
     ? getDayNumber(startDay) - 1
     : (startYear % 1165) % 7
 
-  const weather = new GenerateWeather(365, [], 48, 50, 6, '')
+  const weather = new GenerateWeather(365, 48, 50)
   const weatherDays = weather.weatherSystems
     .reduce((acc, cur) => {
       acc.push(cur.days)
