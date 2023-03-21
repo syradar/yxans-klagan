@@ -57,7 +57,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-tailwindcss": "^3.10.1",
     "husky": "^8.0.3",
-    "i18next": "22.4.12",
+    "i18next": "22.4.13",
     "i18next-browser-languagedetector": "^7.0.1",
     "i18next-http-backend": "^2.2.0",
     "jsdom": "^21.1.1",
