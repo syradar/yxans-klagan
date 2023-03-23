@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid'
 import { range } from 'ramda'
 
 export const id = <T>(x: T): T => x
@@ -79,3 +80,12 @@ export const validNumber = (
 
 export const capitalize = (s: string): string =>
   `${s.charAt(0).toUpperCase()}${s.slice(1)}`
+
+export type WithId<T> = {
+  value: T
+  id: string
+}
+export const withId = <T>(t: T): WithId<T> => ({
+  value: t,
+  id: nanoid(),
+})
