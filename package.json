@@ -15,7 +15,7 @@
     "build": "tsc && vite build",
     "serve": "vite preview",
     "test": "vitest",
-    "coverage": "vitest --coverage",
+    "coverage": "vitest --coverage --reporter=vitest-sonar-reporter --outputFile=reports/sonar-report.xml",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'"
   },
   "dependencies": {
