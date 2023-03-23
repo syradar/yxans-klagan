@@ -234,8 +234,6 @@ const MenuGroup = ({ to, children, label, groupKey }: MenuGroupProps) => {
   const { pathname } = useLocation()
   const isPageActive = pathname.includes(useResolvedPath(to).pathname)
 
-  console.log('isPageActive', isPageActive, pathname, to)
-
   return (
     <Group
       key={groupKey}
