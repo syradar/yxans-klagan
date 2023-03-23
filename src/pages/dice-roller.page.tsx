@@ -6,6 +6,7 @@ import { Parchment } from '../components/parchment'
 import { Stepper } from '../components/Stepper'
 import { range } from '../functions/array.functions'
 import { countSuccesses, getRandomInt } from '../functions/dice.functions'
+import { withId } from '../functions/utils.functions'
 
 type DiceResult = {
   attribute: number[]
@@ -105,9 +106,9 @@ export const DiceRollerPage = () => {
             {diceResults.attribute.length > 0 && (
               <>
                 <div>Attribut</div>
-                {diceResults.attribute.map((val, index) => (
-                  <div key={index}>
-                    <DiceDisplay value={val}></DiceDisplay>
+                {diceResults.attribute.map(withId).map((val) => (
+                  <div key={val.id}>
+                    <DiceDisplay value={val.value}></DiceDisplay>
                   </div>
                 ))}
               </>
@@ -116,9 +117,9 @@ export const DiceRollerPage = () => {
             {diceResults.skill.length > 0 && (
               <>
                 <div>Färdighet</div>
-                {diceResults.skill.map((val, index) => (
-                  <div key={index}>
-                    <DiceDisplay value={val}></DiceDisplay>
+                {diceResults.skill.map(withId).map((val) => (
+                  <div key={val.id}>
+                    <DiceDisplay value={val.value}></DiceDisplay>
                   </div>
                 ))}
               </>
