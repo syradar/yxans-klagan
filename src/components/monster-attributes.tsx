@@ -1,9 +1,10 @@
 import { chunkArray } from '../functions/array.functions'
+import { withId, WithId } from '../functions/utils.functions'
 import { AttributeCheckbox } from './attribute-cheeckbox'
 
 type MonsterAttributeProps = {
   label: string
-  values: boolean[]
+  values: WithId<boolean>[]
 }
 
 export const MonsterAttribute = ({ label, values }: MonsterAttributeProps) => {
@@ -16,15 +17,15 @@ export const MonsterAttribute = ({ label, values }: MonsterAttributeProps) => {
         id={`monster-${label}-grid`}
         className="grid max-w-[fit-content] grid-cols-2 gap-x-4 gap-y-1"
       >
-        {chunkArray(values).map((chunk, chunkIndex) => (
-          <div className="flex gap-1" key={`${label}-${chunkIndex}`}>
-            {chunk.map((_, index) => (
-              <AttributeCheckbox
-                key={`${label}-${chunkIndex}-${index}`}
-              ></AttributeCheckbox>
-            ))}
-          </div>
-        ))}
+        {chunkArray(values)
+          .map(withId)
+          .map((chunk) => (
+            <div className="flex gap-1" key={chunk.id}>
+              {chunk.value.map((item) => (
+                <AttributeCheckbox key={item.id}></AttributeCheckbox>
+              ))}
+            </div>
+          ))}
       </div>
     </div>
   )

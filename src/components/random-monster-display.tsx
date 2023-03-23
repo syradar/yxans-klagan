@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { rollD6 } from '../functions/dice.functions'
+import { withId } from '../functions/utils.functions'
 import {
   MonsterDescriptionItemViewModel,
   MonsterType,
@@ -114,7 +115,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
                 <div className="mb-2">
                   <MonsterAttribute
                     key={`${rm.size}-strength`}
-                    values={[...rm.attributes.strength.values]}
+                    values={rm.attributes.strength.values.map(withId)}
                     label={t(
                       `common:Attributes.${rm.attributes.strength.label}`,
                     )}
@@ -125,7 +126,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
                 <div className="mb-2">
                   <MonsterAttribute
                     key={`${rm.size}-agility`}
-                    values={[...rm.attributes.agility.values]}
+                    values={rm.attributes.agility.values.map(withId)}
                     label={t(
                       `common:Attributes.${rm.attributes.agility.label}`,
                     )}
