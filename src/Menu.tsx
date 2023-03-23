@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { RouteObject, useLocation, useResolvedPath } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import { TranslationKey } from './@types/i18next'
-import { Group } from './components/group'
+import { Group, GroupProps } from './components/group'
 import { MenuLink } from './components/MenuLink'
 import { Pancake } from './components/Stack'
 
@@ -153,11 +153,8 @@ type MenuProps = {
 }
 export const Menu = ({ menuRoutes, close }: MenuProps) => {
   const { t } = useTranslation('core')
-  const { pathname } = useLocation()
+
   const isLg = useMediaQuery('(min-width: 1024px)')
-  const isPageActive = (toPath: string) =>
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    pathname.includes(useResolvedPath(toPath).pathname)
 
   return (
     <>
@@ -166,35 +163,34 @@ export const Menu = ({ menuRoutes, close }: MenuProps) => {
         .map((route) => {
           if (route.children) {
             return (
-              <div key={route.id}>
-                <Group
-                  menu
-                  spaceBeforeItems={false}
-                  label={
-                    <div className="font-medium">
-                      {t(route.label, {
-                        ns: 'core',
-                        defaultValue: route.label,
-                      })}
-                    </div>
-                  }
-                  open={isPageActive(`/${route.path}`)}
-                >
-                  <div className="mt-2">
-                    <Pancake spacing="small">
-                      {route.children.map((child) => (
-                        <MenuItem
-                          key={child.id}
-                          label={child.label}
-                          to={`${route.path}/${child.path}`}
-                          indent={1}
-                          onClick={() => !isLg && close()}
-                        />
-                      ))}
-                    </Pancake>
+              <MenuGroup
+                key={route.id}
+                to={`/${route.path}`}
+                menu
+                spaceBeforeItems={false}
+                label={
+                  <div className="font-medium">
+                    {t(route.label, {
+                      ns: 'core',
+                      defaultValue: route.label,
+                    })}
                   </div>
-                </Group>
-              </div>
+                }
+              >
+                <div className="mt-2">
+                  <Pancake spacing="small">
+                    {route.children.map((child) => (
+                      <MenuItem
+                        key={child.id}
+                        label={child.label}
+                        to={`${route.path}/${child.path}`}
+                        indent={1}
+                        onClick={() => !isLg && close()}
+                      />
+                    ))}
+                  </Pancake>
+                </div>
+              </MenuGroup>
             )
           }
 
@@ -227,5 +223,28 @@ const MenuItem = ({ indent, label, onClick, to }: MenuItemProps) => {
         defaultValue: label,
       })}
     </MenuLink>
+  )
+}
+
+type MenuGroupProps = Omit<GroupProps, 'open'> & {
+  to: string
+  groupKey?: string
+}
+const MenuGroup = ({ to, children, label, groupKey }: MenuGroupProps) => {
+  const { pathname } = useLocation()
+  const isPageActive = pathname.includes(useResolvedPath(to).pathname)
+
+  console.log('isPageActive', isPageActive, pathname, to)
+
+  return (
+    <Group
+      key={groupKey}
+      menu
+      spaceBeforeItems={false}
+      label={label}
+      open={isPageActive}
+    >
+      {children}
+    </Group>
   )
 }
