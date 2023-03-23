@@ -1,8 +1,8 @@
-import { ReactNode, useState } from 'react'
+import { ComponentPropsWithoutRef, ReactNode, useState } from 'react'
 
 import { MonthCollapseButton } from './month-collapse-button'
 
-type GroupProps = {
+export type GroupProps = ComponentPropsWithoutRef<'section'> & {
   children: ReactNode
   label: ReactNode
   open?: boolean
@@ -37,7 +37,6 @@ export const Group = ({
       className={`
       w-full
       ${marginBottom ? 'mb-8' : ''}
-      ${menu ? '' : ''}
     `}
     >
       <MonthCollapseButton
