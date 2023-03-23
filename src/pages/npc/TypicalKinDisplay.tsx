@@ -23,7 +23,11 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
 
   const formatSkills = (asvm: AllSkillsValuesViewModel): string =>
     asvm
-      .map(([skill, value]) => `${t(`common:Skills.${skill}`)} ${value}`)
+      .map(([skill, value]) => {
+        const skillName = t(`common:Skills.${skill}`)
+
+        return `${skillName} ${value}`
+      })
       .join(', ')
 
   const toggleKin = () => {
