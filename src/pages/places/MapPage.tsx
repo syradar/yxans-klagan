@@ -348,9 +348,9 @@ export const MapPage = () => {
               onHide={() => handleSelectedHex(undefined)}
             ></MapPopover>
             <Map fogOfWar={fogOfWar}>
-              {hexas.map((hex, index) => (
+              {hexas.map((hex) => (
                 <Polygon
-                  key={index}
+                  key={hex.hexKey}
                   hex={hex}
                   onMouseOver={(e) => handleMouseOver(e, hex)}
                   onClick={(e) => handleHexClick(e, hex)}
