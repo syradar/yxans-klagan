@@ -73,7 +73,7 @@
     "vite": "4.2.1",
     "vite-tsconfig-paths": "4.0.7",
     "vitest": "^0.29.7",
-    "vitest-sonar-reporter": "^0.3.5"
+    "vitest-sonar-reporter": "^0.4.0"
   },
   "config": {
     "commitizen": {
