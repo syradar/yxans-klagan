@@ -16,6 +16,7 @@ import nsTypicalEn from '../public/locales/en/typical.json'
 import nsFindsEn from '../public/locales/en/finds.json'
 import nsNpcEn from '../public/locales/en/npc.json'
 import nsVillageEn from '../public/locales/en/village.json'
+import nsHomeEn from '../public/locales/en/home.json'
 
 import nsCoreSv from '../public/locales/sv/core.json'
 import nsCommonSv from '../public/locales/sv/common.json'
@@ -29,6 +30,7 @@ import nsTypicalSv from '../public/locales/sv/typical.json'
 import nsFindsSv from '../public/locales/sv/finds.json'
 import nsNpcSv from '../public/locales/sv/npc.json'
 import nsVillageSv from '../public/locales/sv/village.json'
+import nsHomeSv from '../public/locales/sv/home.json'
 
 export const defaultNS = 'core'
 export const resources = {
@@ -45,6 +47,7 @@ export const resources = {
     finds: nsFindsEn,
     npc: nsNpcEn,
     village: nsVillageEn,
+    home: nsHomeEn,
   },
   sv: {
     core: nsCoreSv,
@@ -59,6 +62,7 @@ export const resources = {
     finds: nsFindsSv,
     npc: nsNpcSv,
     village: nsVillageSv,
+    home: nsHomeSv,
   },
 }
 
