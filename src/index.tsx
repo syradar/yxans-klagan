@@ -8,6 +8,7 @@ import './App.css'
 import i18nReact from './i18nReact'
 import reportWebVitals from './reportWebVitals'
 import { sendToVercelAnalytics } from './vitals'
+import { consoleLogo } from './console-logo'
 
 const container = document.getElementById('root') as HTMLDivElement
 const root = createRoot(container)
@@ -31,3 +32,5 @@ if (import.meta.hot) {
 }
 
 reportWebVitals(sendToVercelAnalytics)
+
+consoleLogo()
