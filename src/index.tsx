@@ -6,6 +6,8 @@ import 'tailwindcss/tailwind.css'
 import App from './App'
 import './App.css'
 import i18nReact from './i18nReact'
+import reportWebVitals from './reportWebVitals'
+import { sendToVercelAnalytics } from './vitals'
 
 const container = document.getElementById('root') as HTMLDivElement
 const root = createRoot(container)
@@ -27,3 +29,5 @@ root.render(
 if (import.meta.hot) {
   import.meta.hot.accept()
 }
+
+reportWebVitals(sendToVercelAnalytics)
