@@ -38,7 +38,6 @@ const Quarter = ({ spent, index }: QuarterProps) => (
   ${index === 0 ? 'border-r-0' : ''}
   ${index === 1 ? 'border-r-0' : ''}
   ${index === 2 ? 'border-r-0' : ''}
-  ${index === 3 ? '' : ''}
   ${spent ? 'bg-gray-300' : ''}
   `}
   ></div>
