@@ -10,4 +10,17 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['<rootDir>/test/setup.ts'],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        assetFileNames: (a) => {
+          if (a.name === 'web-vitals') {
+            return 'assets/[name][extname]'
+          } else {
+            return 'assets/[name]-[hash][extname]'
+          }
+        },
+      },
+    },
+  },
 })
