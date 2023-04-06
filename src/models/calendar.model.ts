@@ -1,3 +1,4 @@
+import { TranslationKey } from '../@types/i18next'
 import { range } from '../functions/array.functions'
 import {
   Downpour,
@@ -43,6 +44,19 @@ const dayNames = [
   'StillDay',
 ] as const
 export type DayNames = (typeof dayNames)[number]
+
+export const dayNameTranslationKeyDict: Record<
+  DayNames,
+  TranslationKey<'calendar'>
+> = {
+  SunDay: 'calendar:SunDay',
+  MoonDay: 'calendar:MoonDay',
+  BloodDay: 'calendar:BloodDay',
+  EarthDay: 'calendar:EarthDay',
+  GrowthDay: 'calendar:GrowthDay',
+  HarvestDay: 'calendar:HarvestDay',
+  StillDay: 'calendar:StillDay',
+}
 
 export const getMonthName = (monthNumber: number): MonthNames =>
   month[monthNumber % 8]

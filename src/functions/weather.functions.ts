@@ -1,3 +1,4 @@
+import { TranslationKey } from '../@types/i18next'
 import { Day } from '../models/calendar.model'
 import { range } from './array.functions'
 import { choose } from './dice.functions'
@@ -59,22 +60,40 @@ export interface WeatherEvent {
   description: string
 }
 
-export enum StormType {
-  None = 'StormNone',
-  Windstorm = 'StormWind',
-  Snowstorm = 'StormSnow',
-  Rainstorm = 'StormRain',
+export type StormType = 'None' | 'Windstorm' | 'Snowstorm' | 'Rainstorm'
+
+export const stormTypeTranslationKeyDict: Record<
+  StormType,
+  TranslationKey<'calendar'>
+> = {
+  None: 'calendar:StormNone',
+  Windstorm: 'calendar:StormWind',
+  Snowstorm: 'calendar:StormSnow',
+  Rainstorm: 'calendar:StormRain',
 }
 
-export enum Downpour {
-  None = 'DownPourNone',
-  Drizzle = 'DownPourDrizzle',
-  Showers = 'DownPourShowers',
-  LightRain = 'DownPourLightRain',
-  Raining = 'DownPourRaining',
-  LightSnow = 'DownPourLightSnow',
-  SnowShowers = 'DownPourSnowShowers',
-  Snowing = 'DownPourSnowing',
+export type Downpour =
+  | 'None'
+  | 'Drizzle'
+  | 'Showers'
+  | 'LightRain'
+  | 'Raining'
+  | 'LightSnow'
+  | 'SnowShowers'
+  | 'Snowing'
+
+export const downpourTranslationKeyDict: Record<
+  Downpour,
+  TranslationKey<'calendar'>
+> = {
+  None: 'calendar:DownPourNone',
+  Drizzle: 'calendar:DownPourDrizzle',
+  Showers: 'calendar:DownPourShowers',
+  LightRain: 'calendar:DownPourLightRain',
+  Raining: 'calendar:DownPourRaining',
+  LightSnow: 'calendar:DownPourLightSnow',
+  SnowShowers: 'calendar:DownPourSnowShowers',
+  Snowing: 'calendar:DownPourSnowing',
 }
 
 interface WeatherDayDto {
@@ -160,10 +179,10 @@ export class WeatherDay {
 }
 export const isRaining = (d: Downpour): boolean => {
   switch (d) {
-    case Downpour.Drizzle:
-    case Downpour.LightRain:
-    case Downpour.Raining:
-    case Downpour.Showers:
+    case 'Drizzle':
+    case 'LightRain':
+    case 'Raining':
+    case 'Showers':
       return true
 
     default:
@@ -172,9 +191,7 @@ export const isRaining = (d: Downpour): boolean => {
 }
 
 export const isSnowing = (d: Downpour): boolean =>
-  d === Downpour.LightSnow ||
-  d === Downpour.SnowShowers ||
-  d === Downpour.Snowing
+  d === 'LightSnow' || d === 'SnowShowers' || d === 'Snowing'
 
 export const getWeatherIcon = (day: Day): string => {
   switch (true) {
@@ -187,7 +204,7 @@ export const getWeatherIcon = (day: Day): string => {
     case day.isPartlyCloudy:
       return `⛅️`
 
-    case day.downpour === Downpour.None:
+    case day.downpour === 'None':
     default:
       return `☀️`
   }
@@ -389,7 +406,7 @@ const generateDays = ({
     const downpour =
       !isStorm && isRaining
         ? getDownpour(changedTemp, deltaChangedTemp, changedWetness)
-        : Downpour.None
+        : 'None'
 
     const specialDesc =
       di === 0
@@ -410,12 +427,12 @@ const generateDays = ({
     const cloudy =
       flooredChangedWetness > 50 &&
       flooredChangedTemp > 45 &&
-      downpour === Downpour.None
+      downpour === 'None'
 
     const partlyCloudy =
       flooredChangedWetness > 45 &&
       flooredChangedTemp > 50 &&
-      downpour === Downpour.None
+      downpour === 'None'
 
     return new WeatherDay({
       temp: flooredChangedTemp,
@@ -539,26 +556,26 @@ const getStormTypeAndWindSpeed = (
   switch (true) {
     case isStorm && lowWetness:
       return {
-        stormType: StormType.Windstorm,
+        stormType: 'Windstorm',
         windSpeed: windStormSpeed,
       }
 
     case isStorm && !lowWetness && isAboveFreezing:
       return {
         windSpeed,
-        stormType: StormType.Rainstorm,
+        stormType: 'Rainstorm',
       }
 
     case isStorm && !lowWetness && !isAboveFreezing:
       return {
         windSpeed,
-        stormType: StormType.Snowstorm,
+        stormType: 'Snowstorm',
       }
 
     default:
       return {
         windSpeed,
-        stormType: StormType.None,
+        stormType: 'None',
       }
   }
 }
@@ -639,28 +656,28 @@ const getDownpour = (
 
   switch (true) {
     case isAboveFreezing && lowWetness:
-      return Downpour.Drizzle
+      return 'Drizzle'
 
     case isAboveFreezing && mediumWetness && isTeeShirtWeather:
-      return Downpour.Showers
+      return 'Showers'
 
     case isAboveFreezing && mediumWetness && !isTeeShirtWeather:
-      return Downpour.LightRain
+      return 'LightRain'
 
     case isAboveFreezing && highWetness:
-      return Downpour.Raining
+      return 'Raining'
 
     case !isAboveFreezing && lowWetness:
-      return Downpour.LightSnow
+      return 'LightSnow'
 
     case !isAboveFreezing && mediumWetness:
-      return Downpour.SnowShowers
+      return 'SnowShowers'
 
     case !isAboveFreezing && highWetness:
-      return Downpour.Snowing
+      return 'Snowing'
 
     default:
-      return Downpour.None
+      return 'None'
   }
 }
 
