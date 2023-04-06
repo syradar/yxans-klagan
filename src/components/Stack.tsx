@@ -7,13 +7,14 @@ const spacings = {
   normal: `gap-4`,
 } as const
 
-export type StackProps = ComponentPropsWithRef<'div'> & {
+export type StackProps = Pick<ComponentPropsWithRef<'div'>, 'className'> & {
   children: React.ReactNode
   dir?: 'vertical' | 'horizontal'
   wrap?: boolean
   distribute?: boolean
   spacing?: Spacing
   full?: boolean
+  center?: boolean
 }
 
 export type PancakeProps = Omit<StackProps, 'dir'>
@@ -26,6 +27,7 @@ export const Stack = ({
   distribute = false,
   spacing = 'normal',
   full = false,
+  center = false,
   className,
 }: StackProps) => {
   return (
@@ -35,6 +37,7 @@ export const Stack = ({
         ${wrap ? 'flex-wrap' : ''}
         ${dir === 'horizontal' ? 'flex-row' : 'flex-col'}
         ${distribute ? 'justify-between' : ''}
+        ${center ? 'justify-center' : ''}
         ${spacings[spacing]}
         ${className || ''}
       `}
@@ -50,6 +53,7 @@ export const Pancake = ({
   distribute,
   spacing,
   className,
+  center,
 }: PancakeProps) => (
   <Stack
     dir="vertical"
@@ -57,6 +61,7 @@ export const Pancake = ({
     distribute={distribute}
     spacing={spacing}
     className={className}
+    center={center}
   >
     {children}
   </Stack>
@@ -69,6 +74,7 @@ export const Train = ({
   spacing,
   full,
   className,
+  center,
 }: TrainProps) => (
   <Stack
     dir="horizontal"
@@ -77,6 +83,7 @@ export const Train = ({
     spacing={spacing}
     full={full}
     className={className}
+    center={center}
   >
     {children}
   </Stack>
