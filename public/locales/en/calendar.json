@@ -24,6 +24,8 @@
   "GrowthDay": "Growth day",
   "HarvestDay": "Harvest day",
   "StillDay": "Stillday",
+  "FullMoon": "Full moon",
+  "NewMoon": "New moon",
   "StormNone": "",
   "StormWind": "Wind storm",
   "StormSnow": "Snow storm",

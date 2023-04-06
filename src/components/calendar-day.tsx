@@ -1,12 +1,14 @@
 import { useTranslation } from 'react-i18next'
 import {
+  downpourTranslationKeyDict,
   getFahrenheitTempString,
   getMoonEmoji,
   getTempString,
   getWeatherIcon,
+  stormTypeTranslationKeyDict,
   TemperatureUnit,
 } from '../functions/weather.functions'
-import { Day } from '../models/calendar.model'
+import { Day, dayNameTranslationKeyDict } from '../models/calendar.model'
 import { DayCounter } from './day-counter'
 import { Pancake, Train } from './Stack'
 
@@ -23,7 +25,7 @@ export const CalendarDay = ({
   showWeather = true,
   temperatureUnit,
 }: CalendarDayProps) => {
-  const { t } = useTranslation('calendar')
+  const { t } = useTranslation(['calendar'])
 
   const formatTemperature = (temp: number) => {
     return temperatureUnit === TemperatureUnit.Metric
@@ -35,10 +37,12 @@ export const CalendarDay = ({
     <div className="border p-2">
       <Pancake spacing="small">
         <Pancake spacing="none" wrap={false}>
-          <div className="lg:hidden">{t(day.name)}</div>
+          <div className="lg:hidden">
+            {t(dayNameTranslationKeyDict[day.name])}
+          </div>
           <Train spacing="small">
             <div>{day.number}</div>
-            {day.moon && <div>{getMoonEmoji(day.moon)}</div>}
+
             <div>{getWeatherIcon(day)}</div>
           </Train>
         </Pancake>
@@ -48,17 +52,25 @@ export const CalendarDay = ({
             spendQuarter={() => quarterClicked(day)}
           ></DayCounter>
         </div>
+        {day.moon && (
+          <div className="flex gap-2">
+            <div>{getMoonEmoji(day.moon)}</div>
+            <div>
+              {day.moon === 'new' && t('calendar:NewMoon')}
+              {day.moon === 'full' && t('calendar:FullMoon')}
+            </div>
+          </div>
+        )}
         {showWeather && (
           <Train spacing="none">
             <div>
-              {t('Weather-High')}: {formatTemperature(day.temp)}
+              {t('calendar:Weather-High')}: {formatTemperature(day.temp)}
             </div>
             <div>
-              {t('Weather-Low')}: {formatTemperature(day.lowTemp)}
+              {t('calendar:Weather-Low')}: {formatTemperature(day.lowTemp)}
             </div>
-            <div>{t(day.downpour)}</div>
-            <div>{t(day.stormType)}</div>
-            <div>{t(day.stormType)}</div>
+            <div>{t(downpourTranslationKeyDict[day.downpour])}</div>
+            <div>{t(stormTypeTranslationKeyDict[day.stormType])}</div>
             <div>
               {day.eventType && day.eventType.name ? day.eventType.name : ''}
             </div>
