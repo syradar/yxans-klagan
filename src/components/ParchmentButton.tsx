@@ -7,7 +7,7 @@ type ParchmentButtonProps = {
   small?: boolean
   onClick?: () => void
   disabled?: boolean
-  buttonType?: 'secondary' | 'primary' | 'danger' | 'ghost'
+  buttonType?: 'secondary' | 'primary' | 'danger' | 'ghost' | 'ghost-secondary'
   forwardedRef?: React.Ref<HTMLButtonElement>
 }
 
@@ -41,7 +41,16 @@ export const ParchmentButton = ({
         <div
           className={`
           z-0 col-start-1 col-end-2 row-start-1 row-end-2 rounded border-2  shadow transition-colors
-          ${disabled ? 'border-gray-300 bg-gray-300' : ''}
+          ${
+            disabled && buttonType !== 'ghost'
+              ? 'border-neutral-500 bg-neutral-300'
+              : ''
+          }
+          ${
+            disabled && buttonType === 'ghost'
+              ? 'border-neutral-500 bg-transparent'
+              : ''
+          }
           ${
             !disabled && buttonType === 'primary'
               ? 'border-green-800 bg-green-600 group-hover:border-green-800 group-hover:bg-green-800'
@@ -69,7 +78,7 @@ export const ParchmentButton = ({
         <div
           className={`
         z-10 col-start-1 col-end-2 row-start-1 row-end-2 flex items-center gap-2 font-medium
-        ${small ? 'px-4 py-2' : 'px-4 py-2'}
+        ${small ? 'px-3 py-1' : 'px-4 py-2'}
         ${disabled ? 'text-gray-600' : ''}
         ${
           !disabled &&
