@@ -163,7 +163,7 @@ export const CalendarPage = () => {
           </ParchmentButton>
         </Stack.Horizontal>
         {showCalenderOptions && (
-          <div className="flex flex-col gap-2 bg-gray-200 py-8 px-4">
+          <div className="flex flex-col gap-2 bg-gray-200 px-4 py-8">
             <h3 className="font-bold uppercase tracking-wide">
               {t('Options-StartingYear')}
             </h3>
