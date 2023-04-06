@@ -37,7 +37,7 @@ const App = () => {
 export default App
 
 const AppMenu = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['core'])
   const ref = createRef<HTMLButtonElement>()
   const isLg = useMediaQuery('(min-width: 1024px)')
 
@@ -123,7 +123,7 @@ const AppMenu = () => {
                     className="mb-4 mt-auto text-center font-medium tracking-wide text-red-700 hover:underline"
                     href="https://github.com/syradar/yxans-klagan/issues/new/choose"
                   >
-                    {t('GiveFeedback')}
+                    {t('core:GiveFeedback')}
                   </a>
                 </div>
               )}
