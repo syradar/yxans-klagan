@@ -11,6 +11,8 @@ function getConnectionSpeed() {
 }
 
 export function sendToVercelAnalytics(metric: Metric) {
+  console.log('Sending metric to Vercel Analytics', metric)
+
   const analyticsId = process.env.REACT_APP_VERCEL_ANALYTICS_ID
   if (!analyticsId) {
     return
