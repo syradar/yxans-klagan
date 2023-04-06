@@ -8,7 +8,7 @@ import { Group, GroupProps } from './components/group'
 import { MenuLink } from './components/MenuLink'
 import { Pancake } from './components/Stack'
 
-const HomePage = lazy(() => import('./pages/Home.page'))
+const HomePage = lazy(() => import('./pages/home.page'))
 const CalendarPage = lazy(() => import('./pages/calendar.page'))
 const EncounterPage = lazy(() => import('./pages/encounter.page'))
 const FindsPage = lazy(() => import('./pages/finds.page'))
