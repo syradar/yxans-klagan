@@ -5,6 +5,11 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
+  define: {
+    'import.meta.env.VERCEL_ANALYTICS_ID': JSON.stringify(
+      process.env.VERCEL_ANALYTICS_ID,
+    ),
+  },
   test: {
     globals: true,
     environment: 'jsdom',

@@ -32,7 +32,7 @@ if (import.meta.hot) {
 
 let analyticsId = 'DEBUG'
 try {
-  analyticsId = process.env.REACT_APP_VERCEL_ANALYTICS_ID ?? 'DEBUG'
+  analyticsId = import.meta.env.VERCEL_ANALYTICS_ID ?? 'DEBUG'
 } catch (error) {
   console.error(error)
 }
