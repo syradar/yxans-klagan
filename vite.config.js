@@ -2,6 +2,8 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
+const packagesToBuildWithNoHash = ['@vercel/analytics', 'web-vitals']
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
@@ -19,7 +21,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         assetFileNames: (a) => {
-          if (a.name === 'web-vitals') {
+          if (packagesToBuildWithNoHash.includes(a.name)) {
             return 'assets/[name][extname]'
           } else {
             return 'assets/[name]-[hash][extname]'

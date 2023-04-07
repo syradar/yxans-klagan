@@ -12,6 +12,7 @@
   "version": "1.2.0",
   "scripts": {
     "dev": "vite",
+    "dev:safari": "vite --port 8080",
     "build": "tsc && vite build",
     "serve": "vite preview",
     "test": "vitest",
