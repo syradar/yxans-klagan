@@ -6,9 +6,8 @@ import 'tailwindcss/tailwind.css'
 import App from './App'
 import './App.css'
 import i18nReact from './i18nReact'
-import reportWebVitals from './reportWebVitals'
-import { sendToVercelAnalytics } from './vitals'
 import { consoleLogo } from './console-logo'
+import { webVitals } from './vitals'
 
 const container = document.getElementById('root') as HTMLDivElement
 const root = createRoot(container)
@@ -31,6 +30,20 @@ if (import.meta.hot) {
   import.meta.hot.accept()
 }
 
-reportWebVitals(sendToVercelAnalytics)
+let analyticsId = 'DEBUG'
+try {
+  analyticsId = process.env.REACT_APP_VERCEL_ANALYTICS_ID ?? 'DEBUG'
+} catch (error) {
+  console.error(error)
+}
+
+if (analyticsId) {
+  webVitals({
+    analyticsId,
+    path: window.location.pathname,
+    params: { href: window.location.href },
+    debug: analyticsId === 'DEBUG',
+  })
+}
 
 consoleLogo()

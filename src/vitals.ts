@@ -10,22 +10,30 @@ function getConnectionSpeed() {
     : ''
 }
 
-export function sendToVercelAnalytics(metric: Metric) {
-  console.log('Sending metric to Vercel Analytics', metric)
-
-  const analyticsId = process.env.REACT_APP_VERCEL_ANALYTICS_ID
-  if (!analyticsId) {
-    return
-  }
+export type AnalyticsOptions = {
+  params: { [key: string]: string }
+  path: string
+  analyticsId: string
+  debug: boolean
+}
+function sendToAnalytics(metric: Metric, options: AnalyticsOptions) {
+  const page = Object.entries(options.params).reduce(
+    (acc, [key, value]) => acc.replace(value, `[${key}]`),
+    options.path,
+  )
 
   const body = {
-    dsn: analyticsId,
-    id: metric.id,
-    page: window.location.pathname,
-    href: window.location.href,
-    event_name: metric.name,
-    value: metric.value.toString(),
-    speed: getConnectionSpeed(),
+    dsn: options.analyticsId, // qPgJqYH9LQX5o31Ormk8iWhCxZO
+    id: metric.id, // v2-1653884975443-1839479248192
+    page, // /blog/[slug]
+    href: location.href, // https://{my-example-app-name-here}/blog/my-test
+    event_name: metric.name, // TTFB
+    value: metric.value.toString(), // 60.20000000298023
+    speed: getConnectionSpeed(), // 4g
+  }
+
+  if (options.debug) {
+    console.log('[Analytics]', metric.name, JSON.stringify(body, null, 2))
   }
 
   const blob = new Blob([new URLSearchParams(body).toString()], {
@@ -40,5 +48,22 @@ export function sendToVercelAnalytics(metric: Metric) {
       method: 'POST',
       credentials: 'omit',
       keepalive: true,
+    })
+}
+
+export function webVitals(options: AnalyticsOptions) {
+  import('web-vitals')
+    .then(({ onCLS, onFCP, onFID, onLCP, onTTFB }) => {
+      onFID((metric) => sendToAnalytics(metric, options))
+      onTTFB((metric) => sendToAnalytics(metric, options))
+      onLCP((metric) => sendToAnalytics(metric, options))
+      onCLS((metric) => sendToAnalytics(metric, options))
+      onFCP((metric) => sendToAnalytics(metric, options))
+    })
+    .catch((err) => {
+      console.error('[Analytics]', err)
+      console.info(
+        'If you would like to help improve this project, please consider disabling ad blockers and/or upgrading your browser to the latest version.',
+      )
     })
 }
