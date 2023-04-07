@@ -153,7 +153,6 @@ type MenuProps = {
 }
 export const Menu = ({ menuRoutes, close }: MenuProps) => {
   const { t } = useTranslation('core')
-
   const isLg = useMediaQuery('(min-width: 1024px)')
 
   return (
