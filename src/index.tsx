@@ -5,9 +5,10 @@ import { BrowserRouter } from 'react-router-dom'
 import 'tailwindcss/tailwind.css'
 import App from './App'
 import './App.css'
-import i18nReact from './i18nReact'
 import { consoleLogo } from './console-logo'
+import i18nReact from './i18nReact'
 import { webVitals } from './vitals'
+import { inject } from '@vercel/analytics'
 
 const container = document.getElementById('root') as HTMLDivElement
 const root = createRoot(container)
@@ -30,6 +31,7 @@ if (import.meta.hot) {
   import.meta.hot.accept()
 }
 
+// Vercel Web Vitals
 let analyticsId = 'DEBUG'
 try {
   analyticsId = import.meta.env.VERCEL_ANALYTICS_ID ?? 'DEBUG'
@@ -45,5 +47,8 @@ if (analyticsId) {
     debug: analyticsId === 'DEBUG',
   })
 }
+
+// Vercel Audience Analytics
+inject()
 
 consoleLogo()
