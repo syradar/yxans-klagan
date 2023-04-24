@@ -1,11 +1,85 @@
+import { useEffect, useState } from 'react'
+import { ParchmentInput } from '../components/ParchmentInput'
 import { PageHeader } from '../components/page-header'
 import { Parchment } from '../components/parchment'
 import { rollD6 } from '../functions/dice.functions'
+import { ParchmentButton } from '../components/ParchmentButton'
+import { ArrowPathIcon } from '@heroicons/react/24/outline'
+import { t } from 'i18next'
+import { useTranslation } from 'react-i18next'
 
 export const GearPage = () => {
+  const { t, i18n } = useTranslation(['gear'])
+  const [searchGoods, setSearchGoods] = useState('')
+  const [maxPrice, setMaxPrice] = useState<number>(Infinity)
+  const [itemAvailability, setItemAvailability] = useState<Record<
+    string,
+    Availability
+  > | null>(null)
+
+  // create a filterarray of goods that match the search string and/or max price
+  const filteredGoods = consumerGoods.filter((goods: ConsumerGoods) => {
+    const matchesSearch = goods.item
+      .toLowerCase()
+      .includes(searchGoods.toLowerCase())
+    const isWithinPriceRange = goods.price.copper <= maxPrice
+
+    return matchesSearch && isWithinPriceRange
+  })
+
+  const filteredServices = regularServices.filter((service: RegularService) => {
+    const matchesSearch = service.service
+      .toLowerCase()
+      .includes(searchGoods.toLowerCase())
+    const isWithinPriceRange = service.price.copper <= maxPrice
+
+    return matchesSearch && isWithinPriceRange
+  })
+
+  const refreshAvailability = () => {
+    const availability: Record<string, Availability> = {}
+    consumerGoods.forEach((item) => {
+      availability[item.item] = availabilityFormat(
+        item.availability,
+      ) as Availability
+    })
+    regularServices.forEach((item) => {
+      availability[item.service] = availabilityFormat(
+        item.availability,
+      ) as Availability
+    })
+    setItemAvailability(availability)
+  }
+  useEffect(() => {
+    refreshAvailability()
+  }, [])
+
   return (
     <div className="flex w-full flex-col gap-y-8">
       <PageHeader>Utrustning</PageHeader>
+      <div className="flex justify-between align-middle">
+        <ParchmentButton onClick={() => refreshAvailability()}>
+          <ArrowPathIcon className="h-5 w-5" />
+          <div>{t('gear:RefreshAvailability')}</div>
+        </ParchmentButton>
+        <div className="flex">
+          <ParchmentInput
+            placeholder="Sök efter föremål"
+            value={searchGoods}
+            onChange={function (value: string): void {
+              setSearchGoods(value)
+            }}
+          />
+          <ParchmentInput
+            placeholder="Maximalt pris"
+            value={maxPrice === Infinity ? '' : maxPrice.toString()}
+            onChange={(value: string) => {
+              const parsedValue = parseInt(value)
+              setMaxPrice(isNaN(parsedValue) ? Infinity : parsedValue)
+            }}
+          />
+        </div>
+      </div>
 
       <div>
         <Parchment>
@@ -30,7 +104,7 @@ export const GearPage = () => {
               </tr>
             </thead>
             <tbody>
-              {regularServices.map((rs) => (
+              {filteredServices.map((rs) => (
                 <tr
                   key={rs.service}
                   className="group grid grid-cols-2 lg:table-row"
@@ -43,13 +117,103 @@ export const GearPage = () => {
                     <div className="text-sm lg:hidden">Pris</div>
                     {priceFormat(rs.price)}
                   </td>
-                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
-                    <div className="text-sm lg:hidden">Tillgång</div>
-                    {availabilityFormat(rs.availability)}
-                  </td>
+                  {itemAvailability && (
+                    <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                      <div className="text-sm lg:hidden">Tillgång</div>
+                      {itemAvailability[rs.service]}
+                    </td>
+                  )}
                   <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
                     <div className="text-sm lg:hidden">Kommentar</div>
                     {rs.comment ?? ''}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Parchment>
+      </div>
+      {/* convert to component */}
+      <div>
+        <Parchment>
+          <h2 className="yx-heading mb-4 flex text-center text-4xl">
+            Bruksföremål
+          </h2>
+          <table className="w-full">
+            <thead className="hidden lg:table-header-group">
+              <tr>
+                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
+                  Föremål
+                </td>
+                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
+                  Pris
+                </td>
+                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
+                  Tillgång
+                </td>
+                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
+                  Vikt
+                </td>
+                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
+                  Råvaror
+                </td>
+                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
+                  Tidsåtgång
+                </td>
+                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
+                  Talang
+                </td>
+                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
+                  Verktyg
+                </td>
+                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
+                  Effekt
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredGoods.map((rs) => (
+                <tr
+                  key={rs.item}
+                  className="group grid grid-cols-2 lg:table-row"
+                >
+                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                    <div className="text-sm lg:hidden">Föremål</div>
+                    {rs.item}
+                  </td>
+                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                    <div className="text-sm lg:hidden">Pris</div>
+                    {priceFormat(rs.price)}
+                  </td>
+                  {itemAvailability && (
+                    <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                      <div className="text-sm lg:hidden">Tillgång</div>
+                      {itemAvailability[rs.item]}
+                    </td>
+                  )}
+                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                    <div className="text-sm lg:hidden">Vikt</div>
+                    {rs.weight ?? ''}
+                  </td>
+                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                    <div className="text-sm lg:hidden">Råvaror</div>
+                    {rs.rawMaterials ?? ''}
+                  </td>
+                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                    <div className="text-sm lg:hidden">Tidsåtgång</div>
+                    {rs.timeToProduce ?? ''}
+                  </td>
+                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                    <div className="text-sm lg:hidden">Talang</div>
+                    {rs.talants ?? ''}
+                  </td>
+                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                    <div className="text-sm lg:hidden">Verktyg</div>
+                    {rs.tools ?? ''}
+                  </td>
+                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                    <div className="text-sm lg:hidden">Effekt</div>
+                    {rs.effect ?? ''}
                   </td>
                 </tr>
               ))}
@@ -63,17 +227,30 @@ export const GearPage = () => {
 
 type Per = 'day' | 'hex'
 type Availability = 'vanlig' | 'ovanlig' | 'sällsynt'
+type Weight = 'småsak' | 'lätt' | 'normal' | 'tung'
+type TimeToProduce = 'Ett kvartsdygn' | 'En dag' | 'Två veckor'
 
-interface ServiceCost {
+interface Cost {
   copper: number
   per?: Per
 }
-
 interface RegularService {
   service: string
-  price: ServiceCost
+  price: Cost
   availability: Availability
   comment?: string
+}
+
+interface ConsumerGoods {
+  item: string
+  price: Cost
+  availability: Availability
+  weight: Weight
+  rawMaterials: string
+  timeToProduce: TimeToProduce
+  talants: string
+  tools: string
+  effect: string
 }
 
 const availabilityFormat = (a: Availability): string => {
@@ -96,7 +273,7 @@ const availabilityFormat = (a: Availability): string => {
   }
 }
 
-const priceFormat = (sc: ServiceCost): string => {
+const priceFormat = (sc: Cost): string => {
   const coins = formatCoinPurse(copperToCoinPurse(sc.copper))
   const per = sc.per ? perFormat[sc.per] : ''
 
@@ -214,6 +391,31 @@ const regularServices: RegularService[] = [
     availability: 'ovanlig',
     price: { copper: 10, per: 'day' },
     comment: 'Kan vara dyrare',
+  },
+]
+
+const consumerGoods: ConsumerGoods[] = [
+  {
+    item: 'Pilar, järnspets',
+    price: { copper: 12 },
+    availability: 'vanlig',
+    weight: 'normal',
+    rawMaterials: '1/2 Järn, 1 Trä',
+    timeToProduce: 'Ett kvartsdygn',
+    talants: 'Smed, Bågmakare',
+    tools: 'Smedja, kniv',
+    effect: 'Ökar resurstärning Pilar ett steg',
+  },
+  {
+    item: 'Pilar, träspets',
+    price: { copper: 6 },
+    availability: 'vanlig',
+    weight: 'normal',
+    rawMaterials: '1 Trä',
+    timeToProduce: 'Ett kvartsdygn',
+    talants: 'Bågmakare',
+    tools: 'Kniv',
+    effect: 'Ökar resurstärning Pilar ett steg. Målets skyddsvärde fördubblas',
   },
 ]
 
