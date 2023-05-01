@@ -18,9 +18,9 @@ export const ParchmentInput = ({
   forwardedRef,
 }: ParchmentInputProps) => {
   const [options] = useState({
-    baseFrequency: getRandomInt(1, 10) / 100,
-    numOctaves: getRandomInt(1, 5),
-    scale: getRandomInt(1, 5),
+    baseFrequency: getRandomInt(1, 2) / 100,
+    numOctaves: getRandomInt(1, 2),
+    scale: getRandomInt(1, 3),
     id: nanoid(),
   })
 
@@ -29,7 +29,12 @@ export const ParchmentInput = ({
   }
 
   return (
-    <div className="relative">
+    <div
+      className={` relative`}
+      style={{
+        filter: `url(#input-filter-${options.id})`,
+      }}
+    >
       <input
         ref={forwardedRef}
         type="text"
@@ -37,7 +42,7 @@ export const ParchmentInput = ({
         onChange={handleInputChange}
         placeholder={placeholder}
         className={`
-          w-full rounded border-2 shadow transition-colors
+          w-full rounded border-2 shadow transition-colors p-1
           ${
             disabled
               ? 'cursor-not-allowed border-neutral-500 bg-neutral-300'
@@ -58,7 +63,7 @@ export const ParchmentInput = ({
         width="0"
       >
         <defs>
-          <filter id={`input-filter-${options.id}`} height="1.4" width="1.4">
+          {/* <filter id={`input-filter-${options.id}`} height="1.4" width="1.4">
             <feTurbulence
               baseFrequency={options.baseFrequency}
               numOctaves={options.numOctaves}
@@ -78,7 +83,7 @@ export const ParchmentInput = ({
               operator="atop"
               result="fbSourceGraphic"
             />
-          </filter>
+          </filter> */}
         </defs>
       </svg>
       <div
@@ -86,7 +91,6 @@ export const ParchmentInput = ({
           absolute inset-0 z-0
           ${disabled ? '' : 'pointer-events-none'}
         `}
-        style={{ filter: `url(#input-filter-${options.id})` }}
       ></div>
     </div>
   )

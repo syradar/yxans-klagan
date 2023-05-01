@@ -7,9 +7,10 @@ import { ParchmentButton } from '../components/ParchmentButton'
 import { ArrowPathIcon } from '@heroicons/react/24/outline'
 import { t } from 'i18next'
 import { useTranslation } from 'react-i18next'
+import { LabelValue } from '../components/LabelValue'
 
 export const GearPage = () => {
-  const { t, i18n } = useTranslation(['gear'])
+  const { t } = useTranslation(['gear'])
   const [searchGoods, setSearchGoods] = useState('')
   const [maxPrice, setMaxPrice] = useState<number>(Infinity)
   const [itemAvailability, setItemAvailability] = useState<Record<
@@ -57,28 +58,31 @@ export const GearPage = () => {
   return (
     <div className="flex w-full flex-col gap-y-8">
       <PageHeader>Utrustning</PageHeader>
-      <div className="flex justify-between align-middle">
+      <div className="flex flex-col-reverse justify-between md:flex-row">
+        <div className="mt-4 flex md:mt-0">
+          <div className="mr-2">
+            <LabelValue label={t('gear:SearchGoods')}>
+              <ParchmentInput
+                value={searchGoods}
+                onChange={(value: string) => setSearchGoods(value)}
+              />
+            </LabelValue>
+          </div>
+
+          <LabelValue label={t('gear:MaxPrice')}>
+            <ParchmentInput
+              value={maxPrice === Infinity ? '' : maxPrice.toString()}
+              onChange={(value: string) => {
+                const parsedValue = parseInt(value)
+                setMaxPrice(isNaN(parsedValue) ? Infinity : parsedValue)
+              }}
+            />
+          </LabelValue>
+        </div>
         <ParchmentButton onClick={() => refreshAvailability()}>
           <ArrowPathIcon className="h-5 w-5" />
           <div>{t('gear:RefreshAvailability')}</div>
         </ParchmentButton>
-        <div className="flex">
-          <ParchmentInput
-            placeholder="Sök efter föremål"
-            value={searchGoods}
-            onChange={function (value: string): void {
-              setSearchGoods(value)
-            }}
-          />
-          <ParchmentInput
-            placeholder="Maximalt pris"
-            value={maxPrice === Infinity ? '' : maxPrice.toString()}
-            onChange={(value: string) => {
-              const parsedValue = parseInt(value)
-              setMaxPrice(isNaN(parsedValue) ? Infinity : parsedValue)
-            }}
-          />
-        </div>
       </div>
 
       <div>
@@ -133,7 +137,6 @@ export const GearPage = () => {
           </table>
         </Parchment>
       </div>
-      {/* convert to component */}
       <div>
         <Parchment>
           <h2 className="yx-heading mb-4 flex text-center text-4xl">
@@ -205,7 +208,7 @@ export const GearPage = () => {
                   </td>
                   <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
                     <div className="text-sm lg:hidden">Talang</div>
-                    {rs.talants ?? ''}
+                    {rs.talents ?? ''}
                   </td>
                   <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
                     <div className="text-sm lg:hidden">Verktyg</div>
@@ -248,7 +251,7 @@ interface ConsumerGoods {
   weight: Weight
   rawMaterials: string
   timeToProduce: TimeToProduce
-  talants: string
+  talents: string
   tools: string
   effect: string
 }
@@ -402,7 +405,7 @@ const consumerGoods: ConsumerGoods[] = [
     weight: 'normal',
     rawMaterials: '1/2 Järn, 1 Trä',
     timeToProduce: 'Ett kvartsdygn',
-    talants: 'Smed, Bågmakare',
+    talents: 'Smed, Bågmakare',
     tools: 'Smedja, kniv',
     effect: 'Ökar resurstärning Pilar ett steg',
   },
@@ -413,7 +416,7 @@ const consumerGoods: ConsumerGoods[] = [
     weight: 'normal',
     rawMaterials: '1 Trä',
     timeToProduce: 'Ett kvartsdygn',
-    talants: 'Bågmakare',
+    talents: 'Bågmakare',
     tools: 'Kniv',
     effect: 'Ökar resurstärning Pilar ett steg. Målets skyddsvärde fördubblas',
   },

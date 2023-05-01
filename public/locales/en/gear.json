@@ -1,3 +1,5 @@
 {
-    "RefreshAvailability": "Roll for availability"
+    "RefreshAvailability": "Reroll availability",
+    "MaxPrice": "Max price in copper",
+    "SearchGoods": "Search item"
 }
