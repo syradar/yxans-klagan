@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { rollD6 } from '../functions/dice.functions'
 import { withId } from '../functions/utils.functions'
 import {
   MonsterDescriptionItemViewModel,
   MonsterType,
   RandomMonsterViewModel,
+  monsterHomeLabels,
 } from '../models/monster.model'
 import { getId } from '../models/utils.model'
 import { DefinitionList } from './definition-list'
@@ -13,13 +13,16 @@ import { MonsterAttack } from './monster-attack'
 import { MonsterAttribute } from './monster-attributes'
 import { SkillList } from './skill-list'
 import { Pancake } from './Stack'
+import { useAppSelector } from '../store/store.hooks'
+import { selectTranslateFunction } from '../store/translations/translation.slice'
+import { TranslationKey } from '../store/translations/translation.model'
 
 export type RandomMonsterDisplayProps = {
   rm: RandomMonsterViewModel
 }
 
 export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
-  const { t } = useTranslation(['monsters', 'common'])
+  const t = useAppSelector(selectTranslateFunction(['monster', 'common']))
   const [selectedAttack, setSeletecAttack] = useState<number | undefined>(
     undefined,
   )
@@ -31,34 +34,33 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
     }, 100)
   }
 
-  const getSizeContext = (type: MonsterType) => {
+  const isDefinitiveArticle = (type: MonsterType): boolean => {
     switch (type) {
       case 'Grazing':
       case 'Predator':
       case 'AggressivePredator':
-        return {
-          context: 'def',
-        }
+        return true
       default:
-        return {}
+        return false
     }
   }
   const describeMonsterHeads = (
     heads: MonsterDescriptionItemViewModel[],
   ): string => {
     const translatedHeads = heads.map((h) =>
-      h.count
-        ? t(h.key, { count: h.count, defaultValue: h.key })
-        : t(h.key, { defaultValue: h.key }),
+      t(
+        h.key,
+        h.count ? { context: { count: h.count.toString() } } : undefined,
+      ),
     )
 
     if (translatedHeads.length === 1) {
-      return `${t('monsters:TheMonsterHas')} ${translatedHeads.join('')}.`
+      return `${t('monster:TheMonsterHas')} ${translatedHeads.join('')}.`
     }
 
     const [lastHead, ...restOfHeads] = translatedHeads
 
-    return `${t('monsters:TheMonsterHas')} ${restOfHeads.join(
+    return `${t('monster:TheMonsterHas')} ${restOfHeads.join(
       ', ',
     )} & ${lastHead}.`
   }
@@ -67,33 +69,40 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
     limbs: MonsterDescriptionItemViewModel[],
   ): string => {
     const translatedLimbs = limbs.map((l) =>
-      l.count
-        ? t(`${l.key}_count`, { count: l.count, defaultValue: l.key })
-        : t(l.key, { defaultValue: l.key }),
+      t(
+        l.key,
+        l.count ? { context: { count: l.count.toString() } } : undefined,
+      ),
     )
 
     if (translatedLimbs.length === 1) {
-      return `${t('monsters:TheMonsterHas')} ${translatedLimbs.join('')}.`
+      return `${t('monster:TheMonsterHas')} ${translatedLimbs.join('')}.`
     }
 
     const [lastLimb, ...restOfLimbs] = [...translatedLimbs].reverse()
 
-    return `${t('monsters:TheMonsterHas')} ${restOfLimbs.join(
+    return `${t('monster:TheMonsterHas')} ${restOfLimbs.join(
       ', ',
     )} & ${lastLimb}.`
   }
 
-  const describeHome = (monsterHome: string): string =>
-    `${t('LivesIn', {
-      home: `monsters:Homes.${monsterHome}`,
-      defaultValue: monsterHome,
+  const describeHome = (monsterHome: TranslationKey<'monster'>): string =>
+    `${t('monster:LivesIn', {
+      context: {
+        home: t(monsterHome),
+      },
     })}.`
 
   return (
     <Pancake wrap={false}>
       <h2 className="yx-heading mb-2 text-4xl">
-        {t(`monsters:Size.${rm.size}`, { ...getSizeContext(rm.type) })}{' '}
-        {t(`monsters:Type.${rm.type}`)}
+        {t(`monster:Size.Big_def`)}
+        {t(
+          `monster:Size.${rm.size}${
+            isDefinitiveArticle(rm.type) ? '_def' : ''
+          }` as TranslationKey<'monster'>,
+        )}{' '}
+        {t(`monster:Type.${rm.type}`)}
       </h2>
 
       <div className="yx-prose mb-4 max-w-prose">
@@ -101,7 +110,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
           {[
             describeMonsterHeads(rm.description.head),
             describeMonsterLimbs(rm.description.limbs),
-            describeHome(rm.home),
+            describeHome(monsterHomeLabels[rm.home]),
           ].join(' ')}
         </p>
       </div>
@@ -138,11 +147,11 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
               {rm.armor && (
                 <div>
                   <h3 className="text-xl font-medium">
-                    {t('monsters:ArmorLabel')}
+                    {t('monster:ArmorLabel')}
                   </h3>
                   <div>
                     <span className="font-medium">
-                      {t(`monsters:Armor.${rm.armor.label}`)}:{' '}
+                      {t(`monster:Armor.${rm.armor.label}`)}:{' '}
                     </span>
                     {rm.armor.values.length}
                   </div>
@@ -151,21 +160,23 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
 
               <div>
                 <h3 className="text-xl font-medium">
-                  {t(`monsters:Movement.Movement`)}
+                  {t(`monster:Movement.Movement`)}
                 </h3>
                 <div>
-                  {t(`monsters:Movement.${rm.movement.type}`)}{' '}
+                  {t(`monster:Movement.${rm.movement.type}`)}{' '}
                   {rm.movement.distance}{' '}
-                  {t(`monsters:Movement.Zones`, {
-                    count: rm.movement.distance,
-                  })}
+                  {t(
+                    rm.movement.distance === 1
+                      ? 'monster:Movement.Zones_one'
+                      : 'monster:Movement.Zones_other',
+                  )}
                 </div>
               </div>
 
               <div className="md:w-full">
-                <h3 className="text-xl font-medium">{t(`monsters:Skill`)}</h3>
+                <h3 className="text-xl font-medium">{t(`monster:Skill`)}</h3>
                 {rm.skills.length === 0 ? (
-                  <div>{t('monsters:Skills.None')}</div>
+                  <div>{t('monster:Skills.None')}</div>
                 ) : (
                   <SkillList
                     skills={
@@ -189,22 +200,28 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
           <div className="grid flex-1 auto-rows-min grid-cols-2 gap-4 lg:grid-cols-none   lg:gap-4">
             <section>
               <h3 className="text-xl font-medium">
-                {t(`monsters:Trait.Traits`)}
+                {t(`monster:Trait.Traits`)}
               </h3>
               <DefinitionList
                 definitions={rm.traits.map((trait) => ({
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   name: t(trait.name as any) as string,
-                  description: t(trait.description.key, {
-                    count: trait.description.count,
-                    defaultValue: trait.description.key,
-                  }),
+                  description: t(
+                    trait.description.key,
+                    trait.description.count
+                      ? {
+                          context: {
+                            count: trait.description.count.toString(),
+                          },
+                        }
+                      : undefined,
+                  ),
                 }))}
               ></DefinitionList>
             </section>
             <section>
               <h3 className="text-xl font-medium">
-                {t(`monsters:Weakness.Weakness`)}
+                {t(`monster:Weakness.Weakness`)}
               </h3>
               <DefinitionList
                 definitions={[rm.weakness].map((w) => ({
@@ -217,7 +234,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
             </section>
             <section>
               <h3 className="text-xl font-medium">
-                {t(`monsters:Motivation.Motivation`)}
+                {t(`monster:Motivation.Motivation`)}
               </h3>
               <DefinitionList
                 definitions={[rm.motivation].map((m) => ({
@@ -234,10 +251,10 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
           <Pancake>
             <div className="flex items-baseline gap-2">
               <h3 className="text-xl font-medium">
-                {t(`monsters:Attack.Attacks`)}
+                {t(`monster:Attack.Attacks`)}
               </h3>
               <RollButton onClick={() => rollAttack()}>
-                {t('monsters:Attack.Roll')}
+                {t('monster:Attack.Roll')}
               </RollButton>
             </div>
             <div className="grid gap-2 md:grid-cols-2">

@@ -1,15 +1,18 @@
-import { useTranslation } from 'react-i18next'
-import { ParchmentCard } from '../../components/card'
 import { LabelValue } from '../../components/LabelValue'
 import { Name } from '../../components/Name'
 import Stack from '../../components/Stack'
 import { Typography } from '../../components/Typography'
-import { useValidLanguage } from '../../hooks/useValidLanguage'
+import { ParchmentCard } from '../../components/card'
+import { useAppSelector } from '../../store/store.hooks'
+import {
+  selectCurrentLanguage,
+  selectTranslateFunction,
+} from '../../store/translations/translation.slice'
 import { Inn } from './inn-generator'
 
 export const InnView = ({ inn }: { inn: Inn }) => {
-  const { t } = useTranslation(['village'])
-  const currentLang = useValidLanguage()
+  const t = useAppSelector(selectTranslateFunction(['village']))
+  const currentLang = useAppSelector(selectCurrentLanguage)
 
   return (
     <ParchmentCard subtle>

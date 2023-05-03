@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { PageHeader } from '../../components/page-header'
 import { Parchment } from '../../components/parchment'
 import { ParchmentButton } from '../../components/ParchmentButton'
 import { Pancake } from '../../components/Stack'
+import { useAppSelector } from '../../store/store.hooks'
+import { selectTranslateFunction } from '../../store/translations/translation.slice'
 import {
   getRandomCharacteristic,
   getRandomKinType,
@@ -13,7 +14,7 @@ import {
 } from './npc'
 
 export const NpcPage = () => {
-  const { t } = useTranslation(['npc', 'common'])
+  const t = useAppSelector(selectTranslateFunction(['npc', 'common']))
 
   const createNPC = (): NPC => ({
     kin: getRandomKinType(),
@@ -32,7 +33,7 @@ export const NpcPage = () => {
   return (
     <div className="flex w-full flex-col gap-y-8 pb-16">
       <PageHeader>{t('npc:Title')}</PageHeader>
-      <ParchmentButton onClick={() => generateOccupation()}>
+      <ParchmentButton onPress={() => generateOccupation()}>
         {t('npc:NpcButton')}
       </ParchmentButton>
       <Parchment>

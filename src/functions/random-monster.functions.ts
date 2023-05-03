@@ -1,5 +1,4 @@
 import { compose, prop } from 'ramda'
-import { TranslationKey } from '../@types/i18next'
 import {
   armorChoices,
   defaultMonsterLimbs,
@@ -54,6 +53,7 @@ import {
   WeightedRandomFunc,
 } from './dice.functions'
 import { maybe, numberToBooleans } from './utils.functions'
+import { TranslationKey } from '../store/translations/translation.model'
 
 export const createRandomMonster = (): RandomMonster => {
   const { size, strength, damage: sizeDamage } = weightedRandom(sizes).value
@@ -112,8 +112,8 @@ export const createRandomMonsterViewModelFromRandomMonster = (
     })),
     skills: getMonsterSkillListItems(rm.skills),
     motivation: {
-      name: `monsters:Motivation.${rm.motivation}.Name`,
-      description: `monsters:Motivation.${rm.motivation}.Description`,
+      name: `monster:Motivation.${rm.motivation}.Name`,
+      description: `monster:Motivation.${rm.motivation}.Description`,
     },
     attacks: createMonsterAttacks(monsterAttacks, { ...rm, movement }),
   }
@@ -158,22 +158,27 @@ const rollForMonsterLimbs = (
 
 const getLimbsDescription = (
   limbs: MonsterLimbs,
-  tail: TranslationKey | undefined,
+  tail: TranslationKey<'monster'> | undefined,
 ): MonsterDescriptionItemViewModel[] => {
-  const actualLimbs: [TranslationKey, number][] = Object.entries(limbs).reduce(
+  const actualLimbs: [TranslationKey<'monster'>, number][] = Object.entries(
+    limbs,
+  ).reduce(
     (acc, [limbName, amountOfLimb]) =>
       amountOfLimb > 0
         ? [
             ...acc,
-            [`monsters:Limbs.${limbName}` as TranslationKey, amountOfLimb],
+            [
+              `monster:Limbs.${limbName}` as TranslationKey<'monster'>,
+              amountOfLimb,
+            ],
           ]
         : acc,
-    [] as [TranslationKey, number][],
+    [] as [TranslationKey<'monster'>, number][],
   )
 
   const limbsDescriptions: MonsterDescriptionItemViewModel[] =
     actualLimbs.length === 0
-      ? [{ key: 'monsters:Limbs.None' }]
+      ? [{ key: 'monster:Limbs.None' }]
       : actualLimbs.map(([key, value]) => ({
           key,
           count: value,
@@ -231,10 +236,10 @@ export const getTraitListBasedOnMotivation = (
   }
 
   const hurt = monsterTraits.find(
-    (t) => t.value.name === 'monsters:Trait.Hurt.Name',
+    (t) => t.value.name === 'monster:Trait.Hurt.Name',
   )
   const traitList = monsterTraits.filter(
-    (t) => t.value.name !== 'monsters:Trait.Hurt.Name',
+    (t) => t.value.name !== 'monster:Trait.Hurt.Name',
   )
 
   return [
@@ -271,18 +276,18 @@ export const getMonsterSkillListItems = (
     skills.Melee > 0
       ? [
           {
-            name: `monsters:Skills.Melee` as TranslationKey,
+            name: `monster:Skills.Melee` as TranslationKey,
             value: skills.Melee,
           },
         ]
       : [],
     skills.Move > 0
-      ? [{ name: `monsters:Skills.Move` as TranslationKey, value: skills.Move }]
+      ? [{ name: `monster:Skills.Move` as TranslationKey, value: skills.Move }]
       : [],
     skills.Scouting > 0
       ? [
           {
-            name: `monsters:Skills.Scouting` as TranslationKey,
+            name: `monster:Skills.Scouting` as TranslationKey,
             value: skills.Scouting,
           },
         ]
@@ -290,7 +295,7 @@ export const getMonsterSkillListItems = (
     skills.Stealth > 0
       ? [
           {
-            name: `monsters:Skills.Stealth` as TranslationKey,
+            name: `monster:Skills.Stealth` as TranslationKey,
             value: skills.Scouting,
           },
         ]
@@ -305,8 +310,8 @@ const createAttackRequirements = (
   limbs: MonsterLimbs,
 ): MonsterAttackRequirements => {
   return {
-    acidGlands: traits.some((t) => t.name === 'monsters:Trait.AcidGlands.Name'),
-    fireGlands: traits.some((t) => t.name === 'monsters:Trait.FireGlands.Name'),
+    acidGlands: traits.some((t) => t.name === 'monster:Trait.AcidGlands.Name'),
+    fireGlands: traits.some((t) => t.name === 'monster:Trait.FireGlands.Name'),
     tail: tailKey !== 'None',
     spikedTail: tailKey === 'SpikedTail',
     claws: limbs.Arms > 0,
@@ -316,7 +321,7 @@ const createAttackRequirements = (
     ),
     legs: limbs.Legs > 0,
     tentacles: limbs.Tentacles > 0,
-    undead: traits.some((t) => t.name === 'monsters:Trait.Undead.Name'),
+    undead: traits.some((t) => t.name === 'monster:Trait.Undead.Name'),
     wings: limbs.Wings > 0,
     hasLimbs:
       limbs.Arms > 0 ||
@@ -326,11 +331,11 @@ const createAttackRequirements = (
     hasBeak: heads.some((h) => h === 'Beak'),
     canSpeak: traits.some(
       (t) =>
-        t.name === 'monsters:Trait.Intelligent.Name' ||
-        t.name === 'monsters:Trait.CanSpeak.Name',
+        t.name === 'monster:Trait.Intelligent.Name' ||
+        t.name === 'monster:Trait.CanSpeak.Name',
     ),
-    isPoisonous: traits.some((t) => t.name === 'monsters:Trait.Poisonous.Name'),
-    isSick: traits.some((t) => t.name === 'monsters:Trait.Hurt.Name'),
+    isPoisonous: traits.some((t) => t.name === 'monster:Trait.Poisonous.Name'),
+    isSick: traits.some((t) => t.name === 'monster:Trait.Hurt.Name'),
   }
 }
 
@@ -375,7 +380,7 @@ const createMonsterAttacks = (
           {
             description: chosen.value.description,
             type: chosen.value.type,
-            range: chosen.value.range && `Range.${chosen.value.range}`,
+            range: chosen.value.range && `common:Range.${chosen.value.range}`,
             damage: chosen.value.damage && chosen.value.damage(rm),
             attack: chosen.value.attack && chosen.value.attack(rm),
             descriptionExtras:
@@ -416,12 +421,16 @@ const createDescription = ({
   limbs,
   tail,
 }: MonsterDescription): MonsterDescriptionViewModel => {
-  const tailDescription: TranslationKey | undefined =
-    tail.key !== 'None' ? `monsters:Tail.${tail.key}` : undefined
+  const tailDescription: TranslationKey<'monster'> | undefined =
+    tail.key === 'SpikedTail'
+      ? 'monster:Tail.SpikedTail'
+      : tail.key === 'Tail'
+      ? 'monster:Tail.Tail'
+      : undefined
 
   return {
     head: heads.map(({ key, count }) => ({
-      key: `monsters:Head.${key}` as TranslationKey,
+      key: `monster:Head.${key}` as TranslationKey<'monster'>,
       count,
     })),
     tail: tailDescription,

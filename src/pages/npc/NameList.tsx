@@ -1,21 +1,14 @@
-import { useTranslation } from 'react-i18next'
-import { keyExists } from '../../functions/translation.functions'
 import { withId } from '../../functions/utils.functions'
+import { useAppSelector } from '../../store/store.hooks'
+import { TranslationKey } from '../../store/translations/translation.model'
+import { selectTranslateFunction } from '../../store/translations/translation.slice'
 
 type NameListProps = {
   names: string[][]
 }
 
 export const NameList = ({ names }: NameListProps) => {
-  const { t } = useTranslation(['names'])
-
-  const tOrString = (key: string) => {
-    if (keyExists('names', key)) {
-      return t(key)
-    }
-
-    return key
-  }
+  const t = useAppSelector(selectTranslateFunction(['names']))
 
   return (
     <>
@@ -23,7 +16,7 @@ export const NameList = ({ names }: NameListProps) => {
         <ul data-testid="namelist">
           {names.map(withId).map((name) => (
             <li key={name.id}>
-              {name.value.map((n) => tOrString(n)).join(' ')}
+              {name.value.map((n) => t(n as TranslationKey<'names'>)).join(' ')}
             </li>
           ))}
         </ul>

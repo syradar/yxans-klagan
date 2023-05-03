@@ -1,13 +1,16 @@
-import { useTranslation } from 'react-i18next'
-import { useValidLanguage } from '../hooks/useValidLanguage'
 import { LanguageNameMap } from '../pages/npc/name2'
+import { useAppSelector } from '../store/store.hooks'
+import {
+  selectCurrentLanguage,
+  selectTranslateFunction,
+} from '../store/translations/translation.slice'
 
 interface NameProps {
   name: LanguageNameMap
 }
 export const Name = ({ name }: NameProps) => {
-  const { t } = useTranslation(['names'])
-  const currentLang = useValidLanguage()
+  const t = useAppSelector(selectTranslateFunction(['names']))
+  const currentLang = useAppSelector(selectCurrentLanguage)
 
   return (
     <div>

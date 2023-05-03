@@ -1,3 +1,5 @@
+import { ParchmentButton } from './ParchmentButton'
+
 export interface StepperProps {
   id: string
   twProps?: string
@@ -7,8 +9,6 @@ export interface StepperProps {
   onChange: (value: number) => void
   value: number
 }
-
-const stepButtonStyles = `h-10 font-bold py-0 px-1 text-center uppercase tracking-wide focus:outline-none border-2 border-black rounded-none`
 
 export const Stepper = ({
   value,
@@ -32,6 +32,8 @@ export const Stepper = ({
   }
 
   const handleChange = (e: string) => {
+    console.log(e)
+
     onChange(parseInt(e, 10) || 0)
   }
 
@@ -42,42 +44,27 @@ export const Stepper = ({
           {label}
         </label>
       )}
-      <div className="inline-flex w-auto">
-        <button
-          className={`w-10 bg-black text-white hover:border-red-500 hover:bg-red-500
-          ${stepButtonStyles}
-          `}
-          type="button"
-          onClick={decrement}
-          aria-controls={id}
-        >
+      <div className="flex w-full">
+        <ParchmentButton onPress={decrement} aria-controls={id}>
           –
-        </button>
+        </ParchmentButton>
         <input
           // eslint-disable-next-line tailwindcss/no-custom-classname
-          className={`w-10 border-x-0 bg-white text-center
-          ${stepButtonStyles}
-          hide-default-spinner-appearance
+          className={`hide-default-spinner-appearance w-full min-w-fit border-x-0
+          bg-white text-center
           `}
           type="number"
           step="1"
           id={id}
-          value={value}
+          value={Number(value).toString()}
           min={min}
           max={max}
           onChange={(e) => handleChange(e.target.value)}
-          disabled
+          // disabled
         />
-        <button
-          className={`w-10 bg-black text-white hover:border-red-500 hover:bg-red-500
-          ${stepButtonStyles}
-          `}
-          type="button"
-          onClick={increment}
-          aria-controls={id}
-        >
+        <ParchmentButton onPress={increment} aria-controls={id}>
           +
-        </button>
+        </ParchmentButton>
       </div>
     </div>
   )

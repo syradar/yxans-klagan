@@ -17,7 +17,7 @@ export const finds: {
         title: 'CopperCoins',
         type: 'Simple',
         value: '2D6 copper',
-        weight: 0,
+        weight: 'none',
       },
       32: {
         chance: 32,
@@ -25,7 +25,7 @@ export const finds: {
         title: 'BoneStatuette',
         type: 'Simple',
         value: '2D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       33: {
         chance: 33,
@@ -33,7 +33,7 @@ export const finds: {
         title: 'PieceOfAmber',
         type: 'Simple',
         value: '2D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       34: {
         chance: 34,
@@ -41,7 +41,7 @@ export const finds: {
         title: 'BronzeBeltBuckle',
         type: 'Simple',
         value: '2D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       35: {
         chance: 35,
@@ -49,7 +49,7 @@ export const finds: {
         title: 'BoneDice',
         type: 'Simple',
         value: '2D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       36: {
         chance: 36,
@@ -57,7 +57,7 @@ export const finds: {
         title: 'BoneWhistle',
         type: 'Simple',
         value: '2D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       41: {
         chance: 41,
@@ -65,7 +65,7 @@ export const finds: {
         title: 'BoneStatuette',
         type: 'Simple',
         value: '3D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       42: {
         chance: 42,
@@ -73,7 +73,7 @@ export const finds: {
         title: 'BronzeBracelet',
         type: 'Simple',
         value: '3D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       43: {
         chance: 43,
@@ -81,7 +81,7 @@ export const finds: {
         title: 'BronzeNecklace',
         type: 'Simple',
         value: '3D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       44: {
         chance: 44,
@@ -89,7 +89,7 @@ export const finds: {
         title: 'BronzeMedallion',
         type: 'Simple',
         value: '3D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       45: {
         chance: 45,
@@ -97,7 +97,7 @@ export const finds: {
         title: 'GoodBoots',
         type: 'Simple',
         value: '3D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       46: {
         chance: 46,
@@ -105,7 +105,7 @@ export const finds: {
         title: 'GoodGloves',
         type: 'Simple',
         value: '3D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       51: {
         type: 'Simple',
@@ -113,7 +113,7 @@ export const finds: {
         location: 'Carried',
         title: 'BronzeDrinkingHorn',
         value: '4D6 copper',
-        weight: 1,
+        weight: 'normal',
       },
       52: {
         type: 'Simple',
@@ -121,7 +121,7 @@ export const finds: {
         location: 'Carried',
         title: 'Lantern',
         value: '4D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       53: {
         type: 'Simple',
@@ -129,7 +129,7 @@ export const finds: {
         location: 'Carried',
         title: 'BronzeDagger',
         value: '4D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       54: {
         type: 'Simple',
@@ -137,7 +137,7 @@ export const finds: {
         location: 'Carried',
         title: 'BronzeShield',
         value: '4D6 copper',
-        weight: 1,
+        weight: 'normal',
       },
       55: {
         type: 'Simple',
@@ -145,7 +145,7 @@ export const finds: {
         location: 'Carried',
         title: 'BronzeEarring',
         value: '4D6 copper',
-        weight: 0.25,
+        weight: 'tiny',
       },
       56: {
         type: 'Simple',
@@ -153,7 +153,7 @@ export const finds: {
         location: 'Carried',
         title: 'OneHandedBronzeWeapon',
         value: '1D6 silver',
-        weight: 1,
+        weight: 'normal',
       },
       61: {
         type: 'Simple',
@@ -161,7 +161,7 @@ export const finds: {
         location: 'Carried',
         title: 'Book',
         value: '6D6 copper',
-        weight: 1,
+        weight: 'normal',
       },
       62: {
         type: 'Simple',
@@ -169,7 +169,7 @@ export const finds: {
         location: 'Carried',
         title: 'SimpleGemstone',
         value: '6D6 copper',
-        weight: 0.25,
+        weight: 'tiny',
       },
       63: {
         type: 'Simple',
@@ -177,7 +177,7 @@ export const finds: {
         location: 'Carried',
         title: 'BronzeStatuette',
         value: '6D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       64: {
         type: 'Simple',
@@ -185,7 +185,7 @@ export const finds: {
         location: 'Carried',
         title: 'BronzeHelmet',
         value: '1D6 silver',
-        weight: 1,
+        weight: 'normal',
       },
       65: {
         type: 'Simple',
@@ -193,7 +193,7 @@ export const finds: {
         location: 'Carried',
         title: 'CopperHeadband',
         value: '1D6 silver',
-        weight: 1,
+        weight: 'normal',
       },
       66: {
         type: 'Simple',
@@ -201,7 +201,7 @@ export const finds: {
         location: 'Carried',
         title: 'CopperCrown',
         value: '2D6 silver',
-        weight: 1,
+        weight: 'normal',
       },
     },
     Valuable: {
@@ -211,7 +211,7 @@ export const finds: {
         location: 'Carried',
         title: 'SilverCoins',
         value: '3D6 silver',
-        weight: 0,
+        weight: 'none',
       },
       32: {
         type: 'Valuable',
@@ -219,7 +219,7 @@ export const finds: {
         location: 'Carried',
         title: 'SilverBox',
         value: '2D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       33: {
         type: 'Valuable',
@@ -227,7 +227,7 @@ export const finds: {
         location: 'Carried',
         title: 'Pearl',
         value: '2D6 silver',
-        weight: 0.25,
+        weight: 'tiny',
       },
       34: {
         type: 'Valuable',
@@ -235,7 +235,7 @@ export const finds: {
         location: 'Carried',
         title: 'SilverBowl',
         value: '2D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       35: {
         type: 'Valuable',
@@ -243,7 +243,7 @@ export const finds: {
         location: 'Carried',
         title: 'Painting',
         value: '2D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       36: {
         type: 'Valuable',
@@ -251,7 +251,7 @@ export const finds: {
         location: 'Carried',
         title: 'SilverMug',
         value: '2D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       41: {
         type: 'Valuable',
@@ -259,7 +259,7 @@ export const finds: {
         location: 'Carried',
         title: 'SilverBracelet',
         value: '3D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       42: {
         type: 'Valuable',
@@ -267,7 +267,7 @@ export const finds: {
         location: 'Carried',
         title: 'SilverRing',
         value: '3D6 silver',
-        weight: 0.25,
+        weight: 'tiny',
       },
       43: {
         type: 'Valuable',
@@ -275,7 +275,7 @@ export const finds: {
         location: 'Carried',
         title: 'SilverNecklace',
         value: '3D6 silver',
-        weight: 0.25,
+        weight: 'tiny',
       },
       44: {
         type: 'Valuable',
@@ -283,7 +283,7 @@ export const finds: {
         location: 'Carried',
         title: 'WellTailoredCloakWithSilverBuckle',
         value: '3D6 silver',
-        weight: 1,
+        weight: 'normal',
       },
       45: {
         type: 'Valuable',
@@ -291,7 +291,7 @@ export const finds: {
         location: 'Carried',
         title: 'ElegantBoots',
         value: '3D6 silver',
-        weight: 1,
+        weight: 'normal',
       },
       46: {
         type: 'Valuable',
@@ -299,7 +299,7 @@ export const finds: {
         location: 'Carried',
         title: 'CalfSkinGloves',
         value: '3D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       51: {
         type: 'Valuable',
@@ -307,7 +307,7 @@ export const finds: {
         location: 'Carried',
         title: 'DrinkingHornWithSilverDetails',
         value: '4D6 silver',
-        weight: 1,
+        weight: 'normal',
       },
       52: {
         type: 'Valuable',
@@ -315,7 +315,7 @@ export const finds: {
         location: 'Carried',
         title: 'Embroidery',
         value: '4D6 silver',
-        weight: 1,
+        weight: 'normal',
       },
       53: {
         type: 'Valuable',
@@ -323,7 +323,7 @@ export const finds: {
         location: 'Carried',
         title: 'ElegantHelmet',
         value: '4D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       54: {
         type: 'Valuable',
@@ -331,7 +331,7 @@ export const finds: {
         location: 'Carried',
         title: 'ElegantLargeShield',
         value: '4D6 silver',
-        weight: 1,
+        weight: 'normal',
       },
       55: {
         type: 'Valuable',
@@ -339,7 +339,7 @@ export const finds: {
         location: 'Carried',
         title: 'SilverEarring',
         value: '4D6 silver',
-        weight: 0.25,
+        weight: 'tiny',
       },
       56: {
         type: 'Valuable',
@@ -347,7 +347,7 @@ export const finds: {
         location: 'Carried',
         title: 'ElegantOneHandedWeapon',
         value: '4D6 silver',
-        weight: 1,
+        weight: 'normal',
       },
       61: {
         type: 'Valuable',
@@ -355,7 +355,7 @@ export const finds: {
         location: 'Carried',
         title: 'RareBook',
         value: '5D6 silver',
-        weight: 1,
+        weight: 'normal',
       },
       62: {
         type: 'Valuable',
@@ -363,7 +363,7 @@ export const finds: {
         location: 'Carried',
         title: 'Gemstone',
         value: '6D6 silver',
-        weight: 0.25,
+        weight: 'tiny',
       },
       63: {
         type: 'Valuable',
@@ -371,7 +371,7 @@ export const finds: {
         location: 'Carried',
         title: 'SilverStatuette',
         value: '7D6 silver',
-        weight: 1,
+        weight: 'normal',
       },
       64: {
         type: 'Valuable',
@@ -379,7 +379,7 @@ export const finds: {
         location: 'Carried',
         title: 'SilverHelmet',
         value: '8D6 silver',
-        weight: 1,
+        weight: 'normal',
       },
       65: {
         type: 'Valuable',
@@ -387,7 +387,7 @@ export const finds: {
         location: 'Carried',
         title: 'SilverHeadband',
         value: '9D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       66: {
         type: 'Valuable',
@@ -395,7 +395,7 @@ export const finds: {
         location: 'Carried',
         title: 'SilverCrown',
         value: '1D6 gold',
-        weight: 1,
+        weight: 'normal',
       },
     },
     Precious: {
@@ -405,7 +405,7 @@ export const finds: {
         location: 'Carried',
         title: 'GoldCoins',
         value: '1D6 gold',
-        weight: 0,
+        weight: 'none',
       },
       32: {
         type: 'Precious',
@@ -413,7 +413,7 @@ export const finds: {
         location: 'Carried',
         title: 'GoldStatuette',
         value: '5D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       33: {
         type: 'Precious',
@@ -421,7 +421,7 @@ export const finds: {
         location: 'Carried',
         title: 'Pearls',
         value: '5D6 silver',
-        weight: 0.25,
+        weight: 'tiny',
       },
       34: {
         type: 'Precious',
@@ -429,7 +429,7 @@ export const finds: {
         location: 'Carried',
         title: 'GoldenBowl',
         value: '5D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       35: {
         type: 'Precious',
@@ -437,7 +437,7 @@ export const finds: {
         location: 'Carried',
         title: 'GoldAmulet',
         value: '5D6 silver',
-        weight: 0.25,
+        weight: 'tiny',
       },
       36: {
         type: 'Precious',
@@ -445,7 +445,7 @@ export const finds: {
         location: 'Carried',
         title: 'GoldMug',
         value: '5D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       41: {
         type: 'Precious',
@@ -453,7 +453,7 @@ export const finds: {
         location: 'Carried',
         title: 'GoldBracelet',
         value: '5D6 silver',
-        weight: 0.25,
+        weight: 'tiny',
       },
       42: {
         type: 'Precious',
@@ -461,7 +461,7 @@ export const finds: {
         location: 'Carried',
         title: 'GoldRing',
         value: '6D6 silver',
-        weight: 0.25,
+        weight: 'tiny',
       },
       43: {
         type: 'Precious',
@@ -469,7 +469,7 @@ export const finds: {
         location: 'Carried',
         title: 'GoldNecklace',
         value: '6D6 silver',
-        weight: 0.25,
+        weight: 'tiny',
       },
       44: {
         type: 'Precious',
@@ -477,7 +477,7 @@ export const finds: {
         location: 'Carried',
         title: 'FurCloakWithExpensiveEmbroideryAndGoldenBuckle',
         value: '6D6 silver',
-        weight: 1,
+        weight: 'normal',
       },
       45: {
         type: 'Precious',
@@ -485,7 +485,7 @@ export const finds: {
         location: 'Carried',
         title: 'DragonscaleBoots',
         value: '6D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       46: {
         type: 'Precious',
@@ -493,7 +493,7 @@ export const finds: {
         location: 'Carried',
         title: 'VelvetGloves',
         value: '6D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       51: {
         type: 'Precious',
@@ -501,7 +501,7 @@ export const finds: {
         location: 'Carried',
         title: 'DrinkingHornWithGoldDetails',
         value: '1D6 gold',
-        weight: 0.5,
+        weight: 'light',
       },
       52: {
         type: 'Precious',
@@ -509,7 +509,7 @@ export const finds: {
         location: 'Carried',
         title: 'GoldenEmbroidery',
         value: '1D6 gold',
-        weight: 1,
+        weight: 'normal',
       },
       53: {
         type: 'Precious',
@@ -517,7 +517,7 @@ export const finds: {
         location: 'Carried',
         title: 'GoldenHelmet',
         value: '2D6 gold',
-        weight: 0.5,
+        weight: 'light',
       },
       54: {
         type: 'Precious',
@@ -525,7 +525,7 @@ export const finds: {
         location: 'Carried',
         title: 'GoldenLargeShield',
         value: '2D6 gold',
-        weight: 1,
+        weight: 'normal',
       },
       55: {
         type: 'Precious',
@@ -533,7 +533,7 @@ export const finds: {
         location: 'Carried',
         title: 'GoldenArmor',
         value: '4D6 gold',
-        weight: 2,
+        weight: 'heavy',
       },
       56: {
         type: 'Precious',
@@ -541,7 +541,7 @@ export const finds: {
         location: 'Carried',
         title: 'GoldenWeapon',
         value: '2D6 gold',
-        weight: 1,
+        weight: 'normal',
       },
       61: {
         type: 'Precious',
@@ -549,7 +549,7 @@ export const finds: {
         location: 'Carried',
         title: 'UniqueBook',
         value: '2D6 gold',
-        weight: 1,
+        weight: 'normal',
       },
       62: {
         type: 'Precious',
@@ -557,7 +557,7 @@ export const finds: {
         location: 'Carried',
         title: 'RareGemstone',
         value: '2D6 gold',
-        weight: 0.25,
+        weight: 'tiny',
       },
       63: {
         type: 'Precious',
@@ -565,7 +565,7 @@ export const finds: {
         location: 'Carried',
         title: 'RingWithGemstone',
         value: '2D6 gold',
-        weight: 0.25,
+        weight: 'tiny',
       },
       64: {
         type: 'Precious',
@@ -573,7 +573,7 @@ export const finds: {
         location: 'Carried',
         title: 'Scepter',
         value: '3D6 gold',
-        weight: 0.5,
+        weight: 'light',
       },
       65: {
         type: 'Precious',
@@ -581,7 +581,7 @@ export const finds: {
         location: 'Carried',
         title: 'GoldenCrown',
         value: '4D6 gold',
-        weight: 0.5,
+        weight: 'light',
       },
       66: {
         type: 'Precious',
@@ -589,7 +589,7 @@ export const finds: {
         location: 'Carried',
         title: 'Artifact',
         value: 'None',
-        weight: 0,
+        weight: 'none',
       },
     },
   },
@@ -601,7 +601,7 @@ export const finds: {
         location: 'Lair',
         title: 'CopperCoins',
         value: '4D6 copper',
-        weight: 0,
+        weight: 'none',
       },
       32: {
         type: 'Simple',
@@ -609,7 +609,7 @@ export const finds: {
         location: 'Lair',
         title: 'CopperBowl',
         value: '3D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       33: {
         type: 'Simple',
@@ -617,7 +617,7 @@ export const finds: {
         location: 'Lair',
         title: 'CopperPlate',
         value: '3D6 copper',
-        weight: 1,
+        weight: 'normal',
       },
       34: {
         type: 'Simple',
@@ -625,7 +625,7 @@ export const finds: {
         location: 'Lair',
         title: 'CopperMug',
         value: '3D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       35: {
         type: 'Simple',
@@ -633,7 +633,7 @@ export const finds: {
         location: 'Lair',
         title: 'Knapsack',
         value: '3D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       36: {
         type: 'Simple',
@@ -641,7 +641,7 @@ export const finds: {
         location: 'Lair',
         title: 'Waterskin',
         value: '3D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       41: {
         type: 'Simple',
@@ -649,7 +649,7 @@ export const finds: {
         location: 'Lair',
         title: 'BeltBuckle',
         value: '4D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       42: {
         type: 'Simple',
@@ -657,7 +657,7 @@ export const finds: {
         location: 'Lair',
         title: 'Hammer',
         value: '4D6 copper',
-        weight: 1,
+        weight: 'normal',
       },
       43: {
         type: 'Simple',
@@ -665,7 +665,7 @@ export const finds: {
         location: 'Lair',
         title: 'Saw',
         value: '4D6 copper',
-        weight: 1,
+        weight: 'normal',
       },
       44: {
         type: 'Simple',
@@ -673,7 +673,7 @@ export const finds: {
         location: 'Lair',
         title: 'ShortSword',
         value: '1D6 silver',
-        weight: 1,
+        weight: 'normal',
       },
       45: {
         type: 'Simple',
@@ -681,7 +681,7 @@ export const finds: {
         location: 'Lair',
         title: 'SmallShield',
         value: '4D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       46: {
         type: 'Simple',
@@ -689,7 +689,7 @@ export const finds: {
         location: 'Lair',
         title: 'Axe',
         value: '4D6 copper',
-        weight: 1,
+        weight: 'normal',
       },
       51: {
         type: 'Simple',
@@ -697,7 +697,7 @@ export const finds: {
         location: 'Lair',
         title: 'ShortSpear',
         value: '5D6 copper',
-        weight: 1,
+        weight: 'normal',
       },
       52: {
         type: 'Simple',
@@ -705,7 +705,7 @@ export const finds: {
         location: 'Lair',
         title: 'BronzePot',
         value: '5D6 copper',
-        weight: 2,
+        weight: 'heavy',
       },
       53: {
         type: 'Simple',
@@ -713,7 +713,7 @@ export const finds: {
         location: 'Lair',
         title: 'BronzeLantern',
         value: '5D6 copper',
-        weight: 0.5,
+        weight: 'light',
       },
       54: {
         type: 'Simple',
@@ -721,7 +721,7 @@ export const finds: {
         location: 'Lair',
         title: 'GamingBoard',
         value: '5D6 copper',
-        weight: 1,
+        weight: 'normal',
       },
       55: {
         type: 'Simple',
@@ -729,7 +729,7 @@ export const finds: {
         location: 'Lair',
         title: 'Chest',
         value: '5D6 copper',
-        weight: 2,
+        weight: 'heavy',
       },
       56: {
         type: 'Simple',
@@ -737,7 +737,7 @@ export const finds: {
         location: 'Lair',
         title: 'Lute',
         value: '5D6 copper',
-        weight: 1,
+        weight: 'normal',
       },
       61: {
         type: 'Simple',
@@ -745,7 +745,7 @@ export const finds: {
         location: 'Lair',
         title: 'BronzeArmor',
         value: '1D6 gold',
-        weight: 2,
+        weight: 'heavy',
       },
       62: {
         type: 'Simple',
@@ -753,7 +753,7 @@ export const finds: {
         location: 'Lair',
         title: 'BronzeMirror',
         value: '2D6 silver',
-        weight: 3,
+        weight: '3',
       },
       63: {
         type: 'Simple',
@@ -761,7 +761,7 @@ export const finds: {
         location: 'Lair',
         title: 'PalanquinWithCopperDetails',
         value: '3D6 silver',
-        weight: 4,
+        weight: '4',
       },
       64: {
         type: 'Simple',
@@ -769,7 +769,7 @@ export const finds: {
         location: 'Lair',
         title: 'BronzeSarcophagus',
         value: '4D6 silver',
-        weight: 4,
+        weight: '4',
       },
       65: {
         type: 'Simple',
@@ -777,7 +777,7 @@ export const finds: {
         location: 'Lair',
         title: 'BronzeAltar',
         value: '5D6 silver',
-        weight: 5,
+        weight: '5',
       },
       66: {
         type: 'Simple',
@@ -785,7 +785,7 @@ export const finds: {
         location: 'Lair',
         title: 'BronzeStatue',
         value: '6D6 silver',
-        weight: 6,
+        weight: '6',
       },
     },
     Valuable: {
@@ -795,7 +795,7 @@ export const finds: {
         location: 'Lair',
         title: 'SilverCoins',
         value: '4D6 silver',
-        weight: 0,
+        weight: 'none',
       },
       34: {
         type: 'Valuable',
@@ -803,7 +803,7 @@ export const finds: {
         location: 'Lair',
         title: 'Painting',
         value: '3D6 silver',
-        weight: 2,
+        weight: 'heavy',
       },
       32: {
         type: 'Valuable',
@@ -811,7 +811,7 @@ export const finds: {
         location: 'Lair',
         title: 'SilverMedallion',
         value: '3D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       33: {
         type: 'Valuable',
@@ -819,7 +819,7 @@ export const finds: {
         location: 'Lair',
         title: 'SmallSilverChest',
         value: '3D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       35: {
         type: 'Valuable',
@@ -827,7 +827,7 @@ export const finds: {
         location: 'Lair',
         title: 'GlassBowl',
         value: '3D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       36: {
         type: 'Valuable',
@@ -835,7 +835,7 @@ export const finds: {
         location: 'Lair',
         title: 'BeautifulVase',
         value: '3D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       41: {
         type: 'Valuable',
@@ -843,7 +843,7 @@ export const finds: {
         location: 'Lair',
         title: 'SilverBrooch',
         value: '4D6 silver',
-        weight: 0.25,
+        weight: 'tiny',
       },
       42: {
         type: 'Valuable',
@@ -851,7 +851,7 @@ export const finds: {
         location: 'Lair',
         title: 'SilverComb',
         value: '4D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       43: {
         type: 'Valuable',
@@ -859,7 +859,7 @@ export const finds: {
         location: 'Lair',
         title: 'SilverBox',
         value: '4D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       44: {
         type: 'Valuable',
@@ -867,7 +867,7 @@ export const finds: {
         location: 'Lair',
         title: 'SilverAmulet',
         value: '4D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       45: {
         type: 'Valuable',
@@ -875,7 +875,7 @@ export const finds: {
         location: 'Lair',
         title: 'SilverGoblet',
         value: '4D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       46: {
         type: 'Valuable',
@@ -883,7 +883,7 @@ export const finds: {
         location: 'Lair',
         title: 'Mask',
         value: '4D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       51: {
         type: 'Valuable',
@@ -891,7 +891,7 @@ export const finds: {
         location: 'Lair',
         title: 'BottleOfExpensiveWine',
         value: '5D6 silver',
-        weight: 1,
+        weight: 'normal',
       },
       52: {
         type: 'Valuable',
@@ -899,7 +899,7 @@ export const finds: {
         location: 'Lair',
         title: 'FineHat',
         value: '5D6 silver',
-        weight: 0.5,
+        weight: 'light',
       },
       53: {
         type: 'Valuable',
@@ -907,7 +907,7 @@ export const finds: {
         location: 'Lair',
         title: 'Tapestry',
         value: '5D6 silver',
-        weight: 2,
+        weight: 'heavy',
       },
       54: {
         type: 'Valuable',
@@ -915,7 +915,7 @@ export const finds: {
         location: 'Lair',
         title: 'Cabinet',
         value: '5D6 silver',
-        weight: 4,
+        weight: '4',
       },
       55: {
         type: 'Valuable',
@@ -923,7 +923,7 @@ export const finds: {
         location: 'Lair',
         title: 'Carpet',
         value: '5D6 silver',
-        weight: 2,
+        weight: 'heavy',
       },
       56: {
         type: 'Valuable',
@@ -931,7 +931,7 @@ export const finds: {
         location: 'Lair',
         title: 'Armchair',
         value: '5D6 silver',
-        weight: 3,
+        weight: '3',
       },
       61: {
         type: 'Valuable',
@@ -939,7 +939,7 @@ export const finds: {
         location: 'Lair',
         title: 'Candelabrum',
         value: '6D6 silver',
-        weight: 2,
+        weight: 'heavy',
       },
       62: {
         type: 'Valuable',
@@ -947,7 +947,7 @@ export const finds: {
         location: 'Lair',
         title: 'SilverMirror',
         value: '6D6 silver',
-        weight: 4,
+        weight: '4',
       },
       63: {
         type: 'Valuable',
@@ -955,7 +955,7 @@ export const finds: {
         location: 'Lair',
         title: 'PalanquinWithSilverDetails',
         value: '7D6 silver',
-        weight: 5,
+        weight: '5',
       },
       64: {
         type: 'Valuable',
@@ -963,7 +963,7 @@ export const finds: {
         location: 'Lair',
         title: 'SilverSarcophagus',
         value: '8D6 silver',
-        weight: 6,
+        weight: '6',
       },
       65: {
         type: 'Valuable',
@@ -971,7 +971,7 @@ export const finds: {
         location: 'Lair',
         title: 'SilverAltar',
         value: '9D6 silver',
-        weight: 6,
+        weight: '6',
       },
       66: {
         type: 'Valuable',
@@ -979,7 +979,7 @@ export const finds: {
         location: 'Lair',
         title: 'SilverStatue',
         value: '1D6 gold',
-        weight: 6,
+        weight: '6',
       },
     },
     Precious: {
@@ -989,7 +989,7 @@ export const finds: {
         location: 'Lair',
         title: 'PileOfCoins',
         value: '1D6 gold;2D6 silver;4D6 copper',
-        weight: 0,
+        weight: 'none',
       },
       32: {
         type: 'Precious',
@@ -997,7 +997,7 @@ export const finds: {
         location: 'Lair',
         title: 'GoldenNecklace',
         value: '2D6 gold',
-        weight: 0.5,
+        weight: 'light',
       },
       33: {
         type: 'Precious',
@@ -1005,7 +1005,7 @@ export const finds: {
         location: 'Lair',
         title: 'BeautifulTapestry',
         value: '2D6 gold',
-        weight: 3,
+        weight: '3',
       },
       34: {
         type: 'Precious',
@@ -1013,7 +1013,7 @@ export const finds: {
         location: 'Lair',
         title: 'EmbroidedCarpet',
         value: '2D6 gold',
-        weight: 4,
+        weight: '4',
       },
       35: {
         type: 'Precious',
@@ -1021,7 +1021,7 @@ export const finds: {
         location: 'Lair',
         title: 'GoldGoblet',
         value: '2D6 gold',
-        weight: 0.5,
+        weight: 'light',
       },
       36: {
         type: 'Precious',
@@ -1029,7 +1029,7 @@ export const finds: {
         location: 'Lair',
         title: 'PaintingWithGoldenFrame',
         value: '2D6 gold',
-        weight: 3,
+        weight: '3',
       },
       41: {
         type: 'Precious',
@@ -1037,7 +1037,7 @@ export const finds: {
         location: 'Lair',
         title: 'GoldenTray',
         value: '3D6 gold',
-        weight: 2,
+        weight: 'heavy',
       },
       42: {
         type: 'Precious',
@@ -1045,7 +1045,7 @@ export const finds: {
         location: 'Lair',
         title: 'GoldenStatueOfAChild',
         value: '3D6 gold',
-        weight: 4,
+        weight: '4',
       },
       43: {
         type: 'Precious',
@@ -1053,7 +1053,7 @@ export const finds: {
         location: 'Lair',
         title: 'GoldenDiadem',
         value: '3D6 gold',
-        weight: 0.5,
+        weight: 'light',
       },
       44: {
         type: 'Precious',
@@ -1061,7 +1061,7 @@ export const finds: {
         location: 'Lair',
         title: 'CeilingCandelabrum',
         value: '3D6 gold',
-        weight: 3,
+        weight: '3',
       },
       45: {
         type: 'Precious',
@@ -1069,7 +1069,7 @@ export const finds: {
         location: 'Lair',
         title: 'GoldenArmchair',
         value: '3D6 gold',
-        weight: 3,
+        weight: '3',
       },
       46: {
         type: 'Precious',
@@ -1077,7 +1077,7 @@ export const finds: {
         location: 'Lair',
         title: 'GoldenCradle',
         value: '3D6 gold',
-        weight: 3,
+        weight: '3',
       },
       51: {
         type: 'Precious',
@@ -1085,7 +1085,7 @@ export const finds: {
         location: 'Lair',
         title: 'NecklaceWithGemstones',
         value: '4D6 gold',
-        weight: 0.5,
+        weight: 'light',
       },
       52: {
         type: 'Precious',
@@ -1093,7 +1093,7 @@ export const finds: {
         location: 'Lair',
         title: 'ScepterWithGemstones',
         value: '4D6 gold',
-        weight: 0.5,
+        weight: 'light',
       },
       53: {
         type: 'Precious',
@@ -1101,7 +1101,7 @@ export const finds: {
         location: 'Lair',
         title: 'CrownWithGemstones',
         value: '4D6 gold',
-        weight: 0.5,
+        weight: 'light',
       },
       54: {
         type: 'Precious',
@@ -1109,7 +1109,7 @@ export const finds: {
         location: 'Lair',
         title: 'BeautifulDesk',
         value: '4D6 gold',
-        weight: 4,
+        weight: '4',
       },
       55: {
         type: 'Precious',
@@ -1117,7 +1117,7 @@ export const finds: {
         location: 'Lair',
         title: 'Pulpit',
         value: '4D6 gold',
-        weight: 4,
+        weight: '4',
       },
       56: {
         type: 'Precious',
@@ -1125,7 +1125,7 @@ export const finds: {
         location: 'Lair',
         title: 'GoldenTable',
         value: '4D6 gold',
-        weight: 5,
+        weight: '5',
       },
       61: {
         type: 'Precious',
@@ -1133,7 +1133,7 @@ export const finds: {
         location: 'Lair',
         title: 'LargeRareGemstone',
         value: '2D6 gold',
-        weight: 0.5,
+        weight: 'light',
       },
       62: {
         type: 'Precious',
@@ -1141,7 +1141,7 @@ export const finds: {
         location: 'Lair',
         title: 'GoldenMirror',
         value: '5D6 gold',
-        weight: 5,
+        weight: '5',
       },
       63: {
         type: 'Precious',
@@ -1149,7 +1149,7 @@ export const finds: {
         location: 'Lair',
         title: 'GoldenPalanquin',
         value: '5D6 gold',
-        weight: 6,
+        weight: '6',
       },
       64: {
         type: 'Precious',
@@ -1157,7 +1157,7 @@ export const finds: {
         location: 'Lair',
         title: 'GoldenSarcophagus',
         value: '6D6 gold',
-        weight: 7,
+        weight: '7',
       },
       65: {
         type: 'Precious',
@@ -1165,7 +1165,7 @@ export const finds: {
         location: 'Lair',
         title: 'GoldenStatue',
         value: '7D6 gold',
-        weight: 8,
+        weight: '8',
       },
       66: {
         type: 'Precious',
@@ -1173,7 +1173,7 @@ export const finds: {
         location: 'Lair',
         title: 'Artifact',
         value: 'None',
-        weight: 0,
+        weight: 'none',
       },
     },
   },

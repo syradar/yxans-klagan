@@ -17,7 +17,7 @@ describe('createTypicalKinViewModel', () => {
       wits: 3,
     },
     skills: { ...defaultSkillsValues(), Melee: 2, Healing: 3 },
-    talents: ['common:Talents.FastFootwork'],
+    talents: ['fastFootwork'],
     gear: ['common:Gear.D6Silver'],
     weapons: [
       meleeWeapons['Knife'],

@@ -1,22 +1,25 @@
 import { useCallback, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { ParchmentCard } from '../../components/card'
 import { LabelValue } from '../../components/LabelValue'
 import { Name } from '../../components/Name'
-import { PageHeader } from '../../components/page-header'
-import { Parchment } from '../../components/parchment'
 import { ParchmentButton } from '../../components/ParchmentButton'
 import Stack from '../../components/Stack'
 import { Stat } from '../../components/Stat'
 import { Typography } from '../../components/Typography'
-import { useValidLanguage } from '../../hooks/useValidLanguage'
+import { ParchmentCard } from '../../components/card'
+import { PageHeader } from '../../components/page-header'
+import { Parchment } from '../../components/parchment'
+import { useAppSelector } from '../../store/store.hooks'
+import {
+  selectCurrentLanguage,
+  selectTranslateFunction,
+} from '../../store/translations/translation.slice'
 import { InnView } from './InnView'
-import { createRandomVillage, Village } from './village-generator'
+import { Village, createRandomVillage } from './village-generator'
 
 export const VillagePage = () => {
   const [village, setVillage] = useState<Village>(createRandomVillage())
-  const { t } = useTranslation(['village'])
-  const currentLang = useValidLanguage()
+  const t = useAppSelector(selectTranslateFunction(['village']))
+  const currentLang = useAppSelector(selectCurrentLanguage)
 
   const generateNewVillageName = useCallback(() => {
     setVillage(createRandomVillage())
@@ -28,7 +31,7 @@ export const VillagePage = () => {
 
       <div>{t('village:PageDescription')}</div>
 
-      <ParchmentButton onClick={generateNewVillageName}>
+      <ParchmentButton onPress={generateNewVillageName}>
         {t('village:CreateNewVillage')}
       </ParchmentButton>
 
@@ -109,9 +112,7 @@ export const VillagePage = () => {
                         >
                           <Stack.Vertical>
                             <div>
-                              {t(`village:Institutions.${institution.type}`, {
-                                defaultValue: institution.type,
-                              })}
+                              {t(`village:Institutions.${institution.type}`)}
                             </div>
                             <LabelValue label={t('village:Institutions.Owner')}>
                               <Name name={institution.owner.name} />

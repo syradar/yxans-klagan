@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { Button } from '../components/Button'
-import { PageHeader } from '../components/page-header'
-import { Parchment } from '../components/parchment'
 import { Grid, Pancake } from '../components/Stack'
 import { Stat } from '../components/Stat'
+import { PageHeader } from '../components/page-header'
+import { Parchment } from '../components/parchment'
 import { finds } from '../data/find.data'
 import { createFindViewModel, getRandomFind } from '../functions/find.functions'
 import {
@@ -14,10 +13,12 @@ import {
   FindType,
   FindViewModel,
 } from '../models/find.model'
-import { getId, Unique } from '../models/utils.model'
+import { Unique, getId } from '../models/utils.model'
+import { useAppSelector } from '../store/store.hooks'
+import { selectTranslateFunction } from '../store/translations/translation.slice'
 
 export const FindsPage = () => {
-  const { t } = useTranslation(['finds', 'common'])
+  const t = useAppSelector(selectTranslateFunction(['finds', 'common']))
   const [transition, setTransition] = useState(false)
 
   const createFind = (
@@ -61,7 +62,7 @@ export const FindsPage = () => {
                 variant="secondary"
                 extraCss="max-w-full border-yellow-800 bg-gradient-to-bl  from-yellow-800 to-yellow-600 px-0
                 text-yellow-50 hover:to-yellow-500 hover:text-yellow-50 focus-visible:outline focus-visible:outline-black"
-                onClick={() => updateFindData('Carried', 'Simple')}
+                onPress={() => updateFindData('Carried', 'Simple')}
               >
                 {t('finds:Find.Type.Simple')}
               </Button>
@@ -69,7 +70,7 @@ export const FindsPage = () => {
                 variant="secondary"
                 extraCss="max-w-full border-gray-300 bg-gradient-to-bl from-gray-300 to-gray-100
                 px-0 text-gray-800 hover:to-gray-50 hover:text-gray-800 focus-visible:outline focus-visible:outline-black"
-                onClick={() => updateFindData('Carried', 'Valuable')}
+                onPress={() => updateFindData('Carried', 'Valuable')}
               >
                 {t('finds:Find.Type.Valuable')}
               </Button>
@@ -77,7 +78,7 @@ export const FindsPage = () => {
                 variant="secondary"
                 extraCss="max-w-full border-yellow-400 bg-gradient-to-bl from-yellow-400 to-yellow-100 px-0
                 text-yellow-900 hover:to-yellow-50  hover:text-yellow-900 focus-visible:outline focus-visible:outline-black"
-                onClick={() => updateFindData('Carried', 'Precious')}
+                onPress={() => updateFindData('Carried', 'Precious')}
               >
                 {t('finds:Find.Type.Precious')}
               </Button>
@@ -89,21 +90,21 @@ export const FindsPage = () => {
               <Button
                 extraCss="max-w-full border-yellow-800 bg-gradient-to-bl from-yellow-800 to-yellow-600 px-0 text-yellow-50 hover:to-yellow-500 hover:text-yellow-50 focus-visible:outline focus-visible:outline-black"
                 variant="secondary"
-                onClick={() => updateFindData('Lair', 'Simple')}
+                onPress={() => updateFindData('Lair', 'Simple')}
               >
                 {t('finds:Find.Type.Simple')}
               </Button>
               <Button
                 extraCss="max-w-full border-gray-300 bg-gradient-to-bl from-gray-300 px-0 text-gray-800 hover:to-gray-50 hover:text-gray-800  focus-visible:outline focus-visible:outline-black"
                 variant="secondary"
-                onClick={() => updateFindData('Lair', 'Valuable')}
+                onPress={() => updateFindData('Lair', 'Valuable')}
               >
                 {t('finds:Find.Type.Valuable')}
               </Button>
               <Button
                 extraCss="max-w-full border-yellow-400 bg-gradient-to-bl from-yellow-400 to-yellow-100 px-0 text-yellow-900 hover:to-yellow-50  hover:text-yellow-900 focus-visible:outline focus-visible:outline-black"
                 variant="secondary"
-                onClick={() => updateFindData('Lair', 'Precious')}
+                onPress={() => updateFindData('Lair', 'Precious')}
               >
                 {t('finds:Find.Type.Precious')}
               </Button>
@@ -130,7 +131,9 @@ export const FindsPage = () => {
                       : '–'}
                   </Stat>
                   <Grid cols="3">
-                    <Stat label={t('finds:Weight')}>{find.weight}</Stat>
+                    <Stat label={t('common:Weight.Weight')}>
+                      {t(find.weight)}
+                    </Stat>
                     <Stat label={t('finds:Type')}>
                       {t(`finds:Find.Type.${find.type}`)}
                     </Stat>

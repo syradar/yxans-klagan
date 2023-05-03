@@ -1,26 +1,26 @@
 import { render, within } from '@testing-library/react'
-import { I18nextProvider } from 'react-i18next'
-import i18n from '../../test/i18nForTests'
 import { NameList } from './NameList'
 import { describe, it, expect } from 'vitest'
+import { Provider } from 'react-redux'
+import { store } from '../../store/store'
 
 describe('NameList', () => {
   it('should render', async () => {
     render(
-      <I18nextProvider i18n={i18n}>
+      <Provider store={store}>
         <NameList names={[]}></NameList>
-      </I18nextProvider>,
+      </Provider>,
     )
   })
 
   it('should render names', async () => {
-    const names: string[][] = [['Aedwulf', 'OF', 'Duvemåla']]
-    const expected = 'Aedwulf OF Duvemåla'
+    const names: string[][] = [['Aedwulf', 'names:OF', 'Duvemåla']]
+    const expected = 'Aedwulf names:OF Duvemåla'
 
     const { getByTestId } = render(
-      <I18nextProvider i18n={i18n}>
+      <Provider store={store}>
         <NameList names={names}></NameList>
-      </I18nextProvider>,
+      </Provider>,
     )
     const { getByText } = within(getByTestId('namelist'))
 

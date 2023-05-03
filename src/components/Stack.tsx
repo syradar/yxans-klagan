@@ -33,7 +33,8 @@ export const Stack = ({
   return (
     <div
       className={`flex
-        ${full ? 'w-full' : ''}
+        ${full && dir === 'horizontal' ? 'w-full' : ''}
+        ${full && dir === 'vertical' ? 'h-full' : ''}
         ${wrap ? 'flex-wrap' : ''}
         ${dir === 'horizontal' ? 'flex-row' : 'flex-col'}
         ${distribute ? 'justify-between' : ''}
@@ -54,6 +55,7 @@ export const Pancake = ({
   spacing,
   className,
   center,
+  full,
 }: PancakeProps) => (
   <Stack
     dir="vertical"
@@ -62,6 +64,7 @@ export const Pancake = ({
     spacing={spacing}
     className={className}
     center={center}
+    full={full}
   >
     {children}
   </Stack>

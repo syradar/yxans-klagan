@@ -1,4 +1,3 @@
-import { TranslationKey } from '../../@types/i18next'
 import { createAttributesViewModel } from '../../functions/attributes.functions'
 import { createAllSkillsValuesViewModel } from '../../functions/skills.functions'
 import { Attributes, AttributesViewModel } from '../../models/attributes.model'
@@ -6,29 +5,31 @@ import {
   AllSkillsValues,
   AllSkillsValuesViewModel,
 } from '../../models/skills.model'
+import { Talent, talentLabelDict } from '../../models/talent.model'
 import { CollapseAble } from '../../models/utils.model'
+import { TranslationKey } from '../../store/translations/translation.model'
 import {
   Armor,
   ArmorType,
   ArmorViewModel,
-  createProtectionViewModel,
   Helmet,
   HelmetType,
   HelmetViewModel,
+  createProtectionViewModel,
 } from './armor'
 import { KinType, TypicalKins } from './name'
 import {
-  createShieldViewModel,
   Shield,
   ShieldType,
   ShieldViewModel,
+  createShieldViewModel,
 } from './shield'
 import {
-  createWeaponViewModel,
   Weapon,
   WeaponCategory,
   WeaponType,
   WeaponViewModel,
+  createWeaponViewModel,
 } from './weapon'
 
 export type TypicalKin<K extends TypicalKins, T extends KinType> = {
@@ -36,7 +37,7 @@ export type TypicalKin<K extends TypicalKins, T extends KinType> = {
   kinType: T
   attributes: Attributes
   skills: AllSkillsValues
-  talents: TranslationKey<'common'>[]
+  talents: Talent[]
   gear: TranslationKey<'common'>[]
   weapons: Weapon<WeaponType, WeaponCategory>[]
   shields: Shield<ShieldType>[]
@@ -77,5 +78,6 @@ export const createTypicalKinViewModel = <
     shields: tk.shields.map(createShieldViewModel),
     armors: tk.armors.map(createProtectionViewModel),
     helmets: tk.helmets.map(createProtectionViewModel),
+    talents: tk.talents.map((t) => talentLabelDict[t]),
   }
 }

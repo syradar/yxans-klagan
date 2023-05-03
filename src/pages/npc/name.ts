@@ -115,10 +115,10 @@ const getRandomName = (
         return [firstName]
       }
 
-      return [firstName, 'THE', chooseFunc(nameList.nickName)]
+      return [firstName, 'names:THE', chooseFunc(nameList.nickName)]
     }
     case 'HomeName':
-      return [firstName, 'OF', getFormattedVillageName(lang, chooseFunc)]
+      return [firstName, 'names:OF', getFormattedVillageName(lang, chooseFunc)]
     case 'FirstName':
     default:
       return [firstName]

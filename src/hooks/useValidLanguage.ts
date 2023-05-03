@@ -1,15 +1,25 @@
 import { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { ValidLanguage } from '../models/language.model'
+import { ValidLanguage, validLanguages } from '../models/language.model'
+import { useLocalStorage } from './use-local-storage'
 
 export const useValidLanguage = () => {
-  const { i18n } = useTranslation()
-  const [currentLang, setCurrentLang] = useState<ValidLanguage>(
-    i18n.language as ValidLanguage,
-  )
-  useEffect(() => {
-    setCurrentLang(i18n.language as ValidLanguage)
-  }, [i18n.language])
+  const [lsLang, setLsLang] = useLocalStorage('language', 'en')
+  const [language, _setLanguageState] = useState<ValidLanguage>('en')
 
-  return currentLang
+  useEffect(() => {
+    if (
+      lsLang !== language &&
+      validLanguages.includes(lsLang as ValidLanguage)
+    ) {
+      _setLanguageState(lsLang as ValidLanguage)
+    }
+  }, [lsLang, language])
+
+  const setLanguage = (lang: ValidLanguage) => {
+    if (validLanguages.includes(lang)) {
+      setLsLang(lang)
+    }
+  }
+
+  return [language, setLanguage] as const
 }

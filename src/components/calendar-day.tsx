@@ -1,58 +1,45 @@
-import { useTranslation } from 'react-i18next'
 import {
-  downpourTranslationKeyDict,
-  getFahrenheitTempString,
-  getMoonEmoji,
-  getTempString,
-  getWeatherIcon,
-  stormTypeTranslationKeyDict,
-  TemperatureUnit,
-} from '../functions/weather.functions'
-import { Day, dayNameTranslationKeyDict } from '../models/calendar.model'
-import { DayCounter } from './day-counter'
+  selectQuarter,
+  toggleQuarter,
+} from '../features/calendar/calendar-slice'
+import { CalendarDay, dayLabelDict } from '../models/forbidden-lands-date.model'
+import { useAppDispatch, useAppSelector } from '../store/store.hooks'
+import { selectTranslateFunction } from '../store/translations/translation.slice'
 import { Pancake, Train } from './Stack'
+import { DayCounter } from './day-counter'
 
 interface CalendarDayProps {
-  day: Day
-  quarterClicked: (day: Day) => void
-  showWeather: boolean
-  temperatureUnit: TemperatureUnit
+  day: CalendarDay
 }
 
-export const CalendarDay = ({
-  day,
-  quarterClicked,
-  showWeather = true,
-  temperatureUnit,
-}: CalendarDayProps) => {
-  const { t } = useTranslation(['calendar'])
-
-  const formatTemperature = (temp: number) => {
-    return temperatureUnit === TemperatureUnit.Metric
-      ? getTempString(temp)
-      : getFahrenheitTempString(temp)
+export const CalendarDayDisplay = ({ day }: CalendarDayProps) => {
+  const t = useAppSelector(selectTranslateFunction(['calendar']))
+  const date = {
+    day: day.number,
+    month: day.monthNumber,
+    year: day.year,
+    monthIndex: day.month,
   }
+  const quarters = useAppSelector(selectQuarter(date))
+  const dispatch = useAppDispatch()
 
   return (
     <div className="border p-2">
       <Pancake spacing="small">
         <Pancake spacing="none" wrap={false}>
-          <div className="lg:hidden">
-            {t(dayNameTranslationKeyDict[day.name])}
-          </div>
+          <div className="lg:hidden">{t(dayLabelDict[day.index])}</div>
           <Train spacing="small">
             <div>{day.number}</div>
-
-            <div>{getWeatherIcon(day)}</div>
+            {/* <div>{getWeatherIcon(day)}</div> */}
           </Train>
         </Pancake>
         <div className="w-full">
           <DayCounter
-            quarters={day.quarters}
-            spendQuarter={() => quarterClicked(day)}
+            quarters={quarters}
+            onClick={() => dispatch(toggleQuarter(date))}
           ></DayCounter>
         </div>
-        {day.moon && (
+        {/* {day.moon && (
           <div className="flex gap-2">
             <div>{getMoonEmoji(day.moon)}</div>
             <div>
@@ -61,21 +48,7 @@ export const CalendarDay = ({
             </div>
           </div>
         )}
-        {showWeather && (
-          <Train spacing="none">
-            <div>
-              {t('calendar:Weather-High')}: {formatTemperature(day.temp)}
-            </div>
-            <div>
-              {t('calendar:Weather-Low')}: {formatTemperature(day.lowTemp)}
-            </div>
-            <div>{t(downpourTranslationKeyDict[day.downpour])}</div>
-            <div>{t(stormTypeTranslationKeyDict[day.stormType])}</div>
-            <div>
-              {day.eventType && day.eventType.name ? day.eventType.name : ''}
-            </div>
-          </Train>
-        )}
+        */}
       </Pancake>
     </div>
   )

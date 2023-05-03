@@ -1,6 +1,7 @@
-import { TranslationKey } from '../@types/i18next'
+import { TranslationKey } from '../store/translations/translation.model'
 import { CoinType } from './coin.model'
 import { D66 } from './fbl-dice.model'
+import { Weight } from './weight.model'
 
 export type FindLocation = 'Carried' | 'Lair'
 
@@ -17,21 +18,6 @@ export type FindValue =
   | `${FindCoinValueMultiplier}D6 ${CoinType}`
   | 'None'
   | '1D6 gold;2D6 silver;4D6 copper'
-
-export type Weight = 0 | 0.25 | 0.5 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
-
-export type WeightViewModel =
-  | 'None'
-  | 'Tiny'
-  | 'Light'
-  | 'Normal'
-  | 'Heavy'
-  | '3'
-  | '4'
-  | '5'
-  | '6'
-  | '7'
-  | '8'
 
 export type Find<
   T extends FindType,
@@ -50,7 +36,7 @@ export type FindViewModel = {
   type: FindType
   location: FindLocation
   title: FindLabels
-  weight: WeightViewModel
+  weight: TranslationKey<'common'>
   value: { coins: number; label: TranslationKey }[]
 }
 

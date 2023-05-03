@@ -1,6 +1,7 @@
-import { useTranslation } from 'react-i18next'
 import { PageHeader } from '../../components/page-header'
 import { Pancake } from '../../components/Stack'
+import { useAppSelector } from '../../store/store.hooks'
+import { selectTranslateFunction } from '../../store/translations/translation.slice'
 import {
   believerTypicalKins,
   dwarfTypicalKins,
@@ -17,7 +18,7 @@ import { createTypicalKinViewModel } from './typical-kin'
 import { TypicalKinDisplay } from './TypicalKinDisplay'
 
 export const TypicalKinPage = () => {
-  const { t } = useTranslation(['typical', 'common'])
+  const t = useAppSelector(selectTranslateFunction(['typical', 'common']))
 
   const humanKinViewModels = Object.values(humanTypicalKins).map(
     createTypicalKinViewModel,

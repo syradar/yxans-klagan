@@ -1,3 +1,6 @@
+import { useRef } from 'react'
+import { useButton, AriaButtonProps } from 'react-aria'
+
 const buttonStyles = (
   variant: ButtonProps['variant'],
   isSmall: ButtonProps['isSmall'],
@@ -22,29 +25,23 @@ const buttonStyles = (
     extraCss ? extraCss : '',
   ].join(' ')
 
-type ButtonProps = {
+type ButtonProps = AriaButtonProps & {
   variant?: 'secondary' | 'disabled'
   isSmall?: boolean
-  onClick?: () => void
-  children: React.ReactNode
   extraCss?: HTMLButtonElement['className']
   disabled?: boolean
 }
 
-export const Button = ({
-  variant,
-  isSmall,
-  children,
-  onClick,
-  extraCss,
-  disabled,
-}: ButtonProps) => {
+export const Button = (props: ButtonProps) => {
+  const ref = useRef(null)
+  const { buttonProps } = useButton(props, ref)
+  const { children, variant, isSmall = false, extraCss = '' } = props
+
   return (
     <button
-      type="button"
-      onClick={onClick}
+      ref={ref}
+      {...buttonProps}
       className={buttonStyles(variant, isSmall, extraCss)}
-      disabled={disabled}
     >
       {children}
     </button>

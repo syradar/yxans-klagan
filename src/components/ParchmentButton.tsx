@@ -1,24 +1,19 @@
 import { nanoid } from 'nanoid'
-import { forwardRef, useState } from 'react'
+import { useRef, useState } from 'react'
+import { AriaButtonProps, useButton } from 'react-aria'
 import { getRandomInt } from '../functions/dice.functions'
 
-type ParchmentButtonProps = {
-  children?: React.ReactNode
+export type ParchmentButtonProps = AriaButtonProps & {
   small?: boolean
-  onClick?: () => void
-  disabled?: boolean
   buttonType?: 'secondary' | 'primary' | 'danger' | 'ghost' | 'ghost-secondary'
   forwardedRef?: React.Ref<HTMLButtonElement>
 }
 
-export const ParchmentButton = ({
-  children,
-  small,
-  onClick,
-  disabled = false,
-  buttonType = 'primary',
-  forwardedRef,
-}: ParchmentButtonProps) => {
+export const ParchmentButton = (props: ParchmentButtonProps) => {
+  const ref = useRef(null)
+  const { buttonProps } = useButton(props, ref)
+  const { children, buttonType = 'primary', small, isDisabled } = props
+
   const [options] = useState({
     baseFrequency: getRandomInt(1, 10) / 100,
     numOctaves: getRandomInt(1, 5),
@@ -28,46 +23,44 @@ export const ParchmentButton = ({
 
   return (
     <button
-      ref={forwardedRef}
-      type="button"
-      onClick={onClick}
+      ref={ref}
+      {...buttonProps}
       className={`
-        group w-fit
-        ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}
+        group w-fit min-w-fit
+        ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}
       `}
-      disabled={disabled}
     >
       <div className="grid grid-cols-1 grid-rows-1">
         <div
           className={`
           z-0 col-start-1 col-end-2 row-start-1 row-end-2 rounded border-2  shadow transition-colors
           ${
-            disabled && buttonType !== 'ghost'
+            isDisabled && buttonType !== 'ghost'
               ? 'border-neutral-500 bg-neutral-300'
               : ''
           }
           ${
-            disabled && buttonType === 'ghost'
+            isDisabled && buttonType === 'ghost'
               ? 'border-neutral-500 bg-transparent'
               : ''
           }
           ${
-            !disabled && buttonType === 'primary'
+            !isDisabled && buttonType === 'primary'
               ? 'border-green-800 bg-green-600 group-hover:border-green-800 group-hover:bg-green-800'
               : ''
           }
           ${
-            !disabled && buttonType === 'secondary'
+            !isDisabled && buttonType === 'secondary'
               ? 'border-amber-800 bg-amber-800 group-hover:border-amber-900 group-hover:bg-amber-900'
               : ''
           }
           ${
-            !disabled && buttonType === 'ghost'
+            !isDisabled && buttonType === 'ghost'
               ? 'border-amber-800 bg-transparent text-amber-800 group-hover:border-amber-900 group-hover:bg-amber-100'
               : ''
           }
             ${
-              !disabled && buttonType === 'danger'
+              !isDisabled && buttonType === 'danger'
                 ? 'border-rose-800 bg-rose-600 group-hover:border-rose-800 group-hover:bg-rose-800'
                 : ''
             }
@@ -79,16 +72,16 @@ export const ParchmentButton = ({
           className={`
         z-10 col-start-1 col-end-2 row-start-1 row-end-2 flex items-center gap-2 font-medium
         ${small ? 'px-3 py-1' : 'px-4 py-2'}
-        ${disabled ? 'text-gray-600' : ''}
+        ${isDisabled ? 'text-gray-600' : ''}
         ${
-          !disabled &&
+          !isDisabled &&
           (buttonType === 'primary' ||
             buttonType === 'secondary' ||
             buttonType === 'danger')
             ? 'text-white'
             : ''
         }
-        ${!disabled && buttonType === 'ghost' ? 'text-amber-900' : ''}
+        ${!isDisabled && buttonType === 'ghost' ? 'text-amber-900' : ''}
         `}
         >
           {children}
@@ -127,10 +120,3 @@ export const ParchmentButton = ({
     </button>
   )
 }
-
-export const ForwardedParchmentButton = forwardRef<
-  HTMLButtonElement,
-  ParchmentButtonProps
->(function ForwardedParchmentButton(props, ref) {
-  return <ParchmentButton forwardedRef={ref} {...props} />
-})

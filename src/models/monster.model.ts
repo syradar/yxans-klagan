@@ -1,17 +1,17 @@
 import { Definition } from '../@types/definition.type'
-import { TranslationKey } from '../@types/i18next'
+import { TranslationKey } from '../store/translations/translation.model'
 import { MonsterAttackRange } from './attack-range'
 import { Attributes, AttributesViewModel } from './attributes.model'
 import { MonsterSkillsValues } from './skills.model'
 
 export interface Monster {
-  name: TranslationKey
+  name: TranslationKey<'common'>
   attributes: Attributes
   pageReference?: number
 }
 
 export interface MonsterViewModel {
-  name: TranslationKey
+  name: TranslationKey<'common'>
   attributes: AttributesViewModel
   pageReference?: number
 }
@@ -114,6 +114,19 @@ export type MonsterHome =
   | 'Cave'
   | 'Ravine'
   | 'Den'
+
+export const monsterHomeLabels: Record<
+  MonsterHome,
+  TranslationKey<'monster'>
+> = {
+  Burrow: 'monster:Homes.Burrow',
+  Ruin: 'monster:Homes.Ruin',
+  WateringHole: 'monster:Homes.WateringHole',
+  TreeOrHighPoint: 'monster:Homes.TreeOrHighPoint',
+  Cave: 'monster:Homes.Cave',
+  Ravine: 'monster:Homes.Ravine',
+  Den: 'monster:Homes.Den',
+}
 
 export type MonsterSkillListItem = {
   name: TranslationKey
@@ -235,7 +248,7 @@ export type MonsterAttack = {
   attack?: (rm: IntermediateRandomMonster) => number
   damage?: (rm: IntermediateRandomMonster) => MonsterDamage
   range: MonsterAttackRange
-  description: TranslationKey
+  description: TranslationKey<'monster'>
   descriptionExtras?: (rm: IntermediateRandomMonster) => { count: number }
   valid: (rm: IntermediateRandomMonster) => boolean
   singleUse: boolean
@@ -246,8 +259,8 @@ export type MonsterAttackViewModel = {
   type: MonsterAttackType
   attack?: number
   damage?: MonsterDamage
-  range: `Range.${MonsterAttackRange}`
-  description: TranslationKey
+  range: `common:Range.${MonsterAttackRange}` & TranslationKey<'common'>
+  description: TranslationKey<'monster'>
   descriptionExtras?: { count: number }
 }
 
@@ -285,7 +298,7 @@ export type MonsterDescription = {
 }
 
 export type MonsterDescriptionItemViewModel = {
-  key: TranslationKey
+  key: TranslationKey<'monster'>
   count?: number
 }
 
@@ -344,8 +357,8 @@ export interface RandomMonsterViewModel
   traits: MonsterTraitViewModel[]
   weakness: MonsterWeakness
   motivation: {
-    name: `monsters:Motivation.${MonsterMotivation}.Name`
-    description: `monsters:Motivation.${MonsterMotivation}.Description`
+    name: `monster:Motivation.${MonsterMotivation}.Name`
+    description: `monster:Motivation.${MonsterMotivation}.Description`
   }
   damageModifiers: MonsterDamageModifiers
   attacks: MonsterAttackViewModel[]

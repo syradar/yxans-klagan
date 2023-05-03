@@ -1,5 +1,5 @@
-import { TFunction } from 'i18next'
 import { Monster, MonsterViewModel } from '../models/monster.model'
+import { TFunction } from '../store/translations/translation.model'
 import { createAttributesViewModel } from './attributes.functions'
 
 export const createMonstersViewModel = (
@@ -12,8 +12,8 @@ export const createMonstersViewModel = (
 export const monsterComparer =
   (t: TFunction<'common'>) =>
   (a: MonsterViewModel, b: MonsterViewModel): number => {
-    const ma = t(a.name, { ns: 'common', defaultValue: a.name })
-    const mb = t(b.name, { ns: 'common', defaultValue: b.name })
+    const ma = t(a.name)
+    const mb = t(b.name)
 
     if (ma < mb) {
       return -1

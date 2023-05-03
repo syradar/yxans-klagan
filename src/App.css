@@ -150,6 +150,11 @@ main {
   height: 100%;
 }
 
+.hide-default-spinner-appearance {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
 .hide-default-spinner-appearance ::webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
