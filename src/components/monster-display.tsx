@@ -1,6 +1,7 @@
-import { useTranslation } from 'react-i18next'
 import { withId } from '../functions/utils.functions'
 import { MonsterViewModel } from '../models/monster.model'
+import { useAppSelector } from '../store/store.hooks'
+import { selectTranslateFunction } from '../store/translations/translation.slice'
 import { MonsterAttribute } from './monster-attributes'
 import { Pancake } from './Stack'
 export type MonsterDisplayProps = {
@@ -8,7 +9,7 @@ export type MonsterDisplayProps = {
 }
 
 export const MonsterDisplay = ({ m }: MonsterDisplayProps) => {
-  const { t } = useTranslation(['monsters', 'common'])
+  const t = useAppSelector(selectTranslateFunction(['monster', 'common']))
 
   return (
     <div>
@@ -22,8 +23,7 @@ export const MonsterDisplay = ({ m }: MonsterDisplayProps) => {
         {m.pageReference && (
           <div>
             <>
-              {t('Page', { ns: 'common' })}: {m.pageReference}{' '}
-              {t('GMBook', { ns: 'common' })}
+              {t('common:Page')}: {m.pageReference} {t('common:GMBook')}
             </>
           </div>
         )}

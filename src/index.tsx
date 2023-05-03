@@ -1,12 +1,12 @@
 import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
-import { I18nextProvider } from 'react-i18next'
+import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import 'tailwindcss/tailwind.css'
 import App from './App'
 import './App.css'
 import { consoleLogo } from './console-logo'
-import i18nReact from './i18nReact'
+import { store } from './store/store'
 import { webVitals } from './vitals'
 
 const container = document.getElementById('root') as HTMLDivElement
@@ -14,13 +14,13 @@ const root = createRoot(container)
 
 root.render(
   <StrictMode>
-    <I18nextProvider i18n={i18nReact}>
+    <Provider store={store}>
       <Suspense fallback={'Loading...'}>
         <BrowserRouter>
           <App />
         </BrowserRouter>
       </Suspense>
-    </I18nextProvider>
+    </Provider>
   </StrictMode>,
 )
 

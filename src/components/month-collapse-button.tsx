@@ -1,5 +1,6 @@
-import { useTranslation } from 'react-i18next'
 import { PlusIcon, MinusIcon } from '@heroicons/react/24/outline'
+import { useAppSelector } from '../store/store.hooks'
+import { selectTranslateFunction } from '../store/translations/translation.slice'
 
 type MonthCollapseButtonProps = {
   collapsed: boolean
@@ -15,11 +16,13 @@ export const MonthCollapseButton = ({
   small = false,
   menu = false,
 }: MonthCollapseButtonProps) => {
-  const { t } = useTranslation('calendar')
+  const t = useAppSelector(selectTranslateFunction(['core', 'calendar']))
 
   return (
     <button
-      aria-label={t(collapsed ? `ShowMonth` : `HideMonth`) ?? ''}
+      aria-label={
+        t(collapsed ? `calendar:ShowMonth` : `calendar:HideMonth`) ?? ''
+      }
       className={`
         group flex w-full items-center gap-2 text-left
         ${menu ? 'px-4 py-1 hover:bg-amber-900 hover:text-amber-50' : ''}

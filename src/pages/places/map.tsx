@@ -18,3 +18,5 @@ export const Map = ({ fogOfWar, children }: MapProps) => (
     {children}
   </svg>
 )
+
+export default Map

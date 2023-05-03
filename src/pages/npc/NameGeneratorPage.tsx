@@ -1,7 +1,8 @@
-import { useTranslation } from 'react-i18next'
-import { KinNameList } from './KinNameList'
 import { PageHeader } from '../../components/page-header'
 import { Parchment } from '../../components/parchment'
+import { useAppSelector } from '../../store/store.hooks'
+import { selectTranslateFunction } from '../../store/translations/translation.slice'
+import { KinNameList } from './KinNameList'
 import {
   getRandomAilanderName,
   getRandomAlderlanderName,
@@ -9,11 +10,11 @@ import {
 } from './name'
 
 export const NameGeneratorPage = () => {
-  const { t } = useTranslation('names')
+  const t = useAppSelector(selectTranslateFunction(['names', 'common']))
 
   return (
     <div className="flex w-full flex-col gap-y-8">
-      <PageHeader>{t('Title')}</PageHeader>
+      <PageHeader>{t('names:Title')}</PageHeader>
 
       <div className="flex flex-wrap gap-4 lg:grid lg:grid-cols-2">
         <div className="flex-auto">

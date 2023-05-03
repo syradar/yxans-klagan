@@ -1,8 +1,9 @@
 import { FireIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Parchment } from '../../components/parchment'
 import { ParchmentButton } from '../../components/ParchmentButton'
+import { Parchment } from '../../components/parchment'
+import { useAppSelector } from '../../store/store.hooks'
+import { selectTranslateFunction } from '../../store/translations/translation.slice'
 import { Hex } from './map.model'
 export interface MapPopoverOptions {
   hex: Hex
@@ -25,7 +26,7 @@ export const MapPopover = ({
   onExploreChanged,
   onHide,
 }: MapPopoverProps) => {
-  const { t } = useTranslation('map')
+  const t = useAppSelector(selectTranslateFunction(['map']))
   const ref = useRef<HTMLDivElement>(null)
   const [show, setShow] = useState<boolean>(true)
   const initialPosition = -9999
@@ -101,42 +102,42 @@ export const MapPopover = ({
           <div className="mb-3 text-2xl">
             {options.hex.hexKey}:{' '}
             {options.hex.explored
-              ? t('Popover-Explored')
-              : t('Popover-Unexplored')}
+              ? t('map:Popover-Explored')
+              : t('map:Popover-Unexplored')}
           </div>
           <div className="flex gap-2">
             <ParchmentButton
               buttonType="ghost"
-              onClick={() => {
+              onPress={() => {
                 onHide()
                 setShow(false)
               }}
             >
-              {t('Popover-Hide')}
+              {t('map:Popover-Hide')}
             </ParchmentButton>
 
             {options.hex.explored ? (
               <ParchmentButton
                 buttonType="danger"
-                onClick={() => {
+                onPress={() => {
                   setShow(false)
                   onHide()
                   onExploreChanged({ ...options.hex, explored: false })
                 }}
               >
                 <FireIcon className="h-5 w-5" />
-                {t('Popover-Forget')}
+                {t('map:Popover-Forget')}
               </ParchmentButton>
             ) : (
               <ParchmentButton
-                onClick={() => {
+                onPress={() => {
                   setShow(false)
                   onHide()
                   onExploreChanged({ ...options.hex, explored: true })
                 }}
               >
                 <MagnifyingGlassIcon className="h-5 w-5" />
-                {t('Popover-Explore')}
+                {t('map:Popover-Explore')}
               </ParchmentButton>
             )}
           </div>

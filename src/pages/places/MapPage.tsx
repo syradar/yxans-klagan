@@ -4,26 +4,29 @@ import {
   EyeSlashIcon,
 } from '@heroicons/react/24/outline'
 import { has } from 'ramda'
-import { useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { TranslationKey } from '../../@types/i18next'
+import { Suspense, lazy, useEffect, useRef, useState } from 'react'
+import { ParchmentButton } from '../../components/ParchmentButton'
+import { Train } from '../../components/Stack'
 import { PageHeader } from '../../components/page-header'
 import { Parchment } from '../../components/parchment'
-import { ParchmentButton } from '../../components/ParchmentButton'
 import { PasteData } from '../../components/paste-data'
-import { Train } from '../../components/Stack'
 import { downloadFile } from '../../functions/file.functions'
 import { isNullish, isString } from '../../functions/utils.functions'
-import { Map } from './map'
-import { MapPopoverOptions, MapPopover } from './map-popover'
-import { Hex, initialHexas, HexStorage, isHexKey } from './map.model'
+
+import { useAppSelector } from '../../store/store.hooks'
+import { TranslationKey } from '../../store/translations/translation.model'
+import { selectTranslateFunction } from '../../store/translations/translation.slice'
+import { MapPopover, MapPopoverOptions } from './map-popover'
+import { Hex, HexStorage, initialHexas, isHexKey } from './map.model'
 import { Polygon } from './polygon'
 
 const MAP_STORAGE_KEY = 'map'
 const FOG_OF_WAR_STORAGE_KEY = 'fogOfWar'
 
+const Map = lazy(() => import('./map'))
+
 export const MapPage = () => {
-  const { t } = useTranslation(['map', 'common'])
+  const t = useAppSelector(selectTranslateFunction(['map', 'common']))
 
   const parchmentRef = useRef<HTMLDivElement>(null)
 
@@ -303,7 +306,7 @@ export const MapPage = () => {
       <Train>
         <ParchmentButton
           buttonType="ghost"
-          onClick={() => setFogOfWar(!fogOfWar)}
+          onPress={() => setFogOfWar(!fogOfWar)}
         >
           {fogOfWar ? (
             <EyeIcon className="h-5 w-5" />
@@ -313,9 +316,9 @@ export const MapPage = () => {
           {t(fogOfWar ? 'map:FogOfWar_On' : 'map:FogOfWar_Off')}
         </ParchmentButton>
         <ParchmentButton
-          disabled={!hasExploredHexas}
+          isDisabled={!hasExploredHexas}
           buttonType="ghost"
-          onClick={() => handleFileDownload()}
+          onPress={() => handleFileDownload()}
         >
           <DocumentArrowDownIcon className="h-5 w-5" />
           {t('map:DownloadMapData')}
@@ -347,16 +350,18 @@ export const MapPage = () => {
               onExploreChanged={(hex) => handleExploration(hex)}
               onHide={() => handleSelectedHex(undefined)}
             ></MapPopover>
-            <Map fogOfWar={fogOfWar}>
-              {hexas.map((hex) => (
-                <Polygon
-                  key={hex.hexKey}
-                  hex={hex}
-                  onMouseOver={(e) => handleMouseOver(e, hex)}
-                  onClick={(e) => handleHexClick(e, hex)}
-                />
-              ))}
-            </Map>
+            <Suspense fallback={'Laddar...'}>
+              <Map fogOfWar={fogOfWar}>
+                {hexas.map((hex) => (
+                  <Polygon
+                    key={hex.hexKey}
+                    hex={hex}
+                    onMouseOver={(e) => handleMouseOver(e, hex)}
+                    onClick={(e) => handleHexClick(e, hex)}
+                  />
+                ))}
+              </Map>
+            </Suspense>
           </div>
         </Parchment>
       </div>

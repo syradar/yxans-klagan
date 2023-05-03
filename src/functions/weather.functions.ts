@@ -1,5 +1,5 @@
-import { TranslationKey } from '../@types/i18next'
 import { Day } from '../models/calendar.model'
+import { TranslationKey } from '../store/translations/translation.model'
 import { range } from './array.functions'
 import { choose } from './dice.functions'
 import { inRange, notNullish } from './utils.functions'

@@ -1,15 +1,16 @@
 import { nanoid } from 'nanoid'
 import { lazy } from 'react'
-import { useTranslation } from 'react-i18next'
 import { RouteObject, useLocation, useResolvedPath } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
-import { TranslationKey } from './@types/i18next'
 import { Group, GroupProps } from './components/group'
 import { MenuLink } from './components/MenuLink'
 import { Pancake } from './components/Stack'
+import { TranslationKey } from './store/translations/translation.model'
+import { useAppSelector } from './store/store.hooks'
+import { selectTranslateFunction } from './store/translations/translation.slice'
 
 const HomePage = lazy(() => import('./pages/home.page'))
-const CalendarPage = lazy(() => import('./pages/calendar.page'))
+const CalendarPage = lazy(() => import('./pages/calendar/calendar.page'))
 const EncounterPage = lazy(() => import('./pages/encounter.page'))
 const FindsPage = lazy(() => import('./pages/finds.page'))
 const GearPage = lazy(() => import('./pages/gear.page'))
@@ -32,32 +33,32 @@ type MenuRoute = {
 export const menuRoutes: MenuRoute[] = [
   {
     path: '',
-    label: 'core:Menu',
+    label: 'core:menu.Menu',
     id: nanoid(),
     element: <HomePage />,
   },
   {
     path: 'session',
     id: nanoid(),
-    label: 'core:Menu-Session',
+    label: 'core:menu.Session',
     element: <SessionPage />,
   },
   {
     path: 'encounter',
     id: nanoid(),
-    label: 'core:Menu-Encounters',
+    label: 'core:menu.Encounters',
     element: <EncounterPage />,
   },
   {
     path: 'monsters',
     id: nanoid(),
-    label: 'core:Menu-Monsters',
+    label: 'core:menu.Monsters',
     element: <MonstersPage />,
   },
   {
     path: 'calendar',
     id: nanoid(),
-    label: 'core:Menu-Calendar',
+    label: 'core:menu.Calendar',
     element: <CalendarPage />,
   },
   // {
@@ -68,18 +69,18 @@ export const menuRoutes: MenuRoute[] = [
   {
     path: 'places',
     id: nanoid(),
-    label: 'core:Menu-Places',
+    label: 'core:menu.places.Places',
     children: [
       {
         path: 'village',
         id: nanoid(),
-        label: 'core:Menu-Places-Village',
+        label: 'core:menu.places.Village',
         element: <VillagePage />,
       },
       {
         path: 'map',
         id: nanoid(),
-        label: 'core:Menu-Places-Map',
+        label: 'core:menu.places.Map',
         element: <MapPage />,
       },
     ],
@@ -87,18 +88,18 @@ export const menuRoutes: MenuRoute[] = [
   {
     path: 'gear',
     id: nanoid(),
-    label: 'core:Menu-Gear',
+    label: 'core:menu.gear.Gear',
     children: [
       {
         path: 'tables',
         id: nanoid(),
-        label: 'core:Menu-Gear-Tables',
+        label: 'core:menu.gear.Tables',
         element: <GearPage />,
       },
       {
         path: 'finds',
         id: nanoid(),
-        label: 'core:Menu-Gear-Finds',
+        label: 'core:menu.gear.Finds',
         element: <FindsPage />,
       },
     ],
@@ -106,24 +107,24 @@ export const menuRoutes: MenuRoute[] = [
   {
     path: 'npcs',
     id: nanoid(),
-    label: 'core:Menu-NPCs',
+    label: 'core:menu.npcs.NPCs',
     children: [
       {
         path: 'names',
         id: nanoid(),
-        label: 'core:Menu-NPCs-Names',
+        label: 'core:menu.npcs.Names',
         element: <NameGeneratorPage />,
       },
       {
         path: 'typical',
         id: nanoid(),
-        label: 'core:Menu-NPCs-Typical',
+        label: 'core:menu.npcs.Typical',
         element: <TypicalKinPage />,
       },
       {
         path: 'npc',
         id: nanoid(),
-        label: 'core:Menu-NPCs-Npc',
+        label: 'core:menu.npcs.Npc',
         element: <NpcPage />,
       },
     ],
@@ -152,7 +153,7 @@ type MenuProps = {
   close: () => void
 }
 export const Menu = ({ menuRoutes, close }: MenuProps) => {
-  const { t } = useTranslation('core')
+  const t = useAppSelector(selectTranslateFunction(['core']))
   const isLg = useMediaQuery('(min-width: 1024px)')
 
   return (
@@ -167,14 +168,7 @@ export const Menu = ({ menuRoutes, close }: MenuProps) => {
                 to={`/${route.path}`}
                 menu
                 spaceBeforeItems={false}
-                label={
-                  <div className="font-medium">
-                    {t(route.label, {
-                      ns: 'core',
-                      defaultValue: route.label,
-                    })}
-                  </div>
-                }
+                label={<div className="font-medium">{t(route.label)}</div>}
               >
                 <div className="mt-2">
                   <Pancake spacing="small">
@@ -213,14 +207,11 @@ type MenuItemProps = {
   onClick: () => void
 }
 const MenuItem = ({ indent, label, onClick, to }: MenuItemProps) => {
-  const { t } = useTranslation()
+  const t = useAppSelector(selectTranslateFunction(['core']))
 
   return (
     <MenuLink to={to} indent={indent} onClick={onClick}>
-      {t(label, {
-        ns: 'core',
-        defaultValue: label,
-      })}
+      {t(label)}
     </MenuLink>
   )
 }

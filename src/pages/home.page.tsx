@@ -1,14 +1,16 @@
-import { useTranslation } from 'react-i18next'
+import Stack from '../components/Stack'
 import { Typography } from '../components/Typography'
 import { PageHeader } from '../components/page-header'
 import { Parchment } from '../components/parchment'
-import Stack from '../components/Stack'
+import { useAppSelector } from '../store/store.hooks'
+import { selectTranslateFunction } from '../store/translations/translation.slice'
 
 const HomePage = () => {
-  const { t } = useTranslation(['home'])
+  const t = useAppSelector(selectTranslateFunction(['home', 'core']))
 
   return (
     <div className="flex max-w-prose flex-col gap-y-8">
+      <div>{t('core:GiveFeedback')}</div>
       <PageHeader>{t('home:Page')}</PageHeader>
       <Parchment>
         <p className="yx-prose">{t('home:Description')}</p>

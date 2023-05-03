@@ -1,4 +1,3 @@
-import { TranslationKey } from '../@types/i18next'
 import { FindTable } from '../data/find.data'
 import {
   Find,
@@ -7,9 +6,9 @@ import {
   FindType,
   FindValue,
   FindViewModel,
-  Weight,
-  WeightViewModel,
 } from '../models/find.model'
+import { weightLabelDict } from '../models/weight.model'
+import { TranslationKey } from '../store/translations/translation.model'
 
 import { range } from './array.functions'
 import { parseD6String, rollD6, rollD66 } from './dice.functions'
@@ -30,7 +29,7 @@ export const rollFindValue = (
       .map((_) => rollD6())
       .reduce((a, b) => a + b, 0)
 
-    const coinLabel: TranslationKey = `finds:Coin.${capitalize(
+    const coinLabel: TranslationKey = `common:Coin.${capitalize(
       coin,
     )}` as TranslationKey
 
@@ -47,26 +46,12 @@ export const getRandomFind = <F extends FindType, L extends FindLocation>(
   return findTable[adjustedRoll]
 }
 
-const weightToViewModelDict: { [W in Weight]: WeightViewModel } = {
-  0: 'None',
-  0.25: 'Tiny',
-  0.5: 'Light',
-  1: 'Normal',
-  2: 'Heavy',
-  3: '3',
-  4: '4',
-  5: '5',
-  6: '6',
-  7: '7',
-  8: '8',
-}
-
 export const createFindViewModel = (
   f: Find<FindType, FindChance, FindLocation>,
 ): FindViewModel => {
   return {
     ...f,
-    weight: weightToViewModelDict[f.weight],
+    weight: weightLabelDict[f.weight],
     value: rollFindValue(f.value),
   }
 }

@@ -1,19 +1,23 @@
-import { FC } from 'react'
+import { ComponentProps, FC } from 'react'
 import { Grid } from './Stack'
+import { DayQuarters } from '../features/calendar/calendar-slice'
 
-interface DayCounterProps {
-  quarters: [boolean, boolean, boolean, boolean]
-  spendQuarter: () => void
+type DayCounterProps = ComponentProps<'button'> & {
+  quarters: DayQuarters | undefined
 }
 
 export const DayCounter: FC<DayCounterProps> = ({
   quarters,
-  spendQuarter,
+  onClick,
 }: DayCounterProps) => {
+  if (!quarters) {
+    quarters = [false, false, false, false]
+  }
+
   return (
     <button
       className="group w-full"
-      onClick={() => spendQuarter()}
+      onClick={onClick}
       aria-label="Spend"
       type="button"
     >

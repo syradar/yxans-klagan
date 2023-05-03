@@ -1,8 +1,6 @@
-import { Namespace, TFunction } from 'i18next'
-import { TranslationKey } from '../@types/i18next'
+import { TranslationKey } from '../store/translations/translation.model'
 import { getRandomInt, rollD6, rollD66, rollD8 } from './dice.functions'
-
-export const generateLegend = (t: TFunction<Namespace>): string => {
+export const generateLegend = () => {
   const { description, age } = timeAgo()
   const adjective = getText(ADJECTIVE)
   const who_or_what = getText(WHO_OR_WHAT)
@@ -22,48 +20,22 @@ export const generateLegend = (t: TFunction<Namespace>): string => {
   const adjective_adversary = getText(ADJECTIVE_ADVERSARY)
   const adversary = getText(ADVERSARY)
 
-  const td = (key: TranslationKey) =>
-    t(key, { ns: ['common', 'session'], defaultValue: key })
-
-  const sentences = [
-    [
-      td('session:ALongTimeAgo'),
-      td(description),
-      t(`session:YearsAgo`, { years: age, defaultValue: age.toString() }),
-      td('session:ThereWas'),
-      td(adjective.text()),
-      td(who_or_what.text()),
-      td('session:WhoSearched'),
-      td(who_searched_for.text()),
-      td('session:BecauseOf'),
-      td(because.text()),
-      td('session:AndTraveledTo'),
-      td(location.text()),
-      td('session:Located'),
-      td(distance.text()),
-      td(terrain.text()),
-      td('session:InTheDirectionOf'),
-      td(direction.text()),
-    ].join(' '),
-    [
-      who_or_what.pronoun === 'Third'
-        ? t(`session:AsTheLegendGoesItIsSaidThat_Third`, {
-            context: who_or_what.pronoun,
-            defaultValue: 'AsTheLegendGoesItIsSaidThat',
-          })
-        : td(`session:AsTheLegendGoesItIsSaidThat`),
-      t(what_happened.text(), {
-        context: who_or_what.pronoun,
-        defaultValue: what_happened.text(),
-      }),
-      td(`session:AndThatAtTheLocationThere`),
-      td(its_told_that.text()),
-      td(`session:ButAlso`),
-      getAdversary(adversary, adjective_adversary, t),
-    ].join(' '),
-  ].join('. ')
-
-  return `${sentences}.`
+  return {
+    description,
+    age,
+    adjective,
+    who_or_what,
+    who_searched_for,
+    because,
+    location,
+    distance,
+    terrain,
+    direction,
+    what_happened,
+    its_told_that,
+    adjective_adversary,
+    adversary,
+  }
 }
 
 interface TimeAgoResult {
@@ -119,7 +91,7 @@ const TIME_AGO: TimeAgo[] = [
   },
 ]
 
-interface LegendTableItem {
+export type LegendTableItem = {
   roll: number[]
   text: () => TranslationKey<'common' | 'session'>
   count?: number
@@ -138,25 +110,6 @@ const getText = (
       text: () => 'common:Empty',
     }
   )
-}
-
-const getAdversary = (
-  adversary: LegendTableItem,
-  adjective: LegendTableItem,
-  t: TFunction<Namespace>,
-): string => {
-  const _t = (key: string): string =>
-    t(key, {
-      ns: ['session', 'common'],
-      defaultValue: key,
-    })
-  if (adversary.text() !== 'session:Adversary.DemonWithCount') {
-    return `${_t(adjective.text())} ${_t(adversary.text())}`
-  }
-
-  const count = rollD6()
-
-  return `${count} ${_t(adjective.text())} ${_t(adversary.text())}`
 }
 
 const ADJECTIVE: LegendTableItem[] = [

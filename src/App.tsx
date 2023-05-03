@@ -1,13 +1,17 @@
-import { Suspense, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { Suspense, useCallback, useEffect, useState } from 'react'
 import { Link, useRoutes } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import './App.css'
 import { Menu, appRoutes, menuRoutes } from './Menu'
+import { ParchmentButton } from './components/ParchmentButton'
 import Stack from './components/Stack'
 import { LanguageSwitcher } from './components/language-switcher'
 import { YxansKlaganLogo } from './logo'
-import { ParchmentButton } from './components/ParchmentButton'
+import { useAppDispatch, useAppSelector } from './store/store.hooks'
+import {
+  initTranslations,
+  selectTranslateFunction,
+} from './store/translations/translation.slice'
 
 const App = () => {
   const routes = useRoutes(appRoutes)
@@ -19,7 +23,7 @@ const App = () => {
       <div className="flex flex-col lg:min-h-screen lg:flex-row">
         <AppMenu></AppMenu>
         <Suspense fallback={<div>Loading...</div>}>
-          <main className="max-h-screen w-full overflow-auto p-8">
+          <main className="max-h-screen w-full overflow-auto px-2 py-8 lg:px-4">
             {routes}
           </main>
         </Suspense>
@@ -31,7 +35,16 @@ const App = () => {
 export default App
 
 const AppMenu = () => {
-  const { t } = useTranslation(['core'])
+  const dispatch = useAppDispatch()
+  const initTranslationSystem = useCallback(
+    async () => await dispatch(initTranslations),
+    [dispatch],
+  )
+  useEffect(() => {
+    initTranslationSystem()
+  }, [initTranslationSystem])
+
+  const t = useAppSelector(selectTranslateFunction(['core']))
   const [isOpen, setIsOpen] = useState(false)
   const isLg = useMediaQuery('(min-width: 1024px)')
 
@@ -50,8 +63,8 @@ const AppMenu = () => {
           <YxansKlaganLogo />
         </Link>
         {!isLg ? (
-          <ParchmentButton buttonType="ghost" small onClick={handleMenuClick}>
-            {t('core:Menu')}
+          <ParchmentButton buttonType="ghost" small onPress={handleMenuClick}>
+            {t('core:menu.Menu')}
           </ParchmentButton>
         ) : null}
       </div>

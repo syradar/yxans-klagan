@@ -1,29 +1,35 @@
-import { useTranslation } from 'react-i18next'
-
 import { ValidLanguage } from '../models/language.model'
-import { LanguageButton } from './language-button'
+import { useAppDispatch, useAppSelector } from '../store/store.hooks'
+import {
+  selectCurrentLanguage,
+  selectTranslateFunction,
+  setTranslationsAsync,
+} from '../store/translations/translation.slice'
 import Stack from './Stack'
+import { LanguageButton } from './language-button'
 
 export const LanguageSwitcher = () => {
-  const { t, i18n } = useTranslation('core')
+  const lang = useAppSelector(selectCurrentLanguage)
+  const t = useAppSelector(selectTranslateFunction(['core']))
+  const dispatch = useAppDispatch()
 
-  const changeLanguage = (lng: ValidLanguage) => {
-    i18n.changeLanguage(lng)
+  const changeLanguage = async (lng: ValidLanguage) => {
+    await dispatch(setTranslationsAsync({ language: lng, source: 'user' }))
   }
 
   return (
     <Stack.Horizontal center>
       <LanguageButton
-        onClick={() => changeLanguage('sv')}
-        disabled={i18n.language === 'sv'}
+        onPress={() => changeLanguage('sv')}
+        isDisabled={lang === 'sv'}
       >
-        {t('Language-Swedish')}
+        {t('core:language.swedish')}
       </LanguageButton>
       <LanguageButton
-        onClick={() => changeLanguage('en')}
-        disabled={i18n.language === 'en'}
+        onPress={() => changeLanguage('en')}
+        isDisabled={lang === 'en'}
       >
-        {t('Language-English')}
+        {t('core:language.english')}
       </LanguageButton>
     </Stack.Horizontal>
   )

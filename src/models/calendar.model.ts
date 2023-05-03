@@ -1,4 +1,3 @@
-import { TranslationKey } from '../@types/i18next'
 import { range } from '../functions/array.functions'
 import {
   Downpour,
@@ -8,6 +7,7 @@ import {
   WeatherDay,
   WeatherEvent,
 } from '../functions/weather.functions'
+import { TranslationKey } from '../store/translations/translation.model'
 
 const month = [
   'WinterWane',

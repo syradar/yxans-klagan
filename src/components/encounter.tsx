@@ -1,8 +1,10 @@
-import { useTranslation } from 'react-i18next'
 import { allEncounters } from '../data/encounter.data'
-
 import { EncounterViewModel } from '../models/encounter.model'
-import { ValidLanguage } from '../models/language.model'
+import { useAppSelector } from '../store/store.hooks'
+import {
+  selectCurrentLanguage,
+  selectTranslateFunction,
+} from '../store/translations/translation.slice'
 import { Parchment } from './parchment'
 import Stack from './Stack'
 import { Tag } from './Tag'
@@ -12,7 +14,8 @@ interface EncounterProps {
 }
 
 export const Encounter = ({ encounter }: EncounterProps) => {
-  const { t, i18n } = useTranslation(['encounters', 'common'])
+  const t = useAppSelector(selectTranslateFunction(['common', 'encounter']))
+  const currentLanguage = useAppSelector(selectCurrentLanguage)
 
   return (
     <div>
@@ -23,15 +26,12 @@ export const Encounter = ({ encounter }: EncounterProps) => {
               {encounter.id}
             </div>
             <h2 className="yx-heading flex text-center text-4xl">
-              {
-                allEncounters[i18n.language as ValidLanguage][encounter.id]
-                  .title
-              }
+              {allEncounters[currentLanguage][encounter.id].title}
             </h2>
           </div>
           <div>
             <>
-              {t('Page', { ns: 'common' })}. {encounter.page}
+              {t('common:Page')}. {encounter.page}
             </>
           </div>
           <Stack.Horizontal spacing="small" wrap>

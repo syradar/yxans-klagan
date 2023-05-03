@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { TranslationKey } from '../../@types/i18next'
 import { ParchmentCard } from '../../components/card'
 import { Field } from '../../components/field'
 import { Group } from '../../components/group'
@@ -11,13 +9,16 @@ import { Tag } from '../../components/Tag'
 import { AllSkillsValuesViewModel } from '../../models/skills.model'
 import { ID } from '../../models/utils.model'
 import { TypicalKinViewModel } from './typical-kin'
+import { useAppSelector } from '../../store/store.hooks'
+import { TranslationKey } from '../../store/translations/translation.model'
+import { selectTranslateFunction } from '../../store/translations/translation.slice'
 
 export interface TypicalKinProps {
   tkvm: TypicalKinViewModel
 }
 
 export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
-  const { t } = useTranslation(['typical', 'common'])
+  const t = useAppSelector(selectTranslateFunction(['npc', 'common']))
 
   const [tkvm, setTkvm] = useState(typicalKinViewModel.tkvm)
 
@@ -91,7 +92,7 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
           <Field label={t('common:Skills.Skills')}>
             {formatSkills(tkvm.skills)}
           </Field>
-          <Field label={t('common:Talents.Talents')}>
+          <Field label={t('common:talents.talents')}>
             {tkvm.talents.length > 0
               ? tkvm.talents.map((talent) => t(talent)).join(', ')
               : '–'}

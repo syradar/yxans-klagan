@@ -1,13 +1,17 @@
+import { ArrowPathIcon } from '@heroicons/react/24/outline'
 import { useCallback, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { ParchmentButton } from '../../components/ParchmentButton'
+import { Typography } from '../../components/Typography'
 import { range } from '../../functions/array.functions'
 import { Gender } from '../../models/gender.model'
 import { ValidLanguage } from '../../models/language.model'
-import { HumanKin } from './name'
+import { useAppSelector } from '../../store/store.hooks'
+import {
+  selectCurrentLanguage,
+  selectTranslateFunction,
+} from '../../store/translations/translation.slice'
 import { NameList } from './NameList'
-import { Typography } from '../../components/Typography'
-import { ParchmentButton } from '../../components/ParchmentButton'
-import { ArrowPathIcon } from '@heroicons/react/24/outline'
+import { HumanKin } from './name'
 
 interface KinNameListProps {
   title: HumanKin
@@ -15,18 +19,15 @@ interface KinNameListProps {
 }
 
 export const KinNameList = ({ title, nameFunc }: KinNameListProps) => {
-  const { t, i18n } = useTranslation(['common', 'names'])
+  const t = useAppSelector(selectTranslateFunction(['names', 'common']))
+  const currentLanguage = useAppSelector(selectCurrentLanguage)
 
   const randomNames = useCallback(
     (count = 10) => ({
-      female: range(count).map((_) =>
-        nameFunc('Female', i18n.language as ValidLanguage),
-      ),
-      male: range(count).map((_) =>
-        nameFunc('Male', i18n.language as ValidLanguage),
-      ),
+      female: range(count).map((_) => nameFunc('Female', currentLanguage)),
+      male: range(count).map((_) => nameFunc('Male', currentLanguage)),
     }),
-    [i18n.language, nameFunc],
+    [currentLanguage, nameFunc],
   )
 
   const [names, setNames] = useState(randomNames())
@@ -34,7 +35,7 @@ export const KinNameList = ({ title, nameFunc }: KinNameListProps) => {
 
   useEffect(() => {
     setNames(randomNames())
-  }, [i18n.language, randomNames])
+  }, [currentLanguage, randomNames])
 
   return (
     <div>
@@ -42,7 +43,7 @@ export const KinNameList = ({ title, nameFunc }: KinNameListProps) => {
         <Typography variant="h2" parchment useMargin={false}>
           {t(`common:Kin.Human.${title}`)}
         </Typography>
-        <ParchmentButton buttonType="primary" onClick={() => getNames()}>
+        <ParchmentButton buttonType="primary" onPress={() => getNames()}>
           <>
             <ArrowPathIcon className="h-5 w-5" />
             {t('names:CreateNewNames')}

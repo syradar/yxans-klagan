@@ -1,22 +1,14 @@
-import { ParchmentButton } from './ParchmentButton'
+import { ParchmentButton, ParchmentButtonProps } from './ParchmentButton'
 
-type LanguageButtonProps = {
-  children: React.ReactNode
-  disabled?: boolean
-  onClick?: () => void
+export const LanguageButton = (props: ParchmentButtonProps) => {
+  return (
+    <ParchmentButton
+      {...props}
+      buttonType={'ghost'}
+      small
+      isDisabled={props.isDisabled}
+    >
+      {props.children}
+    </ParchmentButton>
+  )
 }
-
-export const LanguageButton = ({
-  children,
-  disabled,
-  onClick,
-}: LanguageButtonProps) => (
-  <ParchmentButton
-    onClick={onClick}
-    disabled={disabled}
-    buttonType={'ghost'}
-    small
-  >
-    {children}
-  </ParchmentButton>
-)

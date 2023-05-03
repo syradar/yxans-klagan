@@ -1,5 +1,4 @@
 import { useCallback } from 'react'
-import { useTranslation } from 'react-i18next'
 import { Encounter } from '../components/encounter'
 import { Label } from '../components/Label'
 import { PageHeader } from '../components/page-header'
@@ -7,32 +6,37 @@ import { Parchment } from '../components/parchment'
 import { ParchmentButton } from '../components/ParchmentButton'
 import Stack, { Train } from '../components/Stack'
 import { allEncounters } from '../data/encounter.data'
-import { ValidLanguage } from '../models/language.model'
 import { getTerrainKeys, Terrain } from '../models/terrain.model'
+import { useAppSelector } from '../store/store.hooks'
+import {
+  selectCurrentLanguage,
+  selectTranslateFunction,
+} from '../store/translations/translation.slice'
 import { EncounterLogEntry, useEncounter } from './encounter/useEncounter'
 
 export const EncounterPage = () => {
-  const { t, i18n } = useTranslation(['encounters', 'common'])
+  const t = useAppSelector(selectTranslateFunction(['encounter', 'common']))
+  const currentLanguage = useAppSelector(selectCurrentLanguage)
   const { encounter, encounterLog, generateNewEncounter } = useEncounter()
 
   const handleClick = useCallback(
     (terrain: Terrain) => {
-      generateNewEncounter(terrain, i18n.language as ValidLanguage)
+      generateNewEncounter(terrain, currentLanguage)
     },
-    [generateNewEncounter, i18n.language],
+    [generateNewEncounter, currentLanguage],
   )
 
   return (
     <div className="flex w-full flex-col gap-y-8">
-      <PageHeader>{t('encounters:Title')}</PageHeader>
+      <PageHeader>{t('encounter:Title')}</PageHeader>
 
       <div>
-        <Label> {t('encounters:TerrainType')}</Label>
+        <Label> {t('encounter:TerrainType')}</Label>
         <Train spacing="small">
           {getTerrainKeys().map((terrain) => (
             <ParchmentButton
               key={terrain}
-              onClick={() => {
+              onPress={() => {
                 handleClick(terrain)
               }}
             >
@@ -62,7 +66,8 @@ const EncounterLog = ({
 }: {
   encounterLog: EncounterLogEntry[]
 }) => {
-  const { t, i18n } = useTranslation(['encounters', 'common'])
+  const t = useAppSelector(selectTranslateFunction(['common']))
+  const currentLanguage = useAppSelector(selectCurrentLanguage)
 
   return (
     <Stack.Vertical>
@@ -76,8 +81,7 @@ const EncounterLog = ({
               {entry.encounters.map((el) => (
                 <li className="flex gap-1" key={el.keyId}>
                   <div className="">
-                    {el.id}:{' '}
-                    {allEncounters[i18n.language as ValidLanguage][el.id].title}
+                    {el.id}: {allEncounters[currentLanguage][el.id].title}
                   </div>
                   <div>(s. {el.page})</div>
                 </li>
