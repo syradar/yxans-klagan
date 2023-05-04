@@ -48,12 +48,12 @@ if (analyticsId) {
 }
 
 // Vercel Audience Analytics
-try {
-  import('@vercel/analytics').then(({ inject }) => {
+import('@vercel/analytics')
+  .then(({ inject }) => {
     inject()
   })
-} catch (err) {
-  console.error('[Analytics]', err)
-}
+  .catch((err) => {
+    console.error('[Analytics]', err)
+  })
 
 consoleLogo()
