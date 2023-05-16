@@ -42,7 +42,7 @@ export const ParchmentInput = ({
         onChange={handleInputChange}
         placeholder={placeholder}
         className={`
-          w-full rounded border-2 shadow transition-colors p-1
+          w-full rounded border-2 p-1 shadow transition-colors
           ${
             disabled
               ? 'cursor-not-allowed border-neutral-500 bg-neutral-300'

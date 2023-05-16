@@ -5,7 +5,6 @@ import { Parchment } from '../components/parchment'
 import { rollD6 } from '../functions/dice.functions'
 import { ParchmentButton } from '../components/ParchmentButton'
 import { ArrowPathIcon } from '@heroicons/react/24/outline'
-import { t } from 'i18next'
 import { useTranslation } from 'react-i18next'
 import { LabelValue } from '../components/LabelValue'
 
@@ -13,12 +12,46 @@ export const GearPage = () => {
   const { t } = useTranslation(['gear'])
   const [searchGoods, setSearchGoods] = useState('')
   const [maxPrice, setMaxPrice] = useState<number>(Infinity)
-  const [itemAvailability, setItemAvailability] = useState<Record<
-    string,
-    Availability
-  > | null>(null)
+  const [itemAvailability, setItemAvailability] = useState<
+    Record<string, Availability> | undefined
+  >(undefined)
 
-  // create a filterarray of goods that match the search string and/or max price
+  useEffect(() => {
+    const savedBefore = localStorage.getItem('itemAvailability')
+    if (savedBefore) {
+      try {
+        setItemAvailability(JSON.parse(savedBefore))
+      } catch (error) {
+        console.log('Error parsing saved availability:', error)
+        setItemAvailability(undefined)
+      }
+    } else {
+      refreshAvailability()
+    }
+  }, [])
+
+  const refreshAvailability = () => {
+    const availability: Record<string, Availability> = {}
+    consumerGoods.forEach((item) => {
+      availability[item.item] = availabilityFormat(
+        item.availability,
+      ) as Availability
+    })
+    regularServices.forEach((item) => {
+      availability[item.service] = availabilityFormat(
+        item.availability,
+      ) as Availability
+    })
+    setItemAvailability(availability)
+  }
+
+  useEffect(() => {
+    console.log('Saving available', itemAvailability)
+    if (itemAvailability) {
+      localStorage.setItem('itemAvailability', JSON.stringify(itemAvailability))
+    }
+  }, [itemAvailability])
+
   const filteredGoods = consumerGoods.filter((goods: ConsumerGoods) => {
     const matchesSearch = goods.item
       .toLowerCase()
@@ -36,24 +69,6 @@ export const GearPage = () => {
 
     return matchesSearch && isWithinPriceRange
   })
-
-  const refreshAvailability = () => {
-    const availability: Record<string, Availability> = {}
-    consumerGoods.forEach((item) => {
-      availability[item.item] = availabilityFormat(
-        item.availability,
-      ) as Availability
-    })
-    regularServices.forEach((item) => {
-      availability[item.service] = availabilityFormat(
-        item.availability,
-      ) as Availability
-    })
-    setItemAvailability(availability)
-  }
-  useEffect(() => {
-    refreshAvailability()
-  }, [])
 
   return (
     <div className="flex w-full flex-col gap-y-8">
