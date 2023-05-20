@@ -14,12 +14,7 @@ export const MonsterDisplay = ({ m }: MonsterDisplayProps) => {
   return (
     <div>
       <header className="mb-4">
-        <h2 className="yx-heading mb-2 text-4xl">
-          {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            t(m.name as any) as string
-          }
-        </h2>
+        <h2 className="yx-heading mb-2 text-4xl">{t(m.name)}</h2>
         {m.pageReference && (
           <div>
             <>
