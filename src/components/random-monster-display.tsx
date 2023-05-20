@@ -202,7 +202,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
               </h3>
               <DefinitionList
                 definitions={rm.traits.map((trait) => ({
-                  name: t(trait.name) as string,
+                  name: t(trait.name),
                   description: t(
                     trait.description.key,
                     trait.description.count
