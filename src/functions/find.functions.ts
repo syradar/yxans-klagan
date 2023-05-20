@@ -1,4 +1,5 @@
 import { FindTable } from '../data/find.data'
+import { CoinType, coinLabelDict } from '../models/coin.model'
 import {
   Find,
   FindChance,
@@ -12,11 +13,10 @@ import { TranslationKey } from '../store/translations/translation.model'
 
 import { range } from './array.functions'
 import { parseD6String, rollD6, rollD66 } from './dice.functions'
-import { capitalize } from './utils.functions'
 
 export const rollFindValue = (
   fv: FindValue,
-): { coins: number; label: TranslationKey }[] => {
+): { coins: number; label: TranslationKey<'common'> }[] => {
   if (fv === 'None') return []
 
   const piles = fv.split(';')
@@ -29,9 +29,7 @@ export const rollFindValue = (
       .map((_) => rollD6())
       .reduce((a, b) => a + b, 0)
 
-    const coinLabel: TranslationKey = `common:Coin.${capitalize(
-      coin,
-    )}` as TranslationKey
+    const coinLabel = coinLabelDict[coin as CoinType]
 
     return { coins: coinValue, label: coinLabel }
   })
