@@ -233,9 +233,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
               </h3>
               <DefinitionList
                 definitions={[rm.motivation].map((m) => ({
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   name: t(m.name),
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   description: t(m.description),
                 }))}
               ></DefinitionList>
