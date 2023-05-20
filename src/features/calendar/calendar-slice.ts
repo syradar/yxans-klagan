@@ -67,7 +67,7 @@ const calendarSlice = createSlice({
         [monthIndex]: {
           ...state.quarters[year]?.[monthIndex],
           [day]: spendQuarter(
-            state.quarters[year]?.[monthIndex]?.[day] || [
+            state.quarters[year]?.[monthIndex]?.[day] ?? [
               false,
               false,
               false,
