@@ -37,7 +37,7 @@ export type FindViewModel = {
   location: FindLocation
   title: FindLabels
   weight: TranslationKey<'common'>
-  value: { coins: number; label: TranslationKey }[]
+  value: { coins: number; label: TranslationKey<'finds'> }[]
 }
 
 export type FindLabels =

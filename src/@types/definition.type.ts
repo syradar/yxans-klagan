@@ -1,4 +1,4 @@
-export type Definition = {
-  name: string
-  description: string
+export type Definition<TName = string, TDescription = string> = {
+  name: TName
+  description: TDescription
 }
