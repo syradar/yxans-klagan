@@ -23,7 +23,7 @@ import { Polygon } from './polygon'
 const MAP_STORAGE_KEY = 'map'
 const FOG_OF_WAR_STORAGE_KEY = 'fogOfWar'
 
-const Map = lazy(() => import('./map'))
+const MapImage = lazy(() => import('./map'))
 
 export const MapPage = () => {
   const t = useAppSelector(selectTranslateFunction(['map', 'common']))
@@ -351,7 +351,7 @@ export const MapPage = () => {
               onHide={() => handleSelectedHex(undefined)}
             ></MapPopover>
             <Suspense fallback={'Laddar...'}>
-              <Map fogOfWar={fogOfWar}>
+              <MapImage fogOfWar={fogOfWar}>
                 {hexas.map((hex) => (
                   <Polygon
                     key={hex.hexKey}
@@ -360,7 +360,7 @@ export const MapPage = () => {
                     onClick={(e) => handleHexClick(e, hex)}
                   />
                 ))}
-              </Map>
+              </MapImage>
             </Suspense>
           </div>
         </Parchment>
