@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { lazy } from 'react'
+import { ReactNode, lazy } from 'react'
 import { RouteObject, useLocation, useResolvedPath } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import { Group, GroupProps } from './components/group'
@@ -26,7 +26,7 @@ type MenuRoute = {
   readonly path: string
   readonly id: string
   readonly label: TranslationKey<'core'>
-  readonly element?: JSX.Element
+  readonly element?: ReactNode
   readonly children?: MenuRoute[]
 }
 
