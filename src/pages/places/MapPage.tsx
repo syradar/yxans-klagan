@@ -46,9 +46,9 @@ export const MapPage = () => {
       }
     })
   }
-  const [pasteError, setPasteError] = useState<TranslationKey | undefined>(
-    undefined,
-  )
+  const [pasteError, setPasteError] = useState<
+    TranslationKey<'map'> | undefined
+  >(undefined)
 
   const fogOfWarFromStorage =
     (localStorage.getItem(FOG_OF_WAR_STORAGE_KEY) === 'true' ? true : false) ??
@@ -217,7 +217,7 @@ export const MapPage = () => {
     }
   }
 
-  const getPasteErrorLabel = (e: Error): TranslationKey => {
+  const getPasteErrorLabel = (e: Error): TranslationKey<'map'> => {
     switch (e.message) {
       case 'InvalidJson':
         return 'map:InvalidJson'
@@ -369,10 +369,7 @@ export const MapPage = () => {
       <div>
         {pasteError ? (
           <div className="flex justify-end bg-red-500 p-2 font-bold text-white">
-            {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              t(pasteError as any)
-            }
+            {t(pasteError)}
           </div>
         ) : null}
       </div>

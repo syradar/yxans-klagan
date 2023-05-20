@@ -276,18 +276,23 @@ export const getMonsterSkillListItems = (
     skills.Melee > 0
       ? [
           {
-            name: `monster:Skills.Melee` as TranslationKey,
+            name: `monster:Skills.Melee` as TranslationKey<'monster'>,
             value: skills.Melee,
           },
         ]
       : [],
     skills.Move > 0
-      ? [{ name: `monster:Skills.Move` as TranslationKey, value: skills.Move }]
+      ? [
+          {
+            name: `monster:Skills.Move` as TranslationKey<'monster'>,
+            value: skills.Move,
+          },
+        ]
       : [],
     skills.Scouting > 0
       ? [
           {
-            name: `monster:Skills.Scouting` as TranslationKey,
+            name: `monster:Skills.Scouting` as TranslationKey<'monster'>,
             value: skills.Scouting,
           },
         ]
@@ -295,7 +300,7 @@ export const getMonsterSkillListItems = (
     skills.Stealth > 0
       ? [
           {
-            name: `monster:Skills.Stealth` as TranslationKey,
+            name: `monster:Skills.Stealth` as TranslationKey<'monster'>,
             value: skills.Scouting,
           },
         ]

@@ -129,21 +129,24 @@ export const monsterHomeLabels: Record<
 }
 
 export type MonsterSkillListItem = {
-  name: TranslationKey
+  name: TranslationKey<'monster'>
   value: number
 }
 
 export type MonsterTrait = {
-  name: TranslationKey
+  name: TranslationKey<'monster'>
   description: () => MonsterDescriptionItemViewModel
   apply: (rm: RandomMonster) => RandomMonster
 }
 
 export type MonsterTraitViewModel = {
-  name: TranslationKey
+  name: TranslationKey<'monster'>
   description: MonsterDescriptionItemViewModel
 }
-export type MonsterWeakness = Definition
+export type MonsterWeakness = Definition<
+  TranslationKey<'monster'>,
+  TranslationKey<'monster'>
+>
 export type MonsterMotivation =
   | 'Territory'
   | 'Pregnant'

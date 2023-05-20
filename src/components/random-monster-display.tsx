@@ -96,7 +96,6 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
   return (
     <Pancake wrap={false}>
       <h2 className="yx-heading mb-2 text-4xl">
-        {t(`monster:Size.Big_def`)}
         {t(
           `monster:Size.${rm.size}${
             isDefinitiveArticle(rm.type) ? '_def' : ''
@@ -183,8 +182,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
                       rm.skills
                         .map((s) => ({
                           value: s.value,
-                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                          name: t(s.name as any) as string,
+                          name: t(s.name),
                         }))
                         .sort((a, b) => a.name.localeCompare(b.name)) as {
                         name: string
@@ -204,8 +202,7 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
               </h3>
               <DefinitionList
                 definitions={rm.traits.map((trait) => ({
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  name: t(trait.name as any) as string,
+                  name: t(trait.name) as string,
                   description: t(
                     trait.description.key,
                     trait.description.count
@@ -225,10 +222,8 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
               </h3>
               <DefinitionList
                 definitions={[rm.weakness].map((w) => ({
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  name: t(w.name as any),
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  description: t(w.description as any),
+                  name: t(w.name),
+                  description: t(w.description),
                 }))}
               ></DefinitionList>
             </section>
@@ -239,9 +234,9 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
               <DefinitionList
                 definitions={[rm.motivation].map((m) => ({
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  name: t(m.name as any),
+                  name: t(m.name),
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  description: t(m.description as any),
+                  description: t(m.description),
                 }))}
               ></DefinitionList>
             </section>

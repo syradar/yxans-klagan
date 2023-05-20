@@ -125,8 +125,7 @@ export const FindsPage = () => {
                   <Stat size="large" label={t('finds:Value')}>
                     {find.value.length > 0
                       ? find.value
-                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                          .map((v) => `${v.coins} ${t(v.label as any)}`)
+                          .map((v) => `${v.coins} ${t(v.label)}`)
                           .join(', ')
                       : '–'}
                   </Stat>
