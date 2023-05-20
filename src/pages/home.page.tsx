@@ -10,7 +10,6 @@ const HomePage = () => {
 
   return (
     <div className="flex max-w-prose flex-col gap-y-8">
-      <div>{t('core:GiveFeedback')}</div>
       <PageHeader>{t('home:Page')}</PageHeader>
       <Parchment>
         <p className="yx-prose">{t('home:Description')}</p>
