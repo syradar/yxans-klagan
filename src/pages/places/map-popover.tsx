@@ -1,4 +1,4 @@
-import { FireIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { FireIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ParchmentButton } from '../../components/ParchmentButton'
 import { Parchment } from '../../components/parchment'

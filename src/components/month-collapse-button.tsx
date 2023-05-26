@@ -1,4 +1,4 @@
-import { PlusIcon, MinusIcon } from '@heroicons/react/24/outline'
+import { PlusIcon, MinusIcon } from '@heroicons/react/20/solid'
 import { useAppSelector } from '../store/store.hooks'
 import { selectTranslateFunction } from '../store/translations/translation.slice'
 

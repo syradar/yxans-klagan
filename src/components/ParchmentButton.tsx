@@ -1,4 +1,4 @@
-import { CheckIcon } from '@heroicons/react/24/outline'
+import { CheckIcon } from '@heroicons/react/20/solid'
 import { nanoid } from 'nanoid'
 import { ComponentProps, useRef, useState } from 'react'
 import { AriaButtonProps, useButton } from 'react-aria'

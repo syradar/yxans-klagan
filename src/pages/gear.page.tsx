@@ -1,6 +1,9 @@
-import { ArrowPathIcon } from '@heroicons/react/24/outline'
+import { ArrowPathIcon } from '@heroicons/react/20/solid'
 import React from 'react'
-import { ParchmentButton } from '../components/ParchmentButton'
+import {
+  ParchmentButton,
+  ParchmentToggleButton,
+} from '../components/ParchmentButton'
 import { ParchmentInput } from '../components/ParchmentInput'
 import { SeparatedComponents } from '../components/SeparatedComponents'
 import Stack from '../components/Stack'
@@ -20,14 +23,13 @@ import {
 import { Gear, GearViewModel } from '../features/gear/gear.data'
 import { rollD6 } from '../functions/dice.functions'
 import { capitalize, notNullish } from '../functions/utils.functions'
+import { materialLabelDict } from '../models/material.model'
+import { talentLabelDict } from '../models/talent.model'
+import { toolLabelDict } from '../models/tool.model'
 import { weightLabelDict } from '../models/weight.model'
 import { useAppDispatch, useAppSelector } from '../store/store.hooks'
 import { TranslationKey } from '../store/translations/translation.model'
 import { selectTranslateFunction } from '../store/translations/translation.slice'
-import { talentLabelDict } from '../models/talent.model'
-import { materialLabelDict } from '../models/material.model'
-import { toolLabelDict } from '../models/tool.model'
-import { CheckIcon } from '@heroicons/react/20/solid'
 
 export const GearPage = () => {
   const t = useAppSelector(selectTranslateFunction(['gear', 'common']))
@@ -201,22 +203,17 @@ const GearFilterPanel = () => {
       ></ParchmentInput>
 
       <div>
-        <h4>Categories</h4>
+        <h4>{t('gear:category.cateogory')}</h4>
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-1">
           {categories.map((c) => (
-            <ParchmentButton
+            <ParchmentToggleButton
               fullWidth
-              buttonType={c.active ? 'primary' : 'ghost'}
+              active={c.active}
               key={c.category}
               onPress={() => dispatch(toggleCategory(c.category))}
             >
-              {c.active ? (
-                <CheckIcon className="aspect-square w-5" />
-              ) : (
-                <span className="w-5"></span>
-              )}
               {t(`gear:category.${c.category}`)}
-            </ParchmentButton>
+            </ParchmentToggleButton>
           ))}
         </div>
       </div>
