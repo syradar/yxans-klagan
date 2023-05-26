@@ -439,6 +439,8 @@ export const translationsSv: Translations = {
       Copper: 'koppar',
       Silver: 'silver',
       Gold: 'guld',
+      day: 'per dag',
+      hex: 'per hexagon',
     },
     Weight: {
       Weight: 'Vikt',
@@ -648,6 +650,7 @@ export const translationsSv: Translations = {
       Food: 'Mat',
     },
     Gear: {
+      tradeGoods: 'Handelsvaror',
       Backpack: {
         name: 'Ryggsäck',
         effect: '-1 Vikt. lägger till 1 i bärkapacitet',
@@ -912,6 +915,74 @@ export const translationsSv: Translations = {
         name: 'Vattenskinn',
         effect:
           'Krävs för att bära med sig Vatten. Räknas inte mot belastning.',
+      },
+    },
+    service: {
+      service: 'Vanliga tjänster',
+      bathAtInn: {
+        name: 'Bad på värdshus',
+        effect: '',
+      },
+      haircut: {
+        name: 'Klippning',
+        effect: '',
+      },
+      healing: {
+        name: 'Läkarvård',
+        effect:
+          'En typisk byläkare har Intelligens 4 och färdighetsnivå 2 i Läkekonst.',
+      },
+      bodyguard: {
+        name: 'Livvakt',
+        effect: '',
+      },
+      clothesWashed: {
+        name: 'Tvätt av kläder',
+        effect: '',
+      },
+      courier: {
+        name: 'Budbärare',
+        effect: '',
+      },
+      roadToll: {
+        name: 'Vägtull',
+        effect: '',
+      },
+      lodgingAtInnDormitory: {
+        name: 'Övernattning på värdshus, sovsal',
+        effect: '',
+      },
+      lodgingAtInnSeparateRoom: {
+        name: 'Övernattning på värdshus, eget rum',
+        effect: '',
+      },
+      fineDwelling: {
+        name: 'Ståtligt härbärge',
+        effect: '',
+      },
+      bowlOfStew: {
+        name: 'Skål med stuvning',
+        effect: 'Täcker dagsbehovet av Mat.',
+      },
+      heartyMeal: {
+        name: 'Måltid på värdshus',
+        effect: 'Täcker dagsbehovet av Mat och Vatten.',
+      },
+      feast: {
+        name: 'Festmåltid',
+        effect: 'Täcker dagsbehovet av Mat och Vatten.',
+      },
+      flagonOfAle: {
+        name: 'Stop mjöd',
+        effect: 'Täcker dagsbehovet av Vatten.',
+      },
+      chaliceOfWine: {
+        name: 'Kalk vin',
+        effect: 'Täcker dagsbehovet av Vatten.',
+      },
+      teacher: {
+        name: 'Lärare',
+        effect: `Läs mer om lärare på sidan 38 i Spelarboken.`,
       },
     },
   },

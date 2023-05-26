@@ -436,6 +436,8 @@ export const translationsEn = {
       Copper: 'copper',
       Silver: 'silver',
       Gold: 'gold',
+      day: 'per day',
+      hex: 'per hexagon',
     },
     Weight: {
       Weight: 'Weight',
@@ -646,6 +648,7 @@ export const translationsEn = {
       services: 'Services',
     },
     Gear: {
+      tradeGoods: 'Trade Goods',
       Backpack: {
         name: 'Backpack',
         effect: '-1 Weight. i.e. adds 1 to carrying capacity',
@@ -823,6 +826,74 @@ export const translationsEn = {
       Waterskin: {
         name: 'Waterskin',
         effect: 'Needed to carry Water. Does not encumber.',
+      },
+    },
+    service: {
+      service: 'Common services',
+      bathAtInn: {
+        name: 'Bath at Inn',
+        effect: '',
+      },
+      haircut: {
+        name: 'Haircut',
+        effect: '',
+      },
+      healing: {
+        name: 'Healing',
+        effect:
+          'A typical village healer has Wits 4 and skill level 2 in Healing.',
+      },
+      bodyguard: {
+        name: 'Bodyguard',
+        effect: '',
+      },
+      clothesWashed: {
+        name: 'Clothes Washed',
+        effect: '',
+      },
+      courier: {
+        name: 'Courier',
+        effect: '',
+      },
+      roadToll: {
+        name: 'Road Toll',
+        effect: '',
+      },
+      lodgingAtInnDormitory: {
+        name: 'Lodging at Inn, Dormitory',
+        effect: '',
+      },
+      lodgingAtInnSeparateRoom: {
+        name: 'Lodging at Inn, Separate Room',
+        effect: '',
+      },
+      fineDwelling: {
+        name: 'Fine Dwelling',
+        effect: '',
+      },
+      bowlOfStew: {
+        name: 'Bowl of Stew',
+        effect: 'Cover the daily need of Food',
+      },
+      heartyMeal: {
+        name: 'Hearty Meal',
+        effect: 'Cover the daily need of Food and Water',
+      },
+      feast: {
+        name: 'Feast',
+        effect: 'Cover the daily need of Food and Water',
+      },
+      flagonOfAle: {
+        name: 'Flagon of Ale',
+        effect: 'Cover the daily need of Water',
+      },
+      chaliceOfWine: {
+        name: 'Chalice of Wine',
+        effect: 'Cover the daily need of Water',
+      },
+      teacher: {
+        name: 'Teacher',
+        effect: `Read more about teachers on page 40 in the Player's Handbook.`,
       },
     },
   },
