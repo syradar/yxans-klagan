@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../../store/store'
 import {
   Gear,
+  GearCategory,
   GearId,
   GearViewModel,
   gear,
@@ -38,12 +39,15 @@ const generateSupply = (gear: Gear[]) => {
   }, {} as Record<GearId, number>)
 }
 
+type CategoryFilter = Readonly<Record<GearCategory, boolean>>
+
 interface GearState {
   gear: Gear[]
   filters: {
     search: string
     maxPrice: number
     talents: Record<Talent, boolean>
+    categories: CategoryFilter
   }
   supply: Record<GearId, number>
 }
@@ -59,6 +63,10 @@ export const initialGearState: GearState = {
         (acc, talent) => ({ ...acc, [talent]: false }),
         {} as Record<Talent, boolean>,
       ),
+    },
+    categories: {
+      services: false,
+      tradeGoods: false,
     },
   },
   supply: generateSupply(gear),
@@ -85,11 +93,19 @@ const gearSlice = createSlice({
     reRollSupply: (state) => {
       state.supply = generateSupply(state.gear)
     },
+    toggleCategory: (state, { payload }: PayloadAction<GearCategory>) => {
+      state.filters.categories[payload] = !state.filters.categories[payload]
+    },
   },
 })
 
-export const { setMaxPrice, setSearch, toggleTalent, reRollSupply } =
-  gearSlice.actions
+export const {
+  setMaxPrice,
+  setSearch,
+  toggleTalent,
+  reRollSupply,
+  toggleCategory,
+} = gearSlice.actions
 
 const buildSearchFilter = (search: string) => (translatedName: string) =>
   search.length > 0
@@ -112,20 +128,56 @@ const buildTalentFilter = (talents: Record<Talent, boolean>) => (item: Gear) =>
       )
     : true
 
-// Other code such as selectors can use the imported `RootState` type
+const buildCategoryFilter = (categories: CategoryFilter) => (item: Gear) =>
+  Object.values(categories).some((active) => active)
+    ? (Object.entries(categories) as [GearCategory, boolean][]).some(
+        ([category, active]) => active && item.category === category,
+      )
+    : true
+
+type GearCategoryViewModel = {
+  category: GearCategory
+  active: boolean
+}
+
+const categorySortOrder: GearCategory[] = ['tradeGoods', 'services']
+type Comparator<T> = (a: T, b: T) => number
+
+const gearSort: Comparator<GearCategoryViewModel> = (a, b) => {
+  const aIndex = categorySortOrder.indexOf(a.category)
+  const bIndex = categorySortOrder.indexOf(b.category)
+
+  if (aIndex === bIndex) {
+    return 0
+  }
+
+  return aIndex > bIndex ? 1 : -1
+}
+
 export const selectGear = (t: TFunction<'gear'>) => (state: RootState) => {
-  const { gear, filters, supply } = state.gear
-  const { search, maxPrice, talents } = filters
+  const { gear, supply, filters } = state.gear
+  const { search, maxPrice, talents, categories } = filters
 
   const searchFilter = buildSearchFilter(search)
   const priceFilter = buildPriceFilter(maxPrice)
   const talentFilter = buildTalentFilter(talents)
+  const categoryFilter = buildCategoryFilter(categories)
 
   return {
     search,
     maxPrice,
     talents,
+    categories: (Object.entries(categories) as [GearCategory, boolean][])
+      .map(([category, active]) => ({
+        category,
+        active,
+      }))
+      .sort(gearSort),
     items: gear.reduce((acc, cur) => {
+      if (!categoryFilter(cur)) {
+        return acc
+      }
+
       if (!priceFilter(cur)) {
         return acc
       }

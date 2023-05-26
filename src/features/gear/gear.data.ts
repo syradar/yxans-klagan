@@ -6,6 +6,8 @@ import { Weight } from '../../models/weight.model'
 import { TranslationKey } from '../../store/translations/translation.model'
 import { Tool } from '../../models/tool.model'
 
+export type GearCategory = 'tradeGoods' | 'services'
+
 export type GearId =
   | 'backpack'
   | 'bandages'
@@ -154,6 +156,7 @@ export type GearEffect = {
 }
 
 export type Gear = {
+  category: GearCategory
   name: {
     id: GearId
     label: TranslationKey<'gear'>
@@ -170,6 +173,7 @@ export type Gear = {
 }
 
 export type GearViewModel = Omit<Gear, 'name' | 'supply' | 'time'> & {
+  category: GearCategory
   name: {
     id: GearId
     label: TranslationKey<'gear'>
@@ -199,6 +203,7 @@ export const gearViewModel = (
 
 export const gear: Gear[] = [
   {
+    category: 'tradeGoods',
     name: { id: 'chalk', label: 'gear:Gear.Chalk.name' },
     price: {
       _type: 'instant',
@@ -219,6 +224,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'flintAndSteel', label: 'gear:Gear.FlintAndSteel.name' },
     price: {
       _type: 'instant',
@@ -243,6 +249,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'lampOil', label: 'gear:Gear.LampOil.name' },
     price: {
       _type: 'instant',
@@ -263,6 +270,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'tankard', label: 'gear:Gear.Tankard.name' },
     price: {
       _type: 'instant',
@@ -283,6 +291,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: {
       id: 'fishingHookAndLine',
       label: 'gear:Gear.FishingHookAndLine.name',
@@ -310,6 +319,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'clayPot', label: 'gear:Gear.ClayPot.name' },
     price: {
       _type: 'instant',
@@ -330,6 +340,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'clayJug', label: 'gear:Gear.ClayJug.name' },
     price: {
       _type: 'instant',
@@ -350,6 +361,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'oilLamp', label: 'gear:Gear.OilLamp.name' },
     price: {
       _type: 'instant',
@@ -370,6 +382,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'torches', label: 'gear:Gear.Torches.name' },
     price: {
       _type: 'instant',
@@ -390,6 +403,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: {
       id: 'threeArrowsWoodenHead',
       label: 'gear:Gear.ThreeArrowsWoodenHead.name',
@@ -413,6 +427,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'foodKnife', label: 'gear:Gear.FoodKnife.name' },
     price: {
       _type: 'instant',
@@ -433,6 +448,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'tallowCandle', label: 'gear:Gear.TallowCandle.name' },
     price: {
       _type: 'instant',
@@ -457,6 +473,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'blanket', label: 'gear:Gear.Blanket.name' },
     price: {
       _type: 'instant',
@@ -477,6 +494,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'metalChalice', label: 'gear:Gear.MetalChalice.name' },
     price: {
       _type: 'instant',
@@ -497,6 +515,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'barrel', label: 'gear:Gear.Barrel.name' },
     price: {
       _type: 'instant',
@@ -517,6 +536,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'quiver', label: 'gear:Gear.Quiver.name' },
     price: {
       _type: 'instant',
@@ -537,6 +557,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'chest', label: 'gear:Gear.Chest.name' },
     price: {
       _type: 'instant',
@@ -557,6 +578,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'fishingNet', label: 'gear:Gear.FishingNet.name' },
     price: {
       _type: 'instant',
@@ -577,6 +599,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'snares', label: 'gear:Gear.Snares.name' },
     price: {
       _type: 'instant',
@@ -597,6 +620,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'cauldron', label: 'gear:Gear.Cauldron.name' },
     price: {
       _type: 'instant',
@@ -617,6 +641,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'lantern', label: 'gear:Gear.Lantern.name' },
     price: {
       _type: 'instant',
@@ -637,6 +662,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'ropeTenMeters', label: 'gear:Gear.RopeTenMeters.name' },
     price: {
       _type: 'instant',
@@ -657,6 +683,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'smallTent', label: 'gear:Gear.SmallTent.name' },
     price: {
       _type: 'instant',
@@ -677,6 +704,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'sleepingFur', label: 'gear:Gear.SleepingFur.name' },
     price: {
       _type: 'instant',
@@ -697,6 +725,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'waterskin', label: 'gear:Gear.Waterskin.name' },
     price: {
       _type: 'instant',
@@ -717,6 +746,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'grapplingHook', label: 'gear:Gear.GrapplingHook.name' },
     price: {
       _type: 'instant',
@@ -737,6 +767,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'scales', label: 'gear:Gear.Scales.name' },
     price: {
       _type: 'instant',
@@ -757,6 +788,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'backpack', label: 'gear:Gear.Backpack.name' },
     price: {
       _type: 'instant',
@@ -777,6 +809,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'fieldKitchen', label: 'gear:Gear.FieldKitchen.name' },
     price: {
       _type: 'instant',
@@ -797,6 +830,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'map', label: 'gear:Gear.Map.name' },
     price: {
       _type: 'instant',
@@ -817,6 +851,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'bearTrap', label: 'gear:Gear.BearTrap.name' },
     price: {
       _type: 'instant',
@@ -837,6 +872,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'largeTent', label: 'gear:Gear.LargeTent.name' },
     price: {
       _type: 'instant',
@@ -857,6 +893,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'magnifyingGlass', label: 'gear:Gear.MagnifyingGlass.name' },
     price: {
       _type: 'instant',
@@ -881,6 +918,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'spyglass', label: 'gear:Gear.Spyglass.name' },
     price: {
       _type: 'instant',
@@ -901,6 +939,7 @@ export const gear: Gear[] = [
     marketType: 'dailyLiving',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'fieldRation', label: 'gear:Gear.FieldRation.name' },
     price: {
       _type: 'instant',
@@ -921,6 +960,7 @@ export const gear: Gear[] = [
     marketType: 'food',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'parchment', label: 'gear:Gear.Parchment.name' },
     price: {
       _type: 'instant',
@@ -941,6 +981,7 @@ export const gear: Gear[] = [
     marketType: 'luxuryGoods',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'metalPlate', label: 'gear:Gear.MetalPlate.name' },
     price: {
       _type: 'instant',
@@ -961,6 +1002,7 @@ export const gear: Gear[] = [
     marketType: 'luxuryGoods',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'spoon', label: 'gear:Gear.Spoon.name' },
     price: {
       _type: 'instant',
@@ -981,6 +1023,7 @@ export const gear: Gear[] = [
     marketType: 'luxuryGoods',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'holySymbol', label: 'gear:Gear.HolySymbol.name' },
     price: {
       _type: 'instant',
@@ -1001,6 +1044,7 @@ export const gear: Gear[] = [
     marketType: 'luxuryGoods',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'flute', label: 'gear:Gear.Flute.name' },
     price: {
       _type: 'instant',
@@ -1021,6 +1065,7 @@ export const gear: Gear[] = [
     marketType: 'luxuryGoods',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'drum', label: 'gear:Gear.Drum.name' },
     price: {
       _type: 'instant',
@@ -1045,6 +1090,7 @@ export const gear: Gear[] = [
     marketType: 'luxuryGoods',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'horn', label: 'gear:Gear.Horn.name' },
     price: {
       _type: 'instant',
@@ -1065,6 +1111,7 @@ export const gear: Gear[] = [
     marketType: 'luxuryGoods',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'inkAndQuill', label: 'gear:Gear.InkAndQuill.name' },
     price: {
       _type: 'instant',
@@ -1089,6 +1136,7 @@ export const gear: Gear[] = [
     marketType: 'luxuryGoods',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'lyre', label: 'gear:Gear.Lyre.name' },
     price: {
       _type: 'instant',
@@ -1113,6 +1161,7 @@ export const gear: Gear[] = [
     marketType: 'luxuryGoods',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'crystalBall', label: 'gear:Gear.CrystalBall.name' },
     price: {
       _type: 'instant',
@@ -1133,6 +1182,7 @@ export const gear: Gear[] = [
     marketType: 'luxuryGoods',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'harp', label: 'gear:Gear.Harp.name' },
     price: {
       _type: 'instant',
@@ -1157,6 +1207,7 @@ export const gear: Gear[] = [
     marketType: 'luxuryGoods',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'hourglass', label: 'gear:Gear.Hourglass.name' },
     price: {
       _type: 'instant',
@@ -1181,6 +1232,7 @@ export const gear: Gear[] = [
     marketType: 'luxuryGoods',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'bandages', label: 'gear:Gear.Bandages.name' },
     price: {
       _type: 'instant',
@@ -1201,6 +1253,7 @@ export const gear: Gear[] = [
     marketType: 'war',
   },
   {
+    category: 'tradeGoods',
     name: {
       id: 'threeArrowsIronHead',
       label: 'gear:Gear.ThreeArrowsIronHead.name',
@@ -1228,6 +1281,7 @@ export const gear: Gear[] = [
     marketType: 'war',
   },
   {
+    category: 'tradeGoods',
     name: {
       id: 'sleepingPoisonOrAntidote',
       label: 'gear:Gear.SleepingPoisonOrAntidote.name',
@@ -1251,6 +1305,7 @@ export const gear: Gear[] = [
     marketType: 'war',
   },
   {
+    category: 'tradeGoods',
     name: {
       id: 'hallucinogenicPoisonOrAntidote',
       label: 'gear:Gear.HallucinogenicPoisonOrAntidote.name',
@@ -1274,6 +1329,7 @@ export const gear: Gear[] = [
     marketType: 'war',
   },
   {
+    category: 'tradeGoods',
     name: {
       id: 'paralyzingPoisonOrAntidote',
       label: 'gear:Gear.ParalyzingPoisonOrAntidote.name',
@@ -1297,6 +1353,7 @@ export const gear: Gear[] = [
     marketType: 'war',
   },
   {
+    category: 'tradeGoods',
     name: {
       id: 'lethalPoisonOrAntidote',
       label: 'gear:Gear.LethalPoisonOrAntidote.name',
@@ -1320,6 +1377,7 @@ export const gear: Gear[] = [
     marketType: 'war',
   },
   {
+    category: 'tradeGoods',
     name: { id: 'lockpicks', label: 'gear:Gear.Lockpicks.name' },
     price: {
       _type: 'instant',

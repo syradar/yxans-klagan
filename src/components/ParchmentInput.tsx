@@ -24,18 +24,24 @@ export const ParchmentInput = (props: ParchmentInputProps) => {
     <div className="flex flex-col">
       <label {...labelProps}>{label}</label>
       <div className="group grid w-full grid-cols-1 grid-rows-1">
-        <div
-          className="col-start-1 col-end-2 row-start-1 row-end-2 rounded border-2 border-amber-800  bg-white shadow  transition-colors group-hover:border-amber-900 "
-          style={{ filter: `url(#button-filter-${options.id})` }}
-        ></div>
         <input
-          className="z-10 col-start-1 col-end-2 row-start-1 row-end-2 bg-transparent p-2
-          focus-visible:outline-none
+          className="peer z-10 col-start-1 col-end-2 row-start-1 row-end-2 bg-transparent
+          p-2 focus:outline-none
           "
           {...inputProps}
           autoFocus={props.focus}
           ref={ref}
         />
+        <div
+          className="col-start-1 col-end-2 row-start-1 row-end-2 rounded
+           border-2 border-amber-800  bg-white shadow  transition-colors
+            group-hover:border-amber-900
+             peer-focus-visible:ring-2
+             peer-focus-visible:ring-black
+             peer-focus-visible:ring-offset-2
+             "
+          style={{ filter: `url(#button-filter-${options.id})` }}
+        ></div>
       </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"

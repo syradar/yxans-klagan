@@ -15,6 +15,7 @@ import {
   selectGear,
   setMaxPrice,
   setSearch,
+  toggleCategory,
 } from '../features/gear/gear-slice'
 import { Gear, GearViewModel } from '../features/gear/gear.data'
 import { rollD6 } from '../functions/dice.functions'
@@ -26,56 +27,21 @@ import { selectTranslateFunction } from '../store/translations/translation.slice
 import { talentLabelDict } from '../models/talent.model'
 import { materialLabelDict } from '../models/material.model'
 import { toolLabelDict } from '../models/tool.model'
+import { CheckIcon } from '@heroicons/react/20/solid'
 
 export const GearPage = () => {
   const t = useAppSelector(selectTranslateFunction(['gear', 'common']))
-  const { items, maxPrice, search } = useAppSelector(selectGear(t))
-  const dispatch = useAppDispatch()
-
-  const handleMaxPriceChange = (value: number) => {
-    dispatch(setMaxPrice(value))
-  }
-
-  const handleSearchChange = (value: string) => {
-    dispatch(setSearch(value))
-  }
+  const { items, categories } = useAppSelector(selectGear(t))
 
   return (
     <div className="flex w-full flex-col gap-y-8">
       <PageHeader>{t('gear:Title')}</PageHeader>
-
-      <Stack.Vertical>
-        <div className="flex flex-col flex-wrap gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex flex-col flex-wrap gap-4 sm:flex-row">
-            <div className="order-2 grow sm:order-1">
-              <ParchmentInput
-                focus={true}
-                label={t('gear:Filters.Search')}
-                value={search}
-                onChange={handleSearchChange}
-              ></ParchmentInput>
-            </div>
-            <div className="order-1">
-              <Stepper
-                label={t('gear:Filters.MaxPrice')}
-                id="gear-max-price"
-                min={0}
-                max={Infinity}
-                onChange={handleMaxPriceChange}
-                value={maxPrice}
-              ></Stepper>
-            </div>
-          </div>
-          <div className="order-first place-self-end lg:order-last">
-            <ParchmentButton onPress={() => dispatch(reRollSupply())}>
-              <ArrowPathIcon className="aspect-square w-5" />
-              <span>{t('gear:Supply.Reroll')}</span>
-            </ParchmentButton>
-          </div>
-        </div>
-
-        {/* Wait for Strict Mode support in React-Aria */}
-        {/* <NumberField
+      <section className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
+        <GearFilterPanel></GearFilterPanel>
+        <div className="md:col-span-2 lg:col-span-3">
+          <Stack.Vertical>
+            {/* Wait for Strict Mode support in React-Aria */}
+            {/* <NumberField
             label="Price"
             value={maxPrice}
             formatOptions={{
@@ -85,61 +51,66 @@ export const GearPage = () => {
             onChange={handleMaxPriceChange}
           /> */}
 
-        <div className="grid items-stretch gap-2 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5">
-          {items.map((g) => (
-            <GearCard key={g.name.id} gear={g}></GearCard>
-          ))}
-        </div>
-
-        <Parchment>
-          <h2 className="yx-heading mb-4 flex text-center text-4xl">
-            Vanliga tjänster
-          </h2>
-          <table className="w-full">
-            <thead className="hidden lg:table-header-group">
-              <tr>
-                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
-                  Tjänst
-                </td>
-                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
-                  Pris
-                </td>
-                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
-                  Tillgång
-                </td>
-                <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
-                  Kommentar
-                </td>
-              </tr>
-            </thead>
-            <tbody>
-              {regularServices.map((rs) => (
-                <tr
-                  key={rs.service}
-                  className="group grid grid-cols-2 lg:table-row"
-                >
-                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
-                    <div className="text-sm lg:hidden">Tjänst</div>
-                    {rs.service}
-                  </td>
-                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
-                    <div className="text-sm lg:hidden">Pris</div>
-                    {priceFormat(rs.price)}
-                  </td>
-                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
-                    <div className="text-sm lg:hidden">Tillgång</div>
-                    {availabilityFormat(rs.availability)}
-                  </td>
-                  <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
-                    <div className="text-sm lg:hidden">Kommentar</div>
-                    {rs.comment ?? ''}
-                  </td>
-                </tr>
+            <div className="grid auto-rows-max items-stretch gap-2 sm:grid-cols-2 sm:gap-4 xl:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-3">
+              {items.map((g) => (
+                <GearCard key={g.name.id} gear={g}></GearCard>
               ))}
-            </tbody>
-          </table>
-        </Parchment>
-      </Stack.Vertical>
+            </div>
+
+            {categories.filter((c) => c.category === 'services')[0].active ||
+            !categories.some((c) => c.active) ? (
+              <Parchment>
+                <h2 className="yx-heading mb-4 flex text-center text-4xl">
+                  Vanliga tjänster
+                </h2>
+                <table className="w-full">
+                  <thead className="hidden lg:table-header-group">
+                    <tr>
+                      <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
+                        Tjänst
+                      </td>
+                      <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
+                        Pris
+                      </td>
+                      <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
+                        Tillgång
+                      </td>
+                      <td className="border-b-2 border-gray-400 px-2 py-1 font-bold uppercase">
+                        Kommentar
+                      </td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {regularServices.map((rs) => (
+                      <tr
+                        key={rs.service}
+                        className="group grid grid-cols-2 lg:table-row"
+                      >
+                        <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                          <div className="text-sm lg:hidden">Tjänst</div>
+                          {rs.service}
+                        </td>
+                        <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                          <div className="text-sm lg:hidden">Pris</div>
+                          {priceFormat(rs.price)}
+                        </td>
+                        <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                          <div className="text-sm lg:hidden">Tillgång</div>
+                          {availabilityFormat(rs.availability)}
+                        </td>
+                        <td className="px-2 py-1 group-even:bg-gray-200 lg:border-b lg:border-gray-400">
+                          <div className="text-sm lg:hidden">Kommentar</div>
+                          {rs.comment ?? ''}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </Parchment>
+            ) : null}
+          </Stack.Vertical>
+        </div>
+      </section>
     </div>
   )
 }
@@ -151,7 +122,10 @@ const GearCard = ({ gear }: { gear: GearViewModel }) => {
     <Parchment small key={gear.name.id}>
       <Stack.Vertical>
         <Stack.Horizontal distribute wrap>
-          <h2 className="yx-heading text-lg">{gear.name.translation}</h2>
+          <div>
+            <h2 className="yx-heading mb-0 text-lg">{gear.name.translation}</h2>
+            <div className="text-sm text-neutral-500">Trade Goods</div>
+          </div>
           <GearPrice price={gear.price}></GearPrice>
         </Stack.Horizontal>
 
@@ -201,6 +175,70 @@ const GearCard = ({ gear }: { gear: GearViewModel }) => {
         </Group>
       </Stack.Vertical>
     </Parchment>
+  )
+}
+
+const GearFilterPanel = () => {
+  const t = useAppSelector(selectTranslateFunction(['gear', 'common']))
+  const { maxPrice, search, categories } = useAppSelector(selectGear(t))
+  const dispatch = useAppDispatch()
+
+  const handleMaxPriceChange = (value: number) => {
+    dispatch(setMaxPrice(value))
+  }
+
+  const handleSearchChange = (value: string) => {
+    dispatch(setSearch(value))
+  }
+
+  return (
+    <Stack.Vertical>
+      <ParchmentInput
+        focus={true}
+        label={t('gear:Filters.Search')}
+        value={search}
+        onChange={handleSearchChange}
+      ></ParchmentInput>
+
+      <div>
+        <h4>Categories</h4>
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-1">
+          {categories.map((c) => (
+            <ParchmentButton
+              fullWidth
+              buttonType={c.active ? 'primary' : 'ghost'}
+              key={c.category}
+              onPress={() => dispatch(toggleCategory(c.category))}
+            >
+              {c.active ? (
+                <CheckIcon className="aspect-square w-5" />
+              ) : (
+                <span className="w-5"></span>
+              )}
+              {t(`gear:category.${c.category}`)}
+            </ParchmentButton>
+          ))}
+        </div>
+      </div>
+
+      <Stepper
+        label={t('gear:Filters.MaxPrice')}
+        id="gear-max-price"
+        min={0}
+        max={Infinity}
+        onChange={handleMaxPriceChange}
+        value={maxPrice}
+      ></Stepper>
+      <div className="mt-8">
+        <ParchmentButton
+          onPress={() => dispatch(reRollSupply())}
+          buttonType="danger"
+        >
+          <ArrowPathIcon className="aspect-square w-5" />
+          <span>{t('gear:Supply.Reroll')}</span>
+        </ParchmentButton>
+      </div>
+    </Stack.Vertical>
   )
 }
 
