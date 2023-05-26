@@ -54,6 +54,7 @@ export const Group = ({
       {groupOpen && (
         <div
           className={`
+          h-full
         ${spaceBeforeItems ? 'mt-4' : ''}
         `}
         >

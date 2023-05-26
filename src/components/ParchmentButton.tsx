@@ -1,13 +1,21 @@
+import { CheckIcon } from '@heroicons/react/24/outline'
 import { nanoid } from 'nanoid'
-import { useRef, useState } from 'react'
+import { ComponentProps, useRef, useState } from 'react'
 import { AriaButtonProps, useButton } from 'react-aria'
 import { getRandomInt } from '../functions/dice.functions'
 
-export type ParchmentButtonProps = AriaButtonProps & {
-  small?: boolean
-  buttonType?: 'secondary' | 'primary' | 'danger' | 'ghost' | 'ghost-secondary'
-  forwardedRef?: React.Ref<HTMLButtonElement>
-}
+export type ParchmentButtonProps = AriaButtonProps &
+  ComponentProps<'button'> & {
+    small?: boolean
+    buttonType?:
+      | 'secondary'
+      | 'primary'
+      | 'danger'
+      | 'ghost'
+      | 'ghost-secondary'
+    forwardedRef?: React.Ref<HTMLButtonElement>
+    fullWidth?: boolean
+  }
 
 export const ParchmentButton = (props: ParchmentButtonProps) => {
   const ref = useRef(null)
@@ -26,14 +34,17 @@ export const ParchmentButton = (props: ParchmentButtonProps) => {
       ref={ref}
       {...buttonProps}
       className={`
-        group w-fit min-w-fit
+        group min-w-fit
         ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}
+        ${props.fullWidth ? 'w-full' : 'w-fit'}
+        focus:outline-none
       `}
     >
       <div className="grid grid-cols-1 grid-rows-1">
         <div
           className={`
           z-0 col-start-1 col-end-2 row-start-1 row-end-2 rounded border-2  shadow transition-colors
+          group-focus-visible:ring-2 group-focus-visible:ring-black group-focus-visible:ring-offset-2
           ${
             isDisabled && buttonType !== 'ghost'
               ? 'border-neutral-500 bg-neutral-300'
@@ -118,5 +129,27 @@ export const ParchmentButton = (props: ParchmentButtonProps) => {
         </defs>
       </svg>
     </button>
+  )
+}
+
+export type ParchmentToggleButtonProps = ParchmentButtonProps & {
+  active: boolean
+}
+export const ParchmentToggleButton = (props: ParchmentToggleButtonProps) => {
+  return (
+    <ParchmentButton
+      {...props}
+      buttonType={props.active ? 'primary' : 'ghost'}
+      type="button"
+      role="switch"
+      aria-checked={props.active}
+    >
+      {props.active ? (
+        <CheckIcon className="aspect-square w-5" />
+      ) : (
+        <span className="w-5"></span>
+      )}
+      {props.children}
+    </ParchmentButton>
   )
 }

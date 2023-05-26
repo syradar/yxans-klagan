@@ -640,6 +640,11 @@ export const translationsEn = {
       War: 'War',
       Food: 'Food',
     },
+    category: {
+      cateogory: 'Category',
+      tradeGoods: 'Trade Goods',
+      services: 'Services',
+    },
     Gear: {
       Backpack: {
         name: 'Backpack',

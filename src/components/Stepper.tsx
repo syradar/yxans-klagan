@@ -32,8 +32,6 @@ export const Stepper = ({
   }
 
   const handleChange = (e: string) => {
-    console.log(e)
-
     onChange(parseInt(e, 10) || 0)
   }
 
@@ -44,14 +42,15 @@ export const Stepper = ({
           {label}
         </label>
       )}
-      <div className="flex w-full">
+      <div className="flex">
         <ParchmentButton onPress={decrement} aria-controls={id}>
           –
         </ParchmentButton>
         <input
           // eslint-disable-next-line tailwindcss/no-custom-classname
-          className={`hide-default-spinner-appearance w-full min-w-fit border-x-0
+          className={`hide-default-spinner-appearance w-24 flex-auto border-x-0
           bg-white text-center
+          focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2
           `}
           type="number"
           step="1"

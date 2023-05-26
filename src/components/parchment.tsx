@@ -16,19 +16,13 @@ export const Parchment = ({ children, small }: ParchmentProps) => {
   })
 
   return (
-    <div className="grid grid-cols-1 grid-rows-1">
-      <div
-        className="z-0 col-start-1 col-end-2 row-start-1 row-end-2  border-2 border-amber-900/25 bg-[#fffdf6] shadow-md"
-        style={{ filter: `url(#filter-${options.id})` }}
-      ></div>
-      <div
-        className={`
-        z-10 col-start-1 col-end-2 row-start-1 row-end-2
-        ${small ? 'p-4' : 'p-6'}
-
-        `}
-      >
-        {children}
+    <div className="flex flex-col">
+      <div className="relative flex-1">
+        <div
+          className="absolute inset-0 z-0  border-2 border-amber-900/25 bg-[#fffdf6] shadow-md"
+          style={{ filter: `url(#filter-${options.id})` }}
+        ></div>
+        <div className={`relative ${small ? 'p-4' : 'p-6'}`}>{children}</div>
       </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"

@@ -627,6 +627,11 @@ export const translationsSv: Translations = {
       Search: 'Sök',
       MaxPrice: 'Max pris',
     },
+    category: {
+      cateogory: 'Kategori',
+      tradeGoods: 'Handelsvara',
+      services: 'Tjänster',
+    },
     Supply: {
       Supply: 'Tillgång',
       Reroll: 'Slå om tillgång',
