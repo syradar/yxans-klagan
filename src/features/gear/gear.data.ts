@@ -5,10 +5,21 @@ import { RawMaterial } from '../../models/material.model'
 import { Weight } from '../../models/weight.model'
 import { TranslationKey } from '../../store/translations/translation.model'
 import { Tool } from '../../models/tool.model'
+import { Price } from '../../models/price.model'
+import { ServiceId } from './services.data'
 
 export type GearCategory = 'tradeGoods' | 'services'
 
-export type GearId =
+export const gearCategoryLabelDict: Readonly<
+  Record<GearCategory, TranslationKey<'gear'>>
+> = Object.freeze({
+  tradeGoods: 'gear:category.tradeGoods',
+  services: 'gear:category.services',
+})
+
+export type GearId = TradeGoodsId | ServiceId
+
+export type TradeGoodsId =
   | 'backpack'
   | 'bandages'
   | 'barrel'
@@ -65,85 +76,6 @@ export type GearId =
   | 'torches'
   | 'waterskin'
 
-export type InstantPrice = {
-  _type: 'instant'
-  copper: number
-}
-
-export type PriceRange = {
-  _type: 'range'
-  min: number
-  max: number
-}
-
-export type TieredPrice = {
-  _type: 'tiered'
-  tiers: { tier: number; copper: number }[]
-}
-
-export type Price = InstantPrice | PriceRange | TieredPrice
-
-export const priceComparator = (a: Price, b: Price) => {
-  if (a._type === 'instant' && b._type === 'instant') {
-    return a.copper - b.copper
-  }
-
-  if (a._type === 'instant' && b._type === 'range') {
-    return a.copper - b.min
-  }
-
-  if (a._type === 'instant' && b._type === 'tiered') {
-    return a.copper - b.tiers[0].copper
-  }
-
-  if (a._type === 'range' && b._type === 'instant') {
-    return a.min - b.copper
-  }
-
-  if (a._type === 'range' && b._type === 'range') {
-    return a.min - b.min
-  }
-
-  if (a._type === 'range' && b._type === 'tiered') {
-    return a.min - b.tiers[0].copper
-  }
-
-  if (a._type === 'tiered' && b._type === 'instant') {
-    return a.tiers[0].copper - b.copper
-  }
-
-  if (a._type === 'tiered' && b._type === 'range') {
-    return a.tiers[0].copper - b.min
-  }
-
-  if (a._type === 'tiered' && b._type === 'tiered') {
-    return a.tiers[0].copper - b.tiers[0].copper
-  }
-
-  return 0
-}
-
-export const pricePredicate =
-  (predicate: (copper: number) => boolean) =>
-  (p: Price): boolean => {
-    if (p._type === 'instant') {
-      return predicate(p.copper)
-    }
-
-    if (p._type === 'range') {
-      return predicate(p.min) || predicate(p.max)
-    }
-
-    if (p._type === 'tiered') {
-      return p.tiers.some((tier) => predicate(tier.copper))
-    }
-
-    return false
-  }
-
-export const maxPricePredicate = (max: number) =>
-  pricePredicate((copper) => copper <= max)
-
 export type MarketType =
   | 'dailyLiving'
   | 'tradeGoods'
@@ -158,24 +90,33 @@ export type GearEffect = {
 export type Gear = {
   category: GearCategory
   name: {
-    id: GearId
+    id: string
     label: TranslationKey<'gear'>
   }
   price: Price
   supply: Supply
+  marketType: MarketType
+  effects: GearEffect
+}
+export type TradeGoods = Gear & {
+  name: {
+    id: TradeGoodsId
+    label: TranslationKey<'gear'>
+  }
   weight: Weight
   rawMaterials: RawMaterial[]
   time: Time
   talents: Talent[]
   tools: Tool[]
-  effects: GearEffect
-  marketType: MarketType
 }
 
-export type GearViewModel = Omit<Gear, 'name' | 'supply' | 'time'> & {
+export type TradeGoodsViewModel = Omit<
+  TradeGoods,
+  'name' | 'supply' | 'time'
+> & {
   category: GearCategory
   name: {
-    id: GearId
+    id: TradeGoodsId
     label: TranslationKey<'gear'>
     translation: string
   }
@@ -183,11 +124,11 @@ export type GearViewModel = Omit<Gear, 'name' | 'supply' | 'time'> & {
   time: TranslationKey<'common'>
 }
 
-export const gearViewModel = (
-  gear: Gear,
+export const tradeGoodsViewModel = (
+  gear: TradeGoods,
   translation: string,
   supplyAmount: number | undefined,
-): GearViewModel => ({
+): TradeGoodsViewModel => ({
   ...gear,
   name: {
     ...gear.name,
@@ -201,7 +142,7 @@ export const gearViewModel = (
   time: timeLabelDict[gear.time],
 })
 
-export const gear: Gear[] = [
+export const tradeGoods: TradeGoods[] = [
   {
     category: 'tradeGoods',
     name: { id: 'chalk', label: 'gear:Gear.Chalk.name' },

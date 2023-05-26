@@ -1,19 +1,25 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
+import { rollD6 } from '../../functions/dice.functions'
+import { maxPricePredicate } from '../../models/price.model'
+import { Supply } from '../../models/supply'
+import { Talent, isTalent, talents } from '../../models/talent.model'
 import { RootState } from '../../store/store'
+import { TFunction } from '../../store/translations/translation.model'
 import {
-  Gear,
   GearCategory,
   GearId,
-  GearViewModel,
-  gear,
-  gearViewModel,
-  maxPricePredicate,
+  TradeGoods,
+  TradeGoodsViewModel,
+  tradeGoods,
+  tradeGoodsViewModel,
 } from './gear.data'
-import { Supply } from '../../models/supply'
-import { rollD6 } from '../../functions/dice.functions'
-import { TFunction } from '../../store/translations/translation.model'
-import { Talent, talents, isTalent } from '../../models/talent.model'
+import {
+  Service,
+  ServiceViewModel,
+  serviceViewModel,
+  services,
+} from './services.data'
 
 const rollSupply = (s: Supply): number => {
   if (s === 'rare') {
@@ -39,22 +45,21 @@ const generateSupply = (gear: Gear[]) => {
   }, {} as Record<GearId, number>)
 }
 
+type Gear = TradeGoods | Service
 type CategoryFilter = Readonly<Record<GearCategory, boolean>>
 
 interface GearState {
-  gear: Gear[]
   filters: {
     search: string
     maxPrice: number
     talents: Record<Talent, boolean>
     categories: CategoryFilter
   }
-  supply: Record<GearId, number>
+  supply: Record<GearCategory, Record<GearId, number>>
 }
 
 // Define the initial state using that type
 export const initialGearState: GearState = {
-  gear,
   filters: {
     search: '',
     maxPrice: 0,
@@ -69,7 +74,10 @@ export const initialGearState: GearState = {
       tradeGoods: false,
     },
   },
-  supply: generateSupply(gear),
+  supply: {
+    tradeGoods: generateSupply(tradeGoods),
+    services: generateSupply(services),
+  },
 }
 
 const gearSlice = createSlice({
@@ -91,7 +99,10 @@ const gearSlice = createSlice({
       state.filters.talents[payload] = !state.filters.talents[payload]
     },
     reRollSupply: (state) => {
-      state.supply = generateSupply(state.gear)
+      state.supply = {
+        tradeGoods: generateSupply(tradeGoods),
+        services: generateSupply(services),
+      }
     },
     toggleCategory: (state, { payload }: PayloadAction<GearCategory>) => {
       state.filters.categories[payload] = !state.filters.categories[payload]
@@ -118,15 +129,16 @@ const buildPriceFilter = (maxPrice: number) => (item: Gear) =>
 const isAnyTalentsActive = (talents: Record<Talent, boolean>) =>
   Object.values(talents).some((active) => active)
 
-const buildTalentFilter = (talents: Record<Talent, boolean>) => (item: Gear) =>
-  isAnyTalentsActive(talents)
-    ? (Object.entries(talents) as [Talent, boolean][]).some(
-        ([talent, active]) =>
-          active && item.talents.length > 0
-            ? item.talents.includes(talent)
-            : false,
-      )
-    : true
+const buildTalentFilter =
+  (talents: Record<Talent, boolean>) => (item: TradeGoods) =>
+    isAnyTalentsActive(talents)
+      ? (Object.entries(talents) as [Talent, boolean][]).some(
+          ([talent, active]) =>
+            active && item.talents.length > 0
+              ? item.talents.includes(talent)
+              : false,
+        )
+      : true
 
 const buildCategoryFilter = (categories: CategoryFilter) => (item: Gear) =>
   Object.values(categories).some((active) => active)
@@ -155,7 +167,7 @@ const gearSort: Comparator<GearCategoryViewModel> = (a, b) => {
 }
 
 export const selectGear = (t: TFunction<'gear'>) => (state: RootState) => {
-  const { gear, supply, filters } = state.gear
+  const { supply, filters } = state.gear
   const { search, maxPrice, talents, categories } = filters
 
   const searchFilter = buildSearchFilter(search)
@@ -173,27 +185,56 @@ export const selectGear = (t: TFunction<'gear'>) => (state: RootState) => {
         active,
       }))
       .sort(gearSort),
-    items: gear.reduce((acc, cur) => {
-      if (!categoryFilter(cur)) {
-        return acc
-      }
+    gear: {
+      tradeGoods: tradeGoods.reduce((acc, cur) => {
+        if (!categoryFilter(cur)) {
+          return acc
+        }
 
-      if (!priceFilter(cur)) {
-        return acc
-      }
+        if (!priceFilter(cur)) {
+          return acc
+        }
 
-      if (!talentFilter(cur)) {
-        return acc
-      }
+        if (!talentFilter(cur)) {
+          return acc
+        }
 
-      const translatedName = t(cur.name.label)
+        const translatedName = t(cur.name.label)
 
-      if (!searchFilter(translatedName)) {
-        return acc
-      }
+        if (!searchFilter(translatedName)) {
+          return acc
+        }
 
-      return [...acc, gearViewModel(cur, translatedName, supply[cur.name.id])]
-    }, [] as GearViewModel[]),
+        return [
+          ...acc,
+          tradeGoodsViewModel(
+            cur,
+            translatedName,
+            supply.tradeGoods[cur.name.id],
+          ),
+        ]
+      }, [] as TradeGoodsViewModel[]),
+      services: services.reduce((acc, cur) => {
+        if (!categoryFilter(cur)) {
+          return acc
+        }
+
+        if (!priceFilter(cur)) {
+          return acc
+        }
+
+        const translatedName = t(cur.name.label)
+
+        if (!searchFilter(translatedName)) {
+          return acc
+        }
+
+        return [
+          ...acc,
+          serviceViewModel(cur, translatedName, supply.services[cur.name.id]),
+        ]
+      }, [] as ServiceViewModel[]),
+    },
   }
 }
 
