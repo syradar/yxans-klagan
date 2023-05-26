@@ -16,6 +16,8 @@ import { Pancake } from './Stack'
 import { useAppSelector } from '../store/store.hooks'
 import { selectTranslateFunction } from '../store/translations/translation.slice'
 import { TranslationKey } from '../store/translations/translation.model'
+import { ParchmentButton } from './ParchmentButton'
+import { ArrowPathIcon } from '@heroicons/react/20/solid'
 
 export type RandomMonsterDisplayProps = {
   rm: RandomMonsterViewModel
@@ -242,13 +244,19 @@ export const RandomMonsterDisplay = ({ rm }: RandomMonsterDisplayProps) => {
         </div>
         <div>
           <Pancake>
-            <div className="flex items-baseline gap-2">
+            <div className="flex items-center gap-2">
               <h3 className="text-xl font-medium">
                 {t(`monster:Attack.Attacks`)}
               </h3>
-              <RollButton onClick={() => rollAttack()}>
+
+              <ParchmentButton
+                buttonType="ghost"
+                small
+                onPress={() => rollAttack()}
+              >
+                <ArrowPathIcon className="h-5 w-5" />
                 {t('monster:Attack.Roll')}
-              </RollButton>
+              </ParchmentButton>
             </div>
             <div className="grid gap-2 md:grid-cols-2">
               {rm.attacks.map((a, index) => (

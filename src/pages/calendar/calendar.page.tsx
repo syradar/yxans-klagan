@@ -1,3 +1,4 @@
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
 import { ParchmentButton } from '../../components/ParchmentButton'
 import Stack from '../../components/Stack'
@@ -48,10 +49,12 @@ export const CalendarPage = () => {
 
             <Stack.Horizontal>
               <ParchmentButton onPress={() => dispatch(previousMonth())}>
+                <ArrowLeftIcon className="h-5 w-5" />
                 Previous month
               </ParchmentButton>
               <ParchmentButton onPress={() => dispatch(nextMonth())}>
                 Next month
+                <ArrowRightIcon className="h-5 w-5" />
               </ParchmentButton>
             </Stack.Horizontal>
           </Stack.Horizontal>

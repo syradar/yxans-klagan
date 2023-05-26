@@ -1,4 +1,4 @@
-import { ArrowPathIcon } from '@heroicons/react/24/outline'
+import { ArrowPathIcon } from '@heroicons/react/20/solid'
 import { useCallback, useEffect, useState } from 'react'
 import { ParchmentButton } from '../../components/ParchmentButton'
 import { Typography } from '../../components/Typography'

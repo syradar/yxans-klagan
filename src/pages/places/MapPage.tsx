@@ -2,7 +2,7 @@ import {
   DocumentArrowDownIcon,
   EyeIcon,
   EyeSlashIcon,
-} from '@heroicons/react/24/outline'
+} from '@heroicons/react/20/solid'
 import { has } from 'ramda'
 import { Suspense, lazy, useEffect, useRef, useState } from 'react'
 import { ParchmentButton } from '../../components/ParchmentButton'

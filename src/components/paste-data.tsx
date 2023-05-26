@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { ClipboardIcon } from '@heroicons/react/24/outline'
+import { ClipboardIcon } from '@heroicons/react/20/solid'
 export type PasteDataProps = {
   onData: (e: string) => void
   onFocusTextArea: () => void

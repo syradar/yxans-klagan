@@ -1,8 +1,8 @@
+import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid'
 import { ParchmentButton } from './ParchmentButton'
 
 export interface StepperProps {
   id: string
-  twProps?: string
   label?: string
   max: number
   min: number
@@ -13,7 +13,6 @@ export interface StepperProps {
 export const Stepper = ({
   value,
   id,
-  twProps,
   max,
   min,
   label,
@@ -36,7 +35,7 @@ export const Stepper = ({
   }
 
   return (
-    <div className={twProps}>
+    <div className="">
       {label && (
         <label className="block" htmlFor={id}>
           {label}
@@ -44,7 +43,7 @@ export const Stepper = ({
       )}
       <div className="flex">
         <ParchmentButton onPress={decrement} aria-controls={id}>
-          –
+          <MinusIcon className="w-5" />
         </ParchmentButton>
         <input
           // eslint-disable-next-line tailwindcss/no-custom-classname
@@ -62,7 +61,7 @@ export const Stepper = ({
           // disabled
         />
         <ParchmentButton onPress={increment} aria-controls={id}>
-          +
+          <PlusIcon className="w-5" />
         </ParchmentButton>
       </div>
     </div>
