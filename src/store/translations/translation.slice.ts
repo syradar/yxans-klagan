@@ -10,6 +10,7 @@ import {
   TranslationKey,
   Translations,
 } from './translation.model'
+import { notNullish } from '../../functions/utils.functions'
 
 interface TranslationState {
   translations: Record<
@@ -183,7 +184,8 @@ const translate = <LocalNamespace extends Namespace>(
 
     if (possibleKey in obj) {
       const possibleTranslation = obj[possibleKey as keyof typeof obj]
-      if (possibleTranslation) {
+
+      if (notNullish(possibleTranslation)) {
         if (typeof possibleTranslation === 'string') {
           translation = possibleTranslation
           break
