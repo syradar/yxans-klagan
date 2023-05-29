@@ -32,7 +32,7 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.2",
-    "react-stately": "^3.22.0",
+    "react-stately": "^3.23.0",
     "ts-results": "^3.3.0",
     "usehooks-ts": "^2.9.1",
     "web-vitals": "3.3.1"
