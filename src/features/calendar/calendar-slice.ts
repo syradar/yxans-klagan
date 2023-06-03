@@ -30,13 +30,9 @@ const calendarSlice = createSlice({
   initialState,
   reducers: {
     nextMonth: (state, _action: PayloadAction) => {
-      console.log('nextMonth', _action)
-      const newMonth = (state.currentMonth + 1) % 7
+      const newMonth = (state.currentMonth + 1) % 8
 
-      console.log('nextMonth if index')
       if (!isMonthIndex(newMonth)) {
-        console.log('nextMonth not index')
-
         return
       }
 
@@ -45,8 +41,6 @@ const calendarSlice = createSlice({
       }
 
       state.currentMonth = newMonth
-
-      console.log(state.currentMonth)
     },
     previousMonth: (state, _action: PayloadAction) => {
       if (state.currentMonth === 0) {
@@ -76,6 +70,8 @@ const calendarSlice = createSlice({
           ),
         },
       }
+
+      return state
     },
   },
 })

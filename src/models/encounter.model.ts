@@ -1,4 +1,4 @@
-import { ValidLanguage } from './language.model'
+import { ValidLanguage } from '../hooks/useValidLanguage'
 import { Terrain } from './terrain.model'
 
 export type EncounterData = {

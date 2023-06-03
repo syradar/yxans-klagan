@@ -2,7 +2,11 @@ import {
   selectQuarter,
   toggleQuarter,
 } from '../features/calendar/calendar-slice'
-import { CalendarDay, dayLabelDict } from '../models/forbidden-lands-date.model'
+import {
+  CalendarDay,
+  ForbiddenLandsDateSerializable,
+  dayLabelDict,
+} from '../models/forbidden-lands-date.model'
 import { useAppDispatch, useAppSelector } from '../store/store.hooks'
 import { selectTranslateFunction } from '../store/translations/translation.slice'
 import { Pancake, Train } from './Stack'
@@ -14,7 +18,7 @@ interface CalendarDayProps {
 
 export const CalendarDayDisplay = ({ day }: CalendarDayProps) => {
   const t = useAppSelector(selectTranslateFunction(['calendar']))
-  const date = {
+  const date: ForbiddenLandsDateSerializable = {
     day: day.number,
     month: day.monthNumber,
     year: day.year,

@@ -23,8 +23,6 @@ export const NumberField = (props: NumberFieldProps) => {
     decrementButtonProps,
   } = useNumberField(props, state, inputRef)
 
-  console.log(incrementButtonProps)
-
   return (
     <div>
       <label {...labelProps}>{props.label}</label>

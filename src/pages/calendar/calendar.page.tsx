@@ -1,5 +1,4 @@
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/20/solid'
-import { useState } from 'react'
 import { ParchmentButton } from '../../components/ParchmentButton'
 import Stack from '../../components/Stack'
 import { Typography } from '../../components/Typography'
@@ -22,8 +21,7 @@ export const CalendarPage = () => {
   const t = useAppSelector(selectTranslateFunction(['calendar']))
   const state = useAppSelector(selectCalendar)
   const dispatch = useAppDispatch()
-
-  const [cal5] = useState(getCalendar(state.currentYear))
+  const cal5 = getCalendar(state.currentYear)
 
   if (cal5.err) {
     return null
