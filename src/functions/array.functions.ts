@@ -1,4 +1,8 @@
-export const range = (val: number): readonly number[] => [...Array(val).keys()]
+export const range = (val: number): readonly number[] => {
+  const keys = [...Array(val).keys()]
+
+  return keys
+}
 
 export const chunkArray = <T>(array: T[], perChunk = 5): T[][] => {
   return array.reduce((acc, cur, index) => {

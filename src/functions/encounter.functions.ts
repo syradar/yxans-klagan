@@ -1,9 +1,9 @@
 import { allEncounters, encounterTable } from '../data/encounter.data'
+import { ValidLanguage } from '../hooks/useValidLanguage'
 import {
   EncounterViewModel,
   isRollsWithEncounters,
 } from '../models/encounter.model'
-import { ValidLanguage } from '../models/language.model'
 import { getTerrainKeys, Terrain } from '../models/terrain.model'
 
 export const getTerrainsByEncounterId = (id: number): Terrain[] => {

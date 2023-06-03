@@ -1,7 +1,5 @@
 /* eslint-disable prettier/prettier */
 
-import { hexData } from '../../data/hex.data'
-
 const oddLetters = [
   'A',
   'C',
@@ -77,7 +75,7 @@ export const isHexKey = (s: string): s is HexKey => {
 
 type AKey = `${OddLetter}${EvenNumbers}`
 type BKey = `${EvenLetter}${OddNumbers}`
-type HexKey = AKey | BKey
+export type HexKey = AKey | BKey
 
 export type HexData = { [K in HexKey]: string }
 
@@ -86,17 +84,3 @@ export interface Hex {
   hexKey: HexKey
   explored: boolean
 }
-
-export type HexStorage = Omit<Hex, 'points'>
-
-const createInitialHexas = (data: HexData): Hex[] => {
-  return (Object.entries(data) as [HexKey, string][]).map(
-    ([hexKey, points]) => ({
-      hexKey,
-      points,
-      explored: false,
-    }),
-  )
-}
-
-export const initialHexas = createInitialHexas(hexData)

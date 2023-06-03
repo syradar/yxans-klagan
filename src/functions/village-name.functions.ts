@@ -1,6 +1,5 @@
-import { villageNamesSv, villageNamesEn } from '../data/village-name.data'
-import { ValidLanguage } from '../models/language.model'
-
+import { villageNamesEn, villageNamesSv } from '../data/village-name.data'
+import { ValidLanguage } from '../hooks/useValidLanguage'
 import { choose } from './dice.functions'
 import { capitalize } from './utils.functions'
 

@@ -1,4 +1,4 @@
-import { ValidLanguage } from '../models/language.model'
+import { ValidLanguage } from '../hooks/useValidLanguage'
 import { useAppDispatch, useAppSelector } from '../store/store.hooks'
 import {
   selectCurrentLanguage,

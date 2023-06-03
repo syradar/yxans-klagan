@@ -1,3 +1,4 @@
+import { ValidLanguage } from '../hooks/useValidLanguage'
 import { EncounterData, TerrainEncounterMap } from '../models/encounter.model'
 
 export const encounterTable: TerrainEncounterMap = {
@@ -276,4 +277,9 @@ export const allEncounters: EncounterData = {
     '42': { title: 'Reptilfolk', page: 161 },
     '43': { title: 'De levande begravda', page: 161 },
   },
-}
+} satisfies Record<
+  ValidLanguage,
+  {
+    [index: string]: { title: string; page: number }
+  }
+>

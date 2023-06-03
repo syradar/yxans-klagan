@@ -1,6 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { None, Option, Some } from 'ts-results'
-import { ValidLanguage } from '../../models/language.model'
 import { RootState } from '../../store/store'
 import { loadTranslations } from './translation.data'
 import {
@@ -11,6 +10,7 @@ import {
   Translations,
 } from './translation.model'
 import { notNullish } from '../../functions/utils.functions'
+import { ValidLanguage } from '../../hooks/useValidLanguage'
 
 interface TranslationState {
   translations: Record<
@@ -76,7 +76,6 @@ export const setTranslationsAsync = createAsyncThunk<
 >(
   'translation/setTranslationsAsync',
   async ({ language, source }, { dispatch, getState }) => {
-    console.log('setTranslationsAsync', language, source)
     const translationState = getState().translation
     const lang = source === 'init' ? translationState.currentLanguage : language
 
@@ -123,7 +122,6 @@ export const selectTranslateFunction = <T extends Namespace>(nss: T[]) => {
 
       return (key: TranslationKey<T>) => key
     }
-    // console.log('found translations')
 
     const safeTranslations = translations.safeUnwrap()
     type localNamespace = (typeof nss)[number] & Namespace

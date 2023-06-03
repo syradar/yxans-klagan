@@ -1,3 +1,4 @@
+import { z } from 'zod'
 import { range } from '../functions/array.functions'
 import {
   Downpour,
@@ -146,6 +147,56 @@ type CalendarV1AndV2 = {
   year: number
   months: { [M in MonthIndex]: MonthV1AndV2 }
 }
+const MonthV1AndV2Schema = z.object({
+  name: z.literal('WinterWane'),
+  days: z.array(
+    z.object({
+      number: z.number(),
+      name: z.literal('SunDay'),
+      quarters: z.tuple([z.boolean(), z.boolean(), z.boolean(), z.boolean()]),
+      moon: z.union([z.literal('full'), z.literal('new')]).optional(),
+      temp: z.number(),
+      lowTemp: z.number(),
+      downpour: z.union([
+        z.literal('None'),
+        z.literal('Drizzle'),
+        z.literal('Showers'),
+        z.literal('LightRain'),
+        z.literal('HeavyRain'),
+        z.literal('Thunderstorm'),
+      ]),
+      stormType: z.union([
+        z.literal('None'),
+        z.literal('Lightning'),
+        z.literal('Hail'),
+        z.literal('Hurricane'),
+      ]),
+      isCloudy: z.boolean(),
+      isPartlyCloudy: z.boolean(),
+      eventType: z
+        .object({
+          name: z.string(),
+          description: z.string(),
+        })
+        .optional(),
+    }),
+  ),
+})
+
+const CalendarV1AndV2Schema = z.object({
+  temperatureUnit: z.union([z.literal('C'), z.literal('F')]),
+  year: z.number(),
+  months: z.object({
+    0: MonthV1AndV2Schema,
+    1: MonthV1AndV2Schema,
+    2: MonthV1AndV2Schema,
+    3: MonthV1AndV2Schema,
+    4: MonthV1AndV2Schema,
+    5: MonthV1AndV2Schema,
+    6: MonthV1AndV2Schema,
+    7: MonthV1AndV2Schema,
+  }),
+})
 
 export type CalendarV4 = {
   temperatureUnit: TemperatureUnit
@@ -153,6 +204,89 @@ export type CalendarV4 = {
   months: Month[]
   startDay: DayNames
 }
+const calendarV4Schema = z.object({
+  temperatureUnit: z.nativeEnum(TemperatureUnit),
+  year: z.number(),
+  months: z.array(
+    z.object({
+      name: z.union([
+        z.literal('WinterWane'),
+        z.literal('SpringRise'),
+        z.literal('SpringWane'),
+        z.literal('SummerRise'),
+        z.literal('SummerWane'),
+        z.literal('AutumnRise'),
+        z.literal('AutumnWane'),
+        z.literal('WinterRise'),
+      ]),
+      days: z.array(
+        z.object({
+          number: z.number(),
+          name: z.union([
+            z.literal('SunDay'),
+            z.literal('MoonDay'),
+            z.literal('BloodDay'),
+            z.literal('EarthDay'),
+            z.literal('GrowthDay'),
+            z.literal('HarvestDay'),
+            z.literal('StillDay'),
+          ]),
+          monthName: z.union([
+            z.literal('WinterWane'),
+            z.literal('SpringRise'),
+            z.literal('SpringWane'),
+            z.literal('SummerRise'),
+            z.literal('SummerWane'),
+            z.literal('AutumnRise'),
+            z.literal('AutumnWane'),
+            z.literal('WinterRise'),
+          ]),
+          quarters: z.tuple([
+            z.boolean(),
+            z.boolean(),
+            z.boolean(),
+            z.boolean(),
+          ]),
+          moon: z.union([z.literal('full'), z.literal('new')]).optional(),
+          temp: z.number(),
+          lowTemp: z.number(),
+          downpour: z.union([
+            z.literal('None'),
+            z.literal('Drizzle'),
+            z.literal('Showers'),
+            z.literal('LightRain'),
+            z.literal('Raining'),
+            z.literal('LightSnow'),
+            z.literal('SnowShowers'),
+            z.literal('Snowing'),
+          ]),
+          stormType: z.union([
+            z.literal('None'),
+            z.literal('Windstorm'),
+            z.literal('Snowstorm'),
+            z.literal('Rainstorm'),
+          ]),
+          isCloudy: z.boolean(),
+          isPartlyCloudy: z.boolean(),
+          eventType: z.object({
+            name: z.string(),
+            description: z.string(),
+          }),
+        }),
+      ),
+      collapsed: z.boolean(),
+    }),
+  ),
+  startDay: z.union([
+    z.literal('SunDay'),
+    z.literal('MoonDay'),
+    z.literal('BloodDay'),
+    z.literal('EarthDay'),
+    z.literal('GrowthDay'),
+    z.literal('HarvestDay'),
+    z.literal('StillDay'),
+  ]),
+})
 
 const createMonth = (
   monthName: MonthNames,
@@ -249,7 +383,9 @@ const parseCalendar = (json: string, oldFormat = false): CalendarV4 => {
   localStorage.removeItem(CALENDAR_KEY_V2)
   localStorage.removeItem(CALENDAR_KEY_V3)
 
-  return oldFormat ? parseV1AndV2Calendar(JSON.parse(json)) : JSON.parse(json)
+  return oldFormat
+    ? calendarV4Schema.parse(CalendarV1AndV2Schema.parse(JSON.parse(json)))
+    : calendarV4Schema.parse(JSON.parse(json))
 }
 
 export const loadCalendar = (): CalendarV4 => {

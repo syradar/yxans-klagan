@@ -7,10 +7,19 @@ import { Err, None, Ok, Option, Result, Some } from 'ts-results'
 import calendarSlice from '../features/calendar/calendar-slice'
 import gearSlice from '../features/gear/gear-slice'
 import translationSlice from './translations/translation.slice'
+import mapSlice from '../features/map/map-slice'
+import { z } from 'zod'
 
-const safeJSONParse = <T extends object>(str: string): Result<T, Error> => {
+const safeJSONParse = <T extends object>(
+  str: string,
+  schema?: z.Schema<T>,
+): Result<T, Error> => {
   try {
-    const parsed = JSON.parse(str)
+    if (!schema) {
+      return Ok(JSON.parse(str) as T)
+    }
+
+    const parsed = schema.parse(JSON.parse(str))
 
     return Ok(parsed)
   } catch (e: unknown) {
@@ -49,6 +58,7 @@ const rootReducer = {
   gear: gearSlice,
   translation: translationSlice,
   calendar: calendarSlice,
+  map: mapSlice,
 }
 export type RootState = StateFromReducersMapObject<typeof rootReducer>
 // ReturnType<typeof store.getState>

@@ -3,7 +3,7 @@ import {
   EyeIcon,
   EyeSlashIcon,
 } from '@heroicons/react/20/solid'
-import { has } from 'ramda'
+import '@total-typescript/ts-reset'
 import { Suspense, lazy, useEffect, useRef, useState } from 'react'
 import { ParchmentButton } from '../../components/ParchmentButton'
 import { Train } from '../../components/Stack'
@@ -11,13 +11,15 @@ import { PageHeader } from '../../components/page-header'
 import { Parchment } from '../../components/parchment'
 import { PasteData } from '../../components/paste-data'
 import { downloadFile } from '../../functions/file.functions'
-import { isNullish, isString } from '../../functions/utils.functions'
 
-import { useAppSelector } from '../../store/store.hooks'
+import { z } from 'zod'
+import { hexData } from '../../data/hex.data'
+import { selectSource, setSource } from '../../features/map/map-slice'
+import { useAppDispatch, useAppSelector } from '../../store/store.hooks'
 import { TranslationKey } from '../../store/translations/translation.model'
 import { selectTranslateFunction } from '../../store/translations/translation.slice'
 import { MapPopover, MapPopoverOptions } from './map-popover'
-import { Hex, HexStorage, initialHexas, isHexKey } from './map.model'
+import { Hex, HexData, HexKey, isHexKey } from './map.model'
 import { Polygon } from './polygon'
 
 const MAP_STORAGE_KEY = 'map'
@@ -36,16 +38,20 @@ export const MapPage = () => {
     if (!hexasFromStorage) {
       return initialHexas
     }
+    const hexStorages = hexStorageSchema.safeParse(JSON.parse(hexasFromStorage))
 
-    const hexStorages: HexStorage[] = JSON.parse(hexasFromStorage)
+    if (!hexStorages.success) {
+      return initialHexas
+    }
 
     return initialHexas.map((hex) => {
       return {
         ...hex,
-        ...(hexStorages.find((h) => h.hexKey === hex.hexKey) ?? {}),
+        ...(hexStorages.data.hexes.find((h) => h.hexKey === hex.hexKey) ?? {}),
       }
     })
   }
+
   const [pasteError, setPasteError] = useState<
     TranslationKey<'map'> | undefined
   >(undefined)
@@ -138,6 +144,10 @@ export const MapPage = () => {
   }
 
   const handleExploration = (hex: Hex) => {
+    if (!hex.explored) {
+      setHasExploredHexas(true)
+    }
+
     setHexas(
       hexas.map((h) => {
         if (h.hexKey === hex.hexKey) {
@@ -172,7 +182,7 @@ export const MapPage = () => {
   }
 
   const handleFileDownload = () => {
-    const hexStorages: HexStorage[] = hexas
+    const hexStorages: HexStorage = hexas
       .filter((h) => h.explored)
       .map(({ hexKey, explored }) => ({
         hexKey,
@@ -184,10 +194,10 @@ export const MapPage = () => {
 
   const handlePasteMapData = (s: string) => {
     setPasteError(undefined)
-    let data: { hexes: HexStorage[]; fogOfWar: boolean }
+    let data: HexStorageData | undefined
 
     try {
-      data = validateData(s)
+      data = hexStorageSchema.parse(JSON.parse(s))
     } catch (error) {
       if (error instanceof Error) {
         setPasteError(getPasteErrorLabel(error))
@@ -200,21 +210,11 @@ export const MapPage = () => {
       initialHexas.map((hex) => {
         return {
           ...hex,
-          ...(data.hexes.find((h) => h.hexKey === hex.hexKey) ?? {}),
+          ...(data && (data.hexes.find((h) => h.hexKey === hex.hexKey) ?? {})),
         }
       }),
     )
     setFogOfWar(data.fogOfWar)
-  }
-
-  const parseJson = (
-    s: string,
-  ): { hexes: HexStorage[]; fogOfWar: boolean } | undefined => {
-    try {
-      return JSON.parse(s)
-    } catch (e) {
-      return undefined
-    }
   }
 
   const getPasteErrorLabel = (e: Error): TranslationKey<'map'> => {
@@ -234,66 +234,19 @@ export const MapPage = () => {
     }
   }
 
-  const validateData = (
-    s: string,
-  ): { hexes: HexStorage[]; fogOfWar: boolean } => {
-    const parsedMapData = parseJson(s)
-
-    if (isNullish(parsedMapData)) {
-      throw new Error('InvalidJson')
-    }
-
-    if (typeof parsedMapData !== 'object') {
-      throw new Error('NotObject')
-    }
-
-    const hasHexesProp = has('hexes', parsedMapData)
-    if (!hasHexesProp) {
-      throw new Error('NoHexesProp')
-    }
-
-    const isHexesArray = Array.isArray(parsedMapData.hexes)
-    if (!isHexesArray) {
-      throw new Error('HexesNotArray')
-    }
-
-    const isValidHexData = parsedMapData.hexes.every((h: HexStorage) => {
-      const hasKey = has('hexKey', h)
-      const hasExplored = has('explored', h)
-
-      if (!hasKey || !hasExplored) {
-        return false
-      }
-
-      const validKey = isString(h.hexKey) && isHexKey(h.hexKey)
-      if (!validKey) {
-        return false
-      }
-
-      if (typeof h.explored !== 'boolean') {
-        return false
-      }
-
-      return true
-    })
-
-    if (!isValidHexData) {
-      throw new Error('InvalidHexData')
-    }
-
-    return { hexes: parsedMapData.hexes, fogOfWar: parsedMapData.fogOfWar }
-  }
-
   useEffect(() => {
-    const hexStorages: HexStorage[] = hexas.map(({ hexKey, explored }) => ({
-      hexKey,
-      explored,
-    }))
+    const hexStorages: HexStorageData = {
+      hexes: hexas.map(({ hexKey, explored }) => ({
+        hexKey,
+        explored,
+      })),
+      fogOfWar,
+    }
 
     localStorage.setItem(MAP_STORAGE_KEY, JSON.stringify(hexStorages))
 
     setHasExploredHexas(atLeastOneExploredHex(hexas))
-  }, [hexas])
+  }, [hexas, fogOfWar])
 
   useEffect(() => {
     localStorage.setItem(FOG_OF_WAR_STORAGE_KEY, JSON.stringify(fogOfWar))
@@ -378,5 +331,34 @@ export const MapPage = () => {
 }
 
 const numToPx = (num: number): string => `${num}px`
+
+const hexSchema = z.array(
+  z.object({
+    hexKey: z.string().refine(isHexKey, {
+      message: 'Hex key is not valid',
+    }),
+    explored: z.boolean(),
+  }),
+)
+
+const hexStorageSchema = z.object({
+  hexes: hexSchema,
+  fogOfWar: z.boolean(),
+})
+
+export type HexStorage = z.infer<typeof hexSchema>
+export type HexStorageData = z.infer<typeof hexStorageSchema>
+
+const createInitialHexas = (data: HexData): Hex[] => {
+  return (Object.entries(data) as [HexKey, string][]).map(
+    ([hexKey, points]) => ({
+      hexKey,
+      points,
+      explored: false,
+    }),
+  )
+}
+
+export const initialHexas = createInitialHexas(hexData)
 
 export default MapPage

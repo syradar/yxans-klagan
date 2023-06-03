@@ -63,7 +63,7 @@ const isValidMonthNumber = (
 const daysInMonth: Readonly<Record<MonthIndex, 45 | 46>> = Object.freeze({
   0: 46,
   1: 45,
-  2: 45,
+  2: 46,
   3: 46,
   4: 46,
   5: 45,
@@ -288,8 +288,8 @@ export type CalendarDay = {
   month: MonthIndex
   monthNumber: MonthNumber
   year: number
-  // quarters: [boolean, boolean, boolean, boolean]
-  // moonPhase: MoonPhase
+  quarters: [boolean, boolean, boolean, boolean]
+  moonPhase: MoonPhase | undefined
 }
 
 const createDay = (
@@ -303,6 +303,8 @@ const createDay = (
   month,
   year,
   monthNumber: monthNumber(month),
+  quarters: [false, false, false, false],
+  moonPhase: undefined,
 })
 
 const createDayIndex = (
@@ -359,14 +361,17 @@ const createMonth = (
   dayOffset: number,
   daysPassed: number,
   year: number,
-): Result<CalendarMonth, Error> =>
-  Result.all(
+): Result<CalendarMonth, Error> => {
+  const res = Result.all(
     ...range(daysInMonth[index]).map((d) =>
       createDayIndex(d, dayOffset, daysPassed).map((i) =>
         createDay(d + 1, index, i, year),
       ),
     ),
   ).map((days) => ({ index, days }))
+
+  return res
+}
 
 // export const getCal = (startYear = 1165, startDay?: DayNames): CalendarV4 => {
 //   const dayOffset = startDay

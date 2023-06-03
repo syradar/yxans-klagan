@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
 import { useLocalStorage } from './use-local-storage'
+import { z } from 'zod'
 
 export const useWindowScrollPosition = (
   localStorageKey: string,
@@ -8,6 +9,7 @@ export const useWindowScrollPosition = (
   const [scrollYStorage, setScrollYStorage] = useLocalStorage(
     localStorageKey,
     0,
+    z.number(),
   )
 
   const currentScroll = useRef(0)
