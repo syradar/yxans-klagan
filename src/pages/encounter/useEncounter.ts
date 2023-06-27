@@ -3,8 +3,8 @@ import { useState } from 'react'
 import { rollD66 } from '../../functions/dice.functions'
 import { getRandomEncounter } from '../../functions/encounter.functions'
 import { EncounterViewModel } from '../../models/encounter.model'
-import { ValidLanguage } from '../../models/language.model'
 import { Terrain } from '../../models/terrain.model'
+import { ValidLanguage } from '../../hooks/useValidLanguage'
 
 type EncounterViewModelWithId = EncounterViewModel & { keyId: string }
 

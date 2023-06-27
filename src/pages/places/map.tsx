@@ -1,8 +1,12 @@
+import { selectSource } from '../../features/map/map-slice'
+import { useAppSelector } from '../../store/store.hooks'
+
 type MapProps = {
   fogOfWar: boolean
   children: React.ReactNode
 }
 export const Map = ({ fogOfWar, children }: MapProps) => {
+  const source = useAppSelector(selectSource)
 
   return (
     <svg
@@ -13,12 +17,13 @@ export const Map = ({ fogOfWar, children }: MapProps) => {
         `}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 2057.95 1490.29"
-      // style={{
-      //   top: '-3px',
-      //   left: '-3px',
-      // }}
     >
+      {source === 'bitterReach' ? (
+        <image href="bitter-reach-small-edit.png" width={2059} height={1491} />
+      ) : null}
+      {source === 'ravland' ? (
         <image href="ravland-small.jpg" width={2059} height={1491} />
+      ) : null}
       <rect
         className="cls-1"
         width="2057.95"

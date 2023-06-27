@@ -1,8 +1,45 @@
-import { Day } from '../models/calendar.model'
 import { TranslationKey } from '../store/translations/translation.model'
 import { range } from './array.functions'
 import { choose } from './dice.functions'
 import { inRange, notNullish } from './utils.functions'
+
+const month = [
+  'WinterWane',
+  'SpringRise',
+  'SpringWane',
+  'SummerRise',
+  'SummerWane',
+  'AutumnRise',
+  'AutumnWane',
+  'WinterRise',
+] as const
+type MonthNames = (typeof month)[number]
+
+const dayNames = [
+  'SunDay',
+  'MoonDay',
+  'BloodDay',
+  'EarthDay',
+  'GrowthDay',
+  'HarvestDay',
+  'StillDay',
+] as const
+type DayNames = (typeof dayNames)[number]
+
+export type Day = {
+  number: number
+  name: DayNames
+  monthName: MonthNames
+  quarters: [boolean, boolean, boolean, boolean]
+  moon?: 'full' | 'new'
+  temp: number
+  lowTemp: number
+  downpour: Downpour
+  stormType: StormType
+  isCloudy: boolean
+  isPartlyCloudy: boolean
+  eventType?: WeatherEvent
+}
 
 const normalizeTempDeltaWithWetness = (
   temp: number,

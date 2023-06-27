@@ -4,9 +4,9 @@ import {
   WeightedChoice,
   choose,
 } from '../../functions/dice.functions'
-import { ValidLanguage } from '../../models/language.model'
 import { Character } from './character'
 import { VillageInstitution } from './village-generator'
+import { ValidLanguage } from '../../hooks/useValidLanguage'
 
 export type Inn = {
   name: { [L in ValidLanguage]: string }

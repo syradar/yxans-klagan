@@ -1,58 +1,10 @@
-import {
-  PreloadedState,
-  StateFromReducersMapObject,
-  configureStore,
-} from '@reduxjs/toolkit'
-import { Err, None, Ok, Option, Result, Some } from 'ts-results'
-import calendarSlice from '../features/calendar/calendar-slice'
+import { StateFromReducersMapObject, configureStore } from '@reduxjs/toolkit'
+import calendarSlice, {
+  localStorageCalendarState,
+} from '../features/calendar/calendar-slice'
 import gearSlice from '../features/gear/gear-slice'
+import mapSlice, { localStorageMapState } from '../features/map/map-slice'
 import translationSlice from './translations/translation.slice'
-import mapSlice from '../features/map/map-slice'
-import { z } from 'zod'
-
-const safeJSONParse = <T extends object>(
-  str: string,
-  schema?: z.Schema<T>,
-): Result<T, Error> => {
-  try {
-    if (!schema) {
-      return Ok(JSON.parse(str) as T)
-    }
-
-    const parsed = schema.parse(JSON.parse(str))
-
-    return Ok(parsed)
-  } catch (e: unknown) {
-    if (e instanceof SyntaxError) {
-      return Err(e)
-    }
-
-    return Err(new Error('Unknown error'))
-  }
-}
-
-const safeStorageGet = (key: string): Option<string> => {
-  const value = sessionStorage.getItem(key)
-
-  return value ? Some(value) : None
-}
-
-type SavedState = {
-  savedAt: number
-  state: RootState
-}
-
-const validateState = ({
-  savedAt,
-  state,
-}: SavedState): Result<RootState, Error> => {
-  const oneHourAgo = Date.now() - 1000 * 60 * 60
-  if (savedAt < oneHourAgo) {
-    return Err(new Error('State is too old'))
-  }
-
-  return Ok(state)
-}
 
 const rootReducer = {
   gear: gearSlice,
@@ -61,32 +13,17 @@ const rootReducer = {
   map: mapSlice,
 }
 export type RootState = StateFromReducersMapObject<typeof rootReducer>
-// ReturnType<typeof store.getState>
 
-const savedState = safeStorageGet('reduxState')
-  .toResult(new Error('Could not get reduxState from sessionStorage'))
-  .andThen((s) => safeJSONParse<SavedState>(s))
-  .andThen(validateState)
-
-export const initStore = (
-  preloadedState: Result<PreloadedState<RootState>, Error>,
-) =>
-  configureStore({
-    reducer: rootReducer,
-    devTools: process.env.NODE_ENV !== 'production',
-    preloadedState: preloadedState.unwrapOr(undefined),
-  })
-
-export const store = initStore(savedState)
+export const store = configureStore({
+  reducer: rootReducer,
+  devTools: process.env.NODE_ENV !== 'production',
+})
 
 store.subscribe(() => {
-  sessionStorage.setItem(
-    'reduxState',
-    JSON.stringify({
-      savedAt: Date.now(),
-      state: store.getState(),
-    }),
-  )
+  const state = store.getState()
+
+  localStorageMapState.save(state.map)
+  localStorageCalendarState.save(state.calendar)
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

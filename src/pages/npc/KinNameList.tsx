@@ -4,7 +4,6 @@ import { ParchmentButton } from '../../components/ParchmentButton'
 import { Typography } from '../../components/Typography'
 import { range } from '../../functions/array.functions'
 import { Gender } from '../../models/gender.model'
-import { ValidLanguage } from '../../models/language.model'
 import { useAppSelector } from '../../store/store.hooks'
 import {
   selectCurrentLanguage,
@@ -12,6 +11,7 @@ import {
 } from '../../store/translations/translation.slice'
 import { NameList } from './NameList'
 import { HumanKin } from './name'
+import { ValidLanguage } from '../../hooks/useValidLanguage'
 
 interface KinNameListProps {
   title: HumanKin
