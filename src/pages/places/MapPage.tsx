@@ -4,73 +4,50 @@ import {
   EyeSlashIcon,
 } from '@heroicons/react/20/solid'
 import '@total-typescript/ts-reset'
-import { Suspense, lazy, useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { ZodError } from 'zod'
 import { ParchmentButton } from '../../components/ParchmentButton'
 import { Train } from '../../components/Stack'
 import { PageHeader } from '../../components/page-header'
 import { Parchment } from '../../components/parchment'
 import { PasteData } from '../../components/paste-data'
+import {
+  MapState,
+  handlePasteSuccess,
+  mapStateSchema,
+  oldHexStorageSchema,
+  selectFogOfWar,
+  selectMap,
+  selectMapSerializable,
+  selectSource,
+  setSelectedHex,
+  setSource,
+  toggleFogOfWar,
+  unsetSelectedHex,
+  updateHex,
+} from '../../features/map/map-slice'
 import { downloadFile } from '../../functions/file.functions'
-
-import { z } from 'zod'
-import { hexData } from '../../data/hex.data'
-import { selectSource, setSource } from '../../features/map/map-slice'
+import { safeJSONParse } from '../../store/persist/json-parsing'
 import { useAppDispatch, useAppSelector } from '../../store/store.hooks'
 import { TranslationKey } from '../../store/translations/translation.model'
 import { selectTranslateFunction } from '../../store/translations/translation.slice'
+import Map from './map'
 import { MapPopover, MapPopoverOptions } from './map-popover'
-import { Hex, HexData, HexKey, isHexKey } from './map.model'
+import { Hex } from './map.model'
 import { Polygon } from './polygon'
-
-const MAP_STORAGE_KEY = 'map'
-const FOG_OF_WAR_STORAGE_KEY = 'fogOfWar'
-
-const MapImage = lazy(() => import('./map'))
 
 export const MapPage = () => {
   const t = useAppSelector(selectTranslateFunction(['map', 'common']))
+  const source = useAppSelector(selectSource)
+  const fogOfWar = useAppSelector(selectFogOfWar)
+  const { hasExploredHexes, hexes, selectedHex } = useAppSelector(selectMap)
+  const serializableMap = useAppSelector(selectMapSerializable)
+  const dispatch = useAppDispatch()
 
   const parchmentRef = useRef<HTMLDivElement>(null)
 
-  const hexasFromStorage = localStorage.getItem(MAP_STORAGE_KEY) ?? undefined
-
-  const constructHexas = (hexasFromStorage?: string): Hex[] => {
-    if (!hexasFromStorage) {
-      return initialHexas
-    }
-    const hexStorages = hexStorageSchema.safeParse(JSON.parse(hexasFromStorage))
-
-    if (!hexStorages.success) {
-      return initialHexas
-    }
-
-    return initialHexas.map((hex) => {
-      return {
-        ...hex,
-        ...(hexStorages.data.hexes.find((h) => h.hexKey === hex.hexKey) ?? {}),
-      }
-    })
-  }
-
   const [pasteError, setPasteError] = useState<
     TranslationKey<'map'> | undefined
-  >(undefined)
-
-  const fogOfWarFromStorage =
-    (localStorage.getItem(FOG_OF_WAR_STORAGE_KEY) === 'true' ? true : false) ??
-    false
-  const [fogOfWar, setFogOfWar] = useState<boolean>(fogOfWarFromStorage)
-
-  const atLeastOneExploredHex = (hexas: Hex[]): boolean =>
-    hexas.filter((h) => h.explored).length > 0
-
-  const [hexas, setHexas] = useState(constructHexas(hexasFromStorage))
-  const [hasExploredHexas, setHasExploredHexas] = useState<boolean>(
-    atLeastOneExploredHex(hexas),
-  )
-
-  const [selectedHex, setSelectedHex] = useState<
-    { elem: EventTarget & Element; hex: Hex } | undefined
   >(undefined)
 
   const [mapPopover, setMapPopover] = useState<MapPopoverOptions | undefined>(
@@ -84,15 +61,19 @@ export const MapPage = () => {
     rect: hexTarget.getBoundingClientRect(),
     parchmentRect: parchmentElem.getBoundingClientRect(),
   })
-  const initialTooltip = {
-    text: '',
-    x: 0,
-    y: 0,
-    hexX: 0,
-    hexY: 0,
-    width: 0,
-    height: 0,
-  }
+  const initialTooltip = useMemo(
+    () => ({
+      text: '',
+      x: 0,
+      y: 0,
+      hexX: 0,
+      hexY: 0,
+      width: 0,
+      height: 0,
+    }),
+    [],
+  )
+
   const [tooltip, setTooltip] = useState<{
     x: number
     y: number
@@ -122,20 +103,11 @@ export const MapPage = () => {
     }
   }
 
-  const handleSelectedHex = (
-    selected: { elem: EventTarget & Element; hex: Hex } | undefined,
-  ) => {
-    // Remove tooltip when hiding popover
-    if (!selected) {
+  useEffect(() => {
+    if (selectedHex.none) {
       setTooltip(initialTooltip)
     }
-
-    // Remove the current selected
-    selectedHex?.elem?.classList.remove('hex-selected')
-    // Add the current selected
-    selected?.elem.classList.add('hex-selected')
-    setSelectedHex(selected)
-  }
+  }, [selectedHex, initialTooltip])
 
   const handleMouseOver = (e: React.MouseEvent, hex: Hex) => {
     if (!selectedHex) {
@@ -143,25 +115,9 @@ export const MapPage = () => {
     }
   }
 
-  const handleExploration = (hex: Hex) => {
-    if (!hex.explored) {
-      setHasExploredHexas(true)
-    }
-
-    setHexas(
-      hexas.map((h) => {
-        if (h.hexKey === hex.hexKey) {
-          h.explored = hex.explored ?? false
-        }
-
-        return h
-      }),
-    )
-  }
-
   const handleHexClick = (e: React.MouseEvent, hex: Hex) => {
     if (parchmentRef.current) {
-      handleSelectedHex({ elem: e.currentTarget, hex })
+      dispatch(setSelectedHex(hex.hexKey))
       handleTooltip(e, hex)
 
       const { rect, parchmentRect } = getRect(
@@ -182,75 +138,60 @@ export const MapPage = () => {
   }
 
   const handleFileDownload = () => {
-    const hexStorages: HexStorage = hexas
-      .filter((h) => h.explored)
-      .map(({ hexKey, explored }) => ({
-        hexKey,
-        explored,
-      }))
-
-    downloadFile({ hexes: hexStorages, fogOfWar }, 'map')
+    downloadFile(serializableMap, 'map')
   }
 
   const handlePasteMapData = (s: string) => {
     setPasteError(undefined)
-    let data: HexStorageData | undefined
+    const oldResult = safeJSONParse(s, oldHexStorageSchema)
 
-    try {
-      data = hexStorageSchema.parse(JSON.parse(s))
-    } catch (error) {
-      if (error instanceof Error) {
-        setPasteError(getPasteErrorLabel(error))
+    if (oldResult.ok) {
+      const data = oldResult.safeUnwrap()
+      const ms: MapState = {
+        version: 2,
+        fogOfWar: data.fogOfWar,
+        source: 'ravland',
+        maps: {
+          ravland: {
+            hexes: data.hexes,
+            selectedHex: undefined,
+            hasExploredHexes: hexes.some((hex) => hex.explored),
+          },
+          bitterReach: {
+            hexes: [],
+            selectedHex: undefined,
+            hasExploredHexes: false,
+          },
+        },
       }
+
+      dispatch(handlePasteSuccess(ms))
 
       return
     }
 
-    setHexas(
-      initialHexas.map((hex) => {
-        return {
-          ...hex,
-          ...(data && (data.hexes.find((h) => h.hexKey === hex.hexKey) ?? {})),
-        }
-      }),
-    )
-    setFogOfWar(data.fogOfWar)
-  }
+    const result = safeJSONParse(s, mapStateSchema)
 
-  const getPasteErrorLabel = (e: Error): TranslationKey<'map'> => {
-    switch (e.message) {
-      case 'InvalidJson':
-        return 'map:InvalidJson'
-      case 'NotObject':
-        return 'map:NotObject'
-      case 'NoHexesProp':
-        return 'map:NoHexesProp'
-      case 'HexesNotArray':
-        return 'map:HexesNotArray'
-      case 'InvalidHexData':
-        return 'map:InvalidHexData'
-      default:
-        return 'map:GeneralPasteError'
-    }
-  }
+    if (result.ok) {
+      const data = result.safeUnwrap()
+      dispatch(handlePasteSuccess(data))
 
-  useEffect(() => {
-    const hexStorages: HexStorageData = {
-      hexes: hexas.map(({ hexKey, explored }) => ({
-        hexKey,
-        explored,
-      })),
-      fogOfWar,
+      return
     }
 
-    localStorage.setItem(MAP_STORAGE_KEY, JSON.stringify(hexStorages))
+    if (oldResult.err) {
+      const oe = errorToPasteError(oldResult.val)
+      setPasteError(pasteErrorLabel[oe])
+      console.error(oldResult.val)
 
-    setHasExploredHexas(atLeastOneExploredHex(hexas))
-  }, [hexas, fogOfWar])
+      return
+    }
 
-  useEffect(() => {
-    localStorage.setItem(FOG_OF_WAR_STORAGE_KEY, JSON.stringify(fogOfWar))
-  }, [fogOfWar])
+    console.error(result.val)
+
+    const ne = errorToPasteError(result.val)
+    setPasteError(pasteErrorLabel[ne])
+  }
 
   return (
     <div className="flex w-full flex-col gap-y-8">
@@ -258,8 +199,22 @@ export const MapPage = () => {
 
       <Train>
         <ParchmentButton
+          buttonType={
+            source === 'ravland' ? 'sourceBitterReach' : 'sourceRavland'
+          }
+          onPress={() =>
+            dispatch(
+              setSource(source === 'ravland' ? 'bitterReach' : 'ravland'),
+            )
+          }
+        >
+          {source === 'ravland'
+            ? t('common:gameSource.bitterReach')
+            : t('common:gameSource.ravland')}
+        </ParchmentButton>
+        <ParchmentButton
           buttonType="ghost"
-          onPress={() => setFogOfWar(!fogOfWar)}
+          onPress={() => dispatch(toggleFogOfWar())}
         >
           {fogOfWar ? (
             <EyeIcon className="h-5 w-5" />
@@ -269,7 +224,7 @@ export const MapPage = () => {
           {t(fogOfWar ? 'map:FogOfWar_On' : 'map:FogOfWar_Off')}
         </ParchmentButton>
         <ParchmentButton
-          isDisabled={!hasExploredHexas}
+          isDisabled={!hasExploredHexes}
           buttonType="ghost"
           onPress={() => handleFileDownload()}
         >
@@ -282,6 +237,13 @@ export const MapPage = () => {
           onData={handlePasteMapData}
         ></PasteData>
       </Train>
+
+      {/* Should be a notification and maybe autoclose? */}
+      {pasteError ? (
+        <div className="flex justify-end bg-red-500 p-2 font-bold text-white">
+          {t(pasteError)}
+        </div>
+      ) : null}
 
       <div>
         <Parchment>
@@ -300,31 +262,22 @@ export const MapPage = () => {
             </div>
             <MapPopover
               options={mapPopover}
-              onExploreChanged={(hex) => handleExploration(hex)}
-              onHide={() => handleSelectedHex(undefined)}
+              onExploreChanged={(hex) => dispatch(updateHex(hex))}
+              onHide={() => dispatch(unsetSelectedHex())}
             ></MapPopover>
-            <Suspense fallback={'Laddar...'}>
-              <MapImage fogOfWar={fogOfWar}>
-                {hexas.map((hex) => (
-                  <Polygon
-                    key={hex.hexKey}
-                    hex={hex}
-                    onMouseOver={(e) => handleMouseOver(e, hex)}
-                    onClick={(e) => handleHexClick(e, hex)}
-                  />
-                ))}
-              </MapImage>
-            </Suspense>
+            <Map fogOfWar={fogOfWar}>
+              {hexes.map((hex) => (
+                <Polygon
+                  key={hex.hexKey}
+                  hex={hex}
+                  selectedHex={selectedHex}
+                  onMouseOver={(e) => handleMouseOver(e, hex)}
+                  onClick={(e) => handleHexClick(e, hex)}
+                />
+              ))}
+            </Map>
           </div>
         </Parchment>
-      </div>
-
-      <div>
-        {pasteError ? (
-          <div className="flex justify-end bg-red-500 p-2 font-bold text-white">
-            {t(pasteError)}
-          </div>
-        ) : null}
       </div>
     </div>
   )
@@ -332,33 +285,24 @@ export const MapPage = () => {
 
 const numToPx = (num: number): string => `${num}px`
 
-const hexSchema = z.array(
-  z.object({
-    hexKey: z.string().refine(isHexKey, {
-      message: 'Hex key is not valid',
-    }),
-    explored: z.boolean(),
-  }),
-)
+export default MapPage
 
-const hexStorageSchema = z.object({
-  hexes: hexSchema,
-  fogOfWar: z.boolean(),
-})
+type PasteError = 'invalidJson' | 'invalidHexData' | 'general'
 
-export type HexStorage = z.infer<typeof hexSchema>
-export type HexStorageData = z.infer<typeof hexStorageSchema>
-
-const createInitialHexas = (data: HexData): Hex[] => {
-  return (Object.entries(data) as [HexKey, string][]).map(
-    ([hexKey, points]) => ({
-      hexKey,
-      points,
-      explored: false,
-    }),
-  )
+const pasteErrorLabel: { [PE in PasteError]: TranslationKey<'map'> } = {
+  invalidJson: 'map:InvalidJson',
+  invalidHexData: 'map:InvalidHexData',
+  general: 'map:GeneralPasteError',
 }
 
-export const initialHexas = createInitialHexas(hexData)
+const errorToPasteError = (e: Error): PasteError => {
+  if (e instanceof SyntaxError) {
+    return 'invalidJson'
+  }
 
-export default MapPage
+  if (e instanceof ZodError) {
+    return 'invalidHexData'
+  }
+
+  return 'general'
+}

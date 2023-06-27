@@ -4,8 +4,8 @@ import {
   weightedRandom,
 } from '../../functions/dice.functions'
 import { getFormattedVillageName } from '../../functions/village-name.functions'
+import { ValidLanguage } from '../../hooks/useValidLanguage'
 import { Gender } from '../../models/gender.model'
-import { ValidLanguage } from '../../models/language.model'
 
 import { humanNames } from './data/name.data'
 

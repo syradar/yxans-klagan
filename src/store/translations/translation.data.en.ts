@@ -88,6 +88,11 @@ export const translationsEn = {
   common: {
     Page: 'Page',
     GMBook: 'GM',
+    gameSource: {
+      gameSource: 'Source',
+      ravland: 'Ravland',
+      bitterReach: 'Bitter Reach',
+    },
     Empty: '',
     Kin: {
       Human: {
@@ -921,11 +926,23 @@ export const translationsEn = {
     'Popover-Explored': 'Explored',
     'Popover-Unexplored': 'Unexplored',
     InvalidJson: 'Invalid JSON',
-    NotObject: 'JSON was not an object',
-    NoHexesProp: "JSON did not contain 'hexes' property",
-    HexesNotArray: "Property 'hexes' was not an array",
-    InvalidHexData:
-      'Hex Data did not look like: { hexKey: HexKey, explored: boolean}',
+    InvalidHexData: `Hex Data did not look like: {
+        version: 2,
+        source: 'ravland' | 'bitterReach',
+        fogOfWar: boolean,
+        maps: {
+          ravland: {
+            hasExploredHexes: boolean,
+            hexes: { hexKey: 'A10' | 'A12' | ..., explored: boolean}[],
+            selectedHex: boolean | undefined,
+          },
+          bitterReach: {
+            hasExploredHexes: boolean,
+            hexes: { hexKey: 'A10' | 'A12' | ..., explored: boolean}[],
+            selectedHex: boolean | undefined,
+          },
+        },
+      }`,
     GeneralPasteError: 'Unknown Paste Error',
     FogOfWar_On: 'Turn off Fog of War',
     FogOfWar_Off: 'Turn on Fog of War',

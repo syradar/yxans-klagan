@@ -4,8 +4,8 @@ import {
   WeightedChoice,
   weightedRandom,
 } from '../../functions/dice.functions'
-import { ValidLanguage } from '../../models/language.model'
 import { createRandomVillageName } from '../village/village-name'
+import { ValidLanguage } from '../../hooks/useValidLanguage'
 
 export type Gender = 'male' | 'female'
 export const randomGender = (): Gender => choose(['male', 'female'])

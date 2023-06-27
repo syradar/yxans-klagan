@@ -1,4 +1,4 @@
-import { ValidLanguage } from '../../models/language.model'
+import { ValidLanguage } from '../../hooks/useValidLanguage'
 import { Translations } from './translation.model'
 
 export async function loadTranslations(

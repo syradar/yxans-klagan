@@ -13,6 +13,8 @@ export type ParchmentButtonProps = AriaButtonProps &
       | 'danger'
       | 'ghost'
       | 'ghost-secondary'
+      | 'sourceRavland'
+      | 'sourceBitterReach'
     forwardedRef?: React.Ref<HTMLButtonElement>
     fullWidth?: boolean
   }
@@ -56,41 +58,46 @@ export const ParchmentButton = (props: ParchmentButtonProps) => {
               : ''
           }
           ${
-            !isDisabled && buttonType === 'primary'
-              ? 'border-green-800 bg-green-600 group-hover:border-green-800 group-hover:bg-green-800'
+            !isDisabled
+              ? {
+                  primary:
+                    'border-green-800 bg-green-600 group-hover:border-green-800 group-hover:bg-green-800',
+                  secondary:
+                    'border-amber-800 bg-amber-800 group-hover:border-amber-900 group-hover:bg-amber-900',
+                  ghost:
+                    'border-amber-800 bg-transparent text-amber-800 group-hover:border-amber-900 group-hover:bg-amber-100',
+                  'ghost-secondary':
+                    'border-amber-800 bg-transparent text-amber-800 group-hover:border-amber-900 group-hover:bg-amber-100',
+                  danger:
+                    'border-rose-800 bg-rose-600 group-hover:border-rose-800 group-hover:bg-rose-800',
+                  sourceRavland:
+                    'source-bg source-bg-ravland border-emerald-800 group-hover:border-emerald-800 group-hover:text-white',
+                  sourceBitterReach:
+                    'source-bg source-bg-bitterreach border-sky-500 group-hover:border-sky-700 group-hover:text-white',
+                }[buttonType] ?? ''
               : ''
           }
-          ${
-            !isDisabled && buttonType === 'secondary'
-              ? 'border-amber-800 bg-amber-800 group-hover:border-amber-900 group-hover:bg-amber-900'
-              : ''
-          }
-          ${
-            !isDisabled && buttonType === 'ghost'
-              ? 'border-amber-800 bg-transparent text-amber-800 group-hover:border-amber-900 group-hover:bg-amber-100'
-              : ''
-          }
-            ${
-              !isDisabled && buttonType === 'danger'
-                ? 'border-rose-800 bg-rose-600 group-hover:border-rose-800 group-hover:bg-rose-800'
-                : ''
-            }
-
           `}
           style={{ filter: `url(#button-filter-${options.id})` }}
         ></div>
         <div
-          className={`
-        z-10 col-start-1 col-end-2 row-start-1 row-end-2 flex items-center gap-2 font-medium
+          className={`z-10 col-start-1 col-end-2 row-start-1 row-end-2
+          flex items-center gap-2 font-medium transition-colors
         ${small ? 'px-3 py-1' : 'px-4 py-2'}
         ${isDisabled ? 'text-gray-600' : ''}
         ${
           !isDisabled &&
-          (buttonType === 'primary' ||
-            buttonType === 'secondary' ||
-            buttonType === 'danger')
-            ? 'text-white'
-            : ''
+          {
+            primary: 'text-white',
+            secondary: 'text-white',
+            danger: 'text-white',
+            sourceRavland:
+              'source-text text-emerald-800 group-hover:text-white',
+            sourceBitterReach:
+              'source-text text-sky-800 group-hover:text-white',
+            ghost: '',
+            'ghost-secondary': '',
+          }[buttonType]
         }
         ${!isDisabled && buttonType === 'ghost' ? 'text-amber-900' : ''}
         `}

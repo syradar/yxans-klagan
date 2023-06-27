@@ -89,6 +89,11 @@ export const translationsSv: Translations = {
   common: {
     Page: 'Sida',
     GMBook: 'SL',
+    gameSource: {
+      gameSource: 'Källa',
+      ravland: 'Ravland',
+      bitterReach: 'Bittermarken',
+    },
     Empty: '',
     Kin: {
       Human: {
@@ -1010,11 +1015,23 @@ export const translationsSv: Translations = {
     'Popover-Explored': 'Utforskad',
     'Popover-Unexplored': 'Ej utforskad',
     InvalidJson: 'Ogiltig JSON',
-    NotObject: 'JSON var inte ett object',
-    NoHexesProp: "JSON hade inget fält 'hexes'",
-    HexesNotArray: "Fältet 'hexes' var inte en array",
-    InvalidHexData:
-      'Hex Data såg inte ut som: { hexKey: HexKey, explored: boolean}',
+    InvalidHexData: `Hex Data såg inte ut som: {
+        version: 2,
+        source: 'ravland' | 'bitterReach',
+        fogOfWar: boolean,
+        maps: {
+          ravland: {
+            hasExploredHexes: boolean,
+            hexes: { hexKey: 'A10' | 'A12' | ..., explored: boolean}[],
+            selectedHex: boolean | undefined,
+          },
+          bitterReach: {
+            hasExploredHexes: boolean,
+            hexes: { hexKey: 'A10' | 'A12' | ..., explored: boolean}[],
+            selectedHex: boolean | undefined,
+          },
+        },
+      }`,
     GeneralPasteError: 'Okänt inklistringsfel',
     FogOfWar_On: 'Slå av krigsdimma',
     FogOfWar_Off: 'Slå på krigsdimma',

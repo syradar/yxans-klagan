@@ -12,6 +12,9 @@ import {
 import { notNullish } from '../../functions/utils.functions'
 import { ValidLanguage } from '../../hooks/useValidLanguage'
 
+// TODO: Store as Record<TranslationKey, string> instead?
+// * That way we don't need to traverse the object to get the translation.
+
 interface TranslationState {
   translations: Record<
     ValidLanguage,
@@ -35,12 +38,8 @@ const initialState: TranslationState = {
 
 const translationSlice = createSlice({
   name: 'translation',
-  // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    // setLanguage(state, action: PayloadAction<ValidLanguage>) {
-    //   state.currentLanguage = action.payload
-    // },
     setTranslations(
       state,
       action: PayloadAction<{
@@ -58,14 +57,6 @@ const translationSlice = createSlice({
       }
     },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(setTranslationsAsync.pending, (state, action) => {
-  //     state.translations[action.meta.arg] = {
-  //       translations: undefined,
-  //       status: 'loading',
-  //     }
-  //   })
-  // },
 })
 
 export const setTranslationsAsync = createAsyncThunk<
@@ -97,8 +88,6 @@ export const initTranslations = setTranslationsAsync({
   source: 'init',
 })
 
-// export const { } = translationSlice.actions
-
 export default translationSlice.reducer
 
 export const selectTranslations = (state: RootState): Option<Translations> => {
@@ -118,7 +107,7 @@ export const selectTranslateFunction = <T extends Namespace>(nss: T[]) => {
     const translations = selectTranslations(state)
 
     if (!translations.some) {
-      console.log('found no translations')
+      console.error('found no translations')
 
       return (key: TranslationKey<T>) => key
     }

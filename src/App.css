@@ -164,3 +164,45 @@ main {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.source-text {
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 1);
+  transition: text-shadow 0.25s cubic-bezier(0.07, 0.95, 0, 1);
+}
+.group:hover .source-text {
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5), 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+.source-bg {
+  background: radial-gradient(
+    circle at 50% -25%,
+    var(--from-color, hsl(197, 100%, 90%)) 0%,
+    var(--via-color, hsl(197, 100%, 90%)) 50%,
+    var(--to-color, hsl(197, 100%, 80%)) 100%
+      /* linear-gradient(
+    180deg,
+    var(--from-color, hsl(197, 100%, 90%)) 0%,
+    var(--via-color, hsl(197, 100%, 90%)) 50%,
+    var(--to-color, hsl(197, 100%, 80%)) 100%
+    */
+  );
+  background-size: 100% 200%;
+  transition: background-position 0.25s cubic-bezier(0.07, 0.95, 0, 1);
+  background-position: 100% 0%;
+}
+
+.group:hover .source-bg {
+  background-position: 100% 100%;
+}
+
+.source-bg-bitterreach {
+  --from-color: #bae6fd;
+  --via-color: #7dd3fc;
+  --to-color: #0ea5e9;
+}
+
+.source-bg-ravland {
+  --from-color: #a7f3d0;
+  --via-color: #6ee7b7;
+  --to-color: #16a34a;
+}

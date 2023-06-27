@@ -2,7 +2,7 @@ import { Err, Ok, Result } from 'ts-results'
 import { range } from '../functions/array.functions'
 import { TranslationKey } from '../store/translations/translation.model'
 
-const monthIndices = [0, 1, 2, 3, 4, 5, 6, 7] as const
+export const monthIndices = [0, 1, 2, 3, 4, 5, 6, 7] as const
 export const isMonthIndex = (val: number): val is MonthIndex =>
   monthIndices.includes(val as MonthIndex)
 
