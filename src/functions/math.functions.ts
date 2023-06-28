@@ -1,4 +1,4 @@
-import { Err, Ok, Option, Result } from 'ts-results'
+import { Err, Ok, Result } from 'ts-results'
 
 export const min = (minVal: number) => (val: number) => {
   const nanError = `value was Nan`
