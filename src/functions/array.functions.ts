@@ -1,3 +1,5 @@
+import { None, Option, Some } from 'ts-results'
+
 export const range = (val: number): readonly number[] => {
   const keys = [...Array(val).keys()]
 
@@ -43,3 +45,13 @@ export const sortByProperty = <T>(
   arr: T[],
   order: 'asc' | 'desc' = 'desc',
 ): T[] => [...arr].sort(propertyComparator(key, order))
+
+export const head = <T>(arr: T[]): Option<T> => {
+  const item = arr[0]
+
+  if (item === undefined) {
+    return None
+  }
+
+  return Some(item)
+}
