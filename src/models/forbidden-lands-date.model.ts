@@ -1,6 +1,8 @@
 import { Err, Ok, Result } from 'ts-results'
 import { range } from '../functions/array.functions'
 import { TranslationKey } from '../store/translations/translation.model'
+import { padZero2, padZero4 } from '../functions/string-format.functions'
+import { clamp } from '../functions/math.functions'
 
 export const monthIndices = [0, 1, 2, 3, 4, 5, 6, 7] as const
 export const isMonthIndex = (val: number): val is MonthIndex =>
@@ -60,16 +62,18 @@ const isValidMonthNumber = (
   return Ok(monthNumber)
 }
 
-const daysInMonth: Readonly<Record<MonthIndex, 45 | 46>> = Object.freeze({
-  0: 46,
-  1: 45,
-  2: 46,
-  3: 46,
-  4: 46,
-  5: 45,
-  6: 46,
-  7: 45,
-})
+export const daysInMonth: Readonly<Record<MonthIndex, 45 | 46>> = Object.freeze(
+  {
+    0: 46,
+    1: 45,
+    2: 46,
+    3: 46,
+    4: 46,
+    5: 45,
+    6: 46,
+    7: 45,
+  },
+)
 
 export const dayLabelDict: Readonly<
   Record<DayIndex, TranslationKey<'calendar'>>
@@ -190,6 +194,9 @@ export type ForbiddenLandsDateSerializable = {
 export type ForbiddenLandsDate = ForbiddenLandsDateSerializable & {
   readonly toString: () => string
   readonly format: () => string
+  readonly equals: (fbl2: ForbiddenLandsDateSerializable) => boolean
+  readonly dayIndex: DayIndex
+  readonly serialize: () => ForbiddenLandsDateSerializable
 }
 
 export class ForbiddenLandsDateClass implements ForbiddenLandsDate {
@@ -197,6 +204,7 @@ export class ForbiddenLandsDateClass implements ForbiddenLandsDate {
   readonly month: MonthNumber
   readonly monthIndex: MonthIndex
   readonly day: number
+  readonly dayIndex: DayIndex
 
   constructor(
     date: ForbiddenLandsDateSerializable | ForbiddenLandsDate | string,
@@ -215,6 +223,41 @@ export class ForbiddenLandsDateClass implements ForbiddenLandsDate {
     this.month = date.month
     this.monthIndex = date.monthIndex
     this.day = date.day
+
+    this.dayIndex = this.calculateDayIndex(this.year, this.monthIndex, this.day)
+  }
+  calculateDayIndex(
+    year: number,
+    monthIndex: MonthIndex,
+    day: number,
+  ): DayIndex {
+    const dayIndexDelta = day - 1
+    const yearDelta = year - DEFAULT_START_YEAR
+
+    const fullMonths = clamp(monthIndex - 1, 0, 7).unwrapOr(0)
+
+    const monthDelta = range(fullMonths).reduce(
+      (acc, monthIndex) => {
+        if (!isMonthIndex(monthIndex)) {
+          return acc
+        }
+
+        const days = daysInMonth[monthIndex]
+
+        return acc + days
+      },
+
+      0,
+    )
+
+    const total = dayIndexDelta + monthDelta + yearDelta
+    const dayIndex = total % 7
+
+    if (!isDayIndex(dayIndex)) {
+      return 0
+    }
+
+    return dayIndex
   }
 
   toString(): string {
@@ -222,7 +265,9 @@ export class ForbiddenLandsDateClass implements ForbiddenLandsDate {
   }
 
   format(): string {
-    return `${this.year} ${this.month} ${this.day}`
+    return `${padZero4(this.year)}-${padZero2(this.month)}-${padZero2(
+      this.day,
+    )}`
   }
 
   serialize(): ForbiddenLandsDateSerializable {
@@ -232,6 +277,15 @@ export class ForbiddenLandsDateClass implements ForbiddenLandsDate {
       monthIndex: this.monthIndex,
       day: this.day,
     }
+  }
+
+  equals(fbl2: ForbiddenLandsDateSerializable): boolean {
+    return (
+      this.year === fbl2.year &&
+      this.month === fbl2.month &&
+      this.monthIndex === fbl2.monthIndex &&
+      this.day === fbl2.day
+    )
   }
 
   static deserialize(date: ForbiddenLandsDateSerializable): ForbiddenLandsDate {

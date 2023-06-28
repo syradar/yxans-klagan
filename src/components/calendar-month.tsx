@@ -5,9 +5,6 @@ import { CalendarFillerDays } from './calendar-filler-day'
 
 interface CalendarMonthProps {
   month: CalendarMonth
-  // onMonthUpdate: (month: Month) => void
-  // temperatureUnit: TemperatureUnit
-  // showWeather: boolean
 }
 
 export const CalendarMonthDisplay = ({ month }: CalendarMonthProps) => {

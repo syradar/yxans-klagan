@@ -42,7 +42,9 @@ export const translationsSv: Translations = {
     'Weather-High': 'Högt',
     'Weather-Low': 'Lågt',
     Title: 'Kalender',
+    date: 'Datum',
     Year: 'År',
+    Month: 'Månad',
     AS: 'E.S. (Efter skiftet)',
     C: 'Celsius',
     F: 'Fahrenheit',
@@ -82,6 +84,8 @@ export const translationsSv: Translations = {
     HideAll: 'Kollapsa månader',
     previousMonth: 'Föregående månad',
     nextMonth: 'Nästa månad',
+    previousDay: 'Föregående dag',
+    nextDay: 'Nästa dag',
     'Options-StartingYear': 'Välj startår',
     'Options-StartingYearWarning':
       'Varning: Genom att ändra startår kommer du att rensa kalendern!',
