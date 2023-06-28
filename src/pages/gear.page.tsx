@@ -90,7 +90,7 @@ const GearCard = ({ gear }: { gear: TradeGoodsViewModel }) => {
   const t = useAppSelector(selectTranslateFunction(['gear', 'common']))
 
   return (
-    <Parchment small key={gear.name.id}>
+    <Parchment padding="sm" key={gear.name.id}>
       <Stack.Vertical>
         <Stack.Horizontal distribute wrap>
           <div>
@@ -155,7 +155,7 @@ const ServiceCard = ({ service }: { service: ServiceViewModel }) => {
   const t = useAppSelector(selectTranslateFunction(['gear', 'common']))
 
   return (
-    <Parchment small key={service.name.id}>
+    <Parchment padding="sm" key={service.name.id}>
       <Stack.Vertical>
         <Stack.Horizontal distribute wrap>
           <div>

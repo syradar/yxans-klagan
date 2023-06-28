@@ -98,7 +98,7 @@ export const MapPopover = ({
       }}
     >
       {options && (
-        <Parchment small>
+        <Parchment padding="sm">
           <div className="mb-3 text-2xl">
             {options.hex.hexKey}:{' '}
             {options.hex.explored

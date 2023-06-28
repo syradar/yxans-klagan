@@ -1,13 +1,12 @@
 import { nanoid } from 'nanoid'
-import { useState } from 'react'
+import { ComponentPropsWithoutRef, useState } from 'react'
 import { getRandomInt } from '../functions/dice.functions'
 
-type ParchmentProps = {
-  children?: React.ReactNode
-  small?: boolean
+type ParchmentProps = ComponentPropsWithoutRef<'div'> & {
+  padding?: 'xs' | 'sm' | 'md'
 }
 
-export const Parchment = ({ children, small }: ParchmentProps) => {
+export const Parchment = ({ children, padding = 'md' }: ParchmentProps) => {
   const [options] = useState({
     baseFrequency: getRandomInt(3, 8) / 100,
     numOctaves: getRandomInt(2, 5),
@@ -22,7 +21,15 @@ export const Parchment = ({ children, small }: ParchmentProps) => {
           className="absolute inset-0 z-0  border-2 border-amber-900/25 bg-[#fffdf6] shadow-md"
           style={{ filter: `url(#filter-${options.id})` }}
         ></div>
-        <div className={`relative ${small ? 'p-4' : 'p-6'}`}>{children}</div>
+        <div
+          className={`relative
+        ${padding === 'xs' && 'p-2'}
+        ${padding === 'sm' && 'p-4'}
+        ${padding === 'md' && 'p-6'}
+        `}
+        >
+          {children}
+        </div>
       </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
