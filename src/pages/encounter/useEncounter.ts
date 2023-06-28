@@ -5,6 +5,7 @@ import { getRandomEncounter } from '../../functions/encounter.functions'
 import { EncounterViewModel } from '../../models/encounter.model'
 import { Terrain } from '../../models/terrain.model'
 import { ValidLanguage } from '../../hooks/useValidLanguage'
+import { head } from '../../functions/array.functions'
 
 type EncounterViewModelWithId = EncounterViewModel & { keyId: string }
 
@@ -30,7 +31,9 @@ export const useEncounter = () => {
   const [encounterLog, setEncounterLog] = useState<EncounterLogEntry[]>([])
 
   const generateNewEncounter = (terrain: Terrain, lang: ValidLanguage) => {
-    const isNewTerrain = encounterLog[0]?.terrain !== terrain ?? true
+    const isNewTerrain = head(encounterLog)
+      .map((el) => el.terrain !== terrain)
+      .unwrapOr(true)
 
     const generatedEncounter = newEncounter(terrain, lang)
 
