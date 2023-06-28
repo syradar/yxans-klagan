@@ -15,11 +15,8 @@ export const useValidLanguage = () => {
   const [language, _setLanguageState] = useState<ValidLanguage>('en')
 
   useEffect(() => {
-    if (
-      lsLang !== language &&
-      validLanguages.includes(lsLang as ValidLanguage)
-    ) {
-      _setLanguageState(lsLang as ValidLanguage)
+    if (lsLang !== language && validLanguages.includes(lsLang)) {
+      _setLanguageState(lsLang)
     }
   }, [lsLang, language])
 
