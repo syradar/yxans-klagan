@@ -1,4 +1,3 @@
-import { featureToggles } from '../App'
 import { selectCurrentDate } from '../features/calendar/calendar-slice'
 import { useAppSelector } from '../store/store.hooks'
 import { selectTranslateFunction } from '../store/translations/translation.slice'
@@ -10,13 +9,7 @@ type DayNameProps = {
 const DayName = ({ children, isCurrentDate }: DayNameProps) => (
   <div
     className={`hidden items-center justify-center border-b border-b-neutral-700 p-2 py-1 lg:flex
-  ${
-    featureToggles.showNewCalendar
-      ? isCurrentDate
-        ? 'font-bold'
-        : 'font-medium'
-      : 'font-bold uppercase'
-  }`}
+  ${isCurrentDate ? 'font-bold' : 'font-medium'}`}
   >
     {children}
   </div>

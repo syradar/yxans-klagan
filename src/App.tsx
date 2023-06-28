@@ -20,10 +20,6 @@ import {
   selectTranslateFunction,
 } from './store/translations/translation.slice'
 
-export const featureToggles = {
-  showNewCalendar: false,
-} as const
-
 const AppToolbar = () => {
   const t = useAppSelector(selectTranslateFunction(['calendar']))
   const { currentDate, quarters } = useAppSelector(selectCurrentDate)
@@ -31,7 +27,7 @@ const AppToolbar = () => {
 
   return (
     <div className="flex flex-wrap  gap-4 bg-amber-50 px-4 py-2 shadow md:grid-cols-4">
-      <div className="flex min-w-[200px] flex-auto items-center gap-2">
+      <div className="flex min-w-[200px] max-w-[300px] flex-auto items-center gap-2">
         <div>{currentDate.format()}</div>
 
         <DayCounter
@@ -70,7 +66,7 @@ const App = () => {
         <AppMenu></AppMenu>
         <Suspense fallback={<div>Loading...</div>}>
           <main className="block  max-h-screen w-full overflow-auto p-0">
-            {featureToggles.showNewCalendar ? <AppToolbar /> : null}
+            <AppToolbar />
             <div className="px-2 py-8 lg:px-4">{routes}</div>
           </main>
         </Suspense>
