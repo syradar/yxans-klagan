@@ -40,7 +40,9 @@ export const translationsEn = {
     'Weather-High': 'High',
     'Weather-Low': 'Low',
     Title: 'Calendar',
+    date: 'Date',
     Year: 'Year',
+    Month: 'Month',
     AS: 'A.S. (After the shift)',
     C: 'Celsius',
     F: 'Fahrenheit',
@@ -80,6 +82,8 @@ export const translationsEn = {
     HideAll: 'Collapse months',
     previousMonth: 'Previous month',
     nextMonth: 'Next month',
+    previousDay: 'Previous day',
+    nextDay: 'Next day',
     'Options-StartingYear': 'Choose starting year',
     'Options-StartingYearWarning':
       'Warning: By changing the starting year the calender will reset!',

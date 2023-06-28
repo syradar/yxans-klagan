@@ -1,12 +1,9 @@
+import { featureToggles } from '../App'
 import {
-  selectQuarter,
+  selectCalendarDay,
   toggleQuarter,
 } from '../features/calendar/calendar-slice'
-import {
-  CalendarDay,
-  ForbiddenLandsDateSerializable,
-  dayLabelDict,
-} from '../models/forbidden-lands-date.model'
+import { CalendarDay, dayLabelDict } from '../models/forbidden-lands-date.model'
 import { useAppDispatch, useAppSelector } from '../store/store.hooks'
 import { selectTranslateFunction } from '../store/translations/translation.slice'
 import { Pancake, Train } from './Stack'
@@ -18,17 +15,19 @@ interface CalendarDayProps {
 
 export const CalendarDayDisplay = ({ day }: CalendarDayProps) => {
   const t = useAppSelector(selectTranslateFunction(['calendar']))
-  const date: ForbiddenLandsDateSerializable = {
-    day: day.number,
-    month: day.monthNumber,
-    year: day.year,
-    monthIndex: day.month,
-  }
-  const quarters = useAppSelector(selectQuarter(date))
+
+  const { quarters, isCurrentDate, dayDate } = useAppSelector(
+    selectCalendarDay(day),
+  )
+
   const dispatch = useAppDispatch()
 
   return (
-    <div className="border p-2">
+    <div
+      className={`border p-2 ${
+        featureToggles.showNewCalendar && isCurrentDate ? 'bg-amber-50' : ''
+      }`}
+    >
       <Pancake spacing="small">
         <Pancake spacing="none" wrap={false}>
           <div className="lg:hidden">{t(dayLabelDict[day.index])}</div>
@@ -40,7 +39,7 @@ export const CalendarDayDisplay = ({ day }: CalendarDayProps) => {
         <div className="w-full">
           <DayCounter
             quarters={quarters}
-            onClick={() => dispatch(toggleQuarter(date))}
+            onPress={() => dispatch(toggleQuarter(dayDate.serialize()))}
           ></DayCounter>
         </div>
         {/* {day.moon && (

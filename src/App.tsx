@@ -5,13 +5,59 @@ import './App.css'
 import { Menu, appRoutes, menuRoutes } from './Menu'
 import { ParchmentButton } from './components/ParchmentButton'
 import Stack from './components/Stack'
+import { DayCounter } from './components/day-counter'
 import { LanguageSwitcher } from './components/language-switcher'
+import {
+  nextDay,
+  previousDay,
+  selectCurrentDate,
+  toggleQuarter,
+} from './features/calendar/calendar-slice'
 import { YxansKlaganLogo } from './logo'
 import { useAppDispatch, useAppSelector } from './store/store.hooks'
 import {
   initTranslations,
   selectTranslateFunction,
 } from './store/translations/translation.slice'
+
+export const featureToggles = {
+  showNewCalendar: false,
+} as const
+
+const AppToolbar = () => {
+  const t = useAppSelector(selectTranslateFunction(['calendar']))
+  const { currentDate, quarters } = useAppSelector(selectCurrentDate)
+  const dispatch = useAppDispatch()
+
+  return (
+    <div className="flex flex-wrap  gap-4 bg-amber-50 px-4 py-2 shadow md:grid-cols-4">
+      <div className="flex min-w-[200px] flex-auto items-center gap-2">
+        <div>{currentDate.format()}</div>
+
+        <DayCounter
+          quarters={quarters}
+          onPress={() => dispatch(toggleQuarter(currentDate))}
+        />
+      </div>
+      <div className="flex flex-auto justify-between gap-2 sm:justify-end">
+        <ParchmentButton
+          small
+          buttonType="ghost"
+          onPress={() => dispatch(previousDay())}
+        >
+          {t('calendar:previousDay')}
+        </ParchmentButton>
+        <ParchmentButton
+          small
+          buttonType="ghost"
+          onPress={() => dispatch(nextDay())}
+        >
+          {t('calendar:nextDay')}
+        </ParchmentButton>
+      </div>
+    </div>
+  )
+}
 
 const App = () => {
   const routes = useRoutes(appRoutes)
@@ -23,8 +69,9 @@ const App = () => {
       <div className="flex flex-col lg:min-h-screen lg:flex-row">
         <AppMenu></AppMenu>
         <Suspense fallback={<div>Loading...</div>}>
-          <main className="max-h-screen w-full overflow-auto px-2 py-8 lg:px-4">
-            {routes}
+          <main className="block  max-h-screen w-full overflow-auto p-0">
+            {featureToggles.showNewCalendar ? <AppToolbar /> : null}
+            <div className="px-2 py-8 lg:px-4">{routes}</div>
           </main>
         </Suspense>
       </div>
