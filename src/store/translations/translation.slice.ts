@@ -12,9 +12,6 @@ import {
 import { notNullish } from '../../functions/utils.functions'
 import { ValidLanguage } from '../../hooks/useValidLanguage'
 
-// TODO: Store as Record<TranslationKey, string> instead?
-// * That way we don't need to traverse the object to get the translation.
-
 interface TranslationState {
   translations: Record<
     ValidLanguage,
