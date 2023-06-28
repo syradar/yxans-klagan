@@ -31,7 +31,7 @@ import { safeJSONParse } from '../../store/persist/json-parsing'
 import { useAppDispatch, useAppSelector } from '../../store/store.hooks'
 import { TranslationKey } from '../../store/translations/translation.model'
 import { selectTranslateFunction } from '../../store/translations/translation.slice'
-import Map from './map'
+import ForbiddenLandsMap from './ForbiddenLandsMap'
 import { MapPopover, MapPopoverOptions } from './map-popover'
 import { Hex } from './map.model'
 import { Polygon } from './polygon'
@@ -265,7 +265,7 @@ export const MapPage = () => {
               onExploreChanged={(hex) => dispatch(updateHex(hex))}
               onHide={() => dispatch(unsetSelectedHex())}
             ></MapPopover>
-            <Map fogOfWar={fogOfWar}>
+            <ForbiddenLandsMap fogOfWar={fogOfWar}>
               {hexes.map((hex) => (
                 <Polygon
                   key={hex.hexKey}
@@ -275,7 +275,7 @@ export const MapPage = () => {
                   onClick={(e) => handleHexClick(e, hex)}
                 />
               ))}
-            </Map>
+            </ForbiddenLandsMap>
           </div>
         </Parchment>
       </div>

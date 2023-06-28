@@ -1,11 +1,14 @@
 import { selectSource } from '../../features/map/map-slice'
 import { useAppSelector } from '../../store/store.hooks'
 
-type MapProps = {
+type ForbiddenLandsMapProps = {
   fogOfWar: boolean
   children: React.ReactNode
 }
-export const Map = ({ fogOfWar, children }: MapProps) => {
+export const ForbiddenLandsMap = ({
+  fogOfWar,
+  children,
+}: ForbiddenLandsMapProps) => {
   const source = useAppSelector(selectSource)
 
   return (
@@ -38,4 +41,4 @@ export const Map = ({ fogOfWar, children }: MapProps) => {
   )
 }
 
-export default Map
+export default ForbiddenLandsMap
