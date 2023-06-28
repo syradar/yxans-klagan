@@ -1,4 +1,3 @@
-import { featureToggles } from '../App'
 import {
   selectCalendarDay,
   toggleQuarter,
@@ -23,16 +22,18 @@ export const CalendarDayDisplay = ({ day }: CalendarDayProps) => {
   const dispatch = useAppDispatch()
 
   return (
-    <div
-      className={`border p-2 ${
-        featureToggles.showNewCalendar && isCurrentDate ? 'bg-amber-50' : ''
-      }`}
-    >
+    <div className={`border p-2`}>
       <Pancake spacing="small">
         <Pancake spacing="none" wrap={false}>
           <div className="lg:hidden">{t(dayLabelDict[day.index])}</div>
           <Train spacing="small">
-            <div>{day.number}</div>
+            <div
+              className={`flex h-5 w-5 items-center justify-center rounded-full
+            ${isCurrentDate ? 'bg-green-500 font-medium text-white' : ''}
+            `}
+            >
+              {day.number}
+            </div>
             {/* <div>{getWeatherIcon(day)}</div> */}
           </Train>
         </Pancake>
