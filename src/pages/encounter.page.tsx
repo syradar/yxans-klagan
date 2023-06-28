@@ -72,7 +72,7 @@ const EncounterLog = ({
   return (
     <Stack.Vertical>
       {encounterLog.map((entry) => (
-        <Parchment key={entry.id} small>
+        <Parchment key={entry.id} padding="sm">
           <div>
             <div className="yx-prose text-lg">
               {t(`common:Terrain.${entry.terrain}`)}

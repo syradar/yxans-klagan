@@ -246,7 +246,7 @@ export const MapPage = () => {
       ) : null}
 
       <div>
-        <Parchment>
+        <Parchment padding="xs">
           <div ref={parchmentRef} className="relative">
             <div
               className="pointer-events-none absolute z-10 flex select-none items-center justify-center text-center text-[0.9vw] font-bold leading-none text-white"
