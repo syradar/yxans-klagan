@@ -78,6 +78,8 @@ export const translationsEn = {
     HideMonth: 'Hide month',
     ShowAll: 'Expand months',
     HideAll: 'Collapse months',
+    previousMonth: 'Previous month',
+    nextMonth: 'Next month',
     'Options-StartingYear': 'Choose starting year',
     'Options-StartingYearWarning':
       'Warning: By changing the starting year the calender will reset!',

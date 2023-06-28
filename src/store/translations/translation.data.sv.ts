@@ -80,6 +80,8 @@ export const translationsSv: Translations = {
     HideMonth: 'Hide månad',
     ShowAll: 'Expandera månader',
     HideAll: 'Kollapsa månader',
+    previousMonth: 'Föregående månad',
+    nextMonth: 'Nästa månad',
     'Options-StartingYear': 'Välj startår',
     'Options-StartingYearWarning':
       'Varning: Genom att ändra startår kommer du att rensa kalendern!',
