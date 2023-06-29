@@ -1,6 +1,6 @@
-import { chunkArray } from '../functions/array.functions'
-import { withId, WithId } from '../functions/utils.functions'
-import { AttributeCheckbox } from './attribute-cheeckbox'
+import { AttributeCheckbox } from '../../../components/attribute-cheeckbox'
+import { chunkArray } from '../../../functions/array.functions'
+import { WithId, withId } from '../../../functions/utils.functions'
 
 type MonsterAttributeProps = {
   label: string
@@ -15,7 +15,7 @@ export const MonsterAttribute = ({ label, values }: MonsterAttributeProps) => {
       </label>
       <div
         id={`monster-${label}-grid`}
-        className="grid max-w-[fit-content] grid-cols-2 gap-x-4 gap-y-1"
+        className="flex max-w-[fit-content] flex-wrap gap-x-4 gap-y-1"
       >
         {chunkArray(values)
           .map(withId)

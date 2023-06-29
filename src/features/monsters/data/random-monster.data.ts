@@ -1,33 +1,34 @@
+import { identity } from 'ramda'
 import {
-  choose,
-  chooseFromChoiceString,
+  WeightedChoice,
+  rollD6,
+  rollD3,
   getRandomInt,
   rollD2,
-  rollD3,
+  choose,
+  chooseFromChoiceString,
   rollD4,
-  rollD6,
-  WeightedChoice,
-} from '../functions/dice.functions'
-import { isEven } from '../functions/math.functions'
-import { id, maybe, validNumber } from '../functions/utils.functions'
+} from '../../../functions/dice.functions'
+import { isEven } from '../../../functions/math.functions'
+import { validNumber, maybe } from '../../../functions/utils.functions'
+import { TranslationKey } from '../../../store/translations/translation.model'
 import {
-  HeadChoiceWithCount,
-  LimbChoicesWithAmount,
-  MonsterArmor,
-  MonsterAttacks,
-  MonsterHome,
-  MonsterLimbs,
-  MonsterMotivation,
   MonsterSize,
-  MonsterTrait,
   MonsterType,
-  MonsterWeakness,
+  MonsterLimbs,
+  LimbChoicesWithAmount,
+  HeadChoiceWithCount,
+  TailChoices,
+  MonsterArmor,
   MovementDistanceFunction,
   MovementType,
+  MonsterHome,
+  MonsterTrait,
+  MonsterWeakness,
+  MonsterMotivation,
   PoisonType,
-  TailChoices,
-} from '../models/monster.model'
-import { TranslationKey } from '../store/translations/translation.model'
+  MonsterAttacks,
+} from '../monster.model'
 
 export const sizes: WeightedChoice<{
   size: MonsterSize
@@ -330,7 +331,7 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
         key: 'monster:Trait.Colorful.Description',
         count: rollD6() + rollD6() + rollD6(),
       }),
-      apply: id,
+      apply: identity,
     },
   },
   {
@@ -345,7 +346,7 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
         }[rollD3()] as TranslationKey<'monster'>,
         count: rollD6() + 2,
       }),
-      apply: id,
+      apply: identity,
     },
   },
   {
@@ -353,7 +354,7 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
     value: {
       name: 'monster:Trait.Regeneration.Name',
       description: () => ({ key: 'monster:Trait.Regeneration.Description' }),
-      apply: id,
+      apply: identity,
     },
   },
   {
@@ -363,7 +364,7 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
       description: () => ({
         key: 'monster:Trait.ResistanceMagic.Description',
       }),
-      apply: id,
+      apply: identity,
     },
   },
   {
@@ -371,7 +372,7 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
     value: {
       name: 'monster:Trait.Camouflage.Name',
       description: () => ({ key: 'monster:Trait.Camouflage.Description' }),
-      apply: id,
+      apply: identity,
     },
   },
   {
@@ -379,7 +380,7 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
     value: {
       name: 'monster:Trait.Fast.Name',
       description: () => ({ key: 'monster:Trait.Fast.Description' }),
-      apply: id,
+      apply: identity,
     },
   },
   {
@@ -417,7 +418,7 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
     value: {
       name: 'monster:Trait.DarkVision.Name',
       description: () => ({ key: 'monster:Trait.DarkVision.Description' }),
-      apply: id,
+      apply: identity,
     },
   },
   {
@@ -466,7 +467,7 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
     value: {
       name: 'monster:Trait.CanSpeak.Name',
       description: () => ({ key: 'monster:Trait.CanSpeak.Description' }),
-      apply: id,
+      apply: identity,
     },
   },
   {
@@ -476,7 +477,7 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
       description: () => ({
         key: 'monster:Trait.PossessedByDemon.Description',
       }),
-      apply: id,
+      apply: identity,
     },
   },
 ]

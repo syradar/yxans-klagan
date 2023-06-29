@@ -225,6 +225,14 @@ export const translationsEn = {
       Dragon: 'Dragon',
       Demon: 'Demon',
     },
+    communityMonster: {
+      giantSpider: {
+        name: 'Giant Spider',
+        description:
+          'Very territorial, guarding its nest so will not follow. When possible will start the fight with an ambush attack towards the tallest enemy',
+      },
+      giantSpiderling: { name: 'Giant Spiderling', description: '' },
+    },
     Direction: {
       North: 'north',
       NorthEast: 'north east',
@@ -955,12 +963,27 @@ export const translationsEn = {
   },
   monster: {
     Title: 'Monsters',
-    BookMonsters: 'Monsters from the book',
+    bookOfMonsters: 'Book of Monsters',
+    backToAllMonsters: 'Table of contents',
+    randomMonster: {
+      title: 'Random Monster',
+      description:
+        'The world is filled with terrible monsters. The most common ones have been written down but most of them can only be described by their random features.',
+      generate: 'Generate Monster',
+    },
+    bookmonsters: {
+      title: 'Monsters from the book',
+      description:
+        'Each monster has the page reference in the GM book to the right.',
+    },
+    communityMonster: {
+      title: 'Community Monsters',
+      description:
+        'Monsters that have been created by passionate people from the community.',
+    },
     TheMonster: 'The monster',
     TheMonsterHas: 'The monster has',
     TheMonsterHave: 'The monster have',
-    GenerateMonster: 'Generate Monster',
-    RandomMonster: 'Random Monster',
     Size: {
       Puny: 'Puny',
       Puny_def: 'Puny',
@@ -1509,6 +1532,31 @@ export const translationsEn = {
         Type: 'Rain of Rocks',
         Description:
           'The creature throws rocks and other scrap items from above. All adventurers within Near range suffer an attack.',
+      },
+      Stab: {
+        Type: 'Stab',
+        Description:
+          'The beast stabs at an adventurer with something sharp like a claw.',
+      },
+      Pounce: {
+        Type: 'Pounce',
+        Description:
+          'The beast leaps at an adventurer within Near range, attempting to knock them to the ground or trip them up. The victim is knocked prone if hit.',
+      },
+      Webshot: {
+        Type: 'Webshot',
+        Description:
+          'The creature shoots a web at all adventurer within Near range. The adventurer is Grappled but can break free by rolling against 6 dice. The web also applies Paralyzing poison of strength 1.',
+      },
+      PiercingShriek: {
+        Type: 'Piercing Shriek',
+        Description:
+          'The creature lets out a piercing shriek that makes a Fear attack against all adventurers within Near range.',
+      },
+      CallTheBrood: {
+        Type: 'Call The Brood',
+        Description:
+          'The creature calls out to its brood, summoning 1D6 of them to its aid.',
       },
       Generic: {
         Type: 'Attack',

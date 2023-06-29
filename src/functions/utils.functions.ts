@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
 import { range } from 'ramda'
 
-export const id = <T>(x: T): T => x
+export const identity = <T>(x: T): T => x
 
 export type Nullish = null | undefined
 

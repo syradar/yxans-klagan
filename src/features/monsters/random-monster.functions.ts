@@ -1,59 +1,60 @@
-import { compose, prop } from 'ramda'
+import { nanoid } from 'nanoid'
+import { createAttributesViewModel } from '../../functions/attributes.functions'
 import {
-  armorChoices,
-  defaultMonsterLimbs,
-  headChoices,
-  homes,
-  limbChoices,
-  monsterAttacks,
-  monsterMotivation,
-  monsterSkillValues,
-  monsterTraits,
-  monsterWeakness,
-  movementTypes,
-  sizes,
-  tailChoices,
-  types,
-} from '../data/random-monster.data'
-import { D3 } from '../models/fbl-dice.model'
-import {
-  HeadChoices,
-  HeadChoiceWithCount,
-  IntermediateRandomMonster,
-  LimbChoicesWithAmount,
-  MonsterArmor,
-  MonsterAttack,
-  MonsterAttackRequirements,
-  MonsterAttacks,
-  MonsterAttackViewModel,
-  MonsterDamageModifiers,
-  MonsterDescription,
-  MonsterDescriptionItemViewModel,
-  MonsterDescriptionViewModel,
-  MonsterHome,
-  MonsterLimbs,
-  MonsterMotivation,
-  MonsterMovement,
-  MonsterSkillListItem,
-  MonsterTrait,
-  MonsterWeakness,
-  RandomMonster,
-  RandomMonsterViewModel,
-  TailChoices,
-} from '../models/monster.model'
-import { MonsterSkillsValues } from '../models/skills.model'
-import { range } from './array.functions'
-import { createAttributesViewModel } from './attributes.functions'
-import {
-  chooseFromChoiceString,
+  weightedRandom,
   rollD3,
   WeightedChoice,
-  weightedRandom,
-  weightedRandomConsume,
   WeightedRandomFunc,
-} from './dice.functions'
-import { maybe, numberToBooleans } from './utils.functions'
-import { TranslationKey } from '../store/translations/translation.model'
+  weightedRandomConsume,
+  chooseFromChoiceString,
+} from '../../functions/dice.functions'
+import { maybe, numberToBooleans } from '../../functions/utils.functions'
+import { D3 } from '../../models/fbl-dice.model'
+import { MonsterSkillsValues } from '../../models/skills.model'
+import { TranslationKey } from '../../store/translations/translation.model'
+import {
+  sizes,
+  types,
+  headChoices,
+  tailChoices,
+  limbChoices,
+  monsterMotivation,
+  monsterTraits,
+  armorChoices,
+  monsterSkillValues,
+  monsterAttacks,
+  defaultMonsterLimbs,
+  movementTypes,
+  homes,
+  monsterWeakness,
+} from './data/random-monster.data'
+import {
+  RandomMonster,
+  RandomMonsterViewModel,
+  LimbChoicesWithAmount,
+  MonsterLimbs,
+  MonsterDescriptionItemViewModel,
+  HeadChoiceWithCount,
+  MonsterMovement,
+  MonsterHome,
+  MonsterMotivation,
+  MonsterTrait,
+  MonsterWeakness,
+  MonsterSkillListItem,
+  TailChoices,
+  HeadChoices,
+  MonsterAttackRequirements,
+  MonsterAttacks,
+  IntermediateRandomMonster,
+  MonsterAttackViewModel,
+  MonsterAttack,
+  MonsterArmor,
+  MonsterDescription,
+  MonsterDescriptionViewModel,
+  MonsterDamageModifiers,
+} from './monster.model'
+import { range } from '../../functions/array.functions'
+import { compose, prop } from 'ramda'
 
 export const createRandomMonster = (): RandomMonster => {
   const { size, strength, damage: sizeDamage } = weightedRandom(sizes).value
@@ -70,6 +71,7 @@ export const createRandomMonster = (): RandomMonster => {
   const traits = [getMonsterTraits(rollD3(), traitsList), hurt].flat()
 
   return {
+    id: nanoid(),
     name: 'common:Empty',
     attributes: { strength: strength(), agility, empathy: 0, wits: 0 },
     size,

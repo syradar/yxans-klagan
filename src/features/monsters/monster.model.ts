@@ -1,16 +1,18 @@
-import { Definition } from '../@types/definition.type'
-import { TranslationKey } from '../store/translations/translation.model'
-import { MonsterAttackRange } from './attack-range'
-import { Attributes, AttributesViewModel } from './attributes.model'
-import { MonsterSkillsValues } from './skills.model'
+import { Definition } from '../../@types/definition.type'
+import { MonsterAttackRange } from '../../models/attack-range'
+import { Attributes, AttributesViewModel } from '../../models/attributes.model'
+import { MonsterSkillsValues } from '../../models/skills.model'
+import { TranslationKey } from '../../store/translations/translation.model'
 
 export interface Monster {
+  id: string
   name: TranslationKey<'common'>
   attributes: Attributes
   pageReference?: number
 }
 
 export interface MonsterViewModel {
+  id: string
   name: TranslationKey<'common'>
   attributes: AttributesViewModel
   pageReference?: number
@@ -246,20 +248,31 @@ export type MonsterDamage = {
   [M in Exclude<MonsterDamageType, 'Poison' | 'TailAttack' | 'Fear'>]?: number
 } & { Poison?: PoisonDamage; Fear?: boolean }
 
-export type MonsterAttack = {
-  type: MonsterAttackType
-  attack?: (rm: IntermediateRandomMonster) => number
-  damage?: (rm: IntermediateRandomMonster) => MonsterDamage
+export type MonsterAttackMinimalContext = Pick<
+  IntermediateRandomMonster,
+  | 'attributes'
+  | 'movement'
+  | 'attackRequirements'
+  | 'limbs'
+  | 'damageModifiers'
+  | 'description'
+  | 'traits'
+  | 'skills'
+>
+export type MonsterAttack<T = MonsterAttackType> = {
+  type: T
+  attack?: (rm: MonsterAttackMinimalContext) => number
+  damage?: (rm: MonsterAttackMinimalContext) => MonsterDamage
   range: MonsterAttackRange
   description: TranslationKey<'monster'>
-  descriptionExtras?: (rm: IntermediateRandomMonster) => { count: number }
-  valid: (rm: IntermediateRandomMonster) => boolean
+  descriptionExtras?: (rm: MonsterAttackMinimalContext) => { count: number }
+  valid: (rm: MonsterAttackMinimalContext) => boolean
   singleUse: boolean
   chance: number
 }
 
-export type MonsterAttackViewModel = {
-  type: MonsterAttackType
+export type MonsterAttackViewModel<T = MonsterAttackType> = {
+  type: T
   attack?: number
   damage?: MonsterDamage
   range: `common:Range.${MonsterAttackRange}` & TranslationKey<'common'>
