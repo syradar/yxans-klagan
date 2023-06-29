@@ -121,7 +121,7 @@ const AppMenu = () => {
             <LanguageSwitcher></LanguageSwitcher>
 
             <a
-              className="mb-4 mt-auto text-center font-medium tracking-wide text-red-700 hover:underline"
+              className="mb-4 mt-auto text-center hover:text-red-700 hover:underline"
               href="https://github.com/syradar/yxans-klagan/issues/new/choose"
             >
               {t('core:GiveFeedback')}

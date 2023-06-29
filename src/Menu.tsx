@@ -2,11 +2,11 @@ import { nanoid } from 'nanoid'
 import { ReactNode, lazy } from 'react'
 import { RouteObject, useLocation, useResolvedPath } from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
-import { Group, GroupProps } from './components/group'
 import { MenuLink } from './components/MenuLink'
 import { Pancake } from './components/Stack'
-import { TranslationKey } from './store/translations/translation.model'
+import { Group, GroupProps } from './components/group'
 import { useAppSelector } from './store/store.hooks'
+import { TranslationKey } from './store/translations/translation.model'
 import { selectTranslateFunction } from './store/translations/translation.slice'
 
 const HomePage = lazy(() => import('./pages/home.page'))
@@ -16,7 +16,9 @@ const FindsPage = lazy(() => import('./pages/finds.page'))
 const GearPage = lazy(() => import('./pages/gear.page'))
 const VillagePage = lazy(() => import('./pages/village/village.page'))
 const MapPage = lazy(() => import('./pages/places/MapPage'))
-const MonstersPage = lazy(() => import('./pages/monsters.page'))
+const MonstersPage = lazy(
+  () => import('./features/monsters/pages/monsters.page'),
+)
 const SessionPage = lazy(() => import('./pages/session.page'))
 const TypicalKinPage = lazy(() => import('./pages/npc/TypicalKinPage'))
 const NameGeneratorPage = lazy(() => import('./pages/npc/NameGeneratorPage'))
@@ -28,6 +30,7 @@ type MenuRoute = {
   readonly label: TranslationKey<'core'>
   readonly element?: ReactNode
   readonly children?: MenuRoute[]
+  readonly showInMenu?: boolean
 }
 
 export const menuRoutes: MenuRoute[] = [
@@ -51,9 +54,35 @@ export const menuRoutes: MenuRoute[] = [
   },
   {
     path: 'monsters',
+    showInMenu: true,
     id: nanoid(),
     label: 'core:menu.Monsters',
     element: <MonstersPage />,
+    children: [
+      {
+        path: '',
+        showInMenu: false,
+        id: nanoid(),
+        label: 'core:menu.Session',
+        element: <MonstersPage />,
+      },
+      {
+        path: ':section',
+        showInMenu: false,
+        id: nanoid(),
+        label: 'core:menu.Session',
+        element: <MonstersPage />,
+        children: [
+          {
+            path: ':monster',
+            showInMenu: false,
+            id: nanoid(),
+            label: 'core:menu.npcs.NPCs',
+            element: <MonstersPage />,
+          },
+        ],
+      },
+    ],
   },
   {
     path: 'calendar',
@@ -131,22 +160,32 @@ export const menuRoutes: MenuRoute[] = [
   },
 ]
 
-export const appRoutes: RouteObject[] = menuRoutes.map((route) => {
-  if (route.children) {
+const createAppRouteRecurisvely = (menuRoutes: MenuRoute[]): RouteObject[] => {
+  return menuRoutes.map((route) => {
+    if (route.children && route.children.length > 0) {
+      const childRoutes = createAppRouteRecurisvely(route.children)
+
+      const children = childRoutes.length === 0 ? undefined : childRoutes
+      const element =
+        route.element && route.children.every((c) => c.showInMenu === false)
+          ? route.element
+          : undefined
+
+      return {
+        path: route.path,
+        children,
+        element,
+      }
+    }
+
     return {
       path: route.path,
-      children: route.children.map((child) => ({
-        path: child.path,
-        element: child.element,
-      })),
+      element: route.element,
     }
-  }
+  })
+}
 
-  return {
-    path: route.path,
-    element: route.element,
-  }
-})
+export const appRoutes: RouteObject[] = createAppRouteRecurisvely(menuRoutes)
 
 type MenuProps = {
   menuRoutes: MenuRoute[]
@@ -159,9 +198,13 @@ export const Menu = ({ menuRoutes, close }: MenuProps) => {
   return (
     <>
       {menuRoutes
-        .filter((mr) => mr.path !== '')
+        .filter((mr) => mr.path !== '' || mr.showInMenu !== false)
         .map((route) => {
-          if (route.children) {
+          if (
+            route.children &&
+            route.children.length > 0 &&
+            route.children.every((c) => c.showInMenu !== false)
+          ) {
             return (
               <MenuGroup
                 key={route.id}
@@ -172,15 +215,17 @@ export const Menu = ({ menuRoutes, close }: MenuProps) => {
               >
                 <div className="mt-2">
                   <Pancake spacing="small">
-                    {route.children.map((child) => (
-                      <MenuItem
-                        key={child.id}
-                        label={child.label}
-                        to={`${route.path}/${child.path}`}
-                        indent={1}
-                        onClick={() => !isLg && close()}
-                      />
-                    ))}
+                    {route.children
+                      .filter((c) => c.showInMenu !== false)
+                      .map((child) => (
+                        <MenuItem
+                          key={child.id}
+                          label={child.label}
+                          to={`${route.path}/${child.path}`}
+                          indent={1}
+                          onClick={() => !isLg && close()}
+                        />
+                      ))}
                   </Pancake>
                 </div>
               </MenuGroup>

@@ -1,6 +1,6 @@
-import { Monster, MonsterViewModel } from '../models/monster.model'
-import { TFunction } from '../store/translations/translation.model'
-import { createAttributesViewModel } from './attributes.functions'
+import { TFunction } from '../../store/translations/translation.model'
+import { createAttributesViewModel } from '../../functions/attributes.functions'
+import { Monster, MonsterViewModel } from './monster.model'
 
 export const createMonstersViewModel = (
   monster: Monster,

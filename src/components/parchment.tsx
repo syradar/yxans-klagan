@@ -4,9 +4,15 @@ import { getRandomInt } from '../functions/dice.functions'
 
 type ParchmentProps = ComponentPropsWithoutRef<'div'> & {
   padding?: 'xs' | 'sm' | 'md'
+  full?: boolean
 }
 
-export const Parchment = ({ children, padding = 'md' }: ParchmentProps) => {
+export const Parchment = ({
+  children,
+  padding = 'md',
+  full = false,
+  ...props
+}: ParchmentProps) => {
   const [options] = useState({
     baseFrequency: getRandomInt(3, 8) / 100,
     numOctaves: getRandomInt(2, 5),
@@ -15,7 +21,7 @@ export const Parchment = ({ children, padding = 'md' }: ParchmentProps) => {
   })
 
   return (
-    <div className="flex flex-col">
+    <div className={`flex flex-col ${full ? 'h-full' : ''}`} {...props}>
       <div className="relative flex-1">
         <div
           className="absolute inset-0 z-0  border-2 border-amber-900/25 bg-[#fffdf6] shadow-md"
@@ -23,9 +29,10 @@ export const Parchment = ({ children, padding = 'md' }: ParchmentProps) => {
         ></div>
         <div
           className={`relative
-        ${padding === 'xs' && 'p-2'}
-        ${padding === 'sm' && 'p-4'}
-        ${padding === 'md' && 'p-6'}
+            ${padding === 'xs' ? 'p-2' : ''}
+            ${padding === 'sm' ? 'p-4' : ''}
+            ${padding === 'md' ? 'p-6' : ''}
+            ${full ? 'h-full' : ''}
         `}
         >
           {children}

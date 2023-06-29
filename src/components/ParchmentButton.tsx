@@ -13,6 +13,7 @@ export type ParchmentButtonProps = AriaButtonProps &
       | 'danger'
       | 'ghost'
       | 'ghost-secondary'
+      | 'link'
       | 'sourceRavland'
       | 'sourceBitterReach'
     forwardedRef?: React.Ref<HTMLButtonElement>
@@ -45,8 +46,9 @@ export const ParchmentButton = (props: ParchmentButtonProps) => {
       <div className="grid grid-cols-1 grid-rows-1">
         <div
           className={`
-          z-0 col-start-1 col-end-2 row-start-1 row-end-2 rounded border-2  shadow transition-colors
+          z-0 col-start-1 col-end-2 row-start-1 row-end-2 rounded border-2 transition-colors
           group-focus-visible:ring-2 group-focus-visible:ring-black group-focus-visible:ring-offset-2
+          ${buttonType === 'link' ? '' : 'shadow'}
           ${
             isDisabled && buttonType !== 'ghost'
               ? 'border-neutral-500 bg-neutral-300'
@@ -68,6 +70,7 @@ export const ParchmentButton = (props: ParchmentButtonProps) => {
                     'border-amber-800 bg-transparent text-amber-800 group-hover:border-amber-900 group-hover:bg-amber-100',
                   'ghost-secondary':
                     'border-amber-800 bg-transparent text-amber-800 group-hover:border-amber-900 group-hover:bg-amber-100',
+                  link: 'border-transparent bg-transparent text-amber-800 group-hover:border-amber-900 ',
                   danger:
                     'border-rose-800 bg-rose-600 group-hover:border-rose-800 group-hover:bg-rose-800',
                   sourceRavland:
@@ -95,11 +98,11 @@ export const ParchmentButton = (props: ParchmentButtonProps) => {
               'source-text text-emerald-800 group-hover:text-white',
             sourceBitterReach:
               'source-text text-sky-800 group-hover:text-white',
-            ghost: '',
+            ghost: 'text-amber-900',
+            link: 'text-amber-900',
             'ghost-secondary': '',
           }[buttonType]
         }
-        ${!isDisabled && buttonType === 'ghost' ? 'text-amber-900' : ''}
         `}
         >
           {children}

@@ -18,19 +18,21 @@ export const LanguageSwitcher = () => {
   }
 
   return (
-    <Stack.Horizontal center>
-      <LanguageButton
-        onPress={() => changeLanguage('sv')}
-        isDisabled={lang === 'sv'}
-      >
-        {t('core:language.swedish')}
-      </LanguageButton>
-      <LanguageButton
-        onPress={() => changeLanguage('en')}
-        isDisabled={lang === 'en'}
-      >
-        {t('core:language.english')}
-      </LanguageButton>
-    </Stack.Horizontal>
+    <div>
+      <Stack.Horizontal center>
+        <LanguageButton
+          onPress={() => changeLanguage('sv')}
+          isDisabled={lang === 'sv'}
+        >
+          {t('core:language.swedish')}
+        </LanguageButton>
+        <LanguageButton
+          onPress={() => changeLanguage('en')}
+          isDisabled={lang === 'en'}
+        >
+          {t('core:language.english')}
+        </LanguageButton>
+      </Stack.Horizontal>
+    </div>
   )
 }

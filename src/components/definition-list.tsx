@@ -1,20 +1,19 @@
+import { ComponentPropsWithRef } from 'react'
 import { Definition } from '../@types/definition.type'
 
-export type DefinitionListProps = {
+export type DefinitionListProps = ComponentPropsWithRef<'ul'> & {
   definitions: Definition[]
 }
 
 export const DefinitionList = ({ definitions }: DefinitionListProps) => (
-  <ul className="flex flex-col lg:gap-2">
+  <ul className="flex flex-col gap-2">
     {definitions.map((d) => (
-      <li
-        key={d.name}
-        className="list-inside list-square marker:text-red-500 lg:list-none"
-      >
-        <div className="m-0 -ml-3 mr-1 inline font-medium after:content-[':'] lg:block lg:after:hidden">
+      <li key={d.name} className="">
+        <span className="font-medium">
           {d.name}
-        </div>
-        <div className="inline lg:block">{d.description}</div>
+          <span className="hidden sm:inline">{': '}</span>
+        </span>
+        <span className="block sm:inline">{d.description}</span>
       </li>
     ))}
   </ul>

@@ -1,25 +1,24 @@
-import { compose, pluck, sum } from 'ramda'
+import { compose, sum, pluck } from 'ramda'
+import { Definition } from '../../../@types/definition.type'
+import { WeightedChoice } from '../../../functions/dice.functions'
 import {
-  MonsterHome,
-  MonsterMotivation,
   MonsterSize,
   MonsterType,
-  MovementDistanceFunction,
   MovementType,
-} from '../models/monster.model'
+  MovementDistanceFunction,
+  MonsterHome,
+  MonsterMotivation,
+} from '../monster.model'
 import {
-  defaultMovementDistanceFunction,
-  homes,
-  monsterMotivation,
-  monsterSkillValues,
-  monsterWeakness,
-  movementTypes,
   sizes,
   types,
+  movementTypes,
+  homes,
+  defaultMovementDistanceFunction,
+  monsterSkillValues,
+  monsterWeakness,
+  monsterMotivation,
 } from './random-monster.data'
-import { describe, it, expect } from 'vitest'
-import { Definition } from '../@types/definition.type'
-import { WeightedChoice } from '../functions/dice.functions'
 
 describe('sizes', () => {
   describe('smaller ones', () => {

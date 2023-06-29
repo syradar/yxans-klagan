@@ -55,3 +55,34 @@ export const head = <T>(arr: T[]): Option<T> => {
 
   return Some(item)
 }
+
+export function pairWise<T>(arr: T[]) {
+  const result: [T, T][] = []
+
+  for (let i = 0; i < arr.length; i = i + 2) {
+    result.push(arr.slice(i, i + 2) as [T, T])
+  }
+
+  return result
+}
+export function nWise<T>(groupSize: number) {
+  return (arr: T[]) => {
+    const result: T[][] = []
+
+    for (let i = 0; i < arr.length; i = i + groupSize) {
+      result.push(arr.slice(i, i + groupSize))
+    }
+
+    return result
+  }
+}
+
+export function slidingNWise<T>(groupSize: number, arr: T[]) {
+  const result: T[][] = []
+
+  for (let i = 0; i < arr.length; i = i + 1) {
+    result.push(arr.slice(i, i + groupSize))
+  }
+
+  return result
+}

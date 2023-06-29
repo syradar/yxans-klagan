@@ -226,6 +226,14 @@ export const translationsSv: Translations = {
       Dragon: 'Drake',
       Demon: 'Demon',
     },
+    communityMonster: {
+      giantSpider: {
+        name: 'Jättespindel',
+        description:
+          'Väldigt territoriell, vaktar sitt bo och följer inte efter. När möjlighet ges startar den striden med ett överraskningsanfall mot den längsta fienden',
+      },
+      giantSpiderling: { name: 'Jättespindelunge', description: '' },
+    },
     Direction: {
       North: 'norr',
       NorthEast: 'nordöst',
@@ -1044,12 +1052,26 @@ export const translationsSv: Translations = {
   },
   monster: {
     Title: 'Monster',
-    BookMonsters: 'Monster från boken',
+    bookOfMonsters: 'Monsterboken',
+    backToAllMonsters: 'Innehåll',
+    randomMonster: {
+      title: 'Slumpa fram monster',
+      description:
+        'Världen är fylld av förskräckliga monster. De vanligaste har diktats ned men de flest kan bara beskrivas genom dess slumpmässiga utseende och beteeende.',
+      generate: 'Generera monster',
+    },
+    bookmonsters: {
+      title: 'Monster från boken',
+      description: 'Varje monster har sidhänvisning i GM-boken till höger.',
+    },
+    communityMonster: {
+      title: 'Community Monsters',
+      description:
+        'Monster som skapats av passionerade människor från communityt.',
+    },
     TheMonster: 'Monstret',
     TheMonsterHas: 'Monstret har',
     TheMonsterHave: 'Monstret har',
-    GenerateMonster: 'Skapa monster',
-    RandomMonster: 'Slumpa fram monster',
     Size: {
       Puny: 'Ynklig',
       Puny_def: 'Ynkligt',
@@ -1590,6 +1612,30 @@ export const translationsSv: Translations = {
         Type: 'Stenregn',
         Description:
           'Varelsen kastar stenar och annat skräp från lyften. Alla äventyrare inom Nära räckvid utsätts för en attack.',
+      },
+      Stab: {
+        Type: 'Stick',
+        Description: 'Besten hugger en äventyrare med något vasst som en klo.',
+      },
+      Pounce: {
+        Type: 'Påhoppad',
+        Description:
+          'Besten hoppar på en äventyrare inom Nära räckvidd och försöker knuffa eller fälla henne. Om attacken träffar faller offret till marken och blir liggandes.',
+      },
+      Webshot: {
+        Type: 'Nätskott',
+        Description:
+          'Varelsen skjuter ett nät mot alla äverntyrare inom Nära avstånd som vid träff gör att de blir fast i nätet. De kan bryta sig loss genom att slå mot 6 tärningar. Nätet applicerar även ett paralyserande gift med potens 1.',
+      },
+      PiercingShriek: {
+        Type: 'Piercing Shriek',
+        Description:
+          'Varelsen gör ifrån sig ett skrik som når ändå in i själen på alla äventyrare inom Nära avstånd som får en Skräckattack mot sig',
+      },
+      CallTheBrood: {
+        Type: 'Call The Brood',
+        Description:
+          'Varelsen ropar på sin kull, ropet får 1D6 av dem att komma till hjälp.',
       },
       Generic: {
         Type: 'Attack',
