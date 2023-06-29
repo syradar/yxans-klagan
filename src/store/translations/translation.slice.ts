@@ -1,16 +1,20 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import {
+  PayloadAction,
+  createAsyncThunk,
+  createSelector,
+  createSlice,
+} from '@reduxjs/toolkit'
 import { None, Option, Some } from 'ts-results'
+import { notNullish } from '../../functions/utils.functions'
+import { ValidLanguage } from '../../hooks/useValidLanguage'
 import { RootState } from '../../store/store'
 import { loadTranslations } from './translation.data'
 import {
   Namespace,
-  TFunction,
   TFunctionOptions,
   TranslationKey,
   Translations,
 } from './translation.model'
-import { notNullish } from '../../functions/utils.functions'
-import { ValidLanguage } from '../../hooks/useValidLanguage'
 
 interface TranslationState {
   translations: Record<
@@ -87,25 +91,27 @@ export const initTranslations = setTranslationsAsync({
 
 export default translationSlice.reducer
 
-export const selectTranslations = (state: RootState): Option<Translations> => {
-  const cur = state.translation.translations[state.translation.currentLanguage]
-  if (cur.status === 'success') {
-    return Some(cur.translations)
-  }
+const selectTranslationsState = (state: RootState) => state.translation
+export const selectTranslations = createSelector(
+  [selectTranslationsState],
+  (translationsState): Option<Translations> => {
+    const cur =
+      translationsState.translations[translationsState.currentLanguage]
+    if (cur.status === 'success') {
+      return Some(cur.translations)
+    }
 
-  return None
-}
+    return None
+  },
+)
+export const selectCurrentLanguage = createSelector(
+  [selectTranslationsState],
+  (translationsState) => translationsState.currentLanguage,
+)
 
-export const selectCurrentLanguage = (state: RootState) =>
-  state.translation.currentLanguage
-
-export const selectTranslateFunction = <T extends Namespace>(nss: T[]) => {
-  return (state: RootState): TFunction<T> => {
-    const translations = selectTranslations(state)
-
-    if (!translations.some) {
-      console.error('found no translations')
-
+export const selectTranslateFunction = <T extends Namespace>(nss: T[]) =>
+  createSelector(selectTranslations, (translations) => {
+    if (translations.none) {
       return (key: TranslationKey<T>) => key
     }
 
@@ -139,8 +145,7 @@ export const selectTranslateFunction = <T extends Namespace>(nss: T[]) => {
 
       return translation
     }
-  }
-}
+  })
 
 const translate = <LocalNamespace extends Namespace>(
   key: TranslationKey<LocalNamespace>,
