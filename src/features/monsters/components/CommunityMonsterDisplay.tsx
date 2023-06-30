@@ -1,4 +1,5 @@
 import { BookPageTitle } from '../../../components/BookPageTitle'
+import { SeparatedComponents } from '../../../components/SeparatedComponents'
 import Stack from '../../../components/Stack'
 import { Typography } from '../../../components/Typography'
 import { SkillList } from '../../../components/skill-list'
@@ -24,6 +25,27 @@ export const CommunityMonsterDisplay = ({
       <Stack.Vertical wrap={false}>
         <BookPageTitle subTitle={bookPart}>{t(como.name)}</BookPageTitle>
 
+        {como.credits.length > 0 ? (
+          <div>
+            {t('monster:communityMonster.createdBy')}{' '}
+            <SeparatedComponents
+              components={como.credits.map((credit) =>
+                credit.link ? (
+                  <a
+                    key={credit.id}
+                    href={credit.link}
+                    className="hover:text-red-700 hover:underline"
+                  >
+                    {credit.name}
+                  </a>
+                ) : (
+                  <span key={credit.id}>{credit.name}</span>
+                ),
+              )}
+              separator={<span>{', '}</span>}
+            />
+          </div>
+        ) : null}
         <Typography variant="body" parchment>
           {t(como.description)}
         </Typography>
@@ -60,7 +82,6 @@ export const CommunityMonsterDisplay = ({
             )}
           </div>
         </section>
-
         <section className="grid grid-cols-2 gap-4">
           <div>
             <Typography variant="h3">

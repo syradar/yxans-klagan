@@ -1068,6 +1068,7 @@ export const translationsSv: Translations = {
       title: 'Community Monsters',
       description:
         'Monster som skapats av passionerade människor från communityt.',
+      createdBy: 'Skapad av:',
     },
     TheMonster: 'Monstret',
     TheMonsterHas: 'Monstret har',
