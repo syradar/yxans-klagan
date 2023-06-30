@@ -5,6 +5,8 @@ export const communityMonsters: CommunityMonster[] = [
   {
     id: 'giant-spider',
     name: 'common:communityMonster.giantSpider.name',
+    description: 'common:communityMonster.giantSpider.description',
+    credits: [{ name: 'Bjorn Heikenberg' }],
     attributes: {
       ...defaultAttributes,
       strength: 11,
@@ -14,7 +16,6 @@ export const communityMonsters: CommunityMonster[] = [
       label: 'Shell',
       values: [false, false],
     },
-    description: 'common:communityMonster.giantSpider.description',
     movement: {
       distance: 1,
       type: 'Climbing',
@@ -107,6 +108,7 @@ export const communityMonsters: CommunityMonster[] = [
     id: 'giant-spiderling',
     name: 'common:communityMonster.giantSpiderling.name',
     description: 'common:communityMonster.giantSpiderling.description',
+    credits: [{ name: 'Bjorn Heikenberg' }],
     armor: {
       label: 'Shell',
       values: [false],

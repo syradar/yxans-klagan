@@ -980,6 +980,7 @@ export const translationsEn = {
       title: 'Community Monsters',
       description:
         'Monsters that have been created by passionate people from the community.',
+      createdBy: 'Created by:',
     },
     TheMonster: 'The monster',
     TheMonsterHas: 'The monster has',

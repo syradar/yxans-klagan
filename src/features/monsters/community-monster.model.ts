@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid'
 import { createAttributesViewModel } from '../../functions/attributes.functions'
 import { MonsterSkillsValues } from '../../models/skills.model'
 import { TranslationKey } from '../../store/translations/translation.model'
@@ -25,8 +26,20 @@ export type CommunityMonsterAttackType =
   | 'PiercingShriek'
   | 'CallTheBrood'
 
+export type Credit = {
+  name: string
+  link?: string
+}
+
+export type CreditViewModel = {
+  id: string
+  name: string
+  link?: string
+}
+
 export interface CommunityMonster extends Omit<Monster, 'pageReference'> {
   description: TranslationKey<'common'>
+  credits: Credit[]
   armor: ArmorViewModel
   attacks: MonsterAttack<CommunityMonsterAttackType>[]
   movement: MonsterMovement
@@ -36,6 +49,7 @@ export interface CommunityMonster extends Omit<Monster, 'pageReference'> {
 export interface CommunityMonsterViewModel
   extends Omit<MonsterViewModel, 'pageReference'> {
   description: TranslationKey<'common'>
+  credits: CreditViewModel[]
   armor: ArmorViewModel
   attacks: MonsterAttackViewModel<CommunityMonsterAttackType>[]
   movement: MonsterMovement
@@ -47,6 +61,10 @@ export const createCommunityMonsterViewModel = (
 ): CommunityMonsterViewModel => {
   return {
     ...rm,
+    credits: rm.credits.map((credit) => ({
+      ...credit,
+      id: nanoid(),
+    })),
     attributes: createAttributesViewModel(rm.attributes),
     skills: getMonsterSkillListItems(rm.skills),
     attacks: createCommunityMonsterAttackViewModel(rm),
