@@ -1,4 +1,3 @@
-import Stack from '../components/Stack'
 import { Typography } from '../components/Typography'
 import { PageHeader } from '../components/page-header'
 import { Parchment } from '../components/parchment'
@@ -9,35 +8,37 @@ const HomePage = () => {
   const t = useAppSelector(selectTranslateFunction(['home', 'core']))
 
   return (
-    <div className="flex max-w-prose flex-col gap-y-8">
+    <div className="flex max-w-prose flex-col gap-4">
       <PageHeader>{t('home:Page')}</PageHeader>
       <Parchment>
         <p className="yx-prose">{t('home:Description')}</p>
       </Parchment>
       <Parchment>
-        <div className="flex flex-col gap-4">
-          <Typography variant="h2" parchment>
-            {t('home:GameTitle')}
-          </Typography>
-          <p className="yx-prose">{t('home:GameDescription')}</p>
-          <p className="yx-prose">
-            {t('home:ThanksTo')}{' '}
-            <a
-              className="text-red-700 hover:underline"
-              href="https://freeleaguepublishing.com/sv/"
-            >
-              {t('home:FreeLeague')}
-            </a>{' '}
-            {t('home:ForAFantasticGame')}
-          </p>
-        </div>
+        <Typography variant="h2" parchment>
+          {t('home:GameTitle')}
+        </Typography>
+
+        <p className="yx-prose mb-4">{t('home:GameDescription')}</p>
+
+        <p className="yx-prose">
+          {t('home:ThanksTo')}{' '}
+          <a
+            className="text-red-700 hover:underline"
+            href="https://freeleaguepublishing.com/sv/"
+          >
+            {t('home:FreeLeague')}
+          </a>{' '}
+          {t('home:ForAFantasticGame')}
+        </p>
       </Parchment>
       <Parchment>
         <Typography variant="h2" parchment>
           {t('home:CommunityTitle')}
         </Typography>
+
         <p className="yx-prose mb-4">{t('home:ThanksCommunity')}</p>
-        <Stack.Horizontal className="yx-prose" wrap>
+
+        <div className="yx-prose flex flex-wrap gap-4">
           <a
             className="text-red-700 hover:underline"
             href="https://discord.gg/RnaydHR"
@@ -62,9 +63,27 @@ const HomePage = () => {
           >
             Forum
           </a>
-        </Stack.Horizontal>
+        </div>
       </Parchment>
-      <div></div>
+
+      <Parchment>
+        <Typography variant="h2" parchment>
+          {t('home:moreTools.title')}
+        </Typography>
+
+        <Typography variant="h3" parchment>
+          <a
+            className="text-red-700 hover:underline"
+            href="https://dragontools.vercel.app/"
+          >
+            {t('home:moreTools.dragonTools.name')}
+          </a>
+        </Typography>
+
+        <p className="yx-prose mb-4 text-lg">
+          {t('home:moreTools.dragonTools.description')}
+        </p>
+      </Parchment>
     </div>
   )
 }

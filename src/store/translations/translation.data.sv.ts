@@ -1018,6 +1018,14 @@ export const translationsSv: Translations = {
     CommunityTitle: 'Community',
     ThanksCommunity:
       'Tack till communityt för Svärdets sång för inspiration, hjälp och material jag kunnat använda.',
+    moreTools: {
+      title: 'Fler verktyg',
+      dragonTools: {
+        name: 'DragonTools',
+        description:
+          'Ett webbverktyg för spelledare av Drakar och Demoner (Fria Ligan)',
+      },
+    },
   },
   map: {
     Title: 'Karta',

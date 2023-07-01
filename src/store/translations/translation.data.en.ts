@@ -929,6 +929,13 @@ export const translationsEn = {
     CommunityTitle: 'Community',
     ThanksCommunity:
       'Thanks to the Forbidden Lands community for inspiration, help and material that I could use.',
+    moreTools: {
+      title: 'More tools',
+      dragonTools: {
+        name: 'DragonTools',
+        description: 'A web tool for GMs of Dragonbane',
+      },
+    },
   },
   map: {
     Title: 'Map',
