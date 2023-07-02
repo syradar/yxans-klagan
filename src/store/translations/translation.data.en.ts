@@ -6,7 +6,11 @@ export const translationsEn = {
     },
     menu: {
       menu: 'Menu',
-      session: 'Session',
+      session: {
+        session: 'Session',
+        legend: 'Legend',
+        journal: 'Journal',
+      },
       encounters: 'Encounters',
       places: {
         places: 'Places',
@@ -993,6 +997,9 @@ export const translationsEn = {
       },
     },
   },
+  journal: {
+    title: 'Journal',
+  },
   map: {
     title: 'Map',
     download_map_data: 'Download map data',
@@ -1796,8 +1803,8 @@ export const translationsEn = {
         'Has a theory about the world. Wants to tell everyone about it.',
     },
   },
-  session: {
-    title: 'Session',
+  legend: {
+    title: 'Legend',
     legend: 'New Legend',
     along_time_ago: 'A long time ago',
     years_ago: '({{years}} years ago)',

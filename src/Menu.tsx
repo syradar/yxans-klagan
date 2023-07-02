@@ -1,6 +1,11 @@
 import { nanoid } from 'nanoid'
 import { ReactNode, lazy } from 'react'
-import { RouteObject, useLocation, useResolvedPath } from 'react-router-dom'
+import {
+  Navigate,
+  RouteObject,
+  useLocation,
+  useResolvedPath,
+} from 'react-router-dom'
 import { useMediaQuery } from 'usehooks-ts'
 import { MenuLink } from './components/MenuLink'
 import { Pancake } from './components/Stack'
@@ -19,7 +24,8 @@ const MapPage = lazy(() => import('./pages/places/MapPage'))
 const MonstersPage = lazy(
   () => import('./features/monsters/pages/monsters.page'),
 )
-const SessionPage = lazy(() => import('./pages/session.page'))
+const LegendPage = lazy(() => import('./features/legend/LegendPage'))
+const JournalPage = lazy(() => import('./features/journal/JournalPage'))
 const TypicalKinPage = lazy(() => import('./pages/npc/TypicalKinPage'))
 const NameGeneratorPage = lazy(() => import('./pages/npc/NameGeneratorPage'))
 const NpcPage = lazy(() => import('./pages/npc/NpcPage'))
@@ -42,9 +48,30 @@ export const menuRoutes: MenuRoute[] = [
   },
   {
     path: 'session',
+    showInMenu: true,
     id: nanoid(),
-    label: 'core:menu.session',
-    element: <SessionPage />,
+    label: 'core:menu.session.session',
+    children: [
+      {
+        path: 'journal',
+        id: nanoid(),
+        label: 'core:menu.session.journal',
+        element: <JournalPage />,
+      },
+      {
+        path: 'legend',
+        id: nanoid(),
+        label: 'core:menu.session.legend',
+        element: <LegendPage />,
+      },
+      {
+        path: '*',
+        showInMenu: false,
+        id: nanoid(),
+        label: 'core:menu.session.session',
+        element: <Navigate to="/session/journal" />,
+      },
+    ],
   },
   {
     path: 'encounter',
@@ -63,14 +90,14 @@ export const menuRoutes: MenuRoute[] = [
         path: '',
         showInMenu: false,
         id: nanoid(),
-        label: 'core:menu.session',
+        label: 'core:menu.monsters',
         element: <MonstersPage />,
       },
       {
         path: ':section',
         showInMenu: false,
         id: nanoid(),
-        label: 'core:menu.session',
+        label: 'core:menu.monsters',
         element: <MonstersPage />,
         children: [
           {
@@ -210,7 +237,7 @@ export const Menu = ({ menuRoutes, close }: MenuProps) => {
           if (
             route.children &&
             route.children.length > 0 &&
-            route.children.every((c) => c.showInMenu !== false)
+            route.children.some((c) => c.showInMenu !== false)
           ) {
             return (
               <MenuGroup

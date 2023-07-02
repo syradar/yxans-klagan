@@ -8,7 +8,11 @@ export const translationsSv: Translations = {
     },
     menu: {
       menu: 'Meny',
-      session: 'Spelmöte',
+      session: {
+        session: 'Spelmöte',
+        legend: 'Legend',
+        journal: 'Journal',
+      },
       encounters: 'Slumpmöten',
       places: {
         places: 'Platser',
@@ -998,6 +1002,9 @@ export const translationsSv: Translations = {
       },
     },
   },
+  journal: {
+    title: 'Journal',
+  },
   map: {
     title: 'Karta',
     download_map_data: 'Ladda ned kartdata',
@@ -1793,9 +1800,9 @@ export const translationsSv: Translations = {
         'Har en teori om världens beskaffenhet. Berättar gärna om den.',
     },
   },
-  session: {
-    title: 'Spelmöte',
-    legend: 'Nytt sägen',
+  legend: {
+    title: 'Legend',
+    legend: 'Nytt legend',
     along_time_ago: 'För länge sedan',
     years_ago: '({{years}} år sedan)',
     there_was: 'var det',
