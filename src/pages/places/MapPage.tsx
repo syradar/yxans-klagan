@@ -195,7 +195,7 @@ export const MapPage = () => {
 
   return (
     <div className="flex w-full flex-col gap-y-8">
-      <PageHeader>{t('map:Title')}</PageHeader>
+      <PageHeader>{t('map:title')}</PageHeader>
 
       <Train>
         <ParchmentButton
@@ -209,8 +209,8 @@ export const MapPage = () => {
           }
         >
           {source === 'ravland'
-            ? t('common:gameSource.bitterReach')
-            : t('common:gameSource.ravland')}
+            ? t('common:game_source.bitter_reach')
+            : t('common:game_source.ravland')}
         </ParchmentButton>
         <ParchmentButton
           buttonType="ghost"
@@ -221,7 +221,7 @@ export const MapPage = () => {
           ) : (
             <EyeSlashIcon className="h-5 w-5" />
           )}
-          {t(fogOfWar ? 'map:FogOfWar_On' : 'map:FogOfWar_Off')}
+          {t(fogOfWar ? 'map:fog_of_war_on' : 'map:fog_of_war_off')}
         </ParchmentButton>
         <ParchmentButton
           isDisabled={!hasExploredHexes}
@@ -229,11 +229,11 @@ export const MapPage = () => {
           onPress={() => handleFileDownload()}
         >
           <DocumentArrowDownIcon className="h-5 w-5" />
-          {t('map:DownloadMapData')}
+          {t('map:download_map_data')}
         </ParchmentButton>
         <PasteData
           onFocusTextArea={() => setPasteError(undefined)}
-          label={t('map:PasteMapData')}
+          label={t('map:paste_map_data')}
           onData={handlePasteMapData}
         ></PasteData>
       </Train>
@@ -290,9 +290,9 @@ export default MapPage
 type PasteError = 'invalidJson' | 'invalidHexData' | 'general'
 
 const pasteErrorLabel: { [PE in PasteError]: TranslationKey<'map'> } = {
-  invalidJson: 'map:InvalidJson',
-  invalidHexData: 'map:InvalidHexData',
-  general: 'map:GeneralPasteError',
+  invalidJson: 'map:invalid_json',
+  invalidHexData: 'map:invalid_hex_data',
+  general: 'map:general_paste_error',
 }
 
 const errorToPasteError = (e: Error): PasteError => {

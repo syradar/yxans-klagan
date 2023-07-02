@@ -14,6 +14,8 @@ import { getHumanName, randomGender } from '../npc/name2'
 import { Character } from './character'
 import { createRandomInn, Inn } from './inn-generator'
 import { createRandomVillageName, LanguageStringMap } from './village-name'
+import { TranslationKey } from '../../store/translations/translation.model'
+import { translationDict } from '../../functions/translation-dict'
 
 export interface Village {
   name: LanguageStringMap
@@ -68,6 +70,15 @@ export const createRandomVillage = (): Village => {
 }
 
 type VillageSize = 'outpost' | 'hamlet' | 'village'
+export const villageSizeTranslationDict: Record<
+  VillageSize,
+  TranslationKey<'village'>
+> = {
+  outpost: 'village:size.outpost',
+  hamlet: 'village:size.hamlet',
+  village: 'village:size.village',
+}
+
 type VillageInhabitants = [5, 20] | [20, 100] | [100, 400]
 type SizeOfVillage = { size: VillageSize; inhabitantMinMax: VillageInhabitants }
 
@@ -86,6 +97,16 @@ type Ages =
   | 'duringBloodMist'
   | 'afterBloodMist'
 type AgeOfVillage = { age: number; builtWhen: Ages }
+
+export const ageOfVillageTranslationDict: Record<
+  Ages,
+  TranslationKey<'village'>
+> = {
+  beforeBloodMist: 'village:ages.before_blood_mist',
+  duringAlderWars: 'village:ages.during_alder_wars',
+  duringBloodMist: 'village:ages.during_blood_mist',
+  afterBloodMist: 'village:ages.after_blood_mist',
+}
 
 const d66ToAgeOfVillage = (roll: D66): AgeOfVillage => {
   if (roll <= 16) {
@@ -130,6 +151,11 @@ const leaderOddities = [
   'drunkard',
 ] as const
 type LeaderOddity = (typeof leaderOddities)[number]
+export const leaderOddityTranslationDict = translationDict(
+  leaderOddities,
+  'village',
+  'leader.oddities.',
+)
 
 const leaderTypes = [
   'council',
@@ -138,14 +164,19 @@ const leaderTypes = [
   'mayor',
   'druid',
   'sorcerer',
-  'noOne',
+  'no_one',
   'commander',
   'trader',
-  'rustBrother',
+  'rust_brother',
   'artisan',
-  'banditChief',
+  'bandit_chief',
 ] as const
 type LeaderType = (typeof leaderTypes)[number]
+export const leaderTypeTranslationDict = translationDict(
+  leaderTypes,
+  'village',
+  'leader.type.',
+)
 
 type Leader = Character & {
   oddity: LeaderOddity
@@ -166,19 +197,36 @@ const createRandomLeader = (): Leader | undefined => {
 
 const villageProblems = [
   'nightwargs',
-  'widespreadDrunkenness',
-  'powerStruggle',
-  'secretCult',
+  'widespread_drunkenness',
+  'power_struggle',
+  'secret_cult',
   'schism',
   'undead',
   'disease',
   'sinkhole',
   'bandits',
-  'terrorizingMonster',
-  'slaveTrade',
-  'hauntedByGhoulOrGhost',
+  'terrorizing_monster',
+  'slavetrade',
+  'haunted_by_ghoul_or_ghost',
 ] as const
 type VillageProblem = (typeof villageProblems)[number]
+export const villageProblemTranslationDict: Record<
+  VillageProblem,
+  TranslationKey<'village'>
+> = {
+  nightwargs: 'village:problems.nightwargs',
+  widespread_drunkenness: 'village:problems.widespread_drunkenness',
+  power_struggle: 'village:problems.power_struggle',
+  secret_cult: 'village:problems.secret_cult',
+  schism: 'village:problems.schism',
+  undead: 'village:problems.undead',
+  disease: 'village:problems.disease',
+  sinkhole: 'village:problems.sinkhole',
+  bandits: 'village:problems.bandits',
+  terrorizing_monster: 'village:problems.terrorizing_monster',
+  slavetrade: 'village:problems.slave_trade',
+  haunted_by_ghoul_or_ghost: 'village:problems.haunted_by_ghoul_or_ghost',
+}
 
 const villageFames = [
   'excellentWine',
@@ -194,6 +242,24 @@ const villageFames = [
   'suspicionOfStrangers',
   'hospitality',
 ] as const
+export const villageFameTranslationDict: Record<
+  VillageFame,
+  TranslationKey<'village'>
+> = {
+  excellentWine: 'village:fames.excellent_wine',
+  deliciousBread: 'village:fames.delicious_bread',
+  craftsmanship: 'village:fames.craftsmanship',
+  beautifulLocation: 'village:fames.beautiful_location',
+  aHorribleMassacre: 'village:fames.a_horrible_massacre',
+  decadence: 'village:fames.decadence',
+  wellBrewedBeer: 'village:fames.well_brewed_beer',
+  hiddenRiches: 'village:fames.hidden_riches',
+  strangeDisappearances: 'village:fames.strange_disappearances',
+  worshippingDemons: 'village:fames.worshipping_demons',
+  suspicionOfStrangers: 'village:fames.suspicion_of_strangers',
+  hospitality: 'village:fames.hospitality',
+}
+
 type VillageFame = (typeof villageFames)[number]
 
 const villageOddities = [
@@ -219,6 +285,32 @@ const villageOddities = [
   'preparingWedding',
 ] as const
 type VillageOddity = (typeof villageOddities)[number]
+
+export const villageOddityTranslationDict: Record<
+  VillageOddity,
+  TranslationKey<'village'>
+> = {
+  eccentricClothing: 'village:oddities.eccentric_clothing',
+  incomprehensibleAccent: 'village:oddities.incomprehensible_accent',
+  smellsBad: 'village:oddities.smells_bad',
+  fullOfFlowers: 'village:oddities.full_of_flowers',
+  muddy: 'village:oddities.muddy',
+  oddBuildingMaterials: 'village:oddities.odd_building_materials',
+  tentVillage: 'village:oddities.tent_village',
+  builtOnSteepHill: 'village:oddities.built_on_steep_hill',
+  oldTowerIntheMiddle: 'village:oddities.old_tower_inthe_middle',
+  grandBuilding: 'village:oddities.grand_building',
+  windy: 'village:oddities.windy',
+  inbreeding: 'village:oddities.inbreeding',
+  strangeEatingHabits: 'village:oddities.strange_eating_habits',
+  builtOnMarshland: 'village:oddities.built_on_marshland',
+  cutOutOfACliff: 'village:oddities.cut_out_of_acliff',
+  oldBurialSite: 'village:oddities.old_burial_site',
+  wanderingCattle: 'village:oddities.wandering_cattle',
+  mostlyInhabitedByWomen: 'village:oddities.mostly_inhabited_by_women',
+  alliedWithMonster: 'village:oddities.allied_with_monster',
+  preparingWedding: 'village:oddities.preparing_wedding',
+}
 
 const villageOdditiesWithWeights: WeightedChoice<VillageOddity>[] = [
   { weight: 3, value: 'eccentricClothing' },
@@ -256,6 +348,21 @@ const villageInstitutions = [
   'stable',
 ] as const
 type VillageInstitutionType = (typeof villageInstitutions)[number]
+export const villageInstitutionTranslationDict: Record<
+  VillageInstitutionType,
+  TranslationKey<'village'>
+> = {
+  nothing: 'village:institutions.nothing',
+  inn: 'village:institutions.inn',
+  mill: 'village:institutions.mill',
+  smith: 'village:institutions.smith',
+  forester: 'village:institutions.forester',
+  tradingPost: 'village:institutions.trading_post',
+  temple: 'village:institutions.temple',
+  militia: 'village:institutions.militia',
+  tavern: 'village:institutions.tavern',
+  stable: 'village:institutions.stable',
+}
 
 export type VillageInstitution = {
   id: string

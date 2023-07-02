@@ -102,8 +102,8 @@ export const MapPopover = ({
           <div className="mb-3 text-2xl">
             {options.hex.hexKey}:{' '}
             {options.hex.explored
-              ? t('map:Popover-Explored')
-              : t('map:Popover-Unexplored')}
+              ? t('map:popover_explored')
+              : t('map:popover_unexplored')}
           </div>
           <div className="flex gap-2">
             <ParchmentButton
@@ -113,7 +113,7 @@ export const MapPopover = ({
                 setShow(false)
               }}
             >
-              {t('map:Popover-Hide')}
+              {t('map:popover_hide')}
             </ParchmentButton>
 
             {options.hex.explored ? (
@@ -126,7 +126,7 @@ export const MapPopover = ({
                 }}
               >
                 <FireIcon className="h-5 w-5" />
-                {t('map:Popover-Forget')}
+                {t('map:popover_forget')}
               </ParchmentButton>
             ) : (
               <ParchmentButton
@@ -137,7 +137,7 @@ export const MapPopover = ({
                 }}
               >
                 <MagnifyingGlassIcon className="h-5 w-5" />
-                {t('map:Popover-Explore')}
+                {t('map:popover_explore')}
               </ParchmentButton>
             )}
           </div>

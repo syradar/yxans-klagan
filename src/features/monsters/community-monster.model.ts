@@ -17,14 +17,15 @@ import {
   MonsterViewModel,
 } from './monster.model'
 import { getMonsterSkillListItems } from './random-monster.functions'
+import { rangeTranslationDict } from '../../models/attack-range'
 
 export type CommunityMonsterAttackType =
   | MonsterAttackType
-  | 'Stab'
-  | 'Pounce'
-  | 'Webshot'
-  | 'PiercingShriek'
-  | 'CallTheBrood'
+  | 'stab'
+  | 'pounce'
+  | 'webshot'
+  | 'piercing_shriek'
+  | 'call_the_brood'
 
 export type Credit = {
   name: string
@@ -91,18 +92,18 @@ const reqs: MonsterAttackRequirements = {
 }
 
 const dmod: MonsterDamageModifiers = {
-  Blunt: 0,
-  Slash: 0,
-  Size: 0,
-  TailAttack: 0,
-  Telepathic: 0,
+  blunt: 0,
+  slash: 0,
+  size: 0,
+  tail_attack: 0,
+  telepathic: 0,
 }
 
 const deflim: MonsterLimbs = {
-  Arms: 0,
-  Legs: 0,
-  Tentacles: 0,
-  Wings: 0,
+  arms: 0,
+  legs: 0,
+  tentacles: 0,
+  wings: 0,
 }
 
 const createCommunityMonsterAttackViewModel = (
@@ -119,7 +120,7 @@ const createCommunityMonsterAttackViewModel = (
       limbs: deflim,
       tail: {
         damage: 0,
-        key: 'None',
+        key: 'none',
       },
     },
     traits: [],
@@ -129,7 +130,7 @@ const createCommunityMonsterAttackViewModel = (
   return monster.attacks.map((attack) => ({
     description: attack.description,
     type: attack.type,
-    range: attack.range && `common:Range.${attack.range}`,
+    range: attack.range && rangeTranslationDict[attack.range],
     damage: attack.damage && attack.damage(minimalContext),
     attack: attack.attack && attack.attack(minimalContext),
     descriptionExtras:

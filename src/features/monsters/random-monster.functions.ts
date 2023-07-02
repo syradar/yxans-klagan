@@ -55,6 +55,7 @@ import {
 } from './monster.model'
 import { range } from '../../functions/array.functions'
 import { compose, prop } from 'ramda'
+import { rangeTranslationDict } from '../../models/attack-range'
 
 export const createRandomMonster = (): RandomMonster => {
   const { size, strength, damage: sizeDamage } = weightedRandom(sizes).value
@@ -72,7 +73,7 @@ export const createRandomMonster = (): RandomMonster => {
 
   return {
     id: nanoid(),
-    name: 'common:Empty',
+    name: 'common:empty',
     attributes: { strength: strength(), agility, empathy: 0, wits: 0 },
     size,
     type,
@@ -114,8 +115,8 @@ export const createRandomMonsterViewModelFromRandomMonster = (
     })),
     skills: getMonsterSkillListItems(rm.skills),
     motivation: {
-      name: `monster:Motivation.${rm.motivation}.Name`,
-      description: `monster:Motivation.${rm.motivation}.Description`,
+      name: `monster:motivation.${rm.motivation}.name`,
+      description: `monster:motivation.${rm.motivation}.description`,
     },
     attacks: createMonsterAttacks(monsterAttacks, { ...rm, movement }),
   }
@@ -144,15 +145,15 @@ const rollForMonsterLimbs = (
     allLimbs.push(monsterLimbs())
     rolls += 1
 
-    loopCondition = key === 'Wings' && rolls < 10
+    loopCondition = key === 'wings' && rolls < 10
   }
 
   return allLimbs.reduce(
     (acc, cur) => ({
-      Arms: acc.Arms + cur.Arms,
-      Tentacles: acc.Tentacles + cur.Tentacles,
-      Legs: acc.Legs + cur.Legs,
-      Wings: acc.Wings + cur.Wings,
+      arms: acc.arms + cur.arms,
+      tentacles: acc.tentacles + cur.tentacles,
+      legs: acc.legs + cur.legs,
+      wings: acc.wings + cur.wings,
     }),
     { ...defaultMonsterLimbs },
   )
@@ -170,7 +171,7 @@ const getLimbsDescription = (
         ? [
             ...acc,
             [
-              `monster:Limbs.${limbName}` as TranslationKey<'monster'>,
+              `monster:limbs.${limbName}` as TranslationKey<'monster'>,
               amountOfLimb,
             ],
           ]
@@ -180,7 +181,7 @@ const getLimbsDescription = (
 
   const limbsDescriptions: MonsterDescriptionItemViewModel[] =
     actualLimbs.length === 0
-      ? [{ key: 'monster:Limbs.None' }]
+      ? [{ key: 'monster:limbs.none' }]
       : actualLimbs.map(([key, value]) => ({
           key,
           count: value,
@@ -203,14 +204,14 @@ const getHeads = (
     heads.push(head)
     totalRolls += 1
 
-    if (head.key === 'RollTwice' && totalRolls < 10) {
+    if (head.key === 'roll_twice' && totalRolls < 10) {
       rollsLeft += 2
     }
 
     rollsLeft -= 1
   }
 
-  return heads.filter((h) => h.key !== 'RollTwice')
+  return heads.filter((h) => h.key !== 'roll_twice')
 }
 
 export const getMovement = (
@@ -233,15 +234,15 @@ export const getTraitListBasedOnMotivation = (
   motivation: MonsterMotivation,
   traitsList: WeightedChoice<MonsterTrait>[],
 ): [MonsterTrait[], WeightedChoice<MonsterTrait>[]] => {
-  if (motivation !== 'Injured') {
+  if (motivation !== 'injured') {
     return [[], traitsList]
   }
 
   const hurt = monsterTraits.find(
-    (t) => t.value.name === 'monster:Trait.Hurt.Name',
+    (t) => t.value.name === 'monster:trait.hurt.name',
   )
   const traitList = monsterTraits.filter(
-    (t) => t.value.name !== 'monster:Trait.Hurt.Name',
+    (t) => t.value.name !== 'monster:trait.hurt.name',
   )
 
   return [
@@ -275,35 +276,35 @@ export const getMonsterSkillListItems = (
   skills: MonsterSkillsValues,
 ): MonsterSkillListItem[] => {
   return [
-    skills.Melee > 0
+    skills.melee > 0
       ? [
           {
-            name: `monster:Skills.Melee` as TranslationKey<'monster'>,
-            value: skills.Melee,
+            name: `monster:skills.melee` as TranslationKey<'monster'>,
+            value: skills.melee,
           },
         ]
       : [],
-    skills.Move > 0
+    skills.move > 0
       ? [
           {
-            name: `monster:Skills.Move` as TranslationKey<'monster'>,
-            value: skills.Move,
+            name: `monster:skills.move` as TranslationKey<'monster'>,
+            value: skills.move,
           },
         ]
       : [],
-    skills.Scouting > 0
+    skills.scouting > 0
       ? [
           {
-            name: `monster:Skills.Scouting` as TranslationKey<'monster'>,
-            value: skills.Scouting,
+            name: `monster:skills.scouting` as TranslationKey<'monster'>,
+            value: skills.scouting,
           },
         ]
       : [],
-    skills.Stealth > 0
+    skills.stealth > 0
       ? [
           {
-            name: `monster:Skills.Stealth` as TranslationKey<'monster'>,
-            value: skills.Scouting,
+            name: `monster:skills.stealth` as TranslationKey<'monster'>,
+            value: skills.scouting,
           },
         ]
       : [],
@@ -317,32 +318,32 @@ const createAttackRequirements = (
   limbs: MonsterLimbs,
 ): MonsterAttackRequirements => {
   return {
-    acidGlands: traits.some((t) => t.name === 'monster:Trait.AcidGlands.Name'),
-    fireGlands: traits.some((t) => t.name === 'monster:Trait.FireGlands.Name'),
-    tail: tailKey !== 'None',
-    spikedTail: tailKey === 'SpikedTail',
-    claws: limbs.Arms > 0,
-    fangs: heads.every((choice) => choice !== 'Missing'),
+    acidGlands: traits.some((t) => t.name === 'monster:trait.acid_glands.name'),
+    fireGlands: traits.some((t) => t.name === 'monster:trait.fire_glands.name'),
+    tail: tailKey !== 'none',
+    spikedTail: tailKey === 'spiked_tail',
+    claws: limbs.arms > 0,
+    fangs: heads.every((choice) => choice !== 'missing'),
     horn: heads.some(
-      (choice) => choice === 'HornWithCount' || choice === 'ElkHorns',
+      (choice) => choice === 'horn_with_count' || choice === 'elk_horns',
     ),
-    legs: limbs.Legs > 0,
-    tentacles: limbs.Tentacles > 0,
-    undead: traits.some((t) => t.name === 'monster:Trait.Undead.Name'),
-    wings: limbs.Wings > 0,
+    legs: limbs.legs > 0,
+    tentacles: limbs.tentacles > 0,
+    undead: traits.some((t) => t.name === 'monster:trait.undead.name'),
+    wings: limbs.wings > 0,
     hasLimbs:
-      limbs.Arms > 0 ||
-      limbs.Legs > 0 ||
-      limbs.Tentacles > 0 ||
-      limbs.Wings > 0,
-    hasBeak: heads.some((h) => h === 'Beak'),
+      limbs.arms > 0 ||
+      limbs.legs > 0 ||
+      limbs.tentacles > 0 ||
+      limbs.wings > 0,
+    hasBeak: heads.some((h) => h === 'beak'),
     canSpeak: traits.some(
       (t) =>
-        t.name === 'monster:Trait.Intelligent.Name' ||
-        t.name === 'monster:Trait.CanSpeak.Name',
+        t.name === 'monster:trait.intelligent.name' ||
+        t.name === 'monster:trait.can_speak.name',
     ),
-    isPoisonous: traits.some((t) => t.name === 'monster:Trait.Poisonous.Name'),
-    isSick: traits.some((t) => t.name === 'monster:Trait.Hurt.Name'),
+    isPoisonous: traits.some((t) => t.name === 'monster:trait.poisonous.name'),
+    isSick: traits.some((t) => t.name === 'monster:trait.hurt.name'),
   }
 }
 
@@ -353,7 +354,7 @@ const createMonsterAttacks = (
   const validAttacks: WeightedChoice<MonsterAttack>[] = Object.values(
     allMonsterAttacks,
   )
-    .filter((a) => a.type !== 'Generic' && a.valid(rm))
+    .filter((a) => a.type !== 'generic' && a.valid(rm))
     .map((a) => ({
       weight: a.chance * 1000,
       value: a,
@@ -361,8 +362,8 @@ const createMonsterAttacks = (
 
   if (validAttacks.length < 6) {
     const genericAttacks = range(6 - validAttacks.length).map((_) => ({
-      weight: allMonsterAttacks.Generic.chance * 1000,
-      value: allMonsterAttacks.Generic,
+      weight: allMonsterAttacks.generic.chance * 1000,
+      value: allMonsterAttacks.generic,
     }))
 
     validAttacks.push(...genericAttacks)
@@ -387,7 +388,8 @@ const createMonsterAttacks = (
           {
             description: chosen.value.description,
             type: chosen.value.type,
-            range: chosen.value.range && `common:Range.${chosen.value.range}`,
+            range:
+              chosen.value.range && rangeTranslationDict[chosen.value.range],
             damage: chosen.value.damage && chosen.value.damage(rm),
             attack: chosen.value.attack && chosen.value.attack(rm),
             descriptionExtras:
@@ -408,10 +410,10 @@ const createMonsterAttacks = (
 const createMonsterSkills = (
   skillValueChoice: string,
 ): MonsterSkillsValues => ({
-  Melee: chooseFromChoiceString(skillValueChoice),
-  Move: chooseFromChoiceString(skillValueChoice),
-  Scouting: chooseFromChoiceString(skillValueChoice),
-  Stealth: chooseFromChoiceString(skillValueChoice),
+  melee: chooseFromChoiceString(skillValueChoice),
+  move: chooseFromChoiceString(skillValueChoice),
+  scouting: chooseFromChoiceString(skillValueChoice),
+  stealth: chooseFromChoiceString(skillValueChoice),
 })
 
 const rollForArmor = compose(
@@ -429,15 +431,15 @@ const createDescription = ({
   tail,
 }: MonsterDescription): MonsterDescriptionViewModel => {
   const tailDescription: TranslationKey<'monster'> | undefined =
-    tail.key === 'SpikedTail'
-      ? 'monster:Tail.SpikedTail'
-      : tail.key === 'Tail'
-      ? 'monster:Tail.Tail'
+    tail.key === 'spiked_tail'
+      ? 'monster:tail.spiked_tail'
+      : tail.key === 'tail'
+      ? 'monster:tail.tail'
       : undefined
 
   return {
     head: heads.map(({ key, count }) => ({
-      key: `monster:Head.${key}` as TranslationKey<'monster'>,
+      key: `monster:head.${key}` as TranslationKey<'monster'>,
       count,
     })),
     tail: tailDescription,
@@ -449,9 +451,9 @@ const createDamageModifiers = (
   tailDamage: number,
   sizeDamage: number,
 ): MonsterDamageModifiers => ({
-  Blunt: 0,
-  Slash: 0,
-  TailAttack: tailDamage,
-  Size: sizeDamage,
-  Telepathic: 0,
+  blunt: 0,
+  slash: 0,
+  tail_attack: tailDamage,
+  size: sizeDamage,
+  telepathic: 0,
 })

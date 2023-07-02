@@ -7,6 +7,7 @@ import {
 import { Character } from './character'
 import { VillageInstitution } from './village-generator'
 import { ValidLanguage } from '../../hooks/useValidLanguage'
+import { TranslationKey } from '../../store/translations/translation.model'
 
 export type Inn = {
   name: { [L in ValidLanguage]: string }
@@ -52,6 +53,26 @@ const innOddity = [
   'drunkAdventurers',
 ] as const
 export type InnOddity = (typeof innOddity)[number]
+export const innOddityTranslationDict: Record<
+  InnOddity,
+  TranslationKey<'village'>
+> = {
+  violenceIsInTheAir: 'village:inns.oddities.violence_is_in_the_air',
+  barrelsInsteadOfChairsAndPlanksInsteadOfTables:
+    'village:inns.oddities.barrels_instead_of_chairs_and_planks_instead_of_tables',
+  bigFireplace: 'village:inns.oddities.big_fireplace',
+  peltsOnWalls: 'village:inns.oddities.pelts_on_walls',
+  longCommunalTable: 'village:inns.oddities.long_communal_table',
+  gamblingDen: 'village:inns.oddities.gambling_den',
+  mediocreBard: 'village:inns.oddities.mediocre_bard',
+  niceDog: 'village:inns.oddities.nice_dog',
+  grumpyOwner: 'village:inns.oddities.grumpy_owner',
+  monsterHeadOnWall: 'village:inns.oddities.monster_head_on_wall',
+  singingWaiter: 'village:inns.oddities.singing_waiter',
+  stompedFloor: 'village:inns.oddities.stomped_floor',
+  birthdayParty: 'village:inns.oddities.birthday_party',
+  drunkAdventurers: 'village:inns.oddities.drunk_adventurers',
+}
 
 const innSpecialty = [
   'cheapDilutedBeer',
@@ -70,6 +91,25 @@ const innSpecialty = [
   'dwarvenStrongAle',
 ] as const
 export type InnSpecialty = (typeof innSpecialty)[number]
+export const innSpecialtyTranslationDict: Record<
+  InnSpecialty,
+  TranslationKey<'village'>
+> = {
+  cheapDilutedBeer: 'village:inns.specialities.cheap_diluted_beer',
+  meatStew: 'village:inns.specialities.meat_stew',
+  grilledRodent: 'village:inns.specialities.grilled_rodent',
+  stewedTurnips: 'village:inns.specialities.stewed_turnips',
+  saltBird: 'village:inns.specialities.salt_bird',
+  bloodSoup: 'village:inns.specialities.blood_soup',
+  fierySpiceWine: 'village:inns.specialities.fiery_spice_wine',
+  roastedPiglet: 'village:inns.specialities.roasted_piglet',
+  swampStew: 'village:inns.specialities.swamp_stew',
+  vegetableMush: 'village:inns.specialities.vegetable_mush',
+  saltedFish: 'village:inns.specialities.salted_fish',
+  cookedCrow: 'village:inns.specialities.cooked_crow',
+  bearStew: 'village:inns.specialities.bear_stew',
+  dwarvenStrongAle: 'village:inns.specialities.dwarven_strong_ale',
+}
 
 const innGuest = [
   'escapedCriminal',
@@ -88,6 +128,25 @@ const innGuest = [
   'scoutingThief',
 ] as const
 export type InnGuest = (typeof innGuest)[number]
+export const innGuestTranslationDict: Record<
+  InnGuest,
+  TranslationKey<'village'>
+> = {
+  escapedCriminal: 'village:inns.guests.escaped_criminal',
+  unhappyFarmer: 'village:inns.guests.unhappy_farmer',
+  scarredTreasureHunter: 'village:inns.guests.scarred_treasure_hunter',
+  dirtyAndSullenHunter: 'village:inns.guests.dirty_and_sullen_hunter',
+  silentRavenSister: 'village:inns.guests.silent_raven_sister',
+  noisyBandit: 'village:inns.guests.noisy_bandit',
+  oldWarVeteran: 'village:inns.guests.old_war_veteran',
+  nobleInDisguise: 'village:inns.guests.noble_in_disguise',
+  secretiveSpellbinder: 'village:inns.guests.secretive_spellbinder',
+  annoyingJester: 'village:inns.guests.annoying_jester',
+  dustyTraveller: 'village:inns.guests.dusty_traveller',
+  hungryDwarf: 'village:inns.guests.hungry_dwarf',
+  frostyElf: 'village:inns.guests.frosty_elf',
+  scoutingThief: 'village:inns.guests.scouting_thief',
+}
 
 type InnQuirk = {
   oddity: InnOddity

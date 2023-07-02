@@ -1,9 +1,16 @@
+import { translationDict } from '../../functions/translation-dict'
 import { CollapseAble, getId, Unique } from '../../models/utils.model'
 import { WeaponFeature } from './weapon'
 
-export type ShieldType = 'Small' | 'Large'
+const shieldTypes = ['small', 'large'] as const
+export type ShieldType = (typeof shieldTypes)[number]
+export const shieldTypesTranslationDict = translationDict(
+  shieldTypes,
+  'common',
+  'shield.',
+)
 
-type ShieldFeature = Extract<WeaponFeature, 'Light'>
+type ShieldFeature = Extract<WeaponFeature, 'light'>
 
 export type Shield<S extends ShieldType> = {
   type: S

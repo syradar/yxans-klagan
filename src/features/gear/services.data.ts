@@ -57,13 +57,13 @@ export const serviceViewModel = (
 export const services: Service[] = [
   {
     category: 'services',
-    name: { id: 'bathAtInn', label: 'gear:service.bathAtInn.name' },
+    name: { id: 'bathAtInn', label: 'gear:service.bath_at_inn.name' },
     price: {
       _type: 'instant',
       copper: 3,
     },
     supply: 'common',
-    effects: { label: 'gear:service.bathAtInn.effect' },
+    effects: { label: 'gear:service.bath_at_inn.effect' },
     marketType: 'dailyLiving',
   },
   {
@@ -101,13 +101,13 @@ export const services: Service[] = [
   },
   {
     category: 'services',
-    name: { id: 'clothesWashed', label: 'gear:service.clothesWashed.name' },
+    name: { id: 'clothesWashed', label: 'gear:service.clothes_washed.name' },
     price: {
       _type: 'instant',
       copper: 10,
     },
     supply: 'common',
-    effects: { label: 'gear:service.clothesWashed.effect' },
+    effects: { label: 'gear:service.clothes_washed.effect' },
     marketType: 'dailyLiving',
   },
   {
@@ -123,74 +123,74 @@ export const services: Service[] = [
   },
   {
     category: 'services',
-    name: { id: 'roadToll', label: 'gear:service.roadToll.name' },
+    name: { id: 'roadToll', label: 'gear:service.road_toll.name' },
     price: {
       _type: 'instant',
       copper: 2,
     },
     supply: 'common',
-    effects: { label: 'gear:service.roadToll.effect' },
+    effects: { label: 'gear:service.road_toll.effect' },
     marketType: 'dailyLiving',
   },
   {
     category: 'services',
     name: {
       id: 'lodgingAtInnDormitory',
-      label: 'gear:service.lodgingAtInnDormitory.name',
+      label: 'gear:service.lodging_at_inn_dormitory.name',
     },
     price: {
       _type: 'instant',
       copper: 2,
     },
     supply: 'common',
-    effects: { label: 'gear:service.lodgingAtInnDormitory.effect' },
+    effects: { label: 'gear:service.lodging_at_inn_dormitory.effect' },
     marketType: 'dailyLiving',
   },
   {
     category: 'services',
     name: {
       id: 'lodgingAtInnSeparateRoom',
-      label: 'gear:service.lodgingAtInnSeparateRoom.name',
+      label: 'gear:service.lodging_at_inn_separate_room.name',
     },
     price: {
       _type: 'instant',
       copper: 5,
     },
     supply: 'common',
-    effects: { label: 'gear:service.lodgingAtInnSeparateRoom.effect' },
+    effects: { label: 'gear:service.lodging_at_inn_separate_room.effect' },
     marketType: 'dailyLiving',
   },
   {
     category: 'services',
-    name: { id: 'fineDwelling', label: 'gear:service.fineDwelling.name' },
+    name: { id: 'fineDwelling', label: 'gear:service.fine_dwelling.name' },
     price: {
       _type: 'instant',
       copper: 20,
     },
     supply: 'uncommon',
-    effects: { label: 'gear:service.fineDwelling.effect' },
+    effects: { label: 'gear:service.fine_dwelling.effect' },
     marketType: 'dailyLiving',
   },
   {
     category: 'services',
-    name: { id: 'bowlOfStew', label: 'gear:service.bowlOfStew.name' },
+    name: { id: 'bowlOfStew', label: 'gear:service.bowl_of_stew.name' },
     price: {
       _type: 'instant',
       copper: 3,
     },
     supply: 'common',
-    effects: { label: 'gear:service.bowlOfStew.effect' },
+    effects: { label: 'gear:service.bowl_of_stew.effect' },
     marketType: 'dailyLiving',
   },
   {
     category: 'services',
-    name: { id: 'heartyMeal', label: 'gear:service.heartyMeal.name' },
+    name: { id: 'heartyMeal', label: 'gear:service.hearty_meal.name' },
     price: {
       _type: 'instant',
       copper: 10,
     },
     supply: 'common',
-    effects: { label: 'gear:service.heartyMeal.effect' },
+    effects: { label: 'gear:service.hearty_meal.effect' },
     marketType: 'dailyLiving',
   },
   {
@@ -206,24 +206,24 @@ export const services: Service[] = [
   },
   {
     category: 'services',
-    name: { id: 'flagonOfAle', label: 'gear:service.flagonOfAle.name' },
+    name: { id: 'flagonOfAle', label: 'gear:service.flagon_of_ale.name' },
     price: {
       _type: 'instant',
       copper: 2,
     },
     supply: 'common',
-    effects: { label: 'gear:service.flagonOfAle.effect' },
+    effects: { label: 'gear:service.flagon_of_ale.effect' },
     marketType: 'dailyLiving',
   },
   {
     category: 'services',
-    name: { id: 'chaliceOfWine', label: 'gear:service.chaliceOfWine.name' },
+    name: { id: 'chaliceOfWine', label: 'gear:service.chalice_of_wine.name' },
     price: {
       _type: 'instant',
       copper: 4,
     },
     supply: 'uncommon',
-    effects: { label: 'gear:service.chaliceOfWine.effect' },
+    effects: { label: 'gear:service.chalice_of_wine.effect' },
     marketType: 'dailyLiving',
   },
   {

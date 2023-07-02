@@ -7,13 +7,20 @@ import { TranslationKey } from '../../store/translations/translation.model'
 import { Tool } from '../../models/tool.model'
 import { Price } from '../../models/price.model'
 import { ServiceId } from './services.data'
+import { translationDict } from '../../functions/translation-dict'
 
-export type GearCategory = 'tradeGoods' | 'services'
+const gearCategories = ['trade_goods', 'services'] as const
+export type GearCategory = (typeof gearCategories)[number]
+export const gearCategoryTranslationDict = translationDict(
+  gearCategories,
+  'gear',
+  'category.',
+)
 
 export const gearCategoryLabelDict: Readonly<
   Record<GearCategory, TranslationKey<'gear'>>
 > = Object.freeze({
-  tradeGoods: 'gear:category.tradeGoods',
+  trade_goods: 'gear:category.trade_goods',
   services: 'gear:category.services',
 })
 
@@ -76,12 +83,19 @@ export type TradeGoodsId =
   | 'torches'
   | 'waterskin'
 
-export type MarketType =
-  | 'dailyLiving'
-  | 'tradeGoods'
-  | 'luxuryGoods'
-  | 'war'
-  | 'food'
+const marketTypes = [
+  'dailyLiving',
+  'tradeGoods',
+  'luxuryGoods',
+  'war',
+  'food',
+] as const
+export type MarketType = (typeof marketTypes)[number]
+export const marketTypeTranslationDict = translationDict(
+  marketTypes,
+  'gear',
+  'market_type.',
+)
 
 export type GearEffect = {
   label: TranslationKey<'gear'>
@@ -144,8 +158,8 @@ export const tradeGoodsViewModel = (
 
 export const tradeGoods: TradeGoods[] = [
   {
-    category: 'tradeGoods',
-    name: { id: 'chalk', label: 'gear:Gear.Chalk.name' },
+    category: 'trade_goods',
+    name: { id: 'chalk', label: 'gear:gear.chalk.name' },
     price: {
       _type: 'instant',
       copper: 2,
@@ -161,12 +175,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: [],
     tools: [],
-    effects: { label: 'gear:Gear.Chalk.effect' },
+    effects: { label: 'gear:gear.chalk.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'flintAndSteel', label: 'gear:Gear.FlintAndSteel.name' },
+    category: 'trade_goods',
+    name: { id: 'flintAndSteel', label: 'gear:gear.flint_and_steel.name' },
     price: {
       _type: 'instant',
       copper: 2,
@@ -186,12 +200,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: [],
     tools: [],
-    effects: { label: 'gear:Gear.FlintAndSteel.effect' },
+    effects: { label: 'gear:gear.flint_and_steel.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'lampOil', label: 'gear:Gear.LampOil.name' },
+    category: 'trade_goods',
+    name: { id: 'lampOil', label: 'gear:gear.lamp_oil.name' },
     price: {
       _type: 'instant',
       copper: 2,
@@ -207,12 +221,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['tanner'],
     tools: ['fire'],
-    effects: { label: 'gear:Gear.LampOil.effect' },
+    effects: { label: 'gear:gear.lamp_oil.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'tankard', label: 'gear:Gear.Tankard.name' },
+    category: 'trade_goods',
+    name: { id: 'tankard', label: 'gear:gear.tankard.name' },
     price: {
       _type: 'instant',
       copper: 2,
@@ -228,14 +242,14 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: [],
     tools: [],
-    effects: { label: 'gear:Gear.Tankard.effect' },
+    effects: { label: 'gear:gear.tankard.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
+    category: 'trade_goods',
     name: {
       id: 'fishingHookAndLine',
-      label: 'gear:Gear.FishingHookAndLine.name',
+      label: 'gear:gear.fishing_hook_and_line.name',
     },
     price: {
       _type: 'instant',
@@ -256,12 +270,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['smith', 'tailor'],
     tools: ['hammer', 'forge'],
-    effects: { label: 'gear:Gear.FishingHookAndLine.effect' },
+    effects: { label: 'gear:gear.fishing_hook_and_line.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'clayPot', label: 'gear:Gear.ClayPot.name' },
+    category: 'trade_goods',
+    name: { id: 'clayPot', label: 'gear:gear.clay_pot.name' },
     price: {
       _type: 'instant',
       copper: 4,
@@ -277,12 +291,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: [],
     tools: ['fire'],
-    effects: { label: 'gear:Gear.ClayPot.effect' },
+    effects: { label: 'gear:gear.clay_pot.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'clayJug', label: 'gear:Gear.ClayJug.name' },
+    category: 'trade_goods',
+    name: { id: 'clayJug', label: 'gear:gear.clay_jug.name' },
     price: {
       _type: 'instant',
       copper: 5,
@@ -298,12 +312,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: [],
     tools: ['fire'],
-    effects: { label: 'gear:Gear.ClayJug.effect' },
+    effects: { label: 'gear:gear.clay_jug.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'oilLamp', label: 'gear:Gear.OilLamp.name' },
+    category: 'trade_goods',
+    name: { id: 'oilLamp', label: 'gear:gear.oil_lamp.name' },
     price: {
       _type: 'instant',
       copper: 5,
@@ -319,12 +333,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: [],
     tools: ['fire'],
-    effects: { label: 'gear:Gear.OilLamp.effect' },
+    effects: { label: 'gear:gear.oil_lamp.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'torches', label: 'gear:Gear.Torches.name' },
+    category: 'trade_goods',
+    name: { id: 'torches', label: 'gear:gear.torches.name' },
     price: {
       _type: 'instant',
       copper: 5,
@@ -340,14 +354,14 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: [],
     tools: ['knifeOrAxe'],
-    effects: { label: 'gear:Gear.Torches.effect' },
+    effects: { label: 'gear:gear.torches.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
+    category: 'trade_goods',
     name: {
       id: 'threeArrowsWoodenHead',
-      label: 'gear:Gear.ThreeArrowsWoodenHead.name',
+      label: 'gear:gear.three_arrows_wooden_head.name',
     },
     price: {
       _type: 'instant',
@@ -364,12 +378,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['bowyer'],
     tools: ['knife'],
-    effects: { label: 'gear:Gear.ThreeArrowsWoodenHead.effect' },
+    effects: { label: 'gear:gear.three_arrows_wooden_head.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'foodKnife', label: 'gear:Gear.FoodKnife.name' },
+    category: 'trade_goods',
+    name: { id: 'foodKnife', label: 'gear:gear.food_knife.name' },
     price: {
       _type: 'instant',
       copper: 6,
@@ -385,12 +399,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['smith'],
     tools: ['forge'],
-    effects: { label: 'gear:Gear.FoodKnife.effect' },
+    effects: { label: 'gear:gear.food_knife.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'tallowCandle', label: 'gear:Gear.TallowCandle.name' },
+    category: 'trade_goods',
+    name: { id: 'tallowCandle', label: 'gear:gear.tallow_candle.name' },
     price: {
       _type: 'instant',
       copper: 6,
@@ -410,12 +424,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: [],
     tools: ['fire'],
-    effects: { label: 'gear:Gear.TallowCandle.effect' },
+    effects: { label: 'gear:gear.tallow_candle.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'blanket', label: 'gear:Gear.Blanket.name' },
+    category: 'trade_goods',
+    name: { id: 'blanket', label: 'gear:gear.blanket.name' },
     price: {
       _type: 'instant',
       copper: 7,
@@ -431,12 +445,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['tailor'],
     tools: ['knife'],
-    effects: { label: 'gear:Gear.Blanket.effect' },
+    effects: { label: 'gear:gear.blanket.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'metalChalice', label: 'gear:Gear.MetalChalice.name' },
+    category: 'trade_goods',
+    name: { id: 'metalChalice', label: 'gear:gear.metal_chalice.name' },
     price: {
       _type: 'instant',
       copper: 7,
@@ -452,12 +466,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['smith'],
     tools: ['forge'],
-    effects: { label: 'gear:Gear.MetalChalice.effect' },
+    effects: { label: 'gear:gear.metal_chalice.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'barrel', label: 'gear:Gear.Barrel.name' },
+    category: 'trade_goods',
+    name: { id: 'barrel', label: 'gear:gear.barrel.name' },
     price: {
       _type: 'instant',
       copper: 8,
@@ -473,12 +487,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: [],
     tools: ['saw', 'hammer'],
-    effects: { label: 'gear:Gear.Barrel.effect' },
+    effects: { label: 'gear:gear.barrel.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'quiver', label: 'gear:Gear.Quiver.name' },
+    category: 'trade_goods',
+    name: { id: 'quiver', label: 'gear:gear.quiver.name' },
     price: {
       _type: 'instant',
       copper: 8,
@@ -494,12 +508,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['tanner'],
     tools: ['knife'],
-    effects: { label: 'gear:Gear.Quiver.effect' },
+    effects: { label: 'gear:gear.quiver.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'chest', label: 'gear:Gear.Chest.name' },
+    category: 'trade_goods',
+    name: { id: 'chest', label: 'gear:gear.chest.name' },
     price: {
       _type: 'instant',
       copper: 10,
@@ -515,12 +529,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: [],
     tools: ['saw', 'hammer'],
-    effects: { label: 'gear:Gear.Chest.effect' },
+    effects: { label: 'gear:gear.chest.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'fishingNet', label: 'gear:Gear.FishingNet.name' },
+    category: 'trade_goods',
+    name: { id: 'fishingNet', label: 'gear:gear.fishing_net.name' },
     price: {
       _type: 'instant',
       copper: 10,
@@ -536,12 +550,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['tailor'],
     tools: ['knife'],
-    effects: { label: 'gear:Gear.FishingNet.effect' },
+    effects: { label: 'gear:gear.fishing_net.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'snares', label: 'gear:Gear.Snares.name' },
+    category: 'trade_goods',
+    name: { id: 'snares', label: 'gear:gear.snares.name' },
     price: {
       _type: 'instant',
       copper: 10,
@@ -557,12 +571,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['masterOfTheHunt'],
     tools: ['knife'],
-    effects: { label: 'gear:Gear.Snares.effect' },
+    effects: { label: 'gear:gear.snares.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'cauldron', label: 'gear:Gear.Cauldron.name' },
+    category: 'trade_goods',
+    name: { id: 'cauldron', label: 'gear:gear.cauldron.name' },
     price: {
       _type: 'instant',
       copper: 18,
@@ -578,12 +592,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['chef', 'smith'],
     tools: ['forge'],
-    effects: { label: 'gear:Gear.Cauldron.effect' },
+    effects: { label: 'gear:gear.cauldron.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'lantern', label: 'gear:Gear.Lantern.name' },
+    category: 'trade_goods',
+    name: { id: 'lantern', label: 'gear:gear.lantern.name' },
     price: {
       _type: 'instant',
       copper: 20,
@@ -599,12 +613,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['smith'],
     tools: ['forge'],
-    effects: { label: 'gear:Gear.Lantern.effect' },
+    effects: { label: 'gear:gear.lantern.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'ropeTenMeters', label: 'gear:Gear.RopeTenMeters.name' },
+    category: 'trade_goods',
+    name: { id: 'ropeTenMeters', label: 'gear:gear.rope_ten_meters.name' },
     price: {
       _type: 'instant',
       copper: 20,
@@ -620,12 +634,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['tailor'],
     tools: ['knife'],
-    effects: { label: 'gear:Gear.RopeTenMeters.effect' },
+    effects: { label: 'gear:gear.rope_ten_meters.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'smallTent', label: 'gear:Gear.SmallTent.name' },
+    category: 'trade_goods',
+    name: { id: 'smallTent', label: 'gear:gear.small_tent.name' },
     price: {
       _type: 'instant',
       copper: 20,
@@ -641,12 +655,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['tailorOrTanner'],
     tools: ['knife', 'needleAndThread'],
-    effects: { label: 'gear:Gear.SmallTent.effect' },
+    effects: { label: 'gear:gear.small_tent.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'sleepingFur', label: 'gear:Gear.SleepingFur.name' },
+    category: 'trade_goods',
+    name: { id: 'sleepingFur', label: 'gear:gear.sleeping_fur.name' },
     price: {
       _type: 'instant',
       copper: 30,
@@ -662,12 +676,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['tanner'],
     tools: ['knife'],
-    effects: { label: 'gear:Gear.SleepingFur.effect' },
+    effects: { label: 'gear:gear.sleeping_fur.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'waterskin', label: 'gear:Gear.Waterskin.name' },
+    category: 'trade_goods',
+    name: { id: 'waterskin', label: 'gear:gear.waterskin.name' },
     price: {
       _type: 'instant',
       copper: 30,
@@ -683,12 +697,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['tanner'],
     tools: ['needleAndThread'],
-    effects: { label: 'gear:Gear.Waterskin.effect' },
+    effects: { label: 'gear:gear.waterskin.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'grapplingHook', label: 'gear:Gear.GrapplingHook.name' },
+    category: 'trade_goods',
+    name: { id: 'grapplingHook', label: 'gear:gear.grappling_hook.name' },
     price: {
       _type: 'instant',
       copper: 30,
@@ -704,12 +718,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['smith'],
     tools: ['forge'],
-    effects: { label: 'gear:Gear.GrapplingHook.effect' },
+    effects: { label: 'gear:gear.grappling_hook.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'scales', label: 'gear:Gear.Scales.name' },
+    category: 'trade_goods',
+    name: { id: 'scales', label: 'gear:gear.scales.name' },
     price: {
       _type: 'instant',
       copper: 30,
@@ -725,12 +739,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['smith'],
     tools: ['forge'],
-    effects: { label: 'gear:Gear.Scales.effect' },
+    effects: { label: 'gear:gear.scales.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'backpack', label: 'gear:Gear.Backpack.name' },
+    category: 'trade_goods',
+    name: { id: 'backpack', label: 'gear:gear.backpack.name' },
     price: {
       _type: 'instant',
       copper: 40,
@@ -746,12 +760,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['tailor'],
     tools: ['knife', 'needleAndThread'],
-    effects: { label: 'gear:Gear.Backpack.effect' },
+    effects: { label: 'gear:gear.backpack.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'fieldKitchen', label: 'gear:Gear.FieldKitchen.name' },
+    category: 'trade_goods',
+    name: { id: 'fieldKitchen', label: 'gear:gear.field_kitchen.name' },
     price: {
       _type: 'instant',
       copper: 40,
@@ -767,12 +781,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['chef', 'smith'],
     tools: ['forge'],
-    effects: { label: 'gear:Gear.FieldKitchen.effect' },
+    effects: { label: 'gear:gear.field_kitchen.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'map', label: 'gear:Gear.Map.name' },
+    category: 'trade_goods',
+    name: { id: 'map', label: 'gear:gear.map.name' },
     price: {
       _type: 'instant',
       copper: 40,
@@ -788,12 +802,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['pathfinder'],
     tools: ['inkAndQuill'],
-    effects: { label: 'gear:Gear.Map.effect' },
+    effects: { label: 'gear:gear.map.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'bearTrap', label: 'gear:Gear.BearTrap.name' },
+    category: 'trade_goods',
+    name: { id: 'bearTrap', label: 'gear:gear.bear_trap.name' },
     price: {
       _type: 'instant',
       copper: 50,
@@ -809,12 +823,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['smith'],
     tools: ['forge'],
-    effects: { label: 'gear:Gear.BearTrap.effect' },
+    effects: { label: 'gear:gear.bear_trap.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'largeTent', label: 'gear:Gear.LargeTent.name' },
+    category: 'trade_goods',
+    name: { id: 'largeTent', label: 'gear:gear.large_tent.name' },
     price: {
       _type: 'instant',
       copper: 50,
@@ -830,12 +844,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['tailorOrTanner'],
     tools: ['knife', 'needleAndThread'],
-    effects: { label: 'gear:Gear.LargeTent.effect' },
+    effects: { label: 'gear:gear.large_tent.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'magnifyingGlass', label: 'gear:Gear.MagnifyingGlass.name' },
+    category: 'trade_goods',
+    name: { id: 'magnifyingGlass', label: 'gear:gear.magnifying_glass.name' },
     price: {
       _type: 'instant',
       copper: 300,
@@ -855,12 +869,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'week',
     talents: ['builder', 'smith'],
     tools: ['forge'],
-    effects: { label: 'gear:Gear.MagnifyingGlass.effect' },
+    effects: { label: 'gear:gear.magnifying_glass.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'spyglass', label: 'gear:Gear.Spyglass.name' },
+    category: 'trade_goods',
+    name: { id: 'spyglass', label: 'gear:gear.spyglass.name' },
     price: {
       _type: 'instant',
       copper: 300,
@@ -876,12 +890,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'twoWeeks',
     talents: ['smith', 'builder'],
     tools: ['forge'],
-    effects: { label: 'gear:Gear.Spyglass.effect' },
+    effects: { label: 'gear:gear.spyglass.effect' },
     marketType: 'dailyLiving',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'fieldRation', label: 'gear:Gear.FieldRation.name' },
+    category: 'trade_goods',
+    name: { id: 'fieldRation', label: 'gear:gear.field_ration.name' },
     price: {
       _type: 'instant',
       copper: 3,
@@ -897,12 +911,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['chef'],
     tools: ['fire'],
-    effects: { label: 'gear:Gear.FieldRation.effect' },
+    effects: { label: 'gear:gear.field_ration.effect' },
     marketType: 'food',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'parchment', label: 'gear:Gear.Parchment.name' },
+    category: 'trade_goods',
+    name: { id: 'parchment', label: 'gear:gear.parchment.name' },
     price: {
       _type: 'instant',
       copper: 6,
@@ -918,12 +932,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['tanner'],
     tools: ['knife'],
-    effects: { label: 'gear:Gear.Parchment.effect' },
+    effects: { label: 'gear:gear.parchment.effect' },
     marketType: 'luxuryGoods',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'metalPlate', label: 'gear:Gear.MetalPlate.name' },
+    category: 'trade_goods',
+    name: { id: 'metalPlate', label: 'gear:gear.metal_plate.name' },
     price: {
       _type: 'instant',
       copper: 8,
@@ -939,12 +953,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['smith'],
     tools: ['forge'],
-    effects: { label: 'gear:Gear.MetalPlate.effect' },
+    effects: { label: 'gear:gear.metal_plate.effect' },
     marketType: 'luxuryGoods',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'spoon', label: 'gear:Gear.Spoon.name' },
+    category: 'trade_goods',
+    name: { id: 'spoon', label: 'gear:gear.spoon.name' },
     price: {
       _type: 'instant',
       copper: 8,
@@ -960,12 +974,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['smith'],
     tools: ['forge'],
-    effects: { label: 'gear:Gear.Spoon.effect' },
+    effects: { label: 'gear:gear.spoon.effect' },
     marketType: 'luxuryGoods',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'holySymbol', label: 'gear:Gear.HolySymbol.name' },
+    category: 'trade_goods',
+    name: { id: 'holySymbol', label: 'gear:gear.holy_symbol.name' },
     price: {
       _type: 'instant',
       copper: 10,
@@ -981,12 +995,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['smith'],
     tools: ['forge'],
-    effects: { label: 'gear:Gear.HolySymbol.effect' },
+    effects: { label: 'gear:gear.holy_symbol.effect' },
     marketType: 'luxuryGoods',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'flute', label: 'gear:Gear.Flute.name' },
+    category: 'trade_goods',
+    name: { id: 'flute', label: 'gear:gear.flute.name' },
     price: {
       _type: 'instant',
       copper: 15,
@@ -1002,12 +1016,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['pathOfTheSong'],
     tools: ['knife'],
-    effects: { label: 'gear:Gear.Flute.effect' },
+    effects: { label: 'gear:gear.flute.effect' },
     marketType: 'luxuryGoods',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'drum', label: 'gear:Gear.Drum.name' },
+    category: 'trade_goods',
+    name: { id: 'drum', label: 'gear:gear.drum.name' },
     price: {
       _type: 'instant',
       copper: 18,
@@ -1027,12 +1041,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['pathOfTheSong'],
     tools: ['knife'],
-    effects: { label: 'gear:Gear.Drum.effect' },
+    effects: { label: 'gear:gear.drum.effect' },
     marketType: 'luxuryGoods',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'horn', label: 'gear:Gear.Horn.name' },
+    category: 'trade_goods',
+    name: { id: 'horn', label: 'gear:gear.horn.name' },
     price: {
       _type: 'instant',
       copper: 30,
@@ -1048,12 +1062,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['pathOfTheSong'],
     tools: ['knife'],
-    effects: { label: 'gear:Gear.Horn.effect' },
+    effects: { label: 'gear:gear.horn.effect' },
     marketType: 'luxuryGoods',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'inkAndQuill', label: 'gear:Gear.InkAndQuill.name' },
+    category: 'trade_goods',
+    name: { id: 'inkAndQuill', label: 'gear:gear.ink_and_quill.name' },
     price: {
       _type: 'instant',
       copper: 30,
@@ -1073,12 +1087,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['tanner'],
     tools: ['knife', 'fire'],
-    effects: { label: 'gear:Gear.InkAndQuill.effect' },
+    effects: { label: 'gear:gear.ink_and_quill.effect' },
     marketType: 'luxuryGoods',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'lyre', label: 'gear:Gear.Lyre.name' },
+    category: 'trade_goods',
+    name: { id: 'lyre', label: 'gear:gear.lyre.name' },
     price: {
       _type: 'instant',
       copper: 50,
@@ -1098,12 +1112,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'week',
     talents: ['pathOfTheSong'],
     tools: ['knife'],
-    effects: { label: 'gear:Gear.Lyre.effect' },
+    effects: { label: 'gear:gear.lyre.effect' },
     marketType: 'luxuryGoods',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'crystalBall', label: 'gear:Gear.CrystalBall.name' },
+    category: 'trade_goods',
+    name: { id: 'crystalBall', label: 'gear:gear.crystal_ball.name' },
     price: {
       _type: 'instant',
       copper: 60,
@@ -1119,12 +1133,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['smith'],
     tools: ['forge'],
-    effects: { label: 'gear:Gear.CrystalBall.effect' },
+    effects: { label: 'gear:gear.crystal_ball.effect' },
     marketType: 'luxuryGoods',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'harp', label: 'gear:Gear.Harp.name' },
+    category: 'trade_goods',
+    name: { id: 'harp', label: 'gear:gear.harp.name' },
     price: {
       _type: 'instant',
       copper: 80,
@@ -1144,12 +1158,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'twoWeeks',
     talents: ['pathOfTheSong'],
     tools: ['knife'],
-    effects: { label: 'gear:Gear.Harp.effect' },
+    effects: { label: 'gear:gear.harp.effect' },
     marketType: 'luxuryGoods',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'hourglass', label: 'gear:Gear.Hourglass.name' },
+    category: 'trade_goods',
+    name: { id: 'hourglass', label: 'gear:gear.hourglass.name' },
     price: {
       _type: 'instant',
       copper: 120,
@@ -1169,12 +1183,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'week',
     talents: ['builder'],
     tools: ['forge'],
-    effects: { label: 'gear:Gear.Hourglass.effect' },
+    effects: { label: 'gear:gear.hourglass.effect' },
     marketType: 'luxuryGoods',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'bandages', label: 'gear:Gear.Bandages.name' },
+    category: 'trade_goods',
+    name: { id: 'bandages', label: 'gear:gear.bandages.name' },
     price: {
       _type: 'instant',
       copper: 6,
@@ -1190,14 +1204,14 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['tailor'],
     tools: ['knife'],
-    effects: { label: 'gear:Gear.Bandages.effect' },
+    effects: { label: 'gear:gear.bandages.effect' },
     marketType: 'war',
   },
   {
-    category: 'tradeGoods',
+    category: 'trade_goods',
     name: {
       id: 'threeArrowsIronHead',
-      label: 'gear:Gear.ThreeArrowsIronHead.name',
+      label: 'gear:gear.three_arrows_iron_head.name',
     },
     price: {
       _type: 'instant',
@@ -1218,14 +1232,14 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['smith', 'bowyer'],
     tools: ['forge', 'knife'],
-    effects: { label: 'gear:Gear.ThreeArrowsIronHead.effect' },
+    effects: { label: 'gear:gear.three_arrows_iron_head.effect' },
     marketType: 'war',
   },
   {
-    category: 'tradeGoods',
+    category: 'trade_goods',
     name: {
       id: 'sleepingPoisonOrAntidote',
-      label: 'gear:Gear.SleepingPoisonOrAntidote.name',
+      label: 'gear:gear.sleeping_poison_or_antidote.name',
     },
     price: {
       _type: 'instant',
@@ -1242,14 +1256,14 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['poisoner'],
     tools: ['cauldron', 'fire'],
-    effects: { label: 'gear:Gear.SleepingPoisonOrAntidote.effect' },
+    effects: { label: 'gear:gear.sleeping_poison_or_antidote.effect' },
     marketType: 'war',
   },
   {
-    category: 'tradeGoods',
+    category: 'trade_goods',
     name: {
       id: 'hallucinogenicPoisonOrAntidote',
-      label: 'gear:Gear.HallucinogenicPoisonOrAntidote.name',
+      label: 'gear:gear.hallucinogenic_poison_or_antidote.name',
     },
     price: {
       _type: 'instant',
@@ -1266,14 +1280,14 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['poisoner'],
     tools: ['cauldron', 'fire'],
-    effects: { label: 'gear:Gear.HallucinogenicPoisonOrAntidote.effect' },
+    effects: { label: 'gear:gear.hallucinogenic_poison_or_antidote.effect' },
     marketType: 'war',
   },
   {
-    category: 'tradeGoods',
+    category: 'trade_goods',
     name: {
       id: 'paralyzingPoisonOrAntidote',
-      label: 'gear:Gear.ParalyzingPoisonOrAntidote.name',
+      label: 'gear:gear.paralyzing_poison_or_antidote.name',
     },
     price: {
       _type: 'instant',
@@ -1290,14 +1304,14 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['poisoner'],
     tools: ['cauldron', 'fire'],
-    effects: { label: 'gear:Gear.ParalyzingPoisonOrAntidote.effect' },
+    effects: { label: 'gear:gear.paralyzing_poison_or_antidote.effect' },
     marketType: 'war',
   },
   {
-    category: 'tradeGoods',
+    category: 'trade_goods',
     name: {
       id: 'lethalPoisonOrAntidote',
-      label: 'gear:Gear.LethalPoisonOrAntidote.name',
+      label: 'gear:gear.lethal_poison_or_antidote.name',
     },
     price: {
       _type: 'instant',
@@ -1314,12 +1328,12 @@ export const tradeGoods: TradeGoods[] = [
     time: 'quarterDay',
     talents: ['poisoner'],
     tools: ['cauldron', 'fire'],
-    effects: { label: 'gear:Gear.LethalPoisonOrAntidote.effect' },
+    effects: { label: 'gear:gear.lethal_poison_or_antidote.effect' },
     marketType: 'war',
   },
   {
-    category: 'tradeGoods',
-    name: { id: 'lockpicks', label: 'gear:Gear.Lockpicks.name' },
+    category: 'trade_goods',
+    name: { id: 'lockpicks', label: 'gear:gear.lockpicks.name' },
     price: {
       _type: 'instant',
       copper: 100,
@@ -1335,7 +1349,7 @@ export const tradeGoods: TradeGoods[] = [
     time: 'day',
     talents: ['smith', 'lockpicker'],
     tools: ['forge'],
-    effects: { label: 'gear:Gear.Lockpicks.effect' },
+    effects: { label: 'gear:gear.lockpicks.effect' },
     marketType: 'war',
   },
 ]

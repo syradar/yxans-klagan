@@ -5,7 +5,7 @@ export const generateLegend = () => {
   const adjective = getText(ADJECTIVE)
   const who_or_what = getText(WHO_OR_WHAT)
 
-  if (who_or_what.text() === 'session:WhoOrWhat.Monster') {
+  if (who_or_what.text() === 'session:who_or_what.monster') {
     who_or_what.pronoun = undefined
   }
 
@@ -56,7 +56,7 @@ const timeAgo = (): TimeAgoResult => {
 
   return (
     time ?? {
-      description: 'session:TimeAgo.BeforeShift',
+      description: 'session:time_ago.before_shift',
       age: 0,
     }
   )
@@ -70,22 +70,22 @@ type TimeAgo = {
 
 const TIME_AGO: TimeAgo[] = [
   {
-    text: 'session:TimeAgo.BeforeShift',
+    text: 'session:time_ago.before_shift',
     ageRange: [1100, 3000],
     roll: [11, 12],
   },
   {
-    text: 'session:TimeAgo.BeforeBloodMist',
+    text: 'session:time_ago.before_blood_mist',
     ageRange: [300, 1100],
     roll: [13, 14, 15, 16, 21, 22, 23, 24, 25, 26],
   },
   {
-    text: 'session:TimeAgo.DuringAlderWars',
+    text: 'session:time_ago.during_alder_wars',
     ageRange: [305, 360],
     roll: [31, 32, 33, 34, 35, 36, 41, 42, 43],
   },
   {
-    text: 'session:TimeAgo.DuringBloodMist',
+    text: 'session:time_ago.during_blood_mist',
     ageRange: [5, 280],
     roll: [44, 45, 46, 51, 52, 53, 54, 55, 56, 61, 62, 63, 64, 65, 66],
   },
@@ -107,78 +107,78 @@ const getText = (
   return (
     arr.find((a) => a.roll.includes(roll)) ?? {
       roll: [0],
-      text: () => 'common:Empty',
+      text: () => 'common:empty',
     }
   )
 }
 
 const ADJECTIVE: LegendTableItem[] = [
-  { roll: [11], text: () => 'session:Adjective.BloodThirsty' },
-  { roll: [12], text: () => 'session:Adjective.Vengeful' },
-  { roll: [13], text: () => 'session:Adjective.Greedy' },
-  { roll: [14], text: () => 'session:Adjective.Unhappy' },
-  { roll: [15], text: () => 'session:Adjective.Ingenious' },
-  { roll: [16], text: () => 'session:Adjective.Enterprising' },
-  { roll: [21], text: () => 'session:Adjective.Kind' },
-  { roll: [22], text: () => 'session:Adjective.Perseverant' },
-  { roll: [23, 24], text: () => 'session:Adjective.Treacherous' },
-  { roll: [25, 26], text: () => 'session:Adjective.Moral' },
-  { roll: [31, 32], text: () => 'session:Adjective.Skilled' },
-  { roll: [33, 34], text: () => 'session:Adjective.Stingy' },
-  { roll: [35, 36], text: () => 'session:Adjective.Vain' },
-  { roll: [41, 42], text: () => 'session:Adjective.Wise' },
-  { roll: [43, 44], text: () => 'session:Adjective.Beautiful' },
-  { roll: [45, 46], text: () => 'session:Adjective.Honorable' },
-  { roll: [51, 52], text: () => 'session:Adjective.Jealous' },
-  { roll: [53, 54], text: () => 'session:Adjective.Cruel' },
-  { roll: [55, 56], text: () => 'session:Adjective.Determined' },
-  { roll: [61, 62], text: () => 'session:Adjective.Cunning' },
-  { roll: [63, 64], text: () => 'session:Adjective.Scared' },
-  { roll: [65, 66], text: () => 'session:Adjective.Evil' },
+  { roll: [11], text: () => 'session:adjective.blood_thirsty' },
+  { roll: [12], text: () => 'session:adjective.vengeful' },
+  { roll: [13], text: () => 'session:adjective.greedy' },
+  { roll: [14], text: () => 'session:adjective.unhappy' },
+  { roll: [15], text: () => 'session:adjective.ingenious' },
+  { roll: [16], text: () => 'session:adjective.enterprising' },
+  { roll: [21], text: () => 'session:adjective.kind' },
+  { roll: [22], text: () => 'session:adjective.perseverant' },
+  { roll: [23, 24], text: () => 'session:adjective.treacherous' },
+  { roll: [25, 26], text: () => 'session:adjective.moral' },
+  { roll: [31, 32], text: () => 'session:adjective.skilled' },
+  { roll: [33, 34], text: () => 'session:adjective.stingy' },
+  { roll: [35, 36], text: () => 'session:adjective.vain' },
+  { roll: [41, 42], text: () => 'session:adjective.wise' },
+  { roll: [43, 44], text: () => 'session:adjective.beautiful' },
+  { roll: [45, 46], text: () => 'session:adjective.honorable' },
+  { roll: [51, 52], text: () => 'session:adjective.jealous' },
+  { roll: [53, 54], text: () => 'session:adjective.cruel' },
+  { roll: [55, 56], text: () => 'session:adjective.determined' },
+  { roll: [61, 62], text: () => 'session:adjective.cunning' },
+  { roll: [63, 64], text: () => 'session:adjective.scared' },
+  { roll: [65, 66], text: () => 'session:adjective.evil' },
 ]
 
 const WHO_OR_WHAT: LegendTableItem[] = [
-  { roll: [11], text: () => 'session:WhoOrWhat.Elf' },
-  { roll: [12], text: () => 'session:WhoOrWhat.Dwarf' },
-  { roll: [13], text: () => 'session:WhoOrWhat.Peddler' },
-  { roll: [14], text: () => 'session:WhoOrWhat.Smith' },
-  { roll: [15], text: () => 'session:WhoOrWhat.Farmer' },
-  { roll: [16], text: () => 'session:WhoOrWhat.Apprentice' },
-  { roll: [21], text: () => 'session:WhoOrWhat.Druid' },
-  { roll: [22], text: () => 'session:WhoOrWhat.Shepherd' },
-  { roll: [23, 24], text: () => 'session:WhoOrWhat.RavenSister' },
-  { roll: [25, 26], text: () => 'session:WhoOrWhat.RustBrother' },
-  { roll: [31, 32], text: () => 'session:WhoOrWhat.Rider' },
-  { roll: [33, 34], text: () => 'session:WhoOrWhat.TreasureHunter' },
-  { roll: [35, 36], text: () => 'session:WhoOrWhat.Priest' },
-  { roll: [41, 42], text: () => 'session:WhoOrWhat.Sorcerer' },
-  { roll: [43, 44], text: () => 'session:WhoOrWhat.RobberChieftain' },
-  { roll: [45, 46], text: () => 'session:WhoOrWhat.Warrior' },
-  { roll: [51, 52], text: () => 'session:WhoOrWhat.Lord' },
-  { roll: [53, 54], text: () => 'session:WhoOrWhat.Prince' },
-  { roll: [55, 56], text: () => 'session:WhoOrWhat.Princess' },
-  { roll: [61, 62], text: () => 'session:WhoOrWhat.Queen' },
-  { roll: [63, 64], text: () => 'session:WhoOrWhat.King' },
+  { roll: [11], text: () => 'session:who_or_what.elf' },
+  { roll: [12], text: () => 'session:who_or_what.dwarf' },
+  { roll: [13], text: () => 'session:who_or_what.peddler' },
+  { roll: [14], text: () => 'session:who_or_what.smith' },
+  { roll: [15], text: () => 'session:who_or_what.farmer' },
+  { roll: [16], text: () => 'session:who_or_what.apprentice' },
+  { roll: [21], text: () => 'session:who_or_what.druid' },
+  { roll: [22], text: () => 'session:who_or_what.shepherd' },
+  { roll: [23, 24], text: () => 'session:who_or_what.raven_sister' },
+  { roll: [25, 26], text: () => 'session:who_or_what.rust_brother' },
+  { roll: [31, 32], text: () => 'session:who_or_what.rider' },
+  { roll: [33, 34], text: () => 'session:who_or_what.treasure_hunter' },
+  { roll: [35, 36], text: () => 'session:who_or_what.priest' },
+  { roll: [41, 42], text: () => 'session:who_or_what.sorcerer' },
+  { roll: [43, 44], text: () => 'session:who_or_what.robber_chieftain' },
+  { roll: [45, 46], text: () => 'session:who_or_what.warrior' },
+  { roll: [51, 52], text: () => 'session:who_or_what.lord' },
+  { roll: [53, 54], text: () => 'session:who_or_what.prince' },
+  { roll: [55, 56], text: () => 'session:who_or_what.princess' },
+  { roll: [61, 62], text: () => 'session:who_or_what.queen' },
+  { roll: [63, 64], text: () => 'session:who_or_what.king' },
   {
     roll: [65, 66],
     text: () => {
       const roll = getRandomInt(1, 6)
       switch (roll) {
         case 1:
-          return 'session:WhoOrWhat.Soldiers'
+          return 'session:who_or_what.soldiers'
         case 2:
-          return 'session:WhoOrWhat.Village'
+          return 'session:who_or_what.village'
         case 3:
-          return 'session:WhoOrWhat.Cult'
+          return 'session:who_or_what.cult'
         case 4:
-          return 'session:WhoOrWhat.BandOfRobbers'
+          return 'session:who_or_what.band_of_robbers'
         case 5:
-          return 'session:WhoOrWhat.Cabal'
+          return 'session:who_or_what.cabal'
         case 6:
-          return 'session:WhoOrWhat.Monster'
+          return 'session:who_or_what.monster'
 
         default:
-          return 'session:WhoOrWhat.BandOfRobbers'
+          return 'session:who_or_what.band_of_robbers'
       }
     },
     pronoun: 'Third',
@@ -186,142 +186,148 @@ const WHO_OR_WHAT: LegendTableItem[] = [
 ]
 
 const WHO_SEARCHED_FOR: LegendTableItem[] = [
-  { roll: [11, 12, 13, 14], text: () => 'session:SearchedFor.Weapon' },
-  { roll: [15, 16, 21, 22], text: () => 'session:SearchedFor.Love' },
-  { roll: [23, 24, 25, 26], text: () => 'session:SearchedFor.Friend' },
-  { roll: [31, 32, 33, 34], text: () => 'session:SearchedFor.Enemy' },
-  { roll: [35, 36, 41, 42], text: () => 'session:SearchedFor.Treasure' },
-  { roll: [43, 44, 45, 46], text: () => 'session:SearchedFor.Map' },
-  { roll: [51, 52, 53, 54], text: () => 'session:SearchedFor.FamilyMember' },
-  { roll: [55, 56, 61, 62], text: () => 'session:SearchedFor.Artifact' },
-  { roll: [63, 44, 65, 66], text: () => 'session:SearchedFor.Monster' },
+  { roll: [11, 12, 13, 14], text: () => 'session:searched_for.weapon' },
+  { roll: [15, 16, 21, 22], text: () => 'session:searched_for.love' },
+  { roll: [23, 24, 25, 26], text: () => 'session:searched_for.friend' },
+  { roll: [31, 32, 33, 34], text: () => 'session:searched_for.enemy' },
+  { roll: [35, 36, 41, 42], text: () => 'session:searched_for.treasure' },
+  { roll: [43, 44, 45, 46], text: () => 'session:searched_for.map' },
+  { roll: [51, 52, 53, 54], text: () => 'session:searched_for.family_member' },
+  { roll: [55, 56, 61, 62], text: () => 'session:searched_for.artifact' },
+  { roll: [63, 44, 65, 66], text: () => 'session:searched_for.monster' },
 ]
 
 const BECAUSE: LegendTableItem[] = [
-  { roll: [11, 12, 13, 14], text: () => 'session:Because.Love' },
-  { roll: [15, 16], text: () => 'session:Because.Friendship' },
-  { roll: [21, 22, 23, 24], text: () => 'session:Because.Promise' },
-  { roll: [25, 26, 31, 32, 33], text: () => 'session:Because.Prophecy' },
-  { roll: [35, 36, 41], text: () => 'session:Because.Bet' },
-  { roll: [42, 43, 44, 45], text: () => 'session:Because.Duty' },
-  { roll: [46, 51, 52], text: () => 'session:Because.War' },
-  { roll: [53, 54, 55], text: () => 'session:Because.Honor' },
-  { roll: [56, 61], text: () => 'session:Because.Insanity' },
-  { roll: [62, 63], text: () => 'session:Because.Dreams' },
-  { roll: [64, 65, 66], text: () => 'session:Because.Greed' },
+  { roll: [11, 12, 13, 14], text: () => 'session:because.love' },
+  { roll: [15, 16], text: () => 'session:because.friendship' },
+  { roll: [21, 22, 23, 24], text: () => 'session:because.promise' },
+  { roll: [25, 26, 31, 32, 33], text: () => 'session:because.prophecy' },
+  { roll: [35, 36, 41], text: () => 'session:because.bet' },
+  { roll: [42, 43, 44, 45], text: () => 'session:because.duty' },
+  { roll: [46, 51, 52], text: () => 'session:because.war' },
+  { roll: [53, 54, 55], text: () => 'session:because.honor' },
+  { roll: [56, 61], text: () => 'session:because.insanity' },
+  { roll: [62, 63], text: () => 'session:because.dreams' },
+  { roll: [64, 65, 66], text: () => 'session:because.greed' },
 ]
 
 const LOCATION: LegendTableItem[] = [
-  { roll: [11, 12, 13, 14, 15, 16], text: () => 'session:Location.Ruin' },
-  { roll: [21, 21], text: () => 'session:Location.Farm' },
-  { roll: [23, 24, 25, 26], text: () => 'session:Location.Grave' },
-  { roll: [31, 32, 33, 34], text: () => 'session:Location.Tower' },
-  { roll: [35, 36], text: () => 'session:Location.Fortress' },
-  { roll: [41, 42, 43], text: () => 'session:Location.Village' },
-  { roll: [44, 45, 46, 51, 52, 53], text: () => 'session:Location.Cave' },
-  { roll: [54, 55, 56], text: () => 'session:Location.Hill' },
-  { roll: [61, 62, 63], text: () => 'session:Location.Tree' },
-  { roll: [64, 65, 66], text: () => 'session:Location.WaterSource' },
+  { roll: [11, 12, 13, 14, 15, 16], text: () => 'session:location.ruin' },
+  { roll: [21, 21], text: () => 'session:location.farm' },
+  { roll: [23, 24, 25, 26], text: () => 'session:location.grave' },
+  { roll: [31, 32, 33, 34], text: () => 'session:location.tower' },
+  { roll: [35, 36], text: () => 'session:location.fortress' },
+  { roll: [41, 42, 43], text: () => 'session:location.village' },
+  { roll: [44, 45, 46, 51, 52, 53], text: () => 'session:location.cave' },
+  { roll: [54, 55, 56], text: () => 'session:location.hill' },
+  { roll: [61, 62, 63], text: () => 'session:location.tree' },
+  { roll: [64, 65, 66], text: () => 'session:location.water_source' },
 ]
 
 const DISTANCE: LegendTableItem[] = [
-  { roll: [1], text: () => 'session:Distance.Here' },
-  { roll: [2], text: () => 'session:Distance.CloseBy' },
-  { roll: [3], text: () => 'session:Distance.OneDaysMarch' },
-  { roll: [4], text: () => 'session:Distance.ManyDaysMarch' },
-  { roll: [5], text: () => 'session:Distance.FarAway' },
-  { roll: [6], text: () => 'session:Distance.TheOtherSide' },
+  { roll: [1], text: () => 'session:distance.here' },
+  { roll: [2], text: () => 'session:distance.close_by' },
+  { roll: [3], text: () => 'session:distance.one_days_march' },
+  { roll: [4], text: () => 'session:distance.many_days_march' },
+  { roll: [5], text: () => 'session:distance.far_away' },
+  { roll: [6], text: () => 'session:distance.the_other_side' },
 ]
 
 const TERRAIN: LegendTableItem[] = [
-  { roll: [11, 12, 13, 14], text: () => 'common:ATerrain.RuinCity' },
-  { roll: [15, 16, 21], text: () => 'common:ATerrain.Swamp' },
-  { roll: [22, 23, 24], text: () => 'common:ATerrain.Mire' },
-  { roll: [25, 26, 31, 32, 33, 34], text: () => 'common:ATerrain.Plains' },
-  { roll: [35, 36, 41, 42, 43, 44], text: () => 'common:ATerrain.Forest' },
-  { roll: [45, 46, 51, 52, 53], text: () => 'common:ATerrain.Hills' },
-  { roll: [54, 55, 56, 61, 62, 63], text: () => 'common:ATerrain.DarkForest' },
-  { roll: [64], text: () => 'common:ATerrain.Lake' },
-  { roll: [65, 66], text: () => 'common:ATerrain.Mountain' },
+  { roll: [11, 12, 13, 14], text: () => 'common:aterrain.ruin_city' },
+  { roll: [15, 16, 21], text: () => 'common:aterrain.swamp' },
+  { roll: [22, 23, 24], text: () => 'common:aterrain.mire' },
+  { roll: [25, 26, 31, 32, 33, 34], text: () => 'common:aterrain.plains' },
+  { roll: [35, 36, 41, 42, 43, 44], text: () => 'common:aterrain.forest' },
+  { roll: [45, 46, 51, 52, 53], text: () => 'common:aterrain.hills' },
+  { roll: [54, 55, 56, 61, 62, 63], text: () => 'common:aterrain.dark_forest' },
+  { roll: [64], text: () => 'common:aterrain.lake' },
+  { roll: [65, 66], text: () => 'common:aterrain.mountain' },
 ]
 
 const DIRECTION: LegendTableItem[] = [
-  { roll: [1], text: () => 'common:Direction.North' },
-  { roll: [2], text: () => 'common:Direction.NorthEast' },
-  { roll: [3], text: () => 'common:Direction.East' },
-  { roll: [4], text: () => 'common:Direction.SouthEast' },
-  { roll: [5], text: () => 'common:Direction.South' },
-  { roll: [6], text: () => 'common:Direction.SouthWest' },
-  { roll: [7], text: () => 'common:Direction.West' },
-  { roll: [8], text: () => 'common:Direction.NorthWest' },
+  { roll: [1], text: () => 'common:direction.north' },
+  { roll: [2], text: () => 'common:direction.north_east' },
+  { roll: [3], text: () => 'common:direction.east' },
+  { roll: [4], text: () => 'common:direction.south_east' },
+  { roll: [5], text: () => 'common:direction.south' },
+  { roll: [6], text: () => 'common:direction.south_west' },
+  { roll: [7], text: () => 'common:direction.west' },
+  { roll: [8], text: () => 'common:direction.north_west' },
 ]
 
 const WHAT_HAPPENED: LegendTableItem[] = [
-  { roll: [11, 12, 13, 14], text: () => 'session:WhatHappened.Betrayed' },
-  { roll: [15, 21, 22], text: () => 'session:WhatHappened.Murdered' },
-  { roll: [23, 24, 25, 26], text: () => 'session:WhatHappened.NeverSeenAgain' },
-  { roll: [31, 32, 33], text: () => 'session:WhatHappened.StarvedToDeath' },
-  { roll: [34, 35, 36], text: () => 'session:WhatHappened.CommitedSuicide' },
-  { roll: [41, 42, 43, 44], text: () => 'session:WhatHappened.DiedInBattle' },
-  { roll: [45, 46, 51, 52], text: () => 'session:WhatHappened.Charmed' },
-  { roll: [53, 54, 55, 56], text: () => 'session:WhatHappened.Possessed' },
-  { roll: [61, 62, 63], text: () => 'session:WhatHappened.CameBackChanged' },
-  { roll: [64, 65, 66], text: () => 'session:WhatHappened.StillLooking' },
+  { roll: [11, 12, 13, 14], text: () => 'session:what_happened.betrayed' },
+  { roll: [15, 21, 22], text: () => 'session:what_happened.murdered' },
+  {
+    roll: [23, 24, 25, 26],
+    text: () => 'session:what_happened.never_seen_again',
+  },
+  { roll: [31, 32, 33], text: () => 'session:what_happened.starved_to_death' },
+  { roll: [34, 35, 36], text: () => 'session:what_happened.commited_suicide' },
+  {
+    roll: [41, 42, 43, 44],
+    text: () => 'session:what_happened.died_in_battle',
+  },
+  { roll: [45, 46, 51, 52], text: () => 'session:what_happened.charmed' },
+  { roll: [53, 54, 55, 56], text: () => 'session:what_happened.possessed' },
+  { roll: [61, 62, 63], text: () => 'session:what_happened.came_back_changed' },
+  { roll: [64, 65, 66], text: () => 'session:what_happened.still_looking' },
 ]
 
 const ITS_TOLD_THAT: LegendTableItem[] = [
-  { roll: [11, 12, 13, 14], text: () => 'session:ItsToldThat.Gold' },
-  { roll: [15, 16, 21, 22], text: () => 'session:ItsToldThat.Artifact' },
-  { roll: [23, 24, 25, 26], text: () => 'session:ItsToldThat.Armor' },
-  { roll: [31, 32, 33], text: () => 'session:ItsToldThat.Weapon' },
-  { roll: [34, 35, 36], text: () => 'session:ItsToldThat.Book' },
-  { roll: [41, 42, 43, 44], text: () => 'session:ItsToldThat.Treasure' },
+  { roll: [11, 12, 13, 14], text: () => 'session:its_told_that.gold' },
+  { roll: [15, 16, 21, 22], text: () => 'session:its_told_that.artifact' },
+  { roll: [23, 24, 25, 26], text: () => 'session:its_told_that.armor' },
+  { roll: [31, 32, 33], text: () => 'session:its_told_that.weapon' },
+  { roll: [34, 35, 36], text: () => 'session:its_told_that.book' },
+  { roll: [41, 42, 43, 44], text: () => 'session:its_told_that.treasure' },
   {
     roll: [45, 45, 46, 51, 52],
-    text: () => 'session:ItsToldThat.WarChest',
+    text: () => 'session:its_told_that.war_chest',
   },
   {
     roll: [53, 54, 55, 56],
-    text: () => 'session:ItsToldThat.Remains',
+    text: () => 'session:its_told_that.remains',
   },
-  { roll: [61, 62, 63], text: () => 'session:ItsToldThat.DwarvenArtifact' },
-  { roll: [64, 65, 66], text: () => 'session:ItsToldThat.ElfRuby' },
+  { roll: [61, 62, 63], text: () => 'session:its_told_that.dwarven_artifact' },
+  { roll: [64, 65, 66], text: () => 'session:its_told_that.elf_ruby' },
 ]
 const ADJECTIVE_ADVERSARY: LegendTableItem[] = [
   {
     roll: [11, 12, 13, 14],
-    text: () => 'session:AdjectiveAdversary.Aggresive',
+    text: () => 'session:adjective_adversary.aggresive',
   },
   {
     roll: [15, 16, 21, 22],
-    text: () => 'session:AdjectiveAdversary.BloodThirsty',
+    text: () => 'session:adjective_adversary.blood_thirsty',
   },
-  { roll: [23, 24, 25], text: () => 'session:AdjectiveAdversary.Cruel' },
-  { roll: [26, 31, 32], text: () => 'session:AdjectiveAdversary.Horrible' },
-  { roll: [33, 34], text: () => 'session:AdjectiveAdversary.Hungry' },
+  { roll: [23, 24, 25], text: () => 'session:adjective_adversary.cruel' },
+  { roll: [26, 31, 32], text: () => 'session:adjective_adversary.horrible' },
+  { roll: [33, 34], text: () => 'session:adjective_adversary.hungry' },
   {
     roll: [35, 36, 41, 42, 43],
-    text: () => 'session:AdjectiveAdversary.Guarding',
+    text: () => 'session:adjective_adversary.guarding',
   },
-  { roll: [44, 45, 46], text: () => 'session:AdjectiveAdversary.Starving' },
-  { roll: [51, 52, 53, 54], text: () => 'session:AdjectiveAdversary.Greedy' },
-  { roll: [55, 56, 61], text: () => 'session:AdjectiveAdversary.Crazy' },
-  { roll: [62, 63], text: () => 'session:AdjectiveAdversary.Murderous' },
-  { roll: [64, 65], text: () => 'session:AdjectiveAdversary.Manic' },
-  { roll: [66], text: () => 'session:AdjectiveAdversary.Hunting' },
+  { roll: [44, 45, 46], text: () => 'session:adjective_adversary.starving' },
+  { roll: [51, 52, 53, 54], text: () => 'session:adjective_adversary.greedy' },
+  { roll: [55, 56, 61], text: () => 'session:adjective_adversary.crazy' },
+  { roll: [62, 63], text: () => 'session:adjective_adversary.murderous' },
+  { roll: [64, 65], text: () => 'session:adjective_adversary.manic' },
+  { roll: [66], text: () => 'session:adjective_adversary.hunting' },
 ]
 
 const ADVERSARY: LegendTableItem[] = [
-  { roll: [11, 12, 13, 14], text: () => 'session:Adversary.WolfKin' },
-  { roll: [15, 16, 21, 22], text: () => 'session:Adversary.SlaveTraders' },
-  { roll: [23, 24, 25], text: () => 'session:Adversary.Orcs' },
-  { roll: [26, 31, 32], text: () => 'session:Adversary.Ghosts' },
-  { roll: [33, 34], text: () => 'session:Adversary.Saurians' },
-  { roll: [35, 36, 41, 42, 43], text: () => 'session:Adversary.IronGuards' },
-  { roll: [44, 45, 46], text: () => 'session:Adversary.Undead' },
-  { roll: [51, 52, 53, 54], text: () => 'session:Adversary.Robbers' },
-  { roll: [55, 56, 61], text: () => 'session:Adversary.Goblins' },
-  { roll: [62, 63], text: () => 'session:Adversary.Ogres' },
+  { roll: [11, 12, 13, 14], text: () => 'session:adversary.wolf_kin' },
+  { roll: [15, 16, 21, 22], text: () => 'session:adversary.slave_traders' },
+  { roll: [23, 24, 25], text: () => 'session:adversary.orcs' },
+  { roll: [26, 31, 32], text: () => 'session:adversary.ghosts' },
+  { roll: [33, 34], text: () => 'session:adversary.saurians' },
+  { roll: [35, 36, 41, 42, 43], text: () => 'session:adversary.iron_guards' },
+  { roll: [44, 45, 46], text: () => 'session:adversary.undead' },
+  { roll: [51, 52, 53, 54], text: () => 'session:adversary.robbers' },
+  { roll: [55, 56, 61], text: () => 'session:adversary.goblins' },
+  { roll: [62, 63], text: () => 'session:adversary.ogres' },
   { roll: [64, 65], text: () => getText(MONSTER_LIST).text() },
   {
     roll: [66],
@@ -329,45 +335,45 @@ const ADVERSARY: LegendTableItem[] = [
       const roll = getRandomInt(1, 6)
       switch (roll) {
         case 5:
-          return 'session:Adversary.Demon_Two'
+          return 'session:adversary.demon_two'
         case 6:
-          return 'session:Adversary.DemonWithCount'
+          return 'session:adversary.demon_with_count'
 
         case 1:
         case 2:
         case 3:
         case 4:
         default:
-          return 'session:Adversary.Demon_One'
+          return 'session:adversary.demon_one'
       }
     },
   },
 ]
 
 const MONSTER_LIST: LegendTableItem[] = [
-  { roll: [11, 12], text: () => 'common:Monster.StranglingVine' },
-  { roll: [13, 14, 15], text: () => 'common:Monster.GrayBear' },
-  { roll: [16, 21, 22], text: () => 'common:Monster.NightWarg' },
-  { roll: [23, 24], text: () => 'common:Monster.Ghost' },
-  { roll: [25, 26], text: () => 'common:Monster.Ghoul' },
-  { roll: [31, 32], text: () => 'common:Monster.Skeleton' },
-  { roll: [33, 34], text: () => 'common:Monster.RestlessDead' },
-  { roll: [35, 36], text: () => 'common:Monster.Wyvern' },
-  { roll: [41, 42], text: () => 'common:Monster.Harpies' },
-  { roll: [43], text: () => 'common:Monster.Minotaur' },
-  { roll: [44], text: () => 'common:Monster.Ent' },
-  { roll: [45], text: () => 'common:Monster.AbyssWorm' },
-  { roll: [46], text: () => 'common:Monster.GiantSquid' },
-  { roll: [51], text: () => 'common:Monster.SeaSerpent' },
-  { roll: [52], text: () => 'common:Monster.Troll' },
-  { roll: [53], text: () => 'common:Monster.DeathKnight' },
-  { roll: [54], text: () => 'common:Monster.Insectoid' },
-  { roll: [55], text: () => 'common:Monster.Bloodling' },
-  { roll: [56], text: () => 'common:Monster.Manticore' },
-  { roll: [61], text: () => 'common:Monster.Gryphon' },
-  { roll: [62], text: () => 'common:Monster.Giant' },
-  { roll: [63], text: () => 'common:Monster.Hydra' },
-  { roll: [64], text: () => 'common:Monster.Demon' },
-  { roll: [65], text: () => 'common:Monster.Drakewyrm' },
-  { roll: [66], text: () => 'common:Monster.Dragon' },
+  { roll: [11, 12], text: () => 'common:monster.strangling_vine' },
+  { roll: [13, 14, 15], text: () => 'common:monster.gray_bear' },
+  { roll: [16, 21, 22], text: () => 'common:monster.night_warg' },
+  { roll: [23, 24], text: () => 'common:monster.ghost' },
+  { roll: [25, 26], text: () => 'common:monster.ghoul' },
+  { roll: [31, 32], text: () => 'common:monster.skeleton' },
+  { roll: [33, 34], text: () => 'common:monster.restless_dead' },
+  { roll: [35, 36], text: () => 'common:monster.wyvern' },
+  { roll: [41, 42], text: () => 'common:monster.harpies' },
+  { roll: [43], text: () => 'common:monster.minotaur' },
+  { roll: [44], text: () => 'common:monster.ent' },
+  { roll: [45], text: () => 'common:monster.abyss_worm' },
+  { roll: [46], text: () => 'common:monster.giant_squid' },
+  { roll: [51], text: () => 'common:monster.sea_serpent' },
+  { roll: [52], text: () => 'common:monster.troll' },
+  { roll: [53], text: () => 'common:monster.death_knight' },
+  { roll: [54], text: () => 'common:monster.insectoid' },
+  { roll: [55], text: () => 'common:monster.bloodling' },
+  { roll: [56], text: () => 'common:monster.manticore' },
+  { roll: [61], text: () => 'common:monster.gryphon' },
+  { roll: [62], text: () => 'common:monster.giant' },
+  { roll: [63], text: () => 'common:monster.hydra' },
+  { roll: [64], text: () => 'common:monster.demon' },
+  { roll: [65], text: () => 'common:monster.drakewyrm' },
+  { roll: [66], text: () => 'common:monster.dragon' },
 ]

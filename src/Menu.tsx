@@ -36,48 +36,48 @@ type MenuRoute = {
 export const menuRoutes: MenuRoute[] = [
   {
     path: '',
-    label: 'core:menu.Menu',
+    label: 'core:menu.menu',
     id: nanoid(),
     element: <HomePage />,
   },
   {
     path: 'session',
     id: nanoid(),
-    label: 'core:menu.Session',
+    label: 'core:menu.session',
     element: <SessionPage />,
   },
   {
     path: 'encounter',
     id: nanoid(),
-    label: 'core:menu.Encounters',
+    label: 'core:menu.encounters',
     element: <EncounterPage />,
   },
   {
     path: 'monsters',
     showInMenu: true,
     id: nanoid(),
-    label: 'core:menu.Monsters',
+    label: 'core:menu.monsters',
     element: <MonstersPage />,
     children: [
       {
         path: '',
         showInMenu: false,
         id: nanoid(),
-        label: 'core:menu.Session',
+        label: 'core:menu.session',
         element: <MonstersPage />,
       },
       {
         path: ':section',
         showInMenu: false,
         id: nanoid(),
-        label: 'core:menu.Session',
+        label: 'core:menu.session',
         element: <MonstersPage />,
         children: [
           {
             path: ':monster',
             showInMenu: false,
             id: nanoid(),
-            label: 'core:menu.npcs.NPCs',
+            label: 'core:menu.npcs.npcs',
             element: <MonstersPage />,
           },
         ],
@@ -87,7 +87,7 @@ export const menuRoutes: MenuRoute[] = [
   {
     path: 'calendar',
     id: nanoid(),
-    label: 'core:menu.Calendar',
+    label: 'core:menu.calendar',
     element: <CalendarPage />,
   },
   // {
@@ -98,18 +98,18 @@ export const menuRoutes: MenuRoute[] = [
   {
     path: 'places',
     id: nanoid(),
-    label: 'core:menu.places.Places',
+    label: 'core:menu.places.places',
     children: [
       {
         path: 'village',
         id: nanoid(),
-        label: 'core:menu.places.Village',
+        label: 'core:menu.places.village',
         element: <VillagePage />,
       },
       {
         path: 'map',
         id: nanoid(),
-        label: 'core:menu.places.Map',
+        label: 'core:menu.places.map',
         element: <MapPage />,
       },
     ],
@@ -117,18 +117,18 @@ export const menuRoutes: MenuRoute[] = [
   {
     path: 'gear',
     id: nanoid(),
-    label: 'core:menu.gear.Gear',
+    label: 'core:menu.gear.gear',
     children: [
       {
         path: 'tables',
         id: nanoid(),
-        label: 'core:menu.gear.Tables',
+        label: 'core:menu.gear.tables',
         element: <GearPage />,
       },
       {
         path: 'finds',
         id: nanoid(),
-        label: 'core:menu.gear.Finds',
+        label: 'core:menu.gear.finds',
         element: <FindsPage />,
       },
     ],
@@ -136,27 +136,34 @@ export const menuRoutes: MenuRoute[] = [
   {
     path: 'npcs',
     id: nanoid(),
-    label: 'core:menu.npcs.NPCs',
+    label: 'core:menu.npcs.npcs',
     children: [
       {
         path: 'names',
         id: nanoid(),
-        label: 'core:menu.npcs.Names',
+        label: 'core:menu.npcs.names',
         element: <NameGeneratorPage />,
       },
       {
         path: 'typical',
         id: nanoid(),
-        label: 'core:menu.npcs.Typical',
+        label: 'core:menu.npcs.typical',
         element: <TypicalKinPage />,
       },
       {
         path: 'npc',
         id: nanoid(),
-        label: 'core:menu.npcs.Npc',
+        label: 'core:menu.npcs.npc',
         element: <NpcPage />,
       },
     ],
+  },
+  {
+    path: '*',
+    label: 'core:menu.monsters',
+    id: nanoid(),
+    element: <HomePage />,
+    showInMenu: false,
   },
 ]
 
@@ -198,7 +205,7 @@ export const Menu = ({ menuRoutes, close }: MenuProps) => {
   return (
     <>
       {menuRoutes
-        .filter((mr) => mr.path !== '' || mr.showInMenu !== false)
+        .filter((mr) => mr.path !== '' && mr.showInMenu !== false)
         .map((route) => {
           if (
             route.children &&

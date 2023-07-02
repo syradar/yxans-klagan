@@ -14,8 +14,8 @@ describe('NameList', () => {
   })
 
   it('should render names', async () => {
-    const names: string[][] = [['Aedwulf', 'names:OF', 'Duvemåla']]
-    const expected = 'Aedwulf names:OF Duvemåla'
+    const names: string[][] = [['Aedwulf', 'names:of', 'Duvemåla']]
+    const expected = 'Aedwulf names:of Duvemåla'
 
     const { getByTestId } = render(
       <Provider store={store}>

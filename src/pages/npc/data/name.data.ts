@@ -1,7 +1,7 @@
 import { HumanNames } from '../name'
 
 export const humanNames: HumanNames = {
-  Alderlander: {
+  alderlander: {
     Male: {
       probabilites: [
         {
@@ -184,7 +184,7 @@ export const humanNames: HumanNames = {
       'Zumi',
     ],
   },
-  Aslene: {
+  aslene: {
     Male: {
       probabilites: [
         {
@@ -364,7 +364,7 @@ export const humanNames: HumanNames = {
       'NickNames.Young',
     ],
   },
-  Ailander: {
+  ailander: {
     Male: {
       probabilites: [
         {

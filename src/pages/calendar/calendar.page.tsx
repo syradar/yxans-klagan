@@ -31,14 +31,14 @@ export const CalendarPage = () => {
 
   return (
     <div className="flex w-full flex-col gap-y-8">
-      <PageHeader>{t('calendar:Title')}</PageHeader>
+      <PageHeader>{t('calendar:title')}</PageHeader>
 
       <div>
         <Parchment>
           <Stack.Horizontal distribute wrap>
             <Stack.Vertical spacing="none">
               <div>
-                {t('calendar:Year')} {state.currentYear} {t('calendar:AS')}
+                {t('calendar:year')} {state.currentYear} {t('calendar:as')}
               </div>
               <Typography variant="h2" parchment>
                 {t(monthLabelDict[state.currentMonth])}
@@ -48,10 +48,10 @@ export const CalendarPage = () => {
             <Stack.Horizontal>
               <ParchmentButton onPress={() => dispatch(previousMonth())}>
                 <ArrowLeftIcon className="h-5 w-5" />
-                {t('calendar:previousMonth')}
+                {t('calendar:previous_month')}
               </ParchmentButton>
               <ParchmentButton onPress={() => dispatch(nextMonth())}>
-                {t('calendar:nextMonth')}
+                {t('calendar:next_month')}
                 <ArrowRightIcon className="h-5 w-5" />
               </ParchmentButton>
             </Stack.Horizontal>

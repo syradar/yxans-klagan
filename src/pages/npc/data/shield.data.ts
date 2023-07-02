@@ -1,13 +1,13 @@
 import { Shield, ShieldType } from '../shield'
 
 export const shields: { [S in ShieldType]: Shield<S> } = {
-  Small: {
-    type: 'Small',
+  small: {
+    type: 'small',
     bonus: 1,
-    features: ['Light'],
+    features: ['light'],
   },
-  Large: {
-    type: 'Large',
+  large: {
+    type: 'large',
     bonus: 2,
     features: [],
   },

@@ -21,7 +21,7 @@ export const SessionPage = () => {
     adjective: LegendTableItem,
     t: TFunction<'common' | 'session'>,
   ): string => {
-    if (adversary.text() !== 'session:Adversary.DemonWithCount') {
+    if (adversary.text() !== 'session:adversary.demon_with_count') {
       return `${t(adjective.text())} ${t(adversary.text())}`
     }
 
@@ -32,47 +32,47 @@ export const SessionPage = () => {
 
   const text = [
     [
-      t('session:ALongTimeAgo'),
+      t('session:along_time_ago'),
       t(legend.description),
-      t(`session:YearsAgo`, { context: { years: legend.age.toString() } }),
-      t('session:ThereWas'),
+      t(`session:years_ago`, { context: { years: legend.age.toString() } }),
+      t('session:there_was'),
       t(legend.adjective.text()),
       t(legend.who_or_what.text()),
-      t('session:WhoSearched'),
+      t('session:who_searched'),
       t(legend.who_searched_for.text()),
-      t('session:BecauseOf'),
+      t('session:because_of'),
       t(legend.because.text()),
-      t('session:AndTraveledTo'),
+      t('session:and_traveled_to'),
       t(legend.location.text()),
-      t('session:Located'),
+      t('session:located'),
       t(legend.distance.text()),
       t(legend.terrain.text()),
-      t('session:InTheDirectionOf'),
+      t('session:in_the_direction_of'),
       t(legend.direction.text()),
     ].join(' '),
     [
       legend.who_or_what.pronoun === 'Third'
-        ? t(`session:AsTheLegendGoesItIsSaidThat_Third`)
-        : t(`session:AsTheLegendGoesItIsSaidThat`),
+        ? t(`session:as_the_legend_goes_it_is_said_that_third`)
+        : t(`session:as_the_legend_goes_it_is_said_that`),
       t(
         `${legend.what_happened.text()}${
           legend.what_happened.pronoun === 'Third' ? '_Third' : ''
         }` as TranslationKey<'session' | 'common'>,
       ),
-      t(`session:AndThatAtTheLocationThere`),
+      t(`session:and_that_at_the_location_there`),
       t(legend.its_told_that.text()),
-      t(`session:ButAlso`),
+      t(`session:but_also`),
       getAdversary(legend.adversary, legend.adjective_adversary, t),
     ].join(' '),
   ].join('. ')
 
   return (
     <div className="flex w-full flex-col gap-y-4">
-      <PageHeader>{t('session:Title')}</PageHeader>
+      <PageHeader>{t('session:title')}</PageHeader>
 
       <ParchmentButton onPress={() => setLegend(generateLegend())}>
         <ArrowPathIcon className="h-5 w-5" />
-        <div>{t('session:Legend')}</div>
+        <div>{t('session:legend')}</div>
       </ParchmentButton>
 
       <div className="">

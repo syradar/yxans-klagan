@@ -91,14 +91,14 @@ export const MonstersPage = () => {
 
   const tableOfContentsNav = {
     to: '/monsters',
-    part: t('monster:bookOfMonsters'),
-    text: t('monster:bookOfMonsters'),
+    part: t('monster:book_of_monsters'),
+    text: t('monster:book_of_monsters'),
   }
 
   const randomMonsterNav = {
     to: '/monsters/random',
-    part: t('monster:randomMonster.title'),
-    text: t('monster:randomMonster.title'),
+    part: t('monster:random_monster.title'),
+    text: t('monster:random_monster.title'),
   }
 
   const monstersNav = monsters.map((m) => ({
@@ -109,7 +109,7 @@ export const MonstersPage = () => {
 
   const communityMonstersNav = communityMonsters.map((m) => ({
     to: `/monsters/community/${m.id}`,
-    part: t('monster:communityMonster.title'),
+    part: t('monster:community_monster.title'),
     text: t(m.name),
   }))
 
@@ -150,7 +150,7 @@ export const MonstersPage = () => {
 
   return (
     <div className="flex w-full flex-col gap-y-8 pb-8">
-      <PageHeader>{t('monster:Title')}</PageHeader>
+      <PageHeader>{t('monster:title')}</PageHeader>
       <div className="relative flex flex-col rounded bg-amber-950 p-2 shadow-lg md:flex-row">
         <div
           className="absolute inset-y-0 left-1/2 z-10 hidden h-full w-4 -translate-x-1/2 bg-gradient-to-r from-transparent from-25%
@@ -255,18 +255,18 @@ const MonsterTableOfContents = () => {
 
   return (
     <div className="flex flex-col">
-      <BookPageTitle>{t('monster:bookOfMonsters')}</BookPageTitle>
+      <BookPageTitle>{t('monster:book_of_monsters')}</BookPageTitle>
 
       <div className="flex flex-col gap-8">
         <section>
           <Typography variant="h3" parchment>
-            {t(`monster:randomMonster.title`)}
+            {t(`monster:random_monster.title`)}
           </Typography>
           <div className="mb-4">{t('monster:bookmonsters.description')}</div>
           <BookList>
             <li className="">
               <BookLink to={'/monsters/random'}>
-                {t('monster:randomMonster.generate')}
+                {t('monster:random_monster.generate')}
               </BookLink>
             </li>
           </BookList>
@@ -291,10 +291,10 @@ const MonsterTableOfContents = () => {
         </section>
         <section>
           <Typography variant="h3" parchment>
-            {t(`monster:communityMonster.title`)}
+            {t(`monster:community_monster.title`)}
           </Typography>
           <div className="mb-4">
-            {t('monster:communityMonster.description')}
+            {t('monster:community_monster.description')}
           </div>
           <BookList>
             {communityMonsters.map((m) => (

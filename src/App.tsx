@@ -41,14 +41,14 @@ const AppToolbar = () => {
           buttonType="ghost"
           onPress={() => dispatch(previousDay())}
         >
-          {t('calendar:previousDay')}
+          {t('calendar:previous_day')}
         </ParchmentButton>
         <ParchmentButton
           small
           buttonType="ghost"
           onPress={() => dispatch(nextDay())}
         >
-          {t('calendar:nextDay')}
+          {t('calendar:next_day')}
         </ParchmentButton>
       </div>
     </div>
@@ -107,12 +107,12 @@ const AppMenu = () => {
         </Link>
         {!isLg ? (
           <ParchmentButton buttonType="ghost" small onPress={handleMenuClick}>
-            {t('core:menu.Menu')}
+            {t('core:menu.menu')}
           </ParchmentButton>
         ) : null}
       </div>
       {isOpen || isLg ? (
-        <div className="flex flex-col justify-between gap-4">
+        <div className="flex h-full flex-col justify-between gap-4">
           <Stack.Vertical wrap={false} spacing="small">
             <Menu close={closeMenu} menuRoutes={menuRoutes} />
           </Stack.Vertical>
@@ -124,7 +124,7 @@ const AppMenu = () => {
               className="mb-4 mt-auto text-center hover:text-red-700 hover:underline"
               href="https://github.com/syradar/yxans-klagan/issues/new/choose"
             >
-              {t('core:GiveFeedback')}
+              {t('core:give_feedback')}
             </a>
           </div>
         </div>

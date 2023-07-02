@@ -13,13 +13,13 @@ describe('createAttributeViewModel', () => {
   const cases: [number | undefined, AttributeViewModel | undefined][] = [
     [undefined, undefined],
     [0, undefined],
-    [1, { label: 'Strength', value: 1, values: [false] }],
-    [2, { label: 'Strength', value: 2, values: [false, false] }],
+    [1, { label: 'strength', value: 1, values: [false] }],
+    [2, { label: 'strength', value: 2, values: [false, false] }],
     [NaN, undefined],
     [Infinity, undefined],
   ]
   it.each(cases)('%i => %b', (input, expected) => {
-    const result = createAttributeViewModel('Strength', input)
+    const result = createAttributeViewModel('strength', input)
     expect(result).toEqual(expected)
   })
 })
@@ -48,11 +48,11 @@ describe('createAttributesViewModel', () => {
         empathy: 4,
       },
       {
-        strength: { label: 'Strength', value: 1, values: [false] },
-        agility: { label: 'Agility', value: 2, values: [false, false] },
-        wits: { label: 'Wits', value: 3, values: [false, false, false] },
+        strength: { label: 'strength', value: 1, values: [false] },
+        agility: { label: 'agility', value: 2, values: [false, false] },
+        wits: { label: 'wits', value: 3, values: [false, false, false] },
         empathy: {
-          label: 'Empathy',
+          label: 'empathy',
           value: 4,
           values: [false, false, false, false],
         },

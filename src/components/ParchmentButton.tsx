@@ -40,6 +40,7 @@ export const ParchmentButton = (props: ParchmentButtonProps) => {
         group min-w-fit
         ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}
         ${props.fullWidth ? 'w-full' : 'w-fit'}
+
         focus:outline-none
       `}
     >

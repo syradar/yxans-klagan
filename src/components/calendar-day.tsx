@@ -47,8 +47,8 @@ export const CalendarDayDisplay = ({ day }: CalendarDayProps) => {
           <div className="flex gap-2">
             <div>{getMoonEmoji(day.moon)}</div>
             <div>
-              {day.moon === 'new' && t('calendar:NewMoon')}
-              {day.moon === 'full' && t('calendar:FullMoon')}
+              {day.moon === 'new' && t('calendar:new_moon')}
+              {day.moon === 'full' && t('calendar:fullMoon')}
             </div>
           </div>
         )}

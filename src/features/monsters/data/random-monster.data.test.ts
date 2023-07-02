@@ -23,11 +23,11 @@ import {
 describe('sizes', () => {
   describe('smaller ones', () => {
     const cases: [number, MonsterSize][] = [
-      [1, 'Puny'],
-      [2, 'Small'],
-      [3, 'Average'],
-      [4, 'Large'],
-      [8, 'Big'],
+      [1, 'puny'],
+      [2, 'small'],
+      [3, 'average'],
+      [4, 'large'],
+      [8, 'big'],
     ]
     it.each(cases)('should return %s STR for size %s', (expected, size) => {
       const result = sizes.find((s) => s.value.size === size)?.value.strength()
@@ -38,8 +38,8 @@ describe('sizes', () => {
 
   describe('larger ones', () => {
     const cases: [number, MonsterSize, () => number][] = [
-      [17, 'Huge', () => 3],
-      [36, 'Gigantic', () => 3],
+      [17, 'huge', () => 3],
+      [36, 'gigantic', () => 3],
     ]
     it.each(cases)(
       'should return %s STR for size %s',
@@ -57,12 +57,12 @@ describe('sizes', () => {
 describe('agility', () => {
   describe('smaller ones', () => {
     const cases: [number, MonsterType][] = [
-      [1, 'Grazing'],
-      [2, 'Herbivore'],
-      [2, 'Gatherer'],
-      [4, 'Scavenger'],
-      [5, 'Predator'],
-      [8, 'AggressivePredator'],
+      [1, 'grazing'],
+      [2, 'herbivore'],
+      [2, 'gatherer'],
+      [4, 'scavenger'],
+      [5, 'predator'],
+      [8, 'aggressive_predator'],
     ]
     it.each(cases)('should return %s AGI for type %s', (expected, type) => {
       const result = types.find((s) => s.value.type === type)?.value.agility

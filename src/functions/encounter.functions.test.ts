@@ -20,7 +20,7 @@ describe('Encounter Functions', () => {
     it('should all terrain keys if given id 16', () => {
       const id = 16
 
-      const expected: Terrain[] = ['Plains', 'Forest', 'Swamp', 'Mire']
+      const expected: Terrain[] = ['plains', 'forest', 'swamp', 'mire']
 
       const result = getTerrainsByEncounterId(id)
 
@@ -36,11 +36,11 @@ describe('Encounter Functions', () => {
         id,
         title: 'Ballongdvärgen',
         page: 149,
-        possibleTerrains: ['Plains', 'Forest', 'Swamp', 'Mire'],
-        chosenTerrain: 'Plains',
+        possibleTerrains: ['plains', 'forest', 'swamp', 'mire'],
+        chosenTerrain: 'plains',
       }
 
-      const result = getEncounterById(id, 'sv', 'Plains')
+      const result = getEncounterById(id, 'sv', 'plains')
 
       expect(result).toEqual(expected)
     })
@@ -52,7 +52,7 @@ describe('Encounter Functions', () => {
       [0, 6],
       [16, 42],
     ])('should return encounter %s if roll is %s', (expected, roll) => {
-      const result = getRandomEncounter(roll, 'Plains', 'sv').id
+      const result = getRandomEncounter(roll, 'plains', 'sv').id
 
       expect(result).toEqual(expected)
     })

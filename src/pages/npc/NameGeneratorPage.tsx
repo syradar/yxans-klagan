@@ -14,13 +14,13 @@ export const NameGeneratorPage = () => {
 
   return (
     <div className="flex w-full flex-col gap-y-8">
-      <PageHeader>{t('names:Title')}</PageHeader>
+      <PageHeader>{t('names:title')}</PageHeader>
 
       <div className="flex flex-wrap gap-4 lg:grid lg:grid-cols-2">
         <div className="flex-auto">
           <Parchment>
             <KinNameList
-              title="Ailander"
+              title="ailander"
               nameFunc={getRandomAilanderName}
             ></KinNameList>
           </Parchment>
@@ -29,7 +29,7 @@ export const NameGeneratorPage = () => {
         <div className="flex-auto">
           <Parchment>
             <KinNameList
-              title="Alderlander"
+              title="alderlander"
               nameFunc={getRandomAlderlanderName}
             ></KinNameList>
           </Parchment>
@@ -38,7 +38,7 @@ export const NameGeneratorPage = () => {
         <div className=" flex-auto">
           <Parchment>
             <KinNameList
-              title="Aslene"
+              title="aslene"
               nameFunc={getRandomAsleneName}
             ></KinNameList>
           </Parchment>

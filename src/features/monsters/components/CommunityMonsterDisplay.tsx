@@ -3,11 +3,14 @@ import { SeparatedComponents } from '../../../components/SeparatedComponents'
 import Stack from '../../../components/Stack'
 import { Typography } from '../../../components/Typography'
 import { SkillList } from '../../../components/skill-list'
-import { withId } from '../../../functions/utils.functions'
 import { useAppSelector } from '../../../store/store.hooks'
 import { selectTranslateFunction } from '../../../store/translations/translation.slice'
 import { CommunityMonsterViewModel } from '../community-monster.model'
-import { MonsterAttribute } from './MonsterAttribute'
+import {
+  monsterArmorTypeTranslationDict,
+  movementTypeTranslationDict,
+} from '../monster.model'
+import { MonsterAttributeGrid } from './MonsterAttributeGrid'
 
 export type CommunityMonsterDisplayProps = {
   como: CommunityMonsterViewModel
@@ -27,7 +30,7 @@ export const CommunityMonsterDisplay = ({
 
         {como.credits.length > 0 ? (
           <div>
-            {t('monster:communityMonster.createdBy')}{' '}
+            {t('monster:community_monster.created_by')}{' '}
             <SeparatedComponents
               components={como.credits.map((credit) =>
                 credit.link ? (
@@ -46,64 +49,38 @@ export const CommunityMonsterDisplay = ({
             />
           </div>
         ) : null}
+
         <Typography variant="body" parchment>
           {t(como.description)}
         </Typography>
+
         <section>
-          <Typography variant="h3">{t(`common:Attribute`)}</Typography>
-          <div className="grid grid-cols-2 gap-4">
-            {como.attributes.strength && (
-              <MonsterAttribute
-                key={`${t(como.name)}-strength`}
-                values={como.attributes.strength.values.map(withId)}
-                label={t(`common:Attributes.${como.attributes.strength.label}`)}
-              />
-            )}
-            {como.attributes.agility && (
-              <MonsterAttribute
-                key={`${t(como.name)}-agility`}
-                values={como.attributes.agility.values.map(withId)}
-                label={t(`common:Attributes.${como.attributes.agility.label}`)}
-              />
-            )}
-            {como.attributes.wits && (
-              <MonsterAttribute
-                key={`${t(como.name)}-.wits`}
-                values={como.attributes.wits.values.map(withId)}
-                label={t(`common:Attributes.${como.attributes.wits.label}`)}
-              />
-            )}
-            {como.attributes.empathy && (
-              <MonsterAttribute
-                key={`${t(como.name)}-.empathy`}
-                values={como.attributes.empathy.values.map(withId)}
-                label={t(`common:Attributes.${como.attributes.empathy.label}`)}
-              />
-            )}
-          </div>
+          <Typography variant="h3">{t(`common:attribute`)}</Typography>
+          <MonsterAttributeGrid attributes={como.attributes} />
         </section>
+
         <section className="grid grid-cols-2 gap-4">
           <div>
             <Typography variant="h3">
-              {t(`monster:Movement.Movement`)}
+              {t(`monster:movement.movement`)}
             </Typography>
             <div>
-              {t(`monster:Movement.${como.movement.type}`)}{' '}
+              {t(movementTypeTranslationDict[como.movement.type])}{' '}
               {como.movement.distance}{' '}
               {t(
                 como.movement.distance === 1
-                  ? 'monster:Movement.Zones_one'
-                  : 'monster:Movement.Zones_other',
+                  ? 'monster:movement.zones_one'
+                  : 'monster:movement.zones_other',
               )}
             </div>
           </div>
 
           {como.armor && (
             <div>
-              <Typography variant="h3">{t('monster:ArmorLabel')}</Typography>
+              <Typography variant="h3">{t('monster:armor_label')}</Typography>
               <div>
                 <span className="font-medium">
-                  {t(`monster:Armor.${como.armor.label}`)}:{' '}
+                  {t(monsterArmorTypeTranslationDict[como.armor.label])}:{' '}
                 </span>
                 {como.armor.values.length}
               </div>
@@ -112,9 +89,9 @@ export const CommunityMonsterDisplay = ({
         </section>
         <section>
           <div className="md:w-full">
-            <Typography variant="h3">{t(`monster:Skill`)}</Typography>
+            <Typography variant="h3">{t(`monster:skill`)}</Typography>
             {como.skills.length === 0 ? (
-              <div>{t('monster:Skills.None')}</div>
+              <div>{t('monster:skills.none')}</div>
             ) : (
               <SkillList
                 skills={

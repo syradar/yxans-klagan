@@ -9,34 +9,34 @@ const HomePage = () => {
 
   return (
     <div className="flex max-w-prose flex-col gap-4">
-      <PageHeader>{t('home:Page')}</PageHeader>
+      <PageHeader>{t('home:page')}</PageHeader>
       <Parchment>
-        <p className="yx-prose">{t('home:Description')}</p>
+        <p className="yx-prose">{t('home:description')}</p>
       </Parchment>
       <Parchment>
         <Typography variant="h2" parchment>
-          {t('home:GameTitle')}
+          {t('home:game_title')}
         </Typography>
 
-        <p className="yx-prose mb-4">{t('home:GameDescription')}</p>
+        <p className="yx-prose mb-4">{t('home:game_description')}</p>
 
         <p className="yx-prose">
-          {t('home:ThanksTo')}{' '}
+          {t('home:thanks_to')}{' '}
           <a
             className="text-red-700 hover:underline"
             href="https://freeleaguepublishing.com/sv/"
           >
-            {t('home:FreeLeague')}
+            {t('home:free_league')}
           </a>{' '}
-          {t('home:ForAFantasticGame')}
+          {t('home:for_afantastic_game')}
         </p>
       </Parchment>
       <Parchment>
         <Typography variant="h2" parchment>
-          {t('home:CommunityTitle')}
+          {t('home:community_title')}
         </Typography>
 
-        <p className="yx-prose mb-4">{t('home:ThanksCommunity')}</p>
+        <p className="yx-prose mb-4">{t('home:thanks_community')}</p>
 
         <div className="yx-prose flex flex-wrap gap-4">
           <a
@@ -68,7 +68,7 @@ const HomePage = () => {
 
       <Parchment>
         <Typography variant="h2" parchment>
-          {t('home:moreTools.title')}
+          {t('home:more_tools.title')}
         </Typography>
 
         <Typography variant="h3" parchment>
@@ -76,12 +76,12 @@ const HomePage = () => {
             className="text-red-700 hover:underline"
             href="https://dragontools.vercel.app/"
           >
-            {t('home:moreTools.dragonTools.name')}
+            {t('home:more_tools.dragon_tools.name')}
           </a>
         </Typography>
 
         <p className="yx-prose mb-4 text-lg">
-          {t('home:moreTools.dragonTools.description')}
+          {t('home:more_tools.dragon_tools.description')}
         </p>
       </Parchment>
     </div>
