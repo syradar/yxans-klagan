@@ -6,7 +6,11 @@ import { Parchment } from '../components/parchment'
 import { ParchmentButton } from '../components/ParchmentButton'
 import Stack, { Train } from '../components/Stack'
 import { allEncounters } from '../data/encounter.data'
-import { getTerrainKeys, Terrain } from '../models/terrain.model'
+import {
+  getTerrainKeys,
+  Terrain,
+  terrainTranslationDict,
+} from '../models/terrain.model'
 import { useAppSelector } from '../store/store.hooks'
 import {
   selectCurrentLanguage,
@@ -28,10 +32,10 @@ export const EncounterPage = () => {
 
   return (
     <div className="flex w-full flex-col gap-y-8">
-      <PageHeader>{t('encounter:Title')}</PageHeader>
+      <PageHeader>{t('encounter:title')}</PageHeader>
 
       <div>
-        <Label> {t('encounter:TerrainType')}</Label>
+        <Label> {t('encounter:terrain_type')}</Label>
         <Train spacing="small">
           {getTerrainKeys().map((terrain) => (
             <ParchmentButton
@@ -40,7 +44,7 @@ export const EncounterPage = () => {
                 handleClick(terrain)
               }}
             >
-              {t(`common:Terrain.${terrain}`)}
+              {t(terrainTranslationDict[terrain])}
             </ParchmentButton>
           ))}
         </Train>
@@ -75,7 +79,7 @@ const EncounterLog = ({
         <Parchment key={entry.id} padding="sm">
           <div>
             <div className="yx-prose text-lg">
-              {t(`common:Terrain.${entry.terrain}`)}
+              {t(terrainTranslationDict[entry.terrain])}
             </div>
             <ul className="flex flex-col gap-1">
               {entry.encounters.map((el) => (

@@ -8,7 +8,7 @@ export const BackToAllMonsters = () => {
   return (
     <div className="2xl:hidden">
       <LinkWithIcon to="/monsters" icon="back">
-        {t('monster:backToAllMonsters')}
+        {t('monster:back_to_all_monsters')}
       </LinkWithIcon>
     </div>
   )

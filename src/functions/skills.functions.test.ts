@@ -24,13 +24,13 @@ describe('createAllSkillsValuesViewModel', () => {
 
   it('should return non-zero skill values', () => {
     const expected: AllSkillsValuesViewModel = [
-      ['Melee', 2],
-      ['Insight', 3],
+      ['melee', 2],
+      ['insight', 3],
     ]
     const result = createAllSkillsValuesViewModel({
       ...defaultSkillsValues(),
-      Melee: 2,
-      Insight: 3,
+      melee: 2,
+      insight: 3,
     })
 
     expect(result).toEqual(expected)

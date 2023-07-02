@@ -14,14 +14,14 @@ export const monthLabelDict: Record<
   MonthIndex,
   TranslationKey<'calendar'>
 > = Object.freeze({
-  0: 'calendar:WinterWane',
-  1: 'calendar:SpringRise',
-  2: 'calendar:SpringWane',
-  3: 'calendar:SummerRise',
-  4: 'calendar:SummerWane',
-  5: 'calendar:AutumnRise',
-  6: 'calendar:AutumnWane',
-  7: 'calendar:WinterRise',
+  0: 'calendar:winter_wane',
+  1: 'calendar:spring_rise',
+  2: 'calendar:spring_wane',
+  3: 'calendar:summer_rise',
+  4: 'calendar:summer_wane',
+  5: 'calendar:autumn_rise',
+  6: 'calendar:autumn_wane',
+  7: 'calendar:winter_rise',
 })
 
 const monthNumbers = [1, 2, 3, 4, 5, 6, 7, 8] as const
@@ -78,13 +78,13 @@ export const daysInMonth: Readonly<Record<MonthIndex, 45 | 46>> = Object.freeze(
 export const dayLabelDict: Readonly<
   Record<DayIndex, TranslationKey<'calendar'>>
 > = Object.freeze({
-  0: 'calendar:SunDay',
-  1: 'calendar:MoonDay',
-  2: 'calendar:BloodDay',
-  3: 'calendar:EarthDay',
-  4: 'calendar:GrowthDay',
-  5: 'calendar:HarvestDay',
-  6: 'calendar:StillDay',
+  0: 'calendar:sun_day',
+  1: 'calendar:moon_day',
+  2: 'calendar:blood_day',
+  3: 'calendar:earth_day',
+  4: 'calendar:growth_day',
+  5: 'calendar:harvest_day',
+  6: 'calendar:still_day',
 })
 
 const dayIndices = [0, 1, 2, 3, 4, 5, 6] as const

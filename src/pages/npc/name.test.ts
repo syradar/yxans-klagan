@@ -52,7 +52,7 @@ describe('name functions', () => {
     const femaleName = 'FEMALE_NAME'
     const maleName = 'MALE_NAME'
     const familyName = 'FAMILY'
-    const of = 'names:OF'
+    const of = 'names:of'
 
     const nl: NameList = {
       Female: {
@@ -121,7 +121,7 @@ describe('name functions', () => {
     const femaleName = 'FEMALE_NAME'
     const maleName = 'MALE_NAME'
     const familyName = 'FAMILY'
-    const of = 'names:OF'
+    const of = 'names:of'
 
     const nl: NameList = {
       Female: {
@@ -222,7 +222,7 @@ describe('name functions', () => {
     const femaleName = 'FEMALE_NAME'
     const maleName = 'MALE_NAME'
     const nickName = 'NICKNAME'
-    const the = 'names:THE'
+    const the = 'names:the'
 
     const nl: NameList = {
       Female: {

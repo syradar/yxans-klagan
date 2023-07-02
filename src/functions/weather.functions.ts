@@ -103,10 +103,10 @@ export const stormTypeTranslationKeyDict: Record<
   StormType,
   TranslationKey<'calendar'>
 > = {
-  None: 'calendar:StormNone',
-  Windstorm: 'calendar:StormWind',
-  Snowstorm: 'calendar:StormSnow',
-  Rainstorm: 'calendar:StormRain',
+  None: 'calendar:storm_none',
+  Windstorm: 'calendar:storm_wind',
+  Snowstorm: 'calendar:storm_snow',
+  Rainstorm: 'calendar:storm_rain',
 }
 
 export type Downpour =
@@ -123,14 +123,14 @@ export const downpourTranslationKeyDict: Record<
   Downpour,
   TranslationKey<'calendar'>
 > = {
-  None: 'calendar:DownPourNone',
-  Drizzle: 'calendar:DownPourDrizzle',
-  Showers: 'calendar:DownPourShowers',
-  LightRain: 'calendar:DownPourLightRain',
-  Raining: 'calendar:DownPourRaining',
-  LightSnow: 'calendar:DownPourLightSnow',
-  SnowShowers: 'calendar:DownPourSnowShowers',
-  Snowing: 'calendar:DownPourSnowing',
+  None: 'calendar:down_pour_none',
+  Drizzle: 'calendar:down_pour_drizzle',
+  Showers: 'calendar:down_pour_showers',
+  LightRain: 'calendar:down_pour_light_rain',
+  Raining: 'calendar:down_pour_raining',
+  LightSnow: 'calendar:down_pour_light_snow',
+  SnowShowers: 'calendar:down_pour_snow_showers',
+  Snowing: 'calendar:down_pour_snowing',
 }
 
 interface WeatherDayDto {

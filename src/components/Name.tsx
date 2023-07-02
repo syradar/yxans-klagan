@@ -17,9 +17,9 @@ export const Name = ({ name }: NameProps) => {
       {name[currentLang].firstName}
       {name[currentLang]?.familyName && ` ${name[currentLang].familyName}`}
       {name[currentLang]?.homeName &&
-        ` ${t('names:OF')} ${name[currentLang].homeName}`}
+        ` ${t('names:of')} ${name[currentLang].homeName}`}
       {name[currentLang]?.nickName &&
-        ` ${t('names:THE')} ${name[currentLang].nickName}`}
+        ` ${t('names:the')} ${name[currentLang].nickName}`}
     </div>
   )
 }

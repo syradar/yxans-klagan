@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { PageHeader } from '../../components/page-header'
 import { Parchment } from '../../components/parchment'
 import { ParchmentButton } from '../../components/ParchmentButton'
-import { Pancake } from '../../components/Stack'
+import { withId } from '../../functions/utils.functions'
 import { useAppSelector } from '../../store/store.hooks'
 import { selectTranslateFunction } from '../../store/translations/translation.slice'
+import { chacteristicTranslationDict } from './characteristics'
 import {
   getRandomCharacteristic,
   getRandomKinType,
@@ -12,6 +13,8 @@ import {
   getRandomQuirk,
   NPC,
 } from './npc'
+import { occupationTranslationDict } from './occupation'
+import { quirkTranslationDict } from './quirk'
 
 export const NpcPage = () => {
   const t = useAppSelector(selectTranslateFunction(['npc', 'common']))
@@ -32,20 +35,24 @@ export const NpcPage = () => {
 
   return (
     <div className="flex w-full flex-col gap-y-8 pb-16">
-      <PageHeader>{t('npc:Title')}</PageHeader>
+      <PageHeader>{t('npc:title')}</PageHeader>
       <ParchmentButton onPress={() => generateOccupation()}>
-        {t('npc:NpcButton')}
+        {t('npc:npc_button')}
       </ParchmentButton>
       <Parchment>
-        <Pancake>
-          <div className="yx-prose">
-            {t(`npc:Occupation.${npc.occupation}`)}
-          </div>
-          <div className="yx-prose">
-            {t(`npc:Characteristic.${npc.characteristic}`)}
-          </div>
-          <div className="yx-prose">{t(`npc:Quirk.${npc.quirk}`)}</div>
-        </Pancake>
+        <div className="yx-prose">
+          {[
+            t(occupationTranslationDict[npc.occupation]),
+            t(chacteristicTranslationDict[npc.characteristic]),
+            t(quirkTranslationDict[npc.quirk]),
+          ]
+            .map(withId)
+            .map(({ id, value }) => (
+              <p key={id} className="mt-4 first:mt-0">
+                {value}
+              </p>
+            ))}
+        </div>
       </Parchment>
     </div>
   )

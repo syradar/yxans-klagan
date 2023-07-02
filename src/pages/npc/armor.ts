@@ -1,25 +1,54 @@
+import { translationDict } from '../../functions/translation-dict'
 import { CollapseAble, getId, Unique } from '../../models/utils.model'
+import { TranslationKey } from '../../store/translations/translation.model'
 
 export type ArmorType =
-  | 'Leather'
-  | 'StuddedLeather'
-  | 'Chainmail'
-  | 'Plate'
-  | 'Natural'
+  | 'leather'
+  | 'studdedLeather'
+  | 'chainmail'
+  | 'plate'
+  | 'natural'
 
 export type HelmetType =
-  | 'StuddedLeather'
-  | 'OpenHelmet'
-  | 'ClosedHelmet'
-  | 'GreatHelm'
+  | 'studdedLeather'
+  | 'openHelmet'
+  | 'closedHelmet'
+  | 'greatHelm'
 
-type ArmorFeature =
-  | 'PenetrationProtection'
-  | 'HardToMove'
-  | 'HardToSee'
-  | 'Normal'
-  | 'Light'
-  | 'Heavy'
+export const armorTypeTranslationDict: Record<
+  ArmorType,
+  TranslationKey<'common'>
+> = {
+  leather: 'common:armor.leather',
+  studdedLeather: 'common:armor.studded_leather',
+  chainmail: 'common:armor.chainmail',
+  plate: 'common:armor.plate',
+  natural: 'common:armor.natural',
+}
+
+export const helmetTypeTranslationDict: Record<
+  HelmetType,
+  TranslationKey<'common'>
+> = {
+  studdedLeather: 'common:armor.studded_leather',
+  openHelmet: 'common:helmet.open_helmet',
+  closedHelmet: 'common:helmet.closed_helmet',
+  greatHelm: 'common:helmet.great_helm',
+}
+const armorFeatures = [
+  'penetrationProtection',
+  'hardToMove',
+  'hardToSee',
+  'normal',
+  'light',
+  'heavy',
+] as const
+export type ArmorFeature = (typeof armorFeatures)[number]
+export const armorFeaturesTranslationDict = translationDict(
+  armorFeatures,
+  'common',
+  'armor_feature.',
+)
 
 export interface ProtectionBase<A extends ArmorType | HelmetType> {
   type: A

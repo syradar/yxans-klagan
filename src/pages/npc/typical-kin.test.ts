@@ -7,30 +7,30 @@ import { TypicalKin } from './typical-kin'
 import { describe, it, expect } from 'vitest'
 
 describe('createTypicalKinViewModel', () => {
-  const tk: TypicalKin<HumanKin, 'Human'> = {
-    kin: 'Ailander',
-    kinType: 'Human',
+  const tk: TypicalKin<HumanKin, 'human'> = {
+    kin: 'ailander',
+    kinType: 'human',
     attributes: {
       strength: 3,
       agility: 3,
       empathy: 3,
       wits: 3,
     },
-    skills: { ...defaultSkillsValues(), Melee: 2, Healing: 3 },
+    skills: { ...defaultSkillsValues(), melee: 2, healing: 3 },
     talents: ['fastFootwork'],
-    gear: ['common:Gear.D6Silver'],
+    gear: ['common:gear.d6silver'],
     weapons: [
-      meleeWeapons['Knife'],
-      meleeWeapons['Halberd'],
-      rangedWeapons['HeavyCrossbow'],
+      meleeWeapons['knife'],
+      meleeWeapons['halberd'],
+      rangedWeapons['heavyCrossbow'],
     ],
-    armors: [armors['Chainmail']],
-    helmets: [helmets['GreatHelm']],
+    armors: [armors['chainmail']],
+    helmets: [helmets['greatHelm']],
     shields: [
       {
-        type: 'Small',
+        type: 'small',
         bonus: 1,
-        features: ['Light'],
+        features: ['light'],
       },
     ],
   }

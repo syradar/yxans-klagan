@@ -1,5 +1,6 @@
 import { allEncounters } from '../data/encounter.data'
 import { EncounterViewModel } from '../models/encounter.model'
+import { terrainTranslationDict } from '../models/terrain.model'
 import { useAppSelector } from '../store/store.hooks'
 import {
   selectCurrentLanguage,
@@ -31,14 +32,12 @@ export const Encounter = ({ encounter }: EncounterProps) => {
           </div>
           <div>
             <>
-              {t('common:Page')}. {encounter.page}
+              {t('common:page')}. {encounter.page}
             </>
           </div>
           <Stack.Horizontal spacing="small" wrap>
             {encounter.possibleTerrains.map((pt) => (
-              <Tag key={pt}>
-                <>{t(`common:Terrain.${pt}`)}</>
-              </Tag>
+              <Tag key={pt}>{t(terrainTranslationDict[pt])}</Tag>
             ))}
           </Stack.Horizontal>
         </Stack.Vertical>

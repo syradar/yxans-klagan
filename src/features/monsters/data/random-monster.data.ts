@@ -28,6 +28,7 @@ import {
   MonsterMotivation,
   PoisonType,
   MonsterAttacks,
+  poisonTypes,
 } from '../monster.model'
 
 export const sizes: WeightedChoice<{
@@ -37,25 +38,25 @@ export const sizes: WeightedChoice<{
 }>[] = [
   {
     weight: 4,
-    value: { size: 'Puny', strength: (_ = rollD6) => 1, damage: 1 },
+    value: { size: 'puny', strength: (_ = rollD6) => 1, damage: 1 },
   },
   {
     weight: 3,
-    value: { size: 'Small', strength: (_ = rollD6) => 2, damage: 1 },
+    value: { size: 'small', strength: (_ = rollD6) => 2, damage: 1 },
   },
   {
     weight: 8,
-    value: { size: 'Average', strength: (_ = rollD6) => 3, damage: 1 },
+    value: { size: 'average', strength: (_ = rollD6) => 3, damage: 1 },
   },
   {
     weight: 7,
-    value: { size: 'Large', strength: (_ = rollD6) => 4, damage: 1 },
+    value: { size: 'large', strength: (_ = rollD6) => 4, damage: 1 },
   },
-  { weight: 7, value: { size: 'Big', strength: (_ = rollD6) => 8, damage: 2 } },
+  { weight: 7, value: { size: 'big', strength: (_ = rollD6) => 8, damage: 2 } },
   {
     weight: 3,
     value: {
-      size: 'Huge',
+      size: 'huge',
       strength: (diceFn = rollD6) => 14 + diceFn(),
       damage: 2,
     },
@@ -63,7 +64,7 @@ export const sizes: WeightedChoice<{
   {
     weight: 4,
     value: {
-      size: 'Gigantic',
+      size: 'gigantic',
       strength: (diceFn = rollD6) => 30 + diceFn() + diceFn(),
       damage: 3,
     },
@@ -74,26 +75,26 @@ export const types: WeightedChoice<{
   type: MonsterType
   agility: number
 }>[] = [
-  { weight: 3, value: { type: 'Grazing', agility: 1 } },
-  { weight: 3, value: { type: 'Herbivore', agility: 2 } },
-  { weight: 5, value: { type: 'Gatherer', agility: 2 } },
-  { weight: 7, value: { type: 'Scavenger', agility: 4 } },
-  { weight: 12, value: { type: 'Predator', agility: 5 } },
-  { weight: 6, value: { type: 'AggressivePredator', agility: 8 } },
+  { weight: 3, value: { type: 'grazing', agility: 1 } },
+  { weight: 3, value: { type: 'herbivore', agility: 2 } },
+  { weight: 5, value: { type: 'gatherer', agility: 2 } },
+  { weight: 7, value: { type: 'scavenger', agility: 4 } },
+  { weight: 12, value: { type: 'predator', agility: 5 } },
+  { weight: 6, value: { type: 'aggressive_predator', agility: 8 } },
 ]
 
 export const defaultMonsterLimbs: MonsterLimbs = {
-  Arms: 0,
-  Legs: 0,
-  Tentacles: 0,
-  Wings: 0,
+  arms: 0,
+  legs: 0,
+  tentacles: 0,
+  wings: 0,
 }
 
 export const limbChoices: WeightedChoice<LimbChoicesWithAmount>[] = [
   {
     weight: 3,
     value: {
-      key: 'None',
+      key: 'none',
       monsterLimbs: () => ({
         ...defaultMonsterLimbs,
       }),
@@ -102,7 +103,7 @@ export const limbChoices: WeightedChoice<LimbChoicesWithAmount>[] = [
   {
     weight: 5,
     value: {
-      key: 'Tentacles',
+      key: 'tentacles',
       monsterLimbs: () => ({
         ...defaultMonsterLimbs,
         Tentacles: rollD6() + 2,
@@ -112,7 +113,7 @@ export const limbChoices: WeightedChoice<LimbChoicesWithAmount>[] = [
   {
     weight: 3,
     value: {
-      key: 'TwoLegs',
+      key: 'two_legs',
       monsterLimbs: () => ({
         ...defaultMonsterLimbs,
         Legs: 2,
@@ -122,7 +123,7 @@ export const limbChoices: WeightedChoice<LimbChoicesWithAmount>[] = [
   {
     weight: 3,
     value: {
-      key: 'TwoLegsTwoArms',
+      key: 'two_legs_two_arms',
       monsterLimbs: () => ({
         ...defaultMonsterLimbs,
         Legs: 2,
@@ -133,7 +134,7 @@ export const limbChoices: WeightedChoice<LimbChoicesWithAmount>[] = [
   {
     weight: 10,
     value: {
-      key: 'FourLegs',
+      key: 'four_legs',
       monsterLimbs: () => ({
         ...defaultMonsterLimbs,
         Legs: 4,
@@ -143,7 +144,7 @@ export const limbChoices: WeightedChoice<LimbChoicesWithAmount>[] = [
   {
     weight: 5,
     value: {
-      key: 'FourLegsTwoArms',
+      key: 'four_legs_two_arms',
       monsterLimbs: () => ({
         ...defaultMonsterLimbs,
         Legs: 4,
@@ -154,7 +155,7 @@ export const limbChoices: WeightedChoice<LimbChoicesWithAmount>[] = [
   {
     weight: 5,
     value: {
-      key: 'Wings',
+      key: 'wings',
       monsterLimbs: () => ({
         ...defaultMonsterLimbs,
         Wings: 2,
@@ -164,7 +165,7 @@ export const limbChoices: WeightedChoice<LimbChoicesWithAmount>[] = [
   {
     weight: 5,
     value: {
-      key: 'Many',
+      key: 'many',
       monsterLimbs: () => ({
         ...defaultMonsterLimbs,
         Legs: rollD3() * 2 + 2,
@@ -175,45 +176,45 @@ export const limbChoices: WeightedChoice<LimbChoicesWithAmount>[] = [
 ]
 
 export const headChoices: WeightedChoice<HeadChoiceWithCount>[] = [
-  { weight: 1, value: { key: 'Missing' } },
-  { weight: 5, value: { key: 'Beak' } },
-  { weight: 6, value: { key: 'HornWithCount', count: getRandomInt(1, 3) } },
-  { weight: 3, value: { key: 'ElkHorns' } },
-  { weight: 4, value: { key: 'TentaclesWithCount', count: rollD6() + 2 } },
-  { weight: 2, value: { key: 'InsectoidEyes' } },
+  { weight: 1, value: { key: 'missing' } },
+  { weight: 5, value: { key: 'beak' } },
+  { weight: 6, value: { key: 'horn_with_count', count: getRandomInt(1, 3) } },
+  { weight: 3, value: { key: 'elk_horns' } },
+  { weight: 4, value: { key: 'tentacles_with_count', count: rollD6() + 2 } },
+  { weight: 2, value: { key: 'insectoid_eyes' } },
   {
     weight: 3,
     value: {
-      key: 'SideEyesWithCount',
+      key: 'side_eyes_with_count',
       count: [rollD6() + rollD6()].map((e) => (isEven(e) ? e : e + 1))[0],
     },
   },
-  { weight: 1, value: { key: 'ManyEyes' } },
-  { weight: 2, value: { key: 'BigMane' } },
-  { weight: 1, value: { key: 'LongTongue' } },
-  { weight: 2, value: { key: 'BigEars' } },
-  { weight: 2, value: { key: 'Fin' } },
-  { weight: 3, value: { key: 'RollTwice' } },
+  { weight: 1, value: { key: 'many_eyes' } },
+  { weight: 2, value: { key: 'big_mane' } },
+  { weight: 1, value: { key: 'long_tongue' } },
+  { weight: 2, value: { key: 'big_ears' } },
+  { weight: 2, value: { key: 'fin' } },
+  { weight: 3, value: { key: 'roll_twice' } },
 ]
 
 export const tailChoices: WeightedChoice<{
   key: TailChoices
   damage: number
 }>[] = [
-  { weight: 3, value: { key: 'None', damage: 0 } },
-  { weight: 2, value: { key: 'Tail', damage: 0 } },
-  { weight: 1, value: { key: 'SpikedTail', damage: 1 } },
+  { weight: 3, value: { key: 'none', damage: 0 } },
+  { weight: 2, value: { key: 'tail', damage: 0 } },
+  { weight: 1, value: { key: 'spiked_tail', damage: 1 } },
 ]
 
 export const armorChoices: WeightedChoice<MonsterArmor>[] = [
-  { weight: 4, value: { key: 'Skin', armor: 0 } },
-  { weight: 4, value: { key: 'SoftFur', armor: 1 } },
-  { weight: 10, value: { key: 'ThickFur', armor: 2 } },
-  { weight: 4, value: { key: 'Feathers', armor: 2 } },
-  { weight: 5, value: { key: 'Scales', armor: 3 } },
-  { weight: 4, value: { key: 'Shell', armor: 5 } },
-  { weight: 3, value: { key: 'BonePlates', armor: 7 } },
-  { weight: 2, value: { key: 'ArmoredHide', armor: 9 } },
+  { weight: 4, value: { key: 'skin', armor: 0 } },
+  { weight: 4, value: { key: 'softFur', armor: 1 } },
+  { weight: 10, value: { key: 'thickFur', armor: 2 } },
+  { weight: 4, value: { key: 'feathers', armor: 2 } },
+  { weight: 5, value: { key: 'scales', armor: 3 } },
+  { weight: 4, value: { key: 'shell', armor: 5 } },
+  { weight: 3, value: { key: 'bonePlates', armor: 7 } },
+  { weight: 2, value: { key: 'armoredHide', armor: 9 } },
 ]
 
 export const defaultMovementDistanceFunction = (
@@ -237,55 +238,55 @@ export const movementTypes: WeightedChoice<{
   {
     weight: 3,
     value: {
-      type: 'Slithering',
+      type: 'slithering',
       distanceFn: defaultMovementDistanceFunction([1, 1, 2]),
     },
   },
   {
     weight: 3,
     value: {
-      type: 'Digging',
+      type: 'digging',
       distanceFn: defaultMovementDistanceFunction([1, 1, 2]),
     },
   },
   {
     weight: 5,
     value: {
-      type: 'Swimming',
+      type: 'swimming',
       distanceFn: defaultMovementDistanceFunction([1, 2, 2]),
     },
   },
   {
     weight: 13,
     value: {
-      type: 'Running',
+      type: 'running',
       distanceFn: defaultMovementDistanceFunction([1, 2, 2]),
     },
   },
   {
     weight: 6,
     value: {
-      type: 'Flying',
+      type: 'flying',
       distanceFn: defaultMovementDistanceFunction([2, 3, 3]),
     },
   },
   {
     weight: 6,
     value: {
-      type: 'Climbing',
+      type: 'climbing',
       distanceFn: defaultMovementDistanceFunction([1, 2, 2]),
     },
   },
 ]
 
 export const homes: WeightedChoice<MonsterHome>[] = [
-  { weight: 4, value: 'Burrow' },
-  { weight: 5, value: 'Ruin' },
-  { weight: 5, value: 'WateringHole' },
-  { weight: 4, value: 'TreeOrHighPoint' },
-  { weight: 5, value: 'Cave' },
-  { weight: 5, value: 'Ravine' },
-  { weight: 8, value: 'Den' },
+  { weight: 4, value: 'burrow' },
+  { weight: 5, value: 'ruin' },
+  { weight: 5, value: 'watering_hole' },
+  { weight: 4, value: 'tree_or_high_point' },
+  { weight: 5, value: 'cave' },
+  { weight: 5, value: 'ravine' },
+  { weight: 8, value: 'den' },
 ]
 
 export const monsterSkillValues = '0^19|1^5|2^4|3^4|4^2|5^2'
@@ -294,8 +295,8 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 1,
     value: {
-      name: 'monster:Trait.Undead.Name',
-      description: () => ({ key: 'monster:Trait.Undead.Description' }),
+      name: 'monster:trait.undead.name',
+      description: () => ({ key: 'monster:trait.undead.description' }),
       apply: (rm) => ({
         ...rm,
         attributes: {
@@ -310,8 +311,8 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 3,
     value: {
-      name: 'monster:Trait.Hurt.Name',
-      description: () => ({ key: 'monster:Trait.Hurt.Description' }),
+      name: 'monster:trait.hurt.name',
+      description: () => ({ key: 'monster:trait.hurt.description' }),
       apply: (rm) => ({
         ...rm,
         attributes: {
@@ -326,9 +327,9 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 3,
     value: {
-      name: 'monster:Trait.Colorful.Name',
+      name: 'monster:trait.colorful.name',
       description: () => ({
-        key: 'monster:Trait.Colorful.Description',
+        key: 'monster:trait.colorful.description',
         count: rollD6() + rollD6() + rollD6(),
       }),
       apply: identity,
@@ -337,12 +338,12 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 4,
     value: {
-      name: 'monster:Trait.Poisonous.Name',
+      name: 'monster:trait.poisonous.name',
       description: () => ({
         key: {
-          1: 'monster:Poisons.Lethal',
-          2: 'monster:Poisons.Paralyzing',
-          3: 'monster:Poisons.Sleeping',
+          1: 'monster:poisons.lethal',
+          2: 'monster:poisons.paralyzing',
+          3: 'monster:poisons.sleeping',
         }[rollD3()] as TranslationKey<'monster'>,
         count: rollD6() + 2,
       }),
@@ -352,17 +353,17 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 3,
     value: {
-      name: 'monster:Trait.Regeneration.Name',
-      description: () => ({ key: 'monster:Trait.Regeneration.Description' }),
+      name: 'monster:trait.regeneration.name',
+      description: () => ({ key: 'monster:trait.regeneration.description' }),
       apply: identity,
     },
   },
   {
     weight: 2,
     value: {
-      name: 'monster:Trait.ResistanceMagic.Name',
+      name: 'monster:trait.resistance_magic.name',
       description: () => ({
-        key: 'monster:Trait.ResistanceMagic.Description',
+        key: 'monster:trait.resistance_magic.description',
       }),
       apply: identity,
     },
@@ -370,31 +371,31 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 3,
     value: {
-      name: 'monster:Trait.Camouflage.Name',
-      description: () => ({ key: 'monster:Trait.Camouflage.Description' }),
+      name: 'monster:trait.camouflage.name',
+      description: () => ({ key: 'monster:trait.camouflage.description' }),
       apply: identity,
     },
   },
   {
     weight: 2,
     value: {
-      name: 'monster:Trait.Fast.Name',
-      description: () => ({ key: 'monster:Trait.Fast.Description' }),
+      name: 'monster:trait.fast.name',
+      description: () => ({ key: 'monster:trait.fast.description' }),
       apply: identity,
     },
   },
   {
     weight: 4,
     value: {
-      name: 'monster:Trait.SensitiveHearing.Name',
+      name: 'monster:trait.sensitive_hearing.name',
       description: () => ({
-        key: 'monster:Trait.SensitiveHearing.Description',
+        key: 'monster:trait.sensitive_hearing.description',
       }),
       apply: (rm) => ({
         ...rm,
         skills: {
           ...rm.skills,
-          Scouting: rm.skills.Scouting + 2,
+          Scouting: rm.skills.scouting + 2,
         },
       }),
     },
@@ -402,13 +403,13 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 2,
     value: {
-      name: 'monster:Trait.SensitiveSmell.Name',
-      description: () => ({ key: 'monster:Trait.SensitiveSmell.Description' }),
+      name: 'monster:trait.sensitive_smell.name',
+      description: () => ({ key: 'monster:trait.sensitive_smell.description' }),
       apply: (rm) => ({
         ...rm,
         skills: {
           ...rm.skills,
-          Scouting: rm.skills.Scouting + 2,
+          Scouting: rm.skills.scouting + 2,
         },
       }),
     },
@@ -416,16 +417,16 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 3,
     value: {
-      name: 'monster:Trait.DarkVision.Name',
-      description: () => ({ key: 'monster:Trait.DarkVision.Description' }),
+      name: 'monster:trait.dark_vision.name',
+      description: () => ({ key: 'monster:trait.dark_vision.description' }),
       apply: identity,
     },
   },
   {
     weight: 1,
     value: {
-      name: 'monster:Trait.AcidGlands.Name',
-      description: () => ({ key: 'monster:Trait.AcidGlands.Description' }),
+      name: 'monster:trait.acid_glands.name',
+      description: () => ({ key: 'monster:trait.acid_glands.description' }),
       apply: (rm) => ({
         ...rm,
         acidGlands: true,
@@ -435,8 +436,8 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 1,
     value: {
-      name: 'monster:Trait.FireGlands.Name',
-      description: () => ({ key: 'monster:Trait.FireGlands.Description' }),
+      name: 'monster:trait.fire_glands.name',
+      description: () => ({ key: 'monster:trait.fire_glands.description' }),
       apply: (rm) => ({
         ...rm,
         attackRequirements: { ...rm.attackRequirements, fireGlands: true },
@@ -446,11 +447,11 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 1,
     value: {
-      name: 'monster:Trait.Intelligent.Name',
+      name: 'monster:trait.intelligent.name',
       description: () => ({
         key: (rollD2() === 1
-          ? 'monster:Trait.CanSpeak.Description'
-          : 'monster:Trait.Intelligent.Telepathy') as TranslationKey<'monster'>,
+          ? 'monster:trait.can_speak.description'
+          : 'monster:trait.intelligent.telepathy') as TranslationKey<'monster'>,
         count: 0, //'Trait.Intelligent.SkillValues'
       }),
       apply: (rm) => ({
@@ -465,17 +466,17 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 1,
     value: {
-      name: 'monster:Trait.CanSpeak.Name',
-      description: () => ({ key: 'monster:Trait.CanSpeak.Description' }),
+      name: 'monster:trait.can_speak.name',
+      description: () => ({ key: 'monster:trait.can_speak.description' }),
       apply: identity,
     },
   },
   {
     weight: 1,
     value: {
-      name: 'monster:Trait.PossessedByDemon.Name',
+      name: 'monster:trait.possessed_by_demon.name',
       description: () => ({
-        key: 'monster:Trait.PossessedByDemon.Description',
+        key: 'monster:trait.possessed_by_demon.description',
       }),
       apply: identity,
     },
@@ -486,735 +487,735 @@ export const monsterWeakness: WeightedChoice<MonsterWeakness>[] = [
   {
     weight: 13,
     value: {
-      name: 'monster:Weakness.None.Name',
-      description: 'monster:Weakness.None.Description',
+      name: 'monster:weakness.none.name',
+      description: 'monster:weakness.none.description',
     },
   },
   {
     weight: 5,
     value: {
-      name: 'monster:Weakness.VulnerableToFire.Name',
-      description: 'monster:Weakness.VulnerableToFire.Description',
+      name: 'monster:weakness.vulnerable_to_fire.name',
+      description: 'monster:weakness.vulnerable_to_fire.description',
     },
   },
   {
     weight: 2,
     value: {
-      name: 'monster:Weakness.VulnerableToLight.Name',
-      description: 'monster:Weakness.VulnerableToLight.Description',
+      name: 'monster:weakness.vulnerable_to_light.name',
+      description: 'monster:weakness.vulnerable_to_light.description',
     },
   },
   {
     weight: 3,
     value: {
-      name: 'monster:Weakness.AfraidOfLoudNoises.Name',
-      description: 'monster:Weakness.AfraidOfLoudNoises.Description',
+      name: 'monster:weakness.afraid_of_loud_noises.name',
+      description: 'monster:weakness.afraid_of_loud_noises.description',
     },
   },
   {
     weight: 5,
     value: {
-      name: 'monster:Weakness.ProtectsOffspring.Name',
-      description: 'monster:Weakness.ProtectsOffspring.Description',
+      name: 'monster:weakness.protects_offspring.name',
+      description: 'monster:weakness.protects_offspring.description',
     },
   },
   {
     weight: 5,
     value: {
-      name: 'monster:Weakness.SensitiveEyes.Name',
-      description: 'monster:Weakness.SensitiveEyes.Description',
+      name: 'monster:weakness.sensitive_eyes.name',
+      description: 'monster:weakness.sensitive_eyes.description',
     },
   },
   {
     weight: 3,
     value: {
-      name: 'monster:Weakness.ObsessedWithAllThatGlimmers.Name',
-      description: 'monster:Weakness.ObsessedWithAllThatGlimmers.Description',
+      name: 'monster:weakness.obsessed_with_all_that_glimmers.name',
+      description:
+        'monster:weakness.obsessed_with_all_that_glimmers.description',
     },
   },
 ]
 
 export const monsterMotivation: WeightedChoice<MonsterMotivation>[] = [
-  { weight: 13, value: 'Territory' },
-  { weight: 4, value: 'Pregnant' },
-  { weight: 5, value: 'Hunger' },
-  { weight: 2, value: 'Injured' },
-  { weight: 1, value: 'Parasite' },
-  { weight: 5, value: 'Alone' },
-  { weight: 2, value: 'Fun' },
-  { weight: 2, value: 'LookingForHost' },
-  { weight: 2, value: 'GuardingTreasure' },
+  { weight: 13, value: 'territory' },
+  { weight: 4, value: 'pregnant' },
+  { weight: 5, value: 'hunger' },
+  { weight: 2, value: 'injured' },
+  { weight: 1, value: 'parasite' },
+  { weight: 5, value: 'alone' },
+  { weight: 2, value: 'fun' },
+  { weight: 2, value: 'looking_for_host' },
+  { weight: 2, value: 'guarding_treasure' },
 ]
 
-const getRandomPoison = (): PoisonType =>
-  choose(['Lethal', 'Paralyzing', 'Sleeping', 'Hallucinogenic'])
+const getRandomPoison = (): PoisonType => choose(poisonTypes)
 
 export const monsterAttacks: MonsterAttacks = {
-  Bash: {
-    type: 'Bash',
+  bash: {
+    type: 'bash',
     chance: 1,
-    damage: (_) => ({ Blunt: 1 }),
-    range: 'ArmsLength',
+    damage: (_) => ({ blunt: 1 }),
+    range: 'armsLength',
     attack: (rm) => rm.attributes.agility,
-    description: 'monster:Attack.Bash.Description',
+    description: 'monster:attack.bash.description',
     valid: (rm) =>
       rm.attributes.strength >= 5 && rm.attackRequirements.hasLimbs,
     singleUse: false,
   },
-  Generic: {
-    type: 'Generic',
+  generic: {
+    type: 'generic',
     chance: 1,
     damage: (_) => {
       const damage = chooseFromChoiceString('1^2|2^3|3')
 
-      return rollD2() === 1 ? { Slash: damage } : { Blunt: damage }
+      return rollD2() === 1 ? { slash: damage } : { blunt: damage }
     },
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 4 + rm.attributes.agility,
-    description: 'monster:Attack.Generic.Description',
+    description: 'monster:attack.generic.description',
     valid: (_) => true,
     singleUse: false,
   },
-  Bite: {
-    type: 'Bite',
+  bite: {
+    type: 'bite',
     chance: 1,
-    damage: (_) => ({ Slash: chooseFromChoiceString('1^2|2^3|3') }),
-    range: 'ArmsLength',
+    damage: (_) => ({ slash: chooseFromChoiceString('1^2|2^3|3') }),
+    range: 'armsLength',
     attack: (rm) => 4 + rm.attributes.agility,
-    description: 'monster:Attack.Bite.Description',
+    description: 'monster:attack.bite.description',
     valid: (rm) => rm.attackRequirements.fangs,
     singleUse: false,
   },
-  LockedJaws: {
-    type: 'LockedJaws',
+  lockedJaws: {
+    type: 'lockedJaws',
     chance: 0.005,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 7 + rm.attributes.agility,
     damage: (_) => {
       const damage = chooseFromChoiceString('1^2|2^3|3')
 
-      return rollD2() === 1 ? { Slash: damage } : { Blunt: damage }
+      return rollD2() === 1 ? { slash: damage } : { blunt: damage }
     },
-    description: 'monster:Attack.LockedJaws.Description',
+    description: 'monster:attack.locked_jaws.description',
     valid: (rm) => rm.attackRequirements.fangs,
     singleUse: false,
   },
-  ThroatBite: {
-    type: 'ThroatBite',
+  throatBite: {
+    type: 'throatBite',
     chance: 1,
-    damage: (_) => ({ Slash: chooseFromChoiceString('1^2|2^3|3') }),
-    range: 'ArmsLength',
+    damage: (_) => ({ slash: chooseFromChoiceString('1^2|2^3|3') }),
+    range: 'armsLength',
     attack: (rm) => 7 + rm.attributes.agility,
-    description: 'monster:Attack.ThroatBite.Description',
+    description: 'monster:attack.throat_bite.description',
     valid: (rm) => rm.attackRequirements.fangs && rm.attributes.agility > 3,
     singleUse: false,
   },
-  BreathFire: {
-    type: 'BreathFire',
+  breathFire: {
+    type: 'breathFire',
     chance: 1,
-    damage: (_) => ({ NonTypical: 1 }),
-    range: 'Short',
+    damage: (_) => ({ non_typical: 1 }),
+    range: 'short',
     attack: (_) => 6 + rollD6(),
-    description: 'monster:Attack.BreathFire.Description',
+    description: 'monster:attack.breath_fire.description',
     valid: (rm) => rm.attackRequirements.fireGlands,
     singleUse: false,
   },
-  SprayFire: {
-    type: 'SprayFire',
+  sprayFire: {
+    type: 'sprayFire',
     chance: 0.01,
-    damage: (_) => ({ NonTypical: 1 }),
-    range: 'Short',
+    damage: (_) => ({ non_typical: 1 }),
+    range: 'short',
     attack: (_) => 6 + rollD6(),
-    description: 'monster:Attack.SprayFire.Description',
+    description: 'monster:attack.spray_fire.description',
     valid: (rm) => rm.attackRequirements.fireGlands,
     singleUse: true,
   },
-  DeadlyGaze: {
-    type: 'DeadlyGaze',
+  deadlyGaze: {
+    type: 'deadlyGaze',
     chance: 1,
-    range: 'Near',
+    range: 'near',
     attack: (_) => 4 + rollD6(),
-    damage: (_) => ({ Fear: true }),
-    description: 'monster:Attack.DeadlyGaze.Description',
+    damage: (_) => ({ fear: true }),
+    description: 'monster:attack.deadly_gaze.description',
     valid: (rm) => rm.attackRequirements.undead,
     singleUse: false,
   },
-  ColdStrike: {
-    type: 'ColdStrike',
+  coldStrike: {
+    type: 'coldStrike',
     chance: 1,
-    range: 'Near',
+    range: 'near',
     attack: (_) => 6 + rollD6(),
-    damage: (_) => ({ NonTypical: 1 }),
-    description: 'monster:Attack.ColdStrike.Description',
+    damage: (_) => ({ non_typical: 1 }),
+    description: 'monster:attack.cold_strike.description',
     valid: (rm) => rm.attackRequirements.undead,
     singleUse: false,
   },
-  DeathScream: {
-    type: 'DeathScream',
+  deathScream: {
+    type: 'deathScream',
     chance: 0.005,
-    range: 'Near',
+    range: 'near',
     attack: (_) => 4 + rollD6(),
-    damage: (_) => ({ Fear: true }),
-    description: 'monster:Attack.DeathScream.Description',
+    damage: (_) => ({ fear: true }),
+    description: 'monster:attack.death_scream.description',
     valid: (rm) => rm.attackRequirements.undead,
     singleUse: false,
   },
-  Headbutt: {
-    type: 'Headbutt',
+  headbutt: {
+    type: 'headbutt',
     chance: 1,
-    damage: (_) => ({ Blunt: chooseFromChoiceString('1^2|2') }),
-    range: 'ArmsLength',
+    damage: (_) => ({ blunt: chooseFromChoiceString('1^2|2') }),
+    range: 'armsLength',
     attack: (rm) => 5 + rm.attributes.agility,
-    description: 'monster:Attack.Headbutt.Description',
+    description: 'monster:attack.headbutt.description',
     valid: (rm) => !rm.attackRequirements.horn,
     singleUse: false,
   },
-  Horn: {
-    type: 'Horn',
+  horn: {
+    type: 'horn',
     chance: 1,
-    range: 'ArmsLength',
-    damage: (_) => ({ Stab: chooseFromChoiceString('2^2|3') }),
+    range: 'armsLength',
+    damage: (_) => ({ stab: chooseFromChoiceString('2^2|3') }),
     attack: (rm) => 5 + rm.attributes.agility,
-    description: 'monster:Attack.Horn.Description',
+    description: 'monster:attack.horn.description',
     valid: (rm) => rm.attackRequirements.horn,
     singleUse: false,
   },
-  Roar: {
-    type: 'Roar',
+  roar: {
+    type: 'roar',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (_) => 3 + rollD3(),
-    damage: (_) => ({ Fear: true }),
-    description: 'monster:Attack.Roar.Description',
+    damage: (_) => ({ fear: true }),
+    description: 'monster:attack.roar.description',
     valid: (rm) => rm.attributes.strength >= 6,
     singleUse: false,
   },
-  Kick: {
-    type: 'Kick',
+  kick: {
+    type: 'kick',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
-    damage: (_) => ({ Blunt: 1 }),
-    description: 'monster:Attack.Kick.Description',
+    damage: (_) => ({ blunt: 1 }),
+    description: 'monster:attack.kick.description',
     valid: (rm) => rm.attackRequirements.legs,
     singleUse: false,
   },
-  BackwardsKick: {
-    type: 'BackwardsKick',
+  backwardsKick: {
+    type: 'backwardsKick',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
-    damage: (_) => ({ Blunt: 1 }),
-    description: 'monster:Attack.BackwardsKick.Description',
-    valid: (rm) => rm.attackRequirements.legs && rm.limbs.Legs >= 4,
+    damage: (_) => ({ blunt: 1 }),
+    description: 'monster:attack.backwards_kick.description',
+    valid: (rm) => rm.attackRequirements.legs && rm.limbs.legs >= 4,
     singleUse: false,
   },
-  Sweep: {
-    type: 'Sweep',
+  sweep: {
+    type: 'sweep',
     chance: 1,
-    range: 'Near',
+    range: 'near',
     attack: (rm) => 3 + rm.attributes.agility,
-    damage: (_) => ({ Slash: chooseFromChoiceString('1^2|2^3|3') }),
-    description: 'monster:Attack.Sweep.Description',
+    damage: (_) => ({ slash: chooseFromChoiceString('1^2|2^3|3') }),
+    description: 'monster:attack.sweep.description',
     valid: (rm) => rm.attributes.agility >= 3,
     singleUse: false,
   },
-  Slash: {
-    type: 'Slash',
+  slash: {
+    type: 'slash',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
-    damage: (_) => ({ Slash: chooseFromChoiceString('1^2|2^3|3') }),
-    description: 'monster:Attack.Slash.Description',
+    damage: (_) => ({ slash: chooseFromChoiceString('1^2|2^3|3') }),
+    description: 'monster:attack.slash.description',
     valid: (rm) =>
       rm.attackRequirements.claws || rm.attackRequirements.hasLimbs,
     singleUse: false,
   },
-  EyeGourge: {
-    type: 'EyeGourge',
+  eyeGourge: {
+    type: 'eyeGourge',
     chance: 0.05,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
-    damage: (_) => ({ Slash: 1 }),
-    description: 'monster:Attack.EyeGourge.Description',
+    damage: (_) => ({ slash: 1 }),
+    description: 'monster:attack.eye_gourge.description',
     valid: (rm) =>
       rm.attackRequirements.claws || rm.attackRequirements.hasLimbs,
     singleUse: false,
   },
-  ClawFlurry: {
-    type: 'ClawFlurry',
+  clawFlurry: {
+    type: 'clawFlurry',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => rm.attributes.agility,
-    damage: (_) => ({ Slash: chooseFromChoiceString('1^2|2^3|3') }),
-    description: 'monster:Attack.ClawFlurry.Description',
+    damage: (_) => ({ slash: chooseFromChoiceString('1^2|2^3|3') }),
+    description: 'monster:attack.claw_flurry.description',
     valid: (rm) =>
       (rm.attackRequirements.claws || rm.attackRequirements.hasLimbs) &&
       rm.attributes.agility > 4,
     singleUse: false,
   },
-  TailsSlash: {
-    type: 'TailsSlash',
+  tailsSlash: {
+    type: 'tailsSlash',
     chance: 1,
-    range: 'Near',
+    range: 'near',
     attack: (rm) => 3 + rm.attributes.agility,
-    damage: (rm) => ({ Blunt: 1 + rm.damageModifiers.TailAttack }),
-    description: 'monster:Attack.TailsSlash.Description',
+    damage: (rm) => ({ blunt: 1 + rm.damageModifiers.tail_attack }),
+    description: 'monster:attack.tails_slash.description',
     valid: (rm) => rm.attackRequirements.tail,
     singleUse: false,
   },
-  TentacleLash: {
-    type: 'TentacleLash',
+  tentacleLash: {
+    type: 'tentacleLash',
     chance: 1,
-    range: 'Near',
+    range: 'near',
     attack: (rm) => 3 + rm.attributes.agility,
-    damage: (_) => ({ Blunt: chooseFromChoiceString('1^2|2') }),
-    description: 'monster:Attack.TentacleLash.Description',
+    damage: (_) => ({ blunt: chooseFromChoiceString('1^2|2') }),
+    description: 'monster:attack.tentacle_lash.description',
     valid: (rm) => rm.attackRequirements.tentacles,
     singleUse: false,
   },
-  TentacleFrenzy: {
-    type: 'TentacleFrenzy',
+  tentacleFrenzy: {
+    type: 'tentacleFrenzy',
     chance: 1,
-    range: 'Near',
+    range: 'near',
     attack: (rm) => 3 + rm.attributes.agility,
-    damage: (_) => ({ Blunt: chooseFromChoiceString('1^2|2') }),
-    description: 'monster:Attack.TentacleFrenzy.Description',
+    damage: (_) => ({ blunt: chooseFromChoiceString('1^2|2') }),
+    description: 'monster:attack.tentacle_frenzy.description',
     valid: (rm) => rm.attackRequirements.tentacles,
     singleUse: false,
   },
-  TentaclePenetrationArmsLength: {
-    type: 'TentaclePenetrationArmsLength',
+  tentaclePenetrationArmsLength: {
+    type: 'tentaclePenetrationArmsLength',
     chance: 0.05,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 1 + rm.attributes.agility,
-    damage: (_) => ({ Slash: chooseFromChoiceString('1|2') }),
-    description: 'monster:Attack.TentaclePenetrationArmsLength.Description',
+    damage: (_) => ({ slash: chooseFromChoiceString('1|2') }),
+    description: 'monster:attack.tentacle_penetration_arms_length.description',
     valid: (rm) =>
       !rm.attackRequirements.tentacles &&
-      rm.description.heads.some((h) => h.key === 'TentaclesWithCount'),
+      rm.description.heads.some((h) => h.key === 'tentacles_with_count'),
     singleUse: false,
   },
-  TentaclePenetrationNear: {
-    type: 'TentaclePenetrationNear',
+  tentaclePenetrationNear: {
+    type: 'tentaclePenetrationNear',
     chance: 0.05,
-    range: 'Near',
+    range: 'near',
     attack: (rm) => 1 + rm.attributes.agility,
-    damage: (_) => ({ Slash: chooseFromChoiceString('1|2') }),
-    description: 'monster:Attack.TentaclePenetrationNear.Description',
+    damage: (_) => ({ slash: chooseFromChoiceString('1|2') }),
+    description: 'monster:attack.tentacle_penetration_near.description',
     valid: (rm) => rm.attackRequirements.tentacles,
     singleUse: false,
   },
-  Devour: {
-    type: 'Devour',
+  devour: {
+    type: 'devour',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (_) => 4 + rollD6(),
-    damage: (_) => ({ Slash: chooseFromChoiceString('1^2|2') }),
-    description: 'monster:Attack.Devour.Description',
+    damage: (_) => ({ slash: chooseFromChoiceString('1^2|2') }),
+    description: 'monster:attack.devour.description',
     valid: (rm) => rm.attributes.strength >= 14,
     singleUse: false,
   },
-  SpitAcid: {
-    type: 'SpitAcid',
+  spitAcid: {
+    type: 'spitAcid',
     chance: 1,
-    range: 'Near',
+    range: 'near',
     attack: (_) => 4 + rollD6(),
-    damage: (_) => ({ NonTypical: 1 }),
-    description: 'monster:Attack.SpitAcid.Description',
+    damage: (_) => ({ non_typical: 1 }),
+    description: 'monster:attack.spit_acid.description',
     valid: (rm) => rm.attackRequirements.acidGlands,
     singleUse: false,
   },
-  SprayAcid: {
-    type: 'SprayAcid',
+  sprayAcid: {
+    type: 'sprayAcid',
     chance: 0.01,
-    range: 'Short',
+    range: 'short',
     attack: (_) => 4 + rollD6(),
-    damage: (_) => ({ NonTypical: 1 }),
-    description: 'monster:Attack.SprayAcid.Description',
+    damage: (_) => ({ non_typical: 1 }),
+    description: 'monster:attack.spray_acid.description',
     valid: (rm) => rm.attackRequirements.acidGlands,
     singleUse: true,
   },
-  DiveAttack: {
-    type: 'DiveAttack',
+  diveAttack: {
+    type: 'diveAttack',
     chance: 1,
-    range: 'Near',
+    range: 'near',
     attack: (rm) => 4 + rm.attributes.agility,
-    damage: (rm) => ({ Slash: Math.round(rm.attributes.agility) }),
-    description: 'monster:Attack.DiveAttack.Description',
+    damage: (rm) => ({ slash: Math.round(rm.attributes.agility) }),
+    description: 'monster:attack.dive_attack.description',
     valid: (rm) => rm.attackRequirements.wings,
     singleUse: false,
   },
-  Whirlwind: {
-    type: 'Whirlwind',
+  whirlwind: {
+    type: 'whirlwind',
     chance: 1,
-    range: 'Near',
+    range: 'near',
     attack: (_) => 6,
-    damage: (_) => ({ Weapon: 1 }),
-    description: 'monster:Attack.Whirlwind.Description',
+    damage: (_) => ({ weapon: 1 }),
+    description: 'monster:attack.whirlwind.description',
     valid: (rm) => rm.attackRequirements.wings && rm.attributes.strength > 4,
     singleUse: false,
   },
-  Peck: {
-    type: 'Peck',
+  peck: {
+    type: 'peck',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => rm.attributes.agility,
-    damage: (_) => ({ Blunt: 1 }),
-    description: 'monster:Attack.Peck.Description',
+    damage: (_) => ({ blunt: 1 }),
+    description: 'monster:attack.peck.description',
     valid: (rm) => rm.attackRequirements.hasBeak,
     singleUse: false,
   },
-  BeakThrow: {
-    type: 'BeakThrow',
+  beakThrow: {
+    type: 'beakThrow',
     chance: 1,
-    damage: (_) => ({ Weapon: 1 }),
-    range: 'ArmsLength',
+    damage: (_) => ({ weapon: 1 }),
+    range: 'armsLength',
     attack: (rm) => 8 + rm.attributes.agility,
-    description: 'monster:Attack.BeakThrow.Description',
+    description: 'monster:attack.beak_throw.description',
     valid: (rm) => rm.attackRequirements.hasBeak && rm.attributes.strength > 11,
     singleUse: false,
   },
-  Rush: {
-    type: 'Rush',
+  rush: {
+    type: 'rush',
     chance: 1,
-    range: 'Near',
+    range: 'near',
     attack: (rm) => rollD6() + rm.attributes.agility,
-    damage: (_) => ({ Blunt: 1 }),
-    description: 'monster:Attack.Rush.Description',
-    valid: (rm) => rm.movement.type === 'Running',
+    damage: (_) => ({ blunt: 1 }),
+    description: 'monster:attack.rush.description',
+    valid: (rm) => rm.movement.type === 'running',
     singleUse: false,
   },
-  Burrow: {
-    type: 'Burrow',
+  burrow: {
+    type: 'burrow',
     chance: 1,
-    range: 'Near',
+    range: 'near',
     attack: (rm) => rm.movement.distance + rm.attributes.agility,
-    damage: (_) => ({ Weapon: 1 }),
-    description: 'monster:Attack.Burrow.Description',
-    valid: (rm) => rm.movement.type === 'Digging',
+    damage: (_) => ({ weapon: 1 }),
+    description: 'monster:attack.burrow.description',
+    valid: (rm) => rm.movement.type === 'digging',
     singleUse: false,
   },
-  TheGroundShatters: {
-    type: 'TheGroundShatters',
+  theGroundShatters: {
+    type: 'theGroundShatters',
     chance: 1,
-    range: 'Near',
+    range: 'near',
     attack: (rm) => rm.movement.distance + rm.attributes.agility,
-    description: 'monster:Attack.TheGroundShatters.Description',
+    description: 'monster:attack.the_ground_shatters.description',
     valid: (rm) =>
-      rm.movement.type === 'Digging' && rm.attributes.strength > 13,
+      rm.movement.type === 'digging' && rm.attributes.strength > 13,
     singleUse: false,
   },
-  Taunt: {
-    type: 'Taunt',
+  taunt: {
+    type: 'taunt',
     chance: 1,
-    range: 'Near',
-    attack: (rm) => rollD6() + rm.damageModifiers.Size,
-    damage: (_) => ({ Fear: true }),
-    description: 'monster:Attack.Taunt.Description',
+    range: 'near',
+    attack: (rm) => rollD6() + rm.damageModifiers.size,
+    damage: (_) => ({ fear: true }),
+    description: 'monster:attack.taunt.description',
     valid: (rm) => rm.attackRequirements.canSpeak,
     singleUse: false,
   },
-  Plea: {
-    type: 'Plea',
+  plea: {
+    type: 'plea',
     chance: 0.001,
-    range: 'Near',
-    description: 'monster:Attack.Plea.Description',
+    range: 'near',
+    description: 'monster:attack.plea.description',
     valid: (rm) => rm.attackRequirements.canSpeak,
     singleUse: false,
   },
-  NightmareVisions: {
-    type: 'NightmareVisions',
+  nightmareVisions: {
+    type: 'nightmareVisions',
     chance: 0.25,
-    range: 'Near',
+    range: 'near',
     attack: (_) => rollD4() + rollD4() + rollD3(),
-    damage: (_) => ({ Fear: true }),
-    description: 'monster:Attack.NightmareVisions.Description',
+    damage: (_) => ({ fear: true }),
+    description: 'monster:attack.nightmare_visions.description',
     valid: (rm) =>
       rm.traits.some((t) =>
         t.description().key.includes('Trait.Intelligent.Telepathy'),
       ),
     singleUse: false,
   },
-  MindBurst: {
-    type: 'MindBurst',
+  mindBurst: {
+    type: 'mindBurst',
     chance: 1,
-    range: 'Near',
+    range: 'near',
     attack: (_) => rollD3() * 2,
-    damage: (_) => ({ Fear: true }),
-    description: 'monster:Attack.MindBurst.Description',
+    damage: (_) => ({ fear: true }),
+    description: 'monster:attack.mind_burst.description',
     valid: (rm) =>
       rm.traits.some((t) =>
         t.description().key.includes('Trait.Intelligent.Telepathy'),
-      ) && rm.damageModifiers.Telepathic > 1,
+      ) && rm.damageModifiers.telepathic > 1,
     singleUse: false,
   },
-  WrapAttack: {
-    type: 'WrapAttack',
+  wrapAttack: {
+    type: 'wrapAttack',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => rollD6() + rm.attributes.agility,
-    damage: (rm) => ({ Blunt: rm.movement.distance }),
-    description: 'monster:Attack.WrapAttack.Description',
+    damage: (rm) => ({ blunt: rm.movement.distance }),
+    description: 'monster:attack.wrap_attack.description',
     valid: (rm) =>
-      rm.movement.type === 'Slithering' || !rm.attackRequirements.hasLimbs,
+      rm.movement.type === 'slithering' || !rm.attackRequirements.hasLimbs,
     singleUse: false,
   },
-  PoisonSpit: {
-    type: 'PoisonSpit',
+  poisonSpit: {
+    type: 'poisonSpit',
     chance: 0.05,
-    range: 'Near',
+    range: 'near',
     attack: (_) => rollD6() + 4,
     damage: () => ({
-      Slash: 1,
-      Poison: {
+      slash: 1,
+      poison: {
         potency: rollD6() + 2,
         type: getRandomPoison(),
       },
     }),
-    description: 'monster:Attack.PoisonSpit.Description',
+    description: 'monster:attack.poison_spit.description',
     valid: (rm) => rm.attackRequirements.isPoisonous,
     singleUse: false,
   },
-  VenemousBite: {
-    type: 'VenemousBite',
+  venemousBite: {
+    type: 'venemousBite',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: () => ({
-      Slash: 1,
-      Poison: {
+      slash: 1,
+      poison: {
         potency: rollD6() + 2,
         type: getRandomPoison(),
       },
     }),
-    description: 'monster:Attack.VenemousBite.Description',
+    description: 'monster:attack.venemous_bite.description',
     valid: (rm) =>
       rm.attackRequirements.isPoisonous && rm.attackRequirements.fangs,
     singleUse: false,
   },
-  PoisonScratch: {
-    type: 'PoisonScratch',
+  poisonScratch: {
+    type: 'poisonScratch',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: () => ({
-      Slash: 1,
-      Poison: {
+      slash: 1,
+      poison: {
         potency: rollD6() + 2,
         type: getRandomPoison(),
       },
     }),
-    description: 'monster:Attack.PoisonScratch.Description',
+    description: 'monster:attack.poison_scratch.description',
     valid: (rm) =>
       rm.attackRequirements.isPoisonous && rm.attackRequirements.claws,
     singleUse: false,
   },
-  PoisonTailAttack: {
-    type: 'PoisonTailAttack',
+  poisonTailAttack: {
+    type: 'poisonTailAttack',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: () => ({
-      Slash: 1,
-      Poison: {
+      slash: 1,
+      poison: {
         potency: rollD6() + 2,
         type: getRandomPoison(),
       },
     }),
-    description: 'monster:Attack.PoisonTailAttack.Description',
+    description: 'monster:attack.poison_tail_attack.description',
     valid: (rm) =>
       rm.attackRequirements.isPoisonous && rm.attackRequirements.spikedTail,
     singleUse: false,
   },
-  PoisonTentacleAttack: {
-    type: 'PoisonTentacleAttack',
+  poisonTentacleAttack: {
+    type: 'poisonTentacleAttack',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: () => ({
-      Slash: 1,
-      Poison: {
+      slash: 1,
+      poison: {
         potency: rollD6() + 2,
         type: getRandomPoison(),
       },
     }),
-    description: 'monster:Attack.PoisonTentacleAttack.Description',
+    description: 'monster:attack.poison_tentacle_attack.description',
     valid: (rm) =>
       rm.attackRequirements.isPoisonous && rm.attackRequirements.tentacles,
     singleUse: false,
   },
-  PoisonHornAttack: {
-    type: 'PoisonHornAttack',
+  poisonHornAttack: {
+    type: 'poisonHornAttack',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: () => ({
-      Slash: 1,
-      Poison: {
+      slash: 1,
+      poison: {
         potency: rollD6() + 2,
         type: getRandomPoison(),
       },
     }),
-    description: 'monster:Attack.PoisonHornAttack.Description',
+    description: 'monster:attack.poison_horn_attack.description',
     valid: (rm) =>
       rm.attackRequirements.isPoisonous && rm.attackRequirements.horn,
     singleUse: false,
   },
-  Punch: {
-    type: 'Punch',
+  punch: {
+    type: 'punch',
     chance: 1,
-    range: 'ArmsLength',
-    attack: (rm) => rollD4() + rollD4() + rm.skills.Melee,
-    damage: () => ({ Blunt: 1 }),
-    description: 'monster:Attack.Punch.Description',
-    valid: (rm) => rm.limbs.Arms > 0,
+    range: 'armsLength',
+    attack: (rm) => rollD4() + rollD4() + rm.skills.melee,
+    damage: () => ({ blunt: 1 }),
+    description: 'monster:attack.punch.description',
+    valid: (rm) => rm.limbs.arms > 0,
     singleUse: false,
   },
-  FlyingFists: {
-    type: 'FlyingFists',
+  flyingFists: {
+    type: 'flyingFists',
     chance: 1,
-    range: 'ArmsLength',
-    attack: (rm) => rollD4() + rollD4() + rm.skills.Melee,
-    damage: () => ({ Blunt: 1 }),
-    description: 'monster:Attack.FlyingFists.Description_count',
-    descriptionExtras: (rm) => ({ count: Math.ceil(rm.limbs.Arms / 2) }),
-    valid: (rm) => rm.limbs.Arms > 2,
+    range: 'armsLength',
+    attack: (rm) => rollD4() + rollD4() + rm.skills.melee,
+    damage: () => ({ blunt: 1 }),
+    description: 'monster:attack.flying_fists.description_count',
+    descriptionExtras: (rm) => ({ count: Math.ceil(rm.limbs.arms / 2) }),
+    valid: (rm) => rm.limbs.arms > 2,
     singleUse: false,
   },
-  FistsOfFury: {
-    type: 'FistsOfFury',
+  fistsOfFury: {
+    type: 'fistsOfFury',
     chance: 1,
-    range: 'ArmsLength',
-    attack: (rm) => rollD4() + rollD4() + rm.skills.Melee,
-    damage: () => ({ Blunt: 1 }),
-    description: 'monster:Attack.FistsOfFury.Description_count',
-    descriptionExtras: (rm) => ({ count: Math.ceil(rm.limbs.Arms / 2) }),
-    valid: (rm) => rm.limbs.Arms > 2,
+    range: 'armsLength',
+    attack: (rm) => rollD4() + rollD4() + rm.skills.melee,
+    damage: () => ({ blunt: 1 }),
+    description: 'monster:attack.fists_of_fury.description_count',
+    descriptionExtras: (rm) => ({ count: Math.ceil(rm.limbs.arms / 2) }),
+    valid: (rm) => rm.limbs.arms > 2,
     singleUse: false,
   },
-  Distraction: {
-    type: 'Distraction',
+  distraction: {
+    type: 'distraction',
     chance: 1,
-    range: 'Near',
-    description: 'monster:Attack.Distraction.Description',
+    range: 'near',
+    description: 'monster:attack.distraction.description',
     valid: (rm) => rm.attributes.agility > 3,
     singleUse: false,
   },
-  InfectedScratch: {
-    type: 'InfectedScratch',
+  infectedScratch: {
+    type: 'infectedScratch',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: () => ({
-      Slash: chooseFromChoiceString('1^2|2^3|3'),
+      slash: chooseFromChoiceString('1^2|2^3|3'),
       Disease: chooseFromChoiceString('4|5|6'),
     }),
-    description: 'monster:Attack.InfectedScratch.Description',
+    description: 'monster:attack.infected_scratch.description',
     valid: (rm) => rm.attackRequirements.isSick && rm.attackRequirements.claws,
     singleUse: false,
   },
-  DiseasedBite: {
-    type: 'DiseasedBite',
+  diseasedBite: {
+    type: 'diseasedBite',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: () => ({
-      Slash: chooseFromChoiceString('1^2|2^3|3'),
+      slash: chooseFromChoiceString('1^2|2^3|3'),
       Disease: chooseFromChoiceString('4|5|6'),
     }),
-    description: 'monster:Attack.DiseasedBite.Description',
+    description: 'monster:attack.diseased_bite.description',
     valid: (rm) => rm.attackRequirements.isSick && rm.attackRequirements.fangs,
     singleUse: false,
   },
-  InfectedTailSwipe: {
-    type: 'InfectedTailSwipe',
+  infectedTailSwipe: {
+    type: 'infectedTailSwipe',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: () => ({
-      Slash: chooseFromChoiceString('1^2|2^3|3'),
+      slash: chooseFromChoiceString('1^2|2^3|3'),
       Disease: chooseFromChoiceString('4|5|6'),
     }),
-    description: 'monster:Attack.InfectedTailSwipe.Description',
+    description: 'monster:attack.infected_tail_swipe.description',
     valid: (rm) =>
       rm.attackRequirements.isSick && rm.attackRequirements.spikedTail,
     singleUse: false,
   },
-  InfectedTentacleSwipe: {
-    type: 'InfectedTentacleSwipe',
+  infectedTentacleSwipe: {
+    type: 'infectedTentacleSwipe',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: () => ({
-      Slash: chooseFromChoiceString('1^2|2^3|3'),
+      slash: chooseFromChoiceString('1^2|2^3|3'),
       Disease: chooseFromChoiceString('4|5|6'),
     }),
-    description: 'monster:Attack.InfectedTentacleSwipe.Description',
+    description: 'monster:attack.infected_tentacle_swipe.description',
     valid: (rm) =>
       rm.attackRequirements.isSick && rm.attackRequirements.tentacles,
     singleUse: false,
   },
-  DiseasedTouch: {
-    type: 'DiseasedTouch',
+  diseasedTouch: {
+    type: 'diseasedTouch',
     chance: 0.005,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 1 + rm.attributes.agility,
     damage: () => ({
-      Blunt: chooseFromChoiceString('1^2|2^3|3'),
+      blunt: chooseFromChoiceString('1^2|2^3|3'),
       Disease: chooseFromChoiceString('4|5|6'),
     }),
-    description: 'monster:Attack.DiseasedTouch.Description',
+    description: 'monster:attack.diseased_touch.description',
     valid: (rm) =>
       rm.attackRequirements.isSick && rm.attackRequirements.tentacles,
     singleUse: false,
   },
-  AdventureToss: {
-    type: 'AdventureToss',
+  adventureToss: {
+    type: 'adventureToss',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 8 + rm.attributes.agility,
-    damage: () => ({ Blunt: 1 }),
-    description: 'monster:Attack.AdventureToss.Description',
-    valid: (rm) => rm.limbs.Arms > 0 && rm.attributes.strength > 11,
+    damage: () => ({ blunt: 1 }),
+    description: 'monster:attack.adventure_toss.description',
+    valid: (rm) => rm.limbs.arms > 0 && rm.attributes.strength > 11,
     singleUse: false,
   },
-  DeathRattle: {
-    type: 'DeathRattle',
+  deathRattle: {
+    type: 'deathRattle',
     chance: 1,
-    range: 'ArmsLength',
+    range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
-    damage: () => ({ Slash: 1 }),
-    description: 'monster:Attack.DeathRattle.Description',
+    damage: () => ({ slash: 1 }),
+    description: 'monster:attack.death_rattle.description',
     valid: (rm) => rm.attackRequirements.fangs && rm.attributes.strength > 7,
     singleUse: false,
   },
-  Squash: {
-    type: 'Squash',
+  squash: {
+    type: 'squash',
     chance: 1,
-    range: 'Near',
+    range: 'near',
     attack: (_) => rollD6() + 6,
-    damage: () => ({ Blunt: 1 }),
-    description: 'monster:Attack.Squash.Description',
+    damage: () => ({ blunt: 1 }),
+    description: 'monster:attack.squash.description',
     valid: (rm) => rm.attributes.strength > 13,
     singleUse: false,
   },
-  FallFromTheSky: {
-    type: 'FallFromTheSky',
+  fallFromTheSky: {
+    type: 'fallFromTheSky',
     chance: 1,
-    range: 'Near',
+    range: 'near',
     attack: (_) => 8,
-    description: 'monster:Attack.FallFromTheSky.Description',
+    description: 'monster:attack.fall_from_the_sky.description',
     valid: (rm) => rm.attributes.strength > 4 && rm.attackRequirements.wings,
     singleUse: false,
   },
-  RainOfRocks: {
-    type: 'RainOfRocks',
+  rainOfRocks: {
+    type: 'rainOfRocks',
     chance: 1,
-    range: 'Near',
+    range: 'near',
     attack: (_) => 6,
-    damage: () => ({ Blunt: 1 }),
-    description: 'monster:Attack.RainOfRocks.Description',
+    damage: () => ({ blunt: 1 }),
+    description: 'monster:attack.rain_of_rocks.description',
     valid: (rm) => rm.attackRequirements.wings,
     singleUse: false,
   },

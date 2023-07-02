@@ -4,22 +4,22 @@ import {
 } from '../models/skills.model'
 
 export const defaultSkillsValues = (): AllSkillsValues => ({
-  Might: 0,
-  Endurance: 0,
-  Melee: 0,
-  Crafting: 0,
-  Stealth: 0,
-  SleightOfHand: 0,
-  Move: 0,
-  Markmanship: 0,
-  Scouting: 0,
-  Lore: 0,
-  Survival: 0,
-  Insight: 0,
-  Manipulation: 0,
-  Performance: 0,
-  Healing: 0,
-  AnimalHandling: 0,
+  might: 0,
+  endurance: 0,
+  melee: 0,
+  crafting: 0,
+  stealth: 0,
+  sleight_of_hand: 0,
+  move: 0,
+  markmanship: 0,
+  scouting: 0,
+  lore: 0,
+  survival: 0,
+  insight: 0,
+  manipulation: 0,
+  performance: 0,
+  healing: 0,
+  animal_handling: 0,
 })
 
 export const createAllSkillsValuesViewModel = (

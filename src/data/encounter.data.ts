@@ -2,7 +2,7 @@ import { ValidLanguage } from '../hooks/useValidLanguage'
 import { EncounterData, TerrainEncounterMap } from '../models/encounter.model'
 
 export const encounterTable: TerrainEncounterMap = {
-  Plains: {
+  plains: {
     41: 1,
     42: 16,
     43: 2,
@@ -22,7 +22,7 @@ export const encounterTable: TerrainEncounterMap = {
     65: 15,
     66: 30,
   },
-  Forest: {
+  forest: {
     41: 1,
     42: 16,
     43: 17,
@@ -42,7 +42,7 @@ export const encounterTable: TerrainEncounterMap = {
     65: 13,
     66: 26,
   },
-  DarkForest: {
+  darkForest: {
     41: 1,
     42: 1,
     43: 18,
@@ -62,7 +62,7 @@ export const encounterTable: TerrainEncounterMap = {
     65: 27,
     66: 30,
   },
-  Hills: {
+  hills: {
     41: 1,
     42: 2,
     43: 31,
@@ -82,7 +82,7 @@ export const encounterTable: TerrainEncounterMap = {
     65: 13,
     66: 14,
   },
-  Mountain: {
+  mountain: {
     41: 1,
     42: 35,
     43: 31,
@@ -102,7 +102,7 @@ export const encounterTable: TerrainEncounterMap = {
     65: 13,
     66: 37,
   },
-  Lake: {
+  lake: {
     41: 0,
     42: 0,
     43: 1,
@@ -122,7 +122,7 @@ export const encounterTable: TerrainEncounterMap = {
     65: 41,
     66: 41,
   },
-  Swamp: {
+  swamp: {
     41: 1,
     42: 5,
     43: 9,
@@ -142,7 +142,7 @@ export const encounterTable: TerrainEncounterMap = {
     65: 42,
     66: 42,
   },
-  Mire: {
+  mire: {
     41: 1,
     42: 4,
     43: 5,
@@ -162,7 +162,7 @@ export const encounterTable: TerrainEncounterMap = {
     65: 34,
     66: 42,
   },
-  RuinCity: {
+  ruinCity: {
     41: 1,
     42: 4,
     43: 5,

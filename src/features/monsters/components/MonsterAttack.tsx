@@ -7,7 +7,11 @@ import { getRandomInt } from '../../../functions/dice.functions'
 import { useAppSelector } from '../../../store/store.hooks'
 import { selectTranslateFunction } from '../../../store/translations/translation.slice'
 import { CommunityMonsterAttackType } from '../community-monster.model'
-import { MonsterAttackViewModel } from '../monster.model'
+import {
+  MonsterAttackViewModel,
+  monsterAttackTypeTranslationDict,
+  poisonTypeTranslationDict,
+} from '../monster.model'
 
 export type MonsterAttackProps = ComponentPropsWithoutRef<'div'> & {
   monsterViewModel: MonsterAttackViewModel<CommunityMonsterAttackType>
@@ -43,10 +47,10 @@ export const MonsterAttack = ({
         ></div>
         <div className="flex flex-col p-4">
           <Typography variant="h4">
-            {counter}: {t(`monster:Attack.${m.type}.Type`)}
+            {counter}: {t(monsterAttackTypeTranslationDict[m.type])}
           </Typography>
 
-          <div>
+          <div className="mb-2">
             {t(
               m.description,
               m.descriptionExtras
@@ -106,60 +110,60 @@ const MonsterAttackStats = ({
 
   return (
     <Train distribute wrap>
-      <Stat label={t(`monster:Attack.Attack`)} size="small">
+      <Stat label={t(`monster:attack.attack`)} size="small">
         {attack ? attack : '–'}
       </Stat>
 
       {!damage ? (
-        <Stat label={t('monster:Attack.Damage.Damage')}>–</Stat>
+        <Stat label={t('monster:attack.damage.damage')}>–</Stat>
       ) : (
         <>
-          {damage.Blunt && (
-            <Stat label={t('monster:Attack.Damage.Blunt')} size="small">
-              {damage.Blunt}
+          {damage.blunt && (
+            <Stat label={t('monster:attack.damage.blunt')} size="small">
+              {damage.blunt}
             </Stat>
           )}
-          {damage.Slash && (
-            <Stat label={t('monster:Attack.Damage.Slash')} size="small">
-              {damage.Slash}
+          {damage.slash && (
+            <Stat label={t('monster:attack.damage.slash')} size="small">
+              {damage.slash}
             </Stat>
           )}
-          {damage.Stab && (
-            <Stat label={t('monster:Attack.Damage.Stab')} size="small">
-              {damage.Stab}
+          {damage.stab && (
+            <Stat label={t('monster:attack.damage.stab')} size="small">
+              {damage.stab}
             </Stat>
           )}
-          {damage.Fear && (
-            <Stat label={t('monster:Attack.Damage.Damage')} size="small">
-              {t('monster:Attack.Damage.Fear')}
+          {damage.fear && (
+            <Stat label={t('monster:attack.damage.damage')} size="small">
+              {t('monster:attack.damage.fear')}
             </Stat>
           )}
-          {damage.Disease && (
-            <Stat label={t('monster:Attack.Damage.Disease')} size="small">
-              {damage.Disease}
+          {damage.disease && (
+            <Stat label={t('monster:attack.damage.disease')} size="small">
+              {damage.disease}
             </Stat>
           )}
-          {damage.NonTypical && (
-            <Stat label={t('monster:Attack.Damage.NonTypical')} size="small">
-              {damage.NonTypical}
+          {damage.non_typical && (
+            <Stat label={t('monster:attack.damage.non_typical')} size="small">
+              {damage.non_typical}
             </Stat>
           )}
-          {damage.Poison && (
-            <Stat label={t('monster:Attack.Damage.Poison')} size="small">
+          {damage.poison && (
+            <Stat label={t('monster:attack.damage.poison')} size="small">
               <>
-                {t(`monster:Poisons.${damage.Poison.type}`)} (
-                {damage.Poison.potency})
+                {t(poisonTypeTranslationDict[damage.poison.type])} (
+                {damage.poison.potency})
               </>
             </Stat>
           )}
-          {damage.Weapon && (
-            <Stat label={t('monster:Attack.Damage.Damage')} size="small">
-              {damage.Weapon}
+          {damage.weapon && (
+            <Stat label={t('monster:attack.damage.damage')} size="small">
+              {damage.weapon}
             </Stat>
           )}
         </>
       )}
-      <Stat label={t(`monster:Attack.Range`)}>{t(range)}</Stat>
+      <Stat label={t(`monster:attack.range`)}>{t(range)}</Stat>
     </Train>
   )
 }

@@ -1,5 +1,15 @@
+import { TranslationKey } from '../store/translations/translation.model'
+
 export type AttributeType = 'strength' | 'agility' | 'wits' | 'empathy'
-export type AttributeTypeLabel = Capitalize<AttributeType>
+export const attributeTypeTranslationDict: Record<
+  AttributeType,
+  TranslationKey<'common'>
+> = {
+  agility: 'common:attributes.agility',
+  empathy: 'common:attributes.empathy',
+  strength: 'common:attributes.strength',
+  wits: 'common:attributes.wits',
+}
 
 export type Attributes = { [T in AttributeType]: number }
 
@@ -11,7 +21,7 @@ export const defaultAttributes: Readonly<Attributes> = {
 }
 
 export type AttributeViewModel = {
-  label: AttributeTypeLabel
+  label: AttributeType
   values: boolean[]
   value: number
 }

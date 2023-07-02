@@ -21,7 +21,7 @@ export const MonthCollapseButton = ({
   return (
     <button
       aria-label={
-        t(collapsed ? `calendar:ShowMonth` : `calendar:HideMonth`) ?? ''
+        t(collapsed ? `calendar:show_month` : `calendar:hide_month`) ?? ''
       }
       className={`
         group flex w-full items-center gap-2 text-left

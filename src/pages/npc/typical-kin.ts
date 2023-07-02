@@ -1,4 +1,5 @@
 import { createAttributesViewModel } from '../../functions/attributes.functions'
+import { camelCaseToSnakeCase } from '../../functions/casing'
 import { createAllSkillsValuesViewModel } from '../../functions/skills.functions'
 import { Attributes, AttributesViewModel } from '../../models/attributes.model'
 import {
@@ -17,7 +18,7 @@ import {
   HelmetViewModel,
   createProtectionViewModel,
 } from './armor'
-import { KinType, TypicalKins } from './name'
+import { KinType, SubKin, TypicalKins, kinTypeTranslationDict } from './name'
 import {
   Shield,
   ShieldType,
@@ -62,14 +63,16 @@ export type TypicalKinViewModel = CollapseAble & {
 }
 
 export const createTypicalKinViewModel = <
-  K extends TypicalKins,
   T extends KinType,
+  K extends SubKin<T>,
 >(
   tk: TypicalKin<K, T>,
 ): TypicalKinViewModel => {
   return {
     ...tk,
-    title: `common:Kin.${tk.kinType}.${tk.kin}` as TranslationKey<'common'>,
+    title: `common:kin.${
+      kinTypeTranslationDict[tk.kinType]
+    }.${camelCaseToSnakeCase(tk.kin)}` as TranslationKey<'common'>,
     description: tk.description,
     collapse: true,
     attributes: createAttributesViewModel(tk.attributes),

@@ -27,7 +27,7 @@ export type Material =
 export const materialLabelDict: Readonly<
   Record<Material, TranslationKey<'common'>>
 > = Object.freeze({
-  animalHorn: 'common:material.animalHorn',
+  animalHorn: 'common:material.animal_horn',
   bread: 'common:material.bread',
   cloth: 'common:material.cloth',
   feather: 'common:material.feather',
@@ -38,13 +38,13 @@ export const materialLabelDict: Readonly<
   meat: 'common:material.meat',
   fish: 'common:material.fish',
   vegetables: 'common:material.vegetables',
-  meatOrFishOrVegetables: 'common:material.meatOrFishOrVegetables',
+  meatOrFishOrVegetables: 'common:material.meat_or_fish_or_vegetables',
   parchment: 'common:material.parchment',
   pelt: 'common:material.pelt',
   stone: 'common:material.stone',
   tallow: 'common:material.tallow',
   wood: 'common:material.wood',
-  woodOrLeather: 'common:material.woodOrLeather',
+  woodOrLeather: 'common:material.wood_or_leather',
 })
 
 export type MaterialAmount = 0.1 | 0.25 | 0.5 | 1 | 2

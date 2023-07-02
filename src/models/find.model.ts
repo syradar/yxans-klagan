@@ -1,11 +1,24 @@
+import { translationDict } from '../functions/translation-dict'
 import { TranslationKey } from '../store/translations/translation.model'
 import { CoinType } from './coin.model'
 import { D66 } from './fbl-dice.model'
 import { Weight } from './weight.model'
 
-export type FindLocation = 'Carried' | 'Lair'
+const findLocations = ['carried', 'lair'] as const
+export type FindLocation = (typeof findLocations)[number]
+export const findLocationTranslactionDict = translationDict(
+  findLocations,
+  'finds',
+  'find.location.',
+)
 
-export type FindType = 'Simple' | 'Valuable' | 'Precious'
+const findTypes = ['simple', 'valuable', 'precious'] as const
+export type FindType = (typeof findTypes)[number]
+export const findTypeTranslactionDict = translationDict(
+  findTypes,
+  'finds',
+  'find.type.',
+)
 
 export type FindChance = Exclude<
   D66,
@@ -40,143 +53,147 @@ export type FindViewModel = {
   value: { coins: number; label: TranslationKey<'common'> }[]
 }
 
-export type FindLabels =
-  | 'Armchair'
-  | 'Artifact'
-  | 'Axe'
-  | 'BeautifulDesk'
-  | 'BeautifulTapestry'
-  | 'BeautifulVase'
-  | 'BeltBuckle'
-  | 'BoneDice'
-  | 'BoneStatuette'
-  | 'BoneWhistle'
-  | 'Book'
-  | 'BottleOfExpensiveWine'
-  | 'BronzeAltar'
-  | 'BronzeArmor'
-  | 'BronzeBeltBuckle'
-  | 'BronzeBracelet'
-  | 'BronzeDagger'
-  | 'BronzeDrinkingHorn'
-  | 'BronzeEarring'
-  | 'BronzeHelmet'
-  | 'BronzeLantern'
-  | 'BronzeMedallion'
-  | 'BronzeMirror'
-  | 'BronzeNecklace'
-  | 'BronzePot'
-  | 'BronzeSarcophagus'
-  | 'BronzeShield'
-  | 'BronzeStatue'
-  | 'BronzeStatuette'
-  | 'Cabinet'
-  | 'CalfSkinGloves'
-  | 'Candelabrum'
-  | 'Carpet'
-  | 'CeilingCandelabrum'
-  | 'Chest'
-  | 'CopperBowl'
-  | 'CopperCoins'
-  | 'CopperCrown'
-  | 'CopperHeadband'
-  | 'CopperMug'
-  | 'CopperPlate'
-  | 'CopperRing'
-  | 'CrownWithGemstones'
-  | 'DragonscaleBoots'
-  | 'DrinkingHornWithGoldDetails'
-  | 'DrinkingHornWithSilverDetails'
-  | 'ElegantBoots'
-  | 'ElegantHelmet'
-  | 'ElegantLargeShield'
-  | 'ElegantOneHandedWeapon'
-  | 'EmbroidedCarpet'
-  | 'Embroidery'
-  | 'FineHat'
-  | 'FurCloakWithExpensiveEmbroideryAndGoldenBuckle'
-  | 'GamingBoard'
-  | 'Gemstone'
-  | 'GlassBowl'
-  | 'GoldAmulet'
-  | 'GoldBracelet'
-  | 'GoldCoins'
-  | 'GoldenArmchair'
-  | 'GoldenArmor'
-  | 'GoldenBowl'
-  | 'GoldenCradle'
-  | 'GoldenCrown'
-  | 'GoldenDiadem'
-  | 'GoldenEmbroidery'
-  | 'GoldenHelmet'
-  | 'GoldenLargeShield'
-  | 'GoldenMirror'
-  | 'GoldenNecklace'
-  | 'GoldenPalanquin'
-  | 'GoldenSarcophagus'
-  | 'GoldenStatue'
-  | 'GoldenStatueOfAChild'
-  | 'GoldenTable'
-  | 'GoldenTray'
-  | 'GoldenWeapon'
-  | 'GoldGoblet'
-  | 'GoldMug'
-  | 'GoldNecklace'
-  | 'GoldRing'
-  | 'GoldStatuette'
-  | 'GoodBoots'
-  | 'GoodGloves'
-  | 'Hammer'
-  | 'Knapsack'
-  | 'Lantern'
-  | 'LargeRareGemstone'
-  | 'Lute'
-  | 'Mask'
-  | 'NecklaceWithGemstones'
-  | 'OneHandedBronzeWeapon'
-  | 'Painting'
-  | 'PaintingWithGoldenFrame'
-  | 'PalanquinWithCopperDetails'
-  | 'PalanquinWithSilverDetails'
-  | 'Pearl'
-  | 'Pearls'
-  | 'PieceOfAmber'
-  | 'PileOfCoins'
-  | 'Pulpit'
-  | 'RareBook'
-  | 'RareGemstone'
-  | 'RingWithGemstone'
-  | 'Saw'
-  | 'Scepter'
-  | 'ScepterWithGemstones'
-  | 'ShortSpear'
-  | 'ShortSword'
-  | 'SilverAltar'
-  | 'SilverAmulet'
-  | 'SilverBowl'
-  | 'SilverBox'
-  | 'SilverBracelet'
-  | 'SilverBrooch'
-  | 'SilverCoins'
-  | 'SilverComb'
-  | 'SilverCrown'
-  | 'SilverEarring'
-  | 'SilverGoblet'
-  | 'SilverHeadband'
-  | 'SilverHelmet'
-  | 'SilverMedallion'
-  | 'SilverMirror'
-  | 'SilverMug'
-  | 'SilverNecklace'
-  | 'SilverRing'
-  | 'SilverSarcophagus'
-  | 'SilverStatue'
-  | 'SilverStatuette'
-  | 'SimpleGemstone'
-  | 'SmallShield'
-  | 'SmallSilverChest'
-  | 'Tapestry'
-  | 'UniqueBook'
-  | 'VelvetGloves'
-  | 'Waterskin'
-  | 'WellTailoredCloakWithSilverBuckle'
+export const findLabels = [
+  'armchair',
+  'artifact',
+  'axe',
+  'beautifulDesk',
+  'beautifulTapestry',
+  'beautifulVase',
+  'beltBuckle',
+  'boneDice',
+  'boneStatuette',
+  'boneWhistle',
+  'book',
+  'bottleOfExpensiveWine',
+  'bronzeAltar',
+  'bronzeArmor',
+  'bronzeBeltBuckle',
+  'bronzeBracelet',
+  'bronzeDagger',
+  'bronzeDrinkingHorn',
+  'bronzeEarring',
+  'bronzeHelmet',
+  'bronzeLantern',
+  'bronzeMedallion',
+  'bronzeMirror',
+  'bronzeNecklace',
+  'bronzePot',
+  'bronzeSarcophagus',
+  'bronzeShield',
+  'bronzeStatue',
+  'bronzeStatuette',
+  'cabinet',
+  'calfSkinGloves',
+  'candelabrum',
+  'carpet',
+  'ceilingCandelabrum',
+  'chest',
+  'copperBowl',
+  'copperCoins',
+  'copperCrown',
+  'copperHeadband',
+  'copperMug',
+  'copperPlate',
+  'copperRing',
+  'crownWithGemstones',
+  'dragonscaleBoots',
+  'drinkingHornWithGoldDetails',
+  'drinkingHornWithSilverDetails',
+  'elegantBoots',
+  'elegantHelmet',
+  'elegantLargeShield',
+  'elegantOneHandedWeapon',
+  'embroidedCarpet',
+  'embroidery',
+  'fineHat',
+  'furCloakWithExpensiveEmbroideryAndGoldenBuckle',
+  'gamingBoard',
+  'gemstone',
+  'glassBowl',
+  'goldAmulet',
+  'goldBracelet',
+  'goldCoins',
+  'goldenArmchair',
+  'goldenArmor',
+  'goldenBowl',
+  'goldenCradle',
+  'goldenCrown',
+  'goldenDiadem',
+  'goldenEmbroidery',
+  'goldenHelmet',
+  'goldenLargeShield',
+  'goldenMirror',
+  'goldenNecklace',
+  'goldenPalanquin',
+  'goldenSarcophagus',
+  'goldenStatue',
+  'goldenStatueOfAchild',
+  'goldenTable',
+  'goldenTray',
+  'goldenWeapon',
+  'goldGoblet',
+  'goldMug',
+  'goldNecklace',
+  'goldRing',
+  'goldStatuette',
+  'goodBoots',
+  'goodGloves',
+  'hammer',
+  'knapsack',
+  'lantern',
+  'largeRareGemstone',
+  'lute',
+  'mask',
+  'necklaceWithGemstones',
+  'oneHandedBronzeWeapon',
+  'painting',
+  'paintingWithGoldenFrame',
+  'palanquinWithCopperDetails',
+  'palanquinWithSilverDetails',
+  'pearl',
+  'pearls',
+  'pieceOfAmber',
+  'pileOfCoins',
+  'pulpit',
+  'rareBook',
+  'rareGemstone',
+  'ringWithGemstone',
+  'saw',
+  'scepter',
+  'scepterWithGemstones',
+  'shortSpear',
+  'shortSword',
+  'silverAltar',
+  'silverAmulet',
+  'silverBowl',
+  'silverBox',
+  'silverBracelet',
+  'silverBrooch',
+  'silverCoins',
+  'silverComb',
+  'silverCrown',
+  'silverEarring',
+  'silverGoblet',
+  'silverHeadband',
+  'silverHelmet',
+  'silverMedallion',
+  'silverMirror',
+  'silverMug',
+  'silverNecklace',
+  'silverRing',
+  'silverSarcophagus',
+  'silverStatue',
+  'silverStatuette',
+  'simpleGemstone',
+  'smallShield',
+  'smallSilverChest',
+  'tapestry',
+  'uniqueBook',
+  'velvetGloves',
+  'waterskin',
+  'wellTailoredCloakWithSilverBuckle',
+] as const
+export type FindLabels = (typeof findLabels)[number]
+
+export const findLabelsDict = translationDict(findLabels, 'finds', 'find.')

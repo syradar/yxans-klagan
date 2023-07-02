@@ -16,15 +16,15 @@ export type Weight =
 export const weightLabelDict: Readonly<
   Record<Weight, TranslationKey<'common'>>
 > = Object.freeze({
-  none: 'common:Weight.None',
-  tiny: 'common:Weight.Tiny',
-  light: 'common:Weight.Light',
-  normal: 'common:Weight.Normal',
-  heavy: 'common:Weight.Heavy',
-  3: 'common:Weight.3',
-  4: 'common:Weight.4',
-  5: 'common:Weight.5',
-  6: 'common:Weight.6',
-  7: 'common:Weight.7',
-  8: 'common:Weight.8',
+  none: 'common:weight.none',
+  tiny: 'common:weight.tiny',
+  light: 'common:weight.light',
+  normal: 'common:weight.normal',
+  heavy: 'common:weight.heavy',
+  3: 'common:weight.3',
+  4: 'common:weight.4',
+  5: 'common:weight.5',
+  6: 'common:weight.6',
+  7: 'common:weight.7',
+  8: 'common:weight.8',
 })

@@ -1,55 +1,55 @@
 import { ArmorType, Armor, HelmetType, Helmet } from '../armor'
 
-export const armors: { [A in Exclude<ArmorType, 'Natural'>]: Armor<A> } = {
-  Leather: {
-    type: 'Leather',
+export const armors: { [A in Exclude<ArmorType, 'natural'>]: Armor<A> } = {
+  leather: {
+    type: 'leather',
     rating: 2,
     bodyPart: 'Body',
-    features: ['Light'],
+    features: ['light'],
   },
-  StuddedLeather: {
-    type: 'StuddedLeather',
+  studdedLeather: {
+    type: 'studdedLeather',
     rating: 3,
     bodyPart: 'Body',
     features: [],
   },
-  Chainmail: {
-    type: 'Chainmail',
+  chainmail: {
+    type: 'chainmail',
     rating: 6,
     bodyPart: 'Body',
-    features: ['Heavy', 'PenetrationProtection'],
+    features: ['heavy', 'penetrationProtection'],
   },
-  Plate: {
-    type: 'Plate',
+  plate: {
+    type: 'plate',
     rating: 8,
     bodyPart: 'Body',
-    features: ['Heavy', 'HardToMove'],
+    features: ['heavy', 'hardToMove'],
   },
 }
 
 export const helmets: { [H in HelmetType]: Helmet<H> } = {
-  StuddedLeather: {
-    type: 'StuddedLeather',
+  studdedLeather: {
+    type: 'studdedLeather',
     rating: 1,
     bodyPart: 'Head',
-    features: ['Light'],
+    features: ['light'],
   },
-  OpenHelmet: {
-    type: 'OpenHelmet',
+  openHelmet: {
+    type: 'openHelmet',
     rating: 2,
     bodyPart: 'Head',
-    features: ['Light'],
+    features: ['light'],
   },
-  ClosedHelmet: {
-    type: 'ClosedHelmet',
+  closedHelmet: {
+    type: 'closedHelmet',
     rating: 3,
     bodyPart: 'Head',
     features: [],
   },
-  GreatHelm: {
-    type: 'GreatHelm',
+  greatHelm: {
+    type: 'greatHelm',
     rating: 4,
     bodyPart: 'Head',
-    features: ['Heavy', 'HardToSee'],
+    features: ['heavy', 'hardToSee'],
   },
 }

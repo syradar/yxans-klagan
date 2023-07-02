@@ -24,15 +24,16 @@ import {
   TradeGoods,
   TradeGoodsViewModel,
   gearCategoryLabelDict,
+  gearCategoryTranslationDict,
+  marketTypeTranslationDict,
 } from '../features/gear/gear.data'
 import { ServiceViewModel } from '../features/gear/services.data'
-import { capitalize, notNullish } from '../functions/utils.functions'
+import { notNullish } from '../functions/utils.functions'
 import { materialLabelDict } from '../models/material.model'
 import { talentLabelDict } from '../models/talent.model'
 import { toolLabelDict } from '../models/tool.model'
 import { weightLabelDict } from '../models/weight.model'
 import { useAppDispatch, useAppSelector } from '../store/store.hooks'
-import { TranslationKey } from '../store/translations/translation.model'
 import { selectTranslateFunction } from '../store/translations/translation.slice'
 
 export const GearPage = () => {
@@ -41,7 +42,7 @@ export const GearPage = () => {
 
   return (
     <div className="flex w-full flex-col gap-y-8">
-      <PageHeader>{t('gear:Title')}</PageHeader>
+      <PageHeader>{t('gear:title')}</PageHeader>
       <section className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
         <GearFilterPanel></GearFilterPanel>
         <div className="md:col-span-2 lg:col-span-3">
@@ -60,7 +61,7 @@ export const GearPage = () => {
             <div className="grid auto-rows-max items-stretch gap-2 sm:grid-cols-2 sm:gap-4 xl:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-3">
               {gear.tradeGoods.length > 0 ? (
                 <h2 className="yx-heading col-span-full mb-0 text-3xl">
-                  {t('gear:Gear.tradeGoods')}
+                  {t('gear:gear.trade_goods')}
                 </h2>
               ) : null}
               {gear.tradeGoods.map((g) => (
@@ -105,21 +106,17 @@ const GearCard = ({ gear }: { gear: TradeGoodsViewModel }) => {
         <div>{t(gear.effects.label)}</div>
 
         <Stack.Horizontal distribute wrap>
-          <Stat size="small" label={t('gear:Supply.Supply')}>
+          <Stat size="small" label={t('gear:supply.supply')}>
             <span>{t(gear.supply.label)}</span>
             {notNullish(gear.supply.amount) ? (
               <span> ({gear.supply.amount})</span>
             ) : null}
           </Stat>
-          <Stat size="small" label={t('common:Weight.Weight')}>
+          <Stat size="small" label={t('common:weight.weight')}>
             {t(weightLabelDict[gear.weight])}
           </Stat>
-          <Stat size="small" label={t('gear:MarketType.MarketType')}>
-            {t(
-              `gear:MarketType.${capitalize(
-                gear.marketType,
-              )}` as TranslationKey<'gear'>,
-            )}
+          <Stat size="small" label={t('gear:market_type.market_type')}>
+            {t(marketTypeTranslationDict[gear.marketType])}
           </Stat>
         </Stack.Horizontal>
 
@@ -172,18 +169,14 @@ const ServiceCard = ({ service }: { service: ServiceViewModel }) => {
         <div>{t(service.effects.label)}</div>
 
         <Stack.Horizontal distribute wrap>
-          <Stat size="small" label={t('gear:Supply.Supply')}>
+          <Stat size="small" label={t('gear:supply.supply')}>
             <span>{t(service.supply.label)}</span>
             {notNullish(service.supply.amount) ? (
               <span> ({service.supply.amount})</span>
             ) : null}
           </Stat>
-          <Stat size="small" label={t('gear:MarketType.MarketType')}>
-            {t(
-              `gear:MarketType.${capitalize(
-                service.marketType,
-              )}` as TranslationKey<'gear'>,
-            )}
+          <Stat size="small" label={t('gear:market_type.market_type')}>
+            {t(marketTypeTranslationDict[service.marketType])}
           </Stat>
         </Stack.Horizontal>
       </Stack.Vertical>
@@ -208,7 +201,7 @@ const GearFilterPanel = () => {
     <Stack.Vertical>
       <ParchmentInput
         focus={true}
-        label={t('gear:Filters.Search')}
+        label={t('gear:filters.search')}
         value={search}
         onChange={handleSearchChange}
       ></ParchmentInput>
@@ -223,14 +216,14 @@ const GearFilterPanel = () => {
               key={c.category}
               onPress={() => dispatch(toggleCategory(c.category))}
             >
-              {t(`gear:category.${c.category}`)}
+              {t(gearCategoryTranslationDict[c.category])}
             </ParchmentToggleButton>
           ))}
         </div>
       </div>
 
       <Stepper
-        label={t('gear:Filters.MaxPrice')}
+        label={t('gear:filters.max_price')}
         id="gear-max-price"
         min={0}
         max={Infinity}
@@ -243,7 +236,7 @@ const GearFilterPanel = () => {
           buttonType="danger"
         >
           <ArrowPathIcon className="aspect-square w-5" />
-          <span>{t('gear:Supply.Reroll')}</span>
+          <span>{t('gear:supply.reroll')}</span>
         </ParchmentButton>
       </div>
     </Stack.Vertical>
@@ -283,7 +276,7 @@ const GearPrice = ({ price }: { price: TradeGoods['price'] }) => {
     return (
       <div className="flex items-center gap-1">
         <CoinPrice coinPurse={copperToCoinPurse(price.copper)} />
-        <span>{t('common:Coin.day')}</span>
+        <span>{t('common:coin.day')}</span>
       </div>
     )
   }
@@ -292,7 +285,7 @@ const GearPrice = ({ price }: { price: TradeGoods['price'] }) => {
     return (
       <div className="flex items-center gap-1">
         <CoinPrice coinPurse={copperToCoinPurse(price.copper)} />
-        <span>{t('common:Coin.hex')}</span>
+        <span>{t('common:coin.hex')}</span>
       </div>
     )
   }
@@ -316,9 +309,9 @@ const Coin = ({ children, denomination }: CoinProps) => {
       <div>
         {children}{' '}
         <span className="sr-only">
-          {denomination === 'copper' ? t('common:Coin.Copper') : ''}
-          {denomination === 'silver' ? t('common:Coin.Silver') : ''}
-          {denomination === 'gold' ? t('common:Coin.Gold') : ''}
+          {denomination === 'copper' ? t('common:coin.copper') : ''}
+          {denomination === 'silver' ? t('common:coin.silver') : ''}
+          {denomination === 'gold' ? t('common:coin.gold') : ''}
         </span>
       </div>
       <div

@@ -1,7 +1,7 @@
 import {
   Attributes,
   AttributesViewModel,
-  AttributeTypeLabel,
+  AttributeType,
   AttributeViewModel,
 } from '../models/attributes.model'
 import { numberToBooleans, validNumber } from './utils.functions'
@@ -10,15 +10,15 @@ export const createAttributesViewModel = (
   a: Attributes,
 ): AttributesViewModel => {
   return {
-    strength: createAttributeViewModel('Strength', a.strength),
-    agility: createAttributeViewModel('Agility', a.agility),
-    wits: createAttributeViewModel('Wits', a.wits),
-    empathy: createAttributeViewModel('Empathy', a.empathy),
+    strength: createAttributeViewModel('strength', a.strength),
+    agility: createAttributeViewModel('agility', a.agility),
+    wits: createAttributeViewModel('wits', a.wits),
+    empathy: createAttributeViewModel('empathy', a.empathy),
   }
 }
 
 export const createAttributeViewModel = (
-  label: AttributeTypeLabel,
+  label: AttributeType,
   num?: number,
 ): AttributeViewModel | undefined => {
   if (!validNumber(num) || num === 0) return undefined

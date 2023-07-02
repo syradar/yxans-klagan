@@ -7,323 +7,327 @@ export const translationsSv: Translations = {
       swedish: 'Svenska',
     },
     menu: {
-      Menu: 'Meny',
-      Session: 'Spelmöte',
-      Encounters: 'Slumpmöten',
+      menu: 'Meny',
+      session: 'Spelmöte',
+      encounters: 'Slumpmöten',
       places: {
-        Places: 'Platser',
-        Map: 'Karta',
-        Village: 'By',
+        places: 'Platser',
+        map: 'Karta',
+        village: 'By',
       },
       gear: {
-        Gear: 'Utrustning',
-        Tables: 'Utrustningslistor',
-        Finds: 'Fynd',
+        gear: 'Utrustning',
+        tables: 'Utrustningslistor',
+        finds: 'Fynd',
       },
       npcs: {
-        NPCs: 'Spelledarpersoner',
-        Typical: 'Typiska personer',
-        Names: 'Människonamn',
-        Npc: 'Slumpad SLP',
+        npcs: 'Spelledarpersoner',
+        typical: 'Typiska personer',
+        names: 'Människonamn',
+        npc: 'Slumpad SLP',
       },
-      Calendar: 'Kalender',
-      Dice: 'Tärningar',
-      Monsters: 'Monster',
+      calendar: 'Kalender',
+      dice: 'Tärningar',
+      monsters: 'Monster',
     },
-    GiveFeedback: 'Feedback',
+    give_feedback: 'Feedback',
   },
   encounter: {
-    Title: 'Slumpmöten',
-    TerrainType: 'Terrängtyp',
+    title: 'Slumpmöten',
+    terrain_type: 'Terrängtyp',
   },
   calendar: {
-    'Weather-Hide': 'Dölj väder',
-    'Weather-Show': 'Visa väder',
-    'Weather-High': 'Högt',
-    'Weather-Low': 'Lågt',
-    Title: 'Kalender',
+    weather_hide: 'Dölj väder',
+    weather_show: 'Visa väder',
+    weather_high: 'Högt',
+    weather_low: 'Lågt',
+    title: 'Kalender',
     date: 'Datum',
-    Year: 'År',
-    Month: 'Månad',
-    AS: 'E.S. (Efter skiftet)',
-    C: 'Celsius',
-    F: 'Fahrenheit',
-    Use: 'Använd',
-    WinterWane: 'Åldervinter',
-    SpringRise: 'Ungvår',
-    SpringWane: 'Åldervår',
-    SummerRise: 'Ungsommar',
-    SummerWane: 'Åldersommar',
-    AutumnRise: 'Unghöst',
-    AutumnWane: 'Ålderhöst',
-    WinterRise: 'Ungvinter',
-    SunDay: 'Soldag',
-    MoonDay: 'Måndag',
-    BloodDay: 'Bloddag',
-    EarthDay: 'Jorddag',
-    GrowthDay: 'Växtdag',
-    HarvestDay: 'Skördedag',
-    StillDay: 'Stilledag',
-    FullMoon: 'Fullmåne',
-    NewMoon: 'Nymåne',
-    StormNone: '',
-    StormWind: 'Stormwind',
-    StormSnow: 'Snöstorm',
-    StormRain: 'Regnstorm',
-    DownPourNone: '',
-    DownPourDrizzle: 'Duggregn',
-    DownPourShowers: 'Regnskurar',
-    DownPourLightRain: 'Regn',
-    DownPourRaining: 'Hällregn',
-    DownPourLightSnow: 'Lätt snöfall',
-    DownPourSnowShowers: 'Snöskurar',
-    DownPourSnowing: 'Snöfall',
-    ShowMonth: 'Show månad',
-    HideMonth: 'Hide månad',
-    ShowAll: 'Expandera månader',
-    HideAll: 'Kollapsa månader',
-    previousMonth: 'Föregående månad',
-    nextMonth: 'Nästa månad',
-    previousDay: 'Föregående dag',
-    nextDay: 'Nästa dag',
-    'Options-StartingYear': 'Välj startår',
-    'Options-StartingYearWarning':
+    year: 'År',
+    month: 'Månad',
+    as: 'E.S. (Efter skiftet)',
+    c: 'Celsius',
+    f: 'Fahrenheit',
+    use: 'Använd',
+    winter_wane: 'Åldervinter',
+    spring_rise: 'Ungvår',
+    spring_wane: 'Åldervår',
+    summer_rise: 'Ungsommar',
+    summer_wane: 'Åldersommar',
+    autumn_rise: 'Unghöst',
+    autumn_wane: 'Ålderhöst',
+    winter_rise: 'Ungvinter',
+    sun_day: 'Soldag',
+    moon_day: 'Måndag',
+    blood_day: 'Bloddag',
+    earth_day: 'Jorddag',
+    growth_day: 'Växtdag',
+    harvest_day: 'Skördedag',
+    still_day: 'Stilledag',
+    full_moon: 'Fullmåne',
+    new_moon: 'Nymåne',
+    storm_none: '',
+    storm_wind: 'Stormwind',
+    storm_snow: 'Snöstorm',
+    storm_rain: 'Regnstorm',
+    down_pour_none: '',
+    down_pour_drizzle: 'Duggregn',
+    down_pour_showers: 'Regnskurar',
+    down_pour_light_rain: 'Regn',
+    down_pour_raining: 'Hällregn',
+    down_pour_light_snow: 'Lätt snöfall',
+    down_pour_snow_showers: 'Snöskurar',
+    down_pour_snowing: 'Snöfall',
+    show_month: 'Show månad',
+    hide_month: 'Hide månad',
+    show_all: 'Expandera månader',
+    hide_all: 'Kollapsa månader',
+    previous_month: 'Föregående månad',
+    next_month: 'Nästa månad',
+    previous_day: 'Föregående dag',
+    next_day: 'Nästa dag',
+    options_starting_year: 'Välj startår',
+    options_starting_year_warning:
       'Varning: Genom att ändra startår kommer du att rensa kalendern!',
-    'Options-StartingYearNag': 'Ja, jag vill ändra startår och rensa kalendern',
-    'Options-StartingDay': 'Välj startdag',
+    options_starting_year_nag: 'Ja, jag vill ändra startår och rensa kalendern',
+    options_starting_day: 'Välj startdag',
   },
   common: {
-    Page: 'Sida',
-    GMBook: 'SL',
-    gameSource: {
-      gameSource: 'Källa',
+    page: 'Sida',
+    gmbook: 'SL',
+    game_source: {
+      game_source: 'Källa',
       ravland: 'Ravland',
-      bitterReach: 'Bittermarken',
+      bitter_reach: 'Bittermarken',
     },
-    Empty: '',
-    Kin: {
-      Human: {
-        Human: 'Människa',
-        Humans: 'Människor',
-        Alderlander: 'Alderlänning',
-        Ailander: 'Eländer',
-        Aslene: 'Aslene',
-        Frailer: 'Klener',
-        SilentGuard: 'Vakt ur "De Tysta"',
-        MaidenDruid: 'Jungrusyskon',
+    empty: '',
+    kin: {
+      human: {
+        human: 'Människa',
+        humans: 'Människor',
+        alderlander: 'Alderlänning',
+        ailander: 'Eländer',
+        aslene: 'Aslene',
+        frailer: 'Klener',
+        silent_guard: 'Vakt ur "De Tysta"',
+        maiden_druid: 'Jungrusyskon',
       },
-      Elf: {
-        Elf: 'Alv',
-        Elves: 'Alver',
-        StillElf: 'Samlaralv',
-        UnrulyElf: 'Jägaralv',
-        GoldenBough: 'Druid ur Gyllene grenen',
-        Melder: 'Savristare',
-        RedRunner: 'Rödelöpare',
+      elf: {
+        elf: 'Alv',
+        elves: 'Alver',
+        still_elf: 'Samlaralv',
+        unruly_elf: 'Jägaralv',
+        golden_bough: 'Druid ur Gyllene grenen',
+        melder: 'Savristare',
+        red_runner: 'Rödelöpare',
       },
-      Dwarf: {
-        Dwarf: 'Dvärg',
-        Dwarves: 'Dvärgar',
-        Belderranian: 'Belderann',
-        Meromannian: 'Meromann',
-        Canide: 'Kanid',
-        Crombe: 'Kromb',
+      dwarf: {
+        dwarf: 'Dvärg',
+        dwarves: 'Dvärgar',
+        belderranian: 'Belderann',
+        meromannian: 'Meromann',
+        canide: 'Kanid',
+        crombe: 'Kromb',
       },
-      Ogre: {
-        Ogre: 'Rese',
-        Ogres: 'Resar',
+      ogre: {
+        ogre: 'Rese',
+        ogres: 'Resar',
       },
-      Orc: {
-        Orc: 'Orch',
-        Orcs: 'Orcher',
-        Urhur: 'Urhur',
-        Roka: 'Roka',
-        Isir: 'Äser',
-        Viraga: 'Viraga',
-        Drifter: 'Äling',
+      orc: {
+        orc: 'Orch',
+        orcs: 'Orcher',
+        urhur: 'Urhur',
+        roka: 'Roka',
+        isir: 'Äser',
+        viraga: 'Viraga',
+        drifter: 'Äling',
       },
-      Wolfkin: {
-        Wolfkins: 'Vargfolk',
-        Wolfkin: 'Vargkrigare',
+      wolfkin: {
+        wolfkins: 'Vargfolk',
+        wolfkin: 'Vargkrigare',
       },
-      Saurian: {
-        Saurians: 'Reptilfolk',
-        Saurian: 'Reptilkrigare',
+      saurian: {
+        saurians: 'Reptilfolk',
+        saurian: 'Reptilkrigare',
       },
-      Whiner: {
-        Whiners: 'Neslingar',
-        Whiner: 'Nesling',
+      whiner: {
+        whiners: 'Neslingar',
+        whiner: 'Nesling',
       },
-      HalflingAndGoblin: {
-        HalflingAndGoblins: 'Halvlingar & Svartalfer',
-        Halfling: 'Halvling',
-        Goblin: 'Svartalf',
+      halfling_and_goblin: {
+        halfling_and_goblins: 'Halvlingar & Svartalfer',
+        halfling: 'Halvling',
+        goblin: 'Svartalf',
       },
-      Believers: {
-        Believers: 'Troende',
-        RavenSister: 'Korpsyster',
-        BlackWing: 'Svartvinge',
-        RustBrother: 'Rostbroder',
-        IronGuard: 'Järngardist',
-        HemeSister: 'Hemesyster',
+      believers: {
+        believers: 'Troende',
+        raven_sister: 'Korpsyster',
+        black_wing: 'Svartvinge',
+        rust_brother: 'Rostbroder',
+        iron_guard: 'Järngardist',
+        heme_sister: 'Hemesyster',
       },
     },
-    Gender: {
-      Man: 'Man',
-      Men: 'Män',
-      Woman: 'Kvinna',
-      Women: 'Kvinnor',
+    gender: {
+      man: 'Man',
+      men: 'Män',
+      woman: 'Kvinna',
+      women: 'Kvinnor',
     },
-    ATerrain: {
-      Plains: 'på en slätt',
-      Forest: 'i en skog',
-      DarkForest: 'i en mörk skog',
-      Hills: 'på en kulle',
-      Mountain: 'i ett berg',
-      Lake: 'i en sjön',
-      Swamp: 'i träsket',
-      Mire: 'i en myr',
-      RuinCity: 'i en ruinstad',
+    aterrain: {
+      plains: 'på en slätt',
+      forest: 'i en skog',
+      dark_forest: 'i en mörk skog',
+      hills: 'på en kulle',
+      mountain: 'i ett berg',
+      lake: 'i en sjön',
+      swamp: 'i träsket',
+      mire: 'i en myr',
+      ruin_city: 'i en ruinstad',
     },
-    Terrain: {
-      All: 'Alla',
-      Plains: 'Slätt',
-      Forest: 'Skog',
-      DarkForest: 'Mörk skog',
-      Hills: 'Kullar',
-      Mountain: 'Berg',
-      Lake: 'Sjö',
-      Swamp: 'Träsk',
-      Mire: 'Myr',
-      RuinCity: 'Ruinstad',
+    terrain: {
+      all: 'Alla',
+      plains: 'Slätt',
+      forest: 'Skog',
+      dark_forest: 'Mörk skog',
+      hills: 'Kullar',
+      mountain: 'Berg',
+      lake: 'Sjö',
+      swamp: 'Träsk',
+      mire: 'Myr',
+      ruin_city: 'Ruinstad',
     },
-    Monster: {
-      Giant: 'Jätte',
-      AbyssWorm: 'Avgrundsmask',
-      Bloodling: 'Blodling',
-      DragonSmall: 'Drake, liten',
-      DragonLarge: 'Drake, stor',
-      Drakewyrm: 'Drakorm',
-      DeathKnight: 'Dödsriddare',
-      Ent: 'Ent',
-      Wyvern: 'Flygödla',
-      Ghost: 'Gast',
-      Gryphon: 'Grip',
-      GrayBear: 'Gråbjörn',
-      Harpies: 'Harpyor',
-      Hydra: 'Hydra',
-      Insectoid: 'Insektoid',
-      GiantSquid: 'Jättebläckfisk',
-      Manticore: 'Mantikora',
-      Minotaur: 'Minotaur',
-      NightWarg: 'Nattulv',
-      RestlessDead: 'Vandöd',
-      Skeleton: 'Skelett',
-      Ghoul: 'Likätare',
-      SeaSerpent: 'Sjöorm',
-      StranglingVine: 'Stryparranka',
-      Troll: 'Troll',
-      Dragon: 'Drake',
-      Demon: 'Demon',
+    monster: {
+      giant: 'Jätte',
+      abyss_worm: 'Avgrundsmask',
+      bloodling: 'Blodling',
+      dragon_small: 'Drake, liten',
+      dragon_large: 'Drake, stor',
+      drakewyrm: 'Drakorm',
+      death_knight: 'Dödsriddare',
+      ent: 'Ent',
+      wyvern: 'Flygödla',
+      ghost: 'Gast',
+      gryphon: 'Grip',
+      gray_bear: 'Gråbjörn',
+      harpies: 'Harpyor',
+      hydra: 'Hydra',
+      insectoid: 'Insektoid',
+      giant_squid: 'Jättebläckfisk',
+      manticore: 'Mantikora',
+      minotaur: 'Minotaur',
+      night_warg: 'Nattulv',
+      restless_dead: 'Vandöd',
+      skeleton: 'Skelett',
+      ghoul: 'Likätare',
+      sea_serpent: 'Sjöorm',
+      strangling_vine: 'Stryparranka',
+      troll: 'Troll',
+      dragon: 'Drake',
+      demon: 'Demon',
     },
-    communityMonster: {
-      giantSpider: {
+    community_monster: {
+      giant_spider: {
         name: 'Jättespindel',
         description:
           'Väldigt territoriell, vaktar sitt bo och följer inte efter. När möjlighet ges startar den striden med ett överraskningsanfall mot den längsta fienden',
       },
-      giantSpiderling: { name: 'Jättespindelunge', description: '' },
+      giant_spiderling: {
+        name: 'Jättespindelunge',
+        description: '',
+      },
     },
-    Direction: {
-      North: 'norr',
-      NorthEast: 'nordöst',
-      East: 'öster',
-      SouthEast: 'sydöst',
-      South: 'söder',
-      SouthWest: 'sydväst',
-      West: 'väst',
-      NorthWest: 'nordväst',
+    direction: {
+      north: 'norr',
+      north_east: 'nordöst',
+      east: 'öster',
+      south_east: 'sydöst',
+      south: 'söder',
+      south_west: 'sydväst',
+      west: 'väst',
+      north_west: 'nordväst',
     },
-    Range: {
-      Range: 'Räckvidd',
-      ArmsLength: 'Armslängd',
-      Near: 'Nära',
-      Short: 'Kort',
-      Long: 'Långt',
+    range: {
+      range: 'Räckvidd',
+      arms_length: 'Armslängd',
+      near: 'Nära',
+      short: 'Kort',
+      long: 'Långt',
     },
-    Attribute: 'Grundegenskaper',
-    Attributes: {
-      Strength: 'Styrka',
-      Agility: 'Smidighet',
-      Wits: 'Intelligens',
-      Empathy: 'Karisma',
+    attribute: 'Grundegenskaper',
+    attributes: {
+      strength: 'Styrka',
+      agility: 'Smidighet',
+      wits: 'Intelligens',
+      empathy: 'Karisma',
     },
-    Description: {
-      Description: 'Beskrivning',
-      Isir: 'Äserkrigare har ett giftigt bett (hallucinogent gift med Giftstyrka T3+2). Bettet i sig räknas som en obeväpnad attack med vapenskada 1 (huggsår). Äserkrigare får även +3 till UTHÅLLIGHET för att motstå gifter.',
-      Ogre: 'Effektgraden av alla besvärjelser som kastas mot resar sänks automatiskt med T6, till följd av deras naturliga motståndskraft mot magi.',
-      Goblin:
+    description: {
+      description: 'Beskrivning',
+      isir: 'Äserkrigare har ett giftigt bett (hallucinogent gift med Giftstyrka T3+2). Bettet i sig räknas som en obeväpnad attack med vapenskada 1 (huggsår). Äserkrigare får även +3 till UTHÅLLIGHET för att motstå gifter.',
+      ogre: 'Effektgraden av alla besvärjelser som kastas mot resar sänks automatiskt med T6, till följd av deras naturliga motståndskraft mot magi.',
+      goblin:
         'Svartalfer kan se i mörker och påverkar därför inte alls av mörker. I direkt solljus, tar de 1 poäng skada i Smidighet per kvartsdag.',
     },
-    Skills: {
-      Skills: 'Färdigheter',
-      Might: 'Styrkeprov',
-      Endurance: 'Uthållighet',
-      Melee: 'Närkamp',
-      Crafting: 'Hantverk',
-      Stealth: 'Smyga',
-      SleightOfHand: 'Fingerfärdighet',
-      Move: 'Rörlighet',
-      Markmanship: 'Skytte',
-      Scouting: 'Speja',
-      Lore: 'Bildning',
-      Survival: 'Överlevnad',
-      Insight: 'Genomskåda',
-      Manipulation: 'Manipulera',
-      Performance: 'Skaldekonst',
-      Healing: 'Läkekonst',
-      AnimalHandling: 'Djurhantering',
+    skills: {
+      skills: 'Färdigheter',
+      might: 'Styrkeprov',
+      endurance: 'Uthållighet',
+      melee: 'Närkamp',
+      crafting: 'Hantverk',
+      stealth: 'Smyga',
+      sleight_of_hand: 'Fingerfärdighet',
+      move: 'Rörlighet',
+      markmanship: 'Skytte',
+      scouting: 'Speja',
+      lore: 'Bildning',
+      survival: 'Överlevnad',
+      insight: 'Genomskåda',
+      manipulation: 'Manipulera',
+      performance: 'Skaldekonst',
+      healing: 'Läkekonst',
+      animal_handling: 'Djurhantering',
     },
     talents: {
       talents: 'Talanger',
-      horseMaster: 'Ryttarkämpe',
-      shiftingShapes2: 'Hamnskiftes väg 2',
-      shiftingShapes3: 'Hamnskiftes väg 3',
-      pathOfHealing2: 'Helandets väg 2',
-      pathOfTheArrow2: 'Pilens väg 2',
-      pathOfSight2: 'Synens väg 2',
-      pathOfKiller2: 'Mördarens väg 2',
-      pathOfForest2: 'Skogens väg 2',
+      horse_master: 'Ryttarkämpe',
+      shifting_shapes2: 'Hamnskiftes väg 2',
+      shifting_shapes3: 'Hamnskiftes väg 3',
+      path_of_healing2: 'Helandets väg 2',
+      path_of_the_arrow2: 'Pilens väg 2',
+      path_of_sight2: 'Synens väg 2',
+      path_of_killer2: 'Mördarens väg 2',
+      path_of_forest2: 'Skogens väg 2',
       executioner2: 'Bödel 2',
-      fastFootwork: 'Hal som en ål 1',
+      fast_footwork: 'Hal som en ål 1',
       threatening: 'Hotfull 1',
-      coldBlooded: 'Kallblodig 1',
-      pathOfBlood2: 'Blodets väg 2',
-      pathOfDeath2: 'Dödens väg 2',
-      pathOfTheBlade2: 'Svärdets väg 2',
-      pathOfTheEnemy2: 'Fiendens väg 2',
-      pathOfBlood2OrPathOfDeath2:
-        '$t(common:talents.pathOfBlood2) eller $t(common:talents.pathOfDeath2)',
-      pathOfTheBlade2OrPathOfTheEnemy2:
-        '$t(common:talents.pathOfTheBlade2) eller $t(common:talents.pathOfTheEnemy2)',
-      pathOfHealing2OrShiftingShapes2OrPathOfSight2:
-        '$t(common:talents.pathOfHealing2) eller $t(common:talents.shiftingShapes2) eller $t(common:talents.pathOfSight2)',
+      cold_blooded: 'Kallblodig 1',
+      path_of_blood2: 'Blodets väg 2',
+      path_of_death2: 'Dödens väg 2',
+      path_of_the_blade2: 'Svärdets väg 2',
+      path_of_the_enemy2: 'Fiendens väg 2',
+      path_of_blood2or_path_of_death2:
+        '$t(common:talents.path_of_blood2) eller $t(common:talents.path_of_death2)',
+      path_of_the_blade2or_path_of_the_enemy2:
+        '$t(common:talents.path_of_the_blade2) eller $t(common:talents.path_of_the_enemy2)',
+      path_of_healing2or_shifting_shapes2or_path_of_sight2:
+        '$t(common:talents.path_of_healing2) eller $t(common:talents.shifting_shapes2) eller $t(common:talents.path_of_sight2)',
       bowyer: 'Bågmakare',
       builder: 'Byggare',
       chef: 'Kock',
       lockpicker: 'Låsdyrkare',
-      masterOfTheHunt: 'Jaktmästare',
+      master_of_the_hunt: 'Jaktmästare',
       pathfinder: 'Stigfinnare',
       poisoner: 'Giftkokare',
       smith: 'Smed',
       tailor: 'Skräddare',
-      tailorOrTanner: '$t(common:talents.tailor) or $t(common:talents.tanner)',
+      tailor_or_tanner:
+        '$t(common:talents.tailor) or $t(common:talents.tanner)',
       tanner: 'Garvare',
-      pathOfTheSong: 'Stämmans väg',
+      path_of_the_song: 'Stämmans väg',
     },
     material: {
       material: 'Material',
-      animalHorn: 'Djurhorn',
+      animal_horn: 'Djurhorn',
       bread: 'Bröd',
       cloth: 'Tyg',
       feather: 'Fjäder',
@@ -334,14 +338,14 @@ export const translationsSv: Translations = {
       meat: 'Kött',
       fish: 'Fisk',
       vegetables: 'Grönsaker',
-      meatOrFishOrVegetables:
+      meat_or_fish_or_vegetables:
         '$t(common:material.meat) eller $t(common:material.fish) eller $t(common:material.vegetables)',
       parchment: 'Pergament',
       pelt: 'Päls',
       stone: 'Sten',
       tallow: 'Talg',
       wood: 'Trä',
-      woodOrLeather:
+      wood_or_leather:
         '$t(common:material.wood) eller $t(common:material.leather)',
     },
     tool: {
@@ -352,585 +356,552 @@ export const translationsSv: Translations = {
       fire: 'Eld',
       forge: 'Smedja',
       hammer: 'Hammare',
-      inkAndQuill: 'Bläck och fjäder',
+      ink_and_quill: 'Bläck och fjäder',
       knife: 'Kniv',
-      knifeOrAxe: '$t(common:tool.knife) eller $t(common:tool.axe)',
-      needleAndThread: 'Nål och tråd',
+      knife_or_axe: '$t(common:tool.knife) eller $t(common:tool.axe)',
+      needle_and_thread: 'Nål och tråd',
       saw: 'Såg',
     },
-    Gear: {
-      Gear: 'Utrustning',
-      D6Silver: 'T6 silvermynt',
-      D6Copper: 'T6 kopparmynt',
-      RidingHorse: 'Ridhäst',
-      InkAndQuill: 'Skrivdon',
-      VialOfPoison: 'Flaska med gift (dos)',
-      SimpleFind: 'ENKELT fynd',
-      ValuableFind: 'VÄRDEFULLT fynd',
-      CombatTrainedHorse: 'Stridstränad häst',
+    gear: {
+      gear: 'Utrustning',
+      d6silver: 'T6 silvermynt',
+      d6copper: 'T6 kopparmynt',
+      riding_horse: 'Ridhäst',
+      ink_and_quill: 'Skrivdon',
+      vial_of_poison: 'Flaska med gift (dos)',
+      simple_find: 'ENKELT fynd',
+      valuable_find: 'VÄRDEFULLT fynd',
+      combat_trained_horse: 'Stridstränad häst',
     },
-    Weapon: {
-      Melee: {
-        Knife: 'Kniv',
-        Dagger: 'Dolk',
-        Falchion: 'Huggare',
-        ShortSword: 'Kortsvärd',
-        BroadSword: 'Bredsvärd',
-        LongSword: 'Slag',
-        TwoHandedSword: 'Tvåhandssvärd',
-        Scimitar: 'Kroksabel',
-        Handaxe: 'Handyxa',
-        Battleaxe: 'Stridsyxa',
-        TwoHandedAxe: 'Tvåhandsyxa',
-        Mace: 'Stridsklubbe',
-        Morningstar: 'Morgonstjärna',
-        Warhammer: 'Stridshammare',
-        Flail: 'Stridsgissel',
-        Club: 'Träklubbe',
-        LargeClub: 'Stor träklubba',
-        HeavyWarhammer: 'Tung stridshammare',
-        Staff: 'Trästav',
-        ShortSpear: 'Kortspjut',
-        LongSpear: 'Långspjut',
-        Pike: 'Pik',
-        Halberd: 'Hillebard',
-        Trident: 'Treudd',
+    weapon: {
+      melee: {
+        knife: 'Kniv',
+        dagger: 'Dolk',
+        falchion: 'Huggare',
+        short_sword: 'Kortsvärd',
+        broad_sword: 'Bredsvärd',
+        long_sword: 'Slag',
+        two_handed_sword: 'Tvåhandssvärd',
+        scimitar: 'Kroksabel',
+        handaxe: 'Handyxa',
+        battleaxe: 'Stridsyxa',
+        two_handed_axe: 'Tvåhandsyxa',
+        mace: 'Stridsklubbe',
+        morningstar: 'Morgonstjärna',
+        warhammer: 'Stridshammare',
+        flail: 'Stridsgissel',
+        club: 'Träklubbe',
+        large_club: 'Stor träklubba',
+        heavy_warhammer: 'Tung stridshammare',
+        staff: 'Trästav',
+        short_spear: 'Kortspjut',
+        long_spear: 'Långspjut',
+        pike: 'Pik',
+        halberd: 'Hillebard',
+        trident: 'Treudd',
       },
-      Ranged: {
-        ThrowingKnife: 'Kastknife',
-        ThrowingAxe: 'Kastyxa',
-        ThrowingSpear: 'Kastspjut',
-        Sling: 'Slunga',
-        ShortBow: 'Kortbåge',
-        LongBow: 'Långbåge',
-        LightCrossbow: 'Lätt armborst',
-        HeavyCrossbow: 'Tungt armborst',
+      ranged: {
+        throwing_knife: 'Kastknife',
+        throwing_axe: 'Kastyxa',
+        throwing_spear: 'Kastspjut',
+        sling: 'Slunga',
+        short_bow: 'Kortbåge',
+        long_bow: 'Långbåge',
+        light_crossbow: 'Lätt armborst',
+        heavy_crossbow: 'Tungt armborst',
       },
-      Feature: {
-        Light: 'Lätt',
-        Heavy: 'Tungt',
-        Edged: 'Egg',
-        Pointed: 'Spets',
-        Blunt: 'Trubbig',
-        Parrying: 'Parerande',
-        Hook: 'Krok',
-        LoadingIsLongAction: 'Ladda är lång handling',
+      feature: {
+        light: 'Lätt',
+        heavy: 'Tungt',
+        edged: 'Egg',
+        pointed: 'Spets',
+        blunt: 'Trubbig',
+        parrying: 'Parerande',
+        hook: 'Krok',
+        loading_is_long_action: 'Ladda är lång handling',
       },
-      Grip: 'Grepp',
-      Bonus: 'Bonus',
-      Damage: 'Skada',
+      grip: 'Grepp',
+      bonus: 'Bonus',
+      damage: 'Skada',
     },
-    Armor: {
-      Leather: 'Läder',
-      StuddedLeather: 'Nitläder',
-      Chainmail: 'Ringbrynja',
-      Plate: 'Helrustning',
-      Natural: 'Naturlig',
-      Rating: 'Skyddsvärde',
-      BodyPart: 'Kroppsdel',
-      Body: 'Kropp',
+    armor: {
+      leather: 'Läder',
+      studded_leather: 'Nitläder',
+      chainmail: 'Ringbrynja',
+      plate: 'Helrustning',
+      natural: 'Naturlig',
+      rating: 'Skyddsvärde',
+      body_part: 'Kroppsdel',
+      body: 'Kropp',
     },
-    Helmet: {
-      StuddedLeather: 'Nitläderhuva',
-      OpenHelmet: 'Öppen hjälm',
-      ClosedHelmet: 'Täckt hjälm',
-      GreatHelm: 'Tunnhjälm',
-      Rating: 'Skyddsvärde',
-      BodyPart: 'Kroppsdel',
-      Body: 'Huvud',
+    helmet: {
+      studded_leather: 'Nitläderhuva',
+      open_helmet: 'Öppen hjälm',
+      closed_helmet: 'Täckt hjälm',
+      great_helm: 'Tunnhjälm',
+      rating: 'Skyddsvärde',
+      body_part: 'Kroppsdel',
+      body: 'Huvud',
     },
-    ArmorFeature: {
-      PenetrationProtection:
+    armor_feature: {
+      penetration_protection:
         'Skyddsvärde 3 mot pilar och Stöt av vapen med Spets.',
-      HardToMove: 'Rörlighet -2',
-      HardToSee: 'Ger -2 på Speja',
-      Normal: '',
-      Light: 'Lätt föremål',
-      Heavy: 'Tungt föremål',
+      hard_to_move: 'Rörlighet -2',
+      hard_to_see: 'Ger -2 på Speja',
+      normal: '',
+      light: 'Lätt föremål',
+      heavy: 'Tungt föremål',
     },
-    Shield: {
-      Small: 'Liten sköld',
-      Large: 'Stor sköld',
+    shield: {
+      small: 'Liten sköld',
+      large: 'Stor sköld',
     },
-    Coin: {
-      Coin_one: 'mynt',
-      Coin_other: 'mynt',
-      Copper: 'koppar',
-      Silver: 'silver',
-      Gold: 'guld',
+    coin: {
+      coin_one: 'mynt',
+      coin_other: 'mynt',
+      copper: 'koppar',
+      silver: 'silver',
+      gold: 'guld',
       day: 'per dag',
       hex: 'per hexagon',
     },
-    Weight: {
-      Weight: 'Vikt',
-      None: '–',
-      Tiny: 'Småsak',
-      Light: 'Lätt',
-      Normal: 'Normal',
-      Heavy: 'Tung',
+    weight: {
       '3': '3',
       '4': '4',
       '5': '5',
       '6': '6',
       '7': '7',
       '8': '8',
+      weight: 'Vikt',
+      none: '–',
+      tiny: 'Småsak',
+      light: 'Lätt',
+      normal: 'Normal',
+      heavy: 'Tung',
     },
     time: {
       time: 'Tidsåtgång',
-      quarterDay: 'Ett kvartsdygn',
+      quarter_day: 'Ett kvartsdygn',
       day: 'En dag',
       week: 'En vecka',
-      twoWeeks: 'Två veckor',
-      bookTime: '7 kvartsdygn för ett original. 2 kvartsdygn för en kopia',
+      two_weeks: 'Två veckor',
+      book_time: '7 kvartsdygn för ett original. 2 kvartsdygn för en kopia',
     },
   },
   finds: {
-    Title: 'Fynd',
-    Value: 'Värde',
-    Type: 'Typ',
-    Location: 'Plats',
-    Find: {
-      Type: {
-        Simple: 'Enkla',
-        Valuable: 'Värdefulla',
-        Precious: 'Dyrbara',
+    title: 'Fynd',
+    value: 'Värde',
+    type: 'Typ',
+    location: 'Plats',
+    find: {
+      type: {
+        simple: 'Enkla',
+        valuable: 'Värdefulla',
+        precious: 'Dyrbara',
       },
-      Location: {
-        Carried: 'Burna',
-        Lair: 'I hålan',
+      location: {
+        carried: 'Burna',
+        lair: 'I hålan',
       },
-      Armchair: 'Karmstol',
-      Artifact: 'Artifakt',
-      Axe: 'Handyxa',
-      BeautifulDesk: 'Vackert skrivbord',
-      BeautifulTapestry: 'Vacker gobeläng',
-      BeautifulVase: 'Vacker vas',
-      BeltBuckle: 'Bältesspänne',
-      BoneDice: 'Tärningar av ben',
-      BoneStatuette: 'Statyett av ben',
-      BoneWhistle: 'Visselpipa av ben',
-      Book: 'Bok',
-      BottleOfExpensiveWine: 'Flaska dyrbart vin',
-      BronzeAltar: 'Bronsaltare',
-      BronzeArmor: 'Bronserustning',
-      BronzeBeltBuckle: 'Bältesspänne av brons',
-      BronzeBracelet: 'Bronsarmband',
-      BronzeDagger: 'Bronsdolk',
-      BronzeDrinkingHorn: 'Dryckeshorn i brons',
-      BronzeEarring: 'Örhänge av brons',
-      BronzeHelmet: 'Bronshjälm',
-      BronzeLantern: 'Oljelykta',
-      BronzeMedallion: 'Medaljong i brons',
-      BronzeMirror: 'Bronsspegel',
-      BronzeNecklace: 'Halsband av brons',
-      BronzePot: 'Bronsgryta',
-      BronzeSarcophagus: 'Bronssarkofag',
-      BronzeShield: 'Sköld av brons',
-      BronzeStatue: 'Staty av brons',
-      BronzeStatuette: 'Statyett av brons',
-      Cabinet: 'Kabinett',
-      CalfSkinGloves: 'Handskar av kalvskinn',
-      Candelabrum: 'Kandelaber',
-      Carpet: 'Matta',
-      CeilingCandelabrum: 'Takkandelaber',
-      Chest: 'Kista',
-      CopperBowl: 'Kopparskål',
-      CopperCoins: 'Kopparmynt',
-      CopperCrown: 'Kopparkrona',
-      CopperHeadband: 'Huvudring av koppar',
-      CopperMug: 'Kopparmugg',
-      CopperPlate: 'Kopparstick',
-      CopperRing: 'Kopparring',
-      CrownWithGemstones: 'Krona med ädelstenar',
-      DragonscaleBoots: 'Stövlar av drakormsskinn',
-      DrinkingHornWithGoldDetails: 'Dryckeshorn med gulddetaljer',
-      DrinkingHornWithSilverDetails: 'Dryckeshorn med silverdetaljer',
-      ElegantBoots: 'Fina stövlar',
-      ElegantHelmet: 'Välsmidd hjälm',
-      ElegantLargeShield: 'Välsmidd stor sköld',
-      ElegantOneHandedWeapon: 'Välsmitt enhandsvapen',
-      EmbroidedCarpet: 'Broderad matta',
-      Embroidery: 'Broderi',
-      FineHat: 'Fin hatt',
-      FurCloakWithExpensiveEmbroideryAndGoldenBuckle:
+      armchair: 'Karmstol',
+      artifact: 'Artifakt',
+      axe: 'Handyxa',
+      beautiful_desk: 'Vackert skrivbord',
+      beautiful_tapestry: 'Vacker gobeläng',
+      beautiful_vase: 'Vacker vas',
+      belt_buckle: 'Bältesspänne',
+      bone_dice: 'Tärningar av ben',
+      bone_statuette: 'Statyett av ben',
+      bone_whistle: 'Visselpipa av ben',
+      book: 'Bok',
+      bottle_of_expensive_wine: 'Flaska dyrbart vin',
+      bronze_altar: 'Bronsaltare',
+      bronze_armor: 'Bronserustning',
+      bronze_belt_buckle: 'Bältesspänne av brons',
+      bronze_bracelet: 'Bronsarmband',
+      bronze_dagger: 'Bronsdolk',
+      bronze_drinking_horn: 'Dryckeshorn i brons',
+      bronze_earring: 'Örhänge av brons',
+      bronze_helmet: 'Bronshjälm',
+      bronze_lantern: 'Oljelykta',
+      bronze_medallion: 'Medaljong i brons',
+      bronze_mirror: 'Bronsspegel',
+      bronze_necklace: 'Halsband av brons',
+      bronze_pot: 'Bronsgryta',
+      bronze_sarcophagus: 'Bronssarkofag',
+      bronze_shield: 'Sköld av brons',
+      bronze_statue: 'Staty av brons',
+      bronze_statuette: 'Statyett av brons',
+      cabinet: 'Kabinett',
+      calf_skin_gloves: 'Handskar av kalvskinn',
+      candelabrum: 'Kandelaber',
+      carpet: 'Matta',
+      ceiling_candelabrum: 'Takkandelaber',
+      chest: 'Kista',
+      copper_bowl: 'Kopparskål',
+      copper_coins: 'Kopparmynt',
+      copper_crown: 'Kopparkrona',
+      copper_headband: 'Huvudring av koppar',
+      copper_mug: 'Kopparmugg',
+      copper_plate: 'Kopparstick',
+      copper_ring: 'Kopparring',
+      crown_with_gemstones: 'Krona med ädelstenar',
+      dragonscale_boots: 'Stövlar av drakormsskinn',
+      drinking_horn_with_gold_details: 'Dryckeshorn med gulddetaljer',
+      drinking_horn_with_silver_details: 'Dryckeshorn med silverdetaljer',
+      elegant_boots: 'Fina stövlar',
+      elegant_helmet: 'Välsmidd hjälm',
+      elegant_large_shield: 'Välsmidd stor sköld',
+      elegant_one_handed_weapon: 'Välsmitt enhandsvapen',
+      embroided_carpet: 'Broderad matta',
+      embroidery: 'Broderi',
+      fine_hat: 'Fin hatt',
+      fur_cloak_with_expensive_embroidery_and_golden_buckle:
         'Pälsbrämad manterl med dyrbara broderier och guldspänne',
-      GamingBoard: 'Spelbräde',
-      Gemstone: 'Ädelsten',
-      GlassBowl: 'Glasskål',
-      GoldAmulet: 'Gyllene amulett',
-      GoldBracelet: 'Guldarmband',
-      GoldCoins: 'Guldmynt',
-      GoldenArmchair: 'Förgylld karmstol',
-      GoldenArmor: 'Förgylld helrustning',
-      GoldenBowl: 'Guldskål',
-      GoldenCradle: 'Förgylld barnvagga',
-      GoldenCrown: 'Guldkrona',
-      GoldenDiadem: 'Gulddiadem',
-      GoldenEmbroidery: 'Förgyllt broderi',
-      GoldenHelmet: 'Förgylld hjälm',
-      GoldenLargeShield: 'Förgylld stor sköld',
-      GoldenMirror: 'Förgylld spegel',
-      GoldenNecklace: 'Halsband av guld',
-      GoldenPalanquin: 'Förgyllld bärstol',
-      GoldenSarcophagus: 'Guldsarkofag',
-      GoldenStatue: 'Staty av guld',
-      GoldenStatueOfAChild: 'Gyllene staty av ett barn',
-      GoldenTable: 'Förgyllt bord',
-      GoldenTray: 'Bricka av guld',
-      GoldenWeapon: 'Förgyllt vapen',
-      GoldGoblet: 'Guldbägare',
-      GoldMug: 'Guldmugg',
-      GoldNecklace: 'Förgyllt halsband',
-      GoldRing: 'Guldring',
-      GoldStatuette: 'Statyett av guld',
-      GoodBoots: 'Rejäla stövlar',
-      GoodGloves: 'Rejäla handskar',
-      Hammer: 'Hammare',
-      Knapsack: 'Ränsel',
-      Lantern: 'Lanterna',
-      LargeRareGemstone: 'Stor dyrbar ädelsten',
-      Lute: 'Luta',
-      Mask: 'Mask',
-      NecklaceWithGemstones: 'Halsband med ädelstenar',
-      OneHandedBronzeWeapon: 'Enhandsvapen i brons',
-      Painting: 'Målning',
-      PaintingWithGoldenFrame: 'Guldinramad målning',
-      PalanquinWithCopperDetails: 'Bärstol med koppardetaljer',
-      PalanquinWithSilverDetails: 'Bärstol med silverdetaljer',
-      Pearl: 'Pärla',
-      Pearls: 'Pärlor',
-      PieceOfAmber: 'Bärnsten',
-      PileOfCoins: 'Mynthög',
-      Pulpit: 'Pulpet',
-      RareBook: 'Sällsynt bok',
-      RareGemstone: 'Sällsynta ädelstenar',
-      RingWithGemstone: 'Ring med ädelstenar',
-      Saw: 'Såg',
-      Scepter: 'Spira',
-      ScepterWithGemstones: 'Spira med ädelstenar',
-      ShortSpear: 'Kortspjut',
-      ShortSword: 'Kortsvärd',
-      SilverAltar: 'Silveraltare',
-      SilverAmulet: 'Silveramulett',
-      SilverBowl: 'Silverskål',
-      SilverBox: 'Silverskrin',
-      SilverBracelet: 'Silverarmband',
-      SilverBrooch: 'Brosch av silver',
-      SilverCoins: 'Silvermynt',
-      SilverComb: 'Silverkam',
-      SilverCrown: 'Silverkrona',
-      SilverEarring: 'Örhänge av silver',
-      SilverGoblet: 'Silverbägare',
-      SilverHeadband: 'Huvudring av silver',
-      SilverHelmet: 'Silverhjälm',
-      SilverMedallion: 'Medaljong av silver',
-      SilverMirror: 'Silverspegel',
-      SilverMug: 'Silvermugg',
-      SilverNecklace: 'Halsband av silver',
-      SilverRing: 'Silverring',
-      SilverSarcophagus: 'Silversarkofag',
-      SilverStatue: 'Staty av silver',
-      SilverStatuette: 'Statyett av silver',
-      SimpleGemstone: 'Enkel ädelsten',
-      SmallShield: 'Liten sköld',
-      SmallSilverChest: 'Liten silverkista',
-      Tapestry: 'Gobeläng',
-      UniqueBook: 'Unik bok',
-      VelvetGloves: 'Sammetshandskar',
-      Waterskin: 'Vattenskinn',
-      WellTailoredCloakWithSilverBuckle: 'Välsydd mantel med silverspänne',
+      gaming_board: 'Spelbräde',
+      gemstone: 'Ädelsten',
+      glass_bowl: 'Glasskål',
+      gold_amulet: 'Gyllene amulett',
+      gold_bracelet: 'Guldarmband',
+      gold_coins: 'Guldmynt',
+      golden_armchair: 'Förgylld karmstol',
+      golden_armor: 'Förgylld helrustning',
+      golden_bowl: 'Guldskål',
+      golden_cradle: 'Förgylld barnvagga',
+      golden_crown: 'Guldkrona',
+      golden_diadem: 'Gulddiadem',
+      golden_embroidery: 'Förgyllt broderi',
+      golden_helmet: 'Förgylld hjälm',
+      golden_large_shield: 'Förgylld stor sköld',
+      golden_mirror: 'Förgylld spegel',
+      golden_necklace: 'Halsband av guld',
+      golden_palanquin: 'Förgyllld bärstol',
+      golden_sarcophagus: 'Guldsarkofag',
+      golden_statue: 'Staty av guld',
+      golden_statue_of_achild: 'Gyllene staty av ett barn',
+      golden_table: 'Förgyllt bord',
+      golden_tray: 'Bricka av guld',
+      golden_weapon: 'Förgyllt vapen',
+      gold_goblet: 'Guldbägare',
+      gold_mug: 'Guldmugg',
+      gold_necklace: 'Förgyllt halsband',
+      gold_ring: 'Guldring',
+      gold_statuette: 'Statyett av guld',
+      good_boots: 'Rejäla stövlar',
+      good_gloves: 'Rejäla handskar',
+      hammer: 'Hammare',
+      knapsack: 'Ränsel',
+      lantern: 'Lanterna',
+      large_rare_gemstone: 'Stor dyrbar ädelsten',
+      lute: 'Luta',
+      mask: 'Mask',
+      necklace_with_gemstones: 'Halsband med ädelstenar',
+      one_handed_bronze_weapon: 'Enhandsvapen i brons',
+      painting: 'Målning',
+      painting_with_golden_frame: 'Guldinramad målning',
+      palanquin_with_copper_details: 'Bärstol med koppardetaljer',
+      palanquin_with_silver_details: 'Bärstol med silverdetaljer',
+      pearl: 'Pärla',
+      pearls: 'Pärlor',
+      piece_of_amber: 'Bärnsten',
+      pile_of_coins: 'Mynthög',
+      pulpit: 'Pulpet',
+      rare_book: 'Sällsynt bok',
+      rare_gemstone: 'Sällsynta ädelstenar',
+      ring_with_gemstone: 'Ring med ädelstenar',
+      saw: 'Såg',
+      scepter: 'Spira',
+      scepter_with_gemstones: 'Spira med ädelstenar',
+      short_spear: 'Kortspjut',
+      short_sword: 'Kortsvärd',
+      silver_altar: 'Silveraltare',
+      silver_amulet: 'Silveramulett',
+      silver_bowl: 'Silverskål',
+      silver_box: 'Silverskrin',
+      silver_bracelet: 'Silverarmband',
+      silver_brooch: 'Brosch av silver',
+      silver_coins: 'Silvermynt',
+      silver_comb: 'Silverkam',
+      silver_crown: 'Silverkrona',
+      silver_earring: 'Örhänge av silver',
+      silver_goblet: 'Silverbägare',
+      silver_headband: 'Huvudring av silver',
+      silver_helmet: 'Silverhjälm',
+      silver_medallion: 'Medaljong av silver',
+      silver_mirror: 'Silverspegel',
+      silver_mug: 'Silvermugg',
+      silver_necklace: 'Halsband av silver',
+      silver_ring: 'Silverring',
+      silver_sarcophagus: 'Silversarkofag',
+      silver_statue: 'Staty av silver',
+      silver_statuette: 'Statyett av silver',
+      simple_gemstone: 'Enkel ädelsten',
+      small_shield: 'Liten sköld',
+      small_silver_chest: 'Liten silverkista',
+      tapestry: 'Gobeläng',
+      unique_book: 'Unik bok',
+      velvet_gloves: 'Sammetshandskar',
+      waterskin: 'Vattenskinn',
+      well_tailored_cloak_with_silver_buckle: 'Välsydd mantel med silverspänne',
     },
   },
   gear: {
-    Title: 'Utrustning',
+    title: 'Utrustning',
     craft: 'Tillverka',
-    Filters: {
-      Search: 'Sök',
-      MaxPrice: 'Max pris',
+    filters: {
+      search: 'Sök',
+      max_price: 'Max pris',
     },
     category: {
       cateogory: 'Kategori',
-      tradeGoods: 'Handelsvara',
+      trade_goods: 'Handelsvara',
       services: 'Tjänster',
     },
-    Supply: {
-      Supply: 'Tillgång',
-      Reroll: 'Slå om tillgång',
-      Common: 'Vanlig',
-      Uncommon: 'Ovanlig',
-      Rare: 'Sällsynt',
+    supply: {
+      supply: 'Tillgång',
+      reroll: 'Slå om tillgång',
+      common: 'Vanlig',
+      uncommon: 'Ovanlig',
+      rare: 'Sällsynt',
     },
-    MarketType: {
-      MarketType: 'Marknadstyp',
-      DailyLiving: 'Vardaglig',
-      TradeGoods: 'Handelsvaror',
-      LuxuryGoods: 'Lyxvaror',
-      War: 'Krig',
-      Food: 'Mat',
+    market_type: {
+      market_type: 'Marknadstyp',
+      daily_living: 'Vardaglig',
+      trade_goods: 'Handelsvaror',
+      luxury_goods: 'Lyxvaror',
+      war: 'Krig',
+      food: 'Mat',
     },
-    Gear: {
-      tradeGoods: 'Handelsvaror',
-      Backpack: {
+    gear: {
+      trade_goods: 'Handelsvaror',
+      backpack: {
         name: 'Ryggsäck',
         effect: '-1 Vikt. lägger till 1 i bärkapacitet',
       },
-      Bandages: {
+      bandages: {
         name: 'Tygförband',
         effect: 'Redskapsbonus +1 till Läkekonst',
       },
-      Barrel: {
+      barrel: {
         name: 'Tunna',
         effect:
           'Innehåller 33 enheter (100 portioner) Vatten eller annan vätska',
       },
-      BearTrap: {
+      bear_trap: {
         name: 'Rävsax',
         effect: 'Redskapsbonus +1 till Jaga under utfärder',
       },
-      Blanket: {
+      blanket: {
         name: 'Filt',
         effect: 'Redskapsbonus +1 mot kyla',
       },
-      Book: {
+      book: {
         name: 'Bok',
         effect:
           'Redskapsbonus +1 vid skrift till det slutgiltiga Manipulation/Skaldekonst-slaget per 7 kvartsdagar spenderade på att skriva. Redskapsbonus +1 när man läser om bokens ämne.',
       },
-      Cauldron: {
+      cauldron: {
         name: 'Gryta',
         effect: 'Låter Kock laga 1 matenhet (3 måltider) per kvartsdag',
       },
-      Chalk: {
+      chalk: {
         name: 'Kritor',
         effect: 'Kan användas av symbolister.',
       },
-      Chest: {
+      chest: {
         name: 'Kista',
         effect: 'Kan lagra 100 enheter.',
       },
-      ClayJug: {
+      clay_jug: {
         name: 'Lerkrus',
         effect: 'Innehåller 1 enhet (3 portioner) Vatten eller annan vätska',
       },
-      ClayPot: {
+      clay_pot: {
         name: 'Lerkruka',
         effect: 'Lätt föremål när fylld.',
       },
-      CrystalBall: {
+      crystal_ball: {
         name: 'Spåkula',
         effect: 'Kan användas som ingrediens till besvärjelse.',
       },
-      // DiseaseRemedy: {
-      //   name: 'Botemedel mot sjukdom',
-      //   effect: 'Potens 3. Varje ökning av potens dubblar priset. Lägg till Potens till Redskap mot Sjukdomsslag'
-      // },
-      // Distiller: {
-      //   name: 'Destilleringsglas',
-      //   effect: 'Används som Alkemistverktyg'
-      // },
-      Drum: {
+      drum: {
         name: 'Trumma',
         effect: 'Redskapsbonus +1 till Skaldekonst',
       },
-      FieldKitchen: {
+      field_kitchen: {
         name: 'Fältkök',
         effect: 'Gör det möjligt att laga 2T6 enheter mat på ett kvartsdygn.',
       },
-      FieldRation: {
+      field_ration: {
         name: 'Fältransoner mat',
         effect: 'En enhet Mat. Ökar resurstärning Mat ett steg.',
       },
-      FishingHookAndLine: {
+      fishing_hook_and_line: {
         name: 'Fiskkrok och lina',
         effect: 'Redskapsbonus +1 till Fiska under utfärder',
       },
-      FishingNet: {
+      fishing_net: {
         name: 'Fisknät',
         effect: 'Redskapsbonus +2 till Fiska under utfärder',
       },
-      FlintAndSteel: {
+      flint_and_steel: {
         name: 'Flinta och stål',
         effect: 'Redskapsbonus +1 till att Slå läger under utfärder',
       },
-      Flute: {
+      flute: {
         name: 'Flöjt',
         effect: 'Redskapsbonus +1 till Skaldekonst',
       },
-      FoodKnife: { name: 'Matkniv', effect: '–' },
-      GrapplingHook: {
+      food_knife: {
+        name: 'Matkniv',
+        effect: '–',
+      },
+      grappling_hook: {
         name: 'Änterhake',
         effect: 'Redskapsbonus +1 vid Klättring',
       },
-      HallucinogenicPoisonOrAntidote: {
+      hallucinogenic_poison_or_antidote: {
         name: 'Hallucinogent gift (dos)',
         effect: 'Potens 3. Varje ökning av potens dubblar priset.',
       },
-      Harp: {
+      harp: {
         name: 'Harpa',
         effect: 'Redskapsbonus +2 till Skaldekonst',
       },
-      // HealingOintment: {
-      //   name: 'Läkande salva',
-      //   effect: 'Potens 3. Varje ökning av potens dubblar priset. Lägg till Potens till Redskap mot Läkekonst-slag'
-      //   effectEnglish:
-      //     'Potency 3. Each increase inpotency doubles price. AddPotency to Gear Dice for Long Term Care of a Critical Injury',
-      // },
-      HolySymbol: {
+      holy_symbol: {
         name: 'Heligt symbol',
         effect: 'Kan användas som ingrediens till besvärjelse.',
       },
-      Horn: {
+      horn: {
         name: 'Blåshorn',
         effect: 'Redskapsbonus +1 till Skaldekonst.',
       },
-      Hourglass: {
+      hourglass: {
         name: 'Timglas',
         effect: 'Kan användas som ingrediens till besvärjelse.',
       },
-      InkAndQuill: {
+      ink_and_quill: {
         name: 'Bläck och fjäder',
         effect: 'Kan användas för att nedteckna besvärjelser.',
       },
-      // Knapsack: {
-      //   name: 'Säck',
-      //   effect: 'För att bära mat. Räknas som småsak.'
-      // },
-      LampOil: {
+      lamp_oil: {
         name: 'Lampolja',
         effect: 'Nog för ett kvartsdags.',
       },
-      Lantern: {
+      lantern: {
         name: 'Oljelykta',
         effect: 'Lyser upp en zon. Kräver lampolja.',
       },
-      LargeTent: {
+      large_tent: {
         name: 'Stort tält',
         effect: 'Plats för sex. Ger +2 till att Slå läger under utfärder.',
       },
-      LethalPoisonOrAntidote: {
+      lethal_poison_or_antidote: {
         name: 'Dödande gift (dos)',
         effect:
           'Giftstyrka 3. Varje stegs ökad Giftstyrka fördubblar kostnaden.',
       },
-      Lockpicks: {
+      lockpicks: {
         name: 'Dyrkar',
         effect: 'Redskapsbonus +1 till Fingerfärdighet vid låsdyrkning.',
       },
-      Lyre: {
+      lyre: {
         name: 'Lyra',
         effect: 'Redskapsbonus +1 till Skaldekonst.',
       },
-      MagnifyingGlass: {
+      magnifying_glass: {
         name: 'Förstoringsglas',
         effect: 'Kan användas som ingrediens till besvärjelse.',
       },
-      Map: {
+      map: {
         name: 'Karta',
         effect: 'Kan användas som ingrediens till besvärjelse.',
       },
-      MetalChalice: { name: 'Vinkalk i metall', effect: '–' },
-      MetalPlate: { name: 'Tallrik i metall', effect: '–' },
-      // MetalPot: {
-      //   name: 'Gryta i metall',
-      //   effect: '–'
-      // },
-      // NarcoticMushrooms: {
-      //   name: 'Narkotiska svampar',
-      //   effect:
-      //   effectEnglish:
-      //     'Must be gathered from location found after Surveying The Land. 15 minutes after consumption, you become INTOXICATED and gain 1 temporary WP. All effects and WP go away after ¼ day',
-      // },
-      OilLamp: {
+      metal_chalice: {
+        name: 'Vinkalk i metall',
+        effect: '–',
+      },
+      metal_plate: {
+        name: 'Tallrik i metall',
+        effect: '–',
+      },
+      oil_lamp: {
         name: 'Oljelampa',
         effect: 'Lyser upp en zon inomhus. Kräver lampolja.',
       },
-      ParalyzingPoisonOrAntidote: {
+      paralyzing_poison_or_antidote: {
         name: 'Förlamande gift (dos)',
         effect:
           'Giftstyrka 3. Varje stegs ökad Giftstyrka fördubblar kostnaden.',
       },
-      Parchment: {
+      parchment: {
         name: 'Pergament',
         effect: 'Kan användas för att nedteckna besvärjelser.',
       },
-      Perfume: {
+      perfume: {
         name: 'Parfym',
         effect: 'Redskapsbonus +1 till Manipulera. Räcker ett kvartsdygn.',
       },
-      Quiver: {
+      quiver: {
         name: 'Koger',
         effect: 'Räknas inte mot belastning.',
       },
-      RopeTenMeters: {
+      rope_ten_meters: {
         name: 'Rep, 10 meter',
         effect: 'Redskapsbonus +1 vid Klättring.',
       },
-      Scales: {
+      scales: {
         name: 'Våg',
         effect: 'Kan användas som ingrediens till besvärjelse.',
       },
-      SleepingFur: {
+      sleeping_fur: {
         name: 'Sovfäll',
         effect: 'Redskapsbonus +2 mot kyla.',
       },
-      SleepingPoisonOrAntidote: {
+      sleeping_poison_or_antidote: {
         name: 'Sövande gift (dos)',
         effect:
           'Giftstyrka 3. Varje stegs ökad Giftstyrka fördubblar kostnaden.',
       },
-      SmallTent: {
+      small_tent: {
         name: 'Litet tält',
         effect: 'Plats för två. Ger +2 till att Slå läger under utfärder.',
       },
-      Snares: {
+      snares: {
         name: 'Snaror',
         effect: 'Redskapsbonus +1 till Jaga under utfärder.',
       },
-      Spoon: { name: 'Sked', effect: '–' },
-      Spyglass: {
+      spoon: {
+        name: 'Sked',
+        effect: '–',
+      },
+      spyglass: {
         name: 'Kikare',
         effect: 'Redskapsbonus +2 till Speja på Långt avstånd.',
       },
-      // Stimulant: {
-      //   name: 'Uppiggande medel',
-      //   effect:
-      //   effectEnglish:
-      //     'Potency 1. Each increase inPotency doubles the price. +1 attribute/Potency, and 1 Dam to another perPotency. Lasts [Potency] hours',
-      // },
-      TallowCandle: {
+      tallow_candle: {
         name: 'Talgljus',
         effect: 'Lyser upp inom Armslängd under ett kvartsdygn.',
       },
-      Tankard: { name: 'Sejdel', effect: '–' },
-      ThreeArrowsIronHead: {
+      tankard: {
+        name: 'Sejdel',
+        effect: '–',
+      },
+      three_arrows_iron_head: {
         name: 'Pilar, järnspets',
         effect: 'Ökar resurstärning Pilar ett steg.',
       },
-      ThreeArrowsWoodenHead: {
+      three_arrows_wooden_head: {
         name: 'Pilar, träspets',
         effect:
           'Ökar resurstärning Pilar ett steg. Målets skyddsvärde fördubblas.',
       },
-      // ThreeBlowdartsMetalTipped: {
-      //   name: 'Blåsrörspilar, metallspets',
-      //   effect:
-      //   effectEnglish:
-      //     'May be crafted with no Talents and a Knife by combining 3 NEEDLES and 1 unit BLOWDARTS, WOODEN. Light (.5) min/“unit” (3 darts)',
-      // },
-      // ThreeBlowdartsWooden: {
-      //   name: 'Blåsrörspilar, träspets',
-      //   effect:
-      // },
-      Torches: {
+      torches: {
         name: 'Facklor',
         effect:
           'Ökar resurstärning Facklor ett steg. Lyser upp en zon. Slå resurstärning varje kvartstimme.',
       },
-      // UnitBrewAleOrSpirits: {
-      //   name: 'Enhet öl eller sprit',
-      //   effect:
-      // },
-      Waterskin: {
+      waterskin: {
         name: 'Vattenskinn',
         effect:
           'Krävs för att bära med sig Vatten. Räknas inte mot belastning.',
@@ -938,7 +909,7 @@ export const translationsSv: Translations = {
     },
     service: {
       service: 'Vanliga tjänster',
-      bathAtInn: {
+      bath_at_inn: {
         name: 'Bad på värdshus',
         effect: '',
       },
@@ -955,7 +926,7 @@ export const translationsSv: Translations = {
         name: 'Livvakt',
         effect: '',
       },
-      clothesWashed: {
+      clothes_washed: {
         name: 'Tvätt av kläder',
         effect: '',
       },
@@ -963,27 +934,27 @@ export const translationsSv: Translations = {
         name: 'Budbärare',
         effect: '',
       },
-      roadToll: {
+      road_toll: {
         name: 'Vägtull',
         effect: '',
       },
-      lodgingAtInnDormitory: {
+      lodging_at_inn_dormitory: {
         name: 'Övernattning på värdshus, sovsal',
         effect: '',
       },
-      lodgingAtInnSeparateRoom: {
+      lodging_at_inn_separate_room: {
         name: 'Övernattning på värdshus, eget rum',
         effect: '',
       },
-      fineDwelling: {
+      fine_dwelling: {
         name: 'Ståtligt härbärge',
         effect: '',
       },
-      bowlOfStew: {
+      bowl_of_stew: {
         name: 'Skål med stuvning',
         effect: 'Täcker dagsbehovet av Mat.',
       },
-      heartyMeal: {
+      hearty_meal: {
         name: 'Måltid på värdshus',
         effect: 'Täcker dagsbehovet av Mat och Vatten.',
       },
@@ -991,36 +962,36 @@ export const translationsSv: Translations = {
         name: 'Festmåltid',
         effect: 'Täcker dagsbehovet av Mat och Vatten.',
       },
-      flagonOfAle: {
+      flagon_of_ale: {
         name: 'Stop mjöd',
         effect: 'Täcker dagsbehovet av Vatten.',
       },
-      chaliceOfWine: {
+      chalice_of_wine: {
         name: 'Kalk vin',
         effect: 'Täcker dagsbehovet av Vatten.',
       },
       teacher: {
         name: 'Lärare',
-        effect: `Läs mer om lärare på sidan 38 i Spelarboken.`,
+        effect: 'Läs mer om lärare på sidan 38 i Spelarboken.',
       },
     },
   },
   home: {
-    Page: 'Yxans klagan',
-    Description:
+    page: 'Yxans klagan',
+    description:
       'Yxans klagan är mitt sätt att ge tillbaka till communityt och av helt själviska anledningar ett sätt för mig att leka med ny webbteknik.',
-    GameTitle: 'Svärdets sång',
-    GameDescription:
+    game_title: 'Svärdets sång',
+    game_description:
       'Välkomna till Svärdets sång. I detta bordsrollspel är ni inte hjältar som utför uppdrag på order av andra – i stället är ni äventyrare och skattletare fast beslutna att sätta ert eget märke på denna fördömda värld. Ni kommer att vandra genom det vilda landet, utforska glömda gravar, kämpa mot fruktansvärda monster och – om ni lever länge nog – bygga ert eget fäste och försvara det mot fiender. Under era äventyr kan ni avslöja de mörka krafter som rör sig i skuggorna och till slut kan det bli ni som avgör Det glömda landets öde.',
-    FreeLeague: 'Fria Ligan',
-    ThanksTo: 'Tack till',
-    ForAFantasticGame: 'för ett fantastiskt spel!',
-    CommunityTitle: 'Community',
-    ThanksCommunity:
+    free_league: 'Fria Ligan',
+    thanks_to: 'Tack till',
+    for_afantastic_game: 'för ett fantastiskt spel!',
+    community_title: 'Community',
+    thanks_community:
       'Tack till communityt för Svärdets sång för inspiration, hjälp och material jag kunnat använda.',
-    moreTools: {
+    more_tools: {
       title: 'Fler verktyg',
-      dragonTools: {
+      dragon_tools: {
         name: 'DragonTools',
         description:
           'Ett webbverktyg för spelledare av Drakar och Demoner (Fria Ligan)',
@@ -1028,41 +999,26 @@ export const translationsSv: Translations = {
     },
   },
   map: {
-    Title: 'Karta',
-    DownloadMapData: 'Ladda ned kartdata',
-    PasteMapData: 'Klistra in kartdata JSON',
-    'Popover-Hide': 'Dölj',
-    'Popover-Explore': 'Utforska',
-    'Popover-Forget': 'Glöm bort',
-    'Popover-Explored': 'Utforskad',
-    'Popover-Unexplored': 'Ej utforskad',
-    InvalidJson: 'Ogiltig JSON',
-    InvalidHexData: `Hex Data såg inte ut som: {
-        version: 2,
-        source: 'ravland' | 'bitterReach',
-        fogOfWar: boolean,
-        maps: {
-          ravland: {
-            hasExploredHexes: boolean,
-            hexes: { hexKey: 'A10' | 'A12' | ..., explored: boolean}[],
-            selectedHex: boolean | undefined,
-          },
-          bitterReach: {
-            hasExploredHexes: boolean,
-            hexes: { hexKey: 'A10' | 'A12' | ..., explored: boolean}[],
-            selectedHex: boolean | undefined,
-          },
-        },
-      }`,
-    GeneralPasteError: 'Okänt inklistringsfel',
-    FogOfWar_On: 'Slå av krigsdimma',
-    FogOfWar_Off: 'Slå på krigsdimma',
+    title: 'Karta',
+    download_map_data: 'Ladda ned kartdata',
+    paste_map_data: 'Klistra in kartdata JSON',
+    popover_hide: 'Dölj',
+    popover_explore: 'Utforska',
+    popover_forget: 'Glöm bort',
+    popover_explored: 'Utforskad',
+    popover_unexplored: 'Ej utforskad',
+    invalid_json: 'Ogiltig JSON',
+    invalid_hex_data:
+      "Hex Data såg inte ut som: {\n        version: 2,\n        source: 'ravland' | 'bitterReach',\n        fogOfWar: boolean,\n        maps: {\n          ravland: {\n            hasExploredHexes: boolean,\n            hexes: { hexKey: 'A10' | 'A12' | ..., explored: boolean}[],\n            selectedHex: boolean | undefined,\n          },\n          bitterReach: {\n            hasExploredHexes: boolean,\n            hexes: { hexKey: 'A10' | 'A12' | ..., explored: boolean}[],\n            selectedHex: boolean | undefined,\n          },\n        },\n      }",
+    general_paste_error: 'Okänt inklistringsfel',
+    fog_of_war_on: 'Slå av krigsdimma',
+    fog_of_war_off: 'Slå på krigsdimma',
   },
   monster: {
-    Title: 'Monster',
-    bookOfMonsters: 'Monsterboken',
-    backToAllMonsters: 'Innehåll',
-    randomMonster: {
+    title: 'Monster',
+    book_of_monsters: 'Monsterboken',
+    back_to_all_monsters: 'Innehåll',
+    random_monster: {
       title: 'Slumpa fram monster',
       description:
         'Världen är fylld av förskräckliga monster. De vanligaste har diktats ned men de flest kan bara beskrivas genom dess slumpmässiga utseende och beteeende.',
@@ -1072,1032 +1028,1035 @@ export const translationsSv: Translations = {
       title: 'Monster från boken',
       description: 'Varje monster har sidhänvisning i GM-boken till höger.',
     },
-    communityMonster: {
+    community_monster: {
       title: 'Community Monsters',
       description:
         'Monster som skapats av passionerade människor från communityt.',
-      createdBy: 'Skapad av:',
+      created_by: 'Skapad av:',
     },
-    TheMonster: 'Monstret',
-    TheMonsterHas: 'Monstret har',
-    TheMonsterHave: 'Monstret har',
-    Size: {
-      Puny: 'Ynklig',
-      Puny_def: 'Ynkligt',
-      Small: 'Nätt',
-      Small_def: 'Nätt',
-      Average: 'Medelstor',
-      Average_def: 'Medelstort',
-      Large: 'Kraftig',
-      Large_def: 'Kraftigt',
-      Big: 'Storväxt',
-      Big_def: 'Storväxt',
-      Huge: 'Jättelik',
-      Huge_def: 'Jättelikt',
-      Gigantic: 'Gigantisk',
-      Gigantic_def: 'Gigantiskt',
+    the_monster: 'Monstret',
+    the_monster_has: 'Monstret har',
+    the_monster_have: 'Monstret har',
+    size: {
+      puny: 'Ynklig',
+      puny_def: 'Ynkligt',
+      small: 'Nätt',
+      small_def: 'Nätt',
+      average: 'Medelstor',
+      average_def: 'Medelstort',
+      large: 'Kraftig',
+      large_def: 'Kraftigt',
+      big: 'Storväxt',
+      big_def: 'Storväxt',
+      huge: 'Jättelik',
+      huge_def: 'Jättelikt',
+      gigantic: 'Gigantisk',
+      gigantic_def: 'Gigantiskt',
     },
-    Type: {
-      Grazing: 'Betande kreatur',
-      Herbivore: 'Växtätare',
-      Gatherer: 'Samlare',
-      Scavenger: 'Asätare',
-      Predator: 'Rovdjur',
-      AggressivePredator: 'Aggresivt rovdjur',
+    type: {
+      grazing: 'Betande kreatur',
+      herbivore: 'Växtätare',
+      gatherer: 'Samlare',
+      scavenger: 'Asätare',
+      predator: 'Rovdjur',
+      aggressive_predator: 'Aggresivt rovdjur',
     },
-    Head: {
-      Missing: 'saknar huvud',
-      Beak: 'en näbb',
-      HornWithCount: '{{count}} horn på huvudet',
-      ElkHorns: 'älghorm',
-      TentaclesWithCount: '{{count}} tentakler på huvudet',
-      InsectoidEyes: 'insektsliknande ögon',
-      SideEyesWithCount: '{{count}} ögon på var sida på sitt huvud',
-      ManyEyes: 'massvis med ögon',
-      BigMane: 'en stor man',
-      LongTongue: 'en lång tunga',
-      BigEars: 'stora öron',
-      Fin: 'en fena på toppen av huvudet',
+    head: {
+      missing: 'saknar huvud',
+      beak: 'en näbb',
+      horn_with_count: '{{count}} horn på huvudet',
+      elk_horns: 'älghorm',
+      tentacles_with_count: '{{count}} tentakler på huvudet',
+      insectoid_eyes: 'insektsliknande ögon',
+      side_eyes_with_count: '{{count}} ögon på var sida på sitt huvud',
+      many_eyes: 'massvis med ögon',
+      big_mane: 'en stor man',
+      long_tongue: 'en lång tunga',
+      big_ears: 'stora öron',
+      fin: 'en fena på toppen av huvudet',
     },
-    Tail: {
-      Tail: 'har en svans',
-      SpikedTail: 'har en spikförsedd svans',
+    tail: {
+      tail: 'har en svans',
+      spiked_tail: 'har en spikförsedd svans',
     },
-    Limbs: {
-      Arms: '{{count}} armar',
-      Legs: '{{count}} ben',
-      Tentacles: '{{count}} tentakler',
-      Wings: '{{count}} vingar',
-      None: 'inga lemmar',
+    limbs: {
+      arms: '{{count}} armar',
+      legs: '{{count}} ben',
+      tentacles: '{{count}} tentakler',
+      wings: '{{count}} vingar',
+      none: 'inga lemmar',
     },
-    ArmorLabel: 'Skydd',
-    Armor: {
-      Skin: 'Hud',
-      SoftFur: 'Mjuk päls',
-      ThickFur: 'Tjock päls',
-      Feathers: 'Fjädrar',
-      Scales: 'Fjäll',
-      Shell: 'Skal',
-      BonePlates: 'Benplattor',
-      ArmoredHide: 'Pansarhud',
+    armor_label: 'Skydd',
+    armor: {
+      skin: 'Hud',
+      soft_fur: 'Mjuk päls',
+      thick_fur: 'Tjock päls',
+      feathers: 'Fjädrar',
+      scales: 'Fjäll',
+      shell: 'Skal',
+      bone_plates: 'Benplattor',
+      armored_hide: 'Pansarhud',
     },
-    LivesIn: 'Monstret bor i {{home}}',
-    Homes: {
-      Burrow: 'ett gryt',
-      Ruin: 'en ruin',
-      WateringHole: 'ett vattehål',
-      TreeOrHighPoint: 'ett träd eller på en hög punkt',
-      Cave: 'en grotta',
-      Ravine: 'en ravin',
-      Den: 'en underjordisk håla',
+    lives_in: 'Monstret bor i {{home}}',
+    homes: {
+      burrow: 'ett gryt',
+      ruin: 'en ruin',
+      watering_hole: 'ett vattehål',
+      tree_or_high_point: 'ett träd eller på en hög punkt',
+      cave: 'en grotta',
+      ravine: 'en ravin',
+      den: 'en underjordisk håla',
     },
-    Skill: 'Färdigheter',
-    Skills: {
-      None: 'Inga',
-      Melee: 'Närkamp',
-      Move: 'Rörlighet',
-      Scouting: 'Speja',
-      Stealth: 'Smyga',
+    skill: 'Färdigheter',
+    skills: {
+      none: 'Inga',
+      melee: 'Närkamp',
+      move: 'Rörlighet',
+      scouting: 'Speja',
+      stealth: 'Smyga',
     },
-    Movement: {
-      Movement: 'Förflyttning',
-      Zones_one: 'zon',
-      Zones_other: 'zoner',
-      Slithering: 'Slingrande',
-      Digging: 'Grävande',
-      Swimming: 'Simmande',
-      Running: 'Springande',
-      Flying: 'Flygande',
-      Climbing: 'Klättrande',
+    movement: {
+      movement: 'Förflyttning',
+      zones_one: 'zon',
+      zones_other: 'zoner',
+      slithering: 'Slingrande',
+      digging: 'Grävande',
+      swimming: 'Simmande',
+      running: 'Springande',
+      flying: 'Flygande',
+      climbing: 'Klättrande',
     },
-    Poisons: {
-      Lethal: 'Dödlig',
-      Paralyzing: 'Paralyserande',
-      Sleeping: 'Sövande',
-      Hallucinogenic: 'Hallucinogen',
-      Lethal_count: 'Dödlig ({{count}})',
-      Paralyzing_count: 'Paralyserande ({{count}})',
-      Sleeping_count: 'Sövande ({{count}})',
+    poisons: {
+      lethal: 'Dödlig',
+      paralyzing: 'Paralyserande',
+      sleeping: 'Sövande',
+      hallucinogenic: 'Hallucinogen',
+      lethal_count: 'Dödlig ({{count}})',
+      paralyzing_count: 'Paralyserande ({{count}})',
+      sleeping_count: 'Sövande ({{count}})',
     },
-    Trait: {
-      Traits: 'Egenskaper',
-      Undead: {
-        Name: 'Odöd',
-        Description: '+2 STY',
+    trait: {
+      traits: 'Egenskaper',
+      undead: {
+        name: 'Odöd',
+        description: '+2 STY',
       },
-      Hurt: {
-        Name: 'Skadad',
-        Description: 'Half STY',
+      hurt: {
+        name: 'Skadad',
+        description: 'Half STY',
       },
-      Colorful: {
-        Name: 'Färggrann',
-        Description: 'Skinn, horn eller liknande är värt {{count}} silver',
+      colorful: {
+        name: 'Färggrann',
+        description: 'Skinn, horn eller liknande är värt {{count}} silver',
       },
-      Poisonous: {
-        Name: 'Giftig',
+      poisonous: {
+        name: 'Giftig',
       },
-      Regeneration: {
-        Name: 'Regenererande',
-        Description: 'Återfår T3 i STY varje runda',
+      regeneration: {
+        name: 'Regenererande',
+        description: 'Återfår T3 i STY varje runda',
       },
-      ResistanceMagic: {
-        Name: 'Okänslig mot magi',
-        Description: 'Motsvarande besvärjelsen Antimagi med T6 effektgrader',
+      resistance_magic: {
+        name: 'Okänslig mot magi',
+        description: 'Motsvarande besvärjelsen Antimagi med T6 effektgrader',
       },
-      Camouflage: {
-        Name: 'Kamouflerad',
-        Description: 'Vanvettigt svår (−3) att upptäcka med Speja',
+      camouflage: {
+        name: 'Kamouflerad',
+        description: 'Vanvettigt svår (−3) att upptäcka med Speja',
       },
-      Fast: {
-        Name: 'Snabb',
-        Description:
+      fast: {
+        name: 'Snabb',
+        description:
           'Drar två iniativkort i stridens början och får agera på båda turerna',
       },
-      SensitiveHearing: {
-        Name: 'Känslig hörsel',
-        Description: '+2 FV i Speja',
+      sensitive_hearing: {
+        name: 'Känslig hörsel',
+        description: '+2 FV i Speja',
       },
-      SensitiveSmell: {
-        Name: 'Känsligt luktsinne',
-        Description: '+2 FV i Speja',
+      sensitive_smell: {
+        name: 'Känsligt luktsinne',
+        description: '+2 FV i Speja',
       },
-      DarkVision: {
-        Name: 'Mörkerseende',
-        Description: 'Ser obehindrat i mörker',
+      dark_vision: {
+        name: 'Mörkerseende',
+        description: 'Ser obehindrat i mörker',
       },
-      AcidGlands: {
-        Name: 'Syrakörtlar',
-        Description: 'Kan använda syraattack',
+      acid_glands: {
+        name: 'Syrakörtlar',
+        description: 'Kan använda syraattack',
       },
-      FireGlands: {
-        Name: 'Eldkörtlar',
-        Description: 'Kan använda eldattack',
+      fire_glands: {
+        name: 'Eldkörtlar',
+        description: 'Kan använda eldattack',
       },
-      Intelligent: {
-        Name: 'Intelligent',
-        SkillValues: 'Kan ha FV i Genomskåda och Manipulera',
-        Telepathy: 'Kan tala med telepati',
+      intelligent: {
+        name: 'Intelligent',
+        skill_values: 'Kan ha FV i Genomskåda och Manipulera',
+        telepathy: 'Kan tala med telepati',
       },
-      CanSpeak: {
-        Name: 'Kan tala',
-        Description: 'Kan tala eller härma språk',
+      can_speak: {
+        name: 'Kan tala',
+        description: 'Kan tala eller härma språk',
       },
-      PossessedByDemon: {
-        Name: 'Besatt av demon',
-        Description:
+      possessed_by_demon: {
+        name: 'Besatt av demon',
+        description:
           'Är i själva verket en demon (Se sidan 76 i Spelledarboken)',
       },
     },
-    Weakness: {
-      Weakness: 'Svaghet',
-      None: {
-        Name: 'Ingen',
-        Description: '–',
+    weakness: {
+      weakness: 'Svaghet',
+      none: {
+        name: 'Ingen',
+        description: '–',
       },
-      VulnerableToFire: {
-        Name: 'Känslig mot eld',
-        Description: 'Tar dubble skada av eld',
+      vulnerable_to_fire: {
+        name: 'Känslig mot eld',
+        description: 'Tar dubble skada av eld',
       },
-      VulnerableToLight: {
-        Name: 'Känslig för ljud',
-        Description:
+      vulnerable_to_light: {
+        name: 'Känslig för ljud',
+        description:
           'Tål ej ljus, måste röra sig bort från starka ljuskällor. Om ej möjligt tar varelsen T3 i skada för enskild ljuskälla, T6 i skada för större ljuskälla (som solen) varje runda',
       },
-      AfraidOfLoudNoises: {
-        Name: 'Rädd för höga ljud',
-        Description:
+      afraid_of_loud_noises: {
+        name: 'Rädd för höga ljud',
+        description:
           'Höga ljud skrämmer besten. Smällar eller högre ljud får den att fly, slamrande sköldar eller liknande får den att tveka och undvika källan',
       },
-      ProtectsOffspring: {
-        Name: 'Skyddar avkomma',
-        Description: 'Har avkomma i närheten, lämnar inte platsen där de finns',
+      protects_offspring: {
+        name: 'Skyddar avkomma',
+        description: 'Har avkomma i närheten, lämnar inte platsen där de finns',
       },
-      SensitiveEyes: {
-        Name: 'Känslig ögon',
-        Description:
+      sensitive_eyes: {
+        name: 'Känslig ögon',
+        description:
           'Attacker mot ögonen (Vanvettigt svårt -3) gör dubbel skada',
       },
-      ObsessedWithAllThatGlimmers: {
-        Name: 'Besatt av allt som glimrar',
-        Description:
+      obsessed_with_all_that_glimmers: {
+        name: 'Besatt av allt som glimrar',
+        description:
           'Får varelsen syn på något som glimrar såsom silver eller en spegel kommer den att fokusera på källan till det',
       },
     },
-    Motivation: {
-      Motivation: 'Motivation',
-      Territory: {
-        Name: 'Revir',
-        Description: 'Bunden till sitt revir',
+    motivation: {
+      motivation: 'Motivation',
+      territory: {
+        name: 'Revir',
+        description: 'Bunden till sitt revir',
       },
-      Pregnant: {
-        Name: 'Föda avkomma',
-        Description: 'Varelsen är dräktig och vill föda sin avkomma i fred',
+      pregnant: {
+        name: 'Föda avkomma',
+        description: 'Varelsen är dräktig och vill föda sin avkomma i fred',
       },
-      Hunger: {
-        Name: 'Hungrig',
-        Description:
+      hunger: {
+        name: 'Hungrig',
+        description:
           'Varelsen är utsvulten och kommer attackera den saftigaste äventyraren och om möjligt försöka sluka henne',
       },
-      Injured: {
-        Name: 'Sjuk',
-        Description: 'Får egenskapen Skadad',
+      injured: {
+        name: 'Sjuk',
+        description: 'Får egenskapen Skadad',
       },
-      Parasite: {
-        Name: 'Parasit',
-        Description: 'Kontrollerad av parasitisk varelse, beter sig underligt',
+      parasite: {
+        name: 'Parasit',
+        description: 'Kontrollerad av parasitisk varelse, beter sig underligt',
       },
-      Alone: {
-        Name: 'Vara i fred',
-        Description: 'Anfaller bara om trängd',
+      alone: {
+        name: 'Vara i fred',
+        description: 'Anfaller bara om trängd',
       },
-      Fun: {
-        Name: 'Nöje',
-        Description: 'Jagar för nöjets skull',
+      fun: {
+        name: 'Nöje',
+        description: 'Jagar för nöjets skull',
       },
-      LookingForHost: {
-        Name: 'Letar värd',
-        Description:
+      looking_for_host: {
+        name: 'Letar värd',
+        description:
           'Letar efter en varelse som kan agera som värd för varelsens avkomma på något sätt',
       },
-      GuardingTreasure: {
-        Name: 'Skatt',
-        Description: 'Vaktar skatt',
+      guarding_treasure: {
+        name: 'Skatt',
+        description: 'Vaktar skatt',
       },
     },
-    Attack: {
-      Type: 'Typ',
-      Attack: 'Attack',
-      Attacks: 'Attacker',
-      Roll: 'Slumpa',
-      Damage: {
-        Damage: 'Skada',
-        Blunt: 'Krossskada',
-        Slash: 'Huggskada',
-        Stab: 'Stickskada',
-        NonTypical: 'Icke-typisk skada',
-        Fear: 'Skräck',
-        Disease: 'Smittvärde',
-        Poison: 'Giftstyrka',
+    attack: {
+      type: 'Typ',
+      attack: 'Attack',
+      attacks: 'Attacker',
+      roll: 'Slumpa',
+      damage: {
+        damage: 'Skada',
+        blunt: 'Krossskada',
+        slash: 'Huggskada',
+        stab: 'Stickskada',
+        non_typical: 'Icke-typisk skada',
+        fear: 'Skräck',
+        disease: 'Smittvärde',
+        poison: 'Giftstyrka',
       },
-      Range: 'Räckvidd',
-      Description: 'Effekt',
-      Bash: {
-        Type: 'Krossande',
-        Description: 'Griper tag i en äventyrare och försöker slita henne itu.',
+      range: 'Räckvidd',
+      description: 'Effekt',
+      bash: {
+        type: 'Krossande',
+        description: 'Griper tag i en äventyrare och försöker slita henne itu.',
       },
-      Bite: {
-        Type: 'Bett',
-        Description: 'Biter närmaste äventyrare med sina sylvassa tänder.',
+      bite: {
+        type: 'Bett',
+        description: 'Biter närmaste äventyrare med sina sylvassa tänder.',
       },
-      BreathFire: {
-        Type: 'Eldattack',
-        Description:
+      breath_fire: {
+        type: 'Eldattack',
+        description:
           'Eld flammar ur bestens strupe och riktar in sig på en äventyrare inom Kort avstånd. Om attacken träffar tar offret samma skada igen varje runda tills elden släckts,genom att offret självt eller en vän klarar ett slag för Rörlighet (kort handling).',
       },
-      DeadlyGaze: {
-        Type: 'Dödande blick',
-        Description:
+      deadly_gaze: {
+        type: 'Dödande blick',
+        description:
           'Den odöda besten stirrar med döda ögon rakt in i hennes själ. Utstå en skräckattack. Äventyraren faller sedan till marken.',
       },
-      Headbutt: {
-        Type: 'Skallning',
-        Description: 'Skallar en äventyrare.',
+      headbutt: {
+        type: 'Skallning',
+        description: 'Skallar en äventyrare.',
       },
-      Horn: {
-        Type: 'Stångattack',
-        Description: 'Försöker genomborra en äventyrare med sina horn.',
+      horn: {
+        type: 'Stångattack',
+        description: 'Försöker genomborra en äventyrare med sina horn.',
       },
-      Roar: {
-        Type: 'Vrål',
-        Description:
+      roar: {
+        type: 'Vrål',
+        description:
           'Ger ifrån sig ett öronbedövande vrål som ger en skräckattack alla äventyrare inom Nära avstånd.',
       },
-      Kick: {
-        Type: 'Spark',
-        Description:
+      kick: {
+        type: 'Spark',
+        description:
           'Sparkar närmaste äventyrare med fruktansvärd kraft. Om attacken träffar slungas äventyraren till Nära avstånd och landar liggande.',
       },
-      Sweep: {
-        Type: 'Svepande attack',
-        Description:
+      sweep: {
+        type: 'Svepande attack',
+        description:
           'Klor (eller liknande vapen) sveper över två äventyrare inom Nära avstånd. Offer som träffas slås även omkull.',
       },
-      Slash: {
-        Type: 'Rivande klor',
-        Description: 'River en äventyrare med sina vassa klor över kroppen.',
+      slash: {
+        type: 'Rivande klor',
+        description: 'River en äventyrare med sina vassa klor över kroppen.',
       },
-      TailsSlash: {
-        Type: 'Svansattack',
-        Description:
+      tails_slash: {
+        type: 'Svansattack',
+        description:
           'Piskar med svansspetsen mot en äventyrare inom Nära avstånd. Om attacken träffar slås offret omkull.',
       },
-      TentacleLash: {
-        Type: 'Snärtattck',
-        Description:
+      tentacle_lash: {
+        type: 'Snärtattck',
+        description:
           'Piskar med sina tentakler mot en äventyrare inom Nära avstånd. Om attacken träffar slås offret omkull.',
       },
-      Devour: {
-        Type: 'Sluka',
-        Description:
+      devour: {
+        type: 'Sluka',
+        description:
           'Försöker sluka en äventyrare och om attacken lyckas blir offret slukat helt. Äventyraren kan fortsätta anfalla besten inifrån och varelsen saknar dessutom skydd då. Offret tar sig ut när besten är död. Varje runda i bestens inre tar offret 1 poäng skada.',
       },
-      SpitAcid: {
-        Type: 'Spotta syra',
-        Description:
+      spit_acid: {
+        type: 'Spotta syra',
+        description:
           'Besten öppnar sin käft och låter ett moln av frätande syra regna över alla äventyrare inom Nära avstånd. Offer som träffas tar 1 poäng skada igen varje runda i T3 rundor.',
       },
-      DiveAttack: {
-        Type: 'Dykattack',
-        Description:
+      dive_attack: {
+        type: 'Dykattack',
+        description:
           'Sveper genom luften och river en olycklig äventyrare inom Nära avstånd med all sin kraft. Om attacken träffar slås offret till marken.',
       },
-      EyeGourge: {
-        Type: 'Stick ut öga',
-        Description:
+      eye_gourge: {
+        type: 'Stick ut öga',
+        description:
           'Besten fokuserar på en olyckligt lottad äventyrare och försöker slita ut dess ögon med sina vassa klor. Om offret tar skada får de direkt också den kritiska skadan “Sargat öga“ (resultat 42-43 på tabllen för kritisk skador stickvapen).',
       },
-      ClawFlurry: {
-        Type: 'Virvelklor',
-        Description:
+      claw_flurry: {
+        type: 'Virvelklor',
+        description:
           'Varelsen ryggar upp inför en äventyrare och river henne med tre attacker. Attackerna kan PARERAS, men en åt gången.',
       },
-      LockedJaws: {
-        Type: 'Käklås',
-        Description:
+      locked_jaws: {
+        type: 'Käklås',
+        description:
           'Varelsen biter en av äventyrarna och låser sin käke i ett brutalt grepp. Om attacken träffar hamnar offret i ett GREPP och tar 1 poäng skada per runda så länge hon är greppad.',
       },
-      ThroatBite: {
-        Type: 'Halsbett',
-        Description:
+      throat_bite: {
+        type: 'Halsbett',
+        description:
           'Varelsen ser en svag punkt och biter en äventyrare i halsen för att döda. Attacken kan PARERAS. Offret tar också halva skadan (avrundat uppåt) på KARISMA, på grund av det fruktansvärda händelsen och blir NEDKYLD.',
       },
-      TentacleFrenzy: {
-        Type: 'Tentakelfrenese',
-        Description:
+      tentacle_frenzy: {
+        type: 'Tentakelfrenese',
+        description:
           'Besten fäktar med alla sina tentakler och slår alla äventyrare inom Nära räckvid. Utför en attack mot varje äventyrare.',
       },
-      TentaclePenetrationArmsLength: {
-        Type: 'Forcerande tentakel',
-        Description:
+      tentacle_penetration_arms_length: {
+        type: 'Forcerande tentakel',
+        description:
           'Varelsen försöker tvinga en tentakel in i kroppen (som munnen, ögonen eller öronen) på en äventyrare inom Armlängds avstånd. Attacken skadar både STYRKA och KARISMA på grund av den hemska upplevelsen.',
       },
-      TentaclePenetrationNear: {
-        Type: 'Forcerande tentakel',
-        Description:
+      tentacle_penetration_near: {
+        type: 'Forcerande tentakel',
+        description:
           'Varelsen försöker tvinga en tentakel in i kroppen (som munnen, ögonen eller öronen) på en äventyrare inom Nära avstånd. Attacken skadar både STYRKA och KARISMA på grund av den hemska upplevelsen.',
       },
-      SprayFire: {
-        Type: 'Eldstorm',
-        Description:
+      spray_fire: {
+        type: 'Eldstorm',
+        description:
           'Varelse släpper ut en storm av eld som riktar en attack mot alla äventyrare inom Kort avstånd. Den här attacken kan bara användas en gång per strid.',
       },
-      SprayAcid: {
-        Type: 'Syrastorm',
-        Description:
+      spray_acid: {
+        type: 'Syrastorm',
+        description:
           'Varelse släpper ut en storm av syra som riktar en attack mot alla äventyrare inom Kort avstånd. Den här attacken kan bara användas en gång per strid.',
       },
-      ColdStrike: {
-        Type: 'Dödskyla',
-        Description:
+      cold_strike: {
+        type: 'Dödskyla',
+        description:
           'Den odöda varelsen tar tag i ett offer och låter sin iskalla dödskyla strömma in i kroppen. Om offret träffas blir det också NEDKYLD.',
       },
-      DeathScream: {
-        Type: 'Dödsskri',
-        Description:
+      death_scream: {
+        type: 'Dödsskri',
+        description:
           'Ansiktet på den odöda varelsen förvandlas till en hemsk grimas och avger ett skri som förvandlar äventyrares själar inom Nära räckvidd till is. Rulla en skräckattack. Alla offer som drabbas av attacken blir också NEDKYLD. ',
       },
-      BackwardsKick: {
-        Type: 'Backwards Kick',
-        Description:
+      backwards_kick: {
+        type: 'Backwards Kick',
+        description:
           'Odjuret vänder sig snabbt och sparkar bakut med en formidabel kraft. Om attacken träffar, kastas äventyraren till Nära avstånd och blir liggande.',
       },
-      Whirlwind: {
-        Type: 'Virvelvind',
-        Description:
+      whirlwind: {
+        type: 'Virvelvind',
+        description:
           'Besten använder sina kraftfull vingar för att skapa en virvelvind som knuffar alla äventyrare inom Nära räckvidd till marken. Alla som träffas av attacken slås till marken och blir liggande. Det går inte att DUCKA attacken.',
       },
-      Peck: {
-        Type: 'Näbbhacka',
-        Description:
+      peck: {
+        type: 'Näbbhacka',
+        description:
           'Varelsen hackar med sin näbb en äventyrare inom Armlängs avstånd.',
       },
-      Squash: {
-        Type: 'Mosa',
-        Description:
+      squash: {
+        type: 'Mosa',
+        description:
           'Den stora besten reser upp och blockerar solen med sin stora massa. Sen låter den sin kroppa falla mot äventyrarna. Låt alla slå ett RÖRLIGHET för att hoppa undan (räknas inte som en handlig). Alla inom Nära avstånd slängs till marken. Den som misslyckades medd sitt rörligetsslag träffas också av attacken som står beskriven här.',
       },
-      BeakThrow: {
-        Type: 'Näbbkast',
-        Description:
+      beak_throw: {
+        type: 'Näbbkast',
+        description:
           'Besten använder sin näbb för att få ett bra grepp på en äventyrare och kastar upp henne i lyften med en kvick snärt med näbben. Slå för attacken, om den träffar landar offret liggandes inom Nära avstånd.',
       },
-      AdventureToss: {
-        Type: 'Kast med liten äventyrare',
-        Description:
+      adventure_toss: {
+        type: 'Kast med liten äventyrare',
+        description:
           'Besten lyfter en äventyrare högt upp i luften och kastar henne som en trasdocka. Slå för attacken, om den träffar landar offret liggandes inom Kort avstånd.',
       },
-      DeathRattle: {
-        Type: 'Dödsrassel',
-        Description:
+      death_rattle: {
+        type: 'Dödsrassel',
+        description:
           'Besten hoppar till en äventyrare, biter henne och sen skakar henne och till sist kastar henne åt sidan. Slå attacken, om den träffar kastas offret till inom Nära avstånd och blir liggandes.',
       },
-      InfectedScratch: {
-        Type: 'Infektera Rivsår',
-        Description:
+      infected_scratch: {
+        type: 'Infektera Rivsår',
+        description:
           'Den sjuka varelsen river en äventyrare med sina klor. Om attacken träffar, drabbas offret även av sjukdomen.',
       },
-      DiseasedBite: {
-        Type: 'Smittande bett',
-        Description:
+      diseased_bite: {
+        type: 'Smittande bett',
+        description:
           'Den sjuka varelsen biten en äventyrare med sina huggtänder. Om attacken träffar, drabbas offret även av sjukdomen.',
       },
-      InfectedTailSwipe: {
-        Type: 'Infekterat svansriv',
-        Description:
+      infected_tail_swipe: {
+        type: 'Infekterat svansriv',
+        description:
           'Den sjuka varelsen river en äventyrare med sin spikförsedda svans. Om attacken träffar, drabbas offret även av sjukdomen.',
       },
-      InfectedTentacleSwipe: {
-        Type: 'Infekterat tentakelriv',
-        Description:
+      infected_tentacle_swipe: {
+        type: 'Infekterat tentakelriv',
+        description:
           'Den sjuka varelsen river en äventyrare med sina tentakler. Om attacken träffar, drabbas offret även av sjukdomen.',
       },
-      DiseasedTouch: {
-        Type: 'Sjuklig beröring',
-        Description:
+      diseased_touch: {
+        type: 'Sjuklig beröring',
+        description:
           'Den sjuka varelsen rör vid en äventyrare och sprider sin sjukdom. Om attacken träffar, drabbas offret även av sjukdomen.',
       },
-      Distraction: {
-        Type: 'Distraktion',
-        Description:
+      distraction: {
+        type: 'Distraktion',
+        description:
           'Besten för en plötslig distraherande rörelse som får alla äventyrare att stanna till sina attacker. Alla äventyrare inom Nära räckvid måste lyckas med ett GENOMSKÅDA eller få -1 på deras nästa handling.',
       },
-      Punch: {
-        Type: 'Slag',
-        Description:
+      punch: {
+        type: 'Slag',
+        description:
           'Varelsen knyter sin näven och svingar mot en äventyrare inom Armslängs räckvidd. Attacken kan PARERAS.',
       },
-      FlyingFists: {
-        Type: 'Fäktande nävar',
-        Description_count:
+      flying_fists: {
+        type: 'Fäktande nävar',
+        description_count:
           'Varelsen fäktar med sina armar och slår {{count}} äventyrare inom Armlängds avstånd. Varje attack kan PARERAS.',
       },
-      FistsOfFury: {
-        Type: 'Ursinniga nävar',
-        Description_count:
+      fists_of_fury: {
+        type: 'Ursinniga nävar',
+        description_count:
           'Varelsen använder alla sina armar för att slå en äventyrare {{count}} gånger. Varje attack kan PARERAS men måste PARERAS separat.',
       },
-      PoisonSpit: {
-        Type: 'Giftspott',
-        Description:
+      poison_spit: {
+        type: 'Giftspott',
+        description:
           'Varelsen spottar en boll giftigt slem mot en äventyrare inom Nära avstånd. Gör en attack, den gör ingen skada men om den träffar, drabbas offret direkt av giftet.',
       },
-      VenemousBite: {
-        Type: 'Giftbett',
-        Description:
+      venemous_bite: {
+        type: 'Giftbett',
+        description:
           'Varelsen biter en äventyrare med sina giftiga huggtänder.',
       },
-      PoisonScratch: {
-        Type: 'Giftigt klös',
-        Description: 'Varelsen klöser en äventyrare med sina giftiga klor.',
+      poison_scratch: {
+        type: 'Giftigt klös',
+        description: 'Varelsen klöser en äventyrare med sina giftiga klor.',
       },
-      PoisonTailAttack: {
-        Type: 'Giftsvans',
-        Description: 'Varelsen attackerar en äventyrare med sin giftiga svans.',
+      poison_tail_attack: {
+        type: 'Giftsvans',
+        description: 'Varelsen attackerar en äventyrare med sin giftiga svans.',
       },
-      PoisonTentacleAttack: {
-        Type: 'Gifttentakel',
-        Description: 'Varelsen attackerar en äventyrare med sin giftiga svans.',
+      poison_tentacle_attack: {
+        type: 'Gifttentakel',
+        description: 'Varelsen attackerar en äventyrare med sin giftiga svans.',
       },
-      PoisonHornAttack: {
-        Type: 'Gifthorn',
-        Description: 'Varelsen stångar en äventyrare med sina giftiga horn.',
+      poison_horn_attack: {
+        type: 'Gifthorn',
+        description: 'Varelsen stångar en äventyrare med sina giftiga horn.',
       },
-      NightmareVisions: {
-        Type: 'Mardröm',
-        Description:
+      nightmare_visions: {
+        type: 'Mardröm',
+        description:
           'Den telepatiska bester riktar in sig på en äventyrare inom Nära räckvidd och fyller hennes huvud med mardrömmar. Detta är en Skräckattack.',
       },
-      MindBurst: {
-        Type: 'Sinnessmäll',
-        Description:
+      mind_burst: {
+        type: 'Sinnessmäll',
+        description:
           'Den telepatiska besten sänder ut en kraftfull våg av negativa känslor mot alla äventyrare inom Armlängds avstånd. Detta är en Skräckattack.',
       },
-      Taunt: {
-        Type: 'Håna',
-        Description:
+      taunt: {
+        type: 'Håna',
+        description:
           'Varelsen hånar och hotar äventyrarna med fruktansvärda beskrivningar av vad besten ska göra mot dem. Alla äventyrare inom Nära avstånd utsätts för en Skräckattack.',
       },
-      Plea: {
-        Type: 'Vädjan',
-        Description:
+      plea: {
+        type: 'Vädjan',
+        description:
           'Varelsen vädjar äventyrarna att inte skada denne, lekandes med deras känslor. Alla äventyrare inom Nära räckvid påverkas och måste slå KARISMA för att kunna fortsätta anfalla (som Nådastöt). Annars förlorar de sin nästa handling (Talangen Kallblodig kan användas som försvar mot attackens effekter).',
       },
-      Burrow: {
-        Type: 'Grävande Attack',
-        Description:
+      burrow: {
+        type: 'Grävande Attack',
+        description:
           'Varelsen gräver fort ned sig, rör sig mot en äventyrare och dyker upp ur jorden attackerandes. Marken är nu svår att stå på (-1 på alla handlingar).',
       },
-      TheGroundShatters: {
-        Type: 'Marken skälver',
-        Description:
+      the_ground_shatters: {
+        type: 'Marken skälver',
+        description:
           'Besten dyker ner under marken och använder sin massa för att skälva marken run äventyrarna. Alla äventyrare inom Nära avstånd faller 2T6 meter och landar liggandes.',
       },
-      Rush: {
-        Type: 'Anstorma',
-        Description:
+      rush: {
+        type: 'Anstorma',
+        description:
           'Varelsen springer mot en äventyrare inom Nära räckvidd, försöker knuffa eller fälla henne. Om attacken träffar faller offret till marken och blir liggandes.',
       },
-      WrapAttack: {
-        Type: 'Dödskram',
-        Description:
+      wrap_attack: {
+        type: 'Dödskram',
+        description:
           'Varelsen slingrar sig mot en äventyrare och försöker omfamna en lem. Om attacken lyckas, har besten henne i ett GREPP och hon tar 1 poäng skada per runda tills någon får bort besten.',
       },
-      FallFromTheSky: {
-        Type: 'Skyfall',
-        Description:
+      fall_from_the_sky: {
+        type: 'Skyfall',
+        description:
           'Besten grabbar tag i en äventyrare inom Nära räckvid och lyfter upp henne i skyn. Om attacken lyckas, lyfts både besten och offret uppåt till Kort avstånd från marken. Nästa runda släpper besten offret som faller 2T6+10 meter och tar fallskada (se sida 109 i Spelarboken).',
       },
-      RainOfRocks: {
-        Type: 'Stenregn',
-        Description:
+      rain_of_rocks: {
+        type: 'Stenregn',
+        description:
           'Varelsen kastar stenar och annat skräp från lyften. Alla äventyrare inom Nära räckvid utsätts för en attack.',
       },
-      Stab: {
-        Type: 'Stick',
-        Description: 'Besten hugger en äventyrare med något vasst som en klo.',
+      stab: {
+        type: 'Stick',
+        description: 'Besten hugger en äventyrare med något vasst som en klo.',
       },
-      Pounce: {
-        Type: 'Påhoppad',
-        Description:
+      pounce: {
+        type: 'Påhoppad',
+        description:
           'Besten hoppar på en äventyrare inom Nära räckvidd och försöker knuffa eller fälla henne. Om attacken träffar faller offret till marken och blir liggandes.',
       },
-      Webshot: {
-        Type: 'Nätskott',
-        Description:
+      webshot: {
+        type: 'Nätskott',
+        description:
           'Varelsen skjuter ett nät mot alla äverntyrare inom Nära avstånd som vid träff gör att de blir fast i nätet. De kan bryta sig loss genom att slå mot 6 tärningar. Nätet applicerar även ett paralyserande gift med potens 1.',
       },
-      PiercingShriek: {
-        Type: 'Piercing Shriek',
-        Description:
+      piercing_shriek: {
+        type: 'Piercing Shriek',
+        description:
           'Varelsen gör ifrån sig ett skrik som når ändå in i själen på alla äventyrare inom Nära avstånd som får en Skräckattack mot sig',
       },
-      CallTheBrood: {
-        Type: 'Call The Brood',
-        Description:
+      call_the_brood: {
+        type: 'Call The Brood',
+        description:
           'Varelsen ropar på sin kull, ropet får 1D6 av dem att komma till hjälp.',
       },
-      Generic: {
-        Type: 'Attack',
-        Description: 'Besten attackerar en äventyrare inom Armslängds avstånd.',
+      generic: {
+        type: 'Attack',
+        description: 'Besten attackerar en äventyrare inom Armslängds avstånd.',
       },
     },
   },
   names: {
-    Title: 'Namn',
-    CreateNewNames: 'Nya namn',
-    OF: 'av',
-    THE: 'den',
-    NickNames: {
-      Adventurous: 'Äventyrlige',
-      Angry: 'Arge',
-      Bald: 'Skallige',
-      Bloody: 'Blodige',
-      Bold: 'Djärve',
-      Accurate: 'Noggranne',
-      Sloppy: 'Slarvige',
-      Careful: 'Försiktig',
-      Able: 'Duktige',
-      Confused: 'Förvirrade',
-      Cruel: 'Grymme',
-      Direct: 'Direkte',
-      Dashing: 'Energiske',
-      Thick: 'Tjocka',
-      Wary: 'Varsamme',
-      Good: 'Gode',
-      Hairy: 'Hårige',
-      Stylish: 'Stilige',
-      Blessed: 'Lycklige',
-      Jumping: 'Hoppfulle',
-      Hopeful: 'Hoppfulle',
-      Cheerful: 'Muntra',
-      Happy: 'Glad',
-      Mighty: 'Mäktige',
-      Gentle: 'Lindriga',
-      Misled: 'Vilseledne',
-      Somber: 'Dystere',
-      Old: 'Gamle',
-      KeenEyed: 'Skarpsynte',
-      Proud: 'Stolte',
-      Trustworthy: 'Pålitlige',
-      Sad: 'Ledsne',
-      Short: 'Korte',
-      Sleepy: 'Sömnig',
-      Slow: 'Långsamme',
-      Powerful: 'Kraftige',
-      Strong: 'Starke',
-      Honest: 'Ärlige',
-      Fast: 'Snabbe',
-      Talkative: 'Pratsamme',
-      Long: 'Långe',
-      Terrible: 'Fruktansvärde',
-      Thin: 'Tunne',
-      Ugly: 'Fule',
-      Vain: 'Fåfänglige',
-      Weak: 'Svage',
-      Wise: 'Vise',
-      Young: 'Unge',
+    title: 'Namn',
+    create_new_names: 'Nya namn',
+    of: 'av',
+    the: 'den',
+    nick_names: {
+      adventurous: 'Äventyrlige',
+      angry: 'Arge',
+      bald: 'Skallige',
+      bloody: 'Blodige',
+      bold: 'Djärve',
+      accurate: 'Noggranne',
+      sloppy: 'Slarvige',
+      careful: 'Försiktig',
+      able: 'Duktige',
+      confused: 'Förvirrade',
+      cruel: 'Grymme',
+      direct: 'Direkte',
+      dashing: 'Energiske',
+      thick: 'Tjocka',
+      wary: 'Varsamme',
+      good: 'Gode',
+      hairy: 'Hårige',
+      stylish: 'Stilige',
+      blessed: 'Lycklige',
+      jumping: 'Hoppfulle',
+      hopeful: 'Hoppfulle',
+      cheerful: 'Muntra',
+      happy: 'Glad',
+      mighty: 'Mäktige',
+      gentle: 'Lindriga',
+      misled: 'Vilseledne',
+      somber: 'Dystere',
+      old: 'Gamle',
+      keen_eyed: 'Skarpsynte',
+      proud: 'Stolte',
+      trustworthy: 'Pålitlige',
+      sad: 'Ledsne',
+      short: 'Korte',
+      sleepy: 'Sömnig',
+      slow: 'Långsamme',
+      powerful: 'Kraftige',
+      strong: 'Starke',
+      honest: 'Ärlige',
+      fast: 'Snabbe',
+      talkative: 'Pratsamme',
+      long: 'Långe',
+      terrible: 'Fruktansvärde',
+      thin: 'Tunne',
+      ugly: 'Fule',
+      vain: 'Fåfänglige',
+      weak: 'Svage',
+      wise: 'Vise',
+      young: 'Unge',
     },
   },
   npc: {
-    Title: 'SLP',
-    NpcButton: 'Slumpa spelledarperson',
-    Occupation: {
-      Soldier: 'Soldat',
-      FortuneSeeker: 'Lycksökare',
-      Bandit: 'Rövare',
-      SlaveTrader: 'Slavhandlare',
-      TreasureHunter: 'Skattletare',
-      Beggar: 'Tiggare',
-      Actor: 'Skådespelare',
-      Lumberjack: 'Skogshuggare',
-      Hunter: 'Jägare',
-      Farmer: 'Bonde',
-      Laborer: 'Dräng',
-      Jester: 'Gycklare',
-      Wanderer: 'Vandrare',
-      Fisher: 'Fiskare',
-      Noble: 'Ädling',
-      Child: 'Barn',
-      Trader: 'Nasare',
-      Brewer: 'Bryggare',
-      Carpenter: 'Snickare',
-      Apprentice: 'Lärling',
-      Thief: 'Tjuv',
-      Druid: 'Druid',
-      Baker: 'Bagare',
-      Refugee: 'Flykting',
-      Assassin: 'Lönnmördare',
-      Smith: 'Smed',
-      Gravedigger: 'Dödgrävare',
-      RustBrother: 'Rostbroder',
-      Shepherd: 'Herde',
-      Braggart: 'Sprätthök',
-      Cook: 'Kock',
-      Cultist: 'Kultist',
-      Guard: 'Vakt',
-      Messenger: 'Budbärare',
-      Miner: 'Gruvarbetare',
-      Academic: 'Akademiker',
+    title: 'SLP',
+    npc_button: 'Slumpa spelledarperson',
+    occupation: {
+      soldier: 'Soldat',
+      fortune_seeker: 'Lycksökare',
+      bandit: 'Rövare',
+      slave_trader: 'Slavhandlare',
+      treasure_hunter: 'Skattletare',
+      beggar: 'Tiggare',
+      actor: 'Skådespelare',
+      lumberjack: 'Skogshuggare',
+      hunter: 'Jägare',
+      farmer: 'Bonde',
+      laborer: 'Dräng',
+      jester: 'Gycklare',
+      wanderer: 'Vandrare',
+      fisher: 'Fiskare',
+      noble: 'Ädling',
+      child: 'Barn',
+      trader: 'Nasare',
+      brewer: 'Bryggare',
+      carpenter: 'Snickare',
+      apprentice: 'Lärling',
+      thief: 'Tjuv',
+      druid: 'Druid',
+      baker: 'Bagare',
+      refugee: 'Flykting',
+      assassin: 'Lönnmördare',
+      smith: 'Smed',
+      gravedigger: 'Dödgrävare',
+      rust_brother: 'Rostbroder',
+      shepherd: 'Herde',
+      braggart: 'Sprätthök',
+      cook: 'Kock',
+      cultist: 'Kultist',
+      guard: 'Vakt',
+      messenger: 'Budbärare',
+      miner: 'Gruvarbetare',
+      academic: 'Akademiker',
     },
-    Characteristic: {
-      IceBlueEyes: 'Isblå ögon',
-      FluffyHair: 'Svallande hårman',
-      ScarredFace: 'Ärrat ansikte',
-      SeveredEar: 'Avhugget öra',
-      EyePatch: 'Lapp för ena ögat',
-      MissingTeeth: 'Saknar tänder',
-      Graceful: 'Finlemmad',
-      Towering: 'Reslig',
-      ImpressiveBeardOrHair: 'Imponerande skäggväxt eller hår',
-      RoundCheeks: 'Äppelkindad',
-      DistinctBirthmark: 'Tydligt födelsemärke',
-      StrangeFacialPaint: 'Märklig sminkning',
-      SadEyes: 'Sorgsna ögon',
-      SmellsBad: 'Luktar illa',
-      Perfumed: 'Luktar gott',
-      Cocky: 'Kaxig',
-      ConstantlySmiling: 'Ler konstant',
-      Sullen: 'Surmulen',
-      ConstantlyJoking: 'Skämtar oavbrutet',
-      Lovesick: 'Kärlekskrank',
-      Elegant: 'Elegant',
-      Tattooed: 'Tatuerad',
-      ConstantlyEating: 'Äter konstant',
-      Desperate: 'Förtvivlad',
-      Hateful: 'Hatisk',
-      Sweaty: 'Svettig',
-      Drunk: 'Berusad',
-      Suspicious: 'Misstänksam',
-      VeryBeautiful: 'Mycket vacker',
-      Foppish: 'Snobbig',
-      Fat: 'Fet',
-      Seducing: 'Förförisk',
-      Lazy: 'Slö',
-      VeryTired: 'Stirrig',
-      Wiry: 'Senig',
-      UnkemptEyeBrows: 'Dammig',
+    characteristic: {
+      ice_blue_eyes: 'Isblå ögon',
+      fluffy_hair: 'Svallande hårman',
+      scarred_face: 'Ärrat ansikte',
+      severed_ear: 'Avhugget öra',
+      eye_patch: 'Lapp för ena ögat',
+      missing_teeth: 'Saknar tänder',
+      graceful: 'Finlemmad',
+      towering: 'Reslig',
+      impressive_beard_or_hair: 'Imponerande skäggväxt eller hår',
+      round_cheeks: 'Äppelkindad',
+      distinct_birthmark: 'Tydligt födelsemärke',
+      strange_facial_paint: 'Märklig sminkning',
+      sad_eyes: 'Sorgsna ögon',
+      smells_bad: 'Luktar illa',
+      perfumed: 'Luktar gott',
+      cocky: 'Kaxig',
+      constantly_smiling: 'Ler konstant',
+      sullen: 'Surmulen',
+      constantly_joking: 'Skämtar oavbrutet',
+      lovesick: 'Kärlekskrank',
+      elegant: 'Elegant',
+      tattooed: 'Tatuerad',
+      constantly_eating: 'Äter konstant',
+      desperate: 'Förtvivlad',
+      hateful: 'Hatisk',
+      sweaty: 'Svettig',
+      drunk: 'Berusad',
+      suspicious: 'Misstänksam',
+      very_beautiful: 'Mycket vacker',
+      foppish: 'Snobbig',
+      fat: 'Fet',
+      seducing: 'Förförisk',
+      lazy: 'Slö',
+      very_tired: 'Stirrig',
+      wiry: 'Senig',
+      unkempt_eye_brows: 'Dammig',
     },
-    Quirk: {
-      FamilyDream:
+    quirk: {
+      family_dream:
         'Drömmer om familj och hus, kommer göra vad som helst för att få det.',
-      SkillGambler: 'En fena på hasardspel, portad i tre byar.',
-      HauntedByDream: 'Hemsöks av drömmar om en inne bränd familj. Ser i syne.',
-      ChewingNarcotics:
+      skill_gambler: 'En fena på hasardspel, portad i tre byar.',
+      haunted_by_dream:
+        'Hemsöks av drömmar om en inne bränd familj. Ser i syne.',
+      chewing_narcotics:
         'Tuggar på narkotiska blad, stirrig blick och dåligt humör.',
-      HasTreasureMap:
+      has_treasure_map:
         'Överentusiastisk. Har en skattkarta men inga levande kumpaner.',
-      AlderSpy: 'En alderländsk spion i förklädnad.Drar sig inte för att döda.',
-      TooSensitive: 'För känslig för denna grymma värld.',
-      Squeamish: 'Blödig och gråtmild.',
-      ObsessedWithMonster:
+      alder_spy:
+        'En alderländsk spion i förklädnad.Drar sig inte för att döda.',
+      too_sensitive: 'För känslig för denna grymma värld.',
+      squeamish: 'Blödig och gråtmild.',
+      obsessed_with_monster:
         'Besatt av att hitta legendarisk best, kommer inte ge sig förrän någon av dem är döda.',
-      Cultist: 'Kultist, letar nya offer.',
-      SleepsBad: 'Sover dåligt, ser heliga syner om nätterna.',
-      LegendaryPickpocket: 'Legendarisk ficktjuv som ständigt byter identitet.',
-      OnlySurvivor: 'Enda överlevande från nedbrunnen by. Pyroman.',
-      WorshipsGodInTheDeep: 'Tillber guden i djupet.',
-      PossessedByDemon: 'Besatt av nyckfull demon.',
-      AvengeParent: 'Planerar att hämnas sin mördade far.',
-      Bankrupt:
+      cultist: 'Kultist, letar nya offer.',
+      sleeps_bad: 'Sover dåligt, ser heliga syner om nätterna.',
+      legendary_pickpocket:
+        'Legendarisk ficktjuv som ständigt byter identitet.',
+      only_survivor: 'Enda överlevande från nedbrunnen by. Pyroman.',
+      worships_god_in_the_deep: 'Tillber guden i djupet.',
+      possessed_by_demon: 'Besatt av nyckfull demon.',
+      avenge_parent: 'Planerar att hämnas sin mördade far.',
+      bankrupt:
         'Bankrutt, men har en sista stor slagen plan för att rädda sin verksamhet.',
-      HatesCompetitor:
+      hates_competitor:
         'Avskyr en konkurrent och gör vad som helst för att bli av med denne.',
-      HidesSecret: 'Döljer en mörk hemlighet.',
-      WillDoAnything:
+      hides_secret: 'Döljer en mörk hemlighet.',
+      will_do_anything:
         'Gör vad som helst för att få sin vilja igenom. Vad som helst.',
-      ExpensiveHabits: 'Har dyrbara vanor och smiter gärna från notan.',
-      LikesToScare: 'Gillar att skrämma folk.',
-      BelievesToBeRoyal: 'Tror sig vara av kunglig ätt.',
-      WantsRevenge: 'Vill hämnas mer än allt annat.',
-      InterestedPoetry: 'Intresserad av poesi.',
-      Cheater: 'Notoriskt otrogen.',
-      Gossips: 'Vet allt om alla och berättar gärna.',
-      Doubter: 'Hyser starka tvivel.',
-      DreamsOfKilling: 'Drömmer om att döda någon.',
-      Touchy: 'Gillar att röra vid folk.',
-      Storyteller: 'Är en gudabenådad berättare.',
-      WillTakeOver: 'Tänker ta över en dag.',
-      CravingBeer: 'Väldigt sugen på ett stop öl.',
-      BelievesToBeFolllowed: 'Tror sig vara förföljd.',
-      Swears: 'Svär hela tiden.',
-      TheoryOfWorld:
+      expensive_habits: 'Har dyrbara vanor och smiter gärna från notan.',
+      likes_to_scare: 'Gillar att skrämma folk.',
+      believes_to_be_royal: 'Tror sig vara av kunglig ätt.',
+      wants_revenge: 'Vill hämnas mer än allt annat.',
+      interested_poetry: 'Intresserad av poesi.',
+      cheater: 'Notoriskt otrogen.',
+      gossips: 'Vet allt om alla och berättar gärna.',
+      doubter: 'Hyser starka tvivel.',
+      dreams_of_killing: 'Drömmer om att döda någon.',
+      touchy: 'Gillar att röra vid folk.',
+      storyteller: 'Är en gudabenådad berättare.',
+      will_take_over: 'Tänker ta över en dag.',
+      craving_beer: 'Väldigt sugen på ett stop öl.',
+      believes_to_be_folllowed: 'Tror sig vara förföljd.',
+      swears: 'Svär hela tiden.',
+      theory_of_world:
         'Har en teori om världens beskaffenhet. Berättar gärna om den.',
     },
   },
   session: {
-    Title: 'Spelmöte',
-    Legend: 'Nytt sägen',
-    ALongTimeAgo: 'För länge sedan',
-    YearsAgo: '({{years}} år sedan)',
-    ThereWas: 'var det',
-    WhoSearched: 'som sökte',
-    BecauseOf: 'på grund av',
-    AndTraveledTo: 'och begav sig till',
-    Located: 'som ligger',
-    In: 'i',
-    InTheDirectionOf: 'i riktning',
-    AsTheLegendGoesItIsSaidThat: 'Enligt sägnen sägs det att hen',
-    AsTheLegendGoesItIsSaidThat_Third: 'Enligt sägnen sägs det att de',
-    AndThatAtTheLocationThere: 'och på platsen finns',
-    ButAlso: 'men också',
-    TimeAgo: {
-      BeforeShift: 'innan skiftet',
-      BeforeBloodMist: 'innan blodsdimman',
-      DuringAlderWars: 'under de alderländska krigen',
-      DuringBloodMist: 'under blodsdimmans tid',
+    title: 'Spelmöte',
+    legend: 'Nytt sägen',
+    along_time_ago: 'För länge sedan',
+    years_ago: '({{years}} år sedan)',
+    there_was: 'var det',
+    who_searched: 'som sökte',
+    because_of: 'på grund av',
+    and_traveled_to: 'och begav sig till',
+    located: 'som ligger',
+    in: 'i',
+    in_the_direction_of: 'i riktning',
+    as_the_legend_goes_it_is_said_that: 'Enligt sägnen sägs det att hen',
+    as_the_legend_goes_it_is_said_that_third: 'Enligt sägnen sägs det att de',
+    and_that_at_the_location_there: 'och på platsen finns',
+    but_also: 'men också',
+    time_ago: {
+      before_shift: 'innan skiftet',
+      before_blood_mist: 'innan blodsdimman',
+      during_alder_wars: 'under de alderländska krigen',
+      during_blood_mist: 'under blodsdimmans tid',
     },
-    Adjective: {
-      BloodThirsty: 'en blodtörstig',
-      Vengeful: 'en hämndlysten',
-      Greedy: 'en girig',
-      Unhappy: 'en olyckligt',
-      Ingenious: 'en påhittig',
-      Enterprising: 'en driftig',
-      Kind: 'en vänlig',
-      Perseverant: 'en uthållig',
-      Treacherous: 'en lömsk',
-      Moral: 'en moralisk',
-      Skilled: 'en skicklig',
-      Stingy: 'en snål',
-      Vain: 'en fåfäng',
-      Wise: 'en vis',
-      Beautiful: 'en vacker',
-      Honorable: 'en ärofull',
-      Jealous: 'en missunnsam',
-      Cruel: 'en grym',
-      Determined: 'en handlingskraftig',
-      Cunning: 'en listig',
-      Scared: 'en rädd',
-      Evil: 'en ond',
+    adjective: {
+      blood_thirsty: 'en blodtörstig',
+      vengeful: 'en hämndlysten',
+      greedy: 'en girig',
+      unhappy: 'en olyckligt',
+      ingenious: 'en påhittig',
+      enterprising: 'en driftig',
+      kind: 'en vänlig',
+      perseverant: 'en uthållig',
+      treacherous: 'en lömsk',
+      moral: 'en moralisk',
+      skilled: 'en skicklig',
+      stingy: 'en snål',
+      vain: 'en fåfäng',
+      wise: 'en vis',
+      beautiful: 'en vacker',
+      honorable: 'en ärofull',
+      jealous: 'en missunnsam',
+      cruel: 'en grym',
+      determined: 'en handlingskraftig',
+      cunning: 'en listig',
+      scared: 'en rädd',
+      evil: 'en ond',
     },
-    WhoOrWhat: {
-      Elf: 'alv',
-      Dwarf: 'dvärg',
-      Peddler: 'nasare',
-      Smith: 'smed',
-      Farmer: 'bonde',
-      Apprentice: 'lärling',
-      Druid: 'druid',
-      Shepherd: 'herde',
-      RavenSister: 'korpsyster',
-      RustBrother: 'rostbroder',
-      Rider: 'riddare/ryttare',
-      TreasureHunter: 'skattletare',
-      Priest: 'präst',
-      Sorcerer: 'magiker',
-      RobberChieftain: 'rövarhövding',
-      Warrior: 'krigare',
-      Lord: 'furste',
-      Prince: 'prins',
-      Princess: 'prinsessa',
-      Queen: 'drottning',
-      King: 'kung',
-      Soldiers: 'trupp',
-      Village: 'by',
-      Cult: 'kult',
-      BandOfRobbers: 'rövarband',
-      Cabal: 'kabal',
-      Monster: 'monster',
+    who_or_what: {
+      elf: 'alv',
+      dwarf: 'dvärg',
+      peddler: 'nasare',
+      smith: 'smed',
+      farmer: 'bonde',
+      apprentice: 'lärling',
+      druid: 'druid',
+      shepherd: 'herde',
+      raven_sister: 'korpsyster',
+      rust_brother: 'rostbroder',
+      rider: 'riddare/ryttare',
+      treasure_hunter: 'skattletare',
+      priest: 'präst',
+      sorcerer: 'magiker',
+      robber_chieftain: 'rövarhövding',
+      warrior: 'krigare',
+      lord: 'furste',
+      prince: 'prins',
+      princess: 'prinsessa',
+      queen: 'drottning',
+      king: 'kung',
+      soldiers: 'trupp',
+      village: 'by',
+      cult: 'kult',
+      band_of_robbers: 'rövarband',
+      cabal: 'kabal',
+      monster: 'monster',
     },
-    SearchedFor: {
-      Weapon: 'ett vapen',
-      Love: 'en kärlek',
-      Friend: 'en vän i nöd',
-      Enemy: 'en fiende',
-      Treasure: 'en skatt',
-      Map: 'en karta',
-      FamilyMember: 'en familjemedlem',
-      Artifact: 'en artefakt',
-      Monster: 'ett monster',
+    searched_for: {
+      weapon: 'ett vapen',
+      love: 'en kärlek',
+      friend: 'en vän i nöd',
+      enemy: 'en fiende',
+      treasure: 'en skatt',
+      map: 'en karta',
+      family_member: 'en familjemedlem',
+      artifact: 'en artefakt',
+      monster: 'ett monster',
     },
-    Because: {
-      Love: 'kärlek',
-      Friendship: 'vänskap',
-      Promise: 'ett löfte',
-      Prophecy: 'en profetia',
-      Bet: 'ett vad',
-      Duty: 'plikt',
-      War: 'krig',
-      Honor: 'ära',
-      Insanity: 'vansinne',
-      Dreams: 'drömmar',
-      Greed: 'girighet',
+    because: {
+      love: 'kärlek',
+      friendship: 'vänskap',
+      promise: 'ett löfte',
+      prophecy: 'en profetia',
+      bet: 'ett vad',
+      duty: 'plikt',
+      war: 'krig',
+      honor: 'ära',
+      insanity: 'vansinne',
+      dreams: 'drömmar',
+      greed: 'girighet',
     },
-    Location: {
-      Ruin: 'en ruin',
-      Farm: 'en gård',
-      Grave: 'en grav',
-      Tower: 'ett torn',
-      Fortress: 'en borg',
-      Village: 'en by',
-      Cave: 'en grotta',
-      Hill: 'en kulle',
-      Tree: 'ett träd',
-      WaterSource: 'en vattenkälla',
+    location: {
+      ruin: 'en ruin',
+      farm: 'en gård',
+      grave: 'en grav',
+      tower: 'ett torn',
+      fortress: 'en borg',
+      village: 'en by',
+      cave: 'en grotta',
+      hill: 'en kulle',
+      tree: 'ett träd',
+      water_source: 'en vattenkälla',
     },
-    Distance: {
-      Here: 'här',
-      CloseBy: 'i närheten',
-      OneDaysMarch: 'en dagsmarsch bort',
-      ManyDaysMarch: 'flera dagsmarscher bort',
-      FarAway: 'i fjärran',
-      TheOtherSide: 'på andra sidan Det glömda landet',
+    distance: {
+      here: 'här',
+      close_by: 'i närheten',
+      one_days_march: 'en dagsmarsch bort',
+      many_days_march: 'flera dagsmarscher bort',
+      far_away: 'i fjärran',
+      the_other_side: 'på andra sidan Det glömda landet',
     },
-    WhatHappened: {
-      Betrayed: 'blev förrådd',
-      Betrayed_Third: 'blev förrådda',
-      Murdered: 'blev mördad',
-      Murdered_Third: 'blev mördade',
-      NeverSeenAgain: 'aldrig sågs mer',
-      NeverSeenAgain_Third: 'aldrig sågs mer',
-      StarvedToDeath: 'svalt ihjäl',
-      StarvedToDeath_Third: 'svalt ihjäl',
-      CommitedSuicide: 'tog livet av sig',
-      CommitedSuicide_Third: 'tog livet av sig',
-      DiedInBattle: 'dog i strid',
-      DiedInBattle_Third: 'dog i strid',
-      Charmed: 'blev förtrollad',
-      Charmed_Third: 'blev förtrollade',
-      Possessed: 'blev besatt',
-      Possessed_Third: 'blev besatta',
-      CameBackChanged: 'kom tillbaka förändrad',
-      CameBackChanged_Third: 'kom tillbaka förändrade',
-      StillLooking: 'fortfarande letar',
-      StillLooking_Third: 'fortfarande letar',
+    what_happened: {
+      betrayed: 'blev förrådd',
+      betrayed_third: 'blev förrådda',
+      murdered: 'blev mördad',
+      murdered_third: 'blev mördade',
+      never_seen_again: 'aldrig sågs mer',
+      never_seen_again_third: 'aldrig sågs mer',
+      starved_to_death: 'svalt ihjäl',
+      starved_to_death_third: 'svalt ihjäl',
+      commited_suicide: 'tog livet av sig',
+      commited_suicide_third: 'tog livet av sig',
+      died_in_battle: 'dog i strid',
+      died_in_battle_third: 'dog i strid',
+      charmed: 'blev förtrollad',
+      charmed_third: 'blev förtrollade',
+      possessed: 'blev besatt',
+      possessed_third: 'blev besatta',
+      came_back_changed: 'kom tillbaka förändrad',
+      came_back_changed_third: 'kom tillbaka förändrade',
+      still_looking: 'fortfarande letar',
+      still_looking_third: 'fortfarande letar',
     },
-    ItsToldThat: {
-      Gold: 'guld, massor av guld',
-      Artifact: 'en kraftfull artefakt',
-      Armor: 'en rustning',
-      Weapon: 'ett vapen',
-      Book: 'en ovärderlig bok',
-      Treasure: 'en stor skatt',
-      WarChest: 'en försvunnen krigskassa',
-      Remains: 'lämningarna av en viktig pers',
-      DwarvenArtifact: 'en dvärgisk artefakt',
-      ElfRuby: 'en alvrubin',
+    its_told_that: {
+      gold: 'guld, massor av guld',
+      artifact: 'en kraftfull artefakt',
+      armor: 'en rustning',
+      weapon: 'ett vapen',
+      book: 'en ovärderlig bok',
+      treasure: 'en stor skatt',
+      war_chest: 'en försvunnen krigskassa',
+      remains: 'lämningarna av en viktig pers',
+      dwarven_artifact: 'en dvärgisk artefakt',
+      elf_ruby: 'en alvrubin',
     },
-    AdjectiveAdversary: {
-      Aggresive: 'aggresiva',
-      BloodThirsty: 'blodtörstiga',
-      Cruel: 'grymma',
-      Horrible: 'fasansfulla',
-      Hungry: 'hungriga',
-      Guarding: 'vaktande',
-      Starving: 'utsvultna',
-      Greedy: 'giriga',
-      Crazy: 'galna',
-      Murderous: 'mordiska',
-      Manic: 'maniska',
-      Hunting: 'jagande',
+    adjective_adversary: {
+      aggresive: 'aggresiva',
+      blood_thirsty: 'blodtörstiga',
+      cruel: 'grymma',
+      horrible: 'fasansfulla',
+      hungry: 'hungriga',
+      guarding: 'vaktande',
+      starving: 'utsvultna',
+      greedy: 'giriga',
+      crazy: 'galna',
+      murderous: 'mordiska',
+      manic: 'maniska',
+      hunting: 'jagande',
     },
-    Adversary: {
-      WolfKin: 'vargmän',
-      SlaveTraders: 'slavhandlare',
-      Orcs: 'orcher',
-      Ghosts: 'gastar',
-      Saurians: 'reptilfolk',
-      IronGuards: 'järngardister',
-      Undead: 'odöda',
-      Robbers: 'rövare',
-      Goblins: 'svartalfer',
-      Ogres: 'resar',
-      Demon_One: 'en demon',
-      Demon_Two: 'två demoner',
-      DemonWithCount: 'demoner',
+    adversary: {
+      wolf_kin: 'vargmän',
+      slave_traders: 'slavhandlare',
+      orcs: 'orcher',
+      ghosts: 'gastar',
+      saurians: 'reptilfolk',
+      iron_guards: 'järngardister',
+      undead: 'odöda',
+      robbers: 'rövare',
+      goblins: 'svartalfer',
+      ogres: 'resar',
+      demon_one: 'en demon',
+      demon_two: 'två demoner',
+      demon_with_count: 'demoner',
     },
   },
   typical: {
-    Title: 'Typisk person från släkte',
+    title: 'Typisk person från släkte',
   },
   village: {
-    PageTitle: 'Skapa din by',
-    PageDescription:
+    page_title: 'Skapa din by',
+    page_description:
       'I spelledarboken går det att slumpa fram en by med hjälp av tabeller och tärningar. Här har det digitaliserats och utökats med fler detaljer.',
-    CreateNewVillage: 'Skapa ny by',
-    Size: {
+    create_new_village: 'Skapa ny by',
+    size: {
       outpost: 'Utpost',
       hamlet: 'Liten by',
       village: 'Stor by',
     },
-    Age: 'Byålder',
-    Inhabitants: 'Invånare',
-    Years: 'år',
-    Ages: {
-      beforeBloodMist: 'Innan blodsdimman',
-      duringAlderWars: 'Under de alderländska krigen',
-      duringBloodMist: 'Under blodsdimmans tid',
-      afterBloodMist: 'Efter blodsdimman',
+    age: 'Byålder',
+    inhabitants: 'Invånare',
+    years: 'år',
+    ages: {
+      before_blood_mist: 'Innan blodsdimman',
+      during_alder_wars: 'Under de alderländska krigen',
+      during_blood_mist: 'Under blodsdimmans tid',
+      after_blood_mist: 'Efter blodsdimman',
     },
-    Founded: 'Grundad',
-    Quirks: 'Egendomligheter',
-    Problems: {
-      Problem: 'Problem',
+    founded: 'Grundad',
+    quirks: 'Egendomligheter',
+    problems: {
+      problem: 'Problem',
       nightwargs: 'Ulvar',
-      widespreadDrunkenness: 'Utbredd fylla',
-      powerStruggle: 'Maktkamp',
-      secretCult: 'Hemlig kult',
+      widespread_drunkenness: 'Utbredd fylla',
+      power_struggle: 'Maktkamp',
+      secret_cult: 'Hemlig kult',
       schism: 'Schism',
       undead: 'Odöda',
       disease: 'Sjukdom',
       sinkhole: 'Slukhål',
       bandits: 'Rövare',
-      terrorizingMonster: 'Terroriserande monster',
-      slaveTrade: 'Slavhandel',
-      hauntedByGhoulOrGhost: 'Hemsökt av gast',
+      terrorizing_monster: 'Terroriserande monster',
+      slave_trade: 'Slavhandel',
+      haunted_by_ghoul_or_ghost: 'Hemsökt av gast',
     },
-    Fames: {
-      Fame: 'Kännetecken',
-      excellentWine: 'Välsmakande vin',
-      deliciousBread: 'Gott bröd',
+    fames: {
+      fame: 'Kännetecken',
+      excellent_wine: 'Välsmakande vin',
+      delicious_bread: 'Gott bröd',
       craftsmanship: 'Hantverksskicklighet',
-      beautifulLocation: 'Vackert läge',
-      aHorribleMassacre: 'En frukansvärd massaker',
+      beautiful_location: 'Vackert läge',
+      a_horrible_massacre: 'En frukansvärd massaker',
       decadence: 'Dekadens',
-      wellBrewedBeer: 'Välbryggt öl',
-      hiddenRiches: 'Gömda rikedomar',
-      strangeDisappearances: 'Märkliga försvinnanden',
-      worshippingDemons: 'Demondyrkan',
-      suspicionOfStrangers: 'Misstänksamhet mot främlingar',
+      well_brewed_beer: 'Välbryggt öl',
+      hidden_riches: 'Gömda rikedomar',
+      strange_disappearances: 'Märkliga försvinnanden',
+      worshipping_demons: 'Demondyrkan',
+      suspicion_of_strangers: 'Misstänksamhet mot främlingar',
       hospitality: 'Gästfrihet',
     },
-    Oddities: {
-      Oddity: 'Egenhet',
-      eccentricClothing: 'Udda klädedräkter',
-      incomprehensibleAccent: 'Obegriplig dialekt',
-      smellsBad: 'Lukar illa',
-      fullOfFlowers: 'Full av blommor',
+    oddities: {
+      oddity: 'Egenhet',
+      eccentric_clothing: 'Udda klädedräkter',
+      incomprehensible_accent: 'Obegriplig dialekt',
+      smells_bad: 'Lukar illa',
+      full_of_flowers: 'Full av blommor',
       muddy: 'Lerig',
-      oddBuildingMaterials: 'Udda byggnadsmaterial',
-      tentVillage: 'Tältby',
-      builtOnSteepHill: 'Byggd på brant sluttning',
-      oldTowerIntheMiddle: 'Gammalt torn i mitten',
-      grandBuilding: 'Pampig byggnad',
+      odd_building_materials: 'Udda byggnadsmaterial',
+      tent_village: 'Tältby',
+      built_on_steep_hill: 'Byggd på brant sluttning',
+      old_tower_inthe_middle: 'Gammalt torn i mitten',
+      grand_building: 'Pampig byggnad',
       windy: 'Blåsigt',
       inbreeding: 'Inavel',
-      strangeEatingHabits: 'Märkliga matvanor',
-      builtOnMarshland: 'Byggd på sumpmark',
-      cutOutOfACliff: 'Uthyggen ur en klippa',
-      oldBurialSite: 'Gammal begravningsplats',
-      wanderingCattle: 'Fridrivande kreatur',
-      mostlyInhabitedByWomen: 'Mest befolkad av kvinnor',
-      alliedWithMonster: 'Alliered med best',
-      preparingWedding: 'Förbereder för bröllop',
+      strange_eating_habits: 'Märkliga matvanor',
+      built_on_marshland: 'Byggd på sumpmark',
+      cut_out_of_acliff: 'Uthyggen ur en klippa',
+      old_burial_site: 'Gammal begravningsplats',
+      wandering_cattle: 'Fridrivande kreatur',
+      mostly_inhabited_by_women: 'Mest befolkad av kvinnor',
+      allied_with_monster: 'Alliered med best',
+      preparing_wedding: 'Förbereder för bröllop',
     },
-    Leader: {
-      Leader: 'Ledare',
-      Oddities: {
-        Oddity: 'Egenhet',
+    leader: {
+      leader: 'Ledare',
+      oddities: {
+        oddity: 'Egenhet',
         bickering: 'Käbblande',
         cruel: 'Grym',
         weak: 'Svag',
@@ -2111,89 +2070,89 @@ export const translationsSv: Translations = {
         secret: 'Hemlighetsfull',
         drunkard: 'Suput',
       },
-      Type: {
-        Type: 'Ledartyp',
+      type: {
+        type: 'Ledartyp',
         council: 'Byråd',
         despot: 'Despot',
         elder: 'Byäldste',
         mayor: 'Borgmästare',
         druid: 'Druid',
         sorcerer: 'Magiker',
-        noOne: 'Anarki',
+        no_one: 'Anarki',
         commander: 'Kommendant',
         trader: 'Nasare',
-        rustBrother: 'Rostbroder',
+        rust_brother: 'Rostbroder',
         artisan: 'Hantverkare',
-        banditChief: 'Rövarhövding',
+        bandit_chief: 'Rövarhövding',
       },
     },
-    Institutions: {
-      Institutions: 'Inrättningar',
+    institutions: {
+      institutions: 'Inrättningar',
       inn: 'Värdshus',
       mill: 'Mjölnare',
       smith: 'Smed',
       forester: 'Jägmästare',
-      tradingPost: 'Handelsbod',
+      trading_post: 'Handelsbod',
       temple: 'Tempel',
       militia: 'Milis',
       tavern: 'Taverna',
       stable: 'Stall',
-      Owner: 'Ägare',
+      owner: 'Ägare',
       nothing: 'Inget',
     },
-    Inns: {
-      Inn: 'Värdshus',
-      Oddities: {
-        Oddity: 'Egenhet',
-        violenceIsInTheAir: 'Smockan hänger i luften',
-        barrelsInsteadOfChairsAndPlanksInsteadOfTables:
+    inns: {
+      inn: 'Värdshus',
+      oddities: {
+        oddity: 'Egenhet',
+        violence_is_in_the_air: 'Smockan hänger i luften',
+        barrels_instead_of_chairs_and_planks_instead_of_tables:
           'Tunnor istället för stolar och plankor istället för bord',
-        bigFireplace: 'Stor eldstad',
-        peltsOnWalls: 'Fällar på väggarna',
-        longCommunalTable: 'Avlångt gemensamt bord',
-        gamblingDen: 'Hasardspel',
-        mediocreBard: 'Medioker bard',
-        niceDog: 'Snäll hund',
-        grumpyOwner: 'Vresig ägare',
-        monsterHeadOnWall: 'Besthuvud på väggen',
-        singingWaiter: 'Sjungande servitör',
-        stompedFloor: 'Stampat jordgolv',
-        birthdayParty: 'Födelsedagsfest',
-        drunkAdventurers: 'Fulla äventyrare',
+        big_fireplace: 'Stor eldstad',
+        pelts_on_walls: 'Fällar på väggarna',
+        long_communal_table: 'Avlångt gemensamt bord',
+        gambling_den: 'Hasardspel',
+        mediocre_bard: 'Medioker bard',
+        nice_dog: 'Snäll hund',
+        grumpy_owner: 'Vresig ägare',
+        monster_head_on_wall: 'Besthuvud på väggen',
+        singing_waiter: 'Sjungande servitör',
+        stomped_floor: 'Stampat jordgolv',
+        birthday_party: 'Födelsedagsfest',
+        drunk_adventurers: 'Fulla äventyrare',
       },
-      Specialities: {
-        Speciality: 'Specialitet',
-        cheapDilutedBeer: 'Billig utspädd öl',
-        meatStew: 'Köttstuvning',
-        grilledRodent: 'Grillad gnagare',
-        stewedTurnips: 'Stuvade rovor',
-        saltBird: 'Salt fågel',
-        bloodSoup: 'Blodsoppa',
-        fierySpiceWine: 'Eldigt kryddvin',
-        roastedPiglet: 'Helstekt spädgrid',
-        swampStew: 'Svampstuvning',
-        vegetableMush: 'Grönsaksgröt',
-        saltedFish: 'Saltad fisk',
-        cookedCrow: 'Kokad kråka',
-        bearStew: 'Björngryta',
-        dwarvenStrongAle: 'Dvärgiskt starköl',
+      specialities: {
+        speciality: 'Specialitet',
+        cheap_diluted_beer: 'Billig utspädd öl',
+        meat_stew: 'Köttstuvning',
+        grilled_rodent: 'Grillad gnagare',
+        stewed_turnips: 'Stuvade rovor',
+        salt_bird: 'Salt fågel',
+        blood_soup: 'Blodsoppa',
+        fiery_spice_wine: 'Eldigt kryddvin',
+        roasted_piglet: 'Helstekt spädgrid',
+        swamp_stew: 'Svampstuvning',
+        vegetable_mush: 'Grönsaksgröt',
+        salted_fish: 'Saltad fisk',
+        cooked_crow: 'Kokad kråka',
+        bear_stew: 'Björngryta',
+        dwarven_strong_ale: 'Dvärgiskt starköl',
       },
-      Guests: {
-        Guest: 'Gäst',
-        escapedCriminal: 'Förrymd brottsling',
-        unhappyFarmer: 'Olycklig bonde',
-        scarredTreasureHunter: 'Ärrad skattletare',
-        dirtyAndSullenHunter: 'Smutsig och butter jägare',
-        silentRavenSister: 'Tystlåten korpsyster',
-        noisyBandit: 'Bullrig rövare',
-        oldWarVeteran: 'Gammal krigsveteran',
-        nobleInDisguise: 'Förklädd ädling',
-        secretiveSpellbinder: 'Hemlighetsfull magiker',
-        annoyingJester: 'Irriterande gycklare',
-        dustyTraveller: 'Dammig resenär',
-        hungryDwarf: 'Hungrig dvärg',
-        frostyElf: 'Kylig alv',
-        scoutingThief: 'Spejande tjuv',
+      guests: {
+        guest: 'Gäst',
+        escaped_criminal: 'Förrymd brottsling',
+        unhappy_farmer: 'Olycklig bonde',
+        scarred_treasure_hunter: 'Ärrad skattletare',
+        dirty_and_sullen_hunter: 'Smutsig och butter jägare',
+        silent_raven_sister: 'Tystlåten korpsyster',
+        noisy_bandit: 'Bullrig rövare',
+        old_war_veteran: 'Gammal krigsveteran',
+        noble_in_disguise: 'Förklädd ädling',
+        secretive_spellbinder: 'Hemlighetsfull magiker',
+        annoying_jester: 'Irriterande gycklare',
+        dusty_traveller: 'Dammig resenär',
+        hungry_dwarf: 'Hungrig dvärg',
+        frosty_elf: 'Kylig alv',
+        scouting_thief: 'Spejande tjuv',
       },
     },
   },

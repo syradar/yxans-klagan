@@ -1,17 +1,27 @@
 import { useState } from 'react'
+import Stack, { Grid, Pancake, Train } from '../../components/Stack'
+import { Stat } from '../../components/Stat'
+import { Tag } from '../../components/Tag'
 import { ParchmentCard } from '../../components/card'
 import { Field } from '../../components/field'
 import { Group } from '../../components/group'
 import { Parchment } from '../../components/parchment'
-import Stack, { Grid, Pancake, Train } from '../../components/Stack'
-import { Stat } from '../../components/Stat'
-import { Tag } from '../../components/Tag'
-import { AllSkillsValuesViewModel } from '../../models/skills.model'
+import { rangeTranslationDict } from '../../models/attack-range'
+import {
+  AllSkillsValuesViewModel,
+  skillsTranslationDict,
+} from '../../models/skills.model'
 import { ID } from '../../models/utils.model'
-import { TypicalKinViewModel } from './typical-kin'
 import { useAppSelector } from '../../store/store.hooks'
-import { TranslationKey } from '../../store/translations/translation.model'
 import { selectTranslateFunction } from '../../store/translations/translation.slice'
+import {
+  armorFeaturesTranslationDict,
+  armorTypeTranslationDict,
+  helmetTypeTranslationDict,
+} from './armor'
+import { TypicalKinViewModel } from './typical-kin'
+import { weaponFeatureTranslationDict, weaponName } from './weapon'
+import { shieldTypesTranslationDict } from './shield'
 
 export interface TypicalKinProps {
   tkvm: TypicalKinViewModel
@@ -24,11 +34,7 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
 
   const formatSkills = (asvm: AllSkillsValuesViewModel): string =>
     asvm
-      .map(([skill, value]) => {
-        const skillName = t(`common:Skills.${skill}`)
-
-        return `${skillName} ${value}`
-      })
+      .map(([skill, value]) => `${t(skillsTranslationDict[skill])} ${value}`)
       .join(', ')
 
   const toggleKin = () => {
@@ -70,38 +76,43 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
         <Pancake spacing="small">
           <ParchmentCard>
             <Stack.Horizontal distribute full>
-              <Stat label={t('common:Attributes.Strength')}>
+              <Stat label={t('common:attributes.strength')}>
                 {tkvm.attributes.strength?.value}
               </Stat>
-              <Stat label={t('common:Attributes.Agility')}>
+              <Stat label={t('common:attributes.agility')}>
                 {tkvm.attributes.agility?.value}
               </Stat>
-              <Stat label={t('common:Attributes.Wits')}>
+              <Stat label={t('common:attributes.wits')}>
                 {tkvm.attributes.wits?.value}
               </Stat>
-              <Stat label={t('common:Attributes.Empathy')}>
+              <Stat label={t('common:attributes.empathy')}>
                 {tkvm.attributes.empathy?.value}
               </Stat>
             </Stack.Horizontal>
           </ParchmentCard>
-          {tkvm.description && (
-            <Field label={t('common:Description.Description')}>
+
+          {tkvm.description ? (
+            <Field label={t('common:description.description')}>
               <>{t(tkvm.description)}</>
             </Field>
-          )}
-          <Field label={t('common:Skills.Skills')}>
+          ) : null}
+
+          <Field label={t('common:skills.skills')}>
             {formatSkills(tkvm.skills)}
           </Field>
+
           <Field label={t('common:talents.talents')}>
             {tkvm.talents.length > 0
               ? tkvm.talents.map((talent) => t(talent)).join(', ')
               : '–'}
           </Field>
-          {tkvm.gear.length > 0 && (
-            <Field label={t('common:Gear.Gear')}>
+
+          {tkvm.gear.length > 0 ? (
+            <Field label={t('common:gear.gear')}>
               {tkvm.gear.map((g) => t(g)).join(', ')}
             </Field>
-          )}
+          ) : null}
+
           <Pancake spacing="small">
             {tkvm.weapons.map((w) => (
               <Group
@@ -111,23 +122,19 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                   <div className="w-full">
                     <Grid cols="3">
                       <h3 className="font-bold">
-                        <>
-                          {t(
-                            `common:Weapon.${w.category}.${w.name}` as TranslationKey<'common'>,
-                          )}
-                        </>
+                        {t(weaponName(w.category, w.name))}
                       </h3>
-                      {w.collapse && w.bonus && (
+                      {w.collapse && w.bonus ? (
                         <h3 className="text-center font-medium">
                           {formatBonus(w.bonus)}
                         </h3>
-                      )}
-                      {w.collapse && (
+                      ) : null}
+                      {w.collapse ? (
                         <h3 className="text-right font-medium">
                           {w.damage}{' '}
-                          {t('common:Weapon.Damage').toString().toLowerCase()}
+                          {t('common:weapon.damage').toString().toLowerCase()}
                         </h3>
-                      )}
+                      ) : null}
                     </Grid>
                   </div>
                 }
@@ -136,26 +143,22 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
               >
                 <Pancake spacing="small">
                   <Train distribute>
-                    <Stat label={t(`common:Weapon.Grip`)}>{w.grip}</Stat>
-                    <Stat label={t(`common:Weapon.Bonus`)}>
+                    <Stat label={t(`common:weapon.grip`)}>{w.grip}</Stat>
+                    <Stat label={t(`common:weapon.bonus`)}>
                       {w.bonus ?? '–'}
                     </Stat>
-                    <Stat label={t(`common:Weapon.Damage`)}>{w.damage}</Stat>
-                    <Stat label={t(`common:Range.Range`)}>
-                      <>
-                        {t(
-                          `common:Range.${w.range}` as TranslationKey<'common'>,
-                        )}
-                      </>
+                    <Stat label={t(`common:weapon.damage`)}>{w.damage}</Stat>
+                    <Stat label={t(`common:range.range`)}>
+                      <>{t(rangeTranslationDict[w.range])}</>
                     </Stat>
                   </Train>
-                  {w.features.length > 0 && (
+                  {w.features.length > 0 ? (
                     <Train spacing="small">
                       {w.features.map((f) => (
-                        <Tag key={f}>{t(`common:Weapon.Feature.${f}`)}</Tag>
+                        <Tag key={f}>{t(weaponFeatureTranslationDict[f])}</Tag>
                       ))}
                     </Train>
-                  )}
+                  ) : null}
                 </Pancake>
               </Group>
             ))}
@@ -169,13 +172,13 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                   <div className="w-full">
                     <Grid cols="2">
                       <h3 className="font-bold">
-                        {t(`common:Shield.${s.type}`)}
+                        {t(shieldTypesTranslationDict[s.type])}
                       </h3>
-                      {s.collapse && (
+                      {s.collapse ? (
                         <h3 className="text-right font-medium">
                           {formatBonus(s.bonus)}
                         </h3>
-                      )}
+                      ) : null}
                     </Grid>
                   </div>
                 }
@@ -184,21 +187,23 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
               >
                 <Pancake spacing="small">
                   <Train>
-                    <Stat label={t(`common:Weapon.Bonus`)}>{s.bonus}</Stat>
+                    <Stat label={t(`common:weapon.bonus`)}>{s.bonus}</Stat>
                   </Train>
-                  {s.features.length > 0 && (
+                  {s.features.length > 0 ? (
                     <Train>
                       {s.features.map((s) => (
-                        <Tag key={s}>{t(`common:ArmorFeature.${s}`)}</Tag>
+                        <Tag key={s}>{t(weaponFeatureTranslationDict[s])}</Tag>
                       ))}
                     </Train>
-                  )}
+                  ) : null}
                 </Pancake>
               </Group>
             ))}
           </Pancake>
           <Pancake spacing="small">
             {tkvm.armors.map((a) => (
+              // helmetTypeTranslationDict
+
               <Group
                 key={a.id}
                 useDefaultLabel={false}
@@ -206,11 +211,11 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                   <div className="w-full">
                     <Grid cols="2">
                       <h3 className="font-bold">
-                        {t(`common:Armor.${a.type}`)}
+                        {t(armorTypeTranslationDict[a.type])}
                       </h3>
-                      {a.collapse && (
+                      {a.collapse ? (
                         <h3 className="text-right font-medium">{a.rating}</h3>
-                      )}
+                      ) : null}
                     </Grid>
                   </div>
                 }
@@ -219,20 +224,20 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
               >
                 <Pancake spacing="small">
                   <Train distribute>
-                    <Stat label={t(`common:Armor.Rating`)}>{a.rating}</Stat>
-                    <Stat label={t(`common:Armor.BodyPart`)}>
-                      {t(`common:Armor.Body`)}
+                    <Stat label={t(`common:armor.rating`)}>{a.rating}</Stat>
+                    <Stat label={t(`common:armor.body_part`)}>
+                      {t(`common:armor.body`)}
                     </Stat>
                   </Train>
-                  {a.features.length > 0 && (
+                  {a.features.length > 0 ? (
                     <Train spacing="small">
                       {a.features.map((feature) => (
                         <Tag key={feature}>
-                          {t(`common:ArmorFeature.${feature}`)}
+                          {t(armorFeaturesTranslationDict[feature])}
                         </Tag>
                       ))}
                     </Train>
-                  )}
+                  ) : null}
                 </Pancake>
               </Group>
             ))}
@@ -246,11 +251,11 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
                   <div className="w-full">
                     <Grid cols="2">
                       <h3 className="font-bold">
-                        {t(`common:Helmet.${h.type}`)}
+                        {t(helmetTypeTranslationDict[h.type])}
                       </h3>
-                      {h.collapse && (
+                      {h.collapse ? (
                         <h3 className="text-right font-medium">{h.rating}</h3>
-                      )}
+                      ) : null}
                     </Grid>
                   </div>
                 }
@@ -259,20 +264,20 @@ export const TypicalKinDisplay = (typicalKinViewModel: TypicalKinProps) => {
               >
                 <Pancake spacing="small">
                   <Train distribute>
-                    <Stat label={t(`common:Armor.Rating`)}>{h.rating}</Stat>
-                    <Stat label={t(`common:Helmet.BodyPart`)}>
-                      {t(`common:Helmet.Body`)}
+                    <Stat label={t(`common:armor.rating`)}>{h.rating}</Stat>
+                    <Stat label={t(`common:helmet.body_part`)}>
+                      {t(`common:helmet.body`)}
                     </Stat>
                   </Train>
-                  {h.features.length > 0 && (
+                  {h.features.length > 0 ? (
                     <Train spacing="small">
                       {h.features.map((feature) => (
                         <Tag key={feature}>
-                          {t(`common:ArmorFeature.${feature}`)}
+                          {t(armorFeaturesTranslationDict[feature])}
                         </Tag>
                       ))}
                     </Train>
-                  )}
+                  ) : null}
                 </Pancake>
               </Group>
             ))}

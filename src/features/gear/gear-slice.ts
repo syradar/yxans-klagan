@@ -71,11 +71,11 @@ export const initialGearState: GearState = {
     },
     categories: {
       services: false,
-      tradeGoods: false,
+      trade_goods: false,
     },
   },
   supply: {
-    tradeGoods: generateSupply(tradeGoods),
+    trade_goods: generateSupply(tradeGoods),
     services: generateSupply(services),
   },
 }
@@ -100,7 +100,7 @@ const gearSlice = createSlice({
     },
     reRollSupply: (state) => {
       state.supply = {
-        tradeGoods: generateSupply(tradeGoods),
+        trade_goods: generateSupply(tradeGoods),
         services: generateSupply(services),
       }
     },
@@ -152,7 +152,7 @@ type GearCategoryViewModel = {
   active: boolean
 }
 
-const categorySortOrder: GearCategory[] = ['tradeGoods', 'services']
+const categorySortOrder: GearCategory[] = ['trade_goods', 'services']
 type Comparator<T> = (a: T, b: T) => number
 
 const gearSort: Comparator<GearCategoryViewModel> = (a, b) => {
@@ -210,7 +210,7 @@ export const selectGear = (t: TFunction<'gear'>) => (state: RootState) => {
           tradeGoodsViewModel(
             cur,
             translatedName,
-            supply.tradeGoods[cur.name.id],
+            supply.trade_goods[cur.name.id],
           ),
         ]
       }, [] as TradeGoodsViewModel[]),

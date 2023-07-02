@@ -4,9 +4,9 @@ export type Supply = 'common' | 'uncommon' | 'rare'
 
 export const supplyLabelDict: Readonly<Record<Supply, TranslationKey<'gear'>>> =
   Object.freeze({
-    common: 'gear:Supply.Common',
-    uncommon: 'gear:Supply.Uncommon',
-    rare: 'gear:Supply.Rare',
+    common: 'gear:supply.common',
+    uncommon: 'gear:supply.uncommon',
+    rare: 'gear:supply.rare',
   })
 
 export type SupplyViewModel = {

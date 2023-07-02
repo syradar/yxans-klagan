@@ -22,25 +22,25 @@ export const CalendarDayNames = () => {
   return (
     <>
       <DayName isCurrentDate={currentDate.dayIndex === 0}>
-        {t('calendar:SunDay')}
+        {t('calendar:sun_day')}
       </DayName>
       <DayName isCurrentDate={currentDate.dayIndex === 1}>
-        {t('calendar:MoonDay')}
+        {t('calendar:moon_day')}
       </DayName>
       <DayName isCurrentDate={currentDate.dayIndex === 2}>
-        {t('calendar:BloodDay')}
+        {t('calendar:blood_day')}
       </DayName>
       <DayName isCurrentDate={currentDate.dayIndex === 3}>
-        {t('calendar:EarthDay')}
+        {t('calendar:earth_day')}
       </DayName>
       <DayName isCurrentDate={currentDate.dayIndex === 4}>
-        {t('calendar:GrowthDay')}
+        {t('calendar:growth_day')}
       </DayName>
       <DayName isCurrentDate={currentDate.dayIndex === 5}>
-        {t('calendar:HarvestDay')}
+        {t('calendar:harvest_day')}
       </DayName>
       <DayName isCurrentDate={currentDate.dayIndex === 6}>
-        {t('calendar:StillDay')}
+        {t('calendar:still_day')}
       </DayName>
     </>
   )

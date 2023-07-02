@@ -57,9 +57,9 @@ export const TypicalKinPage = () => {
 
   return (
     <div className="flex w-full flex-col gap-y-8 pb-16">
-      <PageHeader>{t('typical:Title')}</PageHeader>
+      <PageHeader>{t('typical:title')}</PageHeader>
       <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-        {t('common:Kin.Human.Humans')}
+        {t('common:kin.human.humans')}
       </h2>
       <div className="grid gap-4 md:grid-cols-2  2xl:grid-cols-3">
         {humanKinViewModels.map((tkvm) => (
@@ -67,7 +67,7 @@ export const TypicalKinPage = () => {
         ))}
       </div>
       <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-        {t('common:Kin.Elf.Elves')}
+        {t('common:kin.elf.elves')}
       </h2>
       <div className="grid gap-4 md:grid-cols-2  2xl:grid-cols-3">
         {elfKinViewModels.map((tkvm) => (
@@ -75,7 +75,7 @@ export const TypicalKinPage = () => {
         ))}
       </div>
       <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-        {t('common:Kin.Dwarf.Dwarves')}
+        {t('common:kin.dwarf.dwarves')}
       </h2>
       <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         {dwarfKinViewModels.map((tkvm) => (
@@ -83,7 +83,7 @@ export const TypicalKinPage = () => {
         ))}
       </div>
       <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-        {t('common:Kin.Orc.Orcs')}
+        {t('common:kin.orc.orcs')}
       </h2>
       <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         {orcKinViewModels.map((tkvm) => (
@@ -94,7 +94,7 @@ export const TypicalKinPage = () => {
       <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         <Pancake>
           <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-            {t('common:Kin.Ogre.Ogres')}
+            {t('common:kin.ogre.ogres')}
           </h2>
           {ogreKinViewModels.map((tkvm) => (
             <TypicalKinDisplay key={tkvm.kin} tkvm={tkvm}></TypicalKinDisplay>
@@ -102,7 +102,7 @@ export const TypicalKinPage = () => {
         </Pancake>
         <Pancake>
           <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-            {t('common:Kin.Wolfkin.Wolfkins')}
+            {t('common:kin.wolfkin.wolfkins')}
           </h2>
 
           {wolfkinKinViewModels.map((tkvm) => (
@@ -113,7 +113,7 @@ export const TypicalKinPage = () => {
       <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         <Pancake>
           <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-            {t('common:Kin.Saurian.Saurians')}
+            {t('common:kin.saurian.saurians')}
           </h2>
           {saurianKinViewModels.map((tkvm) => (
             <TypicalKinDisplay key={tkvm.kin} tkvm={tkvm}></TypicalKinDisplay>
@@ -121,7 +121,7 @@ export const TypicalKinPage = () => {
         </Pancake>
         <Pancake>
           <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-            {t('common:Kin.Whiner.Whiners')}
+            {t('common:kin.whiner.whiners')}
           </h2>
           {whinerKinViewModels.map((tkvm) => (
             <TypicalKinDisplay key={tkvm.kin} tkvm={tkvm}></TypicalKinDisplay>
@@ -129,7 +129,7 @@ export const TypicalKinPage = () => {
         </Pancake>
       </div>
       <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-        {t('common:Kin.HalflingAndGoblin.HalflingAndGoblins')}
+        {t('common:kin.halfling_and_goblin.halfling_and_goblins')}
       </h2>
       <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
         {halflingAndGoblinKinViewModels.map((tkvm) => (
@@ -138,7 +138,7 @@ export const TypicalKinPage = () => {
       </div>
       <Pancake>
         <h2 className="yx-heading text-center text-2xl lg:text-4xl">
-          {t('common:Kin.Believers.Believers')}
+          {t('common:kin.believers.believers')}
         </h2>
         <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
           {believerKinViewModels.map((tkvm) => (
