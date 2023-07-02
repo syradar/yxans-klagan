@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import { None, Option, Some } from 'ts-results'
 import { BookLink } from '../../../components/BookLink'
@@ -64,7 +64,14 @@ export const MonstersPage = () => {
   const monsterSection = isMonsterRouteSection(section) ? section : undefined
 
   const isRandomMonster = monsterSection === 'random'
-  const randomMonster = createRandomMonsterViewModel()
+  const [randomMonster, setRandomMonster] = useState(() =>
+    createRandomMonsterViewModel(),
+  )
+  useEffect(() => {
+    if (isRandomMonster) {
+      setRandomMonster(createRandomMonsterViewModel())
+    }
+  }, [isRandomMonster])
 
   const isBookMonster = monsterSection === 'book'
   const isValidMonsterId = isBookMonster && isValidMonster(monster)
