@@ -47,6 +47,12 @@ const HomePage = () => {
           </a>
           <a
             className="text-red-700 hover:underline"
+            href="armorFeaturesTranslationDict"
+          >
+            lemm.ee
+          </a>
+          <a
+            className="text-red-700 line-through hover:underline"
             href="https://www.reddit.com/r/ForbiddenLands/"
           >
             Reddit
