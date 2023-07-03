@@ -157,7 +157,7 @@ export const MonstersPage = () => {
           via-black to-transparent to-75% md:block"
         ></div>
 
-        <div className="flex-[0_0_50%] items-stretch ">
+        <div className="w-1/2 items-stretch ">
           <Parchment full>
             <div className="flex h-full flex-col gap-4">
               <div className="mb-4 flex justify-between">
@@ -209,7 +209,7 @@ export const MonstersPage = () => {
             <div className="absolute bottom-0 left-0 z-50 h-4 w-full translate-y-2 bg-gradient-to-b from-transparent from-25% via-black to-transparent to-75% md:hidden"></div>
           </Parchment>
         </div>
-        <div className="flex-[0_0_50%] items-stretch">
+        <div className="w-1/2 items-stretch">
           <Parchment full>
             <div className="flex h-full flex-col gap-4">
               <section>
