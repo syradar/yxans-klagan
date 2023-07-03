@@ -95,7 +95,7 @@ const monsterTypes = [
   'scavenger',
   'predator',
   'aggressivePredator',
-]
+] as const
 export type MonsterType = (typeof monsterTypes)[number]
 
 export const monsterTypeTranslationDict = translationDict(

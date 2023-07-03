@@ -80,7 +80,7 @@ export const types: WeightedChoice<{
   { weight: 5, value: { type: 'gatherer', agility: 2 } },
   { weight: 7, value: { type: 'scavenger', agility: 4 } },
   { weight: 12, value: { type: 'predator', agility: 5 } },
-  { weight: 6, value: { type: 'aggressive_predator', agility: 8 } },
+  { weight: 6, value: { type: 'aggressivePredator', agility: 8 } },
 ]
 
 export const defaultMonsterLimbs: MonsterLimbs = {

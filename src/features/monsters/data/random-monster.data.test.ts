@@ -62,7 +62,7 @@ describe('agility', () => {
       [2, 'gatherer'],
       [4, 'scavenger'],
       [5, 'predator'],
-      [8, 'aggressive_predator'],
+      [8, 'aggressivePredator'],
     ]
     it.each(cases)('should return %s AGI for type %s', (expected, type) => {
       const result = types.find((s) => s.value.type === type)?.value.agility
