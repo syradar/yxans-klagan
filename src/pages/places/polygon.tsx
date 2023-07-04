@@ -3,6 +3,7 @@ import { Hex, HexKey } from './map.model'
 
 type PolygonProps = {
   hex: Hex
+  explored: boolean
   selectedHex: Option<HexKey>
   onMouseOver: (e: React.MouseEvent<SVGPolygonElement, MouseEvent>) => void
   onClick: (e: React.MouseEvent<SVGPolygonElement, MouseEvent>) => void
@@ -10,6 +11,7 @@ type PolygonProps = {
 
 export const Polygon = ({
   hex,
+  explored,
   selectedHex,
   onMouseOver,
   onClick,
@@ -20,9 +22,7 @@ export const Polygon = ({
 
   return (
     <polygon
-      className={`cls-2 hex ${
-        hex.explored ? 'hex-explored' : ''
-      } ${selectedClass}`}
+      className={`cls-2 hex ${explored ? 'hex-explored' : ''} ${selectedClass}`}
       x="0"
       y="0"
       width="100%"

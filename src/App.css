@@ -101,6 +101,13 @@ main {
   font-display: swap;
 }
 
+.yx-hand {
+  font-family: 'swister', 'Bradley Hand', 'Marker Felt', 'Felt Tip', cursive;
+  /* font-weight: 500; */
+  font-style: normal;
+  /* font-size: 1.5em; */
+}
+
 #ravland-map .cls-1,
 #ravland-map .cls-2 {
   stroke: #000;

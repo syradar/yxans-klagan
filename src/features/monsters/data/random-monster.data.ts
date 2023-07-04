@@ -303,7 +303,7 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
           ...rm.attributes,
           strength: maybe(rm.attributes.strength)
             .map((s) => s + 2)
-            .withDefault(2),
+            .unwrapOr(2),
         },
       }),
     },
@@ -319,7 +319,7 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
           ...rm.attributes,
           strength: maybe(rm.attributes.strength)
             .map((s) => Math.ceil(s / 2))
-            .withDefault(1),
+            .unwrapOr(1),
         },
       }),
     },

@@ -221,7 +221,7 @@ export const getMovement = (
   const { type, distanceFn } = randomFunc(movementTypes).value
 
   return {
-    distance: maybe(agility).map(distanceFn).withDefault(0),
+    distance: maybe(agility).map(distanceFn).unwrapOr(0),
     type,
   }
 }
@@ -248,7 +248,7 @@ export const getTraitListBasedOnMotivation = (
   return [
     maybe(hurt)
       .map((a) => [a.value])
-      .withDefault([]),
+      .unwrapOr([]),
     traitList,
   ]
 }

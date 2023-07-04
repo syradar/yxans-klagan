@@ -1009,7 +1009,7 @@ export const translationsSv: Translations = {
     title: 'Karta',
     download_map_data: 'Ladda ned kartdata',
     paste_map_data: 'Klistra in kartdata JSON',
-    popover_hide: 'Dölj',
+    popover_hide: 'Stäng',
     popover_explore: 'Utforska',
     popover_forget: 'Glöm bort',
     popover_explored: 'Utforskad',

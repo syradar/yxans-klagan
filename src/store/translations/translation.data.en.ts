@@ -1004,7 +1004,7 @@ export const translationsEn = {
     title: 'Map',
     download_map_data: 'Download map data',
     paste_map_data: 'Paste map data JSON',
-    popover_hide: 'Hide',
+    popover_hide: 'Close',
     popover_explore: 'Explore',
     popover_forget: 'Forget',
     popover_explored: 'Explored',

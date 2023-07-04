@@ -11,6 +11,7 @@ import { Train } from '../../components/Stack'
 import { PageHeader } from '../../components/page-header'
 import { Parchment } from '../../components/parchment'
 import { PasteData } from '../../components/paste-data'
+import { selectJournal } from '../../features/journal/journal-slice'
 import {
   MapState,
   handlePasteSuccess,
@@ -23,10 +24,9 @@ import {
   setSelectedHex,
   setSource,
   toggleFogOfWar,
-  unsetSelectedHex,
-  updateHex,
 } from '../../features/map/map-slice'
 import { downloadFile } from '../../functions/file.functions'
+import { notNullish } from '../../functions/utils.functions'
 import { safeJSONParse } from '../../store/persist/json-parsing'
 import { useAppDispatch, useAppSelector } from '../../store/store.hooks'
 import { TranslationKey } from '../../store/translations/translation.model'
@@ -40,9 +40,17 @@ export const MapPage = () => {
   const t = useAppSelector(selectTranslateFunction(['map', 'common']))
   const source = useAppSelector(selectSource)
   const fogOfWar = useAppSelector(selectFogOfWar)
-  const { hasExploredHexes, hexes, selectedHex } = useAppSelector(selectMap)
+  const { hexes, selectedHex } = useAppSelector(selectMap)
   const serializableMap = useAppSelector(selectMapSerializable)
   const dispatch = useAppDispatch()
+  const { explorationNotes } = useAppSelector(selectJournal)
+  const hasExploredHexes = useMemo(
+    () =>
+      Object.values(explorationNotes).some((notes) =>
+        Object.values(notes).some((note) => notNullish(note.exploredAt)),
+      ),
+    [explorationNotes],
+  )
 
   const parchmentRef = useRef<HTMLDivElement>(null)
 
@@ -126,7 +134,7 @@ export const MapPage = () => {
       )
 
       setMapPopover({
-        hex,
+        hexKey: hex.hexKey,
         x: rect.left,
         y: rect.top,
         mapMinX: parchmentRect.x,
@@ -155,12 +163,10 @@ export const MapPage = () => {
           ravland: {
             hexes: data.hexes,
             selectedHex: undefined,
-            hasExploredHexes: hexes.some((hex) => hex.explored),
           },
           bitterReach: {
             hexes: [],
             selectedHex: undefined,
-            hasExploredHexes: false,
           },
         },
       }
@@ -223,6 +229,7 @@ export const MapPage = () => {
           )}
           {t(fogOfWar ? 'map:fog_of_war_on' : 'map:fog_of_war_off')}
         </ParchmentButton>
+        <div>REWRITE IMPORT AND EXPORT</div>
         <ParchmentButton
           isDisabled={!hasExploredHexes}
           buttonType="ghost"
@@ -260,16 +267,15 @@ export const MapPage = () => {
             >
               {tooltip.text}
             </div>
-            <MapPopover
-              options={mapPopover}
-              onExploreChanged={(hex) => dispatch(updateHex(hex))}
-              onHide={() => dispatch(unsetSelectedHex())}
-            ></MapPopover>
+            {mapPopover ? <MapPopover options={mapPopover}></MapPopover> : null}
             <ForbiddenLandsMap fogOfWar={fogOfWar}>
               {hexes.map((hex) => (
                 <Polygon
                   key={hex.hexKey}
                   hex={hex}
+                  explored={notNullish(
+                    explorationNotes[source][hex.hexKey]?.exploredAt,
+                  )}
                   selectedHex={selectedHex}
                   onMouseOver={(e) => handleMouseOver(e, hex)}
                   onClick={(e) => handleHexClick(e, hex)}
