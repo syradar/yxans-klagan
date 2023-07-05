@@ -337,26 +337,31 @@ const JournalHome = () => {
             Explored Hexes
           </Typography>
           <div className="mb-4">{t('monster:bookmonsters.description')}</div>
-          <BookList>
+          <div className="flex flex-col gap-1">
             {allNotes
               .filter((n) => n.exploredAt.some)
               .map((note) => (
-                <li key={note.hexKey}>
-                  <BookLink to={'/monsters/random'}>
-                    <div className="flex flex-col">
-                      <Typography variant="h4" parchment>
-                        {note.hexKey}
-                      </Typography>
-                      <Typography variant="body" parchment>
-                        {note.exploredAt
-                          .map((d) => d.format())
-                          .unwrapOr('Unknown')}
-                      </Typography>
+                <div
+                  className="flex flex-col gap-1 rounded border-2 p-2 hover:border-rose-800"
+                  key={note.id}
+                >
+                  <div className="flex items-center gap-2">
+                    <Typography variant="h4" parchment>
+                      {note.hexKey}
+                    </Typography>
+
+                    <div className="yx-hand text-2xl">
+                      {note.exploredAt
+                        .map((d) => d.format())
+                        .unwrapOr('Unknown')}
                     </div>
-                  </BookLink>
-                </li>
+                  </div>
+                  <div className="yx-hand line-clamp-1 text-2xl">
+                    {note.note.map((n) => n.body).unwrapOr('')}
+                  </div>
+                </div>
               ))}
-          </BookList>
+          </div>
         </section>
       </div>
     </div>
@@ -436,10 +441,12 @@ const JournalPage = () => {
               </Typography>
               {allNotes
                 .filter((n) => n.exploredAt.some)
+                .slice(0, 5)
                 .map((note) => (
                   <ExplorationNote
                     key={note.id}
                     explorationNote={note}
+                    noteEditable={false}
                   ></ExplorationNote>
                 ))}
 
