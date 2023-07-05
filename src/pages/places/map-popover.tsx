@@ -80,9 +80,11 @@ export const MapPopover = ({ options }: MapPopoverProps) => {
 
 type ExplorationNoteProps = ComponentPropsWithoutRef<'div'> & {
   explorationNote: ExplorationNoteViewModel
+  noteEditable?: boolean
 }
 export function ExplorationNote({
   explorationNote: { hexKey, note, exploredAt, gameSource },
+  noteEditable = true,
   children,
 }: ExplorationNoteProps) {
   const t = useAppSelector(selectTranslateFunction(['map']))
@@ -105,53 +107,66 @@ export function ExplorationNote({
           >
             {exploredAt.some ? exploredAt.val.format() : ''}
           </span>
-          <span className="flex flex-1 justify-end">
-            <ParchmentButton
-              buttonType={exploredAt.some ? 'danger' : 'primary'}
-              small
-              onPress={() => {
-                dispatch(
-                  toggleExploredAt({
-                    hexKey,
-                    exploredAt: currentDate.serialize(),
-                    gameSource: gameSource,
-                  }),
-                )
-              }}
-            >
-              {exploredAt.some ? (
-                <FireIcon className="h-5 w-5" />
-              ) : (
-                <MagnifyingGlassIcon className="h-5 w-5" />
-              )}
-              {t(
-                exploredAt.some ? 'map:popover_forget' : 'map:popover_explore',
-              )}
-            </ParchmentButton>
-          </span>
-        </NoteBox>
-        <NoteBox className="">
-          <div className="flex w-full flex-col gap-2">
-            {/* <PrintedText className="">NOTE</PrintedText> */}
-            <TextArea
-              className=""
-              placeholder="Write a note..."
-              label="NOTE"
-              value={note.map((n) => n.body).unwrapOr('')}
-              maxLength={NOTE_MAX_LENGTH}
-              onChange={(e) => {
-                if (isString(e)) {
+          {noteEditable ? (
+            <span className="flex flex-1 justify-end">
+              <ParchmentButton
+                buttonType={exploredAt.some ? 'danger' : 'primary'}
+                small
+                onPress={() => {
                   dispatch(
-                    upsertExplorationNote({
-                      hexKey: hexKey,
-                      note: e,
-                      updatedAt: currentDate.serialize(),
+                    toggleExploredAt({
+                      hexKey,
+                      exploredAt: currentDate.serialize(),
                       gameSource: gameSource,
                     }),
                   )
-                }
-              }}
-            ></TextArea>
+                }}
+              >
+                {exploredAt.some ? (
+                  <FireIcon className="h-5 w-5" />
+                ) : (
+                  <MagnifyingGlassIcon className="h-5 w-5" />
+                )}
+                {t(
+                  exploredAt.some
+                    ? 'map:popover_forget'
+                    : 'map:popover_explore',
+                )}
+              </ParchmentButton>
+            </span>
+          ) : null}
+        </NoteBox>
+        <NoteBox className="">
+          <div className="flex w-full flex-col gap-2">
+            {noteEditable ? (
+              <TextArea
+                className=""
+                placeholder="Write a note..."
+                label="NOTE"
+                value={note.map((n) => n.body).unwrapOr('')}
+                maxLength={NOTE_MAX_LENGTH}
+                onChange={(e) => {
+                  if (isString(e)) {
+                    dispatch(
+                      upsertExplorationNote({
+                        hexKey: hexKey,
+                        note: e,
+                        updatedAt: currentDate.serialize(),
+                        gameSource: gameSource,
+                      }),
+                    )
+                  }
+                }}
+              ></TextArea>
+            ) : (
+              <div>
+                <PrintedText className="">NOTE</PrintedText>
+                <div className="yx-hand line-clamp-2 w-full bg-transparent text-2xl">
+                  {note.map((n) => n.body).unwrapOr('')}
+                </div>
+              </div>
+            )}
+
             <div className="flex items-center justify-between"></div>
           </div>
         </NoteBox>
