@@ -81,7 +81,7 @@ export const MapPopover = ({ options }: MapPopoverProps) => {
 type ExplorationNoteProps = ComponentPropsWithoutRef<'div'> & {
   explorationNote: ExplorationNoteViewModel
 }
-function ExplorationNote({
+export function ExplorationNote({
   explorationNote: { hexKey, note, exploredAt, gameSource },
   children,
 }: ExplorationNoteProps) {

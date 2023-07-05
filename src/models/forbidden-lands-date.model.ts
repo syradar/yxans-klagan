@@ -240,6 +240,37 @@ export function formatForbiddenLandsDate({
   return `${padZero4(year)}-${padZero2(month)}-${padZero2(day)}`
 }
 
+export function forbiddenLandsComparator(
+  a: ForbiddenLandsDateSerializable,
+  b: ForbiddenLandsDateSerializable,
+): number {
+  if (a.year < b.year) {
+    return -1
+  }
+
+  if (a.year > b.year) {
+    return 1
+  }
+
+  if (a.monthIndex < b.monthIndex) {
+    return -1
+  }
+
+  if (a.monthIndex > b.monthIndex) {
+    return 1
+  }
+
+  if (a.day < b.day) {
+    return -1
+  }
+
+  if (a.day > b.day) {
+    return 1
+  }
+
+  return 0
+}
+
 export class ForbiddenLandsDateClass implements ForbiddenLandsDate {
   readonly year: number
   readonly month: MonthNumber
@@ -321,6 +352,14 @@ export class ForbiddenLandsDateClass implements ForbiddenLandsDate {
       this.monthIndex === fbl2.monthIndex &&
       this.day === fbl2.day
     )
+  }
+
+  compareTo(fbl2: ForbiddenLandsDateSerializable, ascending = true): number {
+    if (ascending) {
+      return forbiddenLandsComparator(fbl2, this)
+    }
+
+    return forbiddenLandsComparator(this, fbl2)
   }
 
   static deserialize(date: ForbiddenLandsDateSerializable): ForbiddenLandsDate {

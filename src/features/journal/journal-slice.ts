@@ -381,6 +381,19 @@ export const { toggleUseHandwritten, upsertExplorationNote, toggleExploredAt } =
   journalSlice.actions
 
 export const selectJournal = (state: RootState) => state.journal
+export const selectHasExploredHexes = createSelector(
+  [selectSource, selectJournal],
+  (source, journal) => {
+    const sourceNotes = journal.explorationNotes[source]
+
+    return {
+      hasExploredHexes: Object.values(sourceNotes).some(
+        (n) => n.exploredAt !== undefined,
+      ),
+      explorationNotes: sourceNotes,
+    }
+  },
+)
 
 export type ExplorationNoteViewModel = Omit<
   ExplorationNote,
@@ -397,8 +410,8 @@ export type ExplorationNoteViewModel = Omit<
 export const selectAllExplorationNotes = createSelector(
   [selectSource, selectJournal],
   (source, journal): ExplorationNoteViewModel[] => {
-    const notes = Object.values(journal.explorationNotes[source]).map(
-      (explorationNote) => {
+    const notes = Object.values(journal.explorationNotes[source])
+      .map((explorationNote) => {
         return {
           ...explorationNote,
           exploredAt: maybe(explorationNote.exploredAt).map((date) => {
@@ -412,8 +425,25 @@ export const selectAllExplorationNotes = createSelector(
             }
           }),
         }
-      },
-    )
+      })
+      .sort((a, b) => {
+        const dateA = a.exploredAt.unwrapOr(undefined)
+        const dateB = b.exploredAt.unwrapOr(undefined)
+
+        if (!dateA) {
+          return 1
+        }
+
+        if (!dateB) {
+          return -1
+        }
+
+        if (!dateA || !dateB) {
+          return 0
+        }
+
+        return dateB.compareTo(dateA, false)
+      })
 
     return notes
   },

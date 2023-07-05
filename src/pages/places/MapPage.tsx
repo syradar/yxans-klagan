@@ -11,7 +11,10 @@ import { Train } from '../../components/Stack'
 import { PageHeader } from '../../components/page-header'
 import { Parchment } from '../../components/parchment'
 import { PasteData } from '../../components/paste-data'
-import { selectJournal } from '../../features/journal/journal-slice'
+import {
+  selectAllExplorationNotes,
+  selectHasExploredHexes,
+} from '../../features/journal/journal-slice'
 import {
   MapState,
   handlePasteSuccess,
@@ -32,9 +35,13 @@ import { useAppDispatch, useAppSelector } from '../../store/store.hooks'
 import { TranslationKey } from '../../store/translations/translation.model'
 import { selectTranslateFunction } from '../../store/translations/translation.slice'
 import ForbiddenLandsMap from './ForbiddenLandsMap'
-import { MapPopover, MapPopoverOptions } from './map-popover'
+import { ExplorationNote, MapPopover, MapPopoverOptions } from './map-popover'
 import { Hex } from './map.model'
 import { Polygon } from './polygon'
+import { BookPageTitle } from '../../components/BookPageTitle'
+import { Typography } from '../../components/Typography'
+import { BookList } from '../../components/BookList'
+import { BookLink } from '../../components/BookLink'
 
 export const MapPage = () => {
   const t = useAppSelector(selectTranslateFunction(['map', 'common']))
@@ -43,13 +50,8 @@ export const MapPage = () => {
   const { hexes, selectedHex } = useAppSelector(selectMap)
   const serializableMap = useAppSelector(selectMapSerializable)
   const dispatch = useAppDispatch()
-  const { explorationNotes } = useAppSelector(selectJournal)
-  const hasExploredHexes = useMemo(
-    () =>
-      Object.values(explorationNotes).some((notes) =>
-        Object.values(notes).some((note) => notNullish(note.exploredAt)),
-      ),
-    [explorationNotes],
+  const { hasExploredHexes, explorationNotes } = useAppSelector(
+    selectHasExploredHexes,
   )
 
   const parchmentRef = useRef<HTMLDivElement>(null)
@@ -274,7 +276,7 @@ export const MapPage = () => {
                   key={hex.hexKey}
                   hex={hex}
                   explored={notNullish(
-                    explorationNotes[source][hex.hexKey]?.exploredAt,
+                    explorationNotes[hex.hexKey]?.exploredAt,
                   )}
                   selectedHex={selectedHex}
                   onMouseOver={(e) => handleMouseOver(e, hex)}
@@ -284,6 +286,10 @@ export const MapPage = () => {
             </ForbiddenLandsMap>
           </div>
         </Parchment>
+      </div>
+
+      <div>
+        <JournalPage />
       </div>
     </div>
   )
@@ -311,4 +317,159 @@ const errorToPasteError = (e: Error): PasteError => {
   }
 
   return 'general'
+}
+
+const JournalHome = () => {
+  const t = useAppSelector(selectTranslateFunction(['journal']))
+  const allNotes = useAppSelector(selectAllExplorationNotes)
+
+  // const monsters = bookMonsters
+  //   .map(createMonstersViewModel)
+  //   .sort(monsterComparer(t))
+
+  return (
+    <div className="flex flex-col">
+      <BookPageTitle>{t('journal:title')}</BookPageTitle>
+
+      <div className="flex flex-col gap-8">
+        <section>
+          <Typography variant="h3" parchment>
+            Explored Hexes
+          </Typography>
+          <div className="mb-4">{t('monster:bookmonsters.description')}</div>
+          <BookList>
+            {allNotes
+              .filter((n) => n.exploredAt.some)
+              .map((note) => (
+                <li key={note.hexKey}>
+                  <BookLink to={'/monsters/random'}>
+                    <div className="flex flex-col">
+                      <Typography variant="h4" parchment>
+                        {note.hexKey}
+                      </Typography>
+                      <Typography variant="body" parchment>
+                        {note.exploredAt
+                          .map((d) => d.format())
+                          .unwrapOr('Unknown')}
+                      </Typography>
+                    </div>
+                  </BookLink>
+                </li>
+              ))}
+          </BookList>
+        </section>
+      </div>
+    </div>
+  )
+}
+
+const JournalPage = () => {
+  const allNotes = useAppSelector(selectAllExplorationNotes)
+  const t = useAppSelector(selectTranslateFunction(['journal']))
+
+  return (
+    <div className="relative flex flex-col rounded bg-sky-700 p-2 shadow-lg md:flex-row">
+      <div
+        className="absolute inset-y-2 left-1/2 z-10 hidden w-4 -translate-x-1/2 bg-gradient-to-r from-transparent from-25%
+          via-amber-950 to-transparent to-75% md:block"
+      ></div>
+
+      <div className="w-1/2 items-stretch ">
+        <Parchment full>
+          <div className="flex h-full flex-col gap-4">
+            {/* <div className="mb-4 flex justify-between">
+                {monsterSection !== undefined ? (
+                  <div>
+                    <BackToAllMonsters />
+                  </div>
+                ) : null}
+
+                {monsterSection !== undefined && nextMonster.some ? (
+                  <div className="md:hidden">
+                    <LinkWithIcon to={nextMonster.val.to} icon="nextPage" right>
+                      {nextMonster.val.text}
+                    </LinkWithIcon>
+                  </div>
+                ) : null}
+              </div> */}
+
+            <div
+              className={`${
+                // monsterSection === undefined ? '' : 'hidden 2xl:block'
+                ''
+              }`}
+            >
+              <JournalHome />
+            </div>
+
+            {/* {isBookMonster && paramMonster ? (
+                <MonsterDisplay m={paramMonster} bookPart={bookPart} />
+              ) : null}
+
+              {isRandomMonster ? (
+                <RandomMonsterDisplay rm={randomMonster} bookPart={bookPart} />
+              ) : null}
+
+              {isCommunityMonster && comovm ? (
+                <CommunityMonsterDisplay como={comovm} bookPart={bookPart} />
+              ) : null}
+
+              {previousMonster.some ? (
+                <div className="mt-auto hidden md:block">
+                  <LinkWithIcon to={previousMonster.val.to} icon="lastPage">
+                    {previousMonster.val.text}
+                  </LinkWithIcon>
+                </div>
+              ) : (
+                <div></div>
+              )} */}
+          </div>
+          <div className="absolute bottom-0 left-0 z-50 h-4 w-full translate-y-2 bg-gradient-to-b from-transparent from-25% via-black to-transparent to-75% md:hidden"></div>
+        </Parchment>
+      </div>
+      <div className="w-1/2 items-stretch">
+        <Parchment full>
+          <div className="flex h-full flex-col gap-4">
+            <section>
+              <Typography variant="h3" parchment>
+                Latest exploration notes
+              </Typography>
+              {allNotes
+                .filter((n) => n.exploredAt.some)
+                .map((note) => (
+                  <ExplorationNote
+                    key={note.id}
+                    explorationNote={note}
+                  ></ExplorationNote>
+                ))}
+
+              {/* {monsterSection === undefined || isBookMonster ? (
+                  <div className="md:h-full">
+                    <div className="mx-auto mt-16 min-h-[6rem] w-2/3 opacity-50">
+                      <RetroDragonIllustration />
+                    </div>
+                  </div>
+                ) : null} */}
+
+              {/* {isRandomMonster ? (
+                  <MonsterAttackSection como={randomMonster} />
+                ) : null}
+
+                {isCommunityMonster && comovm ? (
+                  <MonsterAttackSection como={comovm} />
+                ) : null} */}
+            </section>
+
+            {/* {nextMonster.some ? (
+                <div className="mt-auto hidden md:block">
+                  <LinkWithIcon to={nextMonster.val.to} icon="nextPage" right>
+                    {nextMonster.val.text}
+                  </LinkWithIcon>
+                </div>
+              ) : null} */}
+          </div>
+        </Parchment>
+      </div>
+    </div>
+  )
 }
