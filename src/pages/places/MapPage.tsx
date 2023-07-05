@@ -373,14 +373,14 @@ const JournalPage = () => {
   const t = useAppSelector(selectTranslateFunction(['journal']))
 
   return (
-    <div className="relative flex flex-col rounded bg-sky-700 p-2 shadow-lg md:flex-row">
+    <div className="relative flex flex-col rounded-3xl bg-sky-700 p-2 shadow-lg md:flex-row">
       <div
         className="absolute inset-y-2 left-1/2 z-10 hidden w-4 -translate-x-1/2 bg-gradient-to-r from-transparent from-25%
           via-amber-950 to-transparent to-75% md:block"
       ></div>
 
       <div className="items-stretch md:w-1/2 ">
-        <Parchment full>
+        <Parchment full parchmentClassName="rounded-t-2xl md:rounded-l-2xl">
           <div className="flex h-full flex-col gap-4">
             {/* <div className="mb-4 flex justify-between">
                 {monsterSection !== undefined ? (
@@ -433,7 +433,7 @@ const JournalPage = () => {
         </Parchment>
       </div>
       <div className="items-stretch md:w-1/2">
-        <Parchment full>
+        <Parchment full parchmentClassName="rounded-b-2xl md:rounded-r-2xl">
           <div className="flex h-full flex-col gap-4">
             <section>
               <Typography variant="h3" parchment>
