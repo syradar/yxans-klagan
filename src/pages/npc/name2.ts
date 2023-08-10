@@ -8,7 +8,8 @@ import { createRandomVillageName } from '../village/village-name'
 import { ValidLanguage } from '../../hooks/useValidLanguage'
 
 export type Gender = 'male' | 'female'
-export const randomGender = (): Gender => choose(['male', 'female'])
+export const randomGender = (): Gender =>
+  choose<Gender>(['male', 'female']).unwrapOr('female')
 
 export type Kin = 'human'
 
@@ -36,14 +37,16 @@ export const getHumanName = (
     return {
       id: nanoid(),
       sv: {
-        firstName,
-        familyName: type === 'familyName' ? familyName : undefined,
+        firstName: firstName.unwrapOr(''),
+        familyName:
+          type === 'familyName' ? familyName.unwrapOr(undefined) : undefined,
         homeName: type === 'homeName' ? homeNameSv : undefined,
         nickName: undefined,
       },
       en: {
-        firstName,
-        familyName: type === 'familyName' ? familyName : undefined,
+        firstName: firstName.unwrapOr(''),
+        familyName:
+          type === 'familyName' ? familyName.unwrapOr(undefined) : undefined,
         homeName: type === 'homeName' ? homeNameEn : undefined,
         nickName: undefined,
       },

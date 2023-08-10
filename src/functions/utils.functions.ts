@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid'
 import { range } from 'ramda'
+import { None, Option, Some } from 'ts-results'
 
 export const identity = <T>(x: T): T => x
 
@@ -39,35 +40,15 @@ export const numberToBooleans = (to: number | Nullish) => {
     throw new Error('Invalid number')
   }
 
-  return range(0, to).map((_) => false)
+  return range(0, to).map(_ => false)
 }
 
-interface MaybeType<T> {
-  map: <U>(fn: (val: T) => U) => MaybeType<U>
-  value: () => T | undefined
-  withDefault: <U>(defaultValue: U) => T | U
-}
-
-export const maybe = <T>(val?: T): MaybeType<T> => {
-  const innerValue = val ?? undefined
-
-  return {
-    map: (fn) => {
-      if (isNullish(innerValue)) {
-        return maybe()
-      }
-
-      return maybe(fn(innerValue))
-    },
-    value: () => innerValue,
-    withDefault: (defaultValue) => {
-      if (isNullish(innerValue)) {
-        return defaultValue
-      }
-
-      return innerValue
-    },
+export const toOption = <T>(val?: T): Option<NonNullable<T>> => {
+  if (notNullish(val)) {
+    return Some(val)
   }
+
+  return None
 }
 
 export const validNumber = (

@@ -20,11 +20,11 @@ export const NpcPage = () => {
   const t = useAppSelector(selectTranslateFunction(['npc', 'common']))
 
   const createNPC = (): NPC => ({
-    kin: getRandomKinType(),
+    kin: getRandomKinType().unwrapOr('human'),
     name: 'Testnamn',
-    occupation: getRandomOccupation(),
-    characteristic: getRandomCharacteristic(),
-    quirk: getRandomQuirk(),
+    occupation: getRandomOccupation().unwrapOr('academic'),
+    characteristic: getRandomCharacteristic().unwrapOr('cocky'),
+    quirk: getRandomQuirk().unwrapOr('alder_spy'),
   })
 
   const [npc, setNpc] = useState<NPC>(createNPC())
@@ -48,7 +48,10 @@ export const NpcPage = () => {
           ]
             .map(withId)
             .map(({ id, value }) => (
-              <p key={id} className="mt-4 first:mt-0">
+              <p
+                key={id}
+                className="mt-4 first:mt-0"
+              >
                 {value}
               </p>
             ))}

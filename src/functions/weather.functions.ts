@@ -1,7 +1,8 @@
+import { None, Option } from 'ts-results'
 import { TranslationKey } from '../store/translations/translation.model'
-import { range } from './array.functions'
+import { at, range } from './array.functions'
 import { choose } from './dice.functions'
-import { inRange, notNullish } from './utils.functions'
+import { inRange, notNullish, toOption } from './utils.functions'
 
 const month = [
   'WinterWane',
@@ -48,36 +49,31 @@ const normalizeTempDeltaWithWetness = (
   return temp * (1 / ((1 + wetnessPercent) * (1 + wetnessPercent)))
 }
 
-const getRandomArrayIndex = <T>(e: T[]): number => {
-  return Math.min(e.length - 1, Math.floor(Math.random() * e.length))
-}
-
 function toCelsius(fahrenheit: number) {
   return Math.floor((fahrenheit - 32) / 1.8)
 }
 
-export const getTempString = (fahrenheit: number) =>
-  `${toCelsius(fahrenheit)} ${degreeSymbol}C`
+// export const getTempString = (fahrenheit: number) =>
+//   `${toCelsius(fahrenheit)} ${degreeSymbol}C`
 
-export const getFahrenheitTempString = (fahrenheit: number) =>
-  `${fahrenheit} ${degreeSymbol}F`
-
+// export const getFahrenheitTempString = (fahrenheit: number) =>
+//   `${fahrenheit} ${degreeSymbol}F`
+const KM_PER_MILE = 1.6
 export function toKilometers(miles: number) {
-  return Math.floor(1.6 * miles)
+  return Math.floor(miles * KM_PER_MILE)
 }
+const METERS_PER_MILE = 1600
+const SECONDS_IN_HOUR = 3600
 export function toMetersPerSecond(mph: number) {
-  return Math.floor((1600 * mph) / 3600)
+  return Math.floor((mph * METERS_PER_MILE) / SECONDS_IN_HOUR)
 }
 
 const degreeSymbol = '°'
 const TEMP_CHANGE_TYPES = [1, 1, 0.3, 3]
 
-export enum TemperatureUnit {
-  Imperial,
-  Metric,
-}
+export type TemperatureUnit = 'imperial' | 'metric'
 
-const units: TemperatureUnit = TemperatureUnit.Metric
+const units: TemperatureUnit = 'metric'
 
 enum WindUnitType {
   KPH = 'Metric (kph wind)',
@@ -149,7 +145,7 @@ interface WeatherDayDto {
   downpour: Downpour
   windDesc: string
   specialDesc: string
-  eventType?: WeatherEvent
+  eventType: Option<WeatherEvent>
   supernaturalEvent?: Partial<WeatherEvent>
 }
 
@@ -169,7 +165,7 @@ export class WeatherDay {
   downpour: Downpour
   windDesc: string
   specialDesc: string
-  eventType?: WeatherEvent
+  eventType: Option<WeatherEvent>
 
   constructor(e: WeatherDayDto) {
     this.temp = e.temp
@@ -191,13 +187,13 @@ export class WeatherDay {
   }
 
   GetHighString() {
-    return units === TemperatureUnit.Imperial
+    return units === 'imperial'
       ? this.temp + degreeSymbol + 'F'
       : toCelsius(this.temp) + degreeSymbol + 'C'
   }
 
   GetLowString() {
-    return units === TemperatureUnit.Imperial
+    return units === 'imperial'
       ? this.lowTemp + degreeSymbol + 'F'
       : toCelsius(this.lowTemp) + degreeSymbol + 'C'
   }
@@ -259,7 +255,7 @@ export class WeatherSystem {
   days: WeatherDay[] = []
   duration: number = Math.floor(1 + 14 * Math.random())
   hasEvent: boolean
-  eventType?: WeatherEvent
+  eventType: Option<WeatherEvent>
   isCalm: boolean
   isStorm: boolean
   wetness: number
@@ -270,8 +266,8 @@ export class WeatherSystem {
   previousSystem?: WeatherSystem
   nextSystem?: WeatherSystem
 
-  rampupType = getRandomArrayIndex(TEMP_CHANGE_TYPES)
-  rampdownType = getRandomArrayIndex(TEMP_CHANGE_TYPES)
+  rampupType = choose(TEMP_CHANGE_TYPES).unwrapOr(1)
+  rampdownType = choose(TEMP_CHANGE_TYPES).unwrapOr(1)
 
   constructor(
     climate: number,
@@ -283,6 +279,8 @@ export class WeatherSystem {
     this.hasEvent = rand > 0.9
     this.isStorm = rand > 0.8
     this.isCalm = rand < 0.3
+
+    this.eventType = None
 
     const wetnessDelta = 1.5 * wetnessVariation * (0.5 + 0.5 * rand)
     this.wetness = wetness + wetnessDelta * rand * 40
@@ -319,12 +317,16 @@ export class WeatherSystem {
     this.days = []
   }
 
-  SetPreviousSystem(system: WeatherSystem) {
-    this.previousSystem = system
+  SetPreviousSystem(system: Option<WeatherSystem>) {
+    if (system.some) {
+      this.previousSystem = system.safeUnwrap()
+    }
   }
 
-  SetNextSystem(system: WeatherSystem) {
-    this.nextSystem = system
+  SetNextSystem(system: Option<WeatherSystem>) {
+    if (system.some) {
+      this.nextSystem = system.safeUnwrap()
+    }
   }
 
   GenerateDays(): void {
@@ -362,16 +364,16 @@ export class WeatherSystem {
     })
   }
 
-  GetEventType(): SpecialWeatherEvent | undefined {
+  GetEventType(): Option<SpecialWeatherEvent> {
     const selectedSpecialEvents = specialEvents
-      .map((se) => {
+      .map(se => {
         const k = [
           inRange(se.requirements.temp)(this.temp),
           inRange(se.requirements.wetness)(this.temp),
           inRange(se.requirements.wind)(this.temp),
-        ].some((r) => r)
+        ].some(r => r)
 
-        return range(k ? se.weight : 0).map((_) => se)
+        return range(k ? se.weight : 0).map(_ => se)
       })
       .flat()
 
@@ -390,7 +392,7 @@ type GenerateDaysProps = {
   isStorm: boolean
   isCalm: boolean
   hasEvent: boolean
-  eventType?: WeatherEvent
+  eventType: Option<WeatherEvent>
   previousSystem?: WeatherSystem
 }
 const generateDays = ({
@@ -407,7 +409,7 @@ const generateDays = ({
   eventType,
   previousSystem,
 }: GenerateDaysProps) => {
-  return range(duration).map((di) => {
+  return range(duration).map(di => {
     const { tempDelta, wetnessDelta } = getTempAndWetnessDelta(
       di,
       duration,
@@ -561,7 +563,10 @@ const getNewTempChange = (
   rampdownType: number,
 ) => {
   const rampType = isFirstHalf ? rampupType : rampdownType
-  const newTempChange = Math.pow(tempChange, TEMP_CHANGE_TYPES[rampType])
+  const newTempChange = Math.pow(
+    tempChange,
+    at(TEMP_CHANGE_TYPES, rampType).unwrapOr(1),
+  )
 
   return isNaN(newTempChange) ? tempChange : newTempChange
 }
@@ -896,14 +901,21 @@ export class GenerateWeather {
       this.weatherSystems.push(ws)
 
       if (weatherSystems.length > 1) {
-        ws.SetPreviousSystem(weatherSystems[weatherSystems.length - 2])
-        this.weatherSystems[weatherSystems.length - 2].SetNextSystem(ws)
-        this.weatherSystems[weatherSystems.length - 2].GenerateDays()
+        ws.SetPreviousSystem(at(weatherSystems, weatherSystems.length - 2))
+
+        const sys = at(this.weatherSystems, weatherSystems.length - 2)
+        if (sys.some) {
+          sys.safeUnwrap().SetNextSystem(toOption(ws))
+          sys.safeUnwrap().GenerateDays()
+        }
       } else {
-        ws.SetPreviousSystem(firstWeatherSystem)
+        ws.SetPreviousSystem(toOption(firstWeatherSystem))
       }
     }
 
-    this.weatherSystems[weatherSystems.length - 1].GenerateDays()
+    const sys = at(this.weatherSystems, weatherSystems.length - 1)
+    if (sys.some) {
+      sys.safeUnwrap().GenerateDays()
+    }
   }
 }

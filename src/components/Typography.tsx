@@ -16,7 +16,7 @@ export const Typography = ({
     return (
       <p
         className={`
-        ${parchment ? 'yx-prose' : 'font-medium'}
+        ${parchment ? 'yx-prose' : ''}
         ${useMargin ? 'mb-1' : ''}
         ${center ? 'text-center' : ''}
         `}

@@ -1,14 +1,16 @@
 import { Err, Ok, Result } from 'ts-results'
+import { z } from 'zod'
 import { range } from '../functions/array.functions'
-import { TranslationKey } from '../store/translations/translation.model'
+import { atParseInt, clamp } from '../functions/math.functions'
 import { padZero2, padZero4 } from '../functions/string-format.functions'
-import { clamp } from '../functions/math.functions'
+import { TranslationKey } from '../store/translations/translation.model'
 
-export const monthIndices = [0, 1, 2, 3, 4, 5, 6, 7] as const
+export const DEFAULT_START_YEAR = 1165
+
+const MONTH_INDICES = [0, 1, 2, 3, 4, 5, 6, 7] as const
+export type MonthIndex = (typeof MONTH_INDICES)[number]
 export const isMonthIndex = (val: number): val is MonthIndex =>
-  monthIndices.includes(val as MonthIndex)
-
-export type MonthIndex = (typeof monthIndices)[number]
+  MONTH_INDICES.includes(val as MonthIndex)
 
 export const monthLabelDict: Record<
   MonthIndex,
@@ -94,37 +96,6 @@ export const isDayIndex = (val: number): val is DayIndex =>
 
 export type DayNumbers = 1 | 2 | 3 | 4 | 5 | 6 | 7
 
-export const integerRegex = /^-?\d*$/
-
-export const safeParseInt = (val: string): Result<number, Error> => {
-  if (!val) {
-    return Err(new RangeError('No value provided'))
-  }
-
-  if (val === 'Infinity' || val === '-Infinity') {
-    return Err(new RangeError('Invalid number: only work with finite numbers.'))
-  }
-
-  if (val.includes('.')) {
-    return Err(new RangeError('Invalid number: does not work with floats.'))
-  }
-
-  if (!integerRegex.test(val)) {
-    return Err(
-      new SyntaxError('Invalid number: contains non-numeric characters.'),
-    )
-  }
-
-  const parsed = parseInt(val, 10)
-  const toNum = Number(val)
-
-  if (isNaN(parsed) || isNaN(toNum)) {
-    return Err(new RangeError('Invalid number: NaN.'))
-  }
-
-  return Ok(parsed)
-}
-
 /**
  * Parses a date string into a ForbiddenLandsDate
  * @param date YEAR-MONTH-DAY
@@ -138,19 +109,19 @@ export const parseForbiddenLandsDate = (
     return Err(ForbiddenLandsInvalidDateFormatError())
   }
 
-  const year = safeParseInt(splitDate[0])
+  const year = atParseInt(splitDate, 0)
 
   if (year.err) {
     return year
   }
 
-  const month = safeParseInt(splitDate[1]).andThen(isValidMonthNumber)
+  const month = atParseInt(splitDate, 1).andThen(isValidMonthNumber)
 
   if (month.err) {
     return month
   }
 
-  const day = safeParseInt(splitDate[2])
+  const day = atParseInt(splitDate, 2)
 
   if (day.err) {
     return day
@@ -158,7 +129,7 @@ export const parseForbiddenLandsDate = (
 
   const m = month.safeUnwrap()
   const monthIndex = (m - 1) as MonthIndex
-  const dayRangeValid = day.andThen((d) => {
+  const dayRangeValid = day.andThen(d => {
     if (d < 1) {
       return Err(ForbiddenLandsMinDayError(d))
     }
@@ -184,6 +155,13 @@ export const parseForbiddenLandsDate = (
   })
 }
 
+export const forbiddenLandsDateStringSchema = z.string().refine(
+  v => parseForbiddenLandsDate(v).ok,
+  key => ({
+    message: `Key: "${key}" is not valid ForbiddenLandsDate. Should be YYYY-M-D`,
+  }),
+)
+
 export type ForbiddenLandsDateSerializable = {
   readonly year: number
   readonly month: MonthNumber
@@ -191,12 +169,75 @@ export type ForbiddenLandsDateSerializable = {
   readonly day: number
 }
 
+export const forbiddenLandsDateSerializableSchema = z
+  .object({
+    year: z.number().int().positive().default(DEFAULT_START_YEAR),
+    month: z.number().int().min(1).max(8).default(1),
+    monthIndex: z.number().int().min(0).max(7).default(0),
+    day: z.number().int().min(1).max(46).default(1),
+  })
+  .refine(
+    (date): date is ForbiddenLandsDateSerializable => {
+      if (date.monthIndex !== ((date.month - 1) as MonthIndex)) {
+        return false
+      }
+
+      if (date.day > daysInMonth[date.monthIndex as MonthIndex]) {
+        return false
+      }
+
+      return true
+    },
+    invalidDate => ({
+      message: `Invalid date: ${JSON.stringify(invalidDate)}`,
+    }),
+  )
+
 export type ForbiddenLandsDate = ForbiddenLandsDateSerializable & {
   readonly toString: () => string
   readonly format: () => string
   readonly equals: (fbl2: ForbiddenLandsDateSerializable) => boolean
   readonly dayIndex: DayIndex
   readonly serialize: () => ForbiddenLandsDateSerializable
+}
+
+export function formatForbiddenLandsDate({
+  day,
+  month,
+  year,
+}: ForbiddenLandsDateSerializable): string {
+  return `${padZero4(year)}-${padZero2(month)}-${padZero2(day)}`
+}
+
+export function forbiddenLandsComparator(
+  a: ForbiddenLandsDateSerializable,
+  b: ForbiddenLandsDateSerializable,
+): number {
+  if (a.year < b.year) {
+    return -1
+  }
+
+  if (a.year > b.year) {
+    return 1
+  }
+
+  if (a.monthIndex < b.monthIndex) {
+    return -1
+  }
+
+  if (a.monthIndex > b.monthIndex) {
+    return 1
+  }
+
+  if (a.day < b.day) {
+    return -1
+  }
+
+  if (a.day > b.day) {
+    return 1
+  }
+
+  return 0
 }
 
 export class ForbiddenLandsDateClass implements ForbiddenLandsDate {
@@ -260,14 +301,8 @@ export class ForbiddenLandsDateClass implements ForbiddenLandsDate {
     return dayIndex
   }
 
-  toString(): string {
-    return `${this.year}-${this.month}-${this.day}`
-  }
-
   format(): string {
-    return `${padZero4(this.year)}-${padZero2(this.month)}-${padZero2(
-      this.day,
-    )}`
+    return formatForbiddenLandsDate(this)
   }
 
   serialize(): ForbiddenLandsDateSerializable {
@@ -288,13 +323,21 @@ export class ForbiddenLandsDateClass implements ForbiddenLandsDate {
     )
   }
 
+  compareTo(fbl2: ForbiddenLandsDateSerializable, ascending = true): number {
+    if (ascending) {
+      return forbiddenLandsComparator(fbl2, this)
+    }
+
+    return forbiddenLandsComparator(this, fbl2)
+  }
+
   static deserialize(date: ForbiddenLandsDateSerializable): ForbiddenLandsDate {
     return new ForbiddenLandsDateClass(date)
   }
 
   static fromString(date: string): Result<ForbiddenLandsDate, Error> {
     return parseForbiddenLandsDate(date).map(
-      (d) => new ForbiddenLandsDateClass(d),
+      d => new ForbiddenLandsDateClass(d),
     )
   }
 
@@ -330,9 +373,6 @@ export class ForbiddenLandsDateClass implements ForbiddenLandsDate {
 //       return 1
 //   }
 // }
-
-export const DEFAULT_START_YEAR = 1165
-const MONTH_INDICES: MonthIndex[] = [0, 1, 2, 3, 4, 5, 6, 7]
 
 export type MoonPhase = 'full' | 'new' | 'normal'
 
@@ -398,14 +438,14 @@ export const getCalendar = (
     return Err(new Error(`Invalid dayOffset: ${dayOffset}`))
   }
   let daysPassed = 0
-  const months = MONTH_INDICES.map((mIndex) => {
+  const months = MONTH_INDICES.map(mIndex => {
     const month = createMonth(mIndex, dayOffset, daysPassed, startYear)
     daysPassed += daysInMonth[mIndex]
 
     return month
   })
 
-  return Result.all(...months).map((months) =>
+  return Result.all(...months).map(months =>
     createCalendar(startYear, dayOffset, months),
   )
 }
@@ -417,12 +457,12 @@ const createMonth = (
   year: number,
 ): Result<CalendarMonth, Error> => {
   const res = Result.all(
-    ...range(daysInMonth[index]).map((d) =>
-      createDayIndex(d, dayOffset, daysPassed).map((i) =>
+    ...range(daysInMonth[index]).map(d =>
+      createDayIndex(d, dayOffset, daysPassed).map(i =>
         createDay(d + 1, index, i, year),
       ),
     ),
-  ).map((days) => ({ index, days }))
+  ).map(days => ({ index, days }))
 
   return res
 }

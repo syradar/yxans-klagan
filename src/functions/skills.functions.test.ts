@@ -24,8 +24,14 @@ describe('createAllSkillsValuesViewModel', () => {
 
   it('should return non-zero skill values', () => {
     const expected: AllSkillsValuesViewModel = [
-      ['melee', 2],
-      ['insight', 3],
+      {
+        skill: 'melee',
+        value: 2,
+      },
+      {
+        skill: 'insight',
+        value: 3,
+      },
     ]
     const result = createAllSkillsValuesViewModel({
       ...defaultSkillsValues(),

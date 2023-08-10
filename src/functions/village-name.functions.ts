@@ -1,6 +1,8 @@
+import { Option } from 'ts-results'
 import { villageNamesEn, villageNamesSv } from '../data/village-name.data'
 import { ValidLanguage } from '../hooks/useValidLanguage'
 import { choose } from './dice.functions'
+import { optionTypeGuard } from './option'
 import { capitalize } from './utils.functions'
 
 type LanguageVillageNameModelMap = { [VL in ValidLanguage]: VillageNameData }
@@ -27,19 +29,21 @@ export const getFormattedVillageName = (
 const getVillagePrefixAndSuffix = (
   lang: ValidLanguage,
   choiceFunc = choose,
-): [string, string] => {
+): [Option<string>, Option<string>] => {
   const { prefix, suffix } = languageVillageNameModelMap[lang]
 
   return [choiceFunc(prefix), choiceFunc(suffix)]
 }
 
 const formatVillageName = (
-  prefixAndSuffix: [string, string],
+  prefixAndSuffix: [Option<string>, Option<string>],
   lang: ValidLanguage,
 ) => {
   const separator = lang === 'en' ? ' ' : ''
 
   return prefixAndSuffix
-    .map((fix) => (lang === 'en' ? capitalize(fix) : fix))
+    .filter(optionTypeGuard)
+    .map(fix => fix.map(f => (lang === 'en' ? capitalize(f) : f)).safeUnwrap())
+
     .join(separator)
 }

@@ -14,7 +14,11 @@ export const getRandomQuirk = compose(choose, getQuirks)
 describe('getRandomKinType', () => {
   it('should return kintype', () => {
     const expected = true
-    const result = getKinTypes().includes(getRandomKinType())
+    const random = getRandomKinType()
+    expect(random.some).toBeTruthy()
+    assert(random.some)
+
+    const result = getKinTypes().includes(random.safeUnwrap())
 
     expect(result).toEqual(expected)
   })
@@ -22,7 +26,11 @@ describe('getRandomKinType', () => {
 describe('getRandomOccupation', () => {
   it('should return kintype', () => {
     const expected = true
-    const result = getOccupations().includes(getRandomOccupation())
+    const random = getRandomOccupation()
+    expect(random.some).toBeTruthy()
+    assert(random.some)
+
+    const result = getOccupations().includes(random.safeUnwrap())
 
     expect(result).toEqual(expected)
   })
@@ -30,7 +38,11 @@ describe('getRandomOccupation', () => {
 describe('getRandomCharacteristic', () => {
   it('should return kintype', () => {
     const expected = true
-    const result = getChacteristics().includes(getRandomCharacteristic())
+    const random = getRandomCharacteristic()
+    expect(random.some).toBeTruthy()
+    assert(random.some)
+
+    const result = getChacteristics().includes(random.safeUnwrap())
 
     expect(result).toEqual(expected)
   })
@@ -38,7 +50,10 @@ describe('getRandomCharacteristic', () => {
 describe('getRandomQuirk', () => {
   it('should return kintype', () => {
     const expected = true
-    const result = getQuirks().includes(getRandomQuirk())
+    const random = getRandomQuirk()
+    expect(random.some).toBeTruthy()
+    assert(random.some)
+    const result = getQuirks().includes(random.safeUnwrap())
 
     expect(result).toEqual(expected)
   })

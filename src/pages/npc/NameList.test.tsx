@@ -24,6 +24,6 @@ describe('NameList', () => {
     )
     const { getByText } = within(getByTestId('namelist'))
 
-    expect(getByText(expected)).toBeInTheDocument()
+    expect(getByText(expected)).toBeInstanceOf(HTMLElement)
   })
 })

@@ -37,7 +37,7 @@ export const EncounterPage = () => {
       <div>
         <Label> {t('encounter:terrain_type')}</Label>
         <Train spacing="small">
-          {getTerrainKeys().map((terrain) => (
+          {getTerrainKeys().map(terrain => (
             <ParchmentButton
               key={terrain}
               onPress={() => {
@@ -75,15 +75,21 @@ const EncounterLog = ({
 
   return (
     <Stack.Vertical>
-      {encounterLog.map((entry) => (
-        <Parchment key={entry.id} padding="sm">
+      {encounterLog.map(entry => (
+        <Parchment
+          key={entry.id}
+          padding="sm"
+        >
           <div>
             <div className="yx-prose text-lg">
               {t(terrainTranslationDict[entry.terrain])}
             </div>
             <ul className="flex flex-col gap-1">
-              {entry.encounters.map((el) => (
-                <li className="flex gap-1" key={el.keyId}>
+              {entry.encounters.map(el => (
+                <li
+                  className="flex gap-1"
+                  key={el.keyId}
+                >
                   <div className="">
                     {el.id}: {allEncounters[currentLanguage][el.id].title}
                   </div>

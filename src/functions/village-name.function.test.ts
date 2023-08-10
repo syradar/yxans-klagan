@@ -1,7 +1,8 @@
+import { describe, expect, it } from 'vitest'
 import { getFormattedVillageName } from './village-name.functions'
-
+import { at } from './array.functions'
 describe('Village Name Functions', () => {
-  const testChooseFunc = <T>(arr: readonly T[]): T => arr[0]
+  const testChooseFunc = <T>(arr: readonly T[]) => at(arr, 0)
 
   describe('getVillageNameList', () => {
     it('should use Swedish list for sv', () => {

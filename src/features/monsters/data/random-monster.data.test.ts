@@ -1,23 +1,26 @@
-import { compose, sum, pluck } from 'ramda'
+import { compose, pluck, sum } from 'ramda'
+import { describe, expect, it } from 'vitest'
 import { Definition } from '../../../@types/definition.type'
+import { atResult } from '../../../functions/array.functions'
 import { WeightedChoice } from '../../../functions/dice.functions'
+import { safeParseInt } from '../../../functions/math.functions'
 import {
-  MonsterSize,
-  MonsterType,
-  MovementType,
-  MovementDistanceFunction,
   MonsterHome,
   MonsterMotivation,
+  MonsterSize,
+  MonsterType,
+  MovementDistanceFunction,
+  MovementType,
 } from '../monster.model'
 import {
-  sizes,
-  types,
-  movementTypes,
-  homes,
   defaultMovementDistanceFunction,
+  homes,
+  monsterMotivation,
   monsterSkillValues,
   monsterWeakness,
-  monsterMotivation,
+  movementTypes,
+  sizes,
+  types,
 } from './random-monster.data'
 
 describe('sizes', () => {
@@ -30,7 +33,7 @@ describe('sizes', () => {
       [8, 'big'],
     ]
     it.each(cases)('should return %s STR for size %s', (expected, size) => {
-      const result = sizes.find((s) => s.value.size === size)?.value.strength()
+      const result = sizes.find(s => s.value.size === size)?.value.strength()
 
       expect(result).toEqual(expected)
     })
@@ -45,7 +48,7 @@ describe('sizes', () => {
       'should return %s STR for size %s',
       (expected, size, diceFn) => {
         const result = sizes
-          .find((s) => s.value.size === size)
+          .find(s => s.value.size === size)
           ?.value.strength(diceFn)
 
         expect(result).toEqual(expected)
@@ -62,10 +65,10 @@ describe('agility', () => {
       [2, 'gatherer'],
       [4, 'scavenger'],
       [5, 'predator'],
-      [8, 'aggressive_predator'],
+      [8, 'aggressivePredator'],
     ]
     it.each(cases)('should return %s AGI for type %s', (expected, type) => {
-      const result = types.find((s) => s.value.type === type)?.value.agility
+      const result = types.find(s => s.value.type === type)?.value.agility
 
       expect(result).toEqual(expected)
     })
@@ -130,11 +133,7 @@ describe('monsterSkillValues', () => {
     const movementTypeChoices = (str: string) =>
       str
         .split('|')
-        .map((c) => {
-          const cs = c.split('^')
-
-          return cs.length > 1 ? parseInt(cs[1], 10) : 1
-        })
+        .map(c => atResult(c.split('^'), 1).andThen(safeParseInt).unwrapOr(0))
         .reduce((acc, cur) => acc + cur, 0)
 
     const expected = 36

@@ -11,8 +11,9 @@ import {
 import { weightLabelDict } from '../models/weight.model'
 import { TranslationKey } from '../store/translations/translation.model'
 
-import { range } from './array.functions'
+import { add, range } from './array.functions'
 import { parseD6String, rollD6, rollD66 } from './dice.functions'
+import { toOption } from './utils.functions'
 
 export const rollFindValue = (
   fv: FindValue,
@@ -21,17 +22,20 @@ export const rollFindValue = (
 
   const piles = fv.split(';')
 
-  return piles.map((pile) => {
+  return piles.map(pile => {
     const [dice, coin] = pile.split(' ')
-    const numberOfD6ToRoll = parseD6String(dice)
 
-    const coinValue = range(numberOfD6ToRoll)
-      .map((_) => rollD6())
-      .reduce((a, b) => a + b, 0)
+    const coins = toOption(dice)
+      .map(parseD6String)
+      .map(range)
+      .map(diceRange => diceRange.map(_ => rollD6()).reduce(add, 0))
+      // parseD6String defaults to 1 so it will roll at least a 1 on its only die
+      .unwrapOr(1)
 
-    const coinLabel = coinLabelDict[coin as CoinType]
-
-    return { coins: coinValue, label: coinLabel }
+    return {
+      coins,
+      label: coinLabelDict[coin as CoinType],
+    }
   })
 }
 

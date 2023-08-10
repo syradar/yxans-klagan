@@ -1,3 +1,4 @@
+import { at } from '../../functions/array.functions'
 import { capitalize } from '../../functions/utils.functions'
 import {
   getNameTypeAndFirstName,
@@ -9,7 +10,7 @@ import {
 import { describe, it, expect } from 'vitest'
 
 describe('name functions', () => {
-  const testChooseFunc = <T>(arr: readonly T[]): T => arr[0]
+  const testChooseFunc = <T>(arr: readonly T[]) => at(arr, 0)
 
   describe('capitalize', () => {
     it.each([

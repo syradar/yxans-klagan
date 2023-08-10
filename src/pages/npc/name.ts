@@ -154,23 +154,31 @@ const getRandomName = (
   switch (value) {
     case 'FamilyName': {
       if (!nameList.family || nameList.family.length === 0) {
-        return [firstName]
+        return [firstName.unwrapOr('')]
       }
 
-      return [firstName, chooseFunc(nameList.family)]
+      return [firstName.unwrapOr(''), chooseFunc(nameList.family).unwrapOr('')]
     }
     case 'NickName': {
       if (!nameList.nickName || nameList.nickName.length === 0) {
-        return [firstName]
+        return [firstName.unwrapOr('')]
       }
 
-      return [firstName, 'names:the', chooseFunc(nameList.nickName)]
+      return [
+        firstName.unwrapOr(''),
+        'names:the',
+        chooseFunc(nameList.nickName).unwrapOr(''),
+      ]
     }
     case 'HomeName':
-      return [firstName, 'names:of', getFormattedVillageName(lang, chooseFunc)]
+      return [
+        firstName.unwrapOr(''),
+        'names:of',
+        getFormattedVillageName(lang, chooseFunc),
+      ]
     case 'FirstName':
     default:
-      return [firstName]
+      return [firstName.unwrapOr('')]
   }
 }
 

@@ -25,6 +25,21 @@ export const defaultSkillsValues = (): AllSkillsValues => ({
 export const createAllSkillsValuesViewModel = (
   skills: AllSkillsValues,
 ): AllSkillsValuesViewModel =>
-  Object.entries(skills).filter(
-    ([_, value]) => value > 0,
-  ) as AllSkillsValuesViewModel
+  entriesOf(skills)
+    .filter(([_, value]) => value > 0)
+    .reduce((acc: AllSkillsValuesViewModel, [skill, value]) => {
+      if (value > 0) {
+        acc.push({ skill, value })
+      }
+
+      return acc
+    }, [])
+
+/**
+ * Returns a typed array of key-value pairs for the given object.
+ * @param rec The object to extract key-value pairs from.
+ * @returns A typed array of key-value pairs.
+ */
+function entriesOf<T extends object>(rec: T): [keyof T, T[keyof T]][] {
+  return Object.entries(rec) as [keyof T, T[keyof T]][]
+}

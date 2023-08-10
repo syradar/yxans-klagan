@@ -43,11 +43,11 @@ export const createRandomVillage = (): Village => {
   const institutions = createVillageInstitutions(size)
 
   const inns = institutions
-    .filter((i) => i.type === 'inn')
-    .map((i) => createRandomInn(i))
+    .filter(i => i.type === 'inn')
+    .map(i => createRandomInn(i))
   const sortedInns: Inn[] = sortByProperty('name', inns, 'desc')
 
-  const institutionsWithoutInns = institutions.filter((i) => i.type !== 'inn')
+  const institutionsWithoutInns = institutions.filter(i => i.type !== 'inn')
   const sortedInstitutionsWithoutInns: VillageInstitution[] = sortByProperty(
     'type',
     institutionsWithoutInns,
@@ -61,8 +61,8 @@ export const createRandomVillage = (): Village => {
     age,
     builtWhen,
     leader: createRandomLeader(),
-    problem: choose(villageProblems),
-    fame: choose(villageFames),
+    problem: choose(villageProblems).unwrapOr('bandits'),
+    fame: choose(villageFames).unwrapOr('aHorribleMassacre'),
     oddity: weightedRandom(villageOdditiesWithWeights).value,
     institutions: sortedInstitutionsWithoutInns,
     inns: sortedInns,
@@ -190,8 +190,8 @@ const createRandomLeader = (): Leader | undefined => {
   return {
     id: nanoid(),
     name: getHumanName('alderlander', randomGender()),
-    oddity,
-    type,
+    oddity: oddity.unwrapOr('bickering'),
+    type: type.unwrapOr('no_one'),
   }
 }
 
@@ -413,5 +413,5 @@ const createVillageInstitutions = (
         },
       }),
     )
-    .filter((i) => i.type !== 'nothing')
+    .filter(i => i.type !== 'nothing')
 }

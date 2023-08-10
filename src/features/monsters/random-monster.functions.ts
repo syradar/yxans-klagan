@@ -8,7 +8,7 @@ import {
   weightedRandomConsume,
   chooseFromChoiceString,
 } from '../../functions/dice.functions'
-import { maybe, numberToBooleans } from '../../functions/utils.functions'
+import { toOption, numberToBooleans } from '../../functions/utils.functions'
 import { D3 } from '../../models/fbl-dice.model'
 import { MonsterSkillsValues } from '../../models/skills.model'
 import { TranslationKey } from '../../store/translations/translation.model'
@@ -93,7 +93,7 @@ export const createRandomMonster = (): RandomMonster => {
     attackRequirements: createAttackRequirements(
       traits,
       tail.key,
-      headOptions.map((ho) => ho.key),
+      headOptions.map(ho => ho.key),
       limbs,
     ),
   }
@@ -211,7 +211,7 @@ const getHeads = (
     rollsLeft -= 1
   }
 
-  return heads.filter((h) => h.key !== 'roll_twice')
+  return heads.filter(h => h.key !== 'roll_twice')
 }
 
 export const getMovement = (
@@ -221,7 +221,7 @@ export const getMovement = (
   const { type, distanceFn } = randomFunc(movementTypes).value
 
   return {
-    distance: maybe(agility).map(distanceFn).withDefault(0),
+    distance: toOption(agility).map(distanceFn).unwrapOr(0),
     type,
   }
 }
@@ -239,16 +239,16 @@ export const getTraitListBasedOnMotivation = (
   }
 
   const hurt = monsterTraits.find(
-    (t) => t.value.name === 'monster:trait.hurt.name',
+    t => t.value.name === 'monster:trait.hurt.name',
   )
   const traitList = monsterTraits.filter(
-    (t) => t.value.name !== 'monster:trait.hurt.name',
+    t => t.value.name !== 'monster:trait.hurt.name',
   )
 
   return [
-    maybe(hurt)
-      .map((a) => [a.value])
-      .withDefault([]),
+    toOption(hurt)
+      .map(a => [a.value])
+      .unwrapOr([]),
     traitList,
   ]
 }
@@ -318,32 +318,32 @@ const createAttackRequirements = (
   limbs: MonsterLimbs,
 ): MonsterAttackRequirements => {
   return {
-    acidGlands: traits.some((t) => t.name === 'monster:trait.acid_glands.name'),
-    fireGlands: traits.some((t) => t.name === 'monster:trait.fire_glands.name'),
+    acidGlands: traits.some(t => t.name === 'monster:trait.acid_glands.name'),
+    fireGlands: traits.some(t => t.name === 'monster:trait.fire_glands.name'),
     tail: tailKey !== 'none',
     spikedTail: tailKey === 'spiked_tail',
     claws: limbs.arms > 0,
-    fangs: heads.every((choice) => choice !== 'missing'),
+    fangs: heads.every(choice => choice !== 'missing'),
     horn: heads.some(
-      (choice) => choice === 'horn_with_count' || choice === 'elk_horns',
+      choice => choice === 'horn_with_count' || choice === 'elk_horns',
     ),
     legs: limbs.legs > 0,
     tentacles: limbs.tentacles > 0,
-    undead: traits.some((t) => t.name === 'monster:trait.undead.name'),
+    undead: traits.some(t => t.name === 'monster:trait.undead.name'),
     wings: limbs.wings > 0,
     hasLimbs:
       limbs.arms > 0 ||
       limbs.legs > 0 ||
       limbs.tentacles > 0 ||
       limbs.wings > 0,
-    hasBeak: heads.some((h) => h === 'beak'),
+    hasBeak: heads.some(h => h === 'beak'),
     canSpeak: traits.some(
-      (t) =>
+      t =>
         t.name === 'monster:trait.intelligent.name' ||
         t.name === 'monster:trait.can_speak.name',
     ),
-    isPoisonous: traits.some((t) => t.name === 'monster:trait.poisonous.name'),
-    isSick: traits.some((t) => t.name === 'monster:trait.hurt.name'),
+    isPoisonous: traits.some(t => t.name === 'monster:trait.poisonous.name'),
+    isSick: traits.some(t => t.name === 'monster:trait.hurt.name'),
   }
 }
 
@@ -354,14 +354,14 @@ const createMonsterAttacks = (
   const validAttacks: WeightedChoice<MonsterAttack>[] = Object.values(
     allMonsterAttacks,
   )
-    .filter((a) => a.type !== 'generic' && a.valid(rm))
-    .map((a) => ({
+    .filter(a => a.type !== 'generic' && a.valid(rm))
+    .map(a => ({
       weight: a.chance * 1000,
       value: a,
     }))
 
   if (validAttacks.length < 6) {
-    const genericAttacks = range(6 - validAttacks.length).map((_) => ({
+    const genericAttacks = range(6 - validAttacks.length).map(_ => ({
       weight: allMonsterAttacks.generic.chance * 1000,
       value: allMonsterAttacks.generic,
     }))
@@ -410,10 +410,10 @@ const createMonsterAttacks = (
 const createMonsterSkills = (
   skillValueChoice: string,
 ): MonsterSkillsValues => ({
-  melee: chooseFromChoiceString(skillValueChoice),
-  move: chooseFromChoiceString(skillValueChoice),
-  scouting: chooseFromChoiceString(skillValueChoice),
-  stealth: chooseFromChoiceString(skillValueChoice),
+  melee: chooseFromChoiceString(skillValueChoice).unwrapOr(0),
+  move: chooseFromChoiceString(skillValueChoice).unwrapOr(0),
+  scouting: chooseFromChoiceString(skillValueChoice).unwrapOr(0),
+  stealth: chooseFromChoiceString(skillValueChoice).unwrapOr(0),
 })
 
 const rollForArmor = compose(

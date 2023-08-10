@@ -6,13 +6,14 @@ export const safeJSONParse = <T extends z.ZodTypeAny>(
   schema?: T,
 ): Result<z.infer<T>, Error> => {
   try {
+    const parsed = JSON.parse(str)
     if (!schema) {
-      return Ok(JSON.parse(str) as T)
+      return Ok(parsed as T)
     }
 
-    const parsed = schema.parse(JSON.parse(str))
+    const schemaParsed = schema.parse(parsed)
 
-    return Ok(parsed)
+    return Ok(schemaParsed)
   } catch (e: unknown) {
     if (e instanceof SyntaxError) {
       return Err(e)

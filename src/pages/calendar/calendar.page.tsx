@@ -16,6 +16,7 @@ import {
 } from '../../models/forbidden-lands-date.model'
 import { useAppDispatch, useAppSelector } from '../../store/store.hooks'
 import { selectTranslateFunction } from '../../store/translations/translation.slice'
+import { at } from '../../functions/array.functions'
 
 export const CalendarPage = () => {
   const t = useAppSelector(selectTranslateFunction(['calendar']))
@@ -35,12 +36,18 @@ export const CalendarPage = () => {
 
       <div>
         <Parchment>
-          <Stack.Horizontal distribute wrap>
+          <Stack.Horizontal
+            distribute
+            wrap
+          >
             <Stack.Vertical spacing="none">
               <div>
                 {t('calendar:year')} {state.currentYear} {t('calendar:as')}
               </div>
-              <Typography variant="h2" parchment>
+              <Typography
+                variant="h2"
+                parchment
+              >
                 {t(monthLabelDict[state.currentMonth])}
               </Typography>
             </Stack.Vertical>
@@ -57,7 +64,7 @@ export const CalendarPage = () => {
             </Stack.Horizontal>
           </Stack.Horizontal>
           <CalendarMonthDisplay
-            month={calendar.months[state.currentMonth]}
+            month={at(calendar.months, state.currentMonth)}
           ></CalendarMonthDisplay>
         </Parchment>
       </div>

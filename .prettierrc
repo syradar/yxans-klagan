@@ -2,5 +2,11 @@
   "singleQuote": true,
   "trailingComma": "all",
   "semi": false,
-  "printWidth": 80
+  "printWidth": 80,
+  "useTabs": false,
+  "editorconfig": true,
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "singleAttributePerLine": true,
+  "tabWidth": 2
 }

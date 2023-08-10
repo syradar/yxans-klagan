@@ -5,12 +5,17 @@ import { getRandomInt } from '../functions/dice.functions'
 type ParchmentProps = ComponentPropsWithoutRef<'div'> & {
   padding?: 'xs' | 'sm' | 'md'
   full?: boolean
+  parchmentClassName?: string
+  childrenClassName?: string
 }
 
 export const Parchment = ({
   children,
   padding = 'md',
   full = false,
+  className,
+  parchmentClassName,
+  childrenClassName,
   ...props
 }: ParchmentProps) => {
   const [options] = useState({
@@ -21,10 +26,17 @@ export const Parchment = ({
   })
 
   return (
-    <div className={`flex flex-col ${full ? 'h-full' : ''}`} {...props}>
+    <div
+      {...props}
+      className={` ${full ? 'h-full' : ''}
+        ${className ? className : ''}
+    `}
+    >
       <div className="relative flex-1">
         <div
-          className="absolute inset-0 z-0  border-2 border-amber-900/25 bg-[#fffdf6] shadow-md"
+          className={`absolute inset-0 z-0  border-2 border-amber-900/25 bg-[#fffdf6] shadow-md
+            ${parchmentClassName ? parchmentClassName : ''}
+          `}
           style={{ filter: `url(#filter-${options.id})` }}
         ></div>
         <div
@@ -33,6 +45,7 @@ export const Parchment = ({
             ${padding === 'sm' ? 'p-4' : ''}
             ${padding === 'md' ? 'p-6' : ''}
             ${full ? 'h-full' : ''}
+            ${childrenClassName ? childrenClassName : ''}
         `}
         >
           {children}

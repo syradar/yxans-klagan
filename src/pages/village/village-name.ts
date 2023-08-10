@@ -5,11 +5,11 @@ import { ValidLanguage } from '../../hooks/useValidLanguage'
 export type LanguageStringMap = { [L in ValidLanguage]: string }
 
 export const createRandomVillageName = (): LanguageStringMap => {
-  const svPrefix = choose(villageNamePrefixesSv)
-  const svSuffix = choose(villageNameSuffixesSv)
+  const svPrefix = choose(villageNamePrefixesSv).unwrapOr('')
+  const svSuffix = choose(villageNameSuffixesSv).unwrapOr('')
 
-  const enPrefix = choose(villageNamePrefixesEn)
-  const enSuffix = choose(villageNameSuffixesEn)
+  const enPrefix = choose(villageNamePrefixesEn).unwrapOr('')
+  const enSuffix = choose(villageNameSuffixesEn).unwrapOr('')
 
   return {
     sv: `${capitalize(svPrefix)}${svSuffix}`,

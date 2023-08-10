@@ -1,18 +1,24 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { createSlice } from '@reduxjs/toolkit'
-import { None, Option, Some } from 'ts-results'
+import { createSelector, createSlice } from '@reduxjs/toolkit'
+import { None, Ok, Option, Some } from 'ts-results'
 import { z } from 'zod'
 import { hexData } from '../../data/hex.data'
 import { notNullish } from '../../functions/utils.functions'
 import { Hex, HexData, HexKey, isHexKey } from '../../pages/places/map.model'
+import { createStateStorageWithSerializer } from '../../store/persist/state-storage'
 import { RootState } from '../../store/store'
-import { createStateStorage } from '../../store/persist/state-storage'
 
 export const hexSchema = z.object({
   hexKey: z.string().refine(isHexKey, {
     message: 'Hex key is not valid',
   }),
-  explored: z.boolean(),
+  /**
+   * @deprecated
+   */
+  explored: z
+    .boolean()
+    .transform((_) => undefined)
+    .optional(),
 })
 
 export const oldHexStorageSchema = z.object({
@@ -38,13 +44,13 @@ const createInitialHexas = (data: HexData): Hex[] => {
  */
 export const initialHexas = createInitialHexas(hexData)
 
-const gameSourceSchema = z.union([
+export const gameSourceSchema = z.union([
   z.literal('ravland'),
   z.literal('bitterReach'),
 ])
-// type GameSource = z.infer<typeof gameSourceSchema>
-// const isGameSource = (value: string): value is GameSource =>
-//   gameSourceSchema.safeParse(value).success
+export type GameSource = z.infer<typeof gameSourceSchema>
+export const isGameSource = (value: string): value is GameSource =>
+  gameSourceSchema.safeParse(value).success
 
 export type GameMap = {
   hasExploredHexes: boolean
@@ -64,7 +70,13 @@ export const mapStateSchema = z.object({
   fogOfWar: z.boolean(),
   maps: z.object({
     ravland: z.object({
-      hasExploredHexes: z.boolean(),
+      /**
+       * @deprecated
+       */
+      hasExploredHexes: z
+        .boolean()
+        .transform((_) => undefined)
+        .optional(),
       hexes: z.array(hexSchema),
       selectedHex: z
         .string()
@@ -72,7 +84,13 @@ export const mapStateSchema = z.object({
         .optional(),
     }),
     bitterReach: z.object({
-      hasExploredHexes: z.boolean(),
+      /**
+       * @deprecated
+       */
+      hasExploredHexes: z
+        .boolean()
+        .transform((_) => undefined)
+        .optional(),
       hexes: z.array(hexSchema),
       selectedHex: z
         .string()
@@ -84,10 +102,16 @@ export const mapStateSchema = z.object({
 export type MapState = z.infer<typeof mapStateSchema>
 
 const MAP_STATE_STORAGE_KEY = 'mapState'
-export const localStorageMapState = createStateStorage<MapState>({
+export const localStorageMapState = createStateStorageWithSerializer<
+  MapState,
+  MapState
+>({
   key: MAP_STATE_STORAGE_KEY,
   label: 'MAP',
   schema: mapStateSchema,
+  schemaOutput: mapStateSchema,
+  serializer: (state) => Ok(state),
+  deserializer: (state) => Ok(state),
 })
 
 // Define the initial state using that type
@@ -97,12 +121,10 @@ export const initialMapState: MapState = {
   fogOfWar: false,
   maps: {
     ravland: {
-      hasExploredHexes: false,
       hexes: [],
       selectedHex: undefined,
     },
     bitterReach: {
-      hasExploredHexes: false,
       hexes: [],
       selectedHex: undefined,
     },
@@ -125,31 +147,6 @@ const mapSlice = createSlice({
     unsetSelectedHex(state) {
       state.maps[state.source].selectedHex = undefined
     },
-    updateHex(state, action: PayloadAction<Hex>) {
-      const { hexKey, explored } = action.payload
-
-      const map = state.maps[state.source]
-      const hasHex = map.hexes.some((h) => h.hexKey === hexKey)
-
-      const updatedHexes = hasHex
-        ? map.hexes.map((h) => {
-            if (h.hexKey !== hexKey) {
-              return h
-            }
-
-            return {
-              ...h,
-              explored,
-            }
-          })
-        : [...state.maps[state.source].hexes, { hexKey, explored }]
-
-      state.maps[state.source] = {
-        hexes: updatedHexes,
-        selectedHex: map.selectedHex,
-        hasExploredHexes: updatedHexes.some((h) => h.explored),
-      }
-    },
     handlePasteSuccess(_, action: PayloadAction<MapState>) {
       return action.payload
     },
@@ -160,19 +157,44 @@ export const {
   setSource,
 
   toggleFogOfWar,
-  updateHex,
   setSelectedHex,
   unsetSelectedHex,
   handlePasteSuccess,
 } = mapSlice.actions
 
-export const selectSource = (state: RootState) => state.map.source
-export const selectFogOfWar = (state: RootState) => state.map.fogOfWar
-export const selectMap = (state: RootState): GameMapViewModel => {
-  const map = state.map.maps[state.map.source]
+const selectMapState = (state: RootState) => state.map
+export const selectSource = createSelector(
+  selectMapState,
+  (state) => state.source,
+)
+
+export const selectSelectedHex = createSelector(
+  selectMapState,
+  (state) => state.maps[state.source].selectedHex,
+)
+
+export const selectSourceAndSelectedHex = createSelector(
+  selectMapState,
+  (state) => {
+    if (!state) {
+      return undefined
+    }
+
+    return {
+      source: state.source,
+      selectedHex: state.maps[state.source].selectedHex,
+    }
+  },
+)
+export const selectFogOfWar = createSelector(
+  selectMapState,
+  (state) => state.fogOfWar,
+)
+
+export const selectMap = createSelector(selectMapState, (mapState) => {
+  const map = mapState.maps[mapState.source]
 
   return {
-    hasExploredHexes: map.hasExploredHexes,
     selectedHex: notNullish(map.selectedHex) ? Some(map.selectedHex) : None,
     hexes: initialHexas.map((hex) => {
       const userHex = map.hexes.find((h) => h.hexKey === hex.hexKey)
@@ -187,8 +209,19 @@ export const selectMap = (state: RootState): GameMapViewModel => {
       return hex
     }),
   }
-}
+})
 
 export const selectMapSerializable = (state: RootState): MapState => state.map
+
+export const selectHex = (hexKey: HexKey) =>
+  createSelector(selectMap, (map): Option<Hex> => {
+    const hex = map.hexes.find((hex) => hex.hexKey === hexKey)
+
+    if (!hex) {
+      return None
+    }
+
+    return Some(hex)
+  })
 
 export default mapSlice.reducer
