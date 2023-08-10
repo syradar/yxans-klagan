@@ -28,7 +28,7 @@ export const Parchment = ({
   return (
     <div
       {...props}
-      className={`flex flex-col ${full ? 'h-full' : ''}
+      className={` ${full ? 'h-full' : ''}
         ${className ? className : ''}
     `}
     >

@@ -6,8 +6,8 @@ import {
   ForbiddenLandsMinDayError,
   ForbiddenLandsMonthError,
   parseForbiddenLandsDate,
-  safeParseInt,
 } from './forbidden-lands-date.model'
+import { safeParseInt } from '../functions/math.functions'
 
 describe('ForbiddenLandsDate', () => {
   describe('safeParseInt', () => {

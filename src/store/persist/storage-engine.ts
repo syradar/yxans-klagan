@@ -8,14 +8,18 @@ const safeStorageGet =
     return value ? Some(value) : None
   }
 
-const safeSet = (engine: Storage) => (key: string) => (value: string) => {
-  try {
-    engine.setItem(key, value)
-  } catch (error) {
-    // ! Ignore write errors.
-    // ! console.error(error)
+const safeSet =
+  (engine: Storage) =>
+  (key: string) =>
+  <T>(value: T) => {
+    try {
+      const stringified = JSON.stringify(value, null, 0)
+      engine.setItem(key, stringified)
+    } catch (error) {
+      // ! Ignore write errors.
+      // ! console.error(error)
+    }
   }
-}
 
 // * Local Storage
 export const safeGetLocalStorage = safeStorageGet(localStorage)

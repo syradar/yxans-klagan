@@ -167,6 +167,25 @@ export const selectSource = createSelector(
   selectMapState,
   (state) => state.source,
 )
+
+export const selectSelectedHex = createSelector(
+  selectMapState,
+  (state) => state.maps[state.source].selectedHex,
+)
+
+export const selectSourceAndSelectedHex = createSelector(
+  selectMapState,
+  (state) => {
+    if (!state) {
+      return undefined
+    }
+
+    return {
+      source: state.source,
+      selectedHex: state.maps[state.source].selectedHex,
+    }
+  },
+)
 export const selectFogOfWar = createSelector(
   selectMapState,
   (state) => state.fogOfWar,

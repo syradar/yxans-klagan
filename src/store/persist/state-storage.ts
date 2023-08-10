@@ -28,7 +28,7 @@ export const createStateStorage = <T>({
 
     return result
   },
-  save: (val: T) => safeSetLocalStorage(key)(JSON.stringify(val)),
+  save: (val: T) => safeSetLocalStorage(key)(val),
 })
 
 type CreateStateStorageWithSerializerProps<T, U> = CreateStateStorageProps & {
@@ -58,6 +58,6 @@ export const createStateStorageWithSerializer = <T, U>({
       return
     }
 
-    safeSetLocalStorage(key)(JSON.stringify(serialized.val))
+    safeSetLocalStorage(key)(serialized.val)
   },
 })

@@ -5,7 +5,7 @@ import { getRandomEncounter } from '../../functions/encounter.functions'
 import { EncounterViewModel } from '../../models/encounter.model'
 import { Terrain } from '../../models/terrain.model'
 import { ValidLanguage } from '../../hooks/useValidLanguage'
-import { head } from '../../functions/array.functions'
+import { at, head } from '../../functions/array.functions'
 
 type EncounterViewModelWithId = EncounterViewModel & { keyId: string }
 
@@ -32,29 +32,33 @@ export const useEncounter = () => {
 
   const generateNewEncounter = (terrain: Terrain, lang: ValidLanguage) => {
     const isNewTerrain = head(encounterLog)
-      .map((el) => el.terrain !== terrain)
+      .map(el => el.terrain !== terrain)
       .unwrapOr(true)
 
     const generatedEncounter = newEncounter(terrain, lang)
 
-    setEncounterLog((prev) => {
-      if (isNewTerrain) {
+    setEncounterLog(prev => {
+      const p0 = at(prev, 0)
+
+      if (!isNewTerrain && p0.some) {
+        const p0s = p0.safeUnwrap()
+
         return [
           {
-            id: nanoid(),
-            terrain,
-            encounters: [generatedEncounter],
+            ...p0s,
+            encounters: [generatedEncounter, ...p0s.encounters],
           },
-          ...prev,
+          ...prev.slice(1),
         ].slice(0, 10)
       }
 
       return [
         {
-          ...prev[0],
-          encounters: [generatedEncounter, ...prev[0].encounters],
+          id: nanoid(),
+          terrain,
+          encounters: [generatedEncounter],
         },
-        ...prev.slice(1),
+        ...prev,
       ].slice(0, 10)
     })
   }

@@ -1,4 +1,29 @@
-import { None, Option, Some } from 'ts-results'
+import { None, Option, Result, Some } from 'ts-results'
+
+export const at = <T>(arr: readonly T[], index: number): Option<T> => {
+  const isMinBounds = index < 0
+  const isMaxBounds = index >= arr.length
+
+  const wrappedIndex = isMinBounds
+    ? arr.length + index
+    : isMaxBounds
+    ? index - arr.length
+    : index
+
+  const val = arr[wrappedIndex]
+
+  if (val === undefined) {
+    return None
+  }
+
+  return Some(val)
+}
+
+export const atResult = <T>(
+  arr: readonly T[],
+  index: number,
+): Result<T, Error> =>
+  at(arr, index).toResult(new Error(`No value at index ${index}.`))
 
 export const range = (val: number): readonly number[] => {
   const keys = [...Array(val).keys()]
@@ -10,11 +35,10 @@ export const chunkArray = <T>(array: T[], perChunk = 5): T[][] => {
   return array.reduce((acc, cur, index) => {
     const chunkIndex = Math.floor(index / perChunk)
 
-    if (!acc[chunkIndex]) {
-      acc[chunkIndex] = []
-    }
+    const val = acc[chunkIndex] ?? []
+    val.push(cur)
 
-    acc[chunkIndex].push(cur)
+    acc[chunkIndex] = val
 
     return acc
   }, [] as T[][])
@@ -79,10 +103,15 @@ export function nWise<T>(groupSize: number) {
 
 export function slidingNWise<T>(groupSize: number, arr: T[]) {
   const result: T[][] = []
+  const maxIndex = arr.length - groupSize + 1
 
-  for (let i = 0; i < arr.length; i = i + 1) {
+  for (let i = 0; i < maxIndex; i = i + 1) {
     result.push(arr.slice(i, i + groupSize))
   }
 
   return result
+}
+
+export function add(a: number, b: number): number {
+  return a + b
 }

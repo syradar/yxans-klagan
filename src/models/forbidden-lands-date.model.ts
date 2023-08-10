@@ -1,9 +1,9 @@
 import { Err, Ok, Result } from 'ts-results'
-import { range } from '../functions/array.functions'
-import { TranslationKey } from '../store/translations/translation.model'
-import { padZero2, padZero4 } from '../functions/string-format.functions'
-import { clamp } from '../functions/math.functions'
 import { z } from 'zod'
+import { range } from '../functions/array.functions'
+import { atParseInt, clamp } from '../functions/math.functions'
+import { padZero2, padZero4 } from '../functions/string-format.functions'
+import { TranslationKey } from '../store/translations/translation.model'
 
 export const DEFAULT_START_YEAR = 1165
 
@@ -96,37 +96,6 @@ export const isDayIndex = (val: number): val is DayIndex =>
 
 export type DayNumbers = 1 | 2 | 3 | 4 | 5 | 6 | 7
 
-export const integerRegex = /^-?\d*$/
-
-export const safeParseInt = (val: string): Result<number, Error> => {
-  if (!val) {
-    return Err(new RangeError('No value provided'))
-  }
-
-  if (val === 'Infinity' || val === '-Infinity') {
-    return Err(new RangeError('Invalid number: only work with finite numbers.'))
-  }
-
-  if (val.includes('.')) {
-    return Err(new RangeError('Invalid number: does not work with floats.'))
-  }
-
-  if (!integerRegex.test(val)) {
-    return Err(
-      new SyntaxError('Invalid number: contains non-numeric characters.'),
-    )
-  }
-
-  const parsed = parseInt(val, 10)
-  const toNum = Number(val)
-
-  if (isNaN(parsed) || isNaN(toNum)) {
-    return Err(new RangeError('Invalid number: NaN.'))
-  }
-
-  return Ok(parsed)
-}
-
 /**
  * Parses a date string into a ForbiddenLandsDate
  * @param date YEAR-MONTH-DAY
@@ -140,19 +109,19 @@ export const parseForbiddenLandsDate = (
     return Err(ForbiddenLandsInvalidDateFormatError())
   }
 
-  const year = safeParseInt(splitDate[0])
+  const year = atParseInt(splitDate, 0)
 
   if (year.err) {
     return year
   }
 
-  const month = safeParseInt(splitDate[1]).andThen(isValidMonthNumber)
+  const month = atParseInt(splitDate, 1).andThen(isValidMonthNumber)
 
   if (month.err) {
     return month
   }
 
-  const day = safeParseInt(splitDate[2])
+  const day = atParseInt(splitDate, 2)
 
   if (day.err) {
     return day
@@ -160,7 +129,7 @@ export const parseForbiddenLandsDate = (
 
   const m = month.safeUnwrap()
   const monthIndex = (m - 1) as MonthIndex
-  const dayRangeValid = day.andThen((d) => {
+  const dayRangeValid = day.andThen(d => {
     if (d < 1) {
       return Err(ForbiddenLandsMinDayError(d))
     }
@@ -187,8 +156,8 @@ export const parseForbiddenLandsDate = (
 }
 
 export const forbiddenLandsDateStringSchema = z.string().refine(
-  (v) => parseForbiddenLandsDate(v).ok,
-  (key) => ({
+  v => parseForbiddenLandsDate(v).ok,
+  key => ({
     message: `Key: "${key}" is not valid ForbiddenLandsDate. Should be YYYY-M-D`,
   }),
 )
@@ -219,7 +188,7 @@ export const forbiddenLandsDateSerializableSchema = z
 
       return true
     },
-    (invalidDate) => ({
+    invalidDate => ({
       message: `Invalid date: ${JSON.stringify(invalidDate)}`,
     }),
   )
@@ -368,7 +337,7 @@ export class ForbiddenLandsDateClass implements ForbiddenLandsDate {
 
   static fromString(date: string): Result<ForbiddenLandsDate, Error> {
     return parseForbiddenLandsDate(date).map(
-      (d) => new ForbiddenLandsDateClass(d),
+      d => new ForbiddenLandsDateClass(d),
     )
   }
 
@@ -469,14 +438,14 @@ export const getCalendar = (
     return Err(new Error(`Invalid dayOffset: ${dayOffset}`))
   }
   let daysPassed = 0
-  const months = MONTH_INDICES.map((mIndex) => {
+  const months = MONTH_INDICES.map(mIndex => {
     const month = createMonth(mIndex, dayOffset, daysPassed, startYear)
     daysPassed += daysInMonth[mIndex]
 
     return month
   })
 
-  return Result.all(...months).map((months) =>
+  return Result.all(...months).map(months =>
     createCalendar(startYear, dayOffset, months),
   )
 }
@@ -488,12 +457,12 @@ const createMonth = (
   year: number,
 ): Result<CalendarMonth, Error> => {
   const res = Result.all(
-    ...range(daysInMonth[index]).map((d) =>
-      createDayIndex(d, dayOffset, daysPassed).map((i) =>
+    ...range(daysInMonth[index]).map(d =>
+      createDayIndex(d, dayOffset, daysPassed).map(i =>
         createDay(d + 1, index, i, year),
       ),
     ),
-  ).map((days) => ({ index, days }))
+  ).map(days => ({ index, days }))
 
   return res
 }

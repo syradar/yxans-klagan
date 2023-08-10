@@ -1,4 +1,47 @@
-import { Err, Ok, Result } from 'ts-results'
+import { Err, Ok, Option, Result } from 'ts-results'
+import { at } from './array.functions'
+
+export const integerRegex = /^-?\d*$/
+
+export const atParseInt = (
+  arr: readonly string[],
+  index: number,
+): Result<number, Error> =>
+  at(arr, index)
+    .toResult(new Error(`Value at index ${index} does not exist.`))
+    .andThen(safeParseInt)
+
+export const safeParseInt = (val: string): Result<number, Error> => {
+  if (!val) {
+    return Err(new RangeError('No value provided'))
+  }
+
+  if (val === 'Infinity' || val === '-Infinity') {
+    return Err(new RangeError('Invalid number: only work with finite numbers.'))
+  }
+
+  if (val.includes('.')) {
+    return Err(new RangeError('Invalid number: does not work with floats.'))
+  }
+
+  if (!integerRegex.test(val)) {
+    return Err(
+      new SyntaxError('Invalid number: contains non-numeric characters.'),
+    )
+  }
+
+  const parsed = parseInt(val, 10)
+  const toNum = Number(val)
+
+  if (isNaN(parsed) || isNaN(toNum)) {
+    return Err(new RangeError('Invalid number: NaN.'))
+  }
+
+  return Ok(parsed)
+}
+
+export const safeParseIntOption = (s: string): Option<number> =>
+  safeParseInt(s).toOption()
 
 export const min = (minVal: number) => (val: number) => {
   const nanError = `value was Nan`

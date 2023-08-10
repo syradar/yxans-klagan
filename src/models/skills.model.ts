@@ -33,4 +33,7 @@ export type MonsterSkills = Extract<
 export type AllSkillsValues = { [S in AllSkills]: number }
 export type MonsterSkillsValues = { [S in MonsterSkills]: number }
 
-export type AllSkillsValuesViewModel = [AllSkills, number][]
+export type AllSkillsValuesViewModel = {
+  skill: AllSkills
+  value: number
+}[]

@@ -27,7 +27,10 @@ export const Encounter = ({ encounter }: EncounterProps) => {
               {encounter.id}
             </div>
             <h2 className="yx-heading flex text-center text-4xl">
-              {allEncounters[currentLanguage][encounter.id].title}
+              {/*
+               //TODO: fix the exclamation mark <> null assertion
+               */}
+              {allEncounters[currentLanguage][encounter.id]!.title}
             </h2>
           </div>
           <div>
@@ -35,8 +38,11 @@ export const Encounter = ({ encounter }: EncounterProps) => {
               {t('common:page')}. {encounter.page}
             </>
           </div>
-          <Stack.Horizontal spacing="small" wrap>
-            {encounter.possibleTerrains.map((pt) => (
+          <Stack.Horizontal
+            spacing="small"
+            wrap
+          >
+            {encounter.possibleTerrains.map(pt => (
               <Tag key={pt}>{t(terrainTranslationDict[pt])}</Tag>
             ))}
           </Stack.Horizontal>

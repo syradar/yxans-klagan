@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid'
 import { ComponentProps, useRef, useState } from 'react'
 import { AriaButtonProps, useButton } from 'react-aria'
 import { getRandomInt } from '../functions/dice.functions'
+import clsx from 'clsx'
 
 export type ParchmentButtonProps = AriaButtonProps &
   ComponentProps<'button'> & {
@@ -36,13 +37,12 @@ export const ParchmentButton = (props: ParchmentButtonProps) => {
     <button
       ref={ref}
       {...buttonProps}
-      className={`
-        group min-w-fit
-        ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}
-        ${props.fullWidth ? 'w-full' : 'w-fit'}
-
-        focus:outline-none
-      `}
+      className={clsx(
+        'group min-w-fit',
+        isDisabled ? 'cursor-not-allowed' : 'cursor-pointer',
+        props.fullWidth ? 'w-full' : 'w-fit',
+        'focus:outline-none',
+      )}
     >
       <div className="grid grid-cols-1 grid-rows-1">
         <div
@@ -60,6 +60,7 @@ export const ParchmentButton = (props: ParchmentButtonProps) => {
               ? 'border-neutral-500 bg-transparent'
               : ''
           }
+
           ${
             !isDisabled
               ? {

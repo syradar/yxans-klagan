@@ -40,10 +40,10 @@ export const numberToBooleans = (to: number | Nullish) => {
     throw new Error('Invalid number')
   }
 
-  return range(0, to).map((_) => false)
+  return range(0, to).map(_ => false)
 }
 
-export const maybe = <T>(val?: T): Option<NonNullable<T>> => {
+export const toOption = <T>(val?: T): Option<NonNullable<T>> => {
   if (notNullish(val)) {
     return Some(val)
   }

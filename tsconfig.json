@@ -13,12 +13,14 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "noUnusedParameters": true,
+    "noUncheckedIndexedAccess": true,
     "noImplicitReturns": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "allowJs": false,
     "importHelpers": true,
-    "removeComments": true
+    "removeComments": true,
+    "types": ["vite/client", "vitest/globals"]
   },
   "include": ["src", "types"],
   "exclude": ["node_modules", "dist"]

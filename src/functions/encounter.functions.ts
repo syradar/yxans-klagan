@@ -1,3 +1,4 @@
+import { None, Option, Some } from 'ts-results'
 import { allEncounters, encounterTable } from '../data/encounter.data'
 import { ValidLanguage } from '../hooks/useValidLanguage'
 import {
@@ -12,7 +13,7 @@ export const getTerrainsByEncounterId = (id: number): Terrain[] => {
   }
 
   return Object.entries(encounterTable).reduce((acc, [terrain, encounters]) => {
-    const hasEncounter = Object.values(encounters).some((e) => e === id)
+    const hasEncounter = Object.values(encounters).some(e => e === id)
 
     if (hasEncounter) {
       acc.push(terrain as Terrain)
@@ -26,12 +27,20 @@ const createEncounterViewModel = (
   id: number,
   lang: ValidLanguage,
   terrain: Terrain,
-): EncounterViewModel => ({
-  id,
-  ...allEncounters[lang][id],
-  possibleTerrains: getTerrainsByEncounterId(id),
-  chosenTerrain: terrain,
-})
+): Option<EncounterViewModel> => {
+  const encounter = allEncounters[lang][id]
+
+  if (!encounter) {
+    return None
+  }
+
+  return Some({
+    id,
+    ...encounter,
+    possibleTerrains: getTerrainsByEncounterId(id),
+    chosenTerrain: terrain,
+  })
+}
 
 export const getEncounterById = (
   id: number,

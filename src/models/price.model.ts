@@ -1,3 +1,6 @@
+import { Option } from 'ts-results'
+import { at } from '../functions/array.functions'
+
 export type InstantPrice = {
   _type: 'instant'
   copper: number
@@ -41,7 +44,12 @@ export const priceComparator = (a: Price, b: Price) => {
   }
 
   if (a._type === 'instant' && b._type === 'tiered') {
-    return a.copper - b.tiers[0].copper
+    return (
+      a.copper -
+      at(b.tiers, 0)
+        .map(b => b.copper)
+        .unwrapOr(0)
+    )
   }
 
   if (a._type === 'range' && b._type === 'instant') {
@@ -53,19 +61,38 @@ export const priceComparator = (a: Price, b: Price) => {
   }
 
   if (a._type === 'range' && b._type === 'tiered') {
-    return a.min - b.tiers[0].copper
+    return (
+      a.min -
+      at(b.tiers, 0)
+        .map(b => b.copper)
+        .unwrapOr(0)
+    )
   }
 
   if (a._type === 'tiered' && b._type === 'instant') {
-    return a.tiers[0].copper - b.copper
+    return (
+      at(a.tiers, 0)
+        .map(a => a.copper)
+        .unwrapOr(0) - b.copper
+    )
   }
 
   if (a._type === 'tiered' && b._type === 'range') {
-    return a.tiers[0].copper - b.min
+    return (
+      at(a.tiers, 0)
+        .map(a => a.copper)
+        .unwrapOr(0) - b.min
+    )
   }
 
   if (a._type === 'tiered' && b._type === 'tiered') {
-    return a.tiers[0].copper - b.tiers[0].copper
+    return Option.all(
+      at(a.tiers, 0),
+
+      at(b.tiers, 0),
+    )
+      .map(([a, b]) => a.copper - b.copper)
+      .unwrapOr(0)
   }
 
   return 0
@@ -83,7 +110,7 @@ export const pricePredicate =
     }
 
     if (p._type === 'tiered') {
-      return p.tiers.some((tier) => predicate(tier.copper))
+      return p.tiers.some(tier => predicate(tier.copper))
     }
 
     if (p._type === 'daily') {
@@ -98,4 +125,4 @@ export const pricePredicate =
   }
 
 export const maxPricePredicate = (max: number) =>
-  pricePredicate((copper) => copper <= max)
+  pricePredicate(copper => copper <= max)

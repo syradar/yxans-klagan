@@ -1,6 +1,8 @@
 import { compose } from 'ramda'
+import { None, Option, Some } from 'ts-results'
 import { D2, D3, D4, D6, D66, D8 } from '../models/fbl-dice.model'
-import { range } from './array.functions'
+import { at, range } from './array.functions'
+import { safeParseInt, safeParseIntOption } from './math.functions'
 
 /**
  * Can be used for any roll
@@ -34,25 +36,25 @@ export const rollD66 = (): D66 => {
   return (tens + ones) as D66
 }
 
-export const parseD6String = (str: string): number => {
-  const parts = str.split('D')
-
-  if (parts[0] === '') {
-    return 1
-  }
-
-  return parseInt(parts[0], 10)
-}
+export const parseD6String = (str: string): number =>
+  at(str.split('D'), 0)
+    .andThen(p => (p === '' ? None : Some(p)))
+    .andThen(safeParseIntOption)
+    .unwrapOr(1)
 
 export const parseChoiceString = (str: string): number[] =>
   str
     .split('|')
-    .map((c) => c.split('^').map((a) => parseInt(a, 10) ?? 1))
-    .map((cs) => range(cs.length === 2 ? cs[1] : 1).map((_) => cs[0]))
+    .map(c => c.split('^').map(a => safeParseInt(a).unwrapOr(1)))
+    .map(cs => range(at(cs, 1).unwrapOr(1)).map(_ => at(cs, 0).unwrapOr(1)))
     .flat()
 
-export const choose = <T>(arr: readonly T[]): T =>
-  arr[getRandomInt(0, arr.length - 1)]
+export const choose = <T>(arr: readonly T[]): Option<T> => {
+  const index = getRandomInt(0, arr.length - 1)
+  const item = at(arr, index)
+
+  return item
+}
 
 export const chooseFromChoiceString = compose(choose, parseChoiceString)
 

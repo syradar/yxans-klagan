@@ -12,30 +12,39 @@ import {
   formatForbiddenLandsDate,
   parseForbiddenLandsDate,
 } from '../../models/forbidden-lands-date.model'
-import {
-  Hex,
-  HexKey,
-  hexKeySchema,
-  isHexKey,
-} from '../../pages/places/map.model'
+import { HexKey, hexKeySchema, isHexKey } from '../../pages/places/map.model'
 import { createStateStorageWithSerializer } from '../../store/persist/state-storage'
 import { RootState } from '../../store/store'
 
-import { isNullish, isString, maybe } from '../../functions/utils.functions'
+import { isNullish, isString, toOption } from '../../functions/utils.functions'
 import {
   GameSource,
   gameSourceSchema,
-  selectHex,
   selectSource,
+  selectSourceAndSelectedHex,
 } from '../map/map-slice'
 
 // * EncounterNote - Notes that detail an encounter
 
 export const NOTE_MAX_LENGTH = 1000
 
+export const mapIconSchema = z.union([
+  z.literal('camp'),
+  z.literal('castle'),
+  z.literal('cave'),
+  z.literal('ruin'),
+  z.literal('tower'),
+  z.literal('village'),
+  z.literal('danger'),
+])
+export type MapIcon = z.infer<typeof mapIconSchema>
+
 export const explorationNoteSchema = z.object({
   id: z.string(),
   hexKey: hexKeySchema,
+  map: z.object({
+    icon: mapIconSchema.optional(),
+  }),
   gameSource: gameSourceSchema,
   exploredAt: forbiddenLandsDateSerializableSchema.optional(),
   note: z
@@ -50,6 +59,9 @@ export const explorationNoteSchema = z.object({
 export const explorationNoteDateStringSchema = z.object({
   id: z.string(),
   hexKey: hexKeySchema,
+  map: z.object({
+    icon: mapIconSchema.or(z.null()),
+  }),
   gameSource: gameSourceSchema,
   exploredAt: forbiddenLandsDateStringSchema.or(z.null()),
   note: z
@@ -62,6 +74,25 @@ export const explorationNoteDateStringSchema = z.object({
 })
 
 export type ExplorationNote = z.infer<typeof explorationNoteSchema>
+
+type EmptyExplorationNoteProps = {
+  gameSource: GameSource
+  hexKey: HexKey
+}
+export const emptyExplorationNote = ({
+  gameSource,
+  hexKey,
+}: EmptyExplorationNoteProps): ExplorationNote => ({
+  id: nanoid(),
+  gameSource,
+  hexKey,
+  map: {
+    icon: undefined,
+  },
+  exploredAt: undefined,
+  note: undefined,
+})
+
 export const isValidExplorationNote = (val: unknown): val is ExplorationNote =>
   explorationNoteSchema.safeParse(val).success
 
@@ -86,6 +117,7 @@ export const journalStateSerializableSchema = z.object({
   ),
   settings: z.object({
     useHandwrittenFont: z.boolean(),
+    //bookCoverColor: z.union([z.literal('blood'), z.literal('indigo'), z.literal('moss'), z.literal('sand'), z.literal('leather')]),
   }),
 })
 export type JournalState = z.infer<typeof journalStateSchema> & {
@@ -140,17 +172,17 @@ const explorationNoteDeserializer = (
     if (isNullish(explorationNote)) {
       continue
     }
-    const exploredAt = maybe(explorationNote.exploredAt)
-      .andThen((date) => {
+    const exploredAt = toOption(explorationNote.exploredAt)
+      .andThen(date => {
         const parsed = parseForbiddenLandsDate(date)
 
         return parsed.ok ? Some(parsed.val) : None
       })
       .unwrapOr(undefined)
 
-    const note = maybe(explorationNote.note)
+    const note = toOption(explorationNote.note)
       .toResult(new Error('Note is nullish'))
-      .andThen((note) => {
+      .andThen(note => {
         const createdAt = parseForbiddenLandsDate(note.createdAt)
         const updatedAt = parseForbiddenLandsDate(note.updatedAt)
 
@@ -175,6 +207,9 @@ const explorationNoteDeserializer = (
 
     result[key] = {
       ...explorationNote,
+      map: {
+        icon: explorationNote.map.icon ?? undefined,
+      },
       exploredAt,
       note: note.val,
     }
@@ -221,11 +256,14 @@ const explorationNoteSerializer = (
 
     result[key] = {
       ...explorationNote,
-      exploredAt: maybe(explorationNote.exploredAt)
+      map: {
+        icon: explorationNote.map.icon ?? null,
+      },
+      exploredAt: toOption(explorationNote.exploredAt)
         .map(formatForbiddenLandsDate)
         .unwrapOr(null),
-      note: maybe(explorationNote.note)
-        .map((note) => ({
+      note: toOption(explorationNote.note)
+        .map(note => ({
           ...note,
           createdAt: formatForbiddenLandsDate(note.createdAt),
           updatedAt: formatForbiddenLandsDate(note.updatedAt),
@@ -258,6 +296,9 @@ export const initialJournalState: JournalState = {
         id: nanoid(),
         gameSource: 'ravland',
         hexKey: 'X25',
+        map: {
+          icon: 'village',
+        },
         exploredAt: {
           year: 1165,
           month: 1,
@@ -306,41 +347,30 @@ const journalSlice = createSlice({
       action: PayloadAction<{
         hexKey: HexKey
         gameSource: GameSource
-        note: string
-        updatedAt: ForbiddenLandsDateSerializable
+        icon?: MapIcon
+        note?: {
+          body: string
+          updatedAt: ForbiddenLandsDateSerializable
+        }
       }>,
     ) {
-      const { hexKey, note: body, updatedAt, gameSource } = action.payload
+      const { hexKey, note, gameSource, icon } = action.payload
 
-      const stateExplorationNote = state.explorationNotes[gameSource][hexKey]
+      const stateExplorationNote = (state.explorationNotes[gameSource][
+        hexKey
+      ] ??= emptyExplorationNote({ gameSource, hexKey }))
 
-      if (!stateExplorationNote) {
-        state.explorationNotes[gameSource][hexKey] = {
-          id: nanoid(),
-          gameSource,
-          hexKey,
-          exploredAt: undefined,
-          note: {
-            body,
-            createdAt: updatedAt,
-            updatedAt,
-          },
-        }
+      stateExplorationNote.map.icon = icon
 
+      if (!note) {
         return
       }
 
-      stateExplorationNote.note = maybe(stateExplorationNote.note)
-        .map((note) => ({
-          ...note,
-          body,
-          updatedAt,
-        }))
-        .unwrapOr({
-          body,
-          createdAt: updatedAt,
-          updatedAt,
-        })
+      stateExplorationNote.note = {
+        body: note.body,
+        updatedAt: note.updatedAt,
+        createdAt: stateExplorationNote.note?.createdAt ?? note.updatedAt,
+      }
     },
     toggleExploredAt(
       state,
@@ -352,27 +382,36 @@ const journalSlice = createSlice({
     ) {
       const { hexKey, exploredAt, gameSource } = action.payload
 
-      const stateExplorationNote = state.explorationNotes[gameSource][hexKey]
-
-      if (!stateExplorationNote) {
-        state.explorationNotes[gameSource][hexKey] = {
-          id: nanoid(),
-          gameSource,
-          hexKey,
-          exploredAt,
-          note: {
-            body: '',
-            createdAt: exploredAt,
-            updatedAt: exploredAt,
-          },
-        }
-
-        return
-      }
+      const stateExplorationNote = (state.explorationNotes[gameSource][
+        hexKey
+      ] ??= emptyExplorationNote({
+        gameSource,
+        hexKey,
+      }))
 
       stateExplorationNote.exploredAt = stateExplorationNote.exploredAt
         ? undefined
         : exploredAt
+    },
+    setMapIcon(
+      state,
+      action: PayloadAction<{
+        hexKey: HexKey
+        gameSource: GameSource
+        icon: MapIcon | undefined
+        updatedAt: ForbiddenLandsDateSerializable
+      }>,
+    ) {
+      const { hexKey, gameSource, icon } = action.payload
+
+      const stateExplorationNote = (state.explorationNotes[gameSource][
+        hexKey
+      ] ??= emptyExplorationNote({
+        gameSource,
+        hexKey,
+      }))
+
+      stateExplorationNote.map.icon = icon
     },
   },
 })
@@ -388,7 +427,7 @@ export const selectHasExploredHexes = createSelector(
 
     return {
       hasExploredHexes: Object.values(sourceNotes).some(
-        (n) => n.exploredAt !== undefined,
+        n => n.exploredAt !== undefined,
       ),
       explorationNotes: sourceNotes,
     }
@@ -411,13 +450,13 @@ export const selectAllExplorationNotes = createSelector(
   [selectSource, selectJournal],
   (source, journal): ExplorationNoteViewModel[] => {
     const notes = Object.values(journal.explorationNotes[source])
-      .map((explorationNote) => {
+      .map(explorationNote => {
         return {
           ...explorationNote,
-          exploredAt: maybe(explorationNote.exploredAt).map((date) => {
+          exploredAt: toOption(explorationNote.exploredAt).map(date => {
             return new ForbiddenLandsDateClass(date)
           }),
-          note: maybe(explorationNote.note).map((note) => {
+          note: toOption(explorationNote.note).map(note => {
             return {
               ...note,
               createdAt: new ForbiddenLandsDateClass(note.createdAt),
@@ -449,58 +488,67 @@ export const selectAllExplorationNotes = createSelector(
   },
 )
 
-export const selectNote = (hexKey: HexKey) =>
-  createSelector(
-    [selectHex(hexKey), selectSource, selectJournal],
-    (
-      hex,
-      source,
-      journal,
-    ): { hex: Option<Hex>; note: ExplorationNoteViewModel } => {
-      const explorationNote = journal.explorationNotes[source][hexKey]
-
-      if (!explorationNote) {
-        return {
-          hex,
-          note: {
-            id: nanoid(),
-            gameSource: source,
-            hexKey,
-            exploredAt: None,
-            note: None,
-          },
-        }
-      }
-
-      const result: ExplorationNoteViewModel = {
-        id: explorationNote.id,
-        gameSource: explorationNote.gameSource,
-        hexKey: explorationNote.hexKey,
-        exploredAt: maybe(explorationNote.exploredAt).map((date) => {
-          return new ForbiddenLandsDateClass(date)
-        }),
-        note: maybe(explorationNote.note).map((note) => {
-          if (isString(note.createdAt)) {
-            throw new Error('Invalid date string')
-          }
-
-          if (isString(note.updatedAt)) {
-            throw new Error('Invalid date string')
-          }
-
-          return {
-            ...note,
-            createdAt: new ForbiddenLandsDateClass(note.createdAt),
-            updatedAt: new ForbiddenLandsDateClass(note.updatedAt),
-          }
-        }),
-      }
-
+export const selectNote = createSelector(
+  [selectSourceAndSelectedHex, selectJournal],
+  (
+    sourceAndSelectedHex,
+    journal,
+  ): { note: Option<ExplorationNoteViewModel> } => {
+    if (!sourceAndSelectedHex || !sourceAndSelectedHex.selectedHex) {
       return {
-        hex,
-        note: result,
+        note: None,
       }
-    },
-  )
+    }
+    const { selectedHex, source } = sourceAndSelectedHex
+
+    const explorationNote = journal.explorationNotes[source][selectedHex]
+
+    if (!explorationNote) {
+      return {
+        note: Some({
+          id: nanoid(),
+          gameSource: source,
+          hexKey: selectedHex,
+          map: {
+            icon: undefined,
+          },
+          exploredAt: None,
+          note: None,
+        }),
+      }
+    }
+
+    const result: ExplorationNoteViewModel = {
+      id: explorationNote.id,
+      gameSource: explorationNote.gameSource,
+      hexKey: explorationNote.hexKey,
+      map: {
+        ...explorationNote.map,
+      },
+      exploredAt: toOption(explorationNote.exploredAt).map(date => {
+        return new ForbiddenLandsDateClass(date)
+      }),
+      note: toOption(explorationNote.note).map(note => {
+        if (isString(note.createdAt)) {
+          throw new Error('Invalid date string')
+        }
+
+        if (isString(note.updatedAt)) {
+          throw new Error('Invalid date string')
+        }
+
+        return {
+          ...note,
+          createdAt: new ForbiddenLandsDateClass(note.createdAt),
+          updatedAt: new ForbiddenLandsDateClass(note.updatedAt),
+        }
+      }),
+    }
+
+    return {
+      note: Some(result),
+    }
+  },
+)
 
 export default journalSlice.reducer

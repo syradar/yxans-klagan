@@ -106,11 +106,11 @@ export const selectTranslations = createSelector(
 )
 export const selectCurrentLanguage = createSelector(
   [selectTranslationsState],
-  (translationsState) => translationsState.currentLanguage,
+  translationsState => translationsState.currentLanguage,
 )
 
 export const selectTranslateFunction = <T extends Namespace>(nss: T[]) =>
-  createSelector(selectTranslations, (translations) => {
+  createSelector(selectTranslations, translations => {
     if (translations.none) {
       return (key: TranslationKey<T>) => key
     }
@@ -129,7 +129,7 @@ export const selectTranslateFunction = <T extends Namespace>(nss: T[]) =>
       if (translation.match(/\$t\((.*)\)/gi) !== null) {
         translation = translation
           .split(' ')
-          .map((p) =>
+          .map(p =>
             p.replace(/\$t\((.*)\)/gi, (_match, key) =>
               translate(
                 key as TranslationKey<localNamespace>,
@@ -154,6 +154,10 @@ const translate = <LocalNamespace extends Namespace>(
 ): string => {
   const [ns, ...rest] = key.split(':')
   const keys = rest.join().split('.')
+
+  if (!ns) {
+    return key
+  }
 
   const as = ns in safeTranslations
 
