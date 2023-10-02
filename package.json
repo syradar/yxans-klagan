@@ -72,7 +72,7 @@
     "jsdom": "^22.1.0",
     "last-release-git": "^0.0.3",
     "pinst": "^3.0.0",
-    "postcss": "^8.4.24",
+    "postcss": "^8.4.31",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
     "ramda": "^0.29.0",
