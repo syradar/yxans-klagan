@@ -177,9 +177,7 @@ export const MonstersPage = () => {
               </div>
 
               <div
-                className={`${
-                  monsterSection === undefined ? '' : 'hidden 2xl:block'
-                }`}
+                className={`${monsterSection === undefined ? '' : 'hidden'}`}
               >
                 <MonsterTableOfContents />
               </div>
