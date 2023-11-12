@@ -26,6 +26,12 @@ export type CommunityMonsterAttackType =
   | 'webshot'
   | 'piercing_shriek'
   | 'call_the_brood'
+  | 'claySmash'
+  | 'clayPunch'
+  | 'hastyReaction'
+  | 'earthRumble'
+  | 'groundQuake'
+  | 'golemRampage'
 
 export type Credit = {
   name: string
