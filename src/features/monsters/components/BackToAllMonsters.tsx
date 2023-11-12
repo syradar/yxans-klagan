@@ -6,7 +6,7 @@ export const BackToAllMonsters = () => {
   const t = useAppSelector(selectTranslateFunction(['monster', 'common']))
 
   return (
-    <div className="2xl:hidden">
+    <div>
       <LinkWithIcon to="/monsters" icon="back">
         {t('monster:back_to_all_monsters')}
       </LinkWithIcon>
