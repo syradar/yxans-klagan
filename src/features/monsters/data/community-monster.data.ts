@@ -147,4 +147,102 @@ export const communityMonsters: CommunityMonster[] = [
       },
     ],
   },
+  {
+    id: 'golem-clay',
+    name: 'common:community_monster.golem_clay.name',
+    description: 'common:community_monster.golem_clay.description',
+    credits: [{ name: 'Craig Atkins' }],
+    attributes: {
+      ...defaultAttributes,
+      strength: 11,
+      agility: 3,
+    },
+    armor: {
+      label: 'shell',
+      values: [false, false, false, false, false],
+    },
+    movement: {
+      distance: 1,
+      type: 'running',
+    },
+    skills: {
+      melee: 0,
+      move: 0,
+      scouting: 0,
+      stealth: 0,
+    },
+    attacks: [
+      {
+        type: 'claySmash',
+        range: 'armsLength',
+        damage: () => ({
+          blunt:  1,
+        }),
+        attack: () => 9,
+        singleUse: false,
+        valid: (_ctx) => true,
+        description: 'monster:attack.clay_smash.description',
+        chance: 1,
+      },
+      {
+        type: 'clayPunch',
+        range: 'armsLength',
+        damage: () => ({
+          blunt: 1,
+        }),
+        attack: () => 10,
+        singleUse: false,
+        valid: (_ctx) => true,
+        description: 'monster:attack.clay_punch.description',
+        chance: 1,
+      },
+      {
+        type: 'hastyReaction',
+        range: 'armsLength',
+        damage: () => ({
+        }),
+        attack: () => 0,
+        singleUse: false,
+        valid: (_ctx) => true,
+        description: 'monster:attack.hasty_reaction.description',
+        chance: 1,
+      },
+      {
+        type: 'earthRumble',
+        range: 'short',
+        damage: (_ctx) => ({
+          fear: true,
+        }),
+        attack: (_ctx) => 8,
+        singleUse: false,
+        valid: (_ctx) => true,
+        description: 'monster:attack.earth_rumble.description',
+        chance: 1,
+      },
+      {
+        type: 'groundQuake',
+        range: 'near',
+        damage: (_ctx) => ({
+          blunt: 1,
+        }),
+        attack: (_ctx) => 7,
+        singleUse: false,
+        valid: (_ctx) => true,
+        description: 'monster:attack.ground_quake.description',
+        chance: 1,
+      },
+      {
+        type: 'golemRampage',
+        range: 'armsLength',
+        singleUse: false,
+        attack: (_ctx) => 8,
+        damage: (_ctx) => ({
+          blunt: 2,
+        }),
+        valid: (_ctx) => true,
+        description: 'monster:attack.golem_rampage.description',
+        chance: 1,
+      },
+    ],
+  },
 ]
