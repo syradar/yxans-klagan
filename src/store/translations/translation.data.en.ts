@@ -235,6 +235,11 @@ export const translationsEn = {
         name: 'Giant Spiderling',
         description: '',
       },
+      golem_clay: {
+        name: 'Golem, Clay',
+        description: `To summon a creature of this power and ability takes a master spell caster. First the summoner must either cast a Summon Golem spell with Power Level of at least 4, or find an otherwise dormant Golem. A Summon Elemental spell, also with Power Level 4 then needs to be cast to imbue the Golem form with an elemental spirit. This powerful creature remains under the casters control for one turn (15 minutes), as long as the caster stays within SHORT range and keeps the Golem in sight. The caster can maintain control by again casting the same Power Level of Summon Elemental spell. If the spell caster becomes BROKEN, the Golem gains a semblance of free-will.
+        If the spell caster does not keep in command of the Golem, it wanders away, exploring its environment with child-like fascination. The body of the Golem will turn into an inanimate statue after a Quarter Day, it is unknown what happens to the elemental spirit once this occurs.`,
+      }
     },
     direction: {
       north: 'north',
@@ -1610,6 +1615,32 @@ export const translationsEn = {
       generic: {
         type: 'Attack',
         description: 'The beast attacks one adventurer.',
+      },
+      clay_smash: {
+        type: 'Clay Smash',
+        description:
+          `The Golem moves surprisingly quickly, punching wildly at two adventurers within ARM'S LENGTH, or one unlucky adventurer if they are the only target within reach. Make both attacks with nine Base Dice and Weapon Damage 1 (blunt force).`,
+      },
+      clay_punch: {
+        type: 'Clay Punch',
+        description: `The Golem strikes out with a large fist, striking the strongest adventurer at ARM'S LENGTH. Make an attack with ten Base Dice and Weapon Damage 1 (blunt force). If the attack hits, the victim must make a MOVE roll or be knocked prone.`
+      },
+      hasty_reaction: {
+        type: 'Hasty Reaction',
+        description:
+          'The Golem channels its internal power, releasing its built-up kinetic energy, making ungainly swift movements that confuse its enemies. The golem gains the ability to attempt to dodge all incoming attacks until after its next action, without falling prone. It also gains an additional slow action on its initiative in the next round.',
+      },
+      earth_rumble: {
+        type: 'Earth Rumble',
+        description: ` The Golem bangs its massive fists against its chest in an impressive display of dominance and aggression, sending out a cacophony of rumbling vibrations that terrify all living beings within SHORT range, all adventurers suffer a Fear attack using eight Base Dice.`
+      },
+      ground_quake: {
+        type: 'Ground Quake',
+        description: `The Golem smashes the ground with violent abandon, creating shockwaves in the earth, throwing up rocks and debris, and making the surrounding area unstable to walk on. Each adventurer within NEAR must make a MOVE roll or be thrown to the ground, they are also pelted with flying debris. Make each attack using seven Base Dice and Weapon Damage 1 (blunt force). The ground also becomes ROUGH terrain.`,
+      },
+      golem_rampage: {
+        type: 'Golem Rampage',
+        description: `The Golem goes berserk, moving to and attacking the nearest creature it can see. If no creature is near enough to move to and attack, the Golem attacks an object, with preference for an object smaller than itself. Make this attack using eight Base Dice and Weapon Damage 2 (blunt force). Once the Golem goes berserk, it continues to do so each round until it is destroyed or regains all its Strength. This attack can only become active after the Golem's Strength is reduced by half.`,
       },
     },
   },

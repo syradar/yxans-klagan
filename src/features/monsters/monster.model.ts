@@ -345,6 +345,12 @@ export const monsterAttackTypeTranslationDict: Record<
   pounce: 'monster:attack.pounce.type',
   stab: 'monster:attack.stab.type',
   webshot: 'monster:attack.webshot.type',
+  claySmash: 'monster:attack.clay_smash.type',
+  clayPunch: 'monster:attack.clay_punch.type',
+  hastyReaction: 'monster:attack.hasty_reaction.type',
+  earthRumble: 'monster:attack.earth_rumble.type',
+  groundQuake: 'monster:attack.ground_quake.type',
+  golemRampage: 'monster:attack.golem_rampage.type'
 }
 export type MonsterDamageType =
   | 'slash'
