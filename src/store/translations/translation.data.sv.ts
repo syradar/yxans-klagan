@@ -236,6 +236,12 @@ export const translationsSv: Translations = {
         name: 'Jättespindelunge',
         description: '',
       },
+      golem_clay: {
+        name: 'Jord Golem',
+        description:
+          `För att tillkalla en varelse med denna kraft och förmåga krävs en mästare. Först måste kallaren antingen kasta en Summon Golem-trollformel med en kraftnivå på minst 4, eller hitta en annars vilande Golem. En Summon Elemental-trollformel, också med Power Level 4, måste sedan kastas för att genomsyra Golem-formen med en elementär anda. Denna kraftfulla varelse förblir under hjulens kontroll i ett varv (15 minuter), så länge som kastaren håller sig inom KORT räckvidd och håller Golem i sikte. Castern kan behålla kontrollen genom att återigen kasta samma Power Level of Summon Elemental-trollformel. Om trollformeln blir BRUTEN, får Golem ett sken av fri vilja.
+          Om trollformaren inte har kommandot över Golem, vandrar den iväg och utforskar sin miljö med barnliknande fascination. Golemens kropp kommer att förvandlas till en livlös staty efter en kvartsdag, det är okänt vad som händer med elementaranden när detta inträffar.`,
+      },
     },
     direction: {
       north: 'norr',
@@ -1605,6 +1611,32 @@ export const translationsSv: Translations = {
       generic: {
         type: 'Attack',
         description: 'Besten attackerar en äventyrare inom Armslängds avstånd.',
+      },
+      clay_smash: {
+        type: 'Jordslag',
+        description:
+          `Golem rör sig förvånansvärt snabbt och slår vilt mot två äventyrare inom ARMLÄNGD, eller en olycklig äventyrare om de är det enda målet inom räckhåll. Gör båda attackerna med nio Bastärningar och vapenskada 1 (trubbig).`,
+      },
+      clay_punch: {
+        type: 'Jordsmäll',
+        description: `Golemen slår ut med en stor knytnäve och slår den starkaste äventyraren på ARMSLÄNGD. Gör en attack med tio Bastärningar och vapenskada 1 (trubbig kraft). Om attacken träffar måste offret göra ett Rörelse slag eller bli knockad.`
+      },
+      hasty_reaction: {
+        type: 'Hastig Reaktion',
+        description:
+          'Golem kanaliserar sin inre kraft, frigör sin uppbyggda kinetiska energi och gör otympliga snabba rörelser som förvirrar dess fiender. Golemen får förmågan att försöka undvika alla inkommande attacker tills efter nästa åtgärd, utan att falla benägen. Den får också en ytterligare långsam handling på sitt initiativ i nästa omgång.',
+      },
+      earth_rumble: {
+        type: 'Jorddån',
+        description: ` Golem slår sina massiva nävar mot bröstet i en imponerande uppvisning av dominans och aggression, och sänder ut en kakofoni av mullrande vibrationer som skrämmer alla levande varelser inom KORT räckvidd, alla äventyrare utsätts för en rädslattacker med åtta bastärningar.`
+      },
+      ground_quake: {
+        type: 'Markbävning',
+        description: `Golem krossar marken med våldsam övergivning, skapar chockvågor i jorden, kastar upp stenar och skräp och gör det omgivande området instabilt att gå på. Varje äventyrare inom NÄRA måste göra ett Rörelse slag eller kastas till marken, de kastas också med flygande skräp. Gör varje attack med sju grundtärningar och vapenskada 1 (trubbig). Marken blir också GROV terräng.`,
+      },
+      golem_rampage: {
+        type: 'Golem berserk',
+        description: `Golem går berserk, flyttar till och attackerar den närmaste varelsen den kan se. Om ingen varelse är tillräckligt nära för att gå till och attackera, attackerar Golem ett föremål, med företräde för ett föremål som är mindre än det själv. Gör denna attack med åtta Bastärningar och vapenskada 2 (trubbig). När Golem går amok fortsätter den att göra det varje omgång tills den förstörs eller återfår all sin styrka. Denna attack kan bara bli aktiv efter att Golems styrka har halverats.`,
       },
     },
   },
