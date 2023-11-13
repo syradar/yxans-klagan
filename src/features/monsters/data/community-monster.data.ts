@@ -176,7 +176,7 @@ export const communityMonsters: CommunityMonster[] = [
         type: 'claySmash',
         range: 'armsLength',
         damage: () => ({
-          blunt:  1,
+          blunt: 1,
         }),
         attack: () => 9,
         singleUse: false,
@@ -199,8 +199,7 @@ export const communityMonsters: CommunityMonster[] = [
       {
         type: 'hastyReaction',
         range: 'armsLength',
-        damage: () => ({
-        }),
+        damage: () => ({}),
         attack: () => 0,
         singleUse: false,
         valid: (_ctx) => true,

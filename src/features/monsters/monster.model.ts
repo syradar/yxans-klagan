@@ -350,7 +350,7 @@ export const monsterAttackTypeTranslationDict: Record<
   hastyReaction: 'monster:attack.hasty_reaction.type',
   earthRumble: 'monster:attack.earth_rumble.type',
   groundQuake: 'monster:attack.ground_quake.type',
-  golemRampage: 'monster:attack.golem_rampage.type'
+  golemRampage: 'monster:attack.golem_rampage.type',
 }
 export type MonsterDamageType =
   | 'slash'

@@ -238,8 +238,7 @@ export const translationsSv: Translations = {
       },
       golem_clay: {
         name: 'Jord Golem',
-        description:
-          `För att tillkalla en varelse med denna kraft och förmåga krävs en mästare. Först måste kallaren antingen kasta en Summon Golem-trollformel med en kraftnivå på minst 4, eller hitta en annars vilande Golem. En Summon Elemental-trollformel, också med Power Level 4, måste sedan kastas för att genomsyra Golem-formen med en elementär anda. Denna kraftfulla varelse förblir under hjulens kontroll i ett varv (15 minuter), så länge som kastaren håller sig inom KORT räckvidd och håller Golem i sikte. Castern kan behålla kontrollen genom att återigen kasta samma Power Level of Summon Elemental-trollformel. Om trollformeln blir BRUTEN, får Golem ett sken av fri vilja.
+        description: `För att tillkalla en varelse med denna kraft och förmåga krävs en mästare. Först måste kallaren antingen kasta en Summon Golem-trollformel med en kraftnivå på minst 4, eller hitta en annars vilande Golem. En Summon Elemental-trollformel, också med Power Level 4, måste sedan kastas för att genomsyra Golem-formen med en elementär anda. Denna kraftfulla varelse förblir under hjulens kontroll i ett varv (15 minuter), så länge som kastaren håller sig inom KORT räckvidd och håller Golem i sikte. Castern kan behålla kontrollen genom att återigen kasta samma Power Level of Summon Elemental-trollformel. Om trollformeln blir BRUTEN, får Golem ett sken av fri vilja.
           Om trollformaren inte har kommandot över Golem, vandrar den iväg och utforskar sin miljö med barnliknande fascination. Golemens kropp kommer att förvandlas till en livlös staty efter en kvartsdag, det är okänt vad som händer med elementaranden när detta inträffar.`,
       },
     },
@@ -1614,12 +1613,11 @@ export const translationsSv: Translations = {
       },
       clay_smash: {
         type: 'Jordslag',
-        description:
-          `Golem rör sig förvånansvärt snabbt och slår vilt mot två äventyrare inom ARMLÄNGD, eller en olycklig äventyrare om de är det enda målet inom räckhåll. Gör båda attackerna med nio Bastärningar och vapenskada 1 (trubbig).`,
+        description: `Golem rör sig förvånansvärt snabbt och slår vilt mot två äventyrare inom ARMLÄNGD, eller en olycklig äventyrare om de är det enda målet inom räckhåll. Gör båda attackerna med nio Bastärningar och vapenskada 1 (trubbig).`,
       },
       clay_punch: {
         type: 'Jordsmäll',
-        description: `Golemen slår ut med en stor knytnäve och slår den starkaste äventyraren på ARMSLÄNGD. Gör en attack med tio Bastärningar och vapenskada 1 (trubbig kraft). Om attacken träffar måste offret göra ett Rörelse slag eller bli knockad.`
+        description: `Golemen slår ut med en stor knytnäve och slår den starkaste äventyraren på ARMSLÄNGD. Gör en attack med tio Bastärningar och vapenskada 1 (trubbig kraft). Om attacken träffar måste offret göra ett Rörelse slag eller bli knockad.`,
       },
       hasty_reaction: {
         type: 'Hastig Reaktion',
@@ -1628,7 +1626,7 @@ export const translationsSv: Translations = {
       },
       earth_rumble: {
         type: 'Jorddån',
-        description: ` Golem slår sina massiva nävar mot bröstet i en imponerande uppvisning av dominans och aggression, och sänder ut en kakofoni av mullrande vibrationer som skrämmer alla levande varelser inom KORT räckvidd, alla äventyrare utsätts för en rädslattacker med åtta bastärningar.`
+        description: ` Golem slår sina massiva nävar mot bröstet i en imponerande uppvisning av dominans och aggression, och sänder ut en kakofoni av mullrande vibrationer som skrämmer alla levande varelser inom KORT räckvidd, alla äventyrare utsätts för en rädslattacker med åtta bastärningar.`,
       },
       ground_quake: {
         type: 'Markbävning',

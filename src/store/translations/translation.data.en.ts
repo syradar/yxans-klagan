@@ -239,7 +239,7 @@ export const translationsEn = {
         name: 'Golem, Clay',
         description: `To summon a creature of this power and ability takes a master spell caster. First the summoner must either cast a Summon Golem spell with Power Level of at least 4, or find an otherwise dormant Golem. A Summon Elemental spell, also with Power Level 4 then needs to be cast to imbue the Golem form with an elemental spirit. This powerful creature remains under the casters control for one turn (15 minutes), as long as the caster stays within SHORT range and keeps the Golem in sight. The caster can maintain control by again casting the same Power Level of Summon Elemental spell. If the spell caster becomes BROKEN, the Golem gains a semblance of free-will.
         If the spell caster does not keep in command of the Golem, it wanders away, exploring its environment with child-like fascination. The body of the Golem will turn into an inanimate statue after a Quarter Day, it is unknown what happens to the elemental spirit once this occurs.`,
-      }
+      },
     },
     direction: {
       north: 'north',
@@ -1618,12 +1618,11 @@ export const translationsEn = {
       },
       clay_smash: {
         type: 'Clay Smash',
-        description:
-          `The Golem moves surprisingly quickly, punching wildly at two adventurers within ARM'S LENGTH, or one unlucky adventurer if they are the only target within reach. Make both attacks with nine Base Dice and Weapon Damage 1 (blunt force).`,
+        description: `The Golem moves surprisingly quickly, punching wildly at two adventurers within ARM'S LENGTH, or one unlucky adventurer if they are the only target within reach. Make both attacks with nine Base Dice and Weapon Damage 1 (blunt force).`,
       },
       clay_punch: {
         type: 'Clay Punch',
-        description: `The Golem strikes out with a large fist, striking the strongest adventurer at ARM'S LENGTH. Make an attack with ten Base Dice and Weapon Damage 1 (blunt force). If the attack hits, the victim must make a MOVE roll or be knocked prone.`
+        description: `The Golem strikes out with a large fist, striking the strongest adventurer at ARM'S LENGTH. Make an attack with ten Base Dice and Weapon Damage 1 (blunt force). If the attack hits, the victim must make a MOVE roll or be knocked prone.`,
       },
       hasty_reaction: {
         type: 'Hasty Reaction',
@@ -1632,7 +1631,7 @@ export const translationsEn = {
       },
       earth_rumble: {
         type: 'Earth Rumble',
-        description: ` The Golem bangs its massive fists against its chest in an impressive display of dominance and aggression, sending out a cacophony of rumbling vibrations that terrify all living beings within SHORT range, all adventurers suffer a Fear attack using eight Base Dice.`
+        description: ` The Golem bangs its massive fists against its chest in an impressive display of dominance and aggression, sending out a cacophony of rumbling vibrations that terrify all living beings within SHORT range, all adventurers suffer a Fear attack using eight Base Dice.`,
       },
       ground_quake: {
         type: 'Ground Quake',
