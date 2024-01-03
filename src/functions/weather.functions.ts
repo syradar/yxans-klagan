@@ -2,7 +2,7 @@ import { None, Option } from 'ts-results'
 import { TranslationKey } from '../store/translations/translation.model'
 import { at, range } from './array.functions'
 import { choose } from './dice.functions'
-import { inRange, notNullish, toOption } from './utils.functions'
+import { inRange, notNullish, toOption } from './utils'
 
 const month = [
   'WinterWane',

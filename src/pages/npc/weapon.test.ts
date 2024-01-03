@@ -1,4 +1,4 @@
-import { isString } from '../../functions/utils.functions'
+import { isString } from '../../functions/utils'
 import { meleeWeapons } from './data/weapon.data'
 import { createWeaponViewModel } from './weapon'
 import { describe, it, expect } from 'vitest'

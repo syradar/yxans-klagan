@@ -28,7 +28,7 @@ import {
   marketTypeTranslationDict,
 } from '../features/gear/gear.data'
 import { ServiceViewModel } from '../features/gear/services.data'
-import { notNullish } from '../functions/utils.functions'
+import { notNullish } from '../functions/utils'
 import { materialLabelDict } from '../models/material.model'
 import { talentLabelDict } from '../models/talent.model'
 import { toolLabelDict } from '../models/tool.model'
@@ -64,8 +64,11 @@ export const GearPage = () => {
                   {t('gear:gear.trade_goods')}
                 </h2>
               ) : null}
-              {gear.tradeGoods.map((g) => (
-                <GearCard key={g.name.id} gear={g}></GearCard>
+              {gear.tradeGoods.map(g => (
+                <GearCard
+                  key={g.name.id}
+                  gear={g}
+                ></GearCard>
               ))}
             </div>
 
@@ -76,8 +79,11 @@ export const GearPage = () => {
                 </h2>
               ) : null}
 
-              {gear.services.map((s) => (
-                <ServiceCard key={s.name.id} service={s}></ServiceCard>
+              {gear.services.map(s => (
+                <ServiceCard
+                  key={s.name.id}
+                  service={s}
+                ></ServiceCard>
               ))}
             </div>
           </Stack.Vertical>
@@ -91,9 +97,15 @@ const GearCard = ({ gear }: { gear: TradeGoodsViewModel }) => {
   const t = useAppSelector(selectTranslateFunction(['gear', 'common']))
 
   return (
-    <Parchment padding="sm" key={gear.name.id}>
+    <Parchment
+      padding="sm"
+      key={gear.name.id}
+    >
       <Stack.Vertical>
-        <Stack.Horizontal distribute wrap>
+        <Stack.Horizontal
+          distribute
+          wrap
+        >
           <div>
             <h2 className="yx-heading mb-0 text-lg">{gear.name.translation}</h2>
             <div className="text-sm text-neutral-500">
@@ -105,17 +117,29 @@ const GearCard = ({ gear }: { gear: TradeGoodsViewModel }) => {
 
         <div>{t(gear.effects.label)}</div>
 
-        <Stack.Horizontal distribute wrap>
-          <Stat size="small" label={t('gear:supply.supply')}>
+        <Stack.Horizontal
+          distribute
+          wrap
+        >
+          <Stat
+            size="small"
+            label={t('gear:supply.supply')}
+          >
             <span>{t(gear.supply.label)}</span>
             {notNullish(gear.supply.amount) ? (
               <span> ({gear.supply.amount})</span>
             ) : null}
           </Stat>
-          <Stat size="small" label={t('common:weight.weight')}>
+          <Stat
+            size="small"
+            label={t('common:weight.weight')}
+          >
             {t(weightLabelDict[gear.weight])}
           </Stat>
-          <Stat size="small" label={t('gear:market_type.market_type')}>
+          <Stat
+            size="small"
+            label={t('gear:market_type.market_type')}
+          >
             {t(marketTypeTranslationDict[gear.marketType])}
           </Stat>
         </Stack.Horizontal>
@@ -123,7 +147,7 @@ const GearCard = ({ gear }: { gear: TradeGoodsViewModel }) => {
         <Group label={t('gear:craft')}>
           <Field label={t('common:material.material')}>
             {gear.rawMaterials
-              .map((r) => {
+              .map(r => {
                 const mat = t(materialLabelDict[r.material])
 
                 return `${r.value} ${mat}`
@@ -135,12 +159,12 @@ const GearCard = ({ gear }: { gear: TradeGoodsViewModel }) => {
           <Field label={t('common:talents.talents')}>
             {gear.talents.length === 0
               ? '–'
-              : gear.talents.map((tal) => t(talentLabelDict[tal])).join(', ')}
+              : gear.talents.map(tal => t(talentLabelDict[tal])).join(', ')}
           </Field>
           <Field label={t('common:tool.tool')}>
             {gear.tools.length === 0
               ? '–'
-              : gear.tools.map((tool) => t(toolLabelDict[tool])).join(', ')}
+              : gear.tools.map(tool => t(toolLabelDict[tool])).join(', ')}
           </Field>
         </Group>
       </Stack.Vertical>
@@ -152,9 +176,15 @@ const ServiceCard = ({ service }: { service: ServiceViewModel }) => {
   const t = useAppSelector(selectTranslateFunction(['gear', 'common']))
 
   return (
-    <Parchment padding="sm" key={service.name.id}>
+    <Parchment
+      padding="sm"
+      key={service.name.id}
+    >
       <Stack.Vertical>
-        <Stack.Horizontal distribute wrap>
+        <Stack.Horizontal
+          distribute
+          wrap
+        >
           <div>
             <h2 className="yx-heading mb-0 text-lg">
               {service.name.translation}
@@ -168,14 +198,23 @@ const ServiceCard = ({ service }: { service: ServiceViewModel }) => {
 
         <div>{t(service.effects.label)}</div>
 
-        <Stack.Horizontal distribute wrap>
-          <Stat size="small" label={t('gear:supply.supply')}>
+        <Stack.Horizontal
+          distribute
+          wrap
+        >
+          <Stat
+            size="small"
+            label={t('gear:supply.supply')}
+          >
             <span>{t(service.supply.label)}</span>
             {notNullish(service.supply.amount) ? (
               <span> ({service.supply.amount})</span>
             ) : null}
           </Stat>
-          <Stat size="small" label={t('gear:market_type.market_type')}>
+          <Stat
+            size="small"
+            label={t('gear:market_type.market_type')}
+          >
             {t(marketTypeTranslationDict[service.marketType])}
           </Stat>
         </Stack.Horizontal>
@@ -209,7 +248,7 @@ const GearFilterPanel = () => {
       <div>
         <h4>{t('gear:category.cateogory')}</h4>
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-1">
-          {categories.map((c) => (
+          {categories.map(c => (
             <ParchmentToggleButton
               fullWidth
               active={c.active}
@@ -263,8 +302,11 @@ const GearPrice = ({ price }: { price: TradeGoods['price'] }) => {
     return (
       <div className="flex gap-1">
         <SeparatedComponents
-          components={price.tiers.map((t) => (
-            <CoinPrice key={t.tier} coinPurse={copperToCoinPurse(t.copper)} />
+          components={price.tiers.map(t => (
+            <CoinPrice
+              key={t.tier}
+              coinPurse={copperToCoinPurse(t.copper)}
+            />
           ))}
           separator={<span>{'/'}</span>}
         ></SeparatedComponents>

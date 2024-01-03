@@ -6,7 +6,7 @@ import { Parchment } from '../components/parchment'
 import { Stepper } from '../components/Stepper'
 import { range } from '../functions/array.functions'
 import { countSuccesses, getRandomInt } from '../functions/dice.functions'
-import { withId } from '../functions/utils.functions'
+import { withId } from '../functions/utils'
 
 type DiceResult = {
   attribute: number[]
@@ -25,10 +25,8 @@ export const DiceRollerPage = () => {
   const [successes, setSuccesses] = useState<number>(0)
 
   const rollDice = () => {
-    const attributeResults = range(attributeDiceAmount).map((_) =>
-      getRandomInt(),
-    )
-    const skillResults = range(skillDiceAmount).map((_) => getRandomInt())
+    const attributeResults = range(attributeDiceAmount).map(_ => getRandomInt())
+    const skillResults = range(skillDiceAmount).map(_ => getRandomInt())
     const results: DiceResult = {
       attribute: attributeResults,
       skill: skillResults,
@@ -106,7 +104,7 @@ export const DiceRollerPage = () => {
             {diceResults.attribute.length > 0 && (
               <>
                 <div>Attribut</div>
-                {diceResults.attribute.map(withId).map((val) => (
+                {diceResults.attribute.map(withId).map(val => (
                   <div key={val.id}>
                     <DiceDisplay value={val.value}></DiceDisplay>
                   </div>
@@ -117,7 +115,7 @@ export const DiceRollerPage = () => {
             {diceResults.skill.length > 0 && (
               <>
                 <div>Färdighet</div>
-                {diceResults.skill.map(withId).map((val) => (
+                {diceResults.skill.map(withId).map(val => (
                   <div key={val.id}>
                     <DiceDisplay value={val.value}></DiceDisplay>
                   </div>

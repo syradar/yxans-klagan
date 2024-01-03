@@ -11,12 +11,12 @@ import {
   forbiddenLandsDateStringSchema,
   formatForbiddenLandsDate,
   parseForbiddenLandsDate,
-} from '../../models/forbidden-lands-date.model'
+} from '../../models/forbidden-lands-date'
 import { HexKey, hexKeySchema, isHexKey } from '../../pages/places/map.model'
 import { createStateStorageWithSerializer } from '../../store/persist/state-storage'
 import { RootState } from '../../store/store'
 
-import { isNullish, isString, toOption } from '../../functions/utils.functions'
+import { isNullish, isString, toOption } from '../../functions/utils'
 import {
   GameSource,
   gameSourceSchema,

@@ -1,4 +1,4 @@
-import { isEven, min } from './math.functions'
+import { isEven, min } from './math'
 import { describe, it, expect } from 'vitest'
 
 describe('math functions', () => {
@@ -10,7 +10,7 @@ describe('math functions', () => {
       [-10, -34, -10],
       [0, -Infinity, 0],
     ])('min: %i, val: %i, should be: %i', (minVal, val, expected) => {
-      const result = min(minVal)(val)
+      const result = min(minVal)(val).unwrap()
 
       expect(result).toEqual(expected)
     })
@@ -20,7 +20,10 @@ describe('math functions', () => {
       [NaN, NaN],
       [NaN, 0],
     ])('min: %i, val: %i, should throw error', (minVal, val) => {
-      expect(() => min(minVal)(val)).toThrowError()
+      const expected = true
+      const result = min(minVal)(val).none
+
+      expect(result).toEqual(expected)
     })
   })
 
@@ -39,8 +42,11 @@ describe('math functions', () => {
       expect(result).toEqual(expected)
     })
 
-    it('should throw error if given NaN', () => {
-      expect(() => isEven(NaN)).toThrowError()
+    it('should return false if given NaN', () => {
+      const expected = false
+      const result = isEven(NaN)
+
+      expect(result).toEqual(expected)
     })
   })
 })

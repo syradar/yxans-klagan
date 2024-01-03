@@ -1,6 +1,6 @@
 import { shields } from './data/shield.data'
 import { createShieldViewModel } from './shield'
-import { isString } from '../../functions/utils.functions'
+import { isString } from '../../functions/utils'
 import { describe, it, expect } from 'vitest'
 
 describe('createShieldViewModel', () => {

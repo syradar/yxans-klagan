@@ -4,7 +4,7 @@ import {
   AttributeType,
   AttributeViewModel,
 } from '../models/attributes.model'
-import { numberToBooleans, validNumber } from './utils.functions'
+import { numberToBooleans, validNumber } from './utils'
 
 export const createAttributesViewModel = (
   a: Attributes,

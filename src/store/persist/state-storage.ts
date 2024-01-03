@@ -1,8 +1,9 @@
 import { Result } from 'ts-results'
 import { z } from 'zod'
 import { safeJSONParse } from './json-parsing'
-import { safeGetLocalStorage, safeSetLocalStorage } from './storage-engine'
+import { storageEngineFactory } from './storage-engine'
 
+const storageEngine = storageEngineFactory(localStorage)
 type StateStorage<T> = {
   load: () => Result<T, Error>
   save: (state: T) => void
@@ -20,15 +21,15 @@ export const createStateStorage = <T>({
   schema,
 }: CreateStateStorageProps): StateStorage<T> => ({
   load: (): Result<T, Error> => {
-    const localStorage = safeGetLocalStorage(key).toResult(
-      new Error(`[${label}] Failed to get from LocalStorage`),
-    )
+    const localStorage = storageEngine
+      .get(key)
+      .toResult(new Error(`[${label}] Failed to get from LocalStorage`))
 
-    const result = localStorage.andThen((s) => safeJSONParse(s, schema))
+    const result = localStorage.andThen(s => safeJSONParse(s, schema))
 
     return result
   },
-  save: (val: T) => safeSetLocalStorage(key)(val),
+  save: (val: T) => storageEngine.set(key)(val),
 })
 
 type CreateStateStorageWithSerializerProps<T, U> = CreateStateStorageProps & {
@@ -43,9 +44,10 @@ export const createStateStorageWithSerializer = <T, U>({
   deserializer,
 }: CreateStateStorageWithSerializerProps<T, U>): StateStorage<T> => ({
   load: (): Result<T, Error> => {
-    return safeGetLocalStorage(key)
+    return storageEngine
+      .get(key)
       .toResult(new Error(`[${label}] Failed to get from LocalStorage`))
-      .andThen((s) => safeJSONParse(s, schema))
+      .andThen(s => safeJSONParse(s, schema))
       .andThen(deserializer)
   },
   save: (val: T) => {
@@ -58,6 +60,6 @@ export const createStateStorageWithSerializer = <T, U>({
       return
     }
 
-    safeSetLocalStorage(key)(serialized.val)
+    storageEngine.set(key)(serialized.val)
   },
 })

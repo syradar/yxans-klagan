@@ -8,7 +8,7 @@ import { LinkWithIcon } from '../../../components/LinkWithIcon'
 import { Typography } from '../../../components/Typography'
 import { PageHeader } from '../../../components/page-header'
 import { Parchment } from '../../../components/parchment'
-import { notNullish } from '../../../functions/utils.functions'
+import { notNullish } from '../../../functions/utils'
 import { useAppSelector } from '../../../store/store.hooks'
 import {
   selectCurrentLanguage,
@@ -36,7 +36,7 @@ const isMonsterRouteSection = (
   validSections.includes(section as MonsterRouteSection)
 
 const isValidMonster = (id: string | undefined): id is string =>
-  notNullish(id) && bookMonsters.some((m) => m.id === id)
+  notNullish(id) && bookMonsters.some(m => m.id === id)
 
 type NavProps = {
   to: string
@@ -75,14 +75,13 @@ export const MonstersPage = () => {
 
   const isBookMonster = monsterSection === 'book'
   const isValidMonsterId = isBookMonster && isValidMonster(monster)
-  const paramMonster =
-    isValidMonsterId && monsters.find((m) => m.id === monster)
+  const paramMonster = isValidMonsterId && monsters.find(m => m.id === monster)
 
   const isCommunityMonster = monsterSection === 'community'
   const como =
     (isCommunityMonster &&
       !!monster &&
-      communityMonsters.find((m) => m.id === monster)) ||
+      communityMonsters.find(m => m.id === monster)) ||
     undefined
 
   const comovm = como ? createCommunityMonsterViewModel(como) : undefined
@@ -101,13 +100,13 @@ export const MonstersPage = () => {
     text: t('monster:random_monster.title'),
   }
 
-  const monstersNav = monsters.map((m) => ({
+  const monstersNav = monsters.map(m => ({
     to: `/monsters/book/${m.id}`,
     part: t('monster:bookmonsters.title'),
     text: t(m.name),
   }))
 
-  const communityMonstersNav = communityMonsters.map((m) => ({
+  const communityMonstersNav = communityMonsters.map(m => ({
     to: `/monsters/community/${m.id}`,
     part: t('monster:community_monster.title'),
     text: t(m.name),
@@ -169,7 +168,11 @@ export const MonstersPage = () => {
 
                 {monsterSection !== undefined && nextMonster.some ? (
                   <div className="md:hidden">
-                    <LinkWithIcon to={nextMonster.val.to} icon="nextPage" right>
+                    <LinkWithIcon
+                      to={nextMonster.val.to}
+                      icon="nextPage"
+                      right
+                    >
                       {nextMonster.val.text}
                     </LinkWithIcon>
                   </div>
@@ -185,20 +188,32 @@ export const MonstersPage = () => {
               </div>
 
               {isBookMonster && paramMonster ? (
-                <MonsterDisplay m={paramMonster} bookPart={bookPart} />
+                <MonsterDisplay
+                  m={paramMonster}
+                  bookPart={bookPart}
+                />
               ) : null}
 
               {isRandomMonster ? (
-                <RandomMonsterDisplay rm={randomMonster} bookPart={bookPart} />
+                <RandomMonsterDisplay
+                  rm={randomMonster}
+                  bookPart={bookPart}
+                />
               ) : null}
 
               {isCommunityMonster && comovm ? (
-                <CommunityMonsterDisplay como={comovm} bookPart={bookPart} />
+                <CommunityMonsterDisplay
+                  como={comovm}
+                  bookPart={bookPart}
+                />
               ) : null}
 
               {previousMonster.some ? (
                 <div className="mt-auto hidden md:block">
-                  <LinkWithIcon to={previousMonster.val.to} icon="lastPage">
+                  <LinkWithIcon
+                    to={previousMonster.val.to}
+                    icon="lastPage"
+                  >
                     {previousMonster.val.text}
                   </LinkWithIcon>
                 </div>
@@ -232,7 +247,11 @@ export const MonstersPage = () => {
 
               {nextMonster.some ? (
                 <div className="mt-auto hidden md:block">
-                  <LinkWithIcon to={nextMonster.val.to} icon="nextPage" right>
+                  <LinkWithIcon
+                    to={nextMonster.val.to}
+                    icon="nextPage"
+                    right
+                  >
                     {nextMonster.val.text}
                   </LinkWithIcon>
                 </div>
@@ -259,7 +278,10 @@ const MonsterTableOfContents = () => {
 
       <div className="flex flex-col gap-8">
         <section>
-          <Typography variant="h3" parchment>
+          <Typography
+            variant="h3"
+            parchment
+          >
             {t(`monster:random_monster.title`)}
           </Typography>
           <div className="mb-4">{t('monster:bookmonsters.description')}</div>
@@ -272,13 +294,19 @@ const MonsterTableOfContents = () => {
           </BookList>
         </section>
         <section>
-          <Typography variant="h3" parchment>
+          <Typography
+            variant="h3"
+            parchment
+          >
             {t(`monster:bookmonsters.title`)}
           </Typography>
           <div className="mb-4">{t('monster:bookmonsters.description')}</div>
           <BookList>
-            {monsters.map((m) => (
-              <li key={m.name} className="">
+            {monsters.map(m => (
+              <li
+                key={m.name}
+                className=""
+              >
                 <BookLink
                   to={`/monsters/book/${m.id}`}
                   pageReference={m.pageReference?.toString()}
@@ -290,15 +318,21 @@ const MonsterTableOfContents = () => {
           </BookList>
         </section>
         <section>
-          <Typography variant="h3" parchment>
+          <Typography
+            variant="h3"
+            parchment
+          >
             {t(`monster:community_monster.title`)}
           </Typography>
           <div className="mb-4">
             {t('monster:community_monster.description')}
           </div>
           <BookList>
-            {communityMonsters.map((m) => (
-              <li key={m.name} className="">
+            {communityMonsters.map(m => (
+              <li
+                key={m.name}
+                className=""
+              >
                 <BookLink to={`/monsters/community/${m.id}`}>
                   {t(m.name)}
                 </BookLink>

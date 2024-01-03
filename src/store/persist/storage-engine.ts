@@ -21,10 +21,9 @@ const safeSet =
     }
   }
 
-// * Local Storage
-export const safeGetLocalStorage = safeStorageGet(localStorage)
-export const safeSetLocalStorage = safeSet(localStorage)
-
-// * Session Storage
-export const safeGetSessionStorage = safeStorageGet(sessionStorage)
-export const safeSetSessionStorage = safeSet(sessionStorage)
+export const storageEngineFactory = (engine: Storage) => {
+  return {
+    get: safeStorageGet(engine),
+    set: safeSet(engine),
+  }
+}

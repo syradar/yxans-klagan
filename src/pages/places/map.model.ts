@@ -129,7 +129,7 @@ export type HexKeyTypeScript = AKeyTypeScript | BKeyTypeScript
 
 type AKey = z.infer<typeof akeySchema> & AKeyTypeScript
 type BKey = z.infer<typeof bkeySchema> & BKeyTypeScript
-export const hexKeySchema = z.string().refine(isHexKey, (s) => ({
+export const hexKeySchema = z.string().refine(isHexKey, s => ({
   message: `${s} is not a valid HexKey`,
 }))
 

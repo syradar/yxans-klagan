@@ -1,3 +1,4 @@
+import { None, Some } from 'ts-results'
 import {
   choose,
   countSuccesses,
@@ -33,11 +34,11 @@ describe('dice functions', () => {
 
   describe('choose', () => {
     it.each([
-      [[], 'undefined'],
-      [['test'], 'string'],
+      [[], None],
+      [['test'], Some('test')],
     ])('%j => %s', (input, expected) => {
       const result = choose(input)
-      expect(typeof result).toEqual(expected)
+      expect(result).toEqual(expected)
     })
   })
 

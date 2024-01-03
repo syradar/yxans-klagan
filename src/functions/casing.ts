@@ -1,6 +1,6 @@
 // beautifulDesk: 'finds:find.beautiful_desk',
 
-import { capitalize } from './utils.functions'
+import { capitalize } from './utils'
 
 export type SnakeCaseToCamelCase<S extends string> =
   S extends `${infer T}_${infer U}`
@@ -27,5 +27,5 @@ export const camelCaseToSnakeCase = <S extends string>(
 ): CamelCaseToSnakeCase<S> =>
   s
     .split(/(?=[A-Z])/)
-    .map((w) => w.toLowerCase())
+    .map(w => w.toLowerCase())
     .join('_') as CamelCaseToSnakeCase<S>

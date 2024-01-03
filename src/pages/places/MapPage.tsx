@@ -44,7 +44,7 @@ import {
 } from '../../features/map/map-slice'
 import { getRandomInt } from '../../functions/dice.functions'
 import { downloadFile } from '../../functions/file.functions'
-import { notNullish } from '../../functions/utils.functions'
+import { notNullish } from '../../functions/utils'
 import { safeJSONParse } from '../../store/persist/json-parsing'
 import { useAppDispatch, useAppSelector } from '../../store/store.hooks'
 import { TranslationKey } from '../../store/translations/translation.model'
@@ -271,7 +271,7 @@ export const MapPage = () => {
             <ParchmentModal
               isOpen={isNoteOpen}
               onClose={() => setIsNoteOpen(false)}
-              title={t('journal: exploration_ note')}
+              title={t('journal:exploration _note_')}
               description={t('journal:exploration _note_ description')}
             >
               {close => (
@@ -321,6 +321,7 @@ export const MapPage = () => {
                     setIsNoteOpen(true)
                   }}
                   icon={explorationNotes[hex.hexKey]?.map.icon}
+                  gameSource={source}
                 ></Polygon>
               ))}
             </ForbiddenLandsMap>

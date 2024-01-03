@@ -1,4 +1,4 @@
-import { notNullish, withId } from '../../../functions/utils.functions'
+import { notNullish, withId } from '../../../functions/utils'
 import {
   AttributesViewModel,
   attributeTypeTranslationDict,

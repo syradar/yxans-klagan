@@ -1,4 +1,4 @@
-import { Err, Ok, Option, Result } from 'ts-results'
+import { Err, None, Ok, Option, Result, Some } from 'ts-results'
 import { at } from './array.functions'
 
 export const integerRegex = /^-?\d*$/
@@ -43,25 +43,25 @@ export const safeParseInt = (val: string): Result<number, Error> => {
 export const safeParseIntOption = (s: string): Option<number> =>
   safeParseInt(s).toOption()
 
-export const min = (minVal: number) => (val: number) => {
-  const nanError = `value was Nan`
+export const min =
+  (minVal: number) =>
+  (val: number): Option<number> => {
+    if (isNaN(minVal)) {
+      return None
+    }
 
-  if (isNaN(minVal)) {
-    throw new TypeError(`minVal ${nanError}`)
+    if (isNaN(val)) {
+      return None
+    }
+
+    const result = val < minVal ? minVal : val
+
+    return Some(result)
   }
-
-  if (isNaN(val)) {
-    throw new TypeError(`val ${nanError}`)
-  }
-
-  return val < minVal ? minVal : val
-}
-
-export const minZero = min(0)
 
 export const isEven = (val: number): boolean => {
   if (isNaN(val)) {
-    throw new TypeError(`val was NaN`)
+    return false
   }
 
   return val % 2 === 0

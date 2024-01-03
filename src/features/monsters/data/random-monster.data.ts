@@ -9,8 +9,8 @@ import {
   chooseFromChoiceString,
   rollD4,
 } from '../../../functions/dice.functions'
-import { isEven } from '../../../functions/math.functions'
-import { validNumber, toOption } from '../../../functions/utils.functions'
+import { isEven } from '../../../functions/math'
+import { validNumber, toOption } from '../../../functions/utils'
 import { TranslationKey } from '../../../store/translations/translation.model'
 import {
   MonsterSize,

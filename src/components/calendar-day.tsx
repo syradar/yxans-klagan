@@ -2,7 +2,7 @@ import {
   selectCalendarDay,
   toggleQuarter,
 } from '../features/calendar/calendar-slice'
-import { CalendarDay, dayLabelDict } from '../models/forbidden-lands-date.model'
+import { CalendarDay, dayLabelDict } from '../models/forbidden-lands-date'
 import { useAppDispatch, useAppSelector } from '../store/store.hooks'
 import { selectTranslateFunction } from '../store/translations/translation.slice'
 import { Pancake, Train } from './Stack'
@@ -24,7 +24,10 @@ export const CalendarDayDisplay = ({ day }: CalendarDayProps) => {
   return (
     <div className={`border p-2`}>
       <Pancake spacing="small">
-        <Pancake spacing="none" wrap={false}>
+        <Pancake
+          spacing="none"
+          wrap={false}
+        >
           <div className="lg:hidden">{t(dayLabelDict[day.index])}</div>
           <Train spacing="small">
             <div

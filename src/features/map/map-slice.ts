@@ -3,7 +3,7 @@ import { createSelector, createSlice } from '@reduxjs/toolkit'
 import { None, Ok, Option, Some } from 'ts-results'
 import { z } from 'zod'
 import { hexData } from '../../data/hex.data'
-import { notNullish } from '../../functions/utils.functions'
+import { notNullish } from '../../functions/utils'
 import { Hex, HexData, HexKey, isHexKey } from '../../pages/places/map.model'
 import { createStateStorageWithSerializer } from '../../store/persist/state-storage'
 import { RootState } from '../../store/store'
@@ -17,7 +17,7 @@ export const hexSchema = z.object({
    */
   explored: z
     .boolean()
-    .transform((_) => undefined)
+    .transform(_ => undefined)
     .optional(),
 })
 
@@ -75,7 +75,7 @@ export const mapStateSchema = z.object({
        */
       hasExploredHexes: z
         .boolean()
-        .transform((_) => undefined)
+        .transform(_ => undefined)
         .optional(),
       hexes: z.array(hexSchema),
       selectedHex: z
@@ -89,7 +89,7 @@ export const mapStateSchema = z.object({
        */
       hasExploredHexes: z
         .boolean()
-        .transform((_) => undefined)
+        .transform(_ => undefined)
         .optional(),
       hexes: z.array(hexSchema),
       selectedHex: z
@@ -110,8 +110,8 @@ export const localStorageMapState = createStateStorageWithSerializer<
   label: 'MAP',
   schema: mapStateSchema,
   schemaOutput: mapStateSchema,
-  serializer: (state) => Ok(state),
-  deserializer: (state) => Ok(state),
+  serializer: state => Ok(state),
+  deserializer: state => Ok(state),
 })
 
 // Define the initial state using that type
@@ -165,17 +165,17 @@ export const {
 const selectMapState = (state: RootState) => state.map
 export const selectSource = createSelector(
   selectMapState,
-  (state) => state.source,
+  state => state.source,
 )
 
 export const selectSelectedHex = createSelector(
   selectMapState,
-  (state) => state.maps[state.source].selectedHex,
+  state => state.maps[state.source].selectedHex,
 )
 
 export const selectSourceAndSelectedHex = createSelector(
   selectMapState,
-  (state) => {
+  state => {
     if (!state) {
       return undefined
     }
@@ -188,16 +188,16 @@ export const selectSourceAndSelectedHex = createSelector(
 )
 export const selectFogOfWar = createSelector(
   selectMapState,
-  (state) => state.fogOfWar,
+  state => state.fogOfWar,
 )
 
-export const selectMap = createSelector(selectMapState, (mapState) => {
+export const selectMap = createSelector(selectMapState, mapState => {
   const map = mapState.maps[mapState.source]
 
   return {
     selectedHex: notNullish(map.selectedHex) ? Some(map.selectedHex) : None,
-    hexes: initialHexas.map((hex) => {
-      const userHex = map.hexes.find((h) => h.hexKey === hex.hexKey)
+    hexes: initialHexas.map(hex => {
+      const userHex = map.hexes.find(h => h.hexKey === hex.hexKey)
 
       if (userHex) {
         return {
@@ -215,7 +215,7 @@ export const selectMapSerializable = (state: RootState): MapState => state.map
 
 export const selectHex = (hexKey: HexKey) =>
   createSelector(selectMap, (map): Option<Hex> => {
-    const hex = map.hexes.find((hex) => hex.hexKey === hexKey)
+    const hex = map.hexes.find(hex => hex.hexKey === hexKey)
 
     if (!hex) {
       return None

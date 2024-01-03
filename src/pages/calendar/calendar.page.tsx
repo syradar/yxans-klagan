@@ -10,10 +10,7 @@ import {
   previousMonth,
   selectCalendar,
 } from '../../features/calendar/calendar-slice'
-import {
-  getCalendar,
-  monthLabelDict,
-} from '../../models/forbidden-lands-date.model'
+import { getCalendar, monthLabelDict } from '../../models/forbidden-lands-date'
 import { useAppDispatch, useAppSelector } from '../../store/store.hooks'
 import { selectTranslateFunction } from '../../store/translations/translation.slice'
 import { at } from '../../functions/array.functions'

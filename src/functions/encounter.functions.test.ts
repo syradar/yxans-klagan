@@ -9,7 +9,7 @@ import { describe, it, expect } from 'vitest'
 
 describe('Encounter Functions', () => {
   describe('getTerrainsByEncounterId', () => {
-    it.each([0, 1])('should all terrain keys if given %s', (id) => {
+    it.each([0, 1])('should all terrain keys if given %s', id => {
       const expected = [...getTerrainKeys()]
 
       const result = getTerrainsByEncounterId(id)
@@ -40,7 +40,7 @@ describe('Encounter Functions', () => {
         chosenTerrain: 'plains',
       }
 
-      const result = getEncounterById(id, 'sv', 'plains')
+      const result = getEncounterById(id, 'sv', 'plains').unwrap()
 
       expect(result).toEqual(expected)
     })
@@ -52,9 +52,9 @@ describe('Encounter Functions', () => {
       [0, 6],
       [16, 42],
     ])('should return encounter %s if roll is %s', (expected, roll) => {
-      const result = getRandomEncounter(roll, 'plains', 'sv').id
+      const option = getRandomEncounter(roll, 'plains', 'sv')
 
-      expect(result).toEqual(expected)
+      expect(option.unwrap().id).toEqual(expected)
     })
   })
 })

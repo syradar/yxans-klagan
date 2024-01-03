@@ -3,7 +3,7 @@ import { villageNamesEn, villageNamesSv } from '../data/village-name.data'
 import { ValidLanguage } from '../hooks/useValidLanguage'
 import { choose } from './dice.functions'
 import { optionTypeGuard } from './option'
-import { capitalize } from './utils.functions'
+import { capitalize } from './utils'
 
 type LanguageVillageNameModelMap = { [VL in ValidLanguage]: VillageNameData }
 

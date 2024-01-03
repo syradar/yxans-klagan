@@ -1,5 +1,6 @@
+import { Some } from 'ts-results'
 import { at } from '../../functions/array.functions'
-import { capitalize } from '../../functions/utils.functions'
+import { capitalize } from '../../functions/utils'
 import {
   getNameTypeAndFirstName,
   getRandomAilanderName,
@@ -41,7 +42,7 @@ describe('name functions', () => {
       }
       const expected = {
         value: 'FirstName',
-        firstName: femaleName,
+        firstName: Some(femaleName),
       }
       const result = getNameTypeAndFirstName('Female', nl)
 

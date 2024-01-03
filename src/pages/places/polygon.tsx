@@ -6,6 +6,7 @@ import {
   mapSymbolUrls,
 } from '../../components/images/map-symbols/MapSymbol'
 import { getHexCenter } from '../../data/hex-fun'
+import { GameSource } from '../../features/map/map-slice'
 import { Hex, HexKey } from './map.model'
 
 type PolygonProps = AriaButtonProps &
@@ -15,6 +16,7 @@ type PolygonProps = AriaButtonProps &
     explored: boolean
     selectedHex: Option<HexKey>
     icon: MapSymbolType | undefined
+    gameSource: GameSource
   }
 
 export const Polygon = (props: PolygonProps) => {
@@ -28,6 +30,7 @@ export const Polygon = (props: PolygonProps) => {
     onHoverStart,
     onHoverEnd,
     icon,
+    gameSource,
   } = props
   const { hoverProps, isHovered } = useHover({
     onHoverChange,
@@ -36,7 +39,7 @@ export const Polygon = (props: PolygonProps) => {
   })
 
   const selectedClass = selectedHex
-    .map((s) => (s === hex.hexKey ? 'hex-selected' : ''))
+    .map(s => (s === hex.hexKey ? 'hex-selected' : ''))
     .unwrapOr('')
 
   const iconRef = useRef<SVGImageElement>(null)
@@ -78,7 +81,7 @@ export const Polygon = (props: PolygonProps) => {
       {icon ? (
         <image
           ref={iconRef}
-          href={mapSymbolUrls[icon]}
+          href={mapSymbolUrls[gameSource][icon]}
           width={iconPosition.size}
           height={iconPosition.size}
           x={iconPosition.x}

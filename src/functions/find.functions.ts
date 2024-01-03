@@ -13,7 +13,7 @@ import { TranslationKey } from '../store/translations/translation.model'
 
 import { add, range } from './array.functions'
 import { parseD6String, rollD6, rollD66 } from './dice.functions'
-import { toOption } from './utils.functions'
+import { toOption } from './utils'
 
 export const rollFindValue = (
   fv: FindValue,

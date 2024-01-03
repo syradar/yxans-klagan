@@ -1,0 +1,339 @@
+openapi: 3.1.0
+info:
+  title: Forbidden Lands Campaign API
+  version: 1.0.0
+  description: An API for managing campaigns in the Forbidden Lands tabletop RPG game.
+  termsOfService: https://yxans-klagan.vercel.app/terms
+  contact:
+    email: contact@yourdomain.com
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+externalDocs:
+  description: Find out more about Forbidden Lands RPG
+  url: https://forbiddenlands.com/
+servers:
+  - url: https://yxans-klagan.vercel.app/v2
+tags:
+  - name: Legends
+    description: Operations related to Legends
+  - name: Encounters
+    description: Operations related to generating encounters
+  - name: Monsters
+    description: Operations related to monsters
+  - name: Calendar
+    description: Operations related to the game calendar
+  - name: Names
+    description: Operations related to generating names
+  - name: NPCs
+    description: Operations related to generating NPCs
+paths:
+  /legends:
+    post:
+      summary: Create a new legend
+      tags: [Legends]
+      operationId: createLegend
+      requestBody:
+        description: Create a new legend
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LegendInput"
+        required: true
+      responses:
+        "201":
+          description: Legend created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Legend"
+  /legends/list:
+    get:
+      summary: List all legends
+      tags: [Legends]
+      operationId: listLegends
+      responses:
+        "200":
+          description: List of legends
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Legend"
+  /encounters:
+    post:
+      summary: Generate encounters
+      tags: [Encounters]
+      operationId: generateEncounters
+      requestBody:
+        description: Generate encounters based on terrain and map type
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EncounterRequest"
+        required: true
+      responses:
+        "200":
+          description: Encounters generated successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Encounter"
+  /monsters:
+    post:
+      summary: Generate a random monster
+      tags: [Monsters]
+      operationId: generateRandomMonster
+      responses:
+        "201":
+          description: Random monster generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Monster"
+    get:
+      summary: List all monsters
+      tags: [Monsters]
+      operationId: listMonsters
+      responses:
+        "200":
+          description: List of monsters
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Monster"
+  /calendar:
+    get:
+      summary: Get calendar information
+      tags: [Calendar]
+      operationId: getCalendar
+      responses:
+        "200":
+          description: Calendar information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Calendar"
+  /calendar/quarters:
+    post:
+      summary: Update the number of quarters spent
+      tags: [Calendar]
+      operationId: updateQuarters
+      requestBody:
+        description: Update the number of quarters spent
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CalendarDay"
+        required: true
+      responses:
+        "200":
+          description: Quarters updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CalendarDay"
+      security:
+        - kroppens-hyllning-api_auth:
+            - write:quarters
+  /names/village:
+    post:
+      summary: Generate the name of a village
+      tags: [Names]
+      operationId: generateVillageName
+      responses:
+        "201":
+          description: Village name generated successfully
+          content:
+            application/json:
+              schema:
+                type: string
+  /names/inn:
+    post:
+      summary: Generate the name of an inn
+      tags: [Names]
+      operationId: generateInnName
+      responses:
+        "201":
+          description: Inn name generated successfully
+          content:
+            application/json:
+              schema:
+                type: string
+  /names/people:
+    post:
+      summary: Generate the name of a person by country
+      tags: [Names]
+      operationId: generatePersonName
+      requestBody:
+        description: Generate a person's name based on country
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PersonRequest"
+        required: true
+      responses:
+        "201":
+          description: Person name generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Person"
+  /npcs/random:
+    post:
+      summary: Generate a random NPC
+      tags: [NPCs]
+      operationId: generateRandomNPC
+      responses:
+        "201":
+          description: Random NPC generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NPC"
+components:
+  schemas:
+    LegendInput:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    Legend:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+    EncounterRequest:
+      type: object
+      properties:
+        terrainType:
+          type: string
+        mapType:
+          type: string
+    Encounter:
+      type: object
+      properties:
+        id:
+          type: string
+        terrainType:
+          type: string
+        mapType:
+          type: string
+        monsters:
+          type: array
+          items:
+            $ref: "#/components/schemas/Monster"
+        createdAt:
+          type: string
+    Monster:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        terrainType:
+          type: string
+    Calendar:
+      type: object
+      properties:
+        year:
+          type: integer
+        months:
+          type: array
+          items:
+            $ref: "#/components/schemas/CalendarMonth"
+        quarterDaysSpent:
+          type: integer
+    CalendarMonth:
+      type: object
+      properties:
+        index:
+          type: string
+          description: Month index
+        days:
+          type: array
+          items:
+            $ref: "#/components/schemas/CalendarDay"
+          description: Array of days within the month
+    CalendarDay:
+      type: object
+      properties:
+        index:
+          type: string
+          description: Day index
+        number:
+          type: integer
+          description: Day number
+        month:
+          type: string
+          description: Month index
+        monthNumber:
+          type: integer
+          description: Month number
+        year:
+          type: integer
+          description: Year
+        quarters:
+          type: array
+          items:
+            type: boolean
+          minItems: 4
+          maxItems: 4
+          description: Boolean indicators for each quarter
+        moonPhase:
+          type:
+            - string
+            - "null"
+          enum: ["New Moon", "First Quarter", "Full Moon", "Last Quarter"]
+          description: Moon phase
+    PersonRequest:
+      type: object
+      properties:
+        country:
+          type: string
+    Person:
+      type: object
+      properties:
+        name:
+          type: string
+        country:
+          type: string
+    NPC:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        role:
+          type: string
+  securitySchemes:
+    kroppens-hyllning-api_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+          scopes:
+            write:quarters: modify quarters in your calendar
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header

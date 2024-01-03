@@ -26,7 +26,7 @@ import {
   toggleExploredAt,
   upsertExplorationNote,
 } from '../../features/journal/journal-slice'
-import { capitalize, isString } from '../../functions/utils.functions'
+import { capitalize, isString } from '../../functions/utils'
 import { useAppDispatch, useAppSelector } from '../../store/store.hooks'
 import { selectTranslateFunction } from '../../store/translations/translation.slice'
 import { HexKey } from './map.model'
@@ -291,6 +291,7 @@ export function ExplorationNote({
                         >
                           <div className="flex items-center gap-2 md:flex-col">
                             <MapSymbol
+                              source={gameSource}
                               type={symbol}
                               size="large"
                             />

@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { Definition } from '../../../@types/definition.type'
 import { atResult } from '../../../functions/array.functions'
 import { WeightedChoice } from '../../../functions/dice.functions'
-import { safeParseInt } from '../../../functions/math.functions'
+import { safeParseInt } from '../../../functions/math'
 import {
   MonsterHome,
   MonsterMotivation,

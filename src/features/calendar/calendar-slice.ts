@@ -2,7 +2,7 @@ import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit'
 import { None, Option, Some } from 'ts-results'
 import { z } from 'zod'
 import { range } from '../../functions/array.functions'
-import { isString } from '../../functions/utils.functions'
+import { isString } from '../../functions/utils'
 import {
   CalendarDay,
   ForbiddenLandsDate,
@@ -11,7 +11,7 @@ import {
   daysInMonth,
   isMonthIndex,
   monthNumber,
-} from '../../models/forbidden-lands-date.model'
+} from '../../models/forbidden-lands-date'
 import { createStateStorage } from '../../store/persist/state-storage'
 import { RootState } from '../../store/store'
 
@@ -210,7 +210,7 @@ export const { nextMonth, previousMonth, toggleQuarter, nextDay, previousDay } =
 
 export const selectCalendar = createSelector(
   (state: RootState) => state.calendar,
-  (calendar) => calendar,
+  calendar => calendar,
 )
 
 const getQuarters = (
@@ -245,7 +245,7 @@ const currentForbiddenLandsDate = (
     month: monthNumber(calendar.currentMonth),
   })
 
-export const selectCurrentDate = createSelector(selectCalendar, (calendar) => {
+export const selectCurrentDate = createSelector(selectCalendar, calendar => {
   const currentDate = currentForbiddenLandsDate(calendar)
 
   return {
@@ -255,7 +255,7 @@ export const selectCurrentDate = createSelector(selectCalendar, (calendar) => {
 })
 
 export const selectCalendarDay = (day: CalendarDay) =>
-  createSelector(selectCalendar, (calendar) => {
+  createSelector(selectCalendar, calendar => {
     const currentDate = currentForbiddenLandsDate(calendar)
 
     const dayDate: ForbiddenLandsDate = new ForbiddenLandsDateClass({
@@ -274,10 +274,10 @@ export const selectCalendarDay = (day: CalendarDay) =>
 
 export default calendarSlice.reducer
 function spendQuarter(quarters: DayQuarters): DayQuarters {
-  const spent = (quarters.filter((q) => q).length + 1) % 5
+  const spent = (quarters.filter(q => q).length + 1) % 5
 
   return [
-    ...range(spent).map((_) => true),
-    ...range(4 - spent).map((_) => false),
+    ...range(spent).map(_ => true),
+    ...range(4 - spent).map(_ => false),
   ] as DayQuarters
 }

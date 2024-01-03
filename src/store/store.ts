@@ -10,7 +10,7 @@ import mapSlice, {
   GameMap,
   localStorageMapState,
 } from '../features/map/map-slice'
-import { ForbiddenLandsDateSerializable } from '../models/forbidden-lands-date.model'
+import { ForbiddenLandsDateSerializable } from '../models/forbidden-lands-date'
 import translationSlice from './translations/translation.slice'
 
 const rootReducer = {

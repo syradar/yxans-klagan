@@ -1,6 +1,6 @@
 import { AttributeCheckbox } from '../../../components/attribute-cheeckbox'
 import { chunkArray } from '../../../functions/array.functions'
-import { WithId, withId } from '../../../functions/utils.functions'
+import { WithId, withId } from '../../../functions/utils'
 
 type MonsterAttributeProps = {
   label: string
@@ -10,7 +10,10 @@ type MonsterAttributeProps = {
 export const MonsterAttribute = ({ label, values }: MonsterAttributeProps) => {
   return (
     <div className="backface-hidden">
-      <label className="mb-1 block font-medium" htmlFor="monster-strength">
+      <label
+        className="mb-1 block font-medium"
+        htmlFor="monster-strength"
+      >
         {label}: {values.length}
       </label>
       <div
@@ -19,9 +22,12 @@ export const MonsterAttribute = ({ label, values }: MonsterAttributeProps) => {
       >
         {chunkArray(values)
           .map(withId)
-          .map((chunk) => (
-            <div className="flex gap-1" key={chunk.id}>
-              {chunk.value.map((item) => (
+          .map(chunk => (
+            <div
+              className="flex gap-1"
+              key={chunk.id}
+            >
+              {chunk.value.map(item => (
                 <AttributeCheckbox key={item.id}></AttributeCheckbox>
               ))}
             </div>

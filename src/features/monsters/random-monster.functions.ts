@@ -8,7 +8,7 @@ import {
   weightedRandomConsume,
   chooseFromChoiceString,
 } from '../../functions/dice.functions'
-import { toOption, numberToBooleans } from '../../functions/utils.functions'
+import { toOption, numberToBooleans } from '../../functions/utils'
 import { D3 } from '../../models/fbl-dice.model'
 import { MonsterSkillsValues } from '../../models/skills.model'
 import { TranslationKey } from '../../store/translations/translation.model'

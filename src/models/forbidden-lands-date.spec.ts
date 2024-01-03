@@ -1,13 +1,14 @@
 import { Ok } from 'ts-results'
 import { describe, expect, it } from 'vitest'
 import {
+  ForbiddenLandsDateSerializable,
   ForbiddenLandsInvalidDateFormatError,
   ForbiddenLandsMaxDayError,
   ForbiddenLandsMinDayError,
   ForbiddenLandsMonthError,
   parseForbiddenLandsDate,
-} from './forbidden-lands-date.model'
-import { safeParseInt } from '../functions/math.functions'
+} from './forbidden-lands-date'
+import { safeParseInt } from '../functions/math'
 
 describe('ForbiddenLandsDate', () => {
   describe('safeParseInt', () => {
@@ -76,14 +77,17 @@ describe('ForbiddenLandsDate', () => {
   })
   describe('parseForbiddenLandsDate', () => {
     it('should parse a valid date', () => {
-      expect(parseForbiddenLandsDate('1165-1-1')).toEqual(
-        Ok({
-          numberOfMonts: 8,
-          year: 1165,
-          month: 1,
-          day: 1,
-        }),
+      const input: ForbiddenLandsDateSerializable = {
+        monthIndex: 0,
+        year: 1165,
+        month: 1,
+        day: 1,
+      }
+      const expected = Ok({ ...input })
+      const result = parseForbiddenLandsDate(
+        `${input.year}-${input.month}-${input.day}`,
       )
+      expect(result).toEqual(expected)
     })
 
     it('should fail if the date is invalid', () => {

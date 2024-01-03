@@ -1,4 +1,4 @@
-import { isString } from '../../functions/utils.functions'
+import { isString } from '../../functions/utils'
 import { createProtectionViewModel } from './armor'
 import { armors, helmets } from './data/armor.data'
 import { describe, it, expect } from 'vitest'

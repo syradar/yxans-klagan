@@ -1,6 +1,6 @@
 import { Option } from 'ts-results'
 import { at } from '../functions/array.functions'
-import { CalendarMonth } from '../models/forbidden-lands-date.model'
+import { CalendarMonth } from '../models/forbidden-lands-date'
 import { CalendarDayDisplay } from './calendar-day'
 import { CalendarDayNames } from './calendar-day-names'
 import { CalendarFillerDays } from './calendar-filler-day'

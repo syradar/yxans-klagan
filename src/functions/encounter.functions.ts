@@ -46,7 +46,7 @@ export const getEncounterById = (
   id: number,
   lang: ValidLanguage,
   terrain: Terrain,
-): EncounterViewModel => {
+): Option<EncounterViewModel> => {
   return createEncounterViewModel(id, lang, terrain)
 }
 
@@ -54,7 +54,7 @@ export const getRandomEncounter = (
   roll: number,
   terrain: Terrain,
   lang: ValidLanguage,
-): EncounterViewModel => {
+): Option<EncounterViewModel> => {
   if (!isRollsWithEncounters(roll)) {
     return createEncounterViewModel(0, lang, terrain)
   }

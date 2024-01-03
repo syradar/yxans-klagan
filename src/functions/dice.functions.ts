@@ -2,7 +2,7 @@ import { compose } from 'ramda'
 import { None, Option, Some } from 'ts-results'
 import { D2, D3, D4, D6, D66, D8 } from '../models/fbl-dice.model'
 import { at, range } from './array.functions'
-import { safeParseInt, safeParseIntOption } from './math.functions'
+import { safeParseInt, safeParseIntOption } from './math'
 
 /**
  * Can be used for any roll
@@ -42,12 +42,29 @@ export const parseD6String = (str: string): number =>
     .andThen(safeParseIntOption)
     .unwrapOr(1)
 
-export const parseChoiceString = (str: string): number[] =>
-  str
+const choiceRegex = () => /^\d+(?:\^[1-9]\d*)?$/g
+// const positiveIntegerExcludingZeroRegex = /^[1-9]\d*$/g
+
+const handleAmountLessChoice = (str: string): string => {
+  if (str.includes('^')) {
+    return str
+  }
+
+  return `${str}^1`
+}
+
+export const parseChoiceString = (str: string): number[] => {
+  return str
     .split('|')
-    .map(c => c.split('^').map(a => safeParseInt(a).unwrapOr(1)))
+    .filter(c => choiceRegex().test(c))
+    .map(c =>
+      handleAmountLessChoice(c)
+        .split('^')
+        .map(a => safeParseInt(a).unwrapOr(1)),
+    )
     .map(cs => range(at(cs, 1).unwrapOr(1)).map(_ => at(cs, 0).unwrapOr(1)))
     .flat()
+}
 
 export const choose = <T>(arr: readonly T[]): Option<T> => {
   const index = getRandomInt(0, arr.length - 1)

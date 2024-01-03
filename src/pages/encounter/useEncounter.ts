@@ -6,26 +6,24 @@ import { EncounterViewModel } from '../../models/encounter.model'
 import { Terrain } from '../../models/terrain.model'
 import { ValidLanguage } from '../../hooks/useValidLanguage'
 import { at, head } from '../../functions/array.functions'
+import { Option } from 'ts-results'
 
-type EncounterViewModelWithId = EncounterViewModel & { keyId: string }
+export type EncounterViewModelWithId = EncounterViewModel & { keyId: string }
 
 export type EncounterLogEntry = {
   id: string
   terrain: Terrain
-  encounters: EncounterViewModelWithId[]
+  encounters: Option<EncounterViewModelWithId>[]
 }
 
 const newEncounter = (
   terrain: Terrain,
   lang: ValidLanguage,
-): EncounterViewModelWithId => {
-  const roll = rollD66()
-
-  return {
-    ...getRandomEncounter(roll, terrain, lang),
+): Option<EncounterViewModelWithId> =>
+  getRandomEncounter(rollD66(), terrain, lang).map(encounter => ({
+    ...encounter,
     keyId: nanoid(),
-  }
-}
+  }))
 
 export const useEncounter = () => {
   const [encounterLog, setEncounterLog] = useState<EncounterLogEntry[]>([])

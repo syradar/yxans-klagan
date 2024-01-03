@@ -1,7 +1,7 @@
 import { Err, Ok, Result } from 'ts-results'
 import { z } from 'zod'
 import { range } from '../functions/array.functions'
-import { atParseInt, clamp } from '../functions/math.functions'
+import { atParseInt, clamp } from '../functions/math'
 import { padZero2, padZero4 } from '../functions/string-format.functions'
 import { TranslationKey } from '../store/translations/translation.model'
 
@@ -413,6 +413,7 @@ const createDayIndex = (
 
   return Ok(dayIndex)
 }
+
 export type CalendarMonth = {
   index: MonthIndex
   days: CalendarDay[]

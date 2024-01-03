@@ -32,12 +32,12 @@ export const isObject = (x: unknown): x is Record<string, unknown> =>
 export const isArray = (x: unknown): x is string => Array.isArray(x)
 
 export const numberToBooleans = (to: number | Nullish) => {
-  if (to === null) {
+  if (isNullish(to)) {
     return []
   }
 
   if (!validNumber(to)) {
-    throw new Error('Invalid number')
+    return []
   }
 
   return range(0, to).map(_ => false)

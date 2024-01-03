@@ -5,7 +5,7 @@ import {
   createSlice,
 } from '@reduxjs/toolkit'
 import { None, Option, Some } from 'ts-results'
-import { notNullish } from '../../functions/utils.functions'
+import { notNullish } from '../../functions/utils'
 import { ValidLanguage } from '../../hooks/useValidLanguage'
 import { RootState } from '../../store/store'
 import { loadTranslations } from './translation.data'

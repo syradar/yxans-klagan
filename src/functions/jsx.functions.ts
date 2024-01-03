@@ -1,4 +1,4 @@
-import { isArray, isNullish } from './utils.functions'
+import { isArray, isNullish } from './utils'
 
 export const componentsJoin = (
   components: React.ReactNode[],

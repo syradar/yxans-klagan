@@ -16,7 +16,12 @@ import {
   selectCurrentLanguage,
   selectTranslateFunction,
 } from '../store/translations/translation.slice'
-import { EncounterLogEntry, useEncounter } from './encounter/useEncounter'
+import {
+  EncounterLogEntry,
+  EncounterViewModelWithId,
+  useEncounter,
+} from './encounter/useEncounter'
+import { Some } from 'ts-results'
 
 export const EncounterPage = () => {
   const t = useAppSelector(selectTranslateFunction(['encounter', 'common']))
@@ -85,17 +90,21 @@ const EncounterLog = ({
               {t(terrainTranslationDict[entry.terrain])}
             </div>
             <ul className="flex flex-col gap-1">
-              {entry.encounters.map(el => (
-                <li
-                  className="flex gap-1"
-                  key={el.keyId}
-                >
-                  <div className="">
-                    {el.id}: {allEncounters[currentLanguage][el.id].title}
-                  </div>
-                  <div>(s. {el.page})</div>
-                </li>
-              ))}
+              {entry.encounters
+                .filter((e): e is Some<EncounterViewModelWithId> => e.some)
+                .map(e => e.safeUnwrap())
+                .map(el => (
+                  <li
+                    className="flex gap-1"
+                    key={el.keyId}
+                  >
+                    <div className="">
+                      {el.id}:{' '}
+                      {allEncounters[currentLanguage][el.id]?.title ?? '[...]'}
+                    </div>
+                    <div>(s. {el.page})</div>
+                  </li>
+                ))}
             </ul>
           </div>
         </Parchment>

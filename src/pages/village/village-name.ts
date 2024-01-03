@@ -1,5 +1,5 @@
 import { choose } from '../../functions/dice.functions'
-import { capitalize } from '../../functions/utils.functions'
+import { capitalize } from '../../functions/utils'
 import { ValidLanguage } from '../../hooks/useValidLanguage'
 
 export type LanguageStringMap = { [L in ValidLanguage]: string }
