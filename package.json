@@ -7,7 +7,7 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": "lts/*"
+    "node": "20"
   },
   "version": "1.2.0",
   "scripts": {
