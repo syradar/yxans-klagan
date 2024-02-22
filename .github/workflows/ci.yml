@@ -15,8 +15,9 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
-          node-version: "lts/*"
-          cache: "npm"
+          node-version: 'lts/*'
+          cache: 'npm'
+          check-latest: true
       - run: npm ci
       - run: npm run lint
       - run: npm run build
