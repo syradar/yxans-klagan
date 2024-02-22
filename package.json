@@ -17,7 +17,9 @@
     "serve": "vite preview",
     "test": "vitest",
     "coverage": "vitest --coverage --reporter=vitest-sonar-reporter --outputFile=reports/sonar-report.xml",
-    "lint": "eslint 'src/**/*.{js,ts,tsx}'"
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
+    "upgrade": "npm-check-updates -u",
+    "verify-upgrade": "npm run lint && npm run build && npm run test"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",
