@@ -434,8 +434,8 @@ const createDescription = ({
     tail.key === 'spiked_tail'
       ? 'monster:tail.spiked_tail'
       : tail.key === 'tail'
-      ? 'monster:tail.tail'
-      : undefined
+        ? 'monster:tail.tail'
+        : undefined
 
   return {
     head: heads.map(({ key, count }) => ({

@@ -6,7 +6,7 @@ export const AttributeCheckbox = () => {
   return (
     <div>
       <button
-        className="pointer-fine:focus:outline-none pointer-fine:focus:border-red-500 relative h-5 w-5 rounded-none border-2 border-gray-400 hover:border-red-500"
+        className="pointer-fine:focus:outline-none pointer-fine:focus:border-red-500 relative size-5 rounded-none border-2 border-gray-400 hover:border-red-500"
         onClick={() => setChecked(!checked)}
         role="switch"
         aria-checked={checked ? 'true' : 'false'}

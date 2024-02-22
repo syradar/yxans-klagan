@@ -57,7 +57,7 @@ export const PasteData = ({
         ${textareaHasFocus ? 'opacity-0' : 'opacity-100'}
         `}
       >
-        <ClipboardIcon className="h-5 w-5" />
+        <ClipboardIcon className="size-5" />
         {label}
       </span>
     </div>

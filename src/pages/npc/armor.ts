@@ -67,11 +67,12 @@ export interface Helmet<H extends HelmetType> extends ProtectionBase<H> {
 export type ArmorViewModel = Armor<ArmorType> & CollapseAble & Unique
 export type HelmetViewModel = Helmet<HelmetType> & CollapseAble & Unique
 
-type ProtectionViewModelReturn<W> = W extends Armor<ArmorType>
-  ? ArmorViewModel
-  : W extends Helmet<HelmetType>
-  ? HelmetViewModel
-  : never
+type ProtectionViewModelReturn<W> =
+  W extends Armor<ArmorType>
+    ? ArmorViewModel
+    : W extends Helmet<HelmetType>
+      ? HelmetViewModel
+      : never
 
 export const createProtectionViewModel = <
   W extends Armor<ArmorType> | Helmet<HelmetType>,
@@ -88,4 +89,4 @@ export const createProtectionViewModel = <
     type,
     collapse: true,
     id: getId(),
-  } as ProtectionViewModelReturn<W>)
+  }) as ProtectionViewModelReturn<W>

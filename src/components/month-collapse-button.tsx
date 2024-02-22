@@ -34,14 +34,14 @@ export const MonthCollapseButton = ({
       {collapsed ? (
         <PlusIcon
           className={`
-            ${small ? 'h-6 w-6' : 'h-[1em] w-[1em]'}
+            ${small ? 'size-6' : 'size-[1em]'}
             ${menu ? 'group-hover:text-white' : 'group-hover:text-red-500'}
           `}
         />
       ) : (
         <MinusIcon
           className={`
-            ${small ? 'h-6 w-6' : 'h-8 w-8'}
+            ${small ? 'size-6' : 'size-8'}
             ${menu ? 'group-hover:text-white' : 'group-hover:text-red-500'}
         `}
         />

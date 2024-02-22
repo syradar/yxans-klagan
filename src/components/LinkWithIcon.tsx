@@ -13,9 +13,9 @@ type BackLinkProps = LinkProps &
   }
 
 const icons: Record<BackLinkProps['icon'], React.ReactNode> = {
-  back: <ArrowLeftIcon className="h-5 w-5" />,
-  lastPage: <ChevronLeftIcon className="h-5 w-5" />,
-  nextPage: <ChevronRightIcon className="h-5 w-5" />,
+  back: <ArrowLeftIcon className="size-5" />,
+  lastPage: <ChevronLeftIcon className="size-5" />,
+  nextPage: <ChevronRightIcon className="size-5" />,
 }
 
 export const LinkWithIcon = ({

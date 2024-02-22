@@ -45,7 +45,7 @@ export const KinNameList = ({ title, nameFunc }: KinNameListProps) => {
         </Typography>
         <ParchmentButton buttonType="primary" onPress={() => getNames()}>
           <>
-            <ArrowPathIcon className="h-5 w-5" />
+            <ArrowPathIcon className="size-5" />
             {t('names:create_new_names')}
           </>
         </ParchmentButton>

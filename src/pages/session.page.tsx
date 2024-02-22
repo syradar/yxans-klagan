@@ -71,7 +71,7 @@ export const SessionPage = () => {
       <PageHeader>{t('session:title')}</PageHeader>
 
       <ParchmentButton onPress={() => setLegend(generateLegend())}>
-        <ArrowPathIcon className="h-5 w-5" />
+        <ArrowPathIcon className="size-5" />
         <div>{t('session:legend')}</div>
       </ParchmentButton>
 

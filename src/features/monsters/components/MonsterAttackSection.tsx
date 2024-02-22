@@ -35,7 +35,7 @@ export const MonsterAttackSection = ({ como }: MonsterAttackSectionProps) => {
 
         <ParchmentButton buttonType="ghost" small onPress={() => rollAttack()}>
           <ArrowPathIcon
-            className={`h-5 w-5
+            className={`size-5
     ${selectedAttack ? 'animate-[spin_250ms_ease-in-out_0.5]' : ''}
                 `}
           />

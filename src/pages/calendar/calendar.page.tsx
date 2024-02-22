@@ -47,12 +47,12 @@ export const CalendarPage = () => {
 
             <Stack.Horizontal>
               <ParchmentButton onPress={() => dispatch(previousMonth())}>
-                <ArrowLeftIcon className="h-5 w-5" />
+                <ArrowLeftIcon className="size-5" />
                 {t('calendar:previous_month')}
               </ParchmentButton>
               <ParchmentButton onPress={() => dispatch(nextMonth())}>
                 {t('calendar:next_month')}
-                <ArrowRightIcon className="h-5 w-5" />
+                <ArrowRightIcon className="size-5" />
               </ParchmentButton>
             </Stack.Horizontal>
           </Stack.Horizontal>

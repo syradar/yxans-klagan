@@ -125,7 +125,7 @@ export const MapPopover = ({
                   onExploreChanged({ ...options.hex, explored: false })
                 }}
               >
-                <FireIcon className="h-5 w-5" />
+                <FireIcon className="size-5" />
                 {t('map:popover_forget')}
               </ParchmentButton>
             ) : (
@@ -136,7 +136,7 @@ export const MapPopover = ({
                   onExploreChanged({ ...options.hex, explored: true })
                 }}
               >
-                <MagnifyingGlassIcon className="h-5 w-5" />
+                <MagnifyingGlassIcon className="size-5" />
                 {t('map:popover_explore')}
               </ParchmentButton>
             )}

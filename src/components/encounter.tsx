@@ -23,7 +23,7 @@ export const Encounter = ({ encounter }: EncounterProps) => {
       <Parchment>
         <Stack.Vertical>
           <div className="flex items-center gap-2">
-            <div className="flex aspect-square h-12 w-12 items-center justify-center rounded-full border-2 border-gray-800 p-2 text-center text-2xl font-bold">
+            <div className="flex aspect-square size-12 items-center justify-center rounded-full border-2 border-gray-800 p-2 text-center text-2xl font-bold">
               {encounter.id}
             </div>
             <h2 className="yx-heading flex text-center text-4xl">

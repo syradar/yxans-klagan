@@ -119,24 +119,24 @@ export type TypicalKins =
 export type SubKin<K extends KinType> = K extends 'human'
   ? HumanKin
   : K extends 'elf'
-  ? ElfKin
-  : K extends 'dwarf'
-  ? DwarfKin
-  : K extends 'ogre'
-  ? OgreKin
-  : K extends 'orc'
-  ? OrcKin
-  : K extends 'wolfkin'
-  ? WolfKin
-  : K extends 'saurian'
-  ? SaurianKin
-  : K extends 'whiner'
-  ? WhinerKin
-  : K extends 'halflingAndGoblin'
-  ? HalflingAndGoblinKin
-  : K extends 'believers'
-  ? BelieversKin
-  : never
+    ? ElfKin
+    : K extends 'dwarf'
+      ? DwarfKin
+      : K extends 'ogre'
+        ? OgreKin
+        : K extends 'orc'
+          ? OrcKin
+          : K extends 'wolfkin'
+            ? WolfKin
+            : K extends 'saurian'
+              ? SaurianKin
+              : K extends 'whiner'
+                ? WhinerKin
+                : K extends 'halflingAndGoblin'
+                  ? HalflingAndGoblinKin
+                  : K extends 'believers'
+                    ? BelieversKin
+                    : never
 
 export type Kins = HumanKin | ElfKin
 export type HumanNames = {

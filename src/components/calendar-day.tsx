@@ -28,7 +28,7 @@ export const CalendarDayDisplay = ({ day }: CalendarDayProps) => {
           <div className="lg:hidden">{t(dayLabelDict[day.index])}</div>
           <Train spacing="small">
             <div
-              className={`flex h-5 w-5 items-center justify-center rounded-full
+              className={`flex size-5 items-center justify-center rounded-full
             ${isCurrentDate ? 'bg-green-500 font-medium text-white' : ''}
             `}
             >
