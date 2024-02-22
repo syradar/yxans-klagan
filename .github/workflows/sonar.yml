@@ -15,8 +15,8 @@ jobs:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       - uses: actions/setup-node@v3
         with:
-          node-version: "lts/*"
-          cache: "npm"
+          node-version: 'lts/*'
+          cache: 'npm'
       - run: npm ci
       - run: npm run coverage
       - name: SonarCloud Scan
