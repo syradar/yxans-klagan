@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import { getFormattedVillageName } from './village-name.functions'
 
 describe('Village Name Functions', () => {

@@ -19,7 +19,7 @@ import {
   monsterWeakness,
   monsterMotivation,
 } from './random-monster.data'
-
+import { describe, expect, it } from 'vitest'
 describe('sizes', () => {
   describe('smaller ones', () => {
     const cases: [number, MonsterSize][] = [
