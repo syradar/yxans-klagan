@@ -217,9 +217,9 @@ export const MapPage = () => {
           onPress={() => dispatch(toggleFogOfWar())}
         >
           {fogOfWar ? (
-            <EyeIcon className="h-5 w-5" />
+            <EyeIcon className="size-5" />
           ) : (
-            <EyeSlashIcon className="h-5 w-5" />
+            <EyeSlashIcon className="size-5" />
           )}
           {t(fogOfWar ? 'map:fog_of_war_on' : 'map:fog_of_war_off')}
         </ParchmentButton>
@@ -228,7 +228,7 @@ export const MapPage = () => {
           buttonType="ghost"
           onPress={() => handleFileDownload()}
         >
-          <DocumentArrowDownIcon className="h-5 w-5" />
+          <DocumentArrowDownIcon className="size-5" />
           {t('map:download_map_data')}
         </ParchmentButton>
         <PasteData

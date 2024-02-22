@@ -9,7 +9,7 @@ export const ReloadIcon = ({
   <div className={classes}>
     <svg
       className={`
-        h-full w-full fill-current
+        size-full fill-current
         ${color}
       `}
       fill="none"

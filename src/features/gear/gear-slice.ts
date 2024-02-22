@@ -34,15 +34,18 @@ const rollSupply = (s: Supply): number => {
 }
 
 const generateSupply = (gear: Gear[]) => {
-  return gear.reduce((acc, cur) => {
-    if (cur.supply === 'common') {
+  return gear.reduce(
+    (acc, cur) => {
+      if (cur.supply === 'common') {
+        return acc
+      }
+
+      acc[cur.name.id] = rollSupply(cur.supply)
+
       return acc
-    }
-
-    acc[cur.name.id] = rollSupply(cur.supply)
-
-    return acc
-  }, {} as Record<GearId, number>)
+    },
+    {} as Record<GearId, number>,
+  )
 }
 
 type Gear = TradeGoods | Service
