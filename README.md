@@ -1,6 +1,10 @@
-# Yxans Klagan <a href="https://gitlocalize.com/repo/6626/whole_project?utm_source=badge"> <img src="https://gitlocalize.com/repo/6626/whole_project/badge.svg" /> </a> [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=syradar_yxans-klagan&metric=alert_status)](https://sonarcloud.io/dashboard?id=syradar_yxans-klagan)
+# Yxans Klagan
 
 A tool to help game masters prep and run [Forbidden Lands](https://freeleaguepublishing.com/en/games/forbidden-lands/).
+
+## Looking for a maintainer/developer
+
+I have too little time to maintain (beyond life support) or develop new features. If you are interrested contact me or open an issue.
 
 ## Feature requests or bugs
 
