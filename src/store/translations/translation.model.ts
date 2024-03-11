@@ -7,25 +7,24 @@ export type Namespace = keyof Translations
 type PathsToStringProps<T> = T extends string
   ? []
   : {
-      [K in Extract<keyof T, string>]: [K, ...PathsToStringProps<T[K]>]
-    }[Extract<keyof T, string>]
+      [K in keyof T]: [K, ...PathsToStringProps<T[K]>]
+    }[keyof T]
 
-type Join<T extends string[], D extends string> = T extends []
-  ? never
-  : T extends [infer F]
-    ? F
-    : T extends [infer F, ...infer R]
-      ? F extends string
-        ? `${F}${D}${Join<Extract<R, string[]>, D>}`
-        : never
-      : string
+type Join<T extends string[], D extends string> = T extends [infer F]
+  ? F
+  : T extends [infer F, ...infer R]
+    ? F extends string
+      ? `${F}${D}${Join<Extract<R, string[]>, D>}`
+      : never
+    : string
 
-type KEYS<T = Namespace> = T extends Namespace
-  ? `${T}:${Join<PathsToStringProps<Translations[T]>, '.'>}`
+type Paths<T> = T extends Namespace
+  ? PathsToStringProps<Translations[T]>
   : never
 
-export type TranslationKey<GivenNS extends Namespace | undefined = undefined> =
-  GivenNS extends undefined ? KEYS : KEYS<GivenNS>
+type KEYS<T> = T extends Namespace ? `${T}:${Join<Paths<T>, '.'>}` : never
+
+export type TranslationKey<GivenNS extends Namespace> = KEYS<GivenNS>
 
 // const title1: TranslationKey = 'core:blocks.items.title'
 // const title2: TranslationKey<'core'> = 'core:blocks.items.description'
@@ -36,7 +35,7 @@ export type TFunctionOptions = {
     [key: string]: string
   }
 }
-export type TFunction<GivenNS extends Namespace | undefined = undefined> = (
+export type TFunction<GivenNS extends Namespace> = (
   key: TranslationKey<GivenNS>,
   options?: TFunctionOptions,
 ) => string
