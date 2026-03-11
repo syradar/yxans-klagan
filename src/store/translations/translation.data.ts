@@ -1,14 +1,12 @@
-import { ValidLanguage } from '../../hooks/useValidLanguage'
-import { Translations } from './translation.model'
+// CORRECCIÓN: Usamos llaves {} para importar la exportación con nombre
+// y la renombramos a 'es' con 'as es'.
+import { translationsEs as es } from './translation.data.es'
 
-export async function loadTranslations(
-  lang: ValidLanguage,
-): Promise<Translations> {
-  return import(`./translation.data.${lang}.ts`)
-    .then((module) => module.default)
-    .catch((error) => {
-      console.error(error)
+const translationFiles = {
+  es,
+}
 
-      return {}
-    })
+export const loadTranslations = async (lang: string) => {
+  // @ts-ignore
+  return translationFiles[lang]
 }

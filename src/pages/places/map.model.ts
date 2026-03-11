@@ -1,51 +1,12 @@
 /* eslint-disable prettier/prettier */
 
 const oddLetters = [
-  'A',
-  'C',
-  'E',
-  'G',
-  'I',
-  'K',
-  'M',
-  'O',
-  'Q',
-  'S',
-  'U',
-  'W',
-  'Y',
-  'Aa',
-  'Ac',
-  'Ae',
-  'Ag',
-  'Ai',
-  'Ak',
-  'Am',
-  'Ao',
+  'A', 'C', 'E', 'G', 'I', 'K', 'M', 'O', 'Q', 'S', 'U', 'W', 'Y', 'Aa', 'Ac', 'Ae', 'Ag', 'Ai', 'Ak', 'Am', 'Ao',
 ] as const
 type OddLetter = (typeof oddLetters)[number]
 
 const evenLetters = [
-  'B',
-  'D',
-  'F',
-  'H',
-  'J',
-  'L',
-  'N',
-  'P',
-  'R',
-  'T',
-  'V',
-  'X',
-  'Z',
-  'Ab',
-  'Ad',
-  'Af',
-  'Ah',
-  'Aj',
-  'Al',
-  'An',
+  'B', 'D', 'F', 'H', 'J', 'L', 'N', 'P', 'R', 'T', 'V', 'X', 'Z', 'Ab', 'Ad', 'Af', 'Ah', 'Aj', 'Al', 'An',
 ] as const
 type EvenLetter = (typeof evenLetters)[number]
 
@@ -84,3 +45,20 @@ export interface Hex {
   hexKey: HexKey
   explored: boolean
 }
+
+// --- TIPOS DE TERRENO Y ESCENARIOS OFICIALES ---
+export type TerrainType = 
+  | 'plains' 
+  | 'forest' 
+  | 'dark_forest' 
+  | 'hills' 
+  | 'mountain' 
+  | 'high_mountain' 
+  | 'lake' 
+  | 'marshlands' 
+  | 'quagmire' 
+  | 'ruin_city'
+  | 'village'   // Pueblo genérico
+  | 'dungeon'   // Mazmorra genérica
+  | 'castle'    // Castillo genérico
+  | 'special'   // Escenario de Aventura Único

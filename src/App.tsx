@@ -6,7 +6,7 @@ import { Menu, appRoutes, menuRoutes } from './Menu'
 import { ParchmentButton } from './components/ParchmentButton'
 import Stack from './components/Stack'
 import { DayCounter } from './components/day-counter'
-import { LanguageSwitcher } from './components/language-switcher'
+import LanguageSwitcher from './components/language-switcher'
 import {
   nextDay,
   previousDay,
@@ -71,6 +71,54 @@ const App = () => {
           </main>
         </Suspense>
       </div>
+
+      {/* --- INICIO CÓDIGO DE GUARDADO (VERSION CORREGIDA - MOVIDA A LA IZQUIERDA) --- */}
+      <div style={{ position: 'fixed', bottom: '60px', left: '20px', zIndex: 9999, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <button 
+          onClick={() => {
+            const data = JSON.stringify(localStorage);
+            const blob = new Blob([data], {type: "application/json"});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "backup_yxans_klagan.json";
+            a.click();
+          }} 
+          style={{ background: '#22c55e', color: 'white', padding: '10px 15px', borderRadius: '8px', cursor: 'pointer', border: '2px solid white', fontWeight: 'bold', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }}>
+          💾 Guardar
+        </button>
+
+        <button 
+          onClick={() => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'application/json';
+            // @ts-ignore
+            input.onchange = (e) => {
+                 // @ts-ignore
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                 // @ts-ignore
+                reader.onload = (ev) => {
+                    if(window.confirm("⚠️ ¿Seguro? Se borrarán los datos actuales.")) {
+                         // @ts-ignore
+                        const data = JSON.parse(ev.target.result);
+                        localStorage.clear();
+                        Object.keys(data).forEach(k => localStorage.setItem(k, data[k]));
+                        alert("¡Datos cargados!");
+                        window.location.reload();
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+          }} 
+          style={{ background: '#3b82f6', color: 'white', padding: '10px 15px', borderRadius: '8px', cursor: 'pointer', border: '2px solid white', fontWeight: 'bold', boxShadow: '0 4px 6px rgba(0,0,0,0.3)' }}>
+          📂 Cargar
+        </button>
+      </div>
+      {/* --- FIN CÓDIGO DE GUARDADO --- */}
+
     </div>
   )
 }

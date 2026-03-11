@@ -113,11 +113,11 @@ const deflim: MonsterLimbs = {
 }
 
 const createCommunityMonsterAttackViewModel = (
-  monster: CommunityMonster,
+  monsters: CommunityMonster,
 ): MonsterAttackViewModel<CommunityMonsterAttackType>[] => {
   const minimalContext: MonsterAttackMinimalContext = {
-    attributes: monster.attributes,
-    movement: monster.movement,
+    attributes: monsters.attributes,
+    movement: monsters.movement,
     attackRequirements: reqs,
     damageModifiers: dmod,
     limbs: deflim,
@@ -130,10 +130,10 @@ const createCommunityMonsterAttackViewModel = (
       },
     },
     traits: [],
-    skills: monster.skills,
+    skills: monsters.skills,
   }
 
-  return monster.attacks.map((attack) => ({
+  return monsters.attacks.map((attack) => ({
     description: attack.description,
     type: attack.type,
     range: attack.range && rangeTranslationDict[attack.range],

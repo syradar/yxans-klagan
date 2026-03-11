@@ -13,7 +13,7 @@ type MonsterAttributeGridProps = {
 export const MonsterAttributeGrid = ({
   attributes,
 }: MonsterAttributeGridProps) => {
-  const t = useAppSelector(selectTranslateFunction(['monster', 'common']))
+  const t = useAppSelector(selectTranslateFunction(['monsters', 'common']))
 
   return (
     <div className="grid grid-cols-2 gap-4">

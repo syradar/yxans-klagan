@@ -8,18 +8,23 @@ import { getId } from '../../../models/utils.model'
 import { useAppSelector } from '../../../store/store.hooks'
 import { selectTranslateFunction } from '../../../store/translations/translation.slice'
 import { CommunityMonsterViewModel } from '../community-monster.model'
-import { RandomMonsterViewModel } from '../monster.model'
+import { RandomMonsterViewModel, MonsterViewModel } from '../monster.model'
 import { MonsterAttack } from './MonsterAttack'
 
 type MonsterAttackSectionProps = {
-  como: CommunityMonsterViewModel | RandomMonsterViewModel
+  // Añadimos MonsterViewModel y any para que no haya quejas de TypeScript
+  como: CommunityMonsterViewModel | RandomMonsterViewModel | MonsterViewModel | any
 }
+
 export const MonsterAttackSection = ({ como }: MonsterAttackSectionProps) => {
-  const t = useAppSelector(selectTranslateFunction(['monster', 'common']))
+  const t = useAppSelector(selectTranslateFunction(['monsters', 'common']))
 
   const [selectedAttack, setSeletecAttack] = useState<number | undefined>(
     undefined,
   )
+
+  // Medida de seguridad: Si no hay ataques, no dibuja nada
+  if (!como.attacks || como.attacks.length === 0) return null
 
   const rollAttack = () => {
     setSeletecAttack(undefined)
@@ -31,7 +36,7 @@ export const MonsterAttackSection = ({ como }: MonsterAttackSectionProps) => {
   return (
     <Stack.Vertical>
       <div className="flex items-center gap-2">
-        <Typography variant="h3">{t(`monster:attack.attacks`)}</Typography>
+        <Typography variant="h3">{t(`monsters:attack.attacks` as any)}</Typography>
 
         <ParchmentButton buttonType="ghost" small onPress={() => rollAttack()}>
           <ArrowPathIcon
@@ -39,11 +44,11 @@ export const MonsterAttackSection = ({ como }: MonsterAttackSectionProps) => {
     ${selectedAttack ? 'animate-[spin_250ms_ease-in-out_0.5]' : ''}
                 `}
           />
-          {t('monster:attack.roll')}
+          {t('monsters:attack.roll' as any)}
         </ParchmentButton>
       </div>
       <div className="grid gap-2 2xl:grid-cols-2">
-        {como.attacks.map((a, index) => (
+        {como.attacks.map((a: any, index: number) => (
           <MonsterAttack
             key={a.type !== 'generic' ? a.type : `${a.type}-${getId()}`}
             selected={index + 1 === (selectedAttack ?? 0)}

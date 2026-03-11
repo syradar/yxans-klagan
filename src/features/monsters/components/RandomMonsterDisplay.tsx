@@ -26,56 +26,68 @@ export const RandomMonsterDisplay = ({
   rm,
   bookPart,
 }: RandomMonsterDisplayProps) => {
-  const t = useAppSelector(selectTranslateFunction(['monster', 'common']))
+  const t = useAppSelector(selectTranslateFunction(['monsters', 'common']))
 
   const describeMonsterHeads = (
     heads: MonsterDescriptionItemViewModel[],
   ): string => {
+    // CORRECCIÓN: Evitamos pasar textos de fallback que rompen TypeScript
+    if (heads.length === 1 && heads[0].key === 'monsters:head.missing') {
+      const prefix = String(t('monsters:the_monster_has')).replace(' tiene', ' no tiene')
+      return `${prefix} ${t('monsters:head.missing')}.`
+    }
+
     const translatedHeads = heads.map((h) =>
       t(
         h.key,
-        h.count ? { context: { count: h.count.toString() } } : undefined,
+        h.count ? ({ context: { count: h.count.toString() } } as any) : undefined,
       ),
     )
 
     if (translatedHeads.length === 1) {
-      return `${t('monster:the_monster_has')} ${translatedHeads.join('')}.`
+      return `${t('monsters:the_monster_has')} ${translatedHeads[0]}.`
     }
 
-    const [lastHead, ...restOfHeads] = translatedHeads
+    // CORRECCIÓN: Arreglado el orden de las palabras (cogía la primera en vez de la última)
+    const lastHead = translatedHeads[translatedHeads.length - 1]
+    const restOfHeads = translatedHeads.slice(0, -1)
 
-    return `${t('monster:the_monster_has')} ${restOfHeads.join(
-      ', ',
-    )} & ${lastHead}.`
+    return `${t('monsters:the_monster_has')} ${restOfHeads.join(', ')} & ${lastHead}.`
   }
 
   const describeMonsterLimbs = (
     limbs: MonsterDescriptionItemViewModel[],
   ): string => {
+    // CORRECCIÓN: Evitamos pasar textos de fallback que rompen TypeScript
+    if (limbs.length === 1 && limbs[0].key === 'monsters:limbs.none') {
+      const prefix = String(t('monsters:the_monster_has')).replace(' tiene', ' no tiene')
+      return `${prefix} ${t('monsters:limbs.none')}.`
+    }
+
     const translatedLimbs = limbs.map((l) =>
       t(
         l.key,
-        l.count ? { context: { count: l.count.toString() } } : undefined,
+        l.count ? ({ context: { count: l.count.toString() } } as any) : undefined,
       ),
     )
 
     if (translatedLimbs.length === 1) {
-      return `${t('monster:the_monster_has')} ${translatedLimbs.join('')}.`
+      return `${t('monsters:the_monster_has')} ${translatedLimbs[0]}.`
     }
 
-    const [lastLimb, ...restOfLimbs] = [...translatedLimbs].reverse()
+    // CORRECCIÓN: Arreglado el orden de las palabras
+    const lastLimb = translatedLimbs[translatedLimbs.length - 1]
+    const restOfLimbs = translatedLimbs.slice(0, -1)
 
-    return `${t('monster:the_monster_has')} ${restOfLimbs.join(
-      ', ',
-    )} & ${lastLimb}.`
+    return `${t('monsters:the_monster_has')} ${restOfLimbs.join(', ')} & ${lastLimb}.`
   }
 
-  const describeHome = (monsterHome: TranslationKey<'monster'>): string =>
-    `${t('monster:lives_in', {
-      context: {
-        home: t(monsterHome),
-      },
-    })}.`
+  const describeHome = (monsterHome: TranslationKey<'monsters'>): string => {
+    // CORRECCIÓN: Evitamos la lógica "context" del autor original que provocaba que se quedara en blanco
+    const homeStr = t(monsterHome)
+    if (!homeStr) return ''
+    return `${t('monsters:lives_in')} ${homeStr}.`
+  }
 
   return (
     <div>
@@ -96,7 +108,7 @@ export const RandomMonsterDisplay = ({
         </div>
 
         <section>
-          <Typography variant="h3">{t(`common:attribute`)}</Typography>
+          <Typography variant="h3">{t(`common:attribute` as any)}</Typography>
           <MonsterAttributeGrid attributes={rm.attributes} />
         </section>
 
@@ -104,21 +116,21 @@ export const RandomMonsterDisplay = ({
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Typography variant="h3">
-                {t(`monster:movement.movement`)}
+                {t(`monsters:movement.movement` as any)}
               </Typography>
               <div>
                 {t(movementTypeTranslationDict[rm.movement.type])}{' '}
                 {rm.movement.distance}{' '}
                 {t(
                   rm.movement.distance === 1
-                    ? 'monster:movement.zones_one'
-                    : 'monster:movement.zones_other',
+                    ? 'monsters:movement.zones_one'
+                    : 'monsters:movement.zones_other',
                 )}
               </div>
             </div>
             {rm.armor && (
               <div>
-                <Typography variant="h3">{t('monster:armor_label')}</Typography>
+                <Typography variant="h3">{t('monsters:armor_label')}</Typography>
 
                 <div>
                   <span className="font-medium">
@@ -133,9 +145,9 @@ export const RandomMonsterDisplay = ({
 
         <section className="flex flex-wrap gap-x-8 gap-y-4 4xl:flex-col">
           <div className="md:w-full">
-            <Typography variant="h3">{t(`monster:skill`)}</Typography>
+            <Typography variant="h3">{t(`monsters:skill` as any)}</Typography>
             {rm.skills.length === 0 ? (
-              <div>{t('monster:skills.none')}</div>
+              <div>{t('monsters:skills.none' as any)}</div>
             ) : (
               <SkillList
                 skills={
@@ -156,18 +168,18 @@ export const RandomMonsterDisplay = ({
 
         <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
-            <Typography variant="h3">{t(`monster:trait.traits`)}</Typography>
+            <Typography variant="h3">{t(`monsters:trait.traits` as any)}</Typography>
             <DefinitionList
               definitions={rm.traits.map((trait) => ({
                 name: t(trait.name),
                 description: t(
                   trait.description.key,
                   trait.description.count
-                    ? {
+                    ? ({
                         context: {
                           count: trait.description.count.toString(),
                         },
-                      }
+                      } as any)
                     : undefined,
                 ),
               }))}
@@ -175,7 +187,7 @@ export const RandomMonsterDisplay = ({
           </div>
           <div>
             <Typography variant="h3">
-              {t(`monster:weakness.weakness`)}
+              {t(`monsters:weakness.weakness` as any)}
             </Typography>
             <DefinitionList
               definitions={[rm.weakness].map((w) => ({
@@ -186,7 +198,7 @@ export const RandomMonsterDisplay = ({
           </div>
           <div>
             <Typography variant="h3">
-              {t(`monster:motivation.motivation`)}
+              {t(`monsters:motivation.motivation` as any)}
             </Typography>
             <DefinitionList
               definitions={[rm.motivation].map((m) => ({

@@ -67,7 +67,7 @@ describe('name functions', () => {
     }
 
     const getName = (nl: NameList) =>
-      getRandomAilanderName('Female', 'en', nl, testChooseFunc)
+      getRandomAilanderName('Female', 'es', nl, testChooseFunc)
 
     it('should return family names', () => {
       const familyNl: NameList = {
@@ -136,7 +136,7 @@ describe('name functions', () => {
     }
 
     const getName = (nl: NameList) =>
-      getRandomAlderlanderName('Female', 'en', nl, testChooseFunc)
+      getRandomAlderlanderName('Female', 'es', nl, testChooseFunc)
 
     it('should return family names', () => {
       const familyNl: NameList = {
@@ -237,7 +237,7 @@ describe('name functions', () => {
     }
 
     const getName = (nl: NameList) =>
-      getRandomAsleneName('Female', 'en', nl, testChooseFunc)
+      getRandomAsleneName('Female', 'es', nl, testChooseFunc)
 
     it('should return nick names', () => {
       const familyNl: NameList = {

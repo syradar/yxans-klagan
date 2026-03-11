@@ -7,6 +7,7 @@ export const createMonstersViewModel = (
 ): MonsterViewModel => ({
   ...monster,
   attributes: createAttributesViewModel(monster.attributes),
+  attacks: monster.attacks, // <-- ¡AÑADIDO! Pasamos los ataques a la vista
 })
 
 export const monsterComparer =

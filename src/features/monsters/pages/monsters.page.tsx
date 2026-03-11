@@ -14,20 +14,19 @@ import {
   selectCurrentLanguage,
   selectTranslateFunction,
 } from '../../../store/translations/translation.slice'
-import { createCommunityMonsterViewModel } from '../community-monster.model'
 import { BackToAllMonsters } from '../components/BackToAllMonsters'
-import { CommunityMonsterDisplay } from '../components/CommunityMonsterDisplay'
 import { MonsterAttackSection } from '../components/MonsterAttackSection'
 import { MonsterDisplay } from '../components/MonsterDisplay'
 import { RandomMonsterDisplay } from '../components/RandomMonsterDisplay'
 import { RetroDragonIllustration } from '../components/RetroDragonIllustration'
 import { communityMonsters } from '../data/community-monster.data'
+import { bitterReachMonsters } from '../data/bitter-reach-monster.data' // NUEVO IMPORT
 import { bookMonsters } from '../data/monster.data'
 import { createMonstersViewModel, monsterComparer } from '../monster.functions'
 import { createRandomMonsterViewModel } from '../random-monster.functions'
 import { slidingNWise } from '../../../functions/array.functions'
 
-const validSections = ['random', 'book', 'community'] as const
+const validSections = ['random', 'book', 'community', 'bitter-reach'] as const
 type MonsterRouteSection = (typeof validSections)[number]
 
 const isMonsterRouteSection = (
@@ -55,7 +54,7 @@ type NavigationLibrary = { [key: string]: Omit<BookNavigation, 'current'> }
 export const MonstersPage = () => {
   const { section, monster } = useParams()
 
-  const t = useAppSelector(selectTranslateFunction(['monster', 'common']))
+  const t = useAppSelector(selectTranslateFunction(['monsters', 'common']))
   const currentLanguage = useAppSelector(selectCurrentLanguage)
   const monsters = bookMonsters
     .map(createMonstersViewModel)
@@ -84,32 +83,55 @@ export const MonstersPage = () => {
       !!monster &&
       communityMonsters.find((m) => m.id === monster)) ||
     undefined
+  const comovm = como ? createMonstersViewModel(como) : undefined
 
-  const comovm = como ? createCommunityMonsterViewModel(como) : undefined
+  // NUEVA SECCIÓN CUENCA GLACIAL
+  const isBitterReachMonster = monsterSection === 'bitter-reach'
+  const brm =
+    (isBitterReachMonster &&
+      !!monster &&
+      bitterReachMonsters.find((m) => m.id === monster)) ||
+    undefined
+  const brmvm = brm ? createMonstersViewModel(brm) : undefined
+
 
   // * Navigation
 
   const tableOfContentsNav = {
     to: '/monsters',
-    part: t('monster:book_of_monsters'),
-    text: t('monster:book_of_monsters'),
+    part: t('monsters:book_of_monsters'),
+    text: t('monsters:book_of_monsters'),
   }
 
   const randomMonsterNav = {
     to: '/monsters/random',
-    part: t('monster:random_monster.title'),
-    text: t('monster:random_monster.title'),
+    part: t('monsters:random_monster.title'),
+    text: t('monsters:random_monster.title'),
   }
 
   const monstersNav = monsters.map((m) => ({
     to: `/monsters/book/${m.id}`,
-    part: t('monster:bookmonsters.title'),
+    part: t('monsters:bookmonsters.title'),
     text: t(m.name),
   }))
 
-  const communityMonstersNav = communityMonsters.map((m) => ({
+  const communityMonstersViewModels = communityMonsters
+    .map(createMonstersViewModel)
+    .sort(monsterComparer(t))
+
+  const communityMonstersNav = communityMonstersViewModels.map((m) => ({
     to: `/monsters/community/${m.id}`,
-    part: t('monster:community_monster.title'),
+    part: t('monsters:community_monster.title'),
+    text: t(m.name),
+  }))
+
+  const bitterReachMonstersViewModels = bitterReachMonsters
+    .map(createMonstersViewModel)
+    .sort(monsterComparer(t))
+
+  const bitterReachMonstersNav = bitterReachMonstersViewModels.map((m) => ({
+    to: `/monsters/bitter-reach/${m.id}`,
+    part: t('common:bitter_reach_monster.title'),
     text: t(m.name),
   }))
 
@@ -119,6 +141,7 @@ export const MonstersPage = () => {
     randomMonsterNav,
     ...monstersNav,
     ...communityMonstersNav,
+    ...bitterReachMonstersNav, // AÑADIDA A LA NAVEGACIÓN
     undefined,
   ])
     .map(
@@ -148,9 +171,30 @@ export const MonstersPage = () => {
     monsters.sort(monsterComparer(t))
   }, [currentLanguage, monsters, t])
 
+  const shouldShowDragon = () => {
+    if (monsterSection === undefined) return true
+
+    if (isBookMonster && paramMonster) {
+      if (paramMonster.attacks && paramMonster.attacks.length > 0) return false
+      return true
+    }
+    
+    if (isCommunityMonster && comovm) {
+      if (comovm.attacks && comovm.attacks.length > 0) return false
+      return true
+    }
+
+    if (isBitterReachMonster && brmvm) {
+      if (brmvm.attacks && brmvm.attacks.length > 0) return false
+      return true
+    }
+
+    return false
+  }
+
   return (
     <div className="flex w-full flex-col gap-y-8 pb-8">
-      <PageHeader>{t('monster:title')}</PageHeader>
+      <PageHeader>{t('monsters:title')}</PageHeader>
       <div className="relative flex flex-col rounded bg-amber-950 p-2 shadow-lg md:flex-row">
         <div
           className="absolute inset-y-0 left-1/2 z-10 hidden h-full w-4 -translate-x-1/2 bg-gradient-to-r from-transparent from-25%
@@ -191,7 +235,11 @@ export const MonstersPage = () => {
               ) : null}
 
               {isCommunityMonster && comovm ? (
-                <CommunityMonsterDisplay como={comovm} bookPart={bookPart} />
+                <MonsterDisplay m={comovm} bookPart={bookPart} />
+              ) : null}
+
+              {isBitterReachMonster && brmvm ? (
+                <MonsterDisplay m={brmvm} bookPart={bookPart} />
               ) : null}
 
               {previousMonster.some ? (
@@ -207,11 +255,12 @@ export const MonstersPage = () => {
             <div className="absolute bottom-0 left-0 z-50 h-4 w-full translate-y-2 bg-gradient-to-b from-transparent from-25% via-black to-transparent to-75% md:hidden"></div>
           </Parchment>
         </div>
+        
         <div className="flex-[0_0_50%] items-stretch">
           <Parchment full>
             <div className="flex h-full flex-col gap-4">
               <section>
-                {monsterSection === undefined || isBookMonster ? (
+                {shouldShowDragon() ? (
                   <div className="md:h-full">
                     <div className="mx-auto mt-16 min-h-[6rem] w-2/3 opacity-50">
                       <RetroDragonIllustration />
@@ -223,9 +272,18 @@ export const MonstersPage = () => {
                   <MonsterAttackSection como={randomMonster} />
                 ) : null}
 
-                {isCommunityMonster && comovm ? (
+                {isBookMonster && paramMonster && paramMonster.attacks && paramMonster.attacks.length > 0 ? (
+                  <MonsterAttackSection como={paramMonster} />
+                ) : null}
+
+                {isCommunityMonster && comovm && comovm.attacks && comovm.attacks.length > 0 ? (
                   <MonsterAttackSection como={comovm} />
                 ) : null}
+
+                {isBitterReachMonster && brmvm && brmvm.attacks && brmvm.attacks.length > 0 ? (
+                  <MonsterAttackSection como={brmvm} />
+                ) : null}
+
               </section>
 
               {nextMonster.some ? (
@@ -246,34 +304,43 @@ export const MonstersPage = () => {
 export default MonstersPage
 
 const MonsterTableOfContents = () => {
-  const t = useAppSelector(selectTranslateFunction(['monster', 'common']))
+  const t = useAppSelector(selectTranslateFunction(['monsters', 'common']))
   const monsters = bookMonsters
+    .map(createMonstersViewModel)
+    .sort(monsterComparer(t))
+
+  const communityMonstersViewModels = communityMonsters
+    .map(createMonstersViewModel)
+    .sort(monsterComparer(t))
+
+  const bitterReachMonstersViewModels = bitterReachMonsters
     .map(createMonstersViewModel)
     .sort(monsterComparer(t))
 
   return (
     <div className="flex flex-col">
-      <BookPageTitle>{t('monster:book_of_monsters')}</BookPageTitle>
+      <BookPageTitle>{t('monsters:book_of_monsters')}</BookPageTitle>
 
       <div className="flex flex-col gap-8">
         <section>
           <Typography variant="h3" parchment>
-            {t(`monster:random_monster.title`)}
+            {t(`monsters:random_monster.title`)}
           </Typography>
-          <div className="mb-4">{t('monster:bookmonsters.description')}</div>
+          <div className="mb-4">{t('monsters:bookmonsters.description')}</div>
           <BookList>
             <li className="">
               <BookLink to={'/monsters/random'}>
-                {t('monster:random_monster.generate')}
+                {t('monsters:random_monster.generate')}
               </BookLink>
             </li>
           </BookList>
         </section>
+        
         <section>
           <Typography variant="h3" parchment>
-            {t(`monster:bookmonsters.title`)}
+            {t(`monsters:bookmonsters.title`)}
           </Typography>
-          <div className="mb-4">{t('monster:bookmonsters.description')}</div>
+          <div className="mb-4">{t('monsters:bookmonsters.description')}</div>
           <BookList>
             {monsters.map((m) => (
               <li key={m.name} className="">
@@ -287,15 +354,16 @@ const MonsterTableOfContents = () => {
             ))}
           </BookList>
         </section>
+
         <section>
           <Typography variant="h3" parchment>
-            {t(`monster:community_monster.title`)}
+            {t(`common:community_monster.title`)}
           </Typography>
           <div className="mb-4">
-            {t('monster:community_monster.description')}
+            {t('common:community_monster.description')}
           </div>
           <BookList>
-            {communityMonsters.map((m) => (
+            {communityMonstersViewModels.map((m) => (
               <li key={m.name} className="">
                 <BookLink to={`/monsters/community/${m.id}`}>
                   {t(m.name)}
@@ -304,6 +372,25 @@ const MonsterTableOfContents = () => {
             ))}
           </BookList>
         </section>
+
+        <section>
+          <Typography variant="h3" parchment>
+            {t(`common:bitter_reach_monster.title`)}
+          </Typography>
+          <div className="mb-4">
+            {t('common:bitter_reach_monster.description')}
+          </div>
+          <BookList>
+            {bitterReachMonstersViewModels.map((m) => (
+              <li key={m.name} className="">
+                <BookLink to={`/monsters/bitter-reach/${m.id}`}>
+                  {t(m.name)}
+                </BookLink>
+              </li>
+            ))}
+          </BookList>
+        </section>
+
       </div>
     </div>
   )

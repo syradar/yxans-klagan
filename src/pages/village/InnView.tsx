@@ -1,5 +1,5 @@
 import { LabelValue } from '../../components/LabelValue'
-import { Name } from '../../components/Name'
+import Name from '../../components/Name'
 import Stack from '../../components/Stack'
 import { Typography } from '../../components/Typography'
 import { ParchmentCard } from '../../components/card'
@@ -40,7 +40,7 @@ export const InnView = ({ inn }: { inn: Inn }) => {
             {t(innGuestTranslationDict[inn.guest])}
           </LabelValue>
           <LabelValue label={t('village:institutions.owner')}>
-            <Name name={inn.owner.name}></Name>
+            <Name names={inn.owner.name}></Name>
           </LabelValue>
         </div>
       </div>

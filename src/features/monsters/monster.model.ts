@@ -8,13 +8,18 @@ import { MonsterAttackRange } from '../../models/attack-range'
 import { Attributes, AttributesViewModel } from '../../models/attributes.model'
 import { MonsterSkillsValues } from '../../models/skills.model'
 import { TranslationKey } from '../../store/translations/translation.model'
-import { CommunityMonsterAttackType } from './community-monster.model'
 
 export interface Monster {
   id: string
   name: TranslationKey<'common'>
   attributes: Attributes
   pageReference?: number
+  attacks?: any[] 
+  movement?: any
+  armor?: any
+  skills?: any
+  traits?: any
+  weaknesses?: any
 }
 
 export interface MonsterViewModel {
@@ -22,6 +27,12 @@ export interface MonsterViewModel {
   name: TranslationKey<'common'>
   attributes: AttributesViewModel
   pageReference?: number
+  attacks?: any[]
+  movement?: any
+  armor?: any
+  skills?: any
+  traits?: any
+  weaknesses?: any
 }
 
 export type ArmorTypeLabel =
@@ -35,16 +46,16 @@ export type ArmorTypeLabel =
   | 'armoredHide'
 export const monsterArmorTypeTranslationDict: Record<
   ArmorTypeLabel,
-  TranslationKey<'monster'>
+  TranslationKey<'monsters'>
 > = {
-  skin: 'monster:armor.skin',
-  softFur: 'monster:armor.soft_fur',
-  thickFur: 'monster:armor.thick_fur',
-  feathers: 'monster:armor.feathers',
-  scales: 'monster:armor.scales',
-  shell: 'monster:armor.shell',
-  bonePlates: 'monster:armor.bone_plates',
-  armoredHide: 'monster:armor.armored_hide',
+  skin: 'monsters:armor.skin',
+  softFur: 'monsters:armor.soft_fur',
+  thickFur: 'monsters:armor.thick_fur',
+  feathers: 'monsters:armor.feathers',
+  scales: 'monsters:armor.scales',
+  shell: 'monsters:armor.shell',
+  bonePlates: 'monsters:armor.bone_plates',
+  armoredHide: 'monsters:armor.armored_hide',
 }
 
 export type MonsterArmor = {
@@ -72,11 +83,11 @@ export const createMonsterSizeTranslationDict = (monsterType: MonsterType) =>
   monsterSizes.reduce(
     (acc, label) => ({
       ...acc,
-      [label]: `monster:size.${camelCaseToSnakeCase(label)}${
+      [label]: `monsters:size.${camelCaseToSnakeCase(label)}${
         isDefinitiveArticle[monsterType] ? '_def' : ''
       }`,
     }),
-    {} as TranslationDict<MonsterSize, 'monster', 'size.'>,
+    {} as TranslationDict<MonsterSize, 'monsters', 'size.'>,
   )
 
 const isDefinitiveArticle: Record<MonsterType, boolean> = {
@@ -100,7 +111,7 @@ export type MonsterType = (typeof monsterTypes)[number]
 
 export const monsterTypeTranslationDict = translationDict(
   monsterTypes,
-  'monster',
+  'monsters',
   'type.',
 )
 
@@ -158,7 +169,7 @@ const movementTypes = [
 export type MovementType = (typeof movementTypes)[number]
 export const movementTypeTranslationDict = translationDict(
   movementTypes,
-  'monster',
+  'monsters',
   'movement.',
 )
 
@@ -175,35 +186,35 @@ export type MonsterHome =
 
 export const monsterHomeLabels: Record<
   MonsterHome,
-  TranslationKey<'monster'>
+  TranslationKey<'monsters'>
 > = {
-  burrow: 'monster:homes.burrow',
-  ruin: 'monster:homes.ruin',
-  watering_hole: 'monster:homes.watering_hole',
-  tree_or_high_point: 'monster:homes.tree_or_high_point',
-  cave: 'monster:homes.cave',
-  ravine: 'monster:homes.ravine',
-  den: 'monster:homes.den',
+  burrow: 'monsters:homes.burrow',
+  ruin: 'monsters:homes.ruin',
+  watering_hole: 'monsters:homes.watering_hole',
+  tree_or_high_point: 'monsters:homes.tree_or_high_point',
+  cave: 'monsters:homes.cave',
+  ravine: 'monsters:homes.ravine',
+  den: 'monsters:homes.den',
 }
 
 export type MonsterSkillListItem = {
-  name: TranslationKey<'monster'>
+  name: TranslationKey<'monsters'>
   value: number
 }
 
 export type MonsterTrait = {
-  name: TranslationKey<'monster'>
+  name: TranslationKey<'monsters'>
   description: () => MonsterDescriptionItemViewModel
   apply: (rm: RandomMonster) => RandomMonster
 }
 
 export type MonsterTraitViewModel = {
-  name: TranslationKey<'monster'>
+  name: TranslationKey<'monsters'>
   description: MonsterDescriptionItemViewModel
 }
 export type MonsterWeakness = Definition<
-  TranslationKey<'monster'>,
-  TranslationKey<'monster'>
+  TranslationKey<'monsters'>,
+  TranslationKey<'monsters'>
 >
 export type MonsterMotivation =
   | 'territory'
@@ -216,142 +227,105 @@ export type MonsterMotivation =
   | 'looking_for_host'
   | 'guarding_treasure'
 
-export type MonsterAttackType =
-  | 'slash'
-  | 'eyeGourge'
-  | 'clawFlurry'
-  | 'bite'
-  | 'lockedJaws'
-  | 'throatBite'
-  | 'horn'
-  | 'headbutt'
-  | 'roar'
-  | 'tailsSlash'
-  | 'tentacleLash'
-  | 'tentacleFrenzy'
-  | 'tentaclePenetrationArmsLength'
-  | 'tentaclePenetrationNear'
-  | 'bash'
-  | 'sweep'
-  | 'breathFire'
-  | 'sprayFire'
-  | 'spitAcid'
-  | 'sprayAcid'
-  | 'deadlyGaze'
-  | 'coldStrike'
-  | 'deathScream'
-  | 'kick'
-  | 'backwardsKick'
-  | 'devour'
-  | 'diveAttack'
-  | 'whirlwind'
-  | 'peck'
-  | 'squash'
-  | 'beakThrow'
-  | 'adventureToss'
-  | 'deathRattle'
-  | 'infectedScratch'
-  | 'diseasedBite'
-  | 'infectedTailSwipe'
-  | 'infectedTentacleSwipe'
-  | 'diseasedTouch'
-  | 'distraction'
-  | 'punch'
-  | 'flyingFists'
-  | 'fistsOfFury'
-  | 'poisonSpit'
-  | 'venemousBite'
-  | 'poisonScratch'
-  | 'poisonTailAttack'
-  | 'poisonTentacleAttack'
-  | 'poisonHornAttack'
-  | 'nightmareVisions'
-  | 'mindBurst'
-  | 'taunt'
-  | 'plea'
-  | 'burrow'
-  | 'theGroundShatters'
-  | 'rush'
-  | 'wrapAttack'
-  | 'fallFromTheSky'
-  | 'rainOfRocks'
-  | 'generic'
-export const monsterAttackTypeTranslationDict: Record<
-  CommunityMonsterAttackType,
-  TranslationKey<'monster'>
-> = {
-  slash: 'monster:attack.slash.type',
-  eyeGourge: 'monster:attack.eye_gourge.type',
-  clawFlurry: 'monster:attack.claw_flurry.type',
-  bite: 'monster:attack.bite.type',
-  lockedJaws: 'monster:attack.locked_jaws.type',
-  throatBite: 'monster:attack.throat_bite.type',
-  horn: 'monster:attack.horn.type',
-  headbutt: 'monster:attack.headbutt.type',
-  roar: 'monster:attack.roar.type',
-  tailsSlash: 'monster:attack.tails_slash.type',
-  tentacleLash: 'monster:attack.tentacle_lash.type',
-  tentacleFrenzy: 'monster:attack.tentacle_frenzy.type',
-  tentaclePenetrationArmsLength:
-    'monster:attack.tentacle_penetration_arms_length.type',
-  tentaclePenetrationNear: 'monster:attack.tentacle_penetration_near.type',
-  bash: 'monster:attack.bash.type',
-  sweep: 'monster:attack.sweep.type',
-  breathFire: 'monster:attack.breath_fire.type',
-  sprayFire: 'monster:attack.spray_fire.type',
-  spitAcid: 'monster:attack.spit_acid.type',
-  sprayAcid: 'monster:attack.spray_acid.type',
-  deadlyGaze: 'monster:attack.deadly_gaze.type',
-  coldStrike: 'monster:attack.cold_strike.type',
-  deathScream: 'monster:attack.death_scream.type',
-  kick: 'monster:attack.kick.type',
-  backwardsKick: 'monster:attack.backwards_kick.type',
-  devour: 'monster:attack.devour.type',
-  diveAttack: 'monster:attack.dive_attack.type',
-  whirlwind: 'monster:attack.whirlwind.type',
-  peck: 'monster:attack.peck.type',
-  squash: 'monster:attack.squash.type',
-  beakThrow: 'monster:attack.beak_throw.type',
-  adventureToss: 'monster:attack.adventure_toss.type',
-  deathRattle: 'monster:attack.death_rattle.type',
-  infectedScratch: 'monster:attack.infected_scratch.type',
-  diseasedBite: 'monster:attack.diseased_bite.type',
-  infectedTailSwipe: 'monster:attack.infected_tail_swipe.type',
-  infectedTentacleSwipe: 'monster:attack.infected_tentacle_swipe.type',
-  diseasedTouch: 'monster:attack.diseased_touch.type',
-  distraction: 'monster:attack.distraction.type',
-  punch: 'monster:attack.punch.type',
-  flyingFists: 'monster:attack.flying_fists.type',
-  fistsOfFury: 'monster:attack.fists_of_fury.type',
-  poisonSpit: 'monster:attack.poison_spit.type',
-  venemousBite: 'monster:attack.venemous_bite.type',
-  poisonScratch: 'monster:attack.poison_scratch.type',
-  poisonTailAttack: 'monster:attack.poison_tail_attack.type',
-  poisonTentacleAttack: 'monster:attack.poison_tentacle_attack.type',
-  poisonHornAttack: 'monster:attack.poison_horn_attack.type',
-  nightmareVisions: 'monster:attack.nightmare_visions.type',
-  mindBurst: 'monster:attack.mind_burst.type',
-  taunt: 'monster:attack.taunt.type',
-  plea: 'monster:attack.plea.type',
-  burrow: 'monster:attack.burrow.type',
-  theGroundShatters: 'monster:attack.the_ground_shatters.type',
-  rush: 'monster:attack.rush.type',
-  wrapAttack: 'monster:attack.wrap_attack.type',
-  fallFromTheSky: 'monster:attack.fall_from_the_sky.type',
-  rainOfRocks: 'monster:attack.rain_of_rocks.type',
-  generic: 'monster:attack.generic.type',
-  call_the_brood: 'monster:attack.call_the_brood.type',
-  piercing_shriek: 'monster:attack.piercing_shriek.type',
-  pounce: 'monster:attack.pounce.type',
-  stab: 'monster:attack.stab.type',
-  webshot: 'monster:attack.webshot.type',
-  claySmash: 'monster:attack.clay_smash.type',
-  clayPunch: 'monster:attack.clay_punch.type',
-  hastyReaction: 'monster:attack.hasty_reaction.type',
-  earthRumble: 'monster:attack.earth_rumble.type',
-  groundQuake: 'monster:attack.ground_quake.type',
-  golemRampage: 'monster:attack.golem_rampage.type',
+export type MonsterAttackType = any
+
+const generateMonsterAttacks = () => {
+  const dict: Record<string, string> = {
+    slash: 'monsters:attack.slash.type',
+    eyeGourge: 'monsters:attack.eyeGourge.type',
+    clawFlurry: 'monsters:attack.clawFlurry.type',
+    bite: 'monsters:attack.bite.type',
+    lockedJaws: 'monsters:attack.lockedJaws.type',
+    throatBite: 'monsters:attack.throatBite.type',
+    horn: 'monsters:attack.horn.type',
+    headbutt: 'monsters:attack.headbutt.type',
+    roar: 'monsters:attack.roar.type',
+    tailsSlash: 'monsters:attack.tailsSlash.type',
+    tentacleLash: 'monsters:attack.tentacleLash.type',
+    tentacleFrenzy: 'monsters:attack.tentacleFrenzy.type',
+    tentaclePenetrationArmsLength: 'monsters:attack.tentaclePenetrationArmsLength.type',
+    tentaclePenetrationNear: 'monsters:attack.tentaclePenetrationNear.type',
+    bash: 'monsters:attack.bash.type',
+    sweep: 'monsters:attack.sweep.type',
+    breathFire: 'monsters:attack.breathFire.type',
+    sprayFire: 'monsters:attack.sprayFire.type',
+    spitAcid: 'monsters:attack.spitAcid.type',
+    sprayAcid: 'monsters:attack.sprayAcid.type',
+    deadlyGaze: 'monsters:attack.deadlyGaze.type',
+    coldStrike: 'monsters:attack.coldStrike.type',
+    deathScream: 'monsters:attack.deathScream.type',
+    kick: 'monsters:attack.kick.type',
+    backwardsKick: 'monsters:attack.backwardsKick.type',
+    devour: 'monsters:attack.devour.type',
+    diveAttack: 'monsters:attack.diveAttack.type',
+    whirlwind: 'monsters:attack.whirlwind.type',
+    peck: 'monsters:attack.peck.type',
+    squash: 'monsters:attack.squash.type',
+    beakThrow: 'monsters:attack.beakThrow.type',
+    adventureToss: 'monsters:attack.adventureToss.type',
+    deathRattle: 'monsters:attack.deathRattle.type',
+    infectedScratch: 'monsters:attack.infectedScratch.type',
+    diseasedBite: 'monsters:attack.diseasedBite.type',
+    infectedTailSwipe: 'monsters:attack.infectedTailSwipe.type',
+    infectedTentacleSwipe: 'monsters:attack.infectedTentacleSwipe.type',
+    diseasedTouch: 'monsters:attack.diseasedTouch.type',
+    distraction: 'monsters:attack.distraction.type',
+    punch: 'monsters:attack.punch.type',
+    flyingFists: 'monsters:attack.flyingFists.type',
+    fistsOfFury: 'monsters:attack.fistsOfFury.type',
+    poisonSpit: 'monsters:attack.poisonSpit.type',
+    venemousBite: 'monsters:attack.venemousBite.type',
+    poisonScratch: 'monsters:attack.poisonScratch.type',
+    poisonTailAttack: 'monsters:attack.poisonTailAttack.type',
+    poisonTentacleAttack: 'monsters:attack.poisonTentacleAttack.type',
+    poisonHornAttack: 'monsters:attack.poisonHornAttack.type',
+    nightmareVisions: 'monsters:attack.nightmareVisions.type',
+    mindBurst: 'monsters:attack.mindBurst.type',
+    taunt: 'monsters:attack.taunt.type',
+    plea: 'monsters:attack.plea.type',
+    burrow: 'monsters:attack.burrow.type',
+    theGroundShatters: 'monsters:attack.theGroundShatters.type',
+    rush: 'monsters:attack.rush.type',
+    wrapAttack: 'monsters:attack.wrapAttack.type',
+    fallFromTheSky: 'monsters:attack.fallFromTheSky.type',
+    rainOfRocks: 'monsters:attack.rainOfRocks.type',
+    generic: 'monsters:attack.generic.type',
+    call_the_brood: 'monsters:attack.call_the_brood.type',
+    piercing_shriek: 'monsters:attack.piercing_shriek.type',
+    pounce: 'monsters:attack.pounce.type',
+    stab: 'monsters:attack.stab.type',
+    webshot: 'monsters:attack.webshot.type',
+    claySmash: 'monsters:attack.claySmash.type',
+    clayPunch: 'monsters:attack.clayPunch.type',
+    hastyReaction: 'monsters:attack.hastyReaction.type',
+    earthRumble: 'monsters:attack.earthRumble.type',
+    groundQuake: 'monsters:attack.groundQuake.type',
+    golemRampage: 'monsters:attack.golemRampage.type',
+  }
+
+  const monsters = [
+    'giant', 'abyss_worm', 'bloodling', 'dragon', 'drakewyrm', 'death_knight',
+    'ent', 'wyvern', 'ghost', 'gryphon', 'gray_bear', 'harpies', 'hydra',
+    'giant_squid', 'manticore', 'minotaur', 'nightwarg', 'sea_serpent', 'troll', 'vine',
+    'amphibian', 'amoeba', 'basilisk', 'bog_man', 'dread_raptor', 'gatekeeper',
+    'giant_specter', 'giant_spider_hatchling', 'giant_spider_male', 'giant_spider_female',
+    'greater_golem', 'imp', 'iron_dragon', 'mara', 'mire_drake', 'mummy',
+    'nature_spirit', 'possessor', 'rat_king', 'rock_troll', 'shapeshifter',
+    'skolopendra', 'swarming_death', 'tupilaq', 'twisted_ent', 'undead_dragon', 'vampyr', 'water_troll', 'will_o_the_wisp', 'wolfshadow',
+    'pike_beast', 'stone_raven', 'frost_dragon', 'ice_giant', 'stone_guardian', 'giant_wolf', 'nanuik', 'wendigo'
+  ]
+
+  for (const m of monsters) {
+    for (let i = 1; i <= 6; i++) {
+      dict[`${m}_${i}`] = `monsters:attack.${m}_${i}.type`
+    }
+  }
+
+  return dict
 }
+
+export const monsterAttackTypeTranslationDict = generateMonsterAttacks()
+
 export type MonsterDamageType =
   | 'slash'
   | 'blunt'
@@ -377,12 +351,12 @@ export const poisonTypes = [
 export type PoisonType = (typeof poisonTypes)[number]
 export const poisonTypeTranslationDict: Record<
   PoisonType,
-  TranslationKey<'monster'>
+  TranslationKey<'monsters'>
 > = {
-  lethal: 'monster:poisons.lethal',
-  paralyzing: 'monster:poisons.paralyzing',
-  sleeping: 'monster:poisons.sleeping',
-  hallucinogenic: 'monster:poisons.hallucinogenic',
+  lethal: 'monsters:poisons.lethal',
+  paralyzing: 'monsters:poisons.paralyzing',
+  sleeping: 'monsters:poisons.sleeping',
+  hallucinogenic: 'monsters:poisons.hallucinogenic',
 }
 
 export type PoisonDamage = {
@@ -405,28 +379,29 @@ export type MonsterAttackMinimalContext = Pick<
   | 'traits'
   | 'skills'
 >
-export type MonsterAttack<T = MonsterAttackType> = {
+export type MonsterAttack<T = any> = {
   type: T
   attack?: (rm: MonsterAttackMinimalContext) => number
   damage?: (rm: MonsterAttackMinimalContext) => MonsterDamage
   range: MonsterAttackRange
-  description: TranslationKey<'monster'>
+  description: TranslationKey<'monsters'>
   descriptionExtras?: (rm: MonsterAttackMinimalContext) => { count: number }
   valid: (rm: MonsterAttackMinimalContext) => boolean
   singleUse: boolean
   chance: number
 }
 
-export type MonsterAttackViewModel<T = MonsterAttackType> = {
+export type MonsterAttackViewModel<T = any> = {
   type: T
   attack?: number
   damage?: MonsterDamage
-  range: TranslationKey<'common'>
-  description: TranslationKey<'monster'>
+  range: TranslationKey<'common'> | string
+  description: TranslationKey<'monsters'> | string
   descriptionExtras?: { count: number }
 }
 
-export type MonsterAttacks = { [T in MonsterAttackType]: MonsterAttack }
+export type MonsterAttacks = Record<string, MonsterAttack<any>>
+
 export type MonsterDamageModifiers = {
   [M in MonsterDamageModifierType]: number
 }
@@ -460,7 +435,7 @@ export type MonsterDescription = {
 }
 
 export type MonsterDescriptionItemViewModel = {
-  key: TranslationKey<'monster'>
+  key: TranslationKey<'monsters'>
   count?: number
 }
 
@@ -519,8 +494,8 @@ export interface RandomMonsterViewModel
   traits: MonsterTraitViewModel[]
   weakness: MonsterWeakness
   motivation: {
-    name: `monster:motivation.${MonsterMotivation}.name`
-    description: `monster:motivation.${MonsterMotivation}.description`
+    name: `monsters:motivation.${MonsterMotivation}.name`
+    description: `monsters:motivation.${MonsterMotivation}.description`
   }
   damageModifiers: MonsterDamageModifiers
   attacks: MonsterAttackViewModel[]

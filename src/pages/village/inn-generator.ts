@@ -10,7 +10,8 @@ import { ValidLanguage } from '../../hooks/useValidLanguage'
 import { TranslationKey } from '../../store/translations/translation.model'
 
 export type Inn = {
-  name: { [L in ValidLanguage]: string }
+  // CORRECCIÓN IMPLÍCITA: ValidLanguage ahora es 'es'
+  name: { [L in ValidLanguage]: string } 
   id: string
   oddity: InnOddity
   speciality: InnSpecialty
@@ -19,12 +20,13 @@ export type Inn = {
 }
 
 export const createRandomInn = ({ owner }: VillageInstitution): Inn => {
-  const name = {
-    sv: createRandomInnName('sv'),
-    en: createRandomInnName('en'),
-  }
+  // CORRECCIÓN DE USO: La función createRandomInnName ya devuelve el objeto { es: 'Nombre' }
+  const name = createRandomInnName() 
+  
   const { oddity, guest, speciality } =
     weightedRandom(innQuirksWithWeights).value
+
+// ... resto del código...
 
   return {
     id: nanoid(),
@@ -269,177 +271,100 @@ const innQuirksWithWeights: WeightedChoice<InnQuirk>[] = [
   },
 ]
 
-export const createRandomInnName = (lang: ValidLanguage): string => {
-  const prefix = choose(lang === 'en' ? innNamePrefixesEn : innNamePrefixesSv)
-  const suffix = choose(lang === 'en' ? innNameSuffixesEn : innNameSuffixesSv)
+// Función corregida: Usar listas en español y devolver clave 'es'
+// CORRECCIÓN 2: Tipo de retorno actualizado a LanguageStringMap
+export const createRandomInnName = (): { [L in ValidLanguage]: string } => {
+  // CORRECCIÓN 3: Usar listas en español
+  const prefix = choose(innNamePrefixesEs)
+  const suffix = choose(innNameSuffixesEs)
 
-  return `${prefix} ${suffix}`
+  // CORRECCIÓN 4: Devolver el nombre con la clave 'es'
+  return {
+    es: `${prefix} ${suffix}`
+  }
 }
 
-const innNamePrefixesSv = [
-  'Tredje',
-  'Lilla',
-  'Röda',
-  'Dimmiga',
-  'Blodiga',
-  'Gamla',
-  'Gyllene',
-  'Svala',
-  'Svalkande',
-  'Goda',
-  'Andra',
-  'Sista',
-  'Stegrande',
-  'Glada',
-  'Sjungande',
-  'Rullande',
-  'Hoppande',
-  'Klagande',
-  'Snikna',
-  'Runda',
-  'Flammande',
-  'Sista',
-  'Silver',
-  'Svarta',
-  'Döda',
-  'Stora',
-  'Vrålande',
-  'Skålande',
-  'Lallande',
-  'Magra',
-  'Tjocka',
-  'Feta',
-  'Trinda',
-  'Söta',
-  'Larmande',
-  'Griniga',
-  'Lätta',
-  'Stora',
-  'Gula',
-  'Grymma',
-  'Gröna',
+// Se eliminaron innNamePrefixesSv y innNameSuffixesSv
+
+// ANTES: const innNamePrefixesEn = [...]
+const innNamePrefixesEs = [
+  'El Tercero',
+  'El Pequeño',
+  'El Rojo',
+  'El Brumoso',
+  'El Sangriento',
+  'El Viejo',
+  'El Dorado',
+  'El Frío',
+  'El Refrescante',
+  'El Bueno',
+  'El Segundo',
+  'El Último',
+  'El Saltador',
+  'El Feliz',
+  'El Cantor',
+  'El Rodante',
+  'El Agitado',
+  'El Lamentador',
+  'El Codicioso',
+  'El Redondo',
+  'El Flamígero',
+  'La Plata',
+  'El Negro',
+  'El Muerto',
+  'El Grande',
+  'El Rugiente',
+  'El Aclamador',
+  'El Tarareador',
+  'El Escaso',
+  'El Gordo',
+  'El Grueso',
+  'El Dulce',
+  'El Ruidoso',
+  'El Gruñón',
+  'El Borroso',
+  'El Peludo',
+  'El Amargo',
 ]
 
-const innNameSuffixesSv = [
-  'Lyktan',
-  'Svinet',
-  'Hjulet',
-  'Stopet',
-  'Sparven',
-  'Geten',
-  'Pilen',
-  'Krukan',
-  'Lammet',
-  'Pigan',
-  'Gubben',
-  'Draken',
-  'Gripen',
-  'Galten',
-  'Hjälten',
-  'Tunnan',
-  'Hoppet',
-  'Barden',
-  'Hunden',
-  'Hästen',
-  'Jungfrun',
-  'Ulven',
-  'Björnen',
-  'Gasten',
-  'Råttan',
-  'Kruset',
-  'Muggen',
-  'Bägaren',
-  'Örnen',
-  'Korpen',
-  'Hammaren',
-  'Spiken',
-  'Kråkan',
-  'Druiden',
-  'Riddaren',
-  'Rövaren',
-  'Vildsvinet',
-  'Jägaren',
-]
-
-const innNamePrefixesEn = [
-  'The Third',
-  'The Little',
-  'The Red',
-  'The Misty',
-  'The Bloody',
-  'The Old',
-  'The Golden',
-  'The Cold',
-  'The Refreshing',
-  'The Good',
-  'The Second',
-  'The Last',
-  'The Prancing',
-  'The Happy',
-  'The Singing',
-  'The Rolling',
-  'The Rumping',
-  'The Wailing',
-  'The Greedy',
-  'The Round',
-  'The Flaming',
-  'The Last',
-  'The Silver',
-  'The Black',
-  'The Dead',
-  'The Big',
-  'The Roaring',
-  'The Cheering',
-  'The Humming',
-  'The Meagre',
-  'The Fat',
-  'The Thick',
-  'The Round',
-  'The Sweet',
-  'The Boisterous',
-  'The Grumpy',
-  'The Fuzzy',
-  'The Furry',
-  'The Bitter',
-]
-
-const innNameSuffixesEn = [
-  'Lantern',
-  'Swine',
-  'Wheel',
-  'Stoop',
-  'Sparrow',
-  'Goat',
-  'Arrow',
-  'Pot',
-  'Lamb',
-  'Maid',
-  'Man',
-  'Dragon',
-  'Griffin',
-  'Boar',
-  'Barrel',
-  'Bard',
-  'Dog',
-  'Horse',
-  'Girl',
-  'Wolf',
-  'Bear',
-  'Ghost',
-  'Rat',
-  'Jar',
-  'Mug',
-  'Goblet',
-  'Eagle',
-  'Raven',
-  'Hammer',
-  'Spike',
-  'Crow',
-  'Druid',
-  'Knight',
-  'Bandit',
-  'Wild Boar',
-  'Hunter',
-  'Crest',
-  'Cave',
+// ANTES: const innNameSuffixesEn = [...]
+const innNameSuffixesEs = [
+  'Farol',
+  'Cerdo',
+  'Rueda',
+  'Umbral',
+  'Gorrión',
+  'Cabra',
+  'Flecha',
+  'Olla',
+  'Cordero',
+  'Doncella',
+  'Hombre',
+  'Dragón',
+  'Grifo',
+  'Jabalí',
+  'Barril',
+  'Bardo',
+  'Perro',
+  'Caballo',
+  'Chica',
+  'Lobo',
+  'Oso',
+  'Fantasma',
+  'Rata',
+  'Tarro',
+  'Jarra',
+  'Cáliz',
+  'Águila',
+  'Cuervo',
+  'Martillo',
+  'Pico',
+  'Corneta',
+  'Druida',
+  'Caballero',
+  'Bandido',
+  'Jabalí Salvaje',
+  'Cazador',
+  'Cresta',
+  'Cueva',
 ]

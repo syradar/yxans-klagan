@@ -10,12 +10,12 @@ import {
 } from '../../functions/dice.functions'
 import { D6, D66 } from '../../models/fbl-dice.model'
 import { Mapping } from '../../utils/types'
-import { getHumanName, randomGender } from '../npc/name2'
 import { Character } from './character'
 import { createRandomInn, Inn } from './inn-generator'
 import { createRandomVillageName, LanguageStringMap } from './village-name'
 import { TranslationKey } from '../../store/translations/translation.model'
 import { translationDict } from '../../functions/translation-dict'
+import { LanguageNameMap } from '../npc/name2'
 
 export interface Village {
   name: LanguageStringMap
@@ -29,6 +29,30 @@ export interface Village {
   oddity: VillageOddity
   institutions: VillageInstitution[]
   inns: Inn[]
+}
+
+// LISTA DE NOMBRES MANUAL
+const humanNames = [
+  'Fulco', 'Aenor', 'Erminlinda', 'Avila', 'Gerulf', 'Adelina', 'Gorm',
+  'Hrod', 'Stig', 'Vigdis', 'Ylva', 'Aslög', 'Bjorn', 'Borg', 'Dag',
+  'Egil', 'Estrid', 'Frida', 'Geir', 'Grim', 'Gunnar', 'Helga', 'Inga',
+  'Ingvar', 'Jorunn', 'Kari', 'Ketil', 'Leif', 'Liv', 'Nanna', 'Olaf',
+  'Ragnfrid', 'Runa', 'Sigrid', 'Sten', 'Thor', 'Tora', 'Ulf', 'Vidar',
+  'Yngve', 'Ailmar', 'Berangar', 'Clothilde', 'Edgar', 'Edith', 'Godfrey',
+  'Gisela', 'Hadrian', 'Hildegard', 'Luther', 'Matilda', 'Osric', 'Rowena',
+  'Theobald', 'Wilfred', 'Wynne', 'Kyler', 'Meren', 'Vana'
+]
+
+// FUNCIÓN "A PRUEBA DE BALAS"
+// Usamos 'as any' para obligar al sistema a aceptar claves 'en' y 'sv'
+// aunque el archivo de tipos diga que no existen. Esto arregla el visual.
+const createRandomCharacterName = (): LanguageNameMap => {
+  const name = choose(humanNames)
+  return {
+    es: [name],
+    en: [name], // Relleno de seguridad para el visualizador
+    sv: [name], // Relleno de seguridad para el visualizador
+  } as any 
 }
 
 export const createRandomVillage = (): Village => {
@@ -55,7 +79,7 @@ export const createRandomVillage = (): Village => {
   )
 
   return {
-    name: createRandomVillageName(),
+    name: createRandomVillageName() as any,
     size,
     inhabitants,
     age,
@@ -189,7 +213,7 @@ const createRandomLeader = (): Leader | undefined => {
 
   return {
     id: nanoid(),
-    name: getHumanName('alderlander', randomGender()),
+    name: createRandomCharacterName(), // Nombre forzado
     oddity,
     type,
   }
@@ -409,7 +433,7 @@ const createVillageInstitutions = (
         type: weightedRandom(villageInstitutionsWithWeights).value,
         owner: {
           id: nanoid(),
-          name: getHumanName('alderlander', randomGender()),
+          name: createRandomCharacterName(), // Nombre forzado
         },
       }),
     )

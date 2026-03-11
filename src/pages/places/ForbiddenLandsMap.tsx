@@ -15,7 +15,6 @@ export const ForbiddenLandsMap = ({
     <svg
       id="ravland-map"
       className={`
-
         ${fogOfWar ? 'fog-of-war' : ''}
         `}
       xmlns="http://www.w3.org/2000/svg"

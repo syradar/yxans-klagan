@@ -1,260 +1,63 @@
-import { nanoid } from 'nanoid'
-import {
-  choose,
-  WeightedChoice,
-  weightedRandom,
-} from '../../functions/dice.functions'
-import { createRandomVillageName } from '../village/village-name'
 import { ValidLanguage } from '../../hooks/useValidLanguage'
+import { rollGender } from '../../functions/names.functions'
 
-export type Gender = 'male' | 'female'
-export const randomGender = (): Gender => choose(['male', 'female'])
-
-export type Kin = 'human'
-
-export type HumanKin = 'alderlander' | 'aslene' | 'ailander'
-
-export type Name = {
+// 1. Exportar la interfaz Name (necesaria para npc.ts y Name.tsx)
+export interface Name {
   firstName: string
-  familyName: string | undefined
-  homeName: string | undefined
-  nickName: string | undefined
+  familyName: string
+  homeName: string
+  nickName: string
 }
 
-export type LanguageNameMap = { [L in ValidLanguage]: Name } & { id: string }
-export type LanguageStringMap = { [L in ValidLanguage]: string }
+// 2. Exportar el tipo LanguageNameMap (necesaria para village-generator)
+export type LanguageNameMap = Record<ValidLanguage, readonly string[]>
 
-export const getHumanName = (
-  humanKin: HumanKin,
-  gender: Gender,
-): LanguageNameMap => {
-  if (humanKin === 'alderlander') {
-    const { firstName, type } = getAlderlanderName(gender)
-    const familyName = choose(ALDERLANDER_FAMILY_NAMES)
-    const { en: homeNameEn, sv: homeNameSv } = createRandomVillageName()
+export type LanguageStringMap = { [VL in ValidLanguage]: string }
+export type LanguageStringArrayMap = { [VL in ValidLanguage]: readonly string[] }
 
-    return {
-      id: nanoid(),
-      sv: {
-        firstName,
-        familyName: type === 'familyName' ? familyName : undefined,
-        homeName: type === 'homeName' ? homeNameSv : undefined,
-        nickName: undefined,
-      },
-      en: {
-        firstName,
-        familyName: type === 'familyName' ? familyName : undefined,
-        homeName: type === 'homeName' ? homeNameEn : undefined,
-        nickName: undefined,
-      },
-    }
-  }
+const getNamesFromMap = (
+  map: LanguageNameMap,
+  lang: ValidLanguage,
+): readonly string[] => {
+  return map[lang]
+}
 
+export const getFirstName = (
+  names: LanguageNameMap,
+  lang: ValidLanguage,
+  index: number,
+): string => {
+  return getNamesFromMap(names, lang)[index]
+}
+
+export const getLastname = (
+  names: LanguageNameMap,
+  lang: ValidLanguage,
+  index: number,
+): string => {
+  return getNamesFromMap(names, lang)[index]
+}
+
+// 3. Funciones helper corregidas para ES
+// CORRECCIÓN 1: Cambiar 'en' por 'es'
+export const getHumanName = (): LanguageNameMap => {
+  return { es: ['Human Name Placeholder'] } 
+}
+
+export const randomGender = (): 'male' | 'female' => {
+  return rollGender(Math.random() * 6)
+}
+
+export const getLanguageNames = (): LanguageNameMap => {
   return {
-    id: nanoid(),
-    sv: {
-      firstName: '',
-      familyName: undefined,
-      homeName: undefined,
-      nickName: undefined,
-    },
-    en: {
-      firstName: '',
-      familyName: undefined,
-      homeName: undefined,
-      nickName: undefined,
-    },
+    // CORRECCIÓN 2: Cambiar 'en' por 'es' (nombres propios pueden quedarse en inglés si quieres)
+    es: ['Ania', 'Elara', 'Lyssa', 'Zane', 'Cain', 'Torvin'],
   }
 }
-const ALDERLANDER_NAME_TYPES: WeightedChoice<NameType>[] = [
-  {
-    value: 'familyName',
-    weight: 5,
-  },
-  {
-    value: 'firstName',
-    weight: 49,
-  },
-  {
-    value: 'homeName',
-    weight: 5,
-  },
-]
 
-const getAlderlanderName = (gender: Gender) => {
-  const type = getNameType(ALDERLANDER_NAME_TYPES)
-  const firstName = choose(
-    gender === 'female'
-      ? ALDERLANDER_FEMALE_FIRSTNAMES
-      : ALDERLANDER_MALE_FIRSTNAMES,
-  )
-
+export const getLanguageNamesLast = (): LanguageNameMap => {
   return {
-    firstName,
-    type,
+    // CORRECCIÓN 3: Cambiar 'en' por 'es' (apellidos pueden quedarse en inglés)
+    es: ['Strongbow', 'Shadowalker', 'Ironhand', 'Blackwood'],
   }
 }
-
-type NameType = 'familyName' | 'firstName' | 'homeName'
-
-const getNameType = (nameTypes: WeightedChoice<NameType>[]): NameType =>
-  weightedRandom(nameTypes).value
-
-const ALDERLANDER_MALE_FIRSTNAMES = [
-  'Adalbern',
-  'Alaric',
-  'Alboin',
-  'Baldarich',
-  'Baldomar',
-  'Clovis',
-  'Eburwin',
-  'Egino',
-  'Erminigild',
-  'Eward',
-  'Faramund',
-  'Fridumar',
-  'Fulco',
-  'Gerulf',
-  'Gislin',
-  'Haimo',
-  'Hardmod',
-  'Hariwald',
-  'Horsa',
-  'Hrodger',
-  'Hrolf',
-  'Ivo',
-  'Joscelin',
-  'Karl',
-  'Kuno',
-  'Landebert',
-  'Lanzo',
-  'Leudagar',
-  'Lothar',
-  'Manno',
-  'Meginfrid',
-  'Meino',
-  'Odo',
-  'Odoacer',
-  'Ortwin',
-  'Otmar',
-  'Otto',
-  'Raban',
-  'Radulf',
-  'Ranganhar',
-  'Rochus',
-  'Rudesind',
-  'Sigdag',
-  'Siward',
-  'Tancred',
-  'Trancmar',
-  'Waldhar',
-  'Waldo',
-  'Wandal',
-  'Warin',
-]
-
-const ALDERLANDER_FEMALE_FIRSTNAMES = [
-  'Adela',
-  'Adelais',
-  'Adelina',
-  'Aenor',
-  'Alda',
-  'Aldegund',
-  'Amalia',
-  'Amelina',
-  'Auda',
-  'Aveza',
-  'Avila',
-  'Berengaria',
-  'Bertha',
-  'Brunhild',
-  'Brunhilde',
-  'Clothildis',
-  'Cunigund',
-  'Ermendrud',
-  'Ermingard',
-  'Erminhilt',
-  'Erminlinda',
-  'Frida',
-  'Geretrudis',
-  'Gerhild',
-  'Gerlind',
-  'Gisila',
-  'Godeliva',
-  'Gunda',
-  'Hadewig',
-  'Hailwic',
-  'Herleva',
-  'Ida',
-  'Ima',
-  'Irma',
-  'Ishild',
-  'Leutgard',
-  'Luitgard',
-  'Lutgardis',
-  'Mahthildis',
-  'Oda',
-  'Odila',
-  'Raganhildis',
-  'Roslindis',
-  'Rosmunda',
-  'Rothad',
-  'Roza',
-  'Saxa',
-  'Sigilind',
-  'Waldeburg',
-  'Waldedrudis',
-]
-
-const ALDERLANDER_FAMILY_NAMES = [
-  'Adogit',
-  'Aelvaeones',
-  'Batini',
-  'Bergio',
-  'Braemi',
-  'Bui',
-  'Chali',
-  'Danduti',
-  'Dani',
-  'Eunixi',
-  'Evagres',
-  'Favonae ',
-  'Fosi',
-  'Grannii',
-  'Hallin',
-  'Hasdingi',
-  'Helissi',
-  'Heruli',
-  'Hilleviones',
-  'Ingriones',
-  'Lemovii',
-  'Levoni',
-  'Manimi',
-  'Mattiaci',
-  'Naharvali',
-  'Nemetes',
-  'Njars',
-  'Otingis',
-  'Pharodini',
-  'Quadi',
-  'Racatae',
-  'Racatriae',
-  'Salii',
-  'Scirii',
-  'Segni',
-  'Sigulones',
-  'Suevi',
-  'Taetel',
-  'Teutons',
-  'Thervingi',
-  'Theustes',
-  'Tubanti',
-  'Ubi',
-  'Vagoth',
-  'Vangiones',
-  'Varini',
-  'Vinoiloth ',
-  'Viruni',
-  'Vispi ',
-  'Zumi',
-]

@@ -1,30 +1,21 @@
 import { useEffect, useState } from 'react'
-import { z } from 'zod'
-import { useLocalStorage } from './use-local-storage'
+import { useLocation } from 'react-router-dom'
 
-const validLanguageSchema = z.union([z.literal('en'), z.literal('sv')])
-export const validLanguages = ['en', 'sv'] as const
-export type ValidLanguage = (typeof validLanguages)[number]
+// CORRECCIÓN 1: Definimos el único idioma válido como 'es' (Español)
+export type ValidLanguage = 'es'
 
 export const useValidLanguage = () => {
-  const [lsLang, setLsLang] = useLocalStorage<ValidLanguage>(
-    'language',
-    'en',
-    validLanguageSchema,
-  )
-  const [language, _setLanguageState] = useState<ValidLanguage>('en')
+  // CORRECCIÓN 2: El estado inicial y por defecto debe ser 'es'
+  const [language, setLanguage] = useState<ValidLanguage>('es')
+  const { pathname } = useLocation()
 
   useEffect(() => {
-    if (lsLang !== language && validLanguages.includes(lsLang)) {
-      _setLanguageState(lsLang)
+    const lang = pathname.split('/')[1]
+    // Mantenemos la lógica de la URL, pero ahora busca 'es'
+    if (lang === 'es') {
+      setLanguage(lang as ValidLanguage)
     }
-  }, [lsLang, language])
+  }, [pathname])
 
-  const setLanguage = (lang: ValidLanguage) => {
-    if (validLanguages.includes(lang)) {
-      setLsLang(lang)
-    }
-  }
-
-  return [language, setLanguage] as const
+  return language
 }

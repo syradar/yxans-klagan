@@ -1,38 +1,35 @@
-import { ValidLanguage } from '../hooks/useValidLanguage'
-import { useAppDispatch, useAppSelector } from '../store/store.hooks'
-import {
-  selectCurrentLanguage,
-  selectTranslateFunction,
-  setTranslationsAsync,
-} from '../store/translations/translation.slice'
-import Stack from './Stack'
-import { LanguageButton } from './language-button'
+import { useAppDispatch } from '../store/store.hooks' // Ruta corregida
+import { useValidLanguage, ValidLanguage } from '../hooks/useValidLanguage'
+import { changeLanguage } from '../store/translations/translation.slice'
+import { Link } from 'react-router-dom'
 
-export const LanguageSwitcher = () => {
-  const lang = useAppSelector(selectCurrentLanguage)
-  const t = useAppSelector(selectTranslateFunction(['core']))
+const LanguageSwitcher = () => {
+  const language = useValidLanguage()
   const dispatch = useAppDispatch()
 
-  const changeLanguage = async (lng: ValidLanguage) => {
-    await dispatch(setTranslationsAsync({ language: lng, source: 'user' }))
+  const validLanguages: ValidLanguage[] = ['es']
+
+  const handleChange = (lang: ValidLanguage) => {
+    dispatch(changeLanguage(lang))
   }
 
   return (
-    <div>
-      <Stack.Horizontal center>
-        <LanguageButton
-          onPress={() => changeLanguage('sv')}
-          isDisabled={lang === 'sv'}
+    <div className='language-switcher flex gap-2'>
+      {validLanguages.map((lang) => (
+        <Link 
+          to={`/${lang}`} 
+          key={lang} 
+          onClick={() => handleChange(lang)}
         >
-          {t('core:language.swedish')}
-        </LanguageButton>
-        <LanguageButton
-          onPress={() => changeLanguage('en')}
-          isDisabled={lang === 'en'}
-        >
-          {t('core:language.english')}
-        </LanguageButton>
-      </Stack.Horizontal>
+          <button 
+            className={`px-2 py-1 rounded ${language === lang ? 'font-bold underline' : ''}`}
+          >
+            {lang.toUpperCase()}
+          </button>
+        </Link>
+      ))}
     </div>
   )
 }
+
+export default LanguageSwitcher

@@ -295,8 +295,8 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 1,
     value: {
-      name: 'monster:trait.undead.name',
-      description: () => ({ key: 'monster:trait.undead.description' }),
+      name: 'monsters:trait.undead.name',
+      description: () => ({ key: 'monsters:trait.undead.description' }),
       apply: (rm) => ({
         ...rm,
         attributes: {
@@ -311,8 +311,8 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 3,
     value: {
-      name: 'monster:trait.hurt.name',
-      description: () => ({ key: 'monster:trait.hurt.description' }),
+      name: 'monsters:trait.hurt.name',
+      description: () => ({ key: 'monsters:trait.hurt.description' }),
       apply: (rm) => ({
         ...rm,
         attributes: {
@@ -327,9 +327,9 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 3,
     value: {
-      name: 'monster:trait.colorful.name',
+      name: 'monsters:trait.colorful.name',
       description: () => ({
-        key: 'monster:trait.colorful.description',
+        key: 'monsters:trait.colorful.description',
         count: rollD6() + rollD6() + rollD6(),
       }),
       apply: identity,
@@ -338,13 +338,13 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 4,
     value: {
-      name: 'monster:trait.poisonous.name',
+      name: 'monsters:trait.poisonous.name',
       description: () => ({
         key: {
-          1: 'monster:poisons.lethal',
-          2: 'monster:poisons.paralyzing',
-          3: 'monster:poisons.sleeping',
-        }[rollD3()] as TranslationKey<'monster'>,
+          1: 'monsters:poisons.lethal',
+          2: 'monsters:poisons.paralyzing',
+          3: 'monsters:poisons.sleeping',
+        }[rollD3()] as TranslationKey<'monsters'>,
         count: rollD6() + 2,
       }),
       apply: identity,
@@ -353,17 +353,17 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 3,
     value: {
-      name: 'monster:trait.regeneration.name',
-      description: () => ({ key: 'monster:trait.regeneration.description' }),
+      name: 'monsters:trait.regeneration.name',
+      description: () => ({ key: 'monsters:trait.regeneration.description' }),
       apply: identity,
     },
   },
   {
     weight: 2,
     value: {
-      name: 'monster:trait.resistance_magic.name',
+      name: 'monsters:trait.resistance_magic.name',
       description: () => ({
-        key: 'monster:trait.resistance_magic.description',
+        key: 'monsters:trait.resistance_magic.description',
       }),
       apply: identity,
     },
@@ -371,25 +371,25 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 3,
     value: {
-      name: 'monster:trait.camouflage.name',
-      description: () => ({ key: 'monster:trait.camouflage.description' }),
+      name: 'monsters:trait.camouflage.name',
+      description: () => ({ key: 'monsters:trait.camouflage.description' }),
       apply: identity,
     },
   },
   {
     weight: 2,
     value: {
-      name: 'monster:trait.fast.name',
-      description: () => ({ key: 'monster:trait.fast.description' }),
+      name: 'monsters:trait.fast.name',
+      description: () => ({ key: 'monsters:trait.fast.description' }),
       apply: identity,
     },
   },
   {
     weight: 4,
     value: {
-      name: 'monster:trait.sensitive_hearing.name',
+      name: 'monsters:trait.sensitive_hearing.name',
       description: () => ({
-        key: 'monster:trait.sensitive_hearing.description',
+        key: 'monsters:trait.sensitive_hearing.description',
       }),
       apply: (rm) => ({
         ...rm,
@@ -403,8 +403,8 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 2,
     value: {
-      name: 'monster:trait.sensitive_smell.name',
-      description: () => ({ key: 'monster:trait.sensitive_smell.description' }),
+      name: 'monsters:trait.sensitive_smell.name',
+      description: () => ({ key: 'monsters:trait.sensitive_smell.description' }),
       apply: (rm) => ({
         ...rm,
         skills: {
@@ -417,16 +417,16 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 3,
     value: {
-      name: 'monster:trait.dark_vision.name',
-      description: () => ({ key: 'monster:trait.dark_vision.description' }),
+      name: 'monsters:trait.dark_vision.name',
+      description: () => ({ key: 'monsters:trait.dark_vision.description' }),
       apply: identity,
     },
   },
   {
     weight: 1,
     value: {
-      name: 'monster:trait.acid_glands.name',
-      description: () => ({ key: 'monster:trait.acid_glands.description' }),
+      name: 'monsters:trait.acid_glands.name',
+      description: () => ({ key: 'monsters:trait.acid_glands.description' }),
       apply: (rm) => ({
         ...rm,
         acidGlands: true,
@@ -436,8 +436,8 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 1,
     value: {
-      name: 'monster:trait.fire_glands.name',
-      description: () => ({ key: 'monster:trait.fire_glands.description' }),
+      name: 'monsters:trait.fire_glands.name',
+      description: () => ({ key: 'monsters:trait.fire_glands.description' }),
       apply: (rm) => ({
         ...rm,
         attackRequirements: { ...rm.attackRequirements, fireGlands: true },
@@ -447,11 +447,11 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 1,
     value: {
-      name: 'monster:trait.intelligent.name',
+      name: 'monsters:trait.intelligent.name',
       description: () => ({
         key: (rollD2() === 1
-          ? 'monster:trait.can_speak.description'
-          : 'monster:trait.intelligent.telepathy') as TranslationKey<'monster'>,
+          ? 'monsters:trait.can_speak.description'
+          : 'monsters:trait.intelligent.telepathy') as TranslationKey<'monsters'>,
         count: 0, //'Trait.Intelligent.SkillValues'
       }),
       apply: (rm) => ({
@@ -466,17 +466,17 @@ export const monsterTraits: WeightedChoice<MonsterTrait>[] = [
   {
     weight: 1,
     value: {
-      name: 'monster:trait.can_speak.name',
-      description: () => ({ key: 'monster:trait.can_speak.description' }),
+      name: 'monsters:trait.can_speak.name',
+      description: () => ({ key: 'monsters:trait.can_speak.description' }),
       apply: identity,
     },
   },
   {
     weight: 1,
     value: {
-      name: 'monster:trait.possessed_by_demon.name',
+      name: 'monsters:trait.possessed_by_demon.name',
       description: () => ({
-        key: 'monster:trait.possessed_by_demon.description',
+        key: 'monsters:trait.possessed_by_demon.description',
       }),
       apply: identity,
     },
@@ -487,51 +487,51 @@ export const monsterWeakness: WeightedChoice<MonsterWeakness>[] = [
   {
     weight: 13,
     value: {
-      name: 'monster:weakness.none.name',
-      description: 'monster:weakness.none.description',
+      name: 'monsters:weakness.none.name',
+      description: 'monsters:weakness.none.description',
     },
   },
   {
     weight: 5,
     value: {
-      name: 'monster:weakness.vulnerable_to_fire.name',
-      description: 'monster:weakness.vulnerable_to_fire.description',
+      name: 'monsters:weakness.vulnerable_to_fire.name',
+      description: 'monsters:weakness.vulnerable_to_fire.description',
     },
   },
   {
     weight: 2,
     value: {
-      name: 'monster:weakness.vulnerable_to_light.name',
-      description: 'monster:weakness.vulnerable_to_light.description',
+      name: 'monsters:weakness.vulnerable_to_light.name',
+      description: 'monsters:weakness.vulnerable_to_light.description',
     },
   },
   {
     weight: 3,
     value: {
-      name: 'monster:weakness.afraid_of_loud_noises.name',
-      description: 'monster:weakness.afraid_of_loud_noises.description',
+      name: 'monsters:weakness.afraid_of_loud_noises.name',
+      description: 'monsters:weakness.afraid_of_loud_noises.description',
     },
   },
   {
     weight: 5,
     value: {
-      name: 'monster:weakness.protects_offspring.name',
-      description: 'monster:weakness.protects_offspring.description',
+      name: 'monsters:weakness.protects_offspring.name',
+      description: 'monsters:weakness.protects_offspring.description',
     },
   },
   {
     weight: 5,
     value: {
-      name: 'monster:weakness.sensitive_eyes.name',
-      description: 'monster:weakness.sensitive_eyes.description',
+      name: 'monsters:weakness.sensitive_eyes.name',
+      description: 'monsters:weakness.sensitive_eyes.description',
     },
   },
   {
     weight: 3,
     value: {
-      name: 'monster:weakness.obsessed_with_all_that_glimmers.name',
+      name: 'monsters:weakness.obsessed_with_all_that_glimmers.name',
       description:
-        'monster:weakness.obsessed_with_all_that_glimmers.description',
+        'monsters:weakness.obsessed_with_all_that_glimmers.description',
     },
   },
 ]
@@ -557,7 +557,7 @@ export const monsterAttacks: MonsterAttacks = {
     damage: (_) => ({ blunt: 1 }),
     range: 'armsLength',
     attack: (rm) => rm.attributes.agility,
-    description: 'monster:attack.bash.description',
+    description: 'monsters:attack.bash.description',
     valid: (rm) =>
       rm.attributes.strength >= 5 && rm.attackRequirements.hasLimbs,
     singleUse: false,
@@ -572,7 +572,7 @@ export const monsterAttacks: MonsterAttacks = {
     },
     range: 'armsLength',
     attack: (rm) => 4 + rm.attributes.agility,
-    description: 'monster:attack.generic.description',
+    description: 'monsters:attack.generic.description',
     valid: (_) => true,
     singleUse: false,
   },
@@ -582,7 +582,7 @@ export const monsterAttacks: MonsterAttacks = {
     damage: (_) => ({ slash: chooseFromChoiceString('1^2|2^3|3') }),
     range: 'armsLength',
     attack: (rm) => 4 + rm.attributes.agility,
-    description: 'monster:attack.bite.description',
+    description: 'monsters:attack.bite.description',
     valid: (rm) => rm.attackRequirements.fangs,
     singleUse: false,
   },
@@ -596,7 +596,7 @@ export const monsterAttacks: MonsterAttacks = {
 
       return rollD2() === 1 ? { slash: damage } : { blunt: damage }
     },
-    description: 'monster:attack.locked_jaws.description',
+    description: 'monsters:attack.locked_jaws.description',
     valid: (rm) => rm.attackRequirements.fangs,
     singleUse: false,
   },
@@ -606,7 +606,7 @@ export const monsterAttacks: MonsterAttacks = {
     damage: (_) => ({ slash: chooseFromChoiceString('1^2|2^3|3') }),
     range: 'armsLength',
     attack: (rm) => 7 + rm.attributes.agility,
-    description: 'monster:attack.throat_bite.description',
+    description: 'monsters:attack.throat_bite.description',
     valid: (rm) => rm.attackRequirements.fangs && rm.attributes.agility > 3,
     singleUse: false,
   },
@@ -616,7 +616,7 @@ export const monsterAttacks: MonsterAttacks = {
     damage: (_) => ({ non_typical: 1 }),
     range: 'short',
     attack: (_) => 6 + rollD6(),
-    description: 'monster:attack.breath_fire.description',
+    description: 'monsters:attack.breath_fire.description',
     valid: (rm) => rm.attackRequirements.fireGlands,
     singleUse: false,
   },
@@ -626,7 +626,7 @@ export const monsterAttacks: MonsterAttacks = {
     damage: (_) => ({ non_typical: 1 }),
     range: 'short',
     attack: (_) => 6 + rollD6(),
-    description: 'monster:attack.spray_fire.description',
+    description: 'monsters:attack.spray_fire.description',
     valid: (rm) => rm.attackRequirements.fireGlands,
     singleUse: true,
   },
@@ -636,7 +636,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (_) => 4 + rollD6(),
     damage: (_) => ({ fear: true }),
-    description: 'monster:attack.deadly_gaze.description',
+    description: 'monsters:attack.deadly_gaze.description',
     valid: (rm) => rm.attackRequirements.undead,
     singleUse: false,
   },
@@ -646,7 +646,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (_) => 6 + rollD6(),
     damage: (_) => ({ non_typical: 1 }),
-    description: 'monster:attack.cold_strike.description',
+    description: 'monsters:attack.cold_strike.description',
     valid: (rm) => rm.attackRequirements.undead,
     singleUse: false,
   },
@@ -656,7 +656,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (_) => 4 + rollD6(),
     damage: (_) => ({ fear: true }),
-    description: 'monster:attack.death_scream.description',
+    description: 'monsters:attack.death_scream.description',
     valid: (rm) => rm.attackRequirements.undead,
     singleUse: false,
   },
@@ -666,7 +666,7 @@ export const monsterAttacks: MonsterAttacks = {
     damage: (_) => ({ blunt: chooseFromChoiceString('1^2|2') }),
     range: 'armsLength',
     attack: (rm) => 5 + rm.attributes.agility,
-    description: 'monster:attack.headbutt.description',
+    description: 'monsters:attack.headbutt.description',
     valid: (rm) => !rm.attackRequirements.horn,
     singleUse: false,
   },
@@ -676,7 +676,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'armsLength',
     damage: (_) => ({ stab: chooseFromChoiceString('2^2|3') }),
     attack: (rm) => 5 + rm.attributes.agility,
-    description: 'monster:attack.horn.description',
+    description: 'monsters:attack.horn.description',
     valid: (rm) => rm.attackRequirements.horn,
     singleUse: false,
   },
@@ -686,7 +686,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'armsLength',
     attack: (_) => 3 + rollD3(),
     damage: (_) => ({ fear: true }),
-    description: 'monster:attack.roar.description',
+    description: 'monsters:attack.roar.description',
     valid: (rm) => rm.attributes.strength >= 6,
     singleUse: false,
   },
@@ -696,7 +696,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: (_) => ({ blunt: 1 }),
-    description: 'monster:attack.kick.description',
+    description: 'monsters:attack.kick.description',
     valid: (rm) => rm.attackRequirements.legs,
     singleUse: false,
   },
@@ -706,7 +706,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: (_) => ({ blunt: 1 }),
-    description: 'monster:attack.backwards_kick.description',
+    description: 'monsters:attack.backwards_kick.description',
     valid: (rm) => rm.attackRequirements.legs && rm.limbs.legs >= 4,
     singleUse: false,
   },
@@ -716,7 +716,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: (_) => ({ slash: chooseFromChoiceString('1^2|2^3|3') }),
-    description: 'monster:attack.sweep.description',
+    description: 'monsters:attack.sweep.description',
     valid: (rm) => rm.attributes.agility >= 3,
     singleUse: false,
   },
@@ -726,7 +726,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: (_) => ({ slash: chooseFromChoiceString('1^2|2^3|3') }),
-    description: 'monster:attack.slash.description',
+    description: 'monsters:attack.slash.description',
     valid: (rm) =>
       rm.attackRequirements.claws || rm.attackRequirements.hasLimbs,
     singleUse: false,
@@ -737,7 +737,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: (_) => ({ slash: 1 }),
-    description: 'monster:attack.eye_gourge.description',
+    description: 'monsters:attack.eye_gourge.description',
     valid: (rm) =>
       rm.attackRequirements.claws || rm.attackRequirements.hasLimbs,
     singleUse: false,
@@ -748,7 +748,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'armsLength',
     attack: (rm) => rm.attributes.agility,
     damage: (_) => ({ slash: chooseFromChoiceString('1^2|2^3|3') }),
-    description: 'monster:attack.claw_flurry.description',
+    description: 'monsters:attack.claw_flurry.description',
     valid: (rm) =>
       (rm.attackRequirements.claws || rm.attackRequirements.hasLimbs) &&
       rm.attributes.agility > 4,
@@ -760,7 +760,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: (rm) => ({ blunt: 1 + rm.damageModifiers.tail_attack }),
-    description: 'monster:attack.tails_slash.description',
+    description: 'monsters:attack.tails_slash.description',
     valid: (rm) => rm.attackRequirements.tail,
     singleUse: false,
   },
@@ -770,7 +770,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: (_) => ({ blunt: chooseFromChoiceString('1^2|2') }),
-    description: 'monster:attack.tentacle_lash.description',
+    description: 'monsters:attack.tentacle_lash.description',
     valid: (rm) => rm.attackRequirements.tentacles,
     singleUse: false,
   },
@@ -780,7 +780,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: (_) => ({ blunt: chooseFromChoiceString('1^2|2') }),
-    description: 'monster:attack.tentacle_frenzy.description',
+    description: 'monsters:attack.tentacle_frenzy.description',
     valid: (rm) => rm.attackRequirements.tentacles,
     singleUse: false,
   },
@@ -790,7 +790,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'armsLength',
     attack: (rm) => 1 + rm.attributes.agility,
     damage: (_) => ({ slash: chooseFromChoiceString('1|2') }),
-    description: 'monster:attack.tentacle_penetration_arms_length.description',
+    description: 'monsters:attack.tentacle_penetration_arms_length.description',
     valid: (rm) =>
       !rm.attackRequirements.tentacles &&
       rm.description.heads.some((h) => h.key === 'tentacles_with_count'),
@@ -802,7 +802,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (rm) => 1 + rm.attributes.agility,
     damage: (_) => ({ slash: chooseFromChoiceString('1|2') }),
-    description: 'monster:attack.tentacle_penetration_near.description',
+    description: 'monsters:attack.tentacle_penetration_near.description',
     valid: (rm) => rm.attackRequirements.tentacles,
     singleUse: false,
   },
@@ -812,7 +812,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'armsLength',
     attack: (_) => 4 + rollD6(),
     damage: (_) => ({ slash: chooseFromChoiceString('1^2|2') }),
-    description: 'monster:attack.devour.description',
+    description: 'monsters:attack.devour.description',
     valid: (rm) => rm.attributes.strength >= 14,
     singleUse: false,
   },
@@ -822,7 +822,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (_) => 4 + rollD6(),
     damage: (_) => ({ non_typical: 1 }),
-    description: 'monster:attack.spit_acid.description',
+    description: 'monsters:attack.spit_acid.description',
     valid: (rm) => rm.attackRequirements.acidGlands,
     singleUse: false,
   },
@@ -832,7 +832,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'short',
     attack: (_) => 4 + rollD6(),
     damage: (_) => ({ non_typical: 1 }),
-    description: 'monster:attack.spray_acid.description',
+    description: 'monsters:attack.spray_acid.description',
     valid: (rm) => rm.attackRequirements.acidGlands,
     singleUse: true,
   },
@@ -842,7 +842,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (rm) => 4 + rm.attributes.agility,
     damage: (rm) => ({ slash: Math.round(rm.attributes.agility) }),
-    description: 'monster:attack.dive_attack.description',
+    description: 'monsters:attack.dive_attack.description',
     valid: (rm) => rm.attackRequirements.wings,
     singleUse: false,
   },
@@ -852,7 +852,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (_) => 6,
     damage: (_) => ({ weapon: 1 }),
-    description: 'monster:attack.whirlwind.description',
+    description: 'monsters:attack.whirlwind.description',
     valid: (rm) => rm.attackRequirements.wings && rm.attributes.strength > 4,
     singleUse: false,
   },
@@ -862,7 +862,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'armsLength',
     attack: (rm) => rm.attributes.agility,
     damage: (_) => ({ blunt: 1 }),
-    description: 'monster:attack.peck.description',
+    description: 'monsters:attack.peck.description',
     valid: (rm) => rm.attackRequirements.hasBeak,
     singleUse: false,
   },
@@ -872,7 +872,7 @@ export const monsterAttacks: MonsterAttacks = {
     damage: (_) => ({ weapon: 1 }),
     range: 'armsLength',
     attack: (rm) => 8 + rm.attributes.agility,
-    description: 'monster:attack.beak_throw.description',
+    description: 'monsters:attack.beak_throw.description',
     valid: (rm) => rm.attackRequirements.hasBeak && rm.attributes.strength > 11,
     singleUse: false,
   },
@@ -882,7 +882,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (rm) => rollD6() + rm.attributes.agility,
     damage: (_) => ({ blunt: 1 }),
-    description: 'monster:attack.rush.description',
+    description: 'monsters:attack.rush.description',
     valid: (rm) => rm.movement.type === 'running',
     singleUse: false,
   },
@@ -892,7 +892,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (rm) => rm.movement.distance + rm.attributes.agility,
     damage: (_) => ({ weapon: 1 }),
-    description: 'monster:attack.burrow.description',
+    description: 'monsters:attack.burrow.description',
     valid: (rm) => rm.movement.type === 'digging',
     singleUse: false,
   },
@@ -901,7 +901,7 @@ export const monsterAttacks: MonsterAttacks = {
     chance: 1,
     range: 'near',
     attack: (rm) => rm.movement.distance + rm.attributes.agility,
-    description: 'monster:attack.the_ground_shatters.description',
+    description: 'monsters:attack.the_ground_shatters.description',
     valid: (rm) =>
       rm.movement.type === 'digging' && rm.attributes.strength > 13,
     singleUse: false,
@@ -912,7 +912,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (rm) => rollD6() + rm.damageModifiers.size,
     damage: (_) => ({ fear: true }),
-    description: 'monster:attack.taunt.description',
+    description: 'monsters:attack.taunt.description',
     valid: (rm) => rm.attackRequirements.canSpeak,
     singleUse: false,
   },
@@ -920,7 +920,7 @@ export const monsterAttacks: MonsterAttacks = {
     type: 'plea',
     chance: 0.001,
     range: 'near',
-    description: 'monster:attack.plea.description',
+    description: 'monsters:attack.plea.description',
     valid: (rm) => rm.attackRequirements.canSpeak,
     singleUse: false,
   },
@@ -930,7 +930,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (_) => rollD4() + rollD4() + rollD3(),
     damage: (_) => ({ fear: true }),
-    description: 'monster:attack.nightmare_visions.description',
+    description: 'monsters:attack.nightmare_visions.description',
     valid: (rm) =>
       rm.traits.some((t) =>
         t.description().key.includes('Trait.Intelligent.Telepathy'),
@@ -943,7 +943,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (_) => rollD3() * 2,
     damage: (_) => ({ fear: true }),
-    description: 'monster:attack.mind_burst.description',
+    description: 'monsters:attack.mind_burst.description',
     valid: (rm) =>
       rm.traits.some((t) =>
         t.description().key.includes('Trait.Intelligent.Telepathy'),
@@ -956,7 +956,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'armsLength',
     attack: (rm) => rollD6() + rm.attributes.agility,
     damage: (rm) => ({ blunt: rm.movement.distance }),
-    description: 'monster:attack.wrap_attack.description',
+    description: 'monsters:attack.wrap_attack.description',
     valid: (rm) =>
       rm.movement.type === 'slithering' || !rm.attackRequirements.hasLimbs,
     singleUse: false,
@@ -973,7 +973,7 @@ export const monsterAttacks: MonsterAttacks = {
         type: getRandomPoison(),
       },
     }),
-    description: 'monster:attack.poison_spit.description',
+    description: 'monsters:attack.poison_spit.description',
     valid: (rm) => rm.attackRequirements.isPoisonous,
     singleUse: false,
   },
@@ -989,7 +989,7 @@ export const monsterAttacks: MonsterAttacks = {
         type: getRandomPoison(),
       },
     }),
-    description: 'monster:attack.venemous_bite.description',
+    description: 'monsters:attack.venemous_bite.description',
     valid: (rm) =>
       rm.attackRequirements.isPoisonous && rm.attackRequirements.fangs,
     singleUse: false,
@@ -1006,7 +1006,7 @@ export const monsterAttacks: MonsterAttacks = {
         type: getRandomPoison(),
       },
     }),
-    description: 'monster:attack.poison_scratch.description',
+    description: 'monsters:attack.poison_scratch.description',
     valid: (rm) =>
       rm.attackRequirements.isPoisonous && rm.attackRequirements.claws,
     singleUse: false,
@@ -1023,7 +1023,7 @@ export const monsterAttacks: MonsterAttacks = {
         type: getRandomPoison(),
       },
     }),
-    description: 'monster:attack.poison_tail_attack.description',
+    description: 'monsters:attack.poison_tail_attack.description',
     valid: (rm) =>
       rm.attackRequirements.isPoisonous && rm.attackRequirements.spikedTail,
     singleUse: false,
@@ -1040,7 +1040,7 @@ export const monsterAttacks: MonsterAttacks = {
         type: getRandomPoison(),
       },
     }),
-    description: 'monster:attack.poison_tentacle_attack.description',
+    description: 'monsters:attack.poison_tentacle_attack.description',
     valid: (rm) =>
       rm.attackRequirements.isPoisonous && rm.attackRequirements.tentacles,
     singleUse: false,
@@ -1057,7 +1057,7 @@ export const monsterAttacks: MonsterAttacks = {
         type: getRandomPoison(),
       },
     }),
-    description: 'monster:attack.poison_horn_attack.description',
+    description: 'monsters:attack.poison_horn_attack.description',
     valid: (rm) =>
       rm.attackRequirements.isPoisonous && rm.attackRequirements.horn,
     singleUse: false,
@@ -1068,7 +1068,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'armsLength',
     attack: (rm) => rollD4() + rollD4() + rm.skills.melee,
     damage: () => ({ blunt: 1 }),
-    description: 'monster:attack.punch.description',
+    description: 'monsters:attack.punch.description',
     valid: (rm) => rm.limbs.arms > 0,
     singleUse: false,
   },
@@ -1078,7 +1078,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'armsLength',
     attack: (rm) => rollD4() + rollD4() + rm.skills.melee,
     damage: () => ({ blunt: 1 }),
-    description: 'monster:attack.flying_fists.description_count',
+    description: 'monsters:attack.flying_fists.description_count',
     descriptionExtras: (rm) => ({ count: Math.ceil(rm.limbs.arms / 2) }),
     valid: (rm) => rm.limbs.arms > 2,
     singleUse: false,
@@ -1089,7 +1089,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'armsLength',
     attack: (rm) => rollD4() + rollD4() + rm.skills.melee,
     damage: () => ({ blunt: 1 }),
-    description: 'monster:attack.fists_of_fury.description_count',
+    description: 'monsters:attack.fists_of_fury.description_count',
     descriptionExtras: (rm) => ({ count: Math.ceil(rm.limbs.arms / 2) }),
     valid: (rm) => rm.limbs.arms > 2,
     singleUse: false,
@@ -1098,7 +1098,7 @@ export const monsterAttacks: MonsterAttacks = {
     type: 'distraction',
     chance: 1,
     range: 'near',
-    description: 'monster:attack.distraction.description',
+    description: 'monsters:attack.distraction.description',
     valid: (rm) => rm.attributes.agility > 3,
     singleUse: false,
   },
@@ -1111,7 +1111,7 @@ export const monsterAttacks: MonsterAttacks = {
       slash: chooseFromChoiceString('1^2|2^3|3'),
       Disease: chooseFromChoiceString('4|5|6'),
     }),
-    description: 'monster:attack.infected_scratch.description',
+    description: 'monsters:attack.infected_scratch.description',
     valid: (rm) => rm.attackRequirements.isSick && rm.attackRequirements.claws,
     singleUse: false,
   },
@@ -1124,7 +1124,7 @@ export const monsterAttacks: MonsterAttacks = {
       slash: chooseFromChoiceString('1^2|2^3|3'),
       Disease: chooseFromChoiceString('4|5|6'),
     }),
-    description: 'monster:attack.diseased_bite.description',
+    description: 'monsters:attack.diseased_bite.description',
     valid: (rm) => rm.attackRequirements.isSick && rm.attackRequirements.fangs,
     singleUse: false,
   },
@@ -1137,7 +1137,7 @@ export const monsterAttacks: MonsterAttacks = {
       slash: chooseFromChoiceString('1^2|2^3|3'),
       Disease: chooseFromChoiceString('4|5|6'),
     }),
-    description: 'monster:attack.infected_tail_swipe.description',
+    description: 'monsters:attack.infected_tail_swipe.description',
     valid: (rm) =>
       rm.attackRequirements.isSick && rm.attackRequirements.spikedTail,
     singleUse: false,
@@ -1151,7 +1151,7 @@ export const monsterAttacks: MonsterAttacks = {
       slash: chooseFromChoiceString('1^2|2^3|3'),
       Disease: chooseFromChoiceString('4|5|6'),
     }),
-    description: 'monster:attack.infected_tentacle_swipe.description',
+    description: 'monsters:attack.infected_tentacle_swipe.description',
     valid: (rm) =>
       rm.attackRequirements.isSick && rm.attackRequirements.tentacles,
     singleUse: false,
@@ -1165,7 +1165,7 @@ export const monsterAttacks: MonsterAttacks = {
       blunt: chooseFromChoiceString('1^2|2^3|3'),
       Disease: chooseFromChoiceString('4|5|6'),
     }),
-    description: 'monster:attack.diseased_touch.description',
+    description: 'monsters:attack.diseased_touch.description',
     valid: (rm) =>
       rm.attackRequirements.isSick && rm.attackRequirements.tentacles,
     singleUse: false,
@@ -1176,7 +1176,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'armsLength',
     attack: (rm) => 8 + rm.attributes.agility,
     damage: () => ({ blunt: 1 }),
-    description: 'monster:attack.adventure_toss.description',
+    description: 'monsters:attack.adventure_toss.description',
     valid: (rm) => rm.limbs.arms > 0 && rm.attributes.strength > 11,
     singleUse: false,
   },
@@ -1186,7 +1186,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'armsLength',
     attack: (rm) => 3 + rm.attributes.agility,
     damage: () => ({ slash: 1 }),
-    description: 'monster:attack.death_rattle.description',
+    description: 'monsters:attack.death_rattle.description',
     valid: (rm) => rm.attackRequirements.fangs && rm.attributes.strength > 7,
     singleUse: false,
   },
@@ -1196,7 +1196,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (_) => rollD6() + 6,
     damage: () => ({ blunt: 1 }),
-    description: 'monster:attack.squash.description',
+    description: 'monsters:attack.squash.description',
     valid: (rm) => rm.attributes.strength > 13,
     singleUse: false,
   },
@@ -1205,7 +1205,7 @@ export const monsterAttacks: MonsterAttacks = {
     chance: 1,
     range: 'near',
     attack: (_) => 8,
-    description: 'monster:attack.fall_from_the_sky.description',
+    description: 'monsters:attack.fall_from_the_sky.description',
     valid: (rm) => rm.attributes.strength > 4 && rm.attackRequirements.wings,
     singleUse: false,
   },
@@ -1215,7 +1215,7 @@ export const monsterAttacks: MonsterAttacks = {
     range: 'near',
     attack: (_) => 6,
     damage: () => ({ blunt: 1 }),
-    description: 'monster:attack.rain_of_rocks.description',
+    description: 'monsters:attack.rain_of_rocks.description',
     valid: (rm) => rm.attackRequirements.wings,
     singleUse: false,
   },

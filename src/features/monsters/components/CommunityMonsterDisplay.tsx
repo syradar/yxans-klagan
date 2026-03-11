@@ -21,7 +21,7 @@ export const CommunityMonsterDisplay = ({
   como,
   bookPart,
 }: CommunityMonsterDisplayProps) => {
-  const t = useAppSelector(selectTranslateFunction(['monster', 'common']))
+  const t = useAppSelector(selectTranslateFunction(['monsters', 'common']))
 
   return (
     <div>
@@ -30,7 +30,7 @@ export const CommunityMonsterDisplay = ({
 
         {como.credits.length > 0 ? (
           <div>
-            {t('monster:community_monster.created_by')}{' '}
+            {t('monsters:community_monster.created_by')}{' '}
             <SeparatedComponents
               components={como.credits.map((credit) =>
                 credit.link ? (
@@ -62,22 +62,22 @@ export const CommunityMonsterDisplay = ({
         <section className="grid grid-cols-2 gap-4">
           <div>
             <Typography variant="h3">
-              {t(`monster:movement.movement`)}
+              {t(`monsters:movement.movement`)}
             </Typography>
             <div>
               {t(movementTypeTranslationDict[como.movement.type])}{' '}
               {como.movement.distance}{' '}
               {t(
                 como.movement.distance === 1
-                  ? 'monster:movement.zones_one'
-                  : 'monster:movement.zones_other',
+                  ? 'monsters:movement.zones_one'
+                  : 'monsters:movement.zones_other',
               )}
             </div>
           </div>
 
           {como.armor && (
             <div>
-              <Typography variant="h3">{t('monster:armor_label')}</Typography>
+              <Typography variant="h3">{t('monsters:armor_label')}</Typography>
               <div>
                 <span className="font-medium">
                   {t(monsterArmorTypeTranslationDict[como.armor.label])}:{' '}
@@ -89,9 +89,9 @@ export const CommunityMonsterDisplay = ({
         </section>
         <section>
           <div className="md:w-full">
-            <Typography variant="h3">{t(`monster:skill`)}</Typography>
+            <Typography variant="h3">{t(`monsters:skill`)}</Typography>
             {como.skills.length === 0 ? (
-              <div>{t('monster:skills.none')}</div>
+              <div>{t('monsters:skills.none')}</div>
             ) : (
               <SkillList
                 skills={
